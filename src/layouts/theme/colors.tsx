@@ -1,3 +1,5 @@
+import { ColorPalette } from './types'
+
 const paper: ColorPalette = {
 	id: 'paper',
 	name: 'Paper',

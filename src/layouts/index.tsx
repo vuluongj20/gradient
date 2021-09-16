@@ -7,18 +7,43 @@ import {
 	UserPreferencesKey,
 	UserPreferencesValue,
 } from './theme'
+import {
+	sohneAtRules,
+	domaineDisplayNarrowAtRules,
+	domaineTextAtRules,
+} from './theme/fonts'
 
 type Props = {
 	children: ReactChild
 }
 
 const GlobalStyle = createGlobalStyle`
+	${sohneAtRules}
+	${domaineDisplayNarrowAtRules}
+	${domaineTextAtRules}
+	html {
+	  font-size: ${(p) => p.theme.text.size};
+	  box-sizing: border-box;
+	  margin: 0;
+	  padding: 0;
+	}
+	*,
+	*:before,
+	*:after {
+	  box-sizing: inherit;
+	}
   body {
+  	font-feature-settings: 'kern', 'liga';
+  	-moz-font-feature-settings: 'kern', 'liga';
   	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
   	direction: ltr;
   	text-align: left;
-    color: ${(p) => p.theme.colors.gray1};
+  	font-family: ${(p) => p.theme.text.ui.text.fontFamily};
+  	font-size: ${(p) => p.theme.text.size};
+  	color: ${(p) => p.theme.colors.gray2};
+  	margin: 0;
+  	padding: 0;
   }
 `
 
@@ -33,11 +58,9 @@ class Layout extends Component<Props, UserPreferences> {
 				increaseContrast: false,
 			},
 			text: {
-				ui: 'ui',
-				content: 'ui',
-				sizeOffset: 0,
+				ui: 'sohne',
+				content: 'domaine',
 			},
-			reduceMotion: false,
 			alwaysShowVideoCaptions: false,
 		}
 	}

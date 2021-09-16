@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
-    lang: 'en',
+    lang: 'en-US',
+    dir: 'ltr',
     siteUrl: 'https://www.gradient.ooo',
     title: 'Gradient',
     description:
@@ -8,7 +9,7 @@ module.exports = {
     author: 'Vu Luong',
     authorTwitter: '@vuluongj20',
     image: {
-      url: '/assets/images/og.png',
+      url: '/images/og.png',
       alt: 'Wordmark logo that says Gradient \\',
       width: 1200,
       height: 630,

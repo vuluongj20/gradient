@@ -38,6 +38,7 @@ function SEO({
         site {
           siteMetadata {
             lang
+            dir
             title
             description
             author
@@ -56,6 +57,7 @@ function SEO({
   )
 
   const metaLang = lang ?? site.siteMetadata.lang
+  const metaDir = site.siteMetadata.dir ?? 'ltr'
   const metaTitle = title ? `${title} - Gradient` : `Gradient`
   const metaDescription = description ?? site.siteMetadata.description
   const metaAuthor = author ?? site.siteMetadata.author
@@ -66,6 +68,7 @@ function SEO({
     <Helmet
       htmlAttributes={{
         lang: metaLang,
+        dir: metaDir,
       }}
       title={title ? `${title} - Gradient` : `Gradient`}
       meta={[
