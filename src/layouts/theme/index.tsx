@@ -1,5 +1,5 @@
 import { colorPalettes } from './colors'
-import { typeScales } from './typeScales'
+import { typeScales } from './text'
 import { Theme } from './types'
 
 export type UserPreferences = {
@@ -27,8 +27,8 @@ export type UserPreferencesValue =
 	| UserPreferences['text'][keyof UserPreferences['text']]
 
 const defaultTheme: Theme = {
-	colors: colorPalettes.paper.colors,
-	text: {
+	c: colorPalettes.paper.colors,
+	t: {
 		size: '18px',
 		ui: typeScales.sohne,
 		content: typeScales.domaine,
@@ -70,8 +70,8 @@ export const getTheme = (up: UserPreferences): Theme => {
 	// const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 	return {
-		colors: colorPalettes[paletteName].colors,
-		text: {
+		c: colorPalettes[paletteName].colors,
+		t: {
 			size: '18px',
 			ui: typeScales[up.text.ui],
 			content: typeScales[up.text.content],

@@ -1,3 +1,4 @@
+import { theme } from '@utils'
 import { Component, Fragment, ReactChild } from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
@@ -22,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 	${domaineDisplayNarrowAtRules}
 	${domaineTextAtRules}
 	html {
-	  font-size: ${(p) => p.theme.text.size};
+	  font-size: ${theme('t.size')};
 	  box-sizing: border-box;
 	  margin: 0;
 	  padding: 0;
@@ -39,12 +40,22 @@ const GlobalStyle = createGlobalStyle`
   	-moz-osx-font-smoothing: grayscale;
   	direction: ltr;
   	text-align: left;
-  	font-family: ${(p) => p.theme.text.ui.text.fontFamily};
-  	font-size: ${(p) => p.theme.text.size};
-  	color: ${(p) => p.theme.colors.gray2};
+  	font-family: ${theme('t.ui.body.fontFamily')};
+  	font-size: ${theme('t.size')};
+  	color: ${theme('c.gray2')};
   	margin: 0;
   	padding: 0;
   }
+  h1, h2, h3, h4, h5, h6 {
+  	color: ${theme('c.gray1')};
+  }
+  h1 {${theme('t.ui.h1')}}
+  h2 {${theme('t.ui.h2')}}
+  h3 {${theme('t.ui.h3')}}
+  h4 {${theme('t.ui.h4')}}
+  h5 {${theme('t.ui.h5')}}
+  h6 {${theme('t.ui.h6')}}
+  p {${theme('t.ui.body')}}
 `
 
 class Layout extends Component<Props, UserPreferences> {
@@ -103,7 +114,8 @@ class Layout extends Component<Props, UserPreferences> {
 				<ThemeProvider theme={getTheme(this.state)}>
 					<GlobalStyle />
 					{children}
-					<p>Why Hello there</p>
+					<h1>Why Hello There</h1>
+					<p>Why Hello There</p>
 				</ThemeProvider>
 			</Fragment>
 		)

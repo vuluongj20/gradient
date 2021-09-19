@@ -64,18 +64,20 @@ export type TypeCategory = {
 	fontSize: string
 	lineHeight: number
 	letterSpacing?: string
-	textTransform?: string
+	textTransform?: 'capitalize' | 'uppercase' | 'lowercase'
 }
 
-export type TypeCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'text' | 'label'
+export type TypeCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
 
 export type TypeScale = {
 	[key in TypeCategoryName]: TypeCategory
 }
 
 export type Theme = {
-	colors: ColorPalette['colors']
-	text: {
+	/** Color */
+	c: ColorPalette['colors']
+	/** Text */
+	t: {
 		size: string
 		ui: TypeScale
 		content: TypeScale

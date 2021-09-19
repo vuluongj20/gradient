@@ -40,16 +40,18 @@ const sohne: TypeScale = {
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
-	text: {
+	body: {
 		fontFamily: sohneFontFamily,
-		fontSize: '0.8em',
+		fontSize: '0.9em',
 		fontWeight: 400,
 		lineHeight: 1.4,
 	},
 	label: {
 		fontFamily: sohneFontFamily,
-		fontSize: '0.8em',
+		fontSize: '0.9em',
 		fontWeight: 500,
+		letterSpacing: '0.02em',
+		textTransform: 'uppercase',
 		lineHeight: 1.2,
 	},
 }
@@ -97,7 +99,7 @@ const domaine: TypeScale = {
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
-	text: {
+	body: {
 		fontFamily: domaineBodyFontFamily,
 		fontSize: '1em',
 		fontWeight: 400,

@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     lang: 'en-US',
@@ -46,5 +48,14 @@ module.exports = {
       __key: 'pages',
     },
     'gatsby-plugin-layout',
+    {
+      resolve: 'gatsby-plugin-alias-imports',
+      options: {
+        alias: {
+          '@utils': path.resolve(__dirname, 'src/utils'),
+        },
+        extensions: ['js', 'jsx', 'ts', 'tsx'],
+      },
+    },
   ],
 }

@@ -2,7 +2,11 @@
 	"compilerOptions": {
 		"jsx": "react-jsx",
 		"target": "es6",
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"paths": {
+			"@utils": ["./src/utils"],
+			"@utils/*": ["./src/utils/*"]
+		}
 	},
 	"exclude": ["node_modules", "public"]
 }

@@ -11,10 +11,17 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    'import/resolver': {
+      alias: {
+        map: [['@utils', './src/utils']],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:react/recommended',
+    'plugin:import/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
