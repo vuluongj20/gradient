@@ -78,7 +78,7 @@ export type Theme = {
 	c: ColorPalette['colors']
 	/** Text */
 	t: {
-		size: string
+		rootSize: string
 		ui: TypeScale
 		content: TypeScale
 	}

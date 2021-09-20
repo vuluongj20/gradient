@@ -29,7 +29,7 @@ export type UserPreferencesValue =
 const defaultTheme: Theme = {
 	c: colorPalettes.paper.colors,
 	t: {
-		size: '18px',
+		rootSize: '16px',
 		ui: typeScales.sohne,
 		content: typeScales.domaine,
 	},
@@ -72,7 +72,7 @@ export const getTheme = (up: UserPreferences): Theme => {
 	return {
 		c: colorPalettes[paletteName].colors,
 		t: {
-			size: '18px',
+			rootSize: '16px',
 			ui: typeScales[up.text.ui],
 			content: typeScales[up.text.content],
 		},

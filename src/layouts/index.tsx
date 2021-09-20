@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 	${domaineDisplayNarrowAtRules}
 	${domaineTextAtRules}
 	html {
-	  font-size: ${theme('t.size')};
+	  font-size: ${theme('t.rootSize')};
 	  box-sizing: border-box;
 	  margin: 0;
 	  padding: 0;
@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
   	direction: ltr;
   	text-align: left;
   	font-family: ${theme('t.ui.body.fontFamily')};
-  	font-size: ${theme('t.size')};
+  	font-size: ${theme('t.rootSize')};
   	color: ${theme('c.gray2')};
   	margin: 0;
   	padding: 0;
@@ -55,7 +55,15 @@ const GlobalStyle = createGlobalStyle`
   h4 {${theme('t.ui.h4')}}
   h5 {${theme('t.ui.h5')}}
   h6 {${theme('t.ui.h6')}}
-  p {${theme('t.ui.body')}}
+  p, a {${theme('t.ui.body')}}
+  a {
+  	color: ${theme('c.gray2')};
+  	text-decoration-color: ${theme('c.gray8')};
+  }
+  a:hover {
+  	color: ${theme('c.gray1')};
+  	text-decoration-color: ${theme('c.gray5')};
+  }
 `
 
 class Layout extends Component<Props, UserPreferences> {
@@ -114,8 +122,7 @@ class Layout extends Component<Props, UserPreferences> {
 				<ThemeProvider theme={getTheme(this.state)}>
 					<GlobalStyle />
 					{children}
-					<h1>Why Hello There</h1>
-					<p>Why Hello There</p>
+					<a href="">Hello</a>
 				</ThemeProvider>
 			</Fragment>
 		)
