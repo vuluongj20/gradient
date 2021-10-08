@@ -1,0 +1,145 @@
+import { theme, reducedMotion } from '@utils'
+import * as focusTrap from 'focus-trap'
+import gsap from 'gsap'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+
+import Frame from './frame'
+import Menu, { links as menuLinks } from './menu'
+
+type Props = {
+	frameWidth: number
+}
+
+const menuAnimation = reducedMotion()
+	? { duration: 0 }
+	: { duration: 1, ease: 'power4.inOut' }
+
+const Nav = ({ frameWidth }: Props): JSX.Element => {
+	const [isOpen, setOpen] = useState(false)
+	const focusTrapOptions = {
+		returnFocusOnDeactivate: true,
+	}
+	const focusTrapInstance = focusTrap.createFocusTrap([`${Wrap}`], focusTrapOptions)
+
+	const onKeyDown = (e) => {
+		if (e.key === 'Escape') {
+			setOpen(false)
+		}
+	}
+
+	useEffect(() => {
+		if (isOpen) {
+			focusTrapInstance.activate()
+
+			gsap
+				.timeline()
+				.add(
+					gsap.to([`${Slidable}`, '#page-content'], {
+						x: `-${menuLinks.length * 8}em`,
+						...menuAnimation,
+					}),
+				)
+				.add(
+					gsap.to([`${MenuButtonExitSpan}`, `${MenuButtonCrossWrap}`], {
+						opacity: 1,
+						...menuAnimation,
+					}),
+					0,
+				)
+		} else {
+			focusTrapInstance.deactivate()
+
+			gsap
+				.timeline()
+				.add(
+					gsap.to([`${Slidable}`, '#page-content'], {
+						x: '0',
+						...menuAnimation,
+					}),
+				)
+				.add(
+					gsap.to([`${MenuButtonExitSpan}`, `${MenuButtonCrossWrap}`], {
+						opacity: 0,
+						...menuAnimation,
+					}),
+					0,
+				)
+		}
+	}, [isOpen, focusTrapInstance])
+
+	return (
+		<Wrap onKeyDown={onKeyDown}>
+			<Slidable>
+				<Frame width={frameWidth} />
+			</Slidable>
+			<Menu isOpen={isOpen} animation={menuAnimation} />
+			<MenuButton onClick={() => setOpen(!isOpen)} tabIndex="0">
+				<MenuButtonCrossWrap>
+					<MenuButtonLine1 />
+					<MenuButtonLine2 />
+				</MenuButtonCrossWrap>
+				<MenuButtonExitSpan>Exit </MenuButtonExitSpan>
+				<span>Menu</span>
+			</MenuButton>
+		</Wrap>
+	)
+}
+
+export default Nav
+
+const Wrap = styled.div`
+	${theme('u.spread')}
+	position: fixed;
+
+	z-index: 9;
+`
+
+export const MenuButton = styled.button`
+	${theme('u.flexCenter')}
+	position: absolute;
+	top: 0.5em;
+	right: 2.75em;
+	padding: 0.5em 0.75em;
+	white-space: pre;
+	z-index: 1;
+`
+
+const MenuButtonExitSpan = styled.span`
+	opacity: 0;
+`
+
+const Slidable = styled.div`
+	width: 100%;
+	height: 100%;
+`
+
+const MenuButtonCrossWrap = styled.div`
+	position: relative;
+	width: 1em;
+	height: 1em;
+	margin-right: 0.5em;
+	opacity: 0;
+`
+
+const MenuButtonLine = styled.div`
+	position: absolute;
+	left: -2px;
+	top: 50%;
+	width: 125%;
+	height: 2px;
+	border-radius: 2px;
+	background-color: ${theme('c.gray1')};
+
+	${MenuButton}:hover & {
+		background-color: ${theme('c.gray2')};
+	}
+`
+
+const MenuButtonLine1 = styled(MenuButtonLine)`
+	transform: rotate(45deg);
+`
+
+const MenuButtonLine2 = styled(MenuButtonLine)`
+	transform: rotate(-45deg);
+`

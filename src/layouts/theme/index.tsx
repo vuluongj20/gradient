@@ -1,6 +1,8 @@
+import { easings } from './animation'
 import { colorPalettes } from './colors'
 import { typeScales } from './text'
 import { Theme } from './types'
+import { utils } from './utils'
 
 export type UserPreferences = {
 	color: {
@@ -33,6 +35,11 @@ const defaultTheme: Theme = {
 		ui: typeScales.sohne,
 		content: typeScales.domaine,
 	},
+	a: {
+		...easings,
+		reduced: false,
+	},
+	u: utils,
 }
 
 export const getTheme = (up: UserPreferences): Theme => {
@@ -66,8 +73,8 @@ export const getTheme = (up: UserPreferences): Theme => {
 	})
 	document.body.classList.add(`palette-${paletteName}`)
 
-	// todo: add animation to theme object & implement reduced motion
-	// const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	/** Animation */
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 	return {
 		c: colorPalettes[paletteName].colors,
@@ -76,5 +83,10 @@ export const getTheme = (up: UserPreferences): Theme => {
 			ui: typeScales[up.text.ui],
 			content: typeScales[up.text.content],
 		},
+		a: {
+			...easings,
+			reduced: reducedMotion,
+		},
+		u: utils,
 	}
 }

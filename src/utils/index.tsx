@@ -11,3 +11,10 @@ export const getNestedObject = (obj, path: string) => {
  *  */
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types*/
 export const theme = (path: string) => (props) => getNestedObject(props.theme, path)
+
+export const reducedMotion = (): boolean => {
+	if (typeof window === 'undefined' || typeof document === 'undefined') {
+		return false
+	}
+	return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}

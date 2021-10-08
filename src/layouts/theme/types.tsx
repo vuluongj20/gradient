@@ -1,3 +1,5 @@
+import * as CSS from 'csstype'
+
 export type ColorKeys =
 	| 'surface1'
 	| 'surface2'
@@ -53,9 +55,7 @@ export type ColorPalette = {
 	id: string
 	name: string
 	appearance: 'light' | 'dark'
-	colors: {
-		[key in ColorKeys]: string
-	}
+	colors: Record<ColorKeys, string>
 }
 
 export type TypeCategory = {
@@ -69,9 +69,43 @@ export type TypeCategory = {
 
 export type TypeCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
 
-export type TypeScale = {
-	[key in TypeCategoryName]: TypeCategory
+export type TypeScale = Record<TypeCategoryName, TypeCategory>
+
+type EasingName =
+	| 'easeInSine'
+	| 'easeOutSine'
+	| 'easeInOutSine'
+	| 'easeInQuad'
+	| 'easeOutQuad'
+	| 'easeInOutQuad'
+	| 'easeInCubic'
+	| 'easeOutCubic'
+	| 'easeInOutCubic'
+	| 'easeInQuart'
+	| 'easeOutQuart'
+	| 'easeInOutQuart'
+	| 'easeInQuint'
+	| 'easeOutQuint'
+	| 'easeInOutQuint'
+	| 'easeInExpo'
+	| 'easeOutExpo'
+	| 'easeInOutExpo'
+	| 'easeInCirc'
+	| 'easeOutCirc'
+	| 'easeInOutCirc'
+	| 'easeInBack'
+	| 'easeOutBack'
+	| 'easeInOutBack'
+
+export type Easings = Record<EasingName, string>
+
+export type Animation = Easings & {
+	reduced: boolean
 }
+
+type UtilName = 'spread' | 'flexCenter' | 'absCenter'
+
+export type Utils = Record<UtilName, CSS.Properties>
 
 export type Theme = {
 	/** Color */
@@ -82,4 +116,6 @@ export type Theme = {
 		ui: TypeScale
 		content: TypeScale
 	}
+	a: Animation
+	u: Utils
 }

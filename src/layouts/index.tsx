@@ -1,7 +1,8 @@
 import { theme } from '@utils'
-import { Component, Fragment, ReactChild } from 'react'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { Component, ReactChild } from 'react'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+import Nav from './nav'
 import {
 	getTheme,
 	UserPreferences,
@@ -17,6 +18,8 @@ import {
 type Props = {
 	children: ReactChild
 }
+
+const frameWidth = 2 // unit = em
 
 const GlobalStyle = createGlobalStyle`
 	${sohneAtRules}
@@ -59,10 +62,38 @@ const GlobalStyle = createGlobalStyle`
   a {
   	color: ${theme('c.gray2')};
   	text-decoration-color: ${theme('c.gray8')};
+  	cursor: pointer;
+  	transition: color, box-shadow 0.25s ${theme('a.easeOutQuad')};
   }
   a:hover {
   	color: ${theme('c.gray1')};
   	text-decoration-color: ${theme('c.gray5')};
+  }
+  a:focus-visible {
+  	outline: none;
+  	box-shadow: 0 0 0 0.25em ${theme('c.blue2')};
+  	z-index: 1;
+  }
+  button {
+  	appearance: none;
+  	background: transparent;
+  	border: none;
+  	border-radius: 0.5em;
+
+  	${theme('t.ui.label')};
+  	color: ${theme('c.gray1')};
+
+  	cursor: pointer;
+
+  	transition: color, box-shadow 0.25s ${theme('a.easeOutQuad')};
+
+  	&:hover {
+  		color: ${theme('c.gray3')};
+  	}
+  }
+  button:focus-visible {
+  	outline: none;
+  	box-shadow: 0 0 0 0.25em ${theme('c.blue2')};
   }
 `
 
@@ -118,15 +149,22 @@ class Layout extends Component<Props, UserPreferences> {
 		const { children } = this.props
 
 		return (
-			<Fragment>
-				<ThemeProvider theme={getTheme(this.state)}>
-					<GlobalStyle />
-					{children}
-					<a href="">Hello</a>
-				</ThemeProvider>
-			</Fragment>
+			<ThemeProvider
+				theme={getTheme(this.state)}
+				themes={getTheme(this.state)}
+				themess={getTheme(this.state)}
+			>
+				<GlobalStyle />
+				<Nav frameWidth={frameWidth} />
+				<PageContent id="page-content">{children}</PageContent>
+			</ThemeProvider>
 		)
 	}
 }
 
 export default Layout
+
+const PageContent = styled('div')`
+	width: calc(100% - (${frameWidth}em * 2));
+	margin: ${frameWidth}em auto 0;
+`
