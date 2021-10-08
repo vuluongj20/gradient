@@ -19,6 +19,7 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 	const [isOpen, setOpen] = useState(false)
 	const focusTrapOptions = {
 		returnFocusOnDeactivate: true,
+		initialFocus: `${ExitMenuButton}`,
 	}
 	const focusTrapInstance = focusTrap.createFocusTrap([`${Wrap}`], focusTrapOptions)
 
@@ -41,8 +42,15 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 					}),
 				)
 				.add(
-					gsap.to([`${MenuButtonExitSpan}`, `${MenuButtonCrossWrap}`], {
+					gsap.to([`${ExitMenuButton}`], {
 						opacity: 1,
+						...menuAnimation,
+					}),
+					0,
+				)
+				.add(
+					gsap.to([`${OpenMenuButton}`], {
+						opacity: 0,
 						...menuAnimation,
 					}),
 					0,
@@ -59,8 +67,15 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 					}),
 				)
 				.add(
-					gsap.to([`${MenuButtonExitSpan}`, `${MenuButtonCrossWrap}`], {
+					gsap.to([`${ExitMenuButton}`], {
 						opacity: 0,
+						...menuAnimation,
+					}),
+					0,
+				)
+				.add(
+					gsap.to([`${OpenMenuButton}`], {
+						opacity: 1,
 						...menuAnimation,
 					}),
 					0,
@@ -74,14 +89,24 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 				<Frame width={frameWidth} />
 			</Slidable>
 			<Menu isOpen={isOpen} animation={menuAnimation} />
-			<MenuButton onClick={() => setOpen(!isOpen)} tabIndex="0">
+			<ExitMenuButton
+				onClick={() => setOpen(false)}
+				interactive={isOpen}
+				tabIndex={isOpen ? '0' : '-1'}
+			>
 				<MenuButtonCrossWrap>
 					<MenuButtonLine1 />
 					<MenuButtonLine2 />
 				</MenuButtonCrossWrap>
-				<MenuButtonExitSpan>Exit </MenuButtonExitSpan>
-				<span>Menu</span>
-			</MenuButton>
+				<MenuButtonExitSpan>Exit Menu</MenuButtonExitSpan>
+			</ExitMenuButton>
+			<OpenMenuButton
+				onClick={() => setOpen(true)}
+				interactive={!isOpen}
+				tabIndex={isOpen ? '-1' : '0'}
+			>
+				Menu
+			</OpenMenuButton>
 		</Wrap>
 	)
 }
@@ -95,7 +120,7 @@ const Wrap = styled.div`
 	z-index: 9;
 `
 
-export const MenuButton = styled.button`
+const MenuButton = styled.button<{ interactive: boolean }>`
 	${theme('u.flexCenter')}
 	position: absolute;
 	top: 0.5em;
@@ -103,11 +128,17 @@ export const MenuButton = styled.button`
 	padding: 0.5em 0.75em;
 	white-space: pre;
 	z-index: 1;
+
+	${(p) => (p.interactive ? 'pointer-events: initial;' : 'pointer-events: none;')}
 `
 
-const MenuButtonExitSpan = styled.span`
+const OpenMenuButton = styled(MenuButton)``
+
+const ExitMenuButton = styled(MenuButton)`
 	opacity: 0;
 `
+
+const MenuButtonExitSpan = styled.span``
 
 const Slidable = styled.div`
 	width: 100%;
@@ -119,7 +150,6 @@ const MenuButtonCrossWrap = styled.div`
 	width: 1em;
 	height: 1em;
 	margin-right: 0.5em;
-	opacity: 0;
 `
 
 const MenuButtonLine = styled.div`
