@@ -206,7 +206,7 @@ const LinkTypeLine = styled.div`
 
 const MenuWrap = styled.nav<{ animating: boolean }>`
 	display: flex;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	right: 0;
 	width: 0;
