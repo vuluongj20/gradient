@@ -114,7 +114,6 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 export default Nav
 
 const Wrap = styled.div`
-	${theme('u.spread')}
 	position: fixed;
 
 	z-index: 9;
@@ -122,7 +121,7 @@ const Wrap = styled.div`
 
 const MenuButton = styled.button<{ interactive: boolean }>`
 	${theme('u.flexCenter')}
-	position: absolute;
+	position: fixed;
 	top: 0.5em;
 	right: 2.75em;
 	padding: 0.5em 0.75em;
@@ -140,10 +139,7 @@ const ExitMenuButton = styled(MenuButton)`
 
 const MenuButtonExitSpan = styled.span``
 
-const Slidable = styled.div`
-	width: 100%;
-	height: 100%;
-`
+const Slidable = styled.div``
 
 const MenuButtonCrossWrap = styled.div`
 	position: relative;

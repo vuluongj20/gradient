@@ -165,6 +165,37 @@ class Layout extends Component<Props, UserPreferences> {
 export default Layout
 
 const PageContent = styled('div')`
-	width: calc(100% - (${frameWidth}em * 2));
-	margin: ${frameWidth}em auto 0;
+	margin: 0 auto;
+	max-width: ${(p) => p.theme.b.xl};
+	padding: 0 ${frameWidth}em;
+
+	display: grid;
+	grid-template-columns: [start] repeat(12, 1fr) [end];
+	grid-gap: 1.25em;
+
+	@media only screen and (max-width: ${(p) => p.theme.b.l}) {
+		grid-template-columns:
+			[start] repeat(10, 1fr)
+			[end];
+	}
+
+	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
+		grid-template-columns:
+			[start] repeat(8, 1fr)
+			[end];
+		grid-gap: 1em;
+	}
+
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+		grid-template-columns:
+			[start] repeat(6, 1fr)
+			[end];
+	}
+
+	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
+		grid-template-columns:
+			[start] repeat(4, 1fr)
+			[end];
+		grid-gap: 0.75em;
+	}
 `

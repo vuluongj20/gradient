@@ -1,4 +1,5 @@
 import { Component, Fragment } from 'react'
+import styled from 'styled-components'
 
 import SEO from '../components/seo'
 
@@ -7,7 +8,7 @@ class IndexPage extends Component {
     return (
       <Fragment>
         <SEO />
-        <h1>
+        <Title>
           Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
           Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep
           Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop
@@ -30,10 +31,14 @@ class IndexPage extends Component {
           Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop
           Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
           Bop Bop
-        </h1>
+        </Title>
       </Fragment>
     )
   }
 }
+
+const Title = styled.h1`
+  grid-column: start / end;
+`
 
 export default IndexPage

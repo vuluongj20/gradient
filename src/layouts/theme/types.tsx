@@ -107,6 +107,14 @@ type UtilName = 'spread' | 'flexCenter' | 'absCenter'
 
 export type Utils = Record<UtilName, CSS.Properties>
 
+export type Breakpoints = {
+	xs: string
+	s: string
+	m: string
+	l: string
+	xl: string
+}
+
 export type Theme = {
 	/** Color */
 	c: ColorPalette['colors']
@@ -117,5 +125,6 @@ export type Theme = {
 		content: TypeScale
 	}
 	a: Animation
+	b: Breakpoints
 	u: Utils
 }

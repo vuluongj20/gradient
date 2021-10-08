@@ -1,4 +1,5 @@
 import { easings } from './animation'
+import { breakpoints } from './breakpoints'
 import { colorPalettes } from './colors'
 import { typeScales } from './text'
 import { Theme } from './types'
@@ -39,6 +40,7 @@ const defaultTheme: Theme = {
 		...easings,
 		reduced: false,
 	},
+	b: breakpoints,
 	u: utils,
 }
 
@@ -87,6 +89,7 @@ export const getTheme = (up: UserPreferences): Theme => {
 			...easings,
 			reduced: reducedMotion,
 		},
+		b: breakpoints,
 		u: utils,
 	}
 }
