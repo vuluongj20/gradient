@@ -1,44 +1,18 @@
-import { Component, Fragment } from 'react'
-import styled from 'styled-components'
+import { cards } from '@data/home'
+import { Fragment } from 'react'
 
-import SEO from '../components/seo'
+import CardArea from '@components/cardArea'
+import Header from '@components/header'
+import SEO from '@components/seo'
 
-class IndexPage extends Component {
-  render(): JSX.Element {
-    return (
-      <Fragment>
-        <SEO />
-        <Title>
-          Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
-          Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep
-          Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop
-          Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop
-          Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop
-          Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
-          Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep
-          Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop
-          Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop
-          Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop
-          Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
-          Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep
-          Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop
-          Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop
-          Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop
-          Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
-          Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep
-          Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop
-          Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop
-          Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep Bop Bop
-          Beep Bop Beeep Bop Beepbedeep Beep Bop Bop Beep Bop Beeep Bop Beepbedeep Beep
-          Bop Bop
-        </Title>
-      </Fragment>
-    )
-  }
+const IndexPage = (): JSX.Element => {
+  return (
+    <Fragment>
+      <SEO />
+      <Header />
+      <CardArea cards={cards} />
+    </Fragment>
+  )
 }
-
-const Title = styled.h1`
-  grid-column: start / end;
-`
 
 export default IndexPage

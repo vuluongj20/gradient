@@ -1,5 +1,6 @@
-import { theme } from '@utils'
 import styled from 'styled-components'
+
+import { theme } from '@utils'
 
 type CornerProps = {
 	width: number
@@ -100,7 +101,7 @@ const Line = styled('div')`
 	height: 2px;
 	border-radius: 2px;
 	background-color: ${theme('c.gray1')};
-	opacity: 0.4;
+	opacity: 0.2;
 `
 
 const CornerLineHorizontal = styled(Line)`
@@ -122,8 +123,8 @@ const SideWrapper = styled('div')<SideProps>`
 	width: ${(p) => p.width * 0.6875}em;
 	height: ${(p) => p.width * 0.6875}em;
 
-	${(p) => p.left && `left: ${p.width * 0.3125}em;`}
-	${(p) => p.right && `right: ${p.width * 0.3125}em;`}
+	${(p) => p.left && `left: ${p.width * 0.15625}em;`}
+	${(p) => p.right && `right: ${p.width * 0.15625}em;`}
 `
 
 const SideLineHorizontal = styled(Line)`
@@ -146,7 +147,7 @@ const SideCircle = styled('div')`
 	height: 68.75%;
 	border: solid 2px ${theme('c.gray1')};
 	border-radius: 50%;
-	opacity: 0.4;
+	opacity: 0.2;
 `
 
 const StampWrapper = styled('div')<StampProps>`

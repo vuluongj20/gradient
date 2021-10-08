@@ -1,4 +1,3 @@
-import { theme } from '@utils'
 import { Component, ReactChild } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
@@ -14,6 +13,8 @@ import {
 	domaineDisplayNarrowAtRules,
 	domaineTextAtRules,
 } from './theme/fonts'
+
+import { theme, gridColCounts } from '@utils'
 
 type Props = {
 	children: ReactChild
@@ -51,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
   }
   h1, h2, h3, h4, h5, h6 {
   	color: ${theme('c.gray1')};
+  	margin: 0;
   }
   h1 {${theme('t.ui.h1')}}
   h2 {${theme('t.ui.h2')}}
@@ -58,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
   h4 {${theme('t.ui.h4')}}
   h5 {${theme('t.ui.h5')}}
   h6 {${theme('t.ui.h6')}}
-  p, a {${theme('t.ui.body')}}
+  p, a {${theme('t.ui.body')}; margin: 0;}
   a {
   	color: ${theme('c.gray2')};
   	text-decoration-color: ${theme('c.gray8')};
@@ -165,36 +167,37 @@ class Layout extends Component<Props, UserPreferences> {
 export default Layout
 
 const PageContent = styled('div')`
-	margin: 0 auto;
+	position: relative;
 	max-width: ${(p) => p.theme.b.xl};
-	padding: 0 ${frameWidth}em;
+	padding: ${frameWidth}em ${frameWidth}em 0;
+	margin: 0 auto;
 
 	display: grid;
-	grid-template-columns: [start] repeat(12, 1fr) [end];
+	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
 	grid-gap: 1.25em;
 
 	@media only screen and (max-width: ${(p) => p.theme.b.l}) {
 		grid-template-columns:
-			[start] repeat(10, 1fr)
+			[start] repeat(${gridColCounts.l}, 1fr)
 			[end];
 	}
 
 	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
 		grid-template-columns:
-			[start] repeat(8, 1fr)
+			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
 		grid-gap: 1em;
 	}
 
 	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		grid-template-columns:
-			[start] repeat(6, 1fr)
+			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
 	}
 
 	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
 		grid-template-columns:
-			[start] repeat(4, 1fr)
+			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
 		grid-gap: 0.75em;
 	}

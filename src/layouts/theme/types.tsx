@@ -1,5 +1,7 @@
 import * as CSS from 'csstype'
 
+import { breakpoints } from './breakpoints'
+
 export type ColorKeys =
 	| 'surface1'
 	| 'surface2'
@@ -58,16 +60,32 @@ export type ColorPalette = {
 	colors: Record<ColorKeys, string>
 }
 
-export type TypeCategory = {
+const typeCategoryMediaRules = {}
+
+Object.keys(breakpoints).map((breakpoint) => {
+	typeCategoryMediaRules[`@media only screen and max-width(${breakpoints[breakpoint]})`] =
+		''
+})
+
+type TypeCategoryMediaRules = typeof typeCategoryMediaRules
+
+export type TypeCategoryStyles = {
 	fontFamily: string
 	fontWeight: number
-	fontSize: string
 	lineHeight: number
 	letterSpacing?: string
 	textTransform?: 'capitalize' | 'uppercase' | 'lowercase'
 }
 
+export type TypeCategoryDefinition = TypeCategoryStyles & {
+	fontSizes: Record<Breakpoint, number>
+}
+
+export type TypeCategory = TypeCategoryMediaRules & TypeCategoryStyles
+
 export type TypeCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
+
+export type TypeScaleDefinition = Record<TypeCategoryName, TypeCategoryDefinition>
 
 export type TypeScale = Record<TypeCategoryName, TypeCategory>
 
@@ -107,13 +125,7 @@ type UtilName = 'spread' | 'flexCenter' | 'absCenter'
 
 export type Utils = Record<UtilName, CSS.Properties>
 
-export type Breakpoints = {
-	xs: string
-	s: string
-	m: string
-	l: string
-	xl: string
-}
+export type Breakpoints = Record<Breakpoint, string>
 
 export type Theme = {
 	/** Color */
@@ -124,7 +136,10 @@ export type Theme = {
 		ui: TypeScale
 		content: TypeScale
 	}
+	/** Animation */
 	a: Animation
+	/** Breakpoints */
 	b: Breakpoints
+	/** Utilities */
 	u: Utils
 }

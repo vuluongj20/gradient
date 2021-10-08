@@ -1,8 +1,9 @@
-import { theme } from '@utils'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import gsap from 'gsap'
 import { useEffect } from 'react'
 import styled from 'styled-components'
+
+import { theme } from '@utils'
 
 type Props = {
 	isOpen: boolean
@@ -75,7 +76,7 @@ const Menu = ({ isOpen, animation }: Props): JSX.Element => {
 				.timeline()
 				.add(
 					gsap.to(`${MenuWrap}`, {
-						width: `${links.length * 8}em`,
+						width: `${links.length * 6}em`,
 						...animation,
 					}),
 				)
@@ -117,6 +118,17 @@ const Menu = ({ isOpen, animation }: Props): JSX.Element => {
 }
 
 export default Menu
+
+const MenuWrap = styled.nav<{ animating: boolean }>`
+	display: flex;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 100%;
+
+	${(p) => p.animating && `pointer-events: none;`}
+`
 
 const LinkWrap = styled.a`
 	display: block;
@@ -202,15 +214,4 @@ const LinkTypeLine = styled.div`
 		`${LinkWrap}:hover & {
 			background-color: ${p.theme.c.gray3};
 		}`}
-`
-
-const MenuWrap = styled.nav<{ animating: boolean }>`
-	display: flex;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 0;
-	height: 100%;
-
-	${(p) => p.animating && `pointer-events: none;`}
 `

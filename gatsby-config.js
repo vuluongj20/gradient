@@ -53,9 +53,12 @@ module.exports = {
       options: {
         alias: {
           '@utils': path.resolve(__dirname, 'src/utils'),
+          '@components': path.resolve(__dirname, 'src/components'),
+          '@data': path.resolve(__dirname, 'src/data'),
         },
         extensions: ['js', 'jsx', 'ts', 'tsx'],
       },
     },
+    'gatsby-plugin-transition-link',
   ],
 }
