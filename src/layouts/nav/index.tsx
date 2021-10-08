@@ -21,7 +21,10 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 		returnFocusOnDeactivate: true,
 		initialFocus: `${ExitMenuButton}`,
 	}
-	const focusTrapInstance = focusTrap.createFocusTrap([`${Wrap}`], focusTrapOptions)
+	const focusTrapInstance =
+		typeof window !== 'undefined' && typeof document !== 'undefined'
+			? focusTrap.createFocusTrap([`${Wrap}`], focusTrapOptions)
+			: null
 
 	const onKeyDown = (e) => {
 		if (e.key === 'Escape') {
