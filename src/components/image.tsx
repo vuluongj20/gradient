@@ -11,12 +11,17 @@ const Image = ({ src, alt }: Props): JSX.Element => {
 		return <StyledImage src={`../images/${src}`} alt={alt} />
 	}
 
-	return <CloudinaryImage src={src} alt={alt} />
+	return <StyledCloudinaryImage publicId={`gradient/${src}`} alt={alt} />
 }
 
 export default Image
 
 const StyledImage = styled.img`
+	display: block;
+	width: 100%;
+`
+
+const StyledCloudinaryImage = styled(CloudinaryImage)`
 	display: block;
 	width: 100%;
 `

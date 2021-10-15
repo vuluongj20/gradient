@@ -1,3 +1,4 @@
+import { CloudinaryContext } from 'cloudinary-react'
 import { Component, ReactChild } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
@@ -151,15 +152,17 @@ class Layout extends Component<Props, UserPreferences> {
 		const { children } = this.props
 
 		return (
-			<ThemeProvider
-				theme={getTheme(this.state)}
-				themes={getTheme(this.state)}
-				themess={getTheme(this.state)}
-			>
-				<GlobalStyle />
-				<Nav frameWidth={frameWidth} />
-				<PageContent id="page-content">{children}</PageContent>
-			</ThemeProvider>
+			<CloudinaryContext cloudName="vuluongj20" secure="true">
+				<ThemeProvider
+					theme={getTheme(this.state)}
+					themes={getTheme(this.state)}
+					themess={getTheme(this.state)}
+				>
+					<GlobalStyle />
+					<Nav frameWidth={frameWidth} />
+					<PageContent id="page-content">{children}</PageContent>
+				</ThemeProvider>
+			</CloudinaryContext>
 		)
 	}
 }
