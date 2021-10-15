@@ -1,55 +1,56 @@
-import { TypeScale } from './types'
+import { breakpoints } from './breakpoints'
+import { TypeScaleDefinition, TypeScale } from './types'
 
 const sohneFontFamily =
 	'Sohne, Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif'
 
-const sohne: TypeScale = {
+const sohne: TypeScaleDefinition = {
 	h1: {
 		fontFamily: sohneFontFamily,
-		fontSize: '4.25em',
+		fontSizes: { xl: 4.25, l: 4.25, m: 3, s: 3, xs: 1.8125 },
 		fontWeight: 700,
 		lineHeight: 1.2,
 	},
 	h2: {
 		fontFamily: sohneFontFamily,
-		fontSize: '3.25em',
+		fontSizes: { xl: 3.25, l: 3.25, m: 2.375, s: 2.375, xs: 1.625 },
 		fontWeight: 700,
 		lineHeight: 1.2,
 	},
 	h3: {
 		fontFamily: sohneFontFamily,
-		fontSize: '2.375em',
+		fontSizes: { xl: 2.375, l: 2.375, m: 2, s: 2, xs: 1.4375 },
 		fontWeight: 600,
 		lineHeight: 1.2,
 	},
 	h4: {
 		fontFamily: sohneFontFamily,
-		fontSize: '1.75em',
+		fontSizes: { xl: 1.75, l: 1.75, m: 1.625, s: 1.625, xs: 1.25 },
 		fontWeight: 600,
 		lineHeight: 1.2,
 	},
 	h5: {
 		fontFamily: sohneFontFamily,
-		fontSize: '1.375em',
+		fontSizes: { xl: 1.375, l: 1.375, m: 1.25, s: 1.25, xs: 1.125 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
 	h6: {
 		fontFamily: sohneFontFamily,
-		fontSize: '1.125em',
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1.0625 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
 	body: {
 		fontFamily: sohneFontFamily,
-		fontSize: '1em',
 		fontWeight: 400,
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
 		letterSpacing: '0.01em',
 		lineHeight: 1.4,
 	},
 	label: {
 		fontFamily: sohneFontFamily,
-		fontSize: '0.875em',
+		fontSizes: { xl: 0.875, l: 0.875, m: 0.875, s: 0.875, xs: 0.875 },
 		fontWeight: 500,
 		letterSpacing: '0.02em',
 		textTransform: 'uppercase',
@@ -63,58 +64,75 @@ const domaineHeadingFontFamily =
 const domaineBodyFontFamily =
 	'"Domaine Text", Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif'
 
-const domaine: TypeScale = {
+const domaine: TypeScaleDefinition = {
 	h1: {
 		fontFamily: domaineHeadingFontFamily,
-		fontSize: '4.25em',
+		fontSizes: { xl: 4.25, l: 4.25, m: 3, s: 3, xs: 1.8125 },
 		fontWeight: 700,
 		lineHeight: 1.2,
 	},
 	h2: {
 		fontFamily: domaineHeadingFontFamily,
-		fontSize: '3.25em',
+		fontSizes: { xl: 3.25, l: 3.25, m: 2.375, s: 2.375, xs: 1.625 },
 		fontWeight: 700,
 		lineHeight: 1.2,
 	},
 	h3: {
 		fontFamily: domaineHeadingFontFamily,
-		fontSize: '2.375em',
+		fontSizes: { xl: 2.375, l: 2.375, m: 2, s: 2, xs: 1.4375 },
 		fontWeight: 600,
 		lineHeight: 1.2,
 	},
 	h4: {
 		fontFamily: domaineHeadingFontFamily,
-		fontSize: '1.75em',
+		fontSizes: { xl: 1.75, l: 1.75, m: 1.625, s: 1.625, xs: 1.25 },
 		fontWeight: 600,
 		lineHeight: 1.2,
 	},
 	h5: {
 		fontFamily: domaineHeadingFontFamily,
-		fontSize: '1.375em',
+		fontSizes: { xl: 1.375, l: 1.375, m: 1.25, s: 1.25, xs: 1.125 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
 	h6: {
 		fontFamily: domaineHeadingFontFamily,
-		fontSize: '1.125em',
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1.0625 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
 	body: {
 		fontFamily: domaineBodyFontFamily,
-		fontSize: '1em',
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
 		fontWeight: 400,
 		lineHeight: 1.4,
 	},
 	label: {
 		fontFamily: domaineBodyFontFamily,
-		fontSize: '1em',
+		fontSizes: { xl: 0.875, l: 0.875, m: 0.875, s: 0.875, xs: 0.875 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
 }
 
+const getCSSStyleObject = (scale: TypeScaleDefinition): TypeScale => {
+	const result = {}
+
+	Object.keys(scale).map((key) => {
+		const { fontFamily, fontWeight, lineHeight, fontSizes } = scale[key]
+		result[key] = { fontFamily, fontWeight, lineHeight, fontSize: `${fontSizes.xl}em` }
+
+		Object.keys(fontSizes).map((breakpoint) => {
+			result[key][`@media only screen and (max-width: ${breakpoints[breakpoint]})`] = {
+				fontSize: `${fontSizes[breakpoint]}em`,
+			}
+		})
+	})
+
+	return result as TypeScale
+}
+
 export const typeScales = {
-	sohne,
-	domaine,
+	sohne: getCSSStyleObject(sohne),
+	domaine: getCSSStyleObject(domaine),
 }

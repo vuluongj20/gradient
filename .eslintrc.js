@@ -13,7 +13,11 @@ module.exports = {
     },
     'import/resolver': {
       alias: {
-        map: [['@utils', './src/utils']],
+        map: [
+          ['@utils', './src/utils'],
+          ['@components', './src/components'],
+          ['@data', './src/data'],
+        ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },

@@ -5,6 +5,6 @@ module.exports = {
   printWidth: 90,
   tabWidth: 2,
   bracketSpacing: true,
-  importOrder: ['^@core/(.*)$', '^@server/(.*)$', '^@ui/(.*)$', '^[./]'],
+  importOrder: ['^[./]', '^@components/(.*)$', '^@utils(/(.*))*$'],
   importOrderSeparation: true,
 }

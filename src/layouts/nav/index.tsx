@@ -1,4 +1,3 @@
-import { theme, reducedMotion } from '@utils'
 import * as focusTrap from 'focus-trap'
 import gsap from 'gsap'
 import { useEffect, useState } from 'react'
@@ -6,6 +5,8 @@ import styled from 'styled-components'
 
 import Frame from './frame'
 import Menu, { links as menuLinks } from './menu'
+
+import { theme, reducedMotion } from '@utils'
 
 type Props = {
 	frameWidth: number
