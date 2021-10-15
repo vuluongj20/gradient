@@ -1,5 +1,5 @@
 import { CloudinaryContext } from 'cloudinary-react'
-import { Component, ReactChild } from 'react'
+import { ReactChild, useEffect, useState } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import Nav from './nav'
@@ -100,71 +100,65 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-class Layout extends Component<Props, UserPreferences> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			color: {
-				appearance: 'auto',
-				lightPalette: 'paper',
-				darkPalette: 'charcoal',
-				increaseContrast: false,
-			},
-			text: {
-				ui: 'sohne',
-				content: 'domaine',
-			},
-			alwaysShowVideoCaptions: false,
-		}
-	}
+const defaultState: UserPreferences = {
+	color: {
+		appearance: 'auto',
+		lightPalette: 'paper',
+		darkPalette: 'charcoal',
+		increaseContrast: false,
+	},
+	text: {
+		ui: 'sohne',
+		content: 'domaine',
+	},
+	alwaysShowVideoCaptions: false,
+}
 
-	setUserPreference(
+const Layout = ({ children }: Props): JSX.Element => {
+	const [userPreferences, setUserPreferences] = useState<UserPreferences>(defaultState)
+
+	const setUserPreference = (
 		key: UserPreferencesKey | UserPreferencesKey[],
 		value: UserPreferencesValue,
-	): void {
+	): void => {
 		if (typeof key === 'string') {
-			this.setState(
-				{
-					...this.state,
-					[key]: value,
-				},
-				() => {
-					localStorage.setItem('UP', JSON.stringify(this.state))
-				},
-			)
+			setUserPreferences({
+				...userPreferences,
+				[key]: value,
+			})
 		} else {
-			const currentKeyedState = { ...this.state[key[0]] }
+			const currentKeyedState = { ...userPreferences[key[0]] }
 			currentKeyedState[key[1]] = value
 
-			this.setState(
-				{
-					...this.state,
-					[key[0]]: currentKeyedState,
-				},
-				() => {
-					localStorage.setItem('UP', JSON.stringify(this.state))
-				},
-			)
+			setUserPreferences({
+				...userPreferences,
+				[key[0]]: currentKeyedState,
+			})
 		}
 	}
 
-	render(): JSX.Element {
-		const { children } = this.props
+	useEffect(() => {
+		localStorage.setItem('UP', JSON.stringify(userPreferences))
+	}, [userPreferences])
 
-		return (
-			<CloudinaryContext cloudName="vuluongj20" secure="true">
-				<ThemeProvider
-					theme={getTheme(this.state)}
-					themes={getTheme(this.state)}
-					themess={getTheme(this.state)}
-				>
-					<GlobalStyle />
-					<Nav frameWidth={frameWidth} />
-					<PageContent id="page-content">{children}</PageContent>
-				</ThemeProvider>
-			</CloudinaryContext>
-		)
+	const [mounted, setMounted] = useState(false)
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+
+	if (!mounted) {
+		return null
 	}
+
+	return (
+		<CloudinaryContext cloudName="vuluongj20" secure="true">
+			<ThemeProvider theme={getTheme(userPreferences)}>
+				<GlobalStyle />
+				<Nav frameWidth={frameWidth} />
+				<PageContent id="page-content">{children}</PageContent>
+			</ThemeProvider>
+		</CloudinaryContext>
+	)
 }
 
 export default Layout
