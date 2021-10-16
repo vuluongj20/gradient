@@ -42,7 +42,7 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 				.timeline()
 				.add(
 					gsap.to([`${Slidable}`, '#page-content'], {
-						x: `-${menuLinks.length * 8}em`,
+						x: `-${menuLinks.length * 6}em`,
 						...menuAnimation,
 					}),
 				)
@@ -90,6 +90,13 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 		<Wrap onKeyDown={onKeyDown}>
 			<Slidable>
 				<Frame width={frameWidth} />
+				<Backdrop
+					style={{ pointerEvents: isOpen ? 'initial' : 'none' }}
+					onClick={() => {
+						focusTrapInstance.deactivate()
+						setOpen(false)
+					}}
+				/>
 			</Slidable>
 			<Menu isOpen={isOpen} animation={menuAnimation} />
 			<ExitMenuButton
@@ -146,6 +153,15 @@ const ExitMenuButton = styled(MenuButton)`
 const MenuButtonExitSpan = styled.span``
 
 const Slidable = styled.div``
+
+const Backdrop = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	cursor: pointer;
+`
 
 const MenuButtonCrossWrap = styled.div`
 	position: relative;
