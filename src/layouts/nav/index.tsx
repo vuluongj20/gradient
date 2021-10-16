@@ -21,14 +21,16 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 	const focusTrapOptions = {
 		returnFocusOnDeactivate: true,
 		initialFocus: `${ExitMenuButton}`,
+		setReturnFocus: `${OpenMenuButton}`,
 	}
 	const focusTrapInstance =
 		typeof window !== 'undefined' && typeof document !== 'undefined'
-			? focusTrap.createFocusTrap([`${Wrap}`], focusTrapOptions)
+			? focusTrap.createFocusTrap(`${Wrap}`, focusTrapOptions)
 			: null
 
 	const onKeyDown = (e) => {
 		if (e.key === 'Escape') {
+			focusTrapInstance.deactivate()
 			setOpen(false)
 		}
 	}
@@ -36,7 +38,6 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 	useEffect(() => {
 		if (isOpen) {
 			focusTrapInstance.activate()
-
 			gsap
 				.timeline()
 				.add(
@@ -60,8 +61,6 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 					0,
 				)
 		} else {
-			focusTrapInstance.deactivate()
-
 			gsap
 				.timeline()
 				.add(
@@ -94,7 +93,10 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 			</Slidable>
 			<Menu isOpen={isOpen} animation={menuAnimation} />
 			<ExitMenuButton
-				onClick={() => setOpen(false)}
+				onClick={() => {
+					focusTrapInstance.deactivate()
+					setOpen(false)
+				}}
 				interactive={isOpen}
 				tabIndex={isOpen ? '0' : '-1'}
 			>
