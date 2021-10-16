@@ -34,13 +34,12 @@ const GlobalStyle = createGlobalStyle`
 	  padding: 0;
 	}
 	*,
-	*:before,
-	*:after {
+	*::before,
+	*::after {
 	  box-sizing: inherit;
 	}
   body {
   	font-feature-settings: 'kern', 'liga';
-  	-moz-font-feature-settings: 'kern', 'liga';
   	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
   	direction: ltr;
@@ -61,7 +60,10 @@ const GlobalStyle = createGlobalStyle`
   h4 {${theme('t.ui.h4')}}
   h5 {${theme('t.ui.h5')}}
   h6 {${theme('t.ui.h6')}}
-  p, a {${theme('t.ui.body')}; margin: 0;}
+  p, a {
+  	${theme('t.ui.body')}; 
+  	margin: 0;
+  }
   a {
   	color: ${theme('c.gray2')};
   	text-decoration-color: ${theme('c.gray8')};
