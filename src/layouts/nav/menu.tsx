@@ -142,6 +142,10 @@ const LinkWrap = styled.a`
 	text-decoration: none;
 	cursor: pointer;
 	opacity: 0;
+
+	&:focus-visible {
+		z-index: 1;
+	}
 `
 
 const LinkContentBox = styled.div`

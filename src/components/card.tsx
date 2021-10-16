@@ -1,8 +1,9 @@
-import { AdaptiveGridColumns } from '@types'
 import TransitionLink from 'gatsby-plugin-transition-link'
 import styled from 'styled-components'
 
 import Image from './image'
+
+import { AdaptiveGridColumns } from '@types'
 
 import { theme } from '@utils'
 
@@ -57,6 +58,10 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	align-self: start;
 
 	border-radius: 1em 0 1em 0;
+
+	&:focus-visible {
+		${theme('u.focusVisible')};
+	}
 
 	@media only screen and (max-width: ${theme('b.l')}) {
 		grid-column-start: ${(p) => p.$gridCols.l.start};

@@ -1,4 +1,6 @@
-import { Breakpoint, CSSObject } from '@types'
+import * as CSS from 'csstype'
+
+import { Breakpoint } from '@types'
 
 export type ColorKeys =
 	| 'surface1'
@@ -121,7 +123,7 @@ export type Animation = Easings & {
 
 export type UtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 
-export type Utils = Record<UtilName, CSSObject>
+export type Utils = Record<UtilName, CSS.Properties>
 
 export type Breakpoints = Record<Breakpoint, string>
 

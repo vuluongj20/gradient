@@ -3,7 +3,7 @@ import { breakpoints } from './breakpoints'
 import { colorPalettes } from './colors'
 import { typeScales } from './text'
 import { Theme } from './types'
-import { utils } from './utils'
+import { generateUtils } from './utils'
 
 export type UserPreferences = {
 	color: {
@@ -29,7 +29,7 @@ export type UserPreferencesValue =
 	| UserPreferences['color'][keyof UserPreferences['color']]
 	| UserPreferences['text'][keyof UserPreferences['text']]
 
-const defaultTheme: Theme = {
+const partialDefaultTheme: Omit<Theme, 'u'> = {
 	c: colorPalettes.paper.colors,
 	t: {
 		rootSize: '16px',
@@ -41,7 +41,11 @@ const defaultTheme: Theme = {
 		reduced: false,
 	},
 	b: breakpoints,
-	u: utils,
+}
+
+const defaultTheme: Theme = {
+	...partialDefaultTheme,
+	u: generateUtils(partialDefaultTheme),
 }
 
 export const getTheme = (up: UserPreferences): Theme => {
@@ -78,7 +82,7 @@ export const getTheme = (up: UserPreferences): Theme => {
 	/** Animation */
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-	return {
+	const partialTheme: Omit<Theme, 'u'> = {
 		c: colorPalettes[paletteName].colors,
 		t: {
 			rootSize: '16px',
@@ -90,6 +94,10 @@ export const getTheme = (up: UserPreferences): Theme => {
 			reduced: reducedMotion,
 		},
 		b: breakpoints,
-		u: utils,
+	}
+
+	return {
+		...partialTheme,
+		u: generateUtils(partialTheme),
 	}
 }

@@ -75,9 +75,7 @@ const GlobalStyle = createGlobalStyle`
   	text-decoration-color: ${theme('c.gray5')};
   }
   a:focus-visible {
-  	outline: none;
-  	box-shadow: 0 0 0 0.25em ${theme('c.blue2')};
-  	z-index: 1;
+  	${theme('u.focusVisible')}; 
   }
   button {
   	appearance: none;
@@ -97,8 +95,7 @@ const GlobalStyle = createGlobalStyle`
   	}
   }
   button:focus-visible {
-  	outline: none;
-  	box-shadow: 0 0 0 0.25em ${theme('c.blue2')};
+  	${theme('u.focusVisible')}; 
   }
 `
 
