@@ -38,7 +38,10 @@ const Card = ({ gridCols, to, img }: Props): JSX.Element => {
 			</ImageWrap>
 
 			<TitleWrap>
-				<Title>B.L. v. Mahanoy School District</Title>
+				<Title>
+					<DummyTitle>B.L. v. Mahanoy School District</DummyTitle>
+					B.L. v. Mahanoy School District
+				</Title>
 				<Tags>Law</Tags>
 			</TitleWrap>
 		</Wrap>
@@ -116,10 +119,37 @@ const TitleWrap = styled.div`
 const Title = styled.p`
 	${theme('t.content.h4')}
 
+	position: relative;
+
 	color: ${theme('c.gray1')};
+	transition: color 0.1s ${theme('a.easeOutQuad')};
+
+	${Wrap}:hover & {
+		color: ${theme('c.red1')};
+	}
+`
+
+const DummyTitle = styled.span`
+	${theme('u.spread')};
+
+	color: transparent;
+	text-decoration: underline;
+	text-decoration-color: ${theme('c.red3')};
+	z-index: -1;
+	opacity: 0;
+	transition: opacity 0.125s ${theme('a.easeOutQuad')};
+
+	${Wrap}:hover & {
+		opacity: 1;
+	}
 `
 
 const Tags = styled.div`
 	${theme('t.ui.label')};
 	color: ${theme('c.gray5')};
+	transition: color 0.125s ${theme('a.easeOutQuad')};
+
+	${Wrap}:hover & {
+		color: ${theme('c.red1')};
+	}
 `
