@@ -1,10 +1,7 @@
 import { Image as CloudinaryImage } from 'cloudinary-react'
 import styled from 'styled-components'
 
-type Props = {
-	src: string
-	alt: string
-}
+import { Image as Props } from '@types'
 
 const Image = ({ src, alt }: Props): JSX.Element => {
 	if (process.env.NODE_ENV === 'development') {

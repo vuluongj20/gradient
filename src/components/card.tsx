@@ -1,3 +1,4 @@
+import { AdaptiveGridColumns } from '@types'
 import TransitionLink from 'gatsby-plugin-transition-link'
 import styled from 'styled-components'
 
@@ -13,8 +14,6 @@ export type CardContent = {
 		alt: string
 	}
 }
-
-export type CardGridColumns = { start: number; end: number }
 
 type Props = CardContent & {
 	gridCols: AdaptiveGridColumns
@@ -55,6 +54,9 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 
 	grid-column-start: ${(p) => p.$gridCols.xl.start};
 	grid-column-end: ${(p) => p.$gridCols.xl.end};
+	align-self: start;
+
+	border-radius: 1em 0 1em 0;
 
 	@media only screen and (max-width: ${theme('b.l')}) {
 		grid-column-start: ${(p) => p.$gridCols.l.start};

@@ -5,6 +5,12 @@ module.exports = {
   printWidth: 90,
   tabWidth: 2,
   bracketSpacing: true,
-  importOrder: ['^[./]', '^@components/(.*)$', '^@utils(/(.*))*$'],
+  importOrder: [
+    '^[./]',
+    '^@data(/(.*))*$',
+    '^@components/(.*)$',
+    '^@types(/(.*))*$',
+    '^@utils(/(.*))*$',
+  ],
   importOrderSeparation: true,
 }

@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 import Card, { CardContent } from './card'
 
+import { AdaptiveGridColumns, GridColumns } from '@types'
+
 import { sum, gridColCounts } from '@utils'
 
 export type Props = {

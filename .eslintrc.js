@@ -17,6 +17,7 @@ module.exports = {
           ['@utils', './src/utils'],
           ['@components', './src/components'],
           ['@data', './src/data'],
+          ['@types', './src/types'],
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },

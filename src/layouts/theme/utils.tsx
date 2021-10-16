@@ -1,6 +1,6 @@
-import { Utils } from './types'
+import { Theme, Utils } from './types'
 
-export const utils: Utils = {
+export const utils = (theme: Theme): Utils => ({
 	spread: {
 		position: 'absolute',
 		top: 0,
@@ -19,4 +19,10 @@ export const utils: Utils = {
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 	},
-}
+	focusVisible: {
+		':focus-visible': {
+			outline: 'none',
+			boxShadow: `0 0 0 0.25em ${theme.c.blue2}`,
+		},
+	},
+})

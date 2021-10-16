@@ -10,11 +10,10 @@
 			"@components": ["./src/components"],
 			"@components/*": ["./src/components/*"],
 			"@data": ["./src/data"],
-			"@data/*": ["./src/data/*"]
+			"@data/*": ["./src/data/*"],
+			"@types": ["./src/types"],
+			"@types/*": ["./src/types/*"]
 		}
-	},
-	"paths": {
-		"*": ["global.d.ts"]
 	},
 	"exclude": ["node_modules", "public"]
 }
