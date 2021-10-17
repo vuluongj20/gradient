@@ -11,12 +11,19 @@ import SettingsContext from './settings'
 
 type Props = {
 	children: ReactNode
-	appearance?: 'light' | 'dark' | 'inverted'
-	uiText: ThemeSettings['text']['ui']
-	contentText: ThemeSettings['text']['content']
+	appearance?: ThemeSettings['color']['appearance'] | 'inverted'
+	/** Type scale for UI text */
+	uiScale?: ThemeSettings['text']['ui']
+	/** Type scale for main text content */
+	contentScale?: ThemeSettings['text']['content']
 }
 
-const LocalThemeProvider = ({ children, appearance }: Props): JSX.Element => {
+const LocalThemeProvider = ({
+	children,
+	appearance,
+	uiScale,
+	contentScale,
+}: Props): JSX.Element => {
 	const {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
@@ -28,8 +35,24 @@ const LocalThemeProvider = ({ children, appearance }: Props): JSX.Element => {
 			? getInvertedAppearance(themeSettings.color.appearance)
 			: appearance ?? themeSettings.color.appearance
 
+	/**
+	 * Falls back to current settings if
+	 * appearance is not defined
+	 */
+	const localColor = { appearance: localAppearance }
+
+	/**
+	 * Falls back to current settings if
+	 * uiScale/contentScale is not defined
+	 */
+	const localText = {
+		...(uiScale && { ui: uiScale }),
+		...(contentScale && { content: contentScale }),
+	}
+
 	const mergedThemeSettings = deepMerge(themeSettings, {
-		color: { appearance: localAppearance },
+		color: localColor,
+		text: localText,
 	}) as ThemeSettings
 
 	const localTheme = getTheme(mergedThemeSettings)
