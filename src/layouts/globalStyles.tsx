@@ -54,6 +54,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration-color: ${theme('c.gray7')};
     cursor: pointer;
     transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
+    border-radius: 0.25em;
   }
   a:hover {
     color: ${theme('c.gray1')};

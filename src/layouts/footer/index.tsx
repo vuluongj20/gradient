@@ -68,6 +68,7 @@ const Column = styled.div`
 
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 
 	@media only screen and (max-width: ${theme('b.s')}) {
 		&:not(:last-child) {
