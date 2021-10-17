@@ -1,20 +1,26 @@
 import styled from 'styled-components'
 
+import Grid from './grid'
+
 import { theme } from '@utils'
 
 const Header = (): JSX.Element => (
 	<Wrap>
-		<Title>Gradient\</Title>
-		<DescWrap>
-			<DescLine>On technology, design,</DescLine>
-			<DescSecondLine>philosophy, and the law</DescSecondLine>
-		</DescWrap>
+		<InnerWrap>
+			<Title>Gradient\</Title>
+			<DescWrap>
+				<DescLine>On technology, design,</DescLine>
+				<DescSecondLine>philosophy, and the law</DescSecondLine>
+			</DescWrap>
+		</InnerWrap>
 	</Wrap>
 )
 
 export default Header
 
-const Wrap = styled.header`
+const Wrap = styled(Grid)``
+
+const InnerWrap = styled.header`
 	grid-column: 2 / -1;
 
 	display: flex;

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import Card, { CardContent } from './card'
+import Grid from './grid'
 
 import { AdaptiveGridColumns, GridColumns } from '@types'
 
@@ -154,6 +155,4 @@ const CardArea = ({ cards }: Props): JSX.Element => {
 
 export default CardArea
 
-const Wrap = styled.div`
-	display: contents;
-`
+const Wrap = styled(Grid)``
