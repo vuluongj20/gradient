@@ -18,7 +18,9 @@ const Header = (): JSX.Element => (
 
 export default Header
 
-const Wrap = styled(Grid)``
+const Wrap = styled(Grid)`
+	margin-bottom: ${theme('s[2]')};
+`
 
 const InnerWrap = styled.header`
 	grid-column: 2 / -1;

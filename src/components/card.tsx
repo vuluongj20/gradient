@@ -54,8 +54,8 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	position: relative;
 	width: 100%;
 	text-decoration: none;
-	margin-bottom: 2em;
-	padding-bottom: 0.75em;
+	margin-bottom: ${theme('s[2]')};
+	padding-bottom: ${theme('s[1]')};
 
 	grid-column-start: ${(p) => p.$gridCols.xl.start};
 	grid-column-end: ${(p) => p.$gridCols.xl.end};
