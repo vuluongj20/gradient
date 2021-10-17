@@ -5,7 +5,7 @@ import { typeScales } from './text'
 import { Theme } from './types'
 import { generateUtils } from './utils'
 
-export type UserPreferences = {
+export type ThemeSettings = {
 	color: {
 		appearance: 'light' | 'dark' | 'auto'
 		lightPalette: keyof typeof colorPalettes
@@ -18,16 +18,6 @@ export type UserPreferences = {
 	}
 	alwaysShowVideoCaptions: boolean
 }
-
-export type UserPreferencesKey =
-	| keyof UserPreferences
-	| keyof UserPreferences['color']
-	| keyof UserPreferences['text']
-
-export type UserPreferencesValue =
-	| UserPreferences[keyof UserPreferences]
-	| UserPreferences['color'][keyof UserPreferences['color']]
-	| UserPreferences['text'][keyof UserPreferences['text']]
 
 const partialDefaultTheme: Omit<Theme, 'u'> = {
 	c: colorPalettes.paper.colors,
@@ -48,7 +38,24 @@ const defaultTheme: Theme = {
 	u: generateUtils(partialDefaultTheme),
 }
 
-export const getTheme = (up: UserPreferences): Theme => {
+export const getColorPalette = (colorSettings: ThemeSettings['color']): string => {
+	let appearance: ThemeSettings['color']['appearance']
+	if (colorSettings.appearance === 'auto') {
+		appearance = window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'light'
+	} else {
+		appearance = colorSettings.appearance
+	}
+
+	if (appearance === 'dark') {
+		return colorSettings.darkPalette
+	} else {
+		return colorSettings.lightPalette
+	}
+}
+
+export const getTheme = (settings: ThemeSettings): Theme => {
 	/**
 	 * During the Gatsby build process, window and document are undefined
 	 * so return the default theme instead
@@ -58,36 +65,17 @@ export const getTheme = (up: UserPreferences): Theme => {
 	}
 
 	/** Color */
-	let appearance: UserPreferences['color']['appearance']
-	let paletteName: keyof typeof colorPalettes
-	if (up.color.appearance === 'auto') {
-		appearance = window.matchMedia('(prefers-color-scheme: dark)').matches
-			? 'dark'
-			: 'light'
-	} else {
-		appearance = up.color.appearance
-	}
-	if (appearance === 'dark') {
-		paletteName = up.color.darkPalette
-	} else {
-		paletteName = up.color.lightPalette
-	}
-	document.body.classList.forEach((className) => {
-		if (className.startsWith('palette-')) {
-			document.body.classList.remove(className)
-		}
-	})
-	document.body.classList.add(`palette-${paletteName}`)
+	const colorPalette = getColorPalette(settings.color)
 
 	/** Animation */
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 	const partialTheme: Omit<Theme, 'u'> = {
-		c: colorPalettes[paletteName].colors,
+		c: colorPalettes[colorPalette].colors,
 		t: {
 			rootSize: '16px',
-			ui: typeScales[up.text.ui],
-			content: typeScales[up.text.content],
+			ui: typeScales[settings.text.ui],
+			content: typeScales[settings.text.content],
 		},
 		a: {
 			...easings,

@@ -7,3 +7,9 @@ export const breakpoints: Breakpoints = {
 	l: '74em', // 1184px
 	xl: '90em', // 1440px
 }
+
+const breakpointMediaRules = Object.keys(breakpoints).map(
+	(key) => `@media only screen and max-width(${breakpoints[key]})`,
+)
+
+export type BreakpointMediaRule = typeof breakpointMediaRules[number]

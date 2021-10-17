@@ -1,16 +1,51 @@
-/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
-export const getNestedObject = (obj, path: string) => {
+import { Breakpoint } from '@types'
+
+export const isObject = (item: unknown): boolean =>
+	item && typeof item === 'object' && !Array.isArray(item)
+
+export const getNestedKey = (obj: unknown, path: string): unknown => {
+	if (!isObject(obj)) {
+		return null
+	}
+
 	return path
 		.split('.')
-		.reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), obj)
+		.reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : null), obj)
+}
+
+export const deepMergeUnpure = (
+	target: Record<string, unknown>,
+	source: unknown,
+): unknown => {
+	if (!source) return target
+
+	if (isObject(source)) {
+		for (const [key, value] of Object.entries(source)) {
+			if (isObject(value)) {
+				if (!target[key]) Object.assign(target, { [key]: {} })
+				deepMergeUnpure(target[key] as Record<string, unknown>, source[key])
+			} else {
+				Object.assign(target, { [key]: value })
+			}
+		}
+	}
+
+	return target
+}
+
+export const deepMerge = (target: Record<string, unknown>, source: unknown): unknown => {
+	const safeTarget = JSON.parse(JSON.stringify(target))
+	return deepMergeUnpure(safeTarget, source)
 }
 
 /** Simplify calls to the theme object in styled-components.
  *  Instead of having to write `${p => p.theme.[path]}`
  *  we can write `${theme([path])}`
  *  */
-/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types*/
-export const theme = (path: string) => (props) => getNestedObject(props.theme, path)
+export const theme =
+	(key: string) =>
+	(props: Record<string, unknown>): unknown =>
+		getNestedKey(props.theme, key)
 
 export const sum = (arr: number[]): number => arr.reduce((acc, cur) => acc + cur, 0)
 

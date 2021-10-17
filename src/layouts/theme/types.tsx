@@ -1,5 +1,7 @@
 import * as CSS from 'csstype'
 
+import { BreakpointMediaRule } from './breakpoints'
+
 import { Breakpoint } from '@types'
 
 export type ColorKeys =
@@ -60,15 +62,6 @@ export type ColorPalette = {
 	colors: Record<ColorKeys, string>
 }
 
-const typeCategoryMediaRules = {}
-
-Object.keys(breakpoints).map((breakpoint) => {
-	typeCategoryMediaRules[`@media only screen and max-width(${breakpoints[breakpoint]})`] =
-		''
-})
-
-type TypeCategoryMediaRules = typeof typeCategoryMediaRules
-
 export type TypeCategoryStyles = {
 	fontFamily: string
 	fontWeight: number
@@ -81,7 +74,8 @@ export type TypeCategoryDefinition = TypeCategoryStyles & {
 	fontSizes: Record<Breakpoint, number>
 }
 
-export type TypeCategory = TypeCategoryMediaRules & TypeCategoryStyles
+export type TypeCategory = TypeCategoryStyles &
+	Record<BreakpointMediaRule, CSS.Properties>
 
 export type TypeCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
 

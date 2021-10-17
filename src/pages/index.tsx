@@ -1,5 +1,6 @@
-import { cards } from '@data/home'
 import { Fragment } from 'react'
+
+import { cards } from '@data/home'
 
 import CardArea from '@components/cardArea'
 import Header from '@components/header'

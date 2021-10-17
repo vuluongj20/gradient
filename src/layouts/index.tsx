@@ -1,14 +1,10 @@
 import { CloudinaryContext } from 'cloudinary-react'
-import { ReactChild, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+import Footer from './footer'
 import Nav from './nav'
-import {
-	getTheme,
-	UserPreferences,
-	UserPreferencesKey,
-	UserPreferencesValue,
-} from './theme'
+import { getTheme } from './theme'
 import {
 	sohneAtRules,
 	domaineDisplayNarrowAtRules,
@@ -16,9 +12,11 @@ import {
 } from './theme/fonts'
 
 import { theme, gridColCounts } from '@utils'
+import LocalThemeProvider from '@utils/localTheme'
+import SettingsContext, { SettingsProvider } from '@utils/settings'
 
 type Props = {
-	children: ReactChild
+	children: ReactNode
 }
 
 const frameWidth = 2 // unit = em
@@ -99,47 +97,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const defaultState: UserPreferences = {
-	color: {
-		appearance: 'auto',
-		lightPalette: 'paper',
-		darkPalette: 'charcoal',
-		increaseContrast: false,
-	},
-	text: {
-		ui: 'sohne',
-		content: 'domaine',
-	},
-	alwaysShowVideoCaptions: false,
-}
-
 const Layout = ({ children }: Props): JSX.Element => {
-	const [userPreferences, setUserPreferences] = useState<UserPreferences>(defaultState)
-
-	const setUserPreference = (
-		key: UserPreferencesKey | UserPreferencesKey[],
-		value: UserPreferencesValue,
-	): void => {
-		if (typeof key === 'string') {
-			setUserPreferences({
-				...userPreferences,
-				[key]: value,
-			})
-		} else {
-			const currentKeyedState = { ...userPreferences[key[0]] }
-			currentKeyedState[key[1]] = value
-
-			setUserPreferences({
-				...userPreferences,
-				[key[0]]: currentKeyedState,
-			})
-		}
-	}
-
-	useEffect(() => {
-		localStorage.setItem('UP', JSON.stringify(userPreferences))
-	}, [userPreferences])
-
 	const [mounted, setMounted] = useState(false)
 	useEffect(() => {
 		setMounted(true)
@@ -151,11 +109,20 @@ const Layout = ({ children }: Props): JSX.Element => {
 
 	return (
 		<CloudinaryContext cloudName="vuluongj20" secure="true">
-			<ThemeProvider theme={getTheme(userPreferences)}>
-				<GlobalStyle />
-				<Nav frameWidth={frameWidth} />
-				<PageContent id="page-content">{children}</PageContent>
-			</ThemeProvider>
+			<SettingsProvider>
+				<SettingsContext.Consumer>
+					{({ settings }) => (
+						<ThemeProvider theme={getTheme(settings.theme)}>
+							<GlobalStyle />
+							<Nav frameWidth={frameWidth} />
+							<PageContent id="page-content">{children}</PageContent>
+							<LocalThemeProvider appearance="inverted">
+								<Footer />
+							</LocalThemeProvider>
+						</ThemeProvider>
+					)}
+				</SettingsContext.Consumer>
+			</SettingsProvider>
 		</CloudinaryContext>
 	)
 }
