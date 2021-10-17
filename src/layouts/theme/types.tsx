@@ -62,6 +62,22 @@ export type ColorPalette = {
 	colors: Record<ColorKeys, string>
 }
 
+export type ColorAliasName =
+	| 'background'
+	| 'surface'
+	| 'surfaceElevated'
+	| 'heading'
+	| 'text'
+	| 'label'
+	| 'buttonLabel'
+	| 'buttonLabelHover'
+	| 'linkHover'
+	| 'linkUnderlineHover'
+	| 'line'
+	| 'lineOnSurface'
+
+export type ColorAliases = Record<ColorAliasName, string>
+
 export type TypeCategoryStyles = {
 	fontFamily: string
 	fontWeight: number
@@ -123,7 +139,7 @@ export type Breakpoints = Record<Breakpoint, string>
 
 export type Theme = {
 	/** Color */
-	c: ColorPalette['colors']
+	c: ColorPalette['colors'] & ColorAliases
 	/** Text */
 	t: {
 		rootSize: string

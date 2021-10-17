@@ -67,6 +67,10 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 		${theme('u.focusVisible')};
 	}
 
+	&:hover {
+		text-decoration: none;
+	}
+
 	@media only screen and (max-width: ${theme('b.l')}) {
 		grid-column-start: ${(p) => p.$gridCols.l.start};
 		grid-column-end: ${(p) => p.$gridCols.l.end};
@@ -115,11 +119,11 @@ const Title = styled.p`
 
 	position: relative;
 
-	color: ${theme('c.gray1')};
+	color: ${theme('c.heading')};
 	transition: color 0.1s ${theme('a.easeOutQuad')};
 
 	${Wrap}:hover & {
-		color: ${theme('c.red1')};
+		color: ${theme('c.linkHover')};
 	}
 `
 
@@ -128,7 +132,7 @@ const DummyTitle = styled.span`
 
 	color: transparent;
 	text-decoration: underline;
-	text-decoration-color: ${theme('c.red3')};
+	text-decoration-color: ${theme('c.linkUnderlineHover')};
 	z-index: -1;
 	opacity: 0;
 	transition: opacity 0.125s ${theme('a.easeOutQuad')};
@@ -140,10 +144,10 @@ const DummyTitle = styled.span`
 
 const Tags = styled.div`
 	${theme('t.ui.label')};
-	color: ${theme('c.gray5')};
+	color: ${theme('c.textSecondary')};
 	transition: color 0.125s ${theme('a.easeOutQuad')};
 
 	${Wrap}:hover & {
-		color: ${theme('c.red1')};
+		color: ${theme('c.linkHover')};
 	}
 `

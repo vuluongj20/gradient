@@ -120,8 +120,8 @@ const LinkWrap = styled.a`
 	height: 100%;
 	width: 100%;
 	position: relative;
-	background-color: ${theme('c.surface1')};
-	border-left: solid 1px ${theme('c.gray9')};
+	background-color: ${theme('c.background')};
+	border-left: solid 1px ${theme('c.line')};
 	overflow: hidden;
 
 	text-decoration: none;
@@ -154,14 +154,14 @@ const LinkContentBox = styled.div`
 
 const LinkTitle = styled.p`
 	${theme('t.ui.h3')}
-	color: ${theme('c.gray1')};
+	color: ${theme('c.heading')};
 	margin: 0;
 	transition: color 0.25s ${theme('a.easeOutQuad')};
 
 	${(p) =>
 		p.theme.a.reduced &&
 		`${LinkWrap}:hover & {
-		color: ${p.theme.c.gray3};
+		color: ${p.theme.c.buttonLabelHover};
 	}`};
 `
 
@@ -175,20 +175,20 @@ const LinkTypeText = styled.p`
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
-	color: ${theme('c.gray1')};
+	color: ${theme('c.heading')};
 	transition: color 0.25s ${theme('a.easeOutQuad')};
 
 	${(p) =>
 		p.theme.a.reduced &&
 		`${LinkWrap}:hover & {
-		color: ${p.theme.c.gray3};
+		color: ${p.theme.c.buttonLabelHover};
 	}`}
 `
 
 const LinkTypeLine = styled.div`
 	width: 6em;
 	height: 2px;
-	background-color: ${theme('c.gray1')};
+	background-color: ${theme('c.heading')};
 	transform-origin: right;
 	transition: 0.375s ${theme('a.easeOutQuart')};
 
@@ -202,6 +202,6 @@ const LinkTypeLine = styled.div`
 	${(p) =>
 		p.theme.a.reduced &&
 		`${LinkWrap}:hover & {
-			background-color: ${p.theme.c.gray3};
+			background-color: ${p.theme.c.buttonLabelHover};
 		}`}
 `

@@ -37,8 +37,7 @@ const InnerWrap = styled.header`
 
 const Title = styled.p`
 	${theme('t.content.h2')}
-
-	color: ${theme('c.gray1')};
+	color: ${theme('c.heading')};
 `
 
 const DescWrap = styled.div`

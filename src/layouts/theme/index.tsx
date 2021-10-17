@@ -1,6 +1,6 @@
 import { easings } from './animation'
 import { breakpoints } from './breakpoints'
-import { colorPalettes } from './colors'
+import { colorPalettes, getColorAliases } from './colors'
 import { spacing } from './spacing'
 import { typeScales } from './text'
 import { Theme } from './types'
@@ -21,7 +21,10 @@ export type ThemeSettings = {
 }
 
 const partialDefaultTheme: Omit<Theme, 'u'> = {
-	c: colorPalettes.paper.colors,
+	c: {
+		...colorPalettes.paper.colors,
+		...getColorAliases(colorPalettes.paper.colors),
+	},
 	t: {
 		rootSize: '16px',
 		ui: typeScales.sohne,
@@ -73,7 +76,10 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 	const partialTheme: Omit<Theme, 'u'> = {
-		c: colorPalettes[colorPalette].colors,
+		c: {
+			...colorPalettes[colorPalette].colors,
+			...getColorAliases(colorPalettes[colorPalette].colors),
+		},
 		t: {
 			rootSize: '16px',
 			ui: typeScales[settings.text.ui],

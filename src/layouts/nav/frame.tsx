@@ -94,7 +94,7 @@ const Line = styled('div')`
 	width: 100%;
 	height: 2px;
 	border-radius: 2px;
-	background-color: ${theme('c.gray1')};
+	background-color: ${theme('c.heading')};
 	opacity: 0.2;
 `
 
@@ -139,7 +139,7 @@ const SideCircle = styled('div')`
 	transform: translate(-50%, -50%);
 	width: 68.75%;
 	height: 68.75%;
-	border: solid 2px ${theme('c.gray1')};
+	border: solid 2px ${theme('c.heading')};
 	border-radius: 50%;
 	opacity: 0.2;
 `

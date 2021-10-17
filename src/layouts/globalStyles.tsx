@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
   ${sohneAtRules}
   ${domaineDisplayNarrowAtRules}
   ${domaineTextAtRules}
+
   html {
     font-size: ${theme('t.rootSize')};
     box-sizing: border-box;
@@ -23,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
   *::after {
     box-sizing: inherit;
   }
+
   body {
     font-feature-settings: 'kern', 'liga';
     -webkit-font-smoothing: antialiased;
@@ -31,12 +33,13 @@ const GlobalStyles = createGlobalStyle`
     text-align: left;
     font-family: ${theme('t.ui.body.fontFamily')};
     font-size: ${theme('t.rootSize')};
-    color: ${theme('c.gray2')};
+    color: ${theme('c.text')};
     margin: 0;
     padding: 0;
   }
+
   h1, h2, h3, h4, h5, h6 {
-    color: ${theme('c.gray1')};
+    color: ${theme('c.heading')};
     margin: 0;
   }
   h1 {${theme('t.ui.h1')}}
@@ -45,51 +48,51 @@ const GlobalStyles = createGlobalStyle`
   h4 {${theme('t.ui.h4')}}
   h5 {${theme('t.ui.h5')}}
   h6 {${theme('t.ui.h6')}}
+
   p, a {
     ${theme('t.ui.body')}; 
     margin: 0;
   }
+
   a {
-    color: ${theme('c.gray2')};
-    text-decoration-color: ${theme('c.gray7')};
+    color: ${theme('c.text')};
+    text-decoration: none;
     cursor: pointer;
-    transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
     border-radius: 0.25em;
+    transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
   }
   a:hover {
-    color: ${theme('c.gray1')};
-    text-decoration: underline;
-    text-decoration-color: ${theme('c.gray5')};
+    text-decoration: none;
   }
   a:focus-visible {
     ${theme('u.focusVisible')}; 
   }
+
   button {
+    ${theme('t.ui.label')};
+    color: ${theme('c.buttonLabel')};
+
     appearance: none;
     background: transparent;
     border: none;
     border-radius: 0.5em;
-
-    ${theme('t.ui.label')};
-    color: ${theme('c.gray1')};
-
     cursor: pointer;
-
     transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
 
     &:hover {
-      color: ${theme('c.gray3')};
+      color: ${theme('c.text')};
     }
   }
   button:focus-visible {
     ${theme('u.focusVisible')}; 
   }
+
   hr {
     width: 100%;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: solid 1px ${theme('c.gray9')};
+    border-bottom: solid 1px ${theme('c.line')};
   }
 `
 

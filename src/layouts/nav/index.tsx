@@ -179,10 +179,10 @@ const MenuButtonLine = styled.div`
 	width: 125%;
 	height: 2px;
 	border-radius: 2px;
-	background-color: ${theme('c.gray1')};
+	background-color: ${theme('c.buttonLabel')};
 
 	${MenuButton}:hover & {
-		background-color: ${theme('c.gray2')};
+		background-color: ${theme('c.buttonLabelHover')};
 	}
 `
 

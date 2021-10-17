@@ -47,7 +47,7 @@ export default Footer
 
 const Wrap = styled.footer`
 	padding-top: ${theme('s[5]')};
-	background: ${theme('c.surface1')};
+	background: ${theme('c.background')};
 `
 
 const DummyCol = styled.div`
@@ -55,6 +55,15 @@ const DummyCol = styled.div`
 
 	@media only screen and (max-width: ${theme('b.s')}) {
 		display: none;
+	}
+`
+
+const Link = styled.a`
+	color: ${theme('c.heading')};
+
+	&:hover {
+		text-decoration: underline;
+		text-decoration-color: ${theme('c.label')};
 	}
 `
 
@@ -80,12 +89,12 @@ const Column = styled.div`
 const ColLabel = styled.p`
 	${theme('t.ui.label')};
 	text-transform: uppercase;
-	color: ${theme('c.gray5')};
+	color: ${theme('c.label')};
 
 	margin-bottom: ${theme('s[2]')};
 `
 
-const ColLink = styled.a`
+const ColLink = styled(Link)`
 	&:not(:last-child) {
 		margin-bottom: ${theme('s[1]')};
 	}
@@ -108,7 +117,7 @@ const Policies = styled(Grid)`
 
 const PolicyText = styled.p`
 	grid-column-end: span 2;
-	color: ${theme('c.gray5')};
+	color: ${theme('c.label')};
 
 	@media only screen and (max-width: ${theme('b.xs')}) {
 		grid-column-end: span 4;
@@ -116,8 +125,6 @@ const PolicyText = styled.p`
 	}
 `
 
-const PolicyLink = styled.a`
+const PolicyLink = styled(Link)`
 	grid-column-end: span 1;
-
-	text-decoration: none;
 `

@@ -1,4 +1,4 @@
-import { ColorPalette } from './types'
+import { ColorPalette, ColorAliases } from './types'
 
 const paper: ColorPalette = {
 	id: 'paper',
@@ -113,6 +113,25 @@ const charcoal: ColorPalette = {
 		purple6: 'rgba(79, 34, 70, 0.25)',
 	},
 }
+
+export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
+	background: c.surface1,
+	surface: c.surface2,
+	surfaceElevated: c.surface3,
+
+	heading: c.gray1,
+	text: c.gray3,
+	label: c.gray5,
+
+	buttonLabel: c.gray1,
+	buttonLabelHover: c.gray3,
+
+	linkHover: c.red1,
+	linkUnderlineHover: c.red3,
+
+	line: c.gray9,
+	lineOnSurface: c.gray8,
+})
 
 export const colorPalettes = {
 	paper,
