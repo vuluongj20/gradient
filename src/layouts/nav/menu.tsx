@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { columns } from '@data/siteStructure'
+import { sections } from '@data/siteStructure'
 
 import { theme } from '@utils/styling'
 
@@ -28,7 +28,7 @@ export const links: Link[] = [
 		path: '/index',
 		title: 'Index',
 	},
-	...columns.map((page) => ({ ...page, type: 'column' })),
+	...sections.map((page) => ({ ...page, type: 'section' })),
 	{
 		id: 'about',
 		path: '/about',

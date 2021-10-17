@@ -47,7 +47,6 @@ export default Layout
 
 const PageContent = styled('div')`
 	position: relative;
-	max-width: ${(p) => p.theme.b.xl};
 	margin: 0 auto;
 	padding-top: ${frameWidth}em;
 `

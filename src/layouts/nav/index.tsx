@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Frame from './frame'
 import Menu, { links as menuLinks } from './menu'
 
-import { theme, reducedMotion } from '@utils/styling'
+import { frameWidth, theme, reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
@@ -140,6 +140,10 @@ const MenuButton = styled.button<{ interactive: boolean }>`
 	text-transform: uppercase;
 
 	${(p) => (p.interactive ? 'pointer-events: initial;' : 'pointer-events: none;')}
+
+	@media only screen and (max-width: ${theme('b.s')}) {
+		right: calc(${frameWidth}em - 0.5em);
+	}
 `
 
 const OpenMenuButton = styled(MenuButton)``

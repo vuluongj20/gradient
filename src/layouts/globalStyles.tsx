@@ -51,12 +51,13 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     color: ${theme('c.gray2')};
-    text-decoration-color: ${theme('c.gray8')};
+    text-decoration-color: ${theme('c.gray7')};
     cursor: pointer;
-    transition: color, box-shadow 0.25s ${theme('a.easeOutQuad')};
+    transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
   }
   a:hover {
     color: ${theme('c.gray1')};
+    text-decoration: underline;
     text-decoration-color: ${theme('c.gray5')};
   }
   a:focus-visible {
@@ -73,7 +74,7 @@ const GlobalStyles = createGlobalStyle`
 
     cursor: pointer;
 
-    transition: color, box-shadow 0.25s ${theme('a.easeOutQuad')};
+    transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
 
     &:hover {
       color: ${theme('c.gray3')};
@@ -81,6 +82,13 @@ const GlobalStyles = createGlobalStyle`
   }
   button:focus-visible {
     ${theme('u.focusVisible')}; 
+  }
+  hr {
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 1px ${theme('c.gray9')};
   }
 `
 

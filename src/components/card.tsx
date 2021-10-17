@@ -54,7 +54,7 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	position: relative;
 	width: 100%;
 	text-decoration: none;
-	margin-bottom: ${theme('s[2]')};
+	margin-bottom: ${theme('s[4]')};
 	padding-bottom: ${theme('s[1]')};
 
 	grid-column-start: ${(p) => p.$gridCols.xl.start};
@@ -72,10 +72,7 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 		grid-column-end: ${(p) => p.$gridCols.l.end};
 	}
 	@media only screen and (max-width: ${theme('b.m')}) {
-		&:first-of-type {
-			margin-top: 0.5em;
-		}
-		margin-bottom: 1em;
+		margin-bottom: ${theme('s[3]')};
 
 		grid-column-start: ${(p) => p.$gridCols.m.start};
 		grid-column-end: ${(p) => p.$gridCols.m.end};
@@ -85,10 +82,7 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 		grid-column-end: ${(p) => p.$gridCols.s.end};
 	}
 	@media only screen and (max-width: ${theme('b.xs')}) {
-		&:first-of-type {
-			margin-top: 0.5em;
-		}
-		margin-bottom: 0.5em;
+		margin-bottom: ${theme('s[2]')};
 
 		grid-column: 1 / -1;
 	}

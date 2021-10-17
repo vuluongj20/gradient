@@ -71,6 +71,10 @@ const FrameWrapper = styled('div')`
 	width: 100vw;
 	height: 100vh;
 	pointer-events: none;
+
+	@media only screen and (max-width: ${theme('b.s')}) {
+		display: none;
+	}
 `
 
 const CornerWrapper = styled.div<CornerProps>`

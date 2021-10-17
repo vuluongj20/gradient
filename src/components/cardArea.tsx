@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 import Card, { CardContent } from './card'
 import Grid from './grid'
 
@@ -146,14 +144,12 @@ const CardArea = ({ cards }: Props): JSX.Element => {
 	const gridColumns = getGridColumns(cards)
 
 	return (
-		<Wrap>
+		<Grid>
 			{cards.map((card, i) => (
 				<Card key={card.id} {...card} gridCols={gridColumns[i]} />
 			))}
-		</Wrap>
+		</Grid>
 	)
 }
 
 export default CardArea
-
-const Wrap = styled(Grid)``
