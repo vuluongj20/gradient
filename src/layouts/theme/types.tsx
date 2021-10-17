@@ -134,6 +134,8 @@ export type Theme = {
 	a: Animation
 	/** Breakpoints */
 	b: Breakpoints
+	/** Spacing */
+	s: string[]
 	/** Utilities */
 	u: Utils
 }

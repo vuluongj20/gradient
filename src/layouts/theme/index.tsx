@@ -1,6 +1,7 @@
 import { easings } from './animation'
 import { breakpoints } from './breakpoints'
 import { colorPalettes } from './colors'
+import { spacing } from './spacing'
 import { typeScales } from './text'
 import { Theme } from './types'
 import { generateUtils } from './utils'
@@ -30,6 +31,7 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 		...easings,
 		reduced: false,
 	},
+	s: spacing,
 	b: breakpoints,
 }
 
@@ -81,6 +83,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			...easings,
 			reduced: reducedMotion,
 		},
+		s: spacing,
 		b: breakpoints,
 	}
 

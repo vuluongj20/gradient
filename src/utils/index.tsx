@@ -10,7 +10,13 @@ export const getNestedKey = (obj: unknown, path: string): unknown => {
 
 	return path
 		.split('.')
-		.reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : null), obj)
+		.map((item) => item.split(/(\[\d\])/g))
+		.flat()
+		.filter((item) => item)
+		.reduce((obj, key) => {
+			const modifiedKey = key.replace(/^\[(.+)\]$/g, '$1')
+			return obj && obj[modifiedKey] !== 'undefined' ? obj[modifiedKey] : null
+		}, obj)
 }
 
 export const deepMergeUnpure = (
