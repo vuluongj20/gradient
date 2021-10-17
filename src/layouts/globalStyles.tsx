@@ -6,7 +6,7 @@ import {
   domaineTextAtRules,
 } from './theme/fonts'
 
-import { theme } from '@utils'
+import { theme } from '@utils/styling'
 
 const GlobalStyles = createGlobalStyle`
   ${sohneAtRules}

@@ -3,7 +3,9 @@ import gsap from 'gsap'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { theme } from '@utils'
+import { columns } from '@data/siteStructure'
+
+import { theme } from '@utils/styling'
 
 type Props = {
 	isOpen: boolean
@@ -17,7 +19,7 @@ type Link = {
 	id: string
 	path: string
 	title: string
-	type?: 'column'
+	type?: string
 }
 
 export const links: Link[] = [
@@ -26,24 +28,7 @@ export const links: Link[] = [
 		path: '/index',
 		title: 'Index',
 	},
-	{
-		id: 'technology',
-		path: '/column/technology',
-		title: 'Technology',
-		type: 'column',
-	},
-	{
-		id: 'design',
-		path: '/column/design',
-		title: 'Design',
-		type: 'column',
-	},
-	{
-		id: 'law',
-		path: '/column/law',
-		title: 'Law',
-		type: 'column',
-	},
+	...columns.map((page) => ({ ...page, type: 'column' })),
 	{
 		id: 'about',
 		path: '/about',
@@ -189,6 +174,7 @@ const LinkTypeText = styled.p`
 	${theme('t.ui.label')}
 	margin: 0;
 	text-align: right;
+	text-transform: uppercase;
 	color: ${theme('c.gray1')};
 	transition: color 0.25s ${theme('a.easeOutQuad')};
 

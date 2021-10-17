@@ -5,7 +5,7 @@ import Image from './image'
 
 import { AdaptiveGridColumns } from '@types'
 
-import { theme } from '@utils'
+import { theme } from '@utils/styling'
 
 export type CardContent = {
 	id: string

@@ -1,8 +1,8 @@
-import { Breakpoint } from '@types'
-
+/** Check if an item is an object */
 export const isObject = (item: unknown): boolean =>
 	item && typeof item === 'object' && !Array.isArray(item)
 
+/** Get nested value from an object using a path string, e.g. 'a.b[0]' */
 export const getNestedKey = (obj: unknown, path: string): unknown => {
 	if (!isObject(obj)) {
 		return null
@@ -19,6 +19,7 @@ export const getNestedKey = (obj: unknown, path: string): unknown => {
 		}, obj)
 }
 
+/** WARNING: unpure function, will modify target */
 export const deepMergeUnpure = (
 	target: Record<string, unknown>,
 	source: unknown,
@@ -39,29 +40,11 @@ export const deepMergeUnpure = (
 	return target
 }
 
+/** Deep merge two objects, where source overrides target */
 export const deepMerge = (target: Record<string, unknown>, source: unknown): unknown => {
 	const safeTarget = JSON.parse(JSON.stringify(target))
 	return deepMergeUnpure(safeTarget, source)
 }
 
-/** Simplify calls to the theme object in styled-components.
- *  Instead of having to write `${p => p.theme.[path]}`
- *  we can write `${theme([path])}`
- *  */
-export const theme =
-	(key: string) =>
-	(props: Record<string, unknown>): unknown =>
-		getNestedKey(props.theme, key)
-
+/** Simple array summation */
 export const sum = (arr: number[]): number => arr.reduce((acc, cur) => acc + cur, 0)
-
-export const reducedMotion = (): boolean => {
-	if (typeof window === 'undefined' || typeof document === 'undefined') {
-		return false
-	}
-	return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
-type ColCounts = Record<Breakpoint, number>
-
-export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }

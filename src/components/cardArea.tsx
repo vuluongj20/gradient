@@ -5,7 +5,8 @@ import Grid from './grid'
 
 import { AdaptiveGridColumns, GridColumns } from '@types'
 
-import { sum, gridColCounts } from '@utils'
+import { sum } from '@utils/functions'
+import { gridColCounts } from '@utils/styling'
 
 export type Props = {
 	cards: CardContent[]

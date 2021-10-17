@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 
-import { gridColCounts } from '@utils'
+import { gridColCounts, frameWidth } from '@utils/styling'
 
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
 	grid-gap: 1.25em;
+
+	padding: 0 ${frameWidth}em;
 
 	@media only screen and (max-width: ${(p) => p.theme.b.l}) {
 		grid-template-columns:

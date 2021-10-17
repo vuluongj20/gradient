@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import Grid from './grid'
 
-import { theme } from '@utils'
+import { theme } from '@utils/styling'
 
 const Header = (): JSX.Element => (
 	<Wrap>

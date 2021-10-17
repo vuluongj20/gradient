@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
-import { theme } from '@utils'
+import { theme, frameWidth } from '@utils/styling'
 
 type CornerProps = {
-	width: number
 	rotation: number
 	top?: boolean
 	left?: boolean
@@ -12,17 +11,8 @@ type CornerProps = {
 }
 
 type SideProps = {
-	width: number
 	left?: boolean
 	right?: boolean
-}
-
-type StampProps = {
-	width: number
-}
-
-type FrameProps = {
-	width: number
 }
 
 const Corner = (props: CornerProps): JSX.Element => (
@@ -40,7 +30,7 @@ const Side = (props: SideProps): JSX.Element => (
 	</SideWrapper>
 )
 
-const Stamp = (props: StampProps): JSX.Element => {
+const Stamp = (): JSX.Element => {
 	const dateFormat: Intl.DateTimeFormatOptions = {
 		year: 'numeric',
 		month: 'short',
@@ -49,7 +39,7 @@ const Stamp = (props: StampProps): JSX.Element => {
 	const dateString = new Date(Date.now()).toLocaleString('en-US', dateFormat)
 
 	return (
-		<StampWrapper {...props}>
+		<StampWrapper>
 			<StampSection>
 				<StampText>GRDNT</StampText>
 			</StampSection>
@@ -60,15 +50,15 @@ const Stamp = (props: StampProps): JSX.Element => {
 	)
 }
 
-const Frame = ({ width }: FrameProps): JSX.Element => (
+const Frame = (): JSX.Element => (
 	<FrameWrapper>
-		<Corner width={width} rotation={0} top left />
-		<Corner width={width} rotation={90} top right />
-		<Corner width={width} rotation={180} bottom right />
-		<Corner width={width} rotation={270} bottom left />
-		<Side width={width} left />
-		<Side width={width} right />
-		<Stamp width={width} />
+		<Corner rotation={0} top left />
+		<Corner rotation={90} top right />
+		<Corner rotation={180} bottom right />
+		<Corner rotation={270} bottom left />
+		<Side left />
+		<Side right />
+		<Stamp />
 	</FrameWrapper>
 )
 
@@ -85,14 +75,14 @@ const FrameWrapper = styled('div')`
 
 const CornerWrapper = styled.div<CornerProps>`
 	position: absolute;
-	width: ${(p) => p.width * 0.5}em;
-	height: ${(p) => p.width * 0.5}em;
+	width: ${frameWidth * 0.5}em;
+	height: ${frameWidth * 0.5}em;
 	transform: rotate(${(p) => p.rotation}deg);
 
-	${(p) => p.top && `top: ${p.width * 0.5}em;`}
-	${(p) => p.bottom && `bottom: ${p.width * 0.5}em;`}
-	${(p) => p.left && `left: ${p.width * 0.5}em;`}
-	${(p) => p.right && `right: ${p.width * 0.5}em;`}
+	${(p) => p.top && `top: ${frameWidth * 0.5}em;`}
+	${(p) => p.bottom && `bottom: ${frameWidth * 0.5}em;`}
+	${(p) => p.left && `left: ${frameWidth * 0.5}em;`}
+	${(p) => p.right && `right: ${frameWidth * 0.5}em;`}
 `
 
 const Line = styled('div')`
@@ -120,11 +110,11 @@ const SideWrapper = styled('div')<SideProps>`
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	width: ${(p) => p.width * 0.6875}em;
-	height: ${(p) => p.width * 0.6875}em;
+	width: ${frameWidth * 0.6875}em;
+	height: ${frameWidth * 0.6875}em;
 
-	${(p) => p.left && `left: ${p.width * 0.15625}em;`}
-	${(p) => p.right && `right: ${p.width * 0.15625}em;`}
+	${(p) => p.left && `left: ${frameWidth * 0.15625}em;`}
+	${(p) => p.right && `right: ${frameWidth * 0.15625}em;`}
 `
 
 const SideLineHorizontal = styled(Line)`
@@ -150,13 +140,13 @@ const SideCircle = styled('div')`
 	opacity: 0.2;
 `
 
-const StampWrapper = styled('div')<StampProps>`
+const StampWrapper = styled('div')`
 	display: flex;
 	flex-direction: column;
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: ${(p) => p.width}em;
+	width: ${frameWidth}em;
 	height: 100%;
 `
 

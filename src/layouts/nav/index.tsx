@@ -6,17 +6,13 @@ import styled from 'styled-components'
 import Frame from './frame'
 import Menu, { links as menuLinks } from './menu'
 
-import { theme, reducedMotion } from '@utils'
-
-type Props = {
-	frameWidth: number
-}
+import { theme, reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
 	: { duration: 1, ease: 'power4.inOut' }
 
-const Nav = ({ frameWidth }: Props): JSX.Element => {
+const Nav = (): JSX.Element => {
 	const [isOpen, setOpen] = useState(false)
 	const focusTrapOptions = {
 		returnFocusOnDeactivate: true,
@@ -89,7 +85,7 @@ const Nav = ({ frameWidth }: Props): JSX.Element => {
 	return (
 		<Wrap onKeyDown={onKeyDown}>
 			<Slidable>
-				<Frame width={frameWidth} />
+				<Frame />
 				<Backdrop
 					style={{ pointerEvents: isOpen ? 'initial' : 'none' }}
 					onClick={() => {
@@ -140,6 +136,8 @@ const MenuButton = styled.button<{ interactive: boolean }>`
 	padding: 0.5em 0.75em;
 	white-space: pre;
 	z-index: 1;
+
+	text-transform: uppercase;
 
 	${(p) => (p.interactive ? 'pointer-events: initial;' : 'pointer-events: none;')}
 `
