@@ -7,8 +7,8 @@ import GlobalStyles from './globalStyles'
 import Nav from './nav'
 import { getTheme } from './theme'
 
-import LocalThemeProvider from '@utils/localTheme'
-import SettingsContext, { SettingsProvider } from '@utils/settings'
+import LocalThemeProvider from '@utils/localThemeProvider'
+import SettingsContext, { SettingsProvider } from '@utils/settingsContext'
 import { frameWidth } from '@utils/styling'
 
 type Props = { children: ReactNode }

@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components'
 
 import { getTheme, ThemeSettings } from '../layouts/theme'
 import { deepMerge } from './functions'
-import SettingsContext from './settings'
+import SettingsContext from './settingsContext'
 
 type Props = {
 	children: ReactNode
