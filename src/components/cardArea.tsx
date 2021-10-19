@@ -1,9 +1,12 @@
+import styled from 'styled-components'
+
 import Card, { CardContent } from './card'
 import Grid from './grid'
 
 import { AdaptiveGridColumns, GridColumns } from '@types'
 
 import { sum } from '@utils/functions'
+import { theme } from '@utils/styling'
 import { gridColCounts } from '@utils/styling'
 
 export type Props = {
@@ -144,12 +147,16 @@ const CardArea = ({ cards }: Props): JSX.Element => {
 	const gridColumns = getGridColumns(cards)
 
 	return (
-		<Grid>
+		<Wrap>
 			{cards.map((card, i) => (
 				<Card key={card.id} {...card} gridCols={gridColumns[i]} />
 			))}
-		</Grid>
+		</Wrap>
 	)
 }
 
 export default CardArea
+
+const Wrap = styled(Grid)`
+	row-gap: ${theme('s[4]')};
+`
