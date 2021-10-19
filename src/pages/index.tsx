@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 
 import { cards } from '@data/home'
 
-import CardGrid from '@components/CardGrid'
+import CardGrid from '@components/cardGrid'
 import Header from '@components/header'
 import SEO from '@components/seo'
 
