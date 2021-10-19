@@ -21,6 +21,6 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 	},
 	focusVisible: {
 		outline: 'none',
-		boxShadow: `0 0 0 0.25em ${theme.c.blue2}`,
+		boxShadow: `0 0 0 0.25em ${theme.c.focus}`,
 	},
 })

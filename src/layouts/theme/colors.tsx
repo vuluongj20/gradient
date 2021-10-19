@@ -126,6 +126,8 @@ export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
 	buttonLabel: c.gray1,
 	buttonLabelHover: c.gray3,
 
+	focus: c.red3,
+
 	linkHover: c.red1,
 	linkUnderlineHover: c.red3,
 
