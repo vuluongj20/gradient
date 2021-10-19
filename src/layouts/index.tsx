@@ -31,10 +31,12 @@ const Layout = ({ children }: Props): JSX.Element => {
 						<ThemeProvider theme={getTheme(settings.theme)}>
 							<GlobalStyles />
 							<Nav />
-							<PageContent id="page-content">{children}</PageContent>
-							<LocalThemeProvider appearance="inverted">
-								<Footer />
-							</LocalThemeProvider>
+							<PageContent id="page-content">
+								{children}
+								<LocalThemeProvider appearance="inverted">
+									<Footer />
+								</LocalThemeProvider>
+							</PageContent>
 						</ThemeProvider>
 					)}
 				</SettingsContext.Consumer>
