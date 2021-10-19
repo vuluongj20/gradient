@@ -19,6 +19,11 @@ const Layout = ({ children }: Props): JSX.Element => {
 		setMounted(true)
 	}, [])
 
+	/**
+	 * Only render when the component has fully mounted,
+	 * to ensure the settings context and theme context
+	 * have fully initialized.
+	 */
 	if (!mounted) {
 		return null
 	}
