@@ -6,8 +6,7 @@ import Grid from './grid'
 import { AdaptiveGridColumns, GridColumns } from '@types'
 
 import { sum } from '@utils/functions'
-import { theme } from '@utils/styling'
-import { gridColCounts } from '@utils/styling'
+import { theme, gridColCounts } from '@utils/styling'
 
 export type Props = {
 	cards: CardContent[]
@@ -143,7 +142,7 @@ const getGridColumns = (cards): AdaptiveGridColumns[] => {
 	return results as AdaptiveGridColumns[]
 }
 
-const CardArea = ({ cards }: Props): JSX.Element => {
+const CardGrid = ({ cards }: Props): JSX.Element => {
 	const gridColumns = getGridColumns(cards)
 
 	return (
@@ -155,7 +154,7 @@ const CardArea = ({ cards }: Props): JSX.Element => {
 	)
 }
 
-export default CardArea
+export default CardGrid
 
 const Wrap = styled(Grid)`
 	row-gap: ${theme('s[4]')};

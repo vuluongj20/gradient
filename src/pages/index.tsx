@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 
 import { cards } from '@data/home'
 
-import CardArea from '@components/cardArea'
+import CardGrid from '@components/CardGrid'
 import Header from '@components/header'
 import SEO from '@components/seo'
 
@@ -11,7 +11,7 @@ const IndexPage = (): JSX.Element => {
     <Fragment>
       <SEO />
       <Header />
-      <CardArea cards={cards} />
+      <CardGrid cards={cards} />
     </Fragment>
   )
 }
