@@ -5,8 +5,6 @@ import styled from 'styled-components'
 
 import { sections } from '@data/siteStructure'
 
-import { theme } from '@utils/styling'
-
 type Props = {
 	isOpen: boolean
 	animation: {
@@ -120,8 +118,8 @@ const LinkWrap = styled.a`
 	height: 100%;
 	width: 100%;
 	position: relative;
-	background-color: ${theme('c.background')};
-	border-left: solid 1px ${theme('c.line')};
+	background-color: ${(p) => p.theme.c.background};
+	border-left: solid 1px ${(p) => p.theme.c.line};
 	overflow: hidden;
 
 	text-decoration: none;
@@ -142,7 +140,7 @@ const LinkContentBox = styled.div`
 	right: 1em;
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);
-	transition: transform 0.375s ${theme('a.easeOutQuart')};
+	transition: transform 0.375s ${(p) => p.theme.a.easeOutQuart};
 
 	${(p) =>
 		!p.theme.a.reduced &&
@@ -153,10 +151,10 @@ const LinkContentBox = styled.div`
 `
 
 const LinkTitle = styled.p`
-	${theme('t.ui.h3')}
-	color: ${theme('c.heading')};
+	${(p) => p.theme.t.ui.h3}
+	color: ${(p) => p.theme.c.heading};
 	margin: 0;
-	transition: color 0.25s ${theme('a.easeOutQuad')};
+	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
 
 	${(p) =>
 		p.theme.a.reduced &&
@@ -171,12 +169,12 @@ const LinkTypeWrap = styled.div`
 `
 
 const LinkTypeText = styled.p`
-	${theme('t.ui.label')}
+	${(p) => p.theme.t.ui.label}
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
-	color: ${theme('c.heading')};
-	transition: color 0.25s ${theme('a.easeOutQuad')};
+	color: ${(p) => p.theme.c.heading};
+	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
 
 	${(p) =>
 		p.theme.a.reduced &&
@@ -188,9 +186,9 @@ const LinkTypeText = styled.p`
 const LinkTypeLine = styled.div`
 	width: 6em;
 	height: 2px;
-	background-color: ${theme('c.heading')};
+	background-color: ${(p) => p.theme.c.heading};
 	transform-origin: right;
-	transition: 0.375s ${theme('a.easeOutQuart')};
+	transition: 0.375s ${(p) => p.theme.a.easeOutQuart};
 
 	${(p) =>
 		!p.theme.a.reduced &&

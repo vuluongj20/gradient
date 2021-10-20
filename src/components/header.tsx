@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 import Grid from './grid'
 
-import { theme } from '@utils/styling'
-
 const Header = (): JSX.Element => (
 	<Wrap>
 		<InnerWrap>
@@ -19,7 +17,7 @@ const Header = (): JSX.Element => (
 export default Header
 
 const Wrap = styled(Grid)`
-	margin-bottom: ${theme('s[2]')};
+	margin-bottom: ${(p) => p.theme.s[2]};
 `
 
 const InnerWrap = styled.header`
@@ -28,7 +26,7 @@ const InnerWrap = styled.header`
 	display: flex;
 	align-items: flex-end;
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		grid-column: 1 / -1;
 
 		justify-content: center;
@@ -36,29 +34,29 @@ const InnerWrap = styled.header`
 `
 
 const Title = styled.h1`
-	${theme('t.content.h2')}
-	color: ${theme('c.heading')};
+	${(p) => p.theme.t.content.h2}
+	color: ${(p) => p.theme.c.heading};
 `
 
 const DescWrap = styled.div`
 	margin-bottom: 0.75em;
 	transform: translateX(-0.25em);
 
-	@media only screen and (max-width: ${theme('b.m')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
 		margin-bottom: 0.5em;
 	}
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		margin-bottom: 0.5em;
 	}
 
-	@media only screen and (max-width: ${theme('b.xs')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
 		display: none;
 	}
 `
 
 const DescLine = styled.p`
-	${theme('t.ui.label')}
+	${(p) => p.theme.t.ui.label}
 	font-weight: 500;
 	line-height: 1.2;
 `

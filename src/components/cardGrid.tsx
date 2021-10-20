@@ -5,8 +5,6 @@ import CardArea, { Offsets } from './cardArea'
 
 import Grid from '@components/grid'
 
-import { theme } from '@utils/styling'
-
 type Props = {
 	cards: CardContent[]
 	offsets: Offsets
@@ -21,5 +19,5 @@ const CardGrid = ({ cards, offsets }: Props): JSX.Element => (
 export default CardGrid
 
 const Wrap = styled(Grid)`
-	row-gap: ${theme('s[4]')};
+	row-gap: ${(p) => p.theme.s[4]};
 `

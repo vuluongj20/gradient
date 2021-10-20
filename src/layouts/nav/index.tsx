@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Frame from './frame'
 import Menu, { links as menuLinks } from './menu'
 
-import { frameWidth, theme, reducedMotion } from '@utils/styling'
+import { frameWidth, reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
@@ -129,7 +129,7 @@ const Wrap = styled.div`
 `
 
 const MenuButton = styled.button<{ interactive: boolean }>`
-	${theme('u.flexCenter')}
+	${(p) => p.theme.u.flexCenter}
 	position: fixed;
 	top: 0.5em;
 	right: 2.75em;
@@ -141,7 +141,7 @@ const MenuButton = styled.button<{ interactive: boolean }>`
 
 	${(p) => (p.interactive ? 'pointer-events: initial;' : 'pointer-events: none;')}
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		right: calc(${frameWidth}em - 0.5em);
 	}
 `
@@ -179,10 +179,10 @@ const MenuButtonLine = styled.div`
 	width: 125%;
 	height: 2px;
 	border-radius: 2px;
-	background-color: ${theme('c.buttonLabel')};
+	background-color: ${(p) => p.theme.c.buttonLabel};
 
 	${MenuButton}:hover & {
-		background-color: ${theme('c.buttonLabelHover')};
+		background-color: ${(p) => p.theme.c.buttonLabelHover};
 	}
 `
 

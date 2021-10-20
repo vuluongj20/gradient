@@ -5,8 +5,6 @@ import Image from './image'
 
 import { AdaptiveGridColumns } from '@types'
 
-import { theme } from '@utils/styling'
-
 export type CardContent = {
 	id: string
 	to: string
@@ -54,7 +52,7 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	position: relative;
 	width: 100%;
 	text-decoration: none;
-	padding-bottom: ${theme('s[1]')};
+	padding-bottom: ${(p) => p.theme.s[1]};
 
 	grid-column-start: ${(p) => p.$gridCols.xl.start};
 	grid-column-end: ${(p) => p.$gridCols.xl.end};
@@ -63,44 +61,44 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	border-radius: 1em 0 1em 0;
 
 	&:focus-visible {
-		${theme('u.focusVisible')};
+		${(p) => p.theme.u.focusVisible};
 	}
 
 	&:hover {
 		text-decoration: none;
 	}
 
-	@media only screen and (max-width: ${theme('b.l')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.l}) {
 		grid-column-start: ${(p) => p.$gridCols.l.start};
 		grid-column-end: ${(p) => p.$gridCols.l.end};
 	}
-	@media only screen and (max-width: ${theme('b.m')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
 		grid-column-start: ${(p) => p.$gridCols.m.start};
 		grid-column-end: ${(p) => p.$gridCols.m.end};
 	}
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		grid-column-start: ${(p) => p.$gridCols.s.start};
 		grid-column-end: ${(p) => p.$gridCols.s.end};
 	}
-	@media only screen and (max-width: ${theme('b.xs')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
 		grid-column: 1 / -1;
 	}
 `
 
 const ImageWrap = styled.div`
-	${theme('u.flexCenter')}
+	${(p) => p.theme.u.flexCenter}
 	width: 100%;
 	max-height: 32em;
 	border-radius: 1em 0 1em 0;
 	overflow: hidden;
 
-	@media only screen and (max-width: ${theme('b.m')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
 		max-height: 26em;
 	}
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		max-height: 20em;
 	}
-	@media only screen and (max-width: ${theme('b.xs')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
 		max-height: 16em;
 	}
 `
@@ -110,27 +108,27 @@ const TitleWrap = styled.div`
 `
 
 const Title = styled.p`
-	${theme('t.content.h4')}
+	${(p) => p.theme.t.content.h4}
 
 	position: relative;
 
-	color: ${theme('c.heading')};
-	transition: color 0.1s ${theme('a.easeOutQuad')};
+	color: ${(p) => p.theme.c.heading};
+	transition: color 0.1s ${(p) => p.theme.a.easeOutQuad};
 
 	${Wrap}:hover & {
-		color: ${theme('c.linkHover')};
+		color: ${(p) => p.theme.c.linkHover};
 	}
 `
 
 const DummyTitle = styled.span`
-	${theme('u.spread')};
+	${(p) => p.theme.u.spread};
 
 	color: transparent;
 	text-decoration: underline;
-	text-decoration-color: ${theme('c.linkUnderlineHover')};
+	text-decoration-color: ${(p) => p.theme.c.linkUnderlineHover};
 	z-index: -1;
 	opacity: 0;
-	transition: opacity 0.125s ${theme('a.easeOutQuad')};
+	transition: opacity 0.125s ${(p) => p.theme.a.easeOutQuad};
 
 	${Wrap}:hover & {
 		opacity: 1;
@@ -138,12 +136,12 @@ const DummyTitle = styled.span`
 `
 
 const Tags = styled.div`
-	${theme('t.ui.label')};
-	color: ${theme('c.label')};
-	margin-top: ${theme('s[0]')};
-	transition: color 0.125s ${theme('a.easeOutQuad')};
+	${(p) => p.theme.t.ui.label};
+	color: ${(p) => p.theme.c.label};
+	margin-top: ${(p) => p.theme.s[0]};
+	transition: color 0.125s ${(p) => p.theme.a.easeOutQuad};
 
 	${Wrap}:hover & {
-		color: ${theme('c.linkHover')};
+		color: ${(p) => p.theme.c.linkHover};
 	}
 `

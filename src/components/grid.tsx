@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-import { frameWidth, gridColCounts, theme } from '@utils/styling'
+import { frameWidth, gridColCounts } from '@utils/styling'
 
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
-	column-gap: ${theme('s.3')};
+	column-gap: ${(p) => p.theme.s[3]};
 
 	max-width: ${(p) => p.theme.b.xl};
 	margin: 0 auto;
@@ -21,7 +21,7 @@ const Grid = styled.div`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
-		column-gap: ${theme('s.2')};
+		column-gap: ${(p) => p.theme.s[2]};
 	}
 
 	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
@@ -34,7 +34,7 @@ const Grid = styled.div`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
-		column-gap: ${theme('s.1')};
+		column-gap: ${(p) => p.theme.s[1]};
 	}
 `
 

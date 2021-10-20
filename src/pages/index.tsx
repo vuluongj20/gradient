@@ -10,8 +10,6 @@ import Header from '@components/header'
 import Section from '@components/section'
 import SEO from '@components/seo'
 
-import { theme } from '@utils/styling'
-
 const heroOffsets: Offsets = { xl: [0, 0], l: [0, 0], m: [0, 0], s: [0, 0], xs: [0, 0] }
 const featuredOffsets: Offsets = {
   xl: [1, 1],
@@ -56,11 +54,11 @@ const IndexPage = (): JSX.Element => {
 export default IndexPage
 
 const HeroSection = styled.div`
-  margin-bottom: ${theme('s[7]')};
+  margin-bottom: ${(p) => p.theme.s[7]};
 `
 
 const HeroGrid = styled.div`
   &:not(:last-child) {
-    margin-bottom: ${theme('s[4]')};
+    margin-bottom: ${(p) => p.theme.s[4]};
   }
 `

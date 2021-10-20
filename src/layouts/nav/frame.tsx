@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { theme, frameWidth } from '@utils/styling'
+import { frameWidth } from '@utils/styling'
 
 type CornerProps = {
 	rotation: number
@@ -72,7 +72,7 @@ const FrameWrapper = styled('div')`
 	height: 100vh;
 	pointer-events: none;
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		display: none;
 	}
 `
@@ -94,7 +94,7 @@ const Line = styled('div')`
 	width: 100%;
 	height: 2px;
 	border-radius: 2px;
-	background-color: ${theme('c.heading')};
+	background-color: ${(p) => p.theme.c.heading};
 	opacity: 0.2;
 `
 
@@ -139,7 +139,7 @@ const SideCircle = styled('div')`
 	transform: translate(-50%, -50%);
 	width: 68.75%;
 	height: 68.75%;
-	border: solid 2px ${theme('c.heading')};
+	border: solid 2px ${(p) => p.theme.c.heading};
 	border-radius: 50%;
 	opacity: 0.2;
 `
@@ -163,7 +163,7 @@ const StampSection = styled('div')`
 `
 
 const StampText = styled('p')`
-	${theme('t.ui.label')}
+	${(p) => p.theme.t.ui.label}
 	opacity: 0.6;
 	white-space: nowrap;
 	transform: rotate(-90deg);

@@ -4,8 +4,6 @@ import { sections, writers, other, policies, Page } from '@data/siteStructure'
 
 import Grid from '@components/grid'
 
-import { theme } from '@utils/styling'
-
 const Footer = (): JSX.Element => {
 	const mapSiteLinks = (pages: Page[], Link) =>
 		pages.map((page) => (
@@ -46,29 +44,29 @@ const Footer = (): JSX.Element => {
 export default Footer
 
 const Wrap = styled.footer`
-	padding-top: ${theme('s[5]')};
-	background: ${theme('c.background')};
+	padding-top: ${(p) => p.theme.s[5]};
+	background: ${(p) => p.theme.c.background};
 `
 
 const DummyCol = styled.div`
 	grid-column-end: span 1;
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		display: none;
 	}
 `
 
 const Link = styled.a`
-	color: ${theme('c.heading')};
+	color: ${(p) => p.theme.c.heading};
 
 	&:hover {
 		text-decoration: underline;
-		text-decoration-color: ${theme('c.label')};
+		text-decoration-color: ${(p) => p.theme.c.label};
 	}
 `
 
 const SiteMap = styled(Grid)`
-	padding-bottom: ${theme('s[5]')};
+	padding-bottom: ${(p) => p.theme.s[5]};
 	justify-items: start;
 `
 
@@ -79,49 +77,49 @@ const Column = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		&:not(:last-child) {
-			margin-bottom: ${theme('s[4]')};
+			margin-bottom: ${(p) => p.theme.s[4]};
 		}
 	}
 `
 
 const ColLabel = styled.p`
-	${theme('t.ui.label')};
+	${(p) => p.theme.t.ui.label};
 	text-transform: uppercase;
-	color: ${theme('c.label')};
+	color: ${(p) => p.theme.c.label};
 
-	margin-bottom: ${theme('s[2]')};
+	margin-bottom: ${(p) => p.theme.s[2]};
 `
 
 const ColLink = styled(Link)`
 	&:not(:last-child) {
-		margin-bottom: ${theme('s[1]')};
+		margin-bottom: ${(p) => p.theme.s[1]};
 	}
 	text-decoration: none;
 `
 
 const DisclosuresDivider = styled.hr`
 	grid-column: 2 / -2;
-	margin-bottom: ${theme('s[2]')};
+	margin-bottom: ${(p) => p.theme.s[2]};
 
-	@media only screen and (max-width: ${theme('b.s')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
 		grid-column: 1 / -1;
 	}
 `
 
 const Policies = styled(Grid)`
-	padding-bottom: ${theme('s[3]')};
+	padding-bottom: ${(p) => p.theme.s[3]};
 	justify-items: start;
 `
 
 const PolicyText = styled.p`
 	grid-column-end: span 2;
-	color: ${theme('c.label')};
+	color: ${(p) => p.theme.c.label};
 
-	@media only screen and (max-width: ${theme('b.xs')}) {
+	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
 		grid-column-end: span 4;
-		margin-bottom: ${theme('s[1]')};
+		margin-bottom: ${(p) => p.theme.s[1]};
 	}
 `
 
