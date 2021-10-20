@@ -66,6 +66,7 @@ export type ColorAliasName =
 	| 'background'
 	| 'surface'
 	| 'surfaceElevated'
+	| 'focus'
 	| 'heading'
 	| 'text'
 	| 'label'

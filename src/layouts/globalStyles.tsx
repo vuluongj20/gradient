@@ -58,6 +58,7 @@ const GlobalStyles = createGlobalStyle`
     color: ${theme('c.text')};
     text-decoration: none;
     cursor: pointer;
+    border-radius: ${theme('s[0]')};
     transition: color, box-shadow 0.125s ${theme('a.easeOutQuad')};
   }
   a:hover {
