@@ -55,5 +55,4 @@ export default Layout
 const PageContent = styled('div')`
 	position: relative;
 	margin: 0 auto;
-	padding-top: ${frameWidth}em;
 `
