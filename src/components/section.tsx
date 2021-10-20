@@ -42,8 +42,6 @@ const StyledGrid = styled(Grid)`
 
 const TitleWrap = styled.a`
 	position: relative;
-	display: flex;
-	align-items: flex-end;
 	border-radius: ${(p) => p.theme.s[0]};
 
 	grid-column: 2 / -1;
@@ -55,24 +53,27 @@ const TitleWrap = styled.a`
 `
 
 const Title = styled.h2`
-	${(p) => p.theme.t.ui.h3}
+	${(p) => p.theme.t.ui.h3};
+
 	position: relative;
+	display: flex;
+	align-items: flex-end;
 `
 
 const TypeLine = styled.div`
-	position: absolute;
-	bottom: 0;
-	right: 0;
 	width: 2em;
-	height: 0.1em;
-	margin-left: 0.25em;
+	height: 4px;
+	margin-left: 0.125em;
 	margin-bottom: 0.2em;
 	background-color: ${(p) => p.theme.c.overlayLine};
 	transform-origin: left;
-	transform: translateX(calc(100% + 0.125em));
 	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
 
 	${TitleWrap}:hover & {
-		transform: translateX(calc(100% + 0.125em)) scaleX(1.5);
+		transform: scaleX(1.5);
+	}
+
+	${(p) => p.theme.u.media.s} {
+		height: 3px;
 	}
 `
