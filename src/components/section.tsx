@@ -19,14 +19,11 @@ const Section = ({ section, cards, offsets, background }: Props): JSX.Element =>
 	return (
 		<Wrap background={background}>
 			<StyledGrid>
-				<TitleWrap>
-					<TitleInnerWrap href={section.path}>
-						<TypeWrap>
-							<TypeText>Section</TypeText>
-							<TypeLine />
-						</TypeWrap>
-						<Title>{section.title}</Title>
-					</TitleInnerWrap>
+				<TitleWrap href={section.path}>
+					<Title>
+						{section.title}
+						<TypeLine />
+					</Title>
 				</TitleWrap>
 				<CardArea cards={cards} offsets={offsets} />
 			</StyledGrid>
@@ -45,73 +42,39 @@ const StyledGrid = styled(Grid)`
 	row-gap: ${theme('s[4]')};
 `
 
-const TitleWrap = styled.div`
-	grid-column: 1 / 1;
-	grid-row: 1 / -1;
-
+const TitleWrap = styled.a`
 	position: relative;
+	display: flex;
+	align-items: flex-end;
+	border-radius: ${theme('s[0]')};
 
-	@media only screen and (max-width: ${theme('b.m')}) {
-		grid-column: 2 / -1;
-		grid-row: 1;
-
-		display: flex;
-	}
+	grid-column: 2 / -1;
+	grid-row: 1;
 
 	@media only screen and (max-width: ${theme('b.s')}) {
 		grid-column: 1 / -1;
 	}
 `
 
-const TitleInnerWrap = styled.a`
-	display: flex;
-	align-items: flex-end;
-	position: absolute;
-	top: ${theme('s[1]')};
-	right: 0;
-	border-radius: ${theme('s[0]')};
-	transform-origin: bottom right;
-	transform: translate(0, -100%) rotate(-90deg);
-
-	@media only screen and (max-width: ${theme('b.m')}) {
-		position: relative;
-		top: initial;
-		transform: none;
-		flex-direction: row-reverse;
-		justify-content: flex-end;
-	}
-`
-
 const Title = styled.h2`
 	${theme('t.ui.h3')}
-`
-
-const TypeWrap = styled.div`
-	margin-bottom: 0.45em;
-	margin-right: 0.25em;
-
-	@media only screen and (max-width: ${theme('b.m')}) {
-		margin-left: 0.25em;
-		margin-right: 0;
-		margin-bottom: 0.4em;
-	}
-`
-
-const TypeText = styled.p`
-	${theme('t.ui.label')}
-
-	margin: 0;
-	text-align: right;
-	text-transform: uppercase;
-	color: ${theme('c.heading')};
-
-	@media only screen and (max-width: ${theme('b.m')}) {
-		text-align: left;
-	}
+	position: relative;
 `
 
 const TypeLine = styled.div`
-	width: 6em;
-	height: 2px;
-	background-color: ${theme('c.heading')};
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 2em;
+	height: 0.1em;
+	margin-left: 0.25em;
+	margin-bottom: 0.2em;
+	background-color: ${theme('c.lineOnSurface')};
+	transform-origin: left;
+	transform: translateX(calc(100% + 0.125em));
+	transition: transform 0.25s ${theme('a.easeOutQuad')};
+
+	${TitleWrap}:hover & {
+		transform: translateX(calc(100% + 0.125em)) scaleX(1.5);
+	}
 `

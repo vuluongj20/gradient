@@ -139,7 +139,7 @@ const DummyTitle = styled.span`
 
 const Tags = styled.div`
 	${theme('t.ui.label')};
-	color: ${theme('c.textSecondary')};
+	color: ${theme('c.label')};
 	margin-top: ${theme('s[0]')};
 	transition: color 0.125s ${theme('a.easeOutQuad')};
 
