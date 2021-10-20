@@ -120,9 +120,11 @@ export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
 	contentFill: c.surface2,
 	line: c.gray9,
 
-	overlayBackground: c.surface2,
-	overlayContentFill: c.surface3,
-	overlayLine: c.gray8,
+	// Overlay fills & borders,
+	// for elements on overlays
+	oBackground: c.surface2,
+	oContentFill: c.surface3,
+	oLine: c.gray8,
 
 	// Text
 	heading: c.gray1,

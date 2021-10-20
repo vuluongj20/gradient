@@ -33,7 +33,7 @@ export default Section
 
 const Wrap = styled.section<{ overlay: boolean }>`
 	padding: ${(p) => p.theme.s[7]} 0;
-	background: ${(p) => (p.overlay ? p.theme.c.overlayBackground : p.theme.c.background)};
+	background: ${(p) => (p.overlay ? p.theme.c.oBackground : p.theme.c.background)};
 `
 
 const StyledGrid = styled(Grid)`
@@ -65,7 +65,7 @@ const TypeLine = styled.div`
 	height: 4px;
 	margin-left: 0.125em;
 	margin-bottom: 0.2em;
-	background-color: ${(p) => p.theme.c.overlayLine};
+	background-color: ${(p) => p.theme.c.oLine};
 	transform-origin: left;
 	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
 
