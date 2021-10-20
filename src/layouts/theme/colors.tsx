@@ -6,7 +6,7 @@ const paper: ColorPalette = {
 	appearance: 'light',
 	colors: {
 		surface1: '#FFFFFF',
-		surface2: '#FBF9F4',
+		surface2: '#FCFBF8',
 		surface3: '#F8F6F1',
 		surface4: '#F4F2EB',
 		gray1: '#1A1A1A',
