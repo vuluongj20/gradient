@@ -46,7 +46,7 @@ export default IndexPage
 const HeroSection = styled.div`
   padding-top: ${(p) => p.theme.s[4]};
   padding-bottom: ${(p) => p.theme.s[7]};
-  background: ${(p) => p.theme.c.overlayBackground};
+  background: ${(p) => p.theme.c.oBackground};
 `
 
 const HeroGrid = styled.div`
