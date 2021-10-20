@@ -141,7 +141,7 @@ const MenuButton = styled.button<{ interactive: boolean }>`
 
 	${(p) => (p.interactive ? 'pointer-events: initial;' : 'pointer-events: none;')}
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		right: calc(${frameWidth}em - 0.5em);
 	}
 `

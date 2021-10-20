@@ -49,7 +49,7 @@ const TitleWrap = styled.a`
 	grid-column: 2 / -1;
 	grid-row: 1;
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		grid-column: 1 / -1;
 	}
 `

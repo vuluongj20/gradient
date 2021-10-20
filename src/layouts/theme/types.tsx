@@ -132,9 +132,13 @@ export type Animation = Easings & {
 	reduced: boolean
 }
 
-export type UtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
+type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 
-export type Utils = Record<UtilName, CSS.Properties>
+type CSSUtil = Record<CSSUtilName, CSS.Properties>
+
+type MediaUtil = { media: Record<Breakpoint, string> }
+
+export type Utils = CSSUtil & MediaUtil
 
 export type Breakpoints = Record<Breakpoint, string>
 

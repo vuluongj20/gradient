@@ -68,19 +68,19 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 		text-decoration: none;
 	}
 
-	@media only screen and (max-width: ${(p) => p.theme.b.l}) {
+	${(p) => p.theme.u.media.l} {
 		grid-column-start: ${(p) => p.$gridCols.l.start};
 		grid-column-end: ${(p) => p.$gridCols.l.end};
 	}
-	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
+	${(p) => p.theme.u.media.m} {
 		grid-column-start: ${(p) => p.$gridCols.m.start};
 		grid-column-end: ${(p) => p.$gridCols.m.end};
 	}
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		grid-column-start: ${(p) => p.$gridCols.s.start};
 		grid-column-end: ${(p) => p.$gridCols.s.end};
 	}
-	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
+	${(p) => p.theme.u.media.xs} {
 		grid-column: 1 / -1;
 	}
 `
@@ -92,13 +92,13 @@ const ImageWrap = styled.div`
 	border-radius: 1em 0 1em 0;
 	overflow: hidden;
 
-	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
+	${(p) => p.theme.u.media.m} {
 		max-height: 26em;
 	}
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		max-height: 20em;
 	}
-	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
+	${(p) => p.theme.u.media.xs} {
 		max-height: 16em;
 	}
 `

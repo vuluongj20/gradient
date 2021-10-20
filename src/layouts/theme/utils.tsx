@@ -23,4 +23,11 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 		outline: 'none',
 		boxShadow: `0 0 0 0.25em ${theme.c.focus}`,
 	},
+	media: {
+		xs: `@media only screen and (max-width: ${theme.b.xs})`,
+		s: `@media only screen and (max-width: ${theme.b.s})`,
+		m: `@media only screen and (max-width: ${theme.b.m})`,
+		l: `@media only screen and (max-width: ${theme.b.l})`,
+		xl: `@media only screen and (max-width: ${theme.b.xl})`,
+	},
 })

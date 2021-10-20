@@ -11,26 +11,26 @@ const Grid = styled.div`
 	margin: 0 auto;
 	padding: 0 ${frameWidth}em;
 
-	@media only screen and (max-width: ${(p) => p.theme.b.l}) {
+	${(p) => p.theme.u.media.l} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.l}, 1fr)
 			[end];
 	}
 
-	@media only screen and (max-width: ${(p) => p.theme.b.m}) {
+	${(p) => p.theme.u.media.m} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
 		column-gap: ${(p) => p.theme.s[2]};
 	}
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
 	}
 
-	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
+	${(p) => p.theme.u.media.xs} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];

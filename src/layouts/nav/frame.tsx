@@ -72,7 +72,7 @@ const FrameWrapper = styled('div')`
 	height: 100vh;
 	pointer-events: none;
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		display: none;
 	}
 `

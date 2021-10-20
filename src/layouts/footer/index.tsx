@@ -51,7 +51,7 @@ const Wrap = styled.footer`
 const DummyCol = styled.div`
 	grid-column-end: span 1;
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		display: none;
 	}
 `
@@ -77,7 +77,7 @@ const Column = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		&:not(:last-child) {
 			margin-bottom: ${(p) => p.theme.s[4]};
 		}
@@ -103,7 +103,7 @@ const DisclosuresDivider = styled.hr`
 	grid-column: 2 / -2;
 	margin-bottom: ${(p) => p.theme.s[2]};
 
-	@media only screen and (max-width: ${(p) => p.theme.b.s}) {
+	${(p) => p.theme.u.media.s} {
 		grid-column: 1 / -1;
 	}
 `
@@ -117,7 +117,7 @@ const PolicyText = styled.p`
 	grid-column-end: span 2;
 	color: ${(p) => p.theme.c.label};
 
-	@media only screen and (max-width: ${(p) => p.theme.b.xs}) {
+	${(p) => p.theme.u.media.xs} {
 		grid-column-end: span 4;
 		margin-bottom: ${(p) => p.theme.s[1]};
 	}
