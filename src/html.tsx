@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react'
 
-import { colorPalettes } from './layouts/theme/colors'
+import { colorAliases } from './layouts/theme/colors'
 
 type Props = {
   htmlAttributes: HTMLAttributes<HTMLDocument>
@@ -25,13 +25,13 @@ export default function HTML(props: Props): JSX.Element {
           dangerouslySetInnerHTML={{
             __html: `
             body {
-              background-color: ${colorPalettes.paper.colors.surface2};
+              background-color: ${colorAliases.paper.background};
             }
-            ${Object.keys(colorPalettes)
+            ${Object.keys(colorAliases)
               .map(
                 (key) => `
               body.palette-${key} {
-                background-color: ${colorPalettes[key].colors.surface2};
+                background-color: ${colorAliases[key].background};
               }
             `,
               )

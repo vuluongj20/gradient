@@ -1,3 +1,5 @@
 module.exports = {
-	resolve: {},
+	resolve: {
+		alias: { react: path.resolve('./node_modules/react') },
+	},
 }

@@ -126,7 +126,7 @@ const DummyTitle = styled.span`
 	color: transparent;
 	text-decoration: underline;
 	text-decoration-color: ${(p) => p.theme.c.linkUnderlineHover};
-	z-index: -1;
+	z-index: 0;
 	opacity: 0;
 	transition: opacity 0.125s ${(p) => p.theme.a.easeOutQuad};
 

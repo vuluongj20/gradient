@@ -64,8 +64,11 @@ export type ColorPalette = {
 
 export type ColorAliasName =
 	| 'background'
-	| 'surface'
-	| 'surfaceElevated'
+	| 'contentFill'
+	| 'line'
+	| 'overlayBackground'
+	| 'overlayContentFill'
+	| 'overlayLine'
 	| 'focus'
 	| 'heading'
 	| 'text'
@@ -74,8 +77,6 @@ export type ColorAliasName =
 	| 'buttonLabelHover'
 	| 'linkHover'
 	| 'linkUnderlineHover'
-	| 'line'
-	| 'lineOnSurface'
 
 export type ColorAliases = Record<ColorAliasName, string>
 

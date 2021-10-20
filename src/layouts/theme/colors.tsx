@@ -115,10 +115,16 @@ const charcoal: ColorPalette = {
 }
 
 export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
+	// Fills & borders
 	background: c.surface1,
-	surface: c.surface2,
-	surfaceElevated: c.surface3,
+	contentFill: c.surface2,
+	line: c.gray9,
 
+	overlayBackground: c.surface2,
+	overlayContentFill: c.surface3,
+	overlayLine: c.gray8,
+
+	// Text
 	heading: c.gray1,
 	text: c.gray3,
 	label: c.gray5,
@@ -130,12 +136,14 @@ export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
 
 	linkHover: c.red1,
 	linkUnderlineHover: c.red3,
-
-	line: c.gray9,
-	lineOnSurface: c.gray8,
 })
 
 export const colorPalettes = {
 	paper,
 	charcoal,
+}
+
+export const colorAliases = {
+	paper: getColorAliases(paper.colors),
+	charcoal: getColorAliases(charcoal.colors),
 }

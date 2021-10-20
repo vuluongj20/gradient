@@ -10,12 +10,12 @@ type Props = {
 	section: Page
 	cards: CardContent[]
 	offsets: Offsets
-	background: string
+	overlay?: boolean
 }
 
-const Section = ({ section, cards, offsets, background }: Props): JSX.Element => {
+const Section = ({ section, cards, offsets, overlay }: Props): JSX.Element => {
 	return (
-		<Wrap background={background}>
+		<Wrap overlay={overlay}>
 			<StyledGrid>
 				<TitleWrap href={section.path}>
 					<Title>
@@ -31,9 +31,9 @@ const Section = ({ section, cards, offsets, background }: Props): JSX.Element =>
 
 export default Section
 
-const Wrap = styled.section<{ background: string }>`
+const Wrap = styled.section<{ overlay: boolean }>`
 	padding: ${(p) => p.theme.s[7]} 0;
-	background: ${(p) => p.theme.c[p.background]};
+	background: ${(p) => (p.overlay ? p.theme.c.overlayBackground : p.theme.c.background)};
 `
 
 const StyledGrid = styled(Grid)`
@@ -67,7 +67,7 @@ const TypeLine = styled.div`
 	height: 0.1em;
 	margin-left: 0.25em;
 	margin-bottom: 0.2em;
-	background-color: ${(p) => p.theme.c.lineOnSurface};
+	background-color: ${(p) => p.theme.c.overlayLine};
 	transform-origin: left;
 	transform: translateX(calc(100% + 0.125em));
 	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};

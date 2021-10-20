@@ -35,18 +35,8 @@ const IndexPage = (): JSX.Element => {
           <CardGrid cards={featured} offsets={featuredOffsets} />
         </HeroGrid>
       </HeroSection>
-      <Section
-        section={technology}
-        cards={featured}
-        offsets={featuredOffsets}
-        background="surface1"
-      />
-      <Section
-        section={design}
-        cards={featured}
-        offsets={featuredOffsets}
-        background="surface2"
-      />
+      <Section section={technology} cards={featured} offsets={featuredOffsets} />
+      <Section section={design} cards={featured} offsets={featuredOffsets} overlay />
     </Fragment>
   )
 }
