@@ -75,8 +75,6 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 		grid-column-end: ${(p) => p.$gridCols.l.end};
 	}
 	@media only screen and (max-width: ${theme('b.m')}) {
-		margin-bottom: ${theme('s[3]')};
-
 		grid-column-start: ${(p) => p.$gridCols.m.start};
 		grid-column-end: ${(p) => p.$gridCols.m.end};
 	}
@@ -85,8 +83,6 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 		grid-column-end: ${(p) => p.$gridCols.s.end};
 	}
 	@media only screen and (max-width: ${theme('b.xs')}) {
-		margin-bottom: ${theme('s[2]')};
-
 		grid-column: 1 / -1;
 	}
 `
