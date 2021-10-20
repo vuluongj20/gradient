@@ -93,10 +93,11 @@ const ColLabel = styled.p`
 `
 
 const ColLink = styled(Link)`
+	text-decoration: none;
+
 	&:not(:last-child) {
 		margin-bottom: ${(p) => p.theme.s[1]};
 	}
-	text-decoration: none;
 `
 
 const DisclosuresDivider = styled.hr`
