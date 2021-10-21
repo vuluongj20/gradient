@@ -9,7 +9,7 @@ const Grid = styled.div`
 
 	max-width: ${(p) => p.theme.b.xl};
 	margin: 0 auto;
-	padding: 0 ${frameWidth}em;
+	padding: 0 ${frameWidth * 2}em;
 
 	${(p) => p.theme.u.media.l} {
 		grid-template-columns:
@@ -28,6 +28,7 @@ const Grid = styled.div`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
+		padding: 0 ${frameWidth}em;
 	}
 
 	${(p) => p.theme.u.media.xs} {

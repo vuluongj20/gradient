@@ -28,7 +28,14 @@ module.exports = {
         icon: 'src/images/icon.png',
       },
     },
-    'gatsby-plugin-mdx',
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        defaultLayouts: {
+          policies: require.resolve('./src/templates/policies.tsx'),
+        },
+      },
+    },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
@@ -38,6 +45,14 @@ module.exports = {
         path: './src/images/',
       },
       __key: 'images',
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'policies',
+        path: './src/pages/policies',
+      },
+      __key: 'policies',
     },
     {
       resolve: 'gatsby-source-filesystem',

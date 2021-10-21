@@ -54,16 +54,16 @@ export const policies: Page[] = [
 	{
 		id: 'terms',
 		title: 'Terms',
-		path: '/terms',
+		path: '/policies/terms',
 	},
 	{
 		id: 'privacy',
 		title: 'Privacy',
-		path: '/privacy',
+		path: '/policies/privacy',
 	},
 	{
 		id: 'accessibility',
 		title: 'Accessibility',
-		path: '/accessibility',
+		path: '/policies/accessibility',
 	},
 ]
