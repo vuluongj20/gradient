@@ -9,11 +9,15 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	children: ReactNode
+	footerProps?: {
+		inverted?: boolean
+		overlay?: boolean
+	}
 }
 
 const transition = { duration: 1, ease: 'power4.inOut' }
 
-const Page = ({ children }: Props): JSX.Element => {
+const Page = ({ children, footerProps }: Props): JSX.Element => {
 	const { transitionStatus } = useTransitionState()
 
 	useEffect(() => {
@@ -31,7 +35,7 @@ const Page = ({ children }: Props): JSX.Element => {
 		<PageContent visible={pageVisible} ref={pageRef}>
 			{children}
 			<LocalThemeProvider appearance="inverted">
-				<Footer />
+				<Footer {...footerProps} />
 			</LocalThemeProvider>
 		</PageContent>
 	)
