@@ -136,8 +136,11 @@ export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
 
 	focus: c.red3,
 
+	link: c.red1,
+	linkUnderline: c.red5,
+
 	linkHover: c.red1,
-	linkUnderlineHover: c.red3,
+	linkUnderlineHover: c.red2,
 })
 
 export const colorPalettes = {

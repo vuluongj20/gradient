@@ -64,12 +64,16 @@ const TocContent = styled.div`
 		ol {
 			margin-top: ${(p) => p.theme.s[1]};
 			padding-left: ${(p) => p.theme.s[3]};
+			li {
+				list-style-type: lower-alpha;
+			}
 		}
 	}
 
 	li,
 	li > a {
 		color: ${(p) => p.theme.c.label};
+		font-weight: 400;
 	}
 	li > a:hover {
 		text-decoration: underline;

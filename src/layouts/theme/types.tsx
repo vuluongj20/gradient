@@ -75,6 +75,8 @@ export type ColorAliasName =
 	| 'label'
 	| 'buttonLabel'
 	| 'buttonLabelHover'
+	| 'link'
+	| 'linkUnderline'
 	| 'linkHover'
 	| 'linkUnderlineHover'
 

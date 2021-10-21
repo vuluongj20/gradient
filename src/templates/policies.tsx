@@ -19,6 +19,7 @@ const PlainText = ({ children }: Props): JSX.Element => {
           node {
             frontmatter {
               title
+              description
               date(formatString: "MMMM DD, YYYY")
             }
           }
@@ -31,9 +32,20 @@ const PlainText = ({ children }: Props): JSX.Element => {
   return (
     <Page footerProps={{ overlay: true }}>
       <Helmet title={frontmatter.title} />
+      <Header>
+        <Grid>
+          <Wrap>
+            <h1>{frontmatter.title}</h1>
+            <p>
+              <em>Last updated {frontmatter.date}</em>
+            </p>
+            <p>{frontmatter.description}</p>
+          </Wrap>
+        </Grid>
+      </Header>
       <StyledGrid>
-        <Wrap>{children}</Wrap>
-        <StyledTOC label="In this page" contentSelector={`${Wrap}`} />
+        <ContentWrap>{children}</ContentWrap>
+        <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
       </StyledGrid>
     </Page>
   )
@@ -42,8 +54,6 @@ const PlainText = ({ children }: Props): JSX.Element => {
 export default PlainText
 
 const Wrap = styled.div`
-  padding-top: ${(p) => p.theme.s[6]};
-  padding-bottom: ${(p) => p.theme.s[7]};
   grid-column: 2 / -5;
   font-size: 1.125em;
 
@@ -95,16 +105,38 @@ const Wrap = styled.div`
   ${(p) => p.theme.u.media.s} {
     grid-column: 1 / -1;
   }
+
+  a {
+    color: ${(p) => p.theme.c.link};
+    text-decoration: underline;
+    text-decoration-color: ${(p) => p.theme.c.linkUnderline};
+  }
+  a:hover {
+    text-decoration: underline;
+    text-decoration-color: ${(p) => p.theme.c.linkUnderlineHover};
+  }
+`
+
+const ContentWrap = styled(Wrap)`
+  padding-top: ${(p) => p.theme.s[6]};
+  padding-bottom: ${(p) => p.theme.s[7]};
+`
+
+const Header = styled.header`
+  padding: ${(p) => p.theme.s[6]} 0;
+  background: ${(p) => p.theme.c.oBackground};
 `
 
 const StyledGrid = styled(Grid)`
   align-items: flex-start;
+  position: relative;
 `
 
 const StyledTOC = styled(TOC)`
   grid-column: -4 / -1;
   position: sticky;
-  top: ${(p) => p.theme.s[7]};
+  top: 0;
+  padding-top: ${(p) => p.theme.s[7]};
 
   ${(p) => p.theme.u.media.l} {
     display: none;
