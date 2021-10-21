@@ -2,9 +2,11 @@ import styled from 'styled-components'
 
 import Grid from './grid'
 
+import TransitionLink from '@components/transitionLink'
+
 const Header = (): JSX.Element => (
 	<Wrap>
-		<InnerWrap>
+		<InnerWrap to="/">
 			<Title>Gradient\</Title>
 			<DescWrap>
 				<DescLine>On technology, design,</DescLine>
@@ -20,7 +22,7 @@ const Wrap = styled(Grid)`
 	margin-bottom: ${(p) => p.theme.s[2]};
 `
 
-const InnerWrap = styled.header`
+const InnerWrap = styled(TransitionLink)`
 	grid-column: 2 / -1;
 
 	display: flex;
