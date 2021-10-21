@@ -12,6 +12,7 @@ export const defaultSettings: State = {
 	theme: {
 		color: {
 			appearance: 'auto',
+			overlay: false,
 			lightPalette: 'paper',
 			darkPalette: 'charcoal',
 			increaseContrast: false,

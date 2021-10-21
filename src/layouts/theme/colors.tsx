@@ -114,11 +114,14 @@ const charcoal: ColorPalette = {
 	},
 }
 
-export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
+export const getColorAliases = (
+	c: ColorPalette['colors'],
+	overlay: boolean,
+): ColorAliases => ({
 	// Fills & borders
-	background: c.surface1,
-	contentFill: c.surface2,
-	line: c.gray9,
+	background: overlay ? c.surface2 : c.surface1,
+	contentFill: overlay ? c.surface3 : c.surface2,
+	line: overlay ? c.gray8 : c.gray9,
 
 	// Overlay fills & borders,
 	// for elements on overlays

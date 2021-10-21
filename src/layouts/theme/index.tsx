@@ -9,6 +9,7 @@ import { generateUtils } from './utils'
 export type ThemeSettings = {
 	color: {
 		appearance: 'light' | 'dark' | 'auto'
+		overlay: boolean
 		lightPalette: keyof typeof colorPalettes
 		darkPalette: keyof typeof colorPalettes
 		increaseContrast: boolean
@@ -23,7 +24,7 @@ export type ThemeSettings = {
 const partialDefaultTheme: Omit<Theme, 'u'> = {
 	c: {
 		...colorPalettes.paper.colors,
-		...getColorAliases(colorPalettes.paper.colors),
+		...getColorAliases(colorPalettes.paper.colors, false),
 	},
 	t: {
 		rootSize: '100%',
@@ -78,7 +79,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 	const partialTheme: Omit<Theme, 'u'> = {
 		c: {
 			...colorPalettes[colorPalette].colors,
-			...getColorAliases(colorPalettes[colorPalette].colors),
+			...getColorAliases(colorPalettes[colorPalette].colors, settings.color.overlay),
 		},
 		t: {
 			rootSize: '100%',
