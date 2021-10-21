@@ -2,12 +2,10 @@ import { CloudinaryContext } from 'cloudinary-react'
 import { ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
-import Footer from './footer'
 import GlobalStyles from './globalStyles'
 import Nav from './nav'
 import { getTheme } from './theme'
 
-import LocalThemeProvider from '@utils/localThemeProvider'
 import SettingsContext, { SettingsProvider } from '@utils/settingsContext'
 
 type Props = { children: ReactNode }
@@ -35,12 +33,7 @@ const Layout = ({ children }: Props): JSX.Element => {
 						<ThemeProvider theme={getTheme(settings.theme)}>
 							<GlobalStyles />
 							<Nav />
-							<PageContent id="page-content">
-								{children}
-								<LocalThemeProvider appearance="inverted">
-									<Footer />
-								</LocalThemeProvider>
-							</PageContent>
+							<PageContent id="page-content">{children}</PageContent>
 						</ThemeProvider>
 					)}
 				</SettingsContext.Consumer>

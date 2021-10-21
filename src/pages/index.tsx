@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import styled from 'styled-components'
 
 import { hero, featured } from '@data/home'
@@ -7,6 +6,7 @@ import { sections } from '@data/siteStructure'
 import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'
 import Header from '@components/header'
+import Page from '@components/page'
 import Section from '@components/section'
 import SEO from '@components/seo'
 
@@ -24,7 +24,7 @@ const IndexPage = (): JSX.Element => {
   const design = sections.find((s) => s.id === 'design')
 
   return (
-    <Fragment>
+    <Page>
       <SEO />
       <HeroSection>
         <Header />
@@ -37,7 +37,7 @@ const IndexPage = (): JSX.Element => {
       </HeroSection>
       <Section section={technology} cards={featured} offsets={featuredOffsets} />
       <Section section={design} cards={featured} offsets={featuredOffsets} overlay />
-    </Fragment>
+    </Page>
   )
 }
 

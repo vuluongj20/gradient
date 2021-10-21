@@ -94,7 +94,7 @@ const Nav = (): JSX.Element => {
 					}}
 				/>
 			</Slidable>
-			<Menu isOpen={isOpen} animation={menuAnimation} />
+			<Menu isOpen={isOpen} animation={menuAnimation} setOpen={setOpen} />
 			<ExitMenuButton
 				onClick={() => {
 					focusTrapInstance.deactivate()

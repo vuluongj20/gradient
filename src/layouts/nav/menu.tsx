@@ -1,13 +1,15 @@
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
-import TransitionLink from 'gatsby-plugin-transition-link'
 import gsap from 'gsap'
-import { useEffect } from 'react'
+import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
 import { siteIndex, sections } from '@data/siteStructure'
 
-type Props = {
+import TransitionLink from '@components/transitionLink'
+
+type MenuProps = {
 	isOpen: boolean
+	setOpen: Dispatch<SetStateAction<boolean>>
 	animation: {
 		duration: number
 		ease?: string
@@ -21,6 +23,11 @@ type Link = {
 	type?: string
 }
 
+type LinkProps = Link & {
+	focusable: boolean
+	setOpen: Dispatch<SetStateAction<boolean>>
+}
+
 export const links: Link[] = [
 	siteIndex,
 	...sections.map((page) => ({ ...page, type: 'section' })),
@@ -31,43 +38,26 @@ export const links: Link[] = [
 	},
 ]
 
-const Link = ({ path, title, type, focusable }: Link & { focusable: boolean }) => {
-	const exit = ({ node }) => {
-		gsap.to(node, { opacity: 0 })
-	}
+const Link = ({ path, title, type, focusable, setOpen }: LinkProps): JSX.Element => (
+	<LinkWrap
+		to={path}
+		onExit={() => setOpen(false)}
+		className="nav-link-wrap"
+		tabIndex={focusable ? '0' : '-1'}
+	>
+		<LinkContentBox>
+			{type && (
+				<LinkTypeWrap>
+					<LinkTypeText>{type}</LinkTypeText>
+					<LinkTypeLine />
+				</LinkTypeWrap>
+			)}
+			<LinkTitle>{title}</LinkTitle>
+		</LinkContentBox>
+	</LinkWrap>
+)
 
-	const entry = ({ node }) => {
-		gsap.fromTo(node, { opacity: 0 }, { opacity: 1, duration: 2 })
-	}
-
-	return (
-		<LinkWrap
-			to={path}
-			exit={{
-				trigger: exit,
-				length: 1,
-			}}
-			entry={{
-				trigger: entry,
-				delay: 0.6,
-			}}
-			className="nav-link-wrap"
-			tabIndex={focusable ? '0' : '-1'}
-		>
-			<LinkContentBox>
-				{type && (
-					<LinkTypeWrap>
-						<LinkTypeText>{type}</LinkTypeText>
-						<LinkTypeLine />
-					</LinkTypeWrap>
-				)}
-				<LinkTitle>{title}</LinkTitle>
-			</LinkContentBox>
-		</LinkWrap>
-	)
-}
-
-const Menu = ({ isOpen, animation }: Props): JSX.Element => {
+const Menu = ({ isOpen, animation, setOpen }: MenuProps): JSX.Element => {
 	useEffect(() => {
 		const scrollLockTarget = document.querySelector(`${MenuWrap}`)
 
@@ -113,7 +103,7 @@ const Menu = ({ isOpen, animation }: Props): JSX.Element => {
 	return (
 		<MenuWrap>
 			{links.map((link) => (
-				<Link key={link.id} focusable={isOpen} {...link} />
+				<Link key={link.id} focusable={isOpen} setOpen={setOpen} {...link} />
 			))}
 		</MenuWrap>
 	)
