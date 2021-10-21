@@ -1,7 +1,7 @@
-import TransitionLink from 'gatsby-plugin-transition-link'
 import styled from 'styled-components'
 
 import Image from './image'
+import TransitionLink from './transitionLink'
 
 import { AdaptiveGridColumns } from '@types'
 
@@ -20,17 +20,7 @@ type Props = CardContent & {
 
 const Card = ({ gridCols, to, img }: Props): JSX.Element => {
 	return (
-		<Wrap
-			to={to}
-			exit={{
-				trigger: () => null,
-				length: 1,
-			}}
-			entry={{
-				delay: 0.6,
-			}}
-			$gridCols={gridCols}
-		>
+		<Wrap to={to} $gridCols={gridCols}>
 			<ImageWrap>
 				<Image {...img} />
 			</ImageWrap>

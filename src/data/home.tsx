@@ -1,4 +1,6 @@
-export const hero = [{ id: '0', to: '/', size: 'xl', img: { src: '1.jpg', alt: '...' } }]
+export const hero = [
+	{ id: '0', to: '/site-index', size: 'xl', img: { src: '1.jpg', alt: '...' } },
+]
 
 export const featured = [
 	{ id: '1', to: '/', size: 'l', img: { src: '4.png', alt: '...' } },
