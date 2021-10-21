@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ReactNode, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import Footer from '../layouts/footer'
+import Footer from './footer'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
