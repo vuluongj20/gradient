@@ -47,7 +47,6 @@ module.exports = {
       },
       __key: 'pages',
     },
-    'gatsby-plugin-layout',
     {
       resolve: 'gatsby-plugin-alias-imports',
       options: {
@@ -60,6 +59,12 @@ module.exports = {
         extensions: ['js', 'jsx', 'ts', 'tsx'],
       },
     },
-    'gatsby-plugin-transition-link',
+    {
+      resolve: 'gatsby-plugin-transition-link',
+      options: {
+        layout: require.resolve(`./src/layouts/index.tsx`),
+        injectPageProps: false,
+      },
+    },
   ],
 }

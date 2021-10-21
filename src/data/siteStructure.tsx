@@ -4,6 +4,12 @@ export type Page = {
 	path: string
 }
 
+export const siteIndex: Page = {
+	id: 'site-index',
+	title: 'Index',
+	path: '/site-index',
+}
+
 export const sections: Page[] = [
 	{
 		id: 'technology',
@@ -36,11 +42,7 @@ export const writers: Page[] = [
 ]
 
 export const other: Page[] = [
-	{
-		id: 'index',
-		title: 'Index',
-		path: '/site-index',
-	},
+	siteIndex,
 	{
 		id: 'about',
 		title: 'About',

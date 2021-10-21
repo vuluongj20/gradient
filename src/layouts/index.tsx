@@ -9,7 +9,6 @@ import { getTheme } from './theme'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 import SettingsContext, { SettingsProvider } from '@utils/settingsContext'
-import { frameWidth } from '@utils/styling'
 
 type Props = { children: ReactNode }
 

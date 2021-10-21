@@ -1,9 +1,10 @@
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import TransitionLink from 'gatsby-plugin-transition-link'
 import gsap from 'gsap'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { sections } from '@data/siteStructure'
+import { siteIndex, sections } from '@data/siteStructure'
 
 type Props = {
 	isOpen: boolean
@@ -21,11 +22,7 @@ type Link = {
 }
 
 export const links: Link[] = [
-	{
-		id: 'index',
-		path: '/index',
-		title: 'Index',
-	},
+	siteIndex,
 	...sections.map((page) => ({ ...page, type: 'section' })),
 	{
 		id: 'about',
@@ -34,19 +31,41 @@ export const links: Link[] = [
 	},
 ]
 
-const Link = ({ path, title, type, focusable }: Link & { focusable: boolean }) => (
-	<LinkWrap href={path} className="nav-link-wrap" tabIndex={focusable ? '0' : '-1'}>
-		<LinkContentBox>
-			{type && (
-				<LinkTypeWrap>
-					<LinkTypeText>{type}</LinkTypeText>
-					<LinkTypeLine />
-				</LinkTypeWrap>
-			)}
-			<LinkTitle>{title}</LinkTitle>
-		</LinkContentBox>
-	</LinkWrap>
-)
+const Link = ({ path, title, type, focusable }: Link & { focusable: boolean }) => {
+	const exit = ({ node }) => {
+		gsap.to(node, { opacity: 0 })
+	}
+
+	const entry = ({ node }) => {
+		gsap.fromTo(node, { opacity: 0 }, { opacity: 1, duration: 2 })
+	}
+
+	return (
+		<LinkWrap
+			to={path}
+			exit={{
+				trigger: exit,
+				length: 1,
+			}}
+			entry={{
+				trigger: entry,
+				delay: 0.6,
+			}}
+			className="nav-link-wrap"
+			tabIndex={focusable ? '0' : '-1'}
+		>
+			<LinkContentBox>
+				{type && (
+					<LinkTypeWrap>
+						<LinkTypeText>{type}</LinkTypeText>
+						<LinkTypeLine />
+					</LinkTypeWrap>
+				)}
+				<LinkTitle>{title}</LinkTitle>
+			</LinkContentBox>
+		</LinkWrap>
+	)
+}
 
 const Menu = ({ isOpen, animation }: Props): JSX.Element => {
 	useEffect(() => {
@@ -113,7 +132,7 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	${(p) => p.animating && `pointer-events: none;`}
 `
 
-const LinkWrap = styled.a`
+const LinkWrap = styled(TransitionLink)`
 	display: block;
 	height: 100%;
 	width: 100%;
