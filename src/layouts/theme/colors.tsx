@@ -66,12 +66,12 @@ const charcoal: ColorPalette = {
 		surface2: '#1A1A1A',
 		surface3: '#212121',
 		surface4: '#292929',
-		gray1: '#E5E5E5',
-		gray2: '#CCCCCC',
-		gray3: '#B5B5B5',
-		gray4: '#9C9C9C',
-		gray5: '#858585',
-		gray6: '#6B6B6B',
+		gray1: '#F3F3F1',
+		gray2: '#DCDAD6',
+		gray3: '#C6C4BE',
+		gray4: '#AEABA3',
+		gray5: '#928F87',
+		gray6: '#77756E',
 		gray7: 'rgba(107, 107, 107, 0.7)',
 		gray8: 'rgba(107, 107, 107, 0.4)',
 		gray9: 'rgba(107, 107, 107, 0.18)',
@@ -128,7 +128,7 @@ export const getColorAliases = (c: ColorPalette['colors']): ColorAliases => ({
 
 	// Text
 	heading: c.gray1,
-	text: c.gray3,
+	text: c.gray2,
 	label: c.gray5,
 
 	buttonLabel: c.gray1,
