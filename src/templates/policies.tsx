@@ -1,4 +1,4 @@
-import { useStaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
@@ -9,25 +9,26 @@ import TOC from '@components/toc'
 
 type Props = {
   children: ReactNode
+  pageContext: {
+    frontmatter: {
+      title: string
+      description: string
+      lastEdited: string
+    }
+  }
 }
 
-const PlainText = ({ children }: Props): JSX.Element => {
-  const data = useStaticQuery(graphql`
-    query {
-      allMdx {
-        edges {
-          node {
-            frontmatter {
-              title
-              description
-              date(formatString: "MMMM DD, YYYY")
-            }
-          }
-        }
-      }
-    }
-  `)
-  const { frontmatter } = data.allMdx.edges[0].node
+const PlainText = ({ children, pageContext }: Props): JSX.Element => {
+  const { frontmatter } = pageContext
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+  const lastEdited = new Date(frontmatter.lastEdited).toLocaleDateString(
+    'en-US',
+    dateOptions,
+  )
 
   return (
     <Page footerProps={{ overlay: true }}>
@@ -37,7 +38,7 @@ const PlainText = ({ children }: Props): JSX.Element => {
           <Wrap>
             <h1>{frontmatter.title}</h1>
             <p>
-              <em>Last updated {frontmatter.date}</em>
+              <em>Last updated {lastEdited}</em>
             </p>
             <p>{frontmatter.description}</p>
           </Wrap>
@@ -137,6 +138,7 @@ const StyledTOC = styled(TOC)`
   position: sticky;
   top: 0;
   padding-top: ${(p) => p.theme.s[7]};
+  padding-bottom: ${(p) => p.theme.s[4]};
 
   ${(p) => p.theme.u.media.l} {
     display: none;

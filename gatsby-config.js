@@ -34,6 +34,11 @@ module.exports = {
         defaultLayouts: {
           policies: require.resolve('./src/templates/policies.tsx'),
         },
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-slug`,
+          },
+        ],
       },
     },
     'gatsby-plugin-sharp',
