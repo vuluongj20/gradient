@@ -36,7 +36,7 @@ const InnerWrap = styled(TransitionLink)`
 `
 
 const Title = styled.h1`
-	${(p) => p.theme.t.content.h2}
+	${(p) => p.theme.t.content.h2};
 	color: ${(p) => p.theme.c.heading};
 `
 
