@@ -46,7 +46,7 @@ const sohne: TypeScaleDefinition = {
 		fontWeight: 400,
 		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
 		letterSpacing: '0.01em',
-		lineHeight: 1.4,
+		lineHeight: 1.5,
 	},
 	label: {
 		fontFamily: sohneFontFamily,
@@ -105,7 +105,7 @@ const domaine: TypeScaleDefinition = {
 		fontFamily: domaineBodyFontFamily,
 		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
 		fontWeight: 400,
-		lineHeight: 1.4,
+		lineHeight: 1.5,
 	},
 	label: {
 		fontFamily: domaineBodyFontFamily,
