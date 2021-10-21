@@ -26,7 +26,7 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 		...getColorAliases(colorPalettes.paper.colors),
 	},
 	t: {
-		rootSize: '16px',
+		rootSize: '100%',
 		ui: typeScales.sohne,
 		content: typeScales.domaine,
 	},
@@ -81,7 +81,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			...getColorAliases(colorPalettes[colorPalette].colors),
 		},
 		t: {
-			rootSize: '16px',
+			rootSize: '100%',
 			ui: typeScales[settings.text.ui],
 			content: typeScales[settings.text.content],
 		},
