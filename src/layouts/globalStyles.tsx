@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: ${(p) => p.theme.t.rootSize};
+    line-height: 1.5;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -32,6 +33,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${(p) => p.theme.t.ui.body.fontFamily};
     font-size: ${(p) => p.theme.t.rootSize};
     color: ${(p) => p.theme.c.text};
+    line-height: 1.5;
     margin: 0;
     padding: 0;
   }
@@ -91,6 +93,14 @@ const GlobalStyles = createGlobalStyle`
     border-left: none;
     border-right: none;
     border-bottom: solid 1px ${(p) => p.theme.c.line};
+  }
+
+  li:not(:last-child) {
+    margin-bottom: ${(p) => p.theme.s[1]}
+  }
+
+  .tl-edges {
+    overflow: initial;
   }
 `
 
