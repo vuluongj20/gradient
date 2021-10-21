@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import TransitionLink from './transitionLink'
+
 import { sections, writers, other, policies, Page } from '@data/siteStructure'
 
 import Grid from '@components/grid'
@@ -7,7 +9,7 @@ import Grid from '@components/grid'
 const Footer = (): JSX.Element => {
 	const mapSiteLinks = (pages: Page[], Link) =>
 		pages.map((page) => (
-			<Link key={page.id} href={page.path}>
+			<Link key={page.id} to={page.path}>
 				{page.title}
 			</Link>
 		))
@@ -56,7 +58,7 @@ const DummyCol = styled.div`
 	}
 `
 
-const Link = styled.a`
+const Link = styled(TransitionLink)`
 	color: ${(p) => p.theme.c.heading};
 
 	&:hover {
