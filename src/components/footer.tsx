@@ -6,7 +6,14 @@ import { sections, writers, other, policies, Page } from '@data/siteStructure'
 
 import Grid from '@components/grid'
 
-const Footer = (): JSX.Element => {
+import LocalThemeProvider from '@utils/localThemeProvider'
+
+type Props = {
+	overlay?: boolean
+	inverted?: boolean
+}
+
+const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 	const mapSiteLinks = (pages: Page[], Link) =>
 		pages.map((page) => (
 			<Link key={page.id} to={page.path}>
@@ -14,8 +21,8 @@ const Footer = (): JSX.Element => {
 			</Link>
 		))
 
-	return (
-		<Wrap>
+	const footer = (
+		<Wrap overlay={overlay}>
 			<SiteMap>
 				<DummyCol />
 				<Column>
@@ -41,13 +48,19 @@ const Footer = (): JSX.Element => {
 			</Policies>
 		</Wrap>
 	)
+
+	if (overlay) {
+		return <LocalThemeProvider appearance="inverted">{footer}</LocalThemeProvider>
+	}
+
+	return footer
 }
 
 export default Footer
 
-const Wrap = styled.footer`
+const Wrap = styled.footer<{ overlay: boolean }>`
 	padding-top: ${(p) => p.theme.s[5]};
-	background: ${(p) => p.theme.c.background};
+	background: ${(p) => (p.overlay ? p.theme.c.oBackground : p.theme.c.background)};
 `
 
 const DummyCol = styled.div`
