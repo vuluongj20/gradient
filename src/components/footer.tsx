@@ -106,12 +106,8 @@ const ColLink = styled(Link)`
 `
 
 const DisclosuresDivider = styled.hr`
-	grid-column: 2 / -2;
+	grid-column: 1 / -1;
 	margin-bottom: ${(p) => p.theme.s[2]};
-
-	${(p) => p.theme.u.media.s} {
-		grid-column: 1 / -1;
-	}
 `
 
 const Policies = styled(Grid)`
