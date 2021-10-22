@@ -1,3 +1,4 @@
+import { useLocation } from '@reach/router'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
@@ -25,6 +26,7 @@ type Link = {
 
 type LinkProps = Link & {
 	focusable: boolean
+	disabled: boolean
 	setOpen: Dispatch<SetStateAction<boolean>>
 }
 
@@ -38,12 +40,20 @@ export const links: Link[] = [
 	},
 ]
 
-const Link = ({ path, title, type, focusable, setOpen }: LinkProps): JSX.Element => (
+const Link = ({
+	path,
+	title,
+	type,
+	focusable,
+	disabled,
+	setOpen,
+}: LinkProps): JSX.Element => (
 	<LinkWrap
 		to={path}
 		onExit={() => setOpen(false)}
 		className="nav-link-wrap"
-		tabIndex={focusable ? '0' : '-1'}
+		tabIndex={focusable ? 0 : -1}
+		disabled={disabled}
 	>
 		<LinkContentBox>
 			{type && (
@@ -58,6 +68,7 @@ const Link = ({ path, title, type, focusable, setOpen }: LinkProps): JSX.Element
 )
 
 const Menu = ({ isOpen, animation, setOpen }: MenuProps): JSX.Element => {
+	const location = useLocation()
 	useEffect(() => {
 		const scrollLockTarget = document.querySelector(`${MenuWrap}`)
 
@@ -102,9 +113,18 @@ const Menu = ({ isOpen, animation, setOpen }: MenuProps): JSX.Element => {
 
 	return (
 		<MenuWrap>
-			{links.map((link) => (
-				<Link key={link.id} focusable={isOpen} setOpen={setOpen} {...link} />
-			))}
+			{links.map((link) => {
+				const disabled = location.pathname.startsWith(link.path)
+				return (
+					<Link
+						key={link.id}
+						focusable={isOpen}
+						setOpen={setOpen}
+						disabled={disabled}
+						{...link}
+					/>
+				)
+			})}
 		</MenuWrap>
 	)
 }
