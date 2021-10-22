@@ -8,7 +8,6 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 type Props = {
 	label: string
 	contentSelector: string
-	headingOffset?: number
 	overlay?: boolean
 	className: string
 }
@@ -16,7 +15,6 @@ type Props = {
 const TOC = ({
 	label,
 	contentSelector,
-	headingOffset = 40,
 	overlay = false,
 	className,
 }: Props): JSX.Element => {
@@ -52,9 +50,8 @@ const TOC = ({
 		tocbot.init({
 			contentSelector,
 			tocSelector: `${TocContent}`,
-			scrollSmoothOffset: -headingOffset,
-			headingsOffset: headingOffset,
-			headingSelector: 'h2, h3',
+			scrollSmooth: false,
+			headingSelector: 'h2',
 			activeListItemClass: 'active',
 		})
 		upperObserver.observe(document.querySelector(`${UpperIntersectionTarget}`))
@@ -97,7 +94,7 @@ const TocInnerContentWrap = styled.div`
 	height: 100%;
 	overflow-y: scroll;
 	overscroll-behavior: contain;
-	padding-right: 0.5em;
+	padding-right: 1em;
 `
 
 const TocLabel = styled.p`
@@ -107,16 +104,8 @@ const TocLabel = styled.p`
 `
 
 const TocContent = styled.div`
-	> ol {
+	ol {
 		padding-left: ${(p) => p.theme.s[3]};
-		margin-top: 0;
-		ol {
-			margin-top: ${(p) => p.theme.s[1]};
-			padding-left: ${(p) => p.theme.s[3]};
-			li {
-				list-style-type: lower-alpha;
-			}
-		}
 	}
 
 	li,
@@ -124,9 +113,10 @@ const TocContent = styled.div`
 		color: ${(p) => p.theme.c.label};
 		font-weight: 400;
 	}
-	li > a:hover {
+	li:hover,
+	li:hover > a {
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.c.gray7};
+		text-decoration-color: ${(p) => p.theme.c.label};
 	}
 	li.active,
 	li.active > a {
@@ -149,6 +139,7 @@ const ScrollFade = styled.div<{ visible: boolean; overlay: boolean }>`
 	width: 100%;
 	height: ${(p) => p.theme.s[6]};
 	z-index: 1;
+	pointer-events: none;
 	transition: opacity 0.25s ${(p) => p.theme.a.easeOutQuad};
 	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `

@@ -96,7 +96,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   li:not(:last-child) {
-    margin-bottom: ${(p) => p.theme.s[1]}
+    margin-bottom: ${(p) => p.theme.s[1]};
   }
 
   .tl-edges {

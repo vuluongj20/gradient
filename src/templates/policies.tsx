@@ -67,6 +67,7 @@ const Wrap = styled.div`
     :not(hr + *):not(:first-child) {
       margin-top: ${(p) => p.theme.s[4]};
     }
+    padding-top: ${(p) => p.theme.s[1]};
     margin-bottom: ${(p) => p.theme.s[1]};
   }
   p {
@@ -91,7 +92,8 @@ const Wrap = styled.div`
     ${(p) => p.theme.t.ui.h6}
   }
   hr {
-    margin: ${(p) => p.theme.s[6]} 0;
+    margin-top: ${(p) => p.theme.s[6]};
+    margin-bottom: ${(p) => p.theme.s[5]};
   }
   li {
     margin-bottom: ${(p) => p.theme.s[1]};
