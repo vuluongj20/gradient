@@ -55,7 +55,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
 export default PlainText
 
 const Wrap = styled.div`
-  grid-column: 2 / -5;
+  grid-column: 1 / -5;
   font-size: 1.125em;
 
   h1,
@@ -100,10 +100,10 @@ const Wrap = styled.div`
   }
 
   ${(p) => p.theme.u.media.l} {
-    grid-column: 2 / -3;
+    grid-column: 1 / -3;
   }
   ${(p) => p.theme.u.media.m} {
-    grid-column: 2 / -2;
+    grid-column: 1 / -2;
   }
   ${(p) => p.theme.u.media.s} {
     grid-column: 1 / -1;
@@ -126,7 +126,8 @@ const ContentWrap = styled(Wrap)`
 `
 
 const Header = styled.header`
-  padding: ${(p) => p.theme.s[6]} 0;
+  padding-top: ${(p) => p.theme.s[7]};
+  padding-bottom: ${(p) => p.theme.s[6]};
   background: ${(p) => p.theme.c.oBackground};
 `
 
