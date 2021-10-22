@@ -61,9 +61,4 @@ export const policies: Page[] = [
 		title: 'Privacy',
 		path: '/policies/privacy',
 	},
-	{
-		id: 'accessibility',
-		title: 'Accessibility',
-		path: '/policies/accessibility',
-	},
 ]
