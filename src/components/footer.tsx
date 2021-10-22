@@ -47,7 +47,7 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 		</Wrap>
 	)
 
-	if (overlay) {
+	if (inverted) {
 		return <LocalThemeProvider appearance="inverted">{footer}</LocalThemeProvider>
 	}
 
