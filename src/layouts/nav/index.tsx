@@ -3,27 +3,56 @@ import gsap from 'gsap'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import Frame from './frame'
+import Logo from './logo'
 import Menu, { links as menuLinks } from './menu'
 
-import { frameWidth, reducedMotion } from '@utils/styling'
+import Grid from '@components/grid'
+
+import { reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
 	: { duration: 1, ease: 'power4.inOut' }
 
 const Nav = (): JSX.Element => {
-	const [isOpen, setOpen] = useState(false)
+	const [isOpen, setOpen] = useState<boolean>(false)
+	const toggleMenu = () => {
+		if (isOpen) {
+			focusTrapInstance.deactivate()
+			setOpen(false)
+		} else {
+			setOpen(true)
+		}
+	}
 	const focusTrapOptions = {
 		returnFocusOnDeactivate: true,
-		initialFocus: `${ExitMenuButton}`,
-		setReturnFocus: `${OpenMenuButton}`,
+		initialFocus: `${MenuButton}`,
+		setReturnFocus: `${MenuButton}`,
 	}
 	const focusTrapInstance =
 		typeof window !== 'undefined' && typeof document !== 'undefined'
 			? focusTrap.createFocusTrap(`${Wrap}`, focusTrapOptions)
 			: null
+	useEffect(() => {
+		if (isOpen) {
+			focusTrapInstance.activate()
+			gsap.timeline().add(
+				gsap.to([`${PageShadow}`, '#page-content'], {
+					x: `-${menuLinks.length * 6}em`,
+					...menuAnimation,
+				}),
+			)
+		} else {
+			gsap.timeline().add(
+				gsap.to([`${PageShadow}`, '#page-content'], {
+					x: '0',
+					...menuAnimation,
+				}),
+			)
+		}
+	}, [isOpen, focusTrapInstance])
 
+	/** Escape key event listener */
 	const onKeyDown = (e) => {
 		if (e.key === 'Escape') {
 			focusTrapInstance.deactivate()
@@ -31,91 +60,49 @@ const Nav = (): JSX.Element => {
 		}
 	}
 
+	/** Scroll IntersectionObserver */
+	const [scrolled, setScrolled] = useState<boolean>(false)
+	const ioCallback = (entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				setScrolled(false)
+			} else {
+				setScrolled(true)
+			}
+		})
+	}
+	const scrollObserver = new IntersectionObserver(ioCallback, {
+		rootMargin: '0px',
+		threshold: 1,
+	})
 	useEffect(() => {
-		if (isOpen) {
-			focusTrapInstance.activate()
-			gsap
-				.timeline()
-				.add(
-					gsap.to([`${Slidable}`, '#page-content'], {
-						x: `-${menuLinks.length * 6}em`,
-						...menuAnimation,
-					}),
-				)
-				.add(
-					gsap.to([`${ExitMenuButton}`], {
-						opacity: 1,
-						...menuAnimation,
-					}),
-					0,
-				)
-				.add(
-					gsap.to([`${OpenMenuButton}`], {
-						opacity: 0,
-						...menuAnimation,
-					}),
-					0,
-				)
-		} else {
-			gsap
-				.timeline()
-				.add(
-					gsap.to([`${Slidable}`, '#page-content'], {
-						x: '0',
-						...menuAnimation,
-					}),
-				)
-				.add(
-					gsap.to([`${ExitMenuButton}`], {
-						opacity: 0,
-						...menuAnimation,
-					}),
-					0,
-				)
-				.add(
-					gsap.to([`${OpenMenuButton}`], {
-						opacity: 1,
-						...menuAnimation,
-					}),
-					0,
-				)
-		}
-	}, [isOpen, focusTrapInstance])
+		scrollObserver.observe(document.querySelector('#page-top-anchor'))
+	})
 
 	return (
 		<Wrap onKeyDown={onKeyDown}>
-			<Slidable>
-				<Frame />
-				<Backdrop
-					style={{ pointerEvents: isOpen ? 'initial' : 'none' }}
-					onClick={() => {
-						focusTrapInstance.deactivate()
-						setOpen(false)
-					}}
-				/>
-			</Slidable>
-			<Menu isOpen={isOpen} animation={menuAnimation} setOpen={setOpen} />
-			<ExitMenuButton
+			<PageShadow
+				style={{ pointerEvents: isOpen ? 'initial' : 'none', opacity: isOpen ? 0.4 : 0 }}
 				onClick={() => {
 					focusTrapInstance.deactivate()
 					setOpen(false)
 				}}
-				interactive={isOpen}
-				tabIndex={isOpen ? '0' : '-1'}
-			>
-				<MenuButtonCrossWrap>
-					<MenuButtonLine1 />
-					<MenuButtonLine2 />
-				</MenuButtonCrossWrap>
-				<MenuButtonExitSpan>Exit Menu</MenuButtonExitSpan>
-			</ExitMenuButton>
-			<OpenMenuButton
-				onClick={() => setOpen(true)}
-				interactive={!isOpen}
-				tabIndex={isOpen ? '-1' : '0'}
-			>
-				Menu
-			</OpenMenuButton>
+			/>
+			<Menu isOpen={isOpen} animation={menuAnimation} setOpen={setOpen} />
+			<HeaderWrap scrolled={scrolled || isOpen}>
+				<Grid>
+					<HeaderInnerWrap>
+						<Logo />
+						<MenuButton onClick={toggleMenu} tabIndex={isOpen ? '-1' : '0'}>
+							<MenuButtonCrossWrap visible={isOpen}>
+								<MenuButtonLine1 />
+								<MenuButtonLine2 />
+							</MenuButtonCrossWrap>
+							<MenuButtonSpan visible={!isOpen}>Menu</MenuButtonSpan>
+						</MenuButton>
+					</HeaderInnerWrap>
+				</Grid>
+			</HeaderWrap>
 		</Wrap>
 	)
 }
@@ -124,52 +111,70 @@ export default Nav
 
 const Wrap = styled.div`
 	position: fixed;
-
+	width: 100%;
 	z-index: 9;
 `
 
-const MenuButton = styled.button<{ interactive: boolean }>`
-	${(p) => p.theme.u.flexCenter}
-	position: fixed;
-	top: 0.5em;
-	right: 2.75em;
-	padding: 0.5em 0.75em;
-	white-space: pre;
-	z-index: 1;
-
-	text-transform: uppercase;
-
-	${(p) => (p.interactive ? 'pointer-events: initial;' : 'pointer-events: none;')}
-
-	${(p) => p.theme.u.media.s} {
-		right: calc(${frameWidth}em - 0.5em);
-	}
-`
-
-const OpenMenuButton = styled(MenuButton)``
-
-const ExitMenuButton = styled(MenuButton)`
-	opacity: 0;
-`
-
-const MenuButtonExitSpan = styled.span``
-
-const Slidable = styled.div``
-
-const Backdrop = styled.div`
+const PageShadow = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
 	cursor: pointer;
+	background: ${(p) => p.theme.c.background};
+	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
 `
 
-const MenuButtonCrossWrap = styled.div`
+const HeaderWrap = styled.div<{ scrolled: boolean }>`
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9;
+
+	border-bottom: solid 1px transparent;
+	transition: all 0.25s ${(p) => p.theme.a.easeInOutQuad};
+
+	${(p) =>
+		p.scrolled &&
+		`background: ${p.theme.c.background};
+	border-bottom: solid 1px ${p.theme.c.line};`}
+`
+
+const HeaderInnerWrap = styled.div`
+	width: 100%;
+	grid-column: 1 / -1;
+	height: 4.5em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`
+
+const MenuButton = styled.button<{ interactive: boolean }>`
+	${(p) => p.theme.u.flexCenter};
+
 	position: relative;
-	width: 1em;
-	height: 1em;
-	margin-right: 0.5em;
+	padding: 0.5em 0.75em;
+	text-align: right;
+	white-space: pre;
+	z-index: 1;
+
+	text-transform: uppercase;
+`
+
+const MenuButtonCrossWrap = styled.div<{ visible: boolean }>`
+	position: absolute;
+	width: 1.2em;
+	height: 1.2em;
+	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
+
+	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')};
+`
+
+const MenuButtonSpan = styled.span<{ visible: boolean }>`
+	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
+
+	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')};
 `
 
 const MenuButtonLine = styled.div`

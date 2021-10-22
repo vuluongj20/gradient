@@ -1,11 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 
-import {
-  sohneAtRules,
-  domaineDisplayNarrowAtRules,
-  domaineTextAtRules,
-} from './theme/fonts'
-
 const GlobalStyles = createGlobalStyle`
   html {
     font-size: ${(p) => p.theme.t.rootSize};

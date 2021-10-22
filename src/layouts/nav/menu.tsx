@@ -113,11 +113,13 @@ export default Menu
 
 const MenuWrap = styled.nav<{ animating: boolean }>`
 	display: flex;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
 	width: 0;
-	height: 100%;
+	height: 100vh;
+
+	z-index: -1;
 
 	${(p) => p.animating && `pointer-events: none;`}
 `
@@ -145,7 +147,7 @@ const LinkContentBox = styled.div`
 	justify-content: flex-end;
 	align-items: flex-end;
 	position: absolute;
-	top: 3em;
+	top: 8em;
 	right: 1em;
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);

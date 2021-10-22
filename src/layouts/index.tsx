@@ -34,7 +34,10 @@ const Layout = ({ children }: Props): JSX.Element => {
 						<ThemeProvider theme={getTheme(settings.theme)}>
 							<GlobalStyles />
 							<Nav />
-							<PageContent id="page-content">{children}</PageContent>
+							<PageContent id="page-content">
+								<TopAnchor id="page-top-anchor" />
+								{children}
+							</PageContent>
 						</ThemeProvider>
 					)}
 				</SettingsContext.Consumer>
@@ -48,4 +51,11 @@ export default Layout
 const PageContent = styled('div')`
 	position: relative;
 	margin: 0 auto;
+`
+
+const TopAnchor = styled.div`
+	width: 100%;
+	height: 0;
+	position: absolute;
+	top: 0;
 `

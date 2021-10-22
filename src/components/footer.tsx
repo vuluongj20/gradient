@@ -24,7 +24,6 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 	const footer = (
 		<Wrap overlay={overlay}>
 			<SiteMap>
-				<DummyCol />
 				<Column>
 					<ColLabel>Sections</ColLabel>
 					{mapSiteLinks(sections, ColLink)}
@@ -42,7 +41,6 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 				<DisclosuresDivider />
 			</Grid>
 			<Policies>
-				<DummyCol />
 				<PolicyText>© {new Date().getFullYear()} Gradient</PolicyText>
 				{mapSiteLinks(policies, PolicyLink)}
 			</Policies>
@@ -61,14 +59,6 @@ export default Footer
 const Wrap = styled.footer<{ overlay: boolean }>`
 	padding-top: ${(p) => p.theme.s[5]};
 	background: ${(p) => (p.overlay ? p.theme.c.oBackground : p.theme.c.background)};
-`
-
-const DummyCol = styled.div`
-	grid-column-end: span 1;
-
-	${(p) => p.theme.u.media.s} {
-		display: none;
-	}
 `
 
 const Link = styled(TransitionLink)`

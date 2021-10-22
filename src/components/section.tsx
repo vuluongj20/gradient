@@ -44,7 +44,7 @@ const TitleWrap = styled.a`
 	position: relative;
 	border-radius: ${(p) => p.theme.s[0]};
 
-	grid-column: 2 / -1;
+	grid-column: 1 / -1;
 	grid-row: 1;
 
 	${(p) => p.theme.u.media.s} {
