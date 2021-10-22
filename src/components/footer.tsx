@@ -1,3 +1,4 @@
+import { useLocation } from '@reach/router'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
@@ -14,12 +15,17 @@ type Props = {
 }
 
 const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
+	const location = useLocation()
+
 	const mapSiteLinks = (pages: Page[], Link) =>
-		pages.map((page) => (
-			<Link key={page.id} to={page.path}>
-				{page.title}
-			</Link>
-		))
+		pages.map((page) => {
+			const disabled = location.pathname.startsWith(page.path)
+			return (
+				<Link key={page.id} to={page.path} disabled={disabled}>
+					{page.title}
+				</Link>
+			)
+		})
 
 	const footer = (
 		<Wrap overlay={overlay}>
