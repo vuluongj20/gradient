@@ -54,8 +54,8 @@ const TOC = ({
 			headingSelector: 'h2',
 			activeListItemClass: 'active',
 		})
-		// upperObserver.observe(document.querySelector(`${UpperIntersectionTarget}`))
-		// lowerObserver.observe(document.querySelector(`${LowerIntersectionTarget}`))
+		upperObserver.observe(document.querySelector(`${UpperIntersectionTarget}`))
+		lowerObserver.observe(document.querySelector(`${LowerIntersectionTarget}`))
 	})
 
 	return (
