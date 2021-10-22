@@ -105,6 +105,7 @@ const TocLabel = styled.p`
 
 const TocContent = styled.div`
 	ol {
+		margin-top: 0;
 		padding-left: ${(p) => p.theme.s[3]};
 	}
 
