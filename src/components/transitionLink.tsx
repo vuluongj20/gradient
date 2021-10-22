@@ -6,9 +6,10 @@ type Props = {
 	children: ReactNode
 	onExit: () => void
 	className: string
+	tabIndex: number
 }
 
-const Link = ({ to, children, onExit, className }: Props): JSX.Element => (
+const Link = ({ to, children, onExit, className, tabIndex = 0 }: Props): JSX.Element => (
 	<TransitionLink
 		to={to}
 		className={className}
@@ -20,6 +21,7 @@ const Link = ({ to, children, onExit, className }: Props): JSX.Element => (
 			delay: 1,
 			duration: 1,
 		}}
+		tabIndex={tabIndex}
 	>
 		{children}
 	</TransitionLink>

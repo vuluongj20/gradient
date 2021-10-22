@@ -89,11 +89,11 @@ const Nav = (): JSX.Element => {
 				}}
 			/>
 			<Menu isOpen={isOpen} animation={menuAnimation} setOpen={setOpen} />
-			<HeaderWrap scrolled={scrolled || isOpen}>
+			<HeaderWrap background={scrolled || isOpen} border={isOpen}>
 				<Grid>
 					<HeaderInnerWrap>
 						<Logo />
-						<MenuButton onClick={toggleMenu} tabIndex={isOpen ? '-1' : '0'}>
+						<MenuButton onClick={toggleMenu}>
 							<MenuButtonCrossWrap visible={isOpen}>
 								<MenuButtonLine1 />
 								<MenuButtonLine2 />
@@ -126,7 +126,7 @@ const PageShadow = styled.div`
 	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
 `
 
-const HeaderWrap = styled.div<{ scrolled: boolean }>`
+const HeaderWrap = styled.div<{ background: boolean; border: boolean }>`
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -135,10 +135,8 @@ const HeaderWrap = styled.div<{ scrolled: boolean }>`
 	border-bottom: solid 1px transparent;
 	transition: all 0.25s ${(p) => p.theme.a.easeInOutQuad};
 
-	${(p) =>
-		p.scrolled &&
-		`background: ${p.theme.c.background};
-	border-bottom: solid 1px ${p.theme.c.line};`}
+	${(p) => p.background && `background: ${p.theme.c.background};`}
+	${(p) => p.border && `border-bottom: solid 1px ${p.theme.c.line};`}
 `
 
 const HeaderInnerWrap = styled.div`
@@ -155,6 +153,7 @@ const MenuButton = styled.button<{ interactive: boolean }>`
 
 	position: relative;
 	padding: 0.5em 0.75em;
+	transform: translateX(0.75em);
 	text-align: right;
 	white-space: pre;
 	z-index: 1;
