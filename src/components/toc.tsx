@@ -54,8 +54,8 @@ const TOC = ({
 			headingSelector: 'h2',
 			activeListItemClass: 'active',
 		})
-		upperObserver.observe(document.querySelector(`${UpperIntersectionTarget}`))
-		lowerObserver.observe(document.querySelector(`${LowerIntersectionTarget}`))
+		// upperObserver.observe(document.querySelector(`${UpperIntersectionTarget}`))
+		// lowerObserver.observe(document.querySelector(`${LowerIntersectionTarget}`))
 	})
 
 	return (
@@ -122,6 +122,7 @@ const TocContent = styled.div`
 	li.active > a {
 		font-weight: 500;
 		color: ${(p) => p.theme.c.heading};
+		text-decoration: none;
 	}
 `
 
