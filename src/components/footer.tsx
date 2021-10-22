@@ -126,5 +126,5 @@ const PolicyText = styled.p`
 `
 
 const PolicyLink = styled(Link)`
-	grid-column-end: span 1;
+	grid-column-end: span 2;
 `

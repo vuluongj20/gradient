@@ -53,12 +53,12 @@ export const other: Page[] = [
 export const policies: Page[] = [
 	{
 		id: 'terms',
-		title: 'Terms',
+		title: 'Terms of Use',
 		path: '/policies/terms',
 	},
 	{
 		id: 'privacy',
-		title: 'Privacy',
+		title: 'Privacy Policy',
 		path: '/policies/privacy',
 	},
 ]
