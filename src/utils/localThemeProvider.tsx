@@ -12,7 +12,7 @@ import SettingsContext from './settingsContext'
 type Props = {
 	children: ReactNode
 	appearance?: ThemeSettings['color']['appearance'] | 'inverted'
-	overlay: boolean
+	overlay?: boolean
 	/** Type scale for UI text */
 	uiScale?: ThemeSettings['text']['ui']
 	/** Type scale for main text content */
