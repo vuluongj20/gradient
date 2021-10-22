@@ -2,6 +2,7 @@ import { CloudinaryContext } from 'cloudinary-react'
 import { ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
+import './fontFaces.css'
 import GlobalStyles from './globalStyles'
 import Nav from './nav'
 import { getTheme } from './theme'

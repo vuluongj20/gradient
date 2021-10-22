@@ -7,10 +7,6 @@ import {
 } from './theme/fonts'
 
 const GlobalStyles = createGlobalStyle`
-  ${sohneAtRules}
-  ${domaineDisplayNarrowAtRules}
-  ${domaineTextAtRules}
-
   html {
     font-size: ${(p) => p.theme.t.rootSize};
     line-height: 1.5;
