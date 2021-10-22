@@ -42,6 +42,7 @@ const StyledGrid = styled(Grid)`
 
 const TitleWrap = styled.a`
 	position: relative;
+	margin-right: auto;
 	border-radius: ${(p) => p.theme.s[0]};
 
 	grid-column: 1 / -1;
