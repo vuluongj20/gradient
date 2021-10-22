@@ -47,6 +47,8 @@ const TOC = ({
 	const lowerObserver = new IntersectionObserver(lowerCallback, options)
 
 	useEffect(() => {
+		const upperTarget = document.querySelector(`${UpperIntersectionTarget}`)
+		const lowerTarget = document.querySelector(`${LowerIntersectionTarget}`)
 		tocbot.init({
 			contentSelector,
 			tocSelector: `${TocContent}`,
@@ -54,9 +56,16 @@ const TOC = ({
 			headingSelector: 'h2',
 			activeListItemClass: 'active',
 		})
-		upperObserver.observe(document.querySelector(`${UpperIntersectionTarget}`))
-		lowerObserver.observe(document.querySelector(`${LowerIntersectionTarget}`))
-	})
+
+		upperObserver.observe(upperTarget)
+		lowerObserver.observe(lowerTarget)
+
+		return () => {
+			tocbot.destroy()
+			upperObserver.unobserve(upperTarget)
+			lowerObserver.unobserve(lowerTarget)
+		}
+	}, [])
 
 	return (
 		<LocalThemeProvider overlay={overlay}>
