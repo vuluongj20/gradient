@@ -100,6 +100,7 @@ const getGridColumns = (
 				 */
 				let difference = nCols - sum(spans)
 				let count = 0
+				let nextIndex = 0
 
 				/**
 				 * Progressively and randomly make cards wider/more narrow
@@ -107,15 +108,19 @@ const getGridColumns = (
 				 * card can be widened (usually the case in the last row)
 				 */
 				while (difference !== 0 && sum(spans) < upperLimit && count < 20) {
-					const randomIndex = Math.floor(Math.random() * row.length)
 					if (difference > 0) {
-						spans[randomIndex] += 1
+						spans[nextIndex] += 1
 						difference -= 1
-					} else if (spans[randomIndex] - 1 >= row[randomIndex].lowerLimit) {
-						spans[randomIndex] -= 1
+					} else if (spans[nextIndex] - 1 >= row[nextIndex].lowerLimit) {
+						spans[nextIndex] -= 1
 						difference += 1
 					}
 					count += 1
+					if (nextIndex < row.length - 1) {
+						nextIndex += 1
+					} else {
+						nextIndex = 0
+					}
 				}
 				let currentStartLocation = 1 + offset
 
