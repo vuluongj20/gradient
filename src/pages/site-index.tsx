@@ -16,7 +16,7 @@ const IndexPage = (): JSX.Element => {
 	const design = sections.find((s) => s.id === 'design')
 
 	return (
-		<Page>
+		<Page overlay>
 			<SEO />
 			<HeroSection>
 				<HeroGrid>
@@ -35,7 +35,6 @@ const IndexPage = (): JSX.Element => {
 export default IndexPage
 
 const HeroSection = styled.div`
-	padding-top: 4.5em;
 	padding-bottom: ${(p) => p.theme.s[7]};
 	background: ${(p) => p.theme.c.oBackground};
 `

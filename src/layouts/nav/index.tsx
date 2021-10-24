@@ -142,10 +142,18 @@ const HeaderWrap = styled.div<{ background: boolean; border: boolean }>`
 const HeaderInnerWrap = styled.div`
 	width: 100%;
 	grid-column: 1 / -1;
-	height: 4.5em;
+	height: 4em;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	${(p) => p.theme.u.media.s} {
+		height: 3.5em;
+	}
+
+	${(p) => p.theme.u.media.xs} {
+		height: 3em;
+	}
 `
 
 const MenuButton = styled.button<{ interactive: boolean }>`

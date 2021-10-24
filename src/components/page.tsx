@@ -4,11 +4,14 @@ import { ReactNode, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Footer from './footer'
+import NavPadding from './navPadding'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	children: ReactNode
+	withNavPadding?: boolean
+	overlay?: boolean
 	footerProps?: {
 		inverted?: boolean
 		overlay?: boolean
@@ -17,7 +20,12 @@ type Props = {
 
 const transition = { duration: 1, ease: 'power4.inOut' }
 
-const Page = ({ children, footerProps }: Props): JSX.Element => {
+const Page = ({
+	children,
+	overlay,
+	withNavPadding = true,
+	footerProps,
+}: Props): JSX.Element => {
 	const { transitionStatus } = useTransitionState()
 
 	useEffect(() => {
@@ -32,12 +40,15 @@ const Page = ({ children, footerProps }: Props): JSX.Element => {
 	const pageVisible = transitionStatus === 'entered' || transitionStatus === 'exiting'
 
 	return (
-		<PageContent visible={pageVisible} ref={pageRef}>
-			{children}
-			<LocalThemeProvider appearance="inverted">
-				<Footer {...footerProps} />
-			</LocalThemeProvider>
-		</PageContent>
+		<LocalThemeProvider overlay={overlay}>
+			<PageContent visible={pageVisible} ref={pageRef}>
+				{withNavPadding && <NavPadding />}
+				{children}
+				<LocalThemeProvider appearance="inverted">
+					<Footer {...footerProps} />
+				</LocalThemeProvider>
+			</PageContent>
+		</LocalThemeProvider>
 	)
 }
 
@@ -46,4 +57,5 @@ export default Page
 const PageContent = styled.div<{ visible: boolean }>`
 	opacity: 0;
 	${(p) => p.visible && 'opacity: 1;'};
+	background: ${(p) => p.theme.c.background};
 `
