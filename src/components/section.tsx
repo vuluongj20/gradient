@@ -6,6 +6,8 @@ import Grid from './grid'
 
 import { Page } from '@data/siteStructure'
 
+import LocalThemeProvider from '@utils/localThemeProvider'
+
 type Props = {
 	section: Page
 	cards: CardContent[]
@@ -15,25 +17,27 @@ type Props = {
 
 const Section = ({ section, cards, offsets, overlay }: Props): JSX.Element => {
 	return (
-		<Wrap overlay={overlay}>
-			<StyledGrid>
-				<TitleWrap href={section.path}>
-					<Title>
-						{section.title}
-						<TypeLine />
-					</Title>
-				</TitleWrap>
-				<CardArea cards={cards} offsets={offsets} />
-			</StyledGrid>
-		</Wrap>
+		<LocalThemeProvider overlay={overlay}>
+			<Wrap>
+				<StyledGrid>
+					<TitleWrap href={section.path}>
+						<Title>
+							{section.title}
+							<TypeLine />
+						</Title>
+					</TitleWrap>
+					<CardArea cards={cards} offsets={offsets} />
+				</StyledGrid>
+			</Wrap>
+		</LocalThemeProvider>
 	)
 }
 
 export default Section
 
-const Wrap = styled.section<{ overlay: boolean }>`
+const Wrap = styled.section`
 	padding: ${(p) => p.theme.s[7]} 0;
-	background: ${(p) => (p.overlay ? p.theme.c.oBackground : p.theme.c.background)};
+	background: ${(p) => p.theme.c.background};
 `
 
 const StyledGrid = styled(Grid)`
