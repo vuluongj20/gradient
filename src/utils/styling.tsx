@@ -2,6 +2,19 @@ import { Breakpoint } from '@types'
 
 type ColCounts = Record<Breakpoint, number>
 
+/**
+ * List of breakpoints. This should be in the utils folder
+ * instead of the theme folder since we may want to import it
+ * into individual components too.
+ */
+export const breakpoints: Record<Breakpoint, string> = {
+	xs: '30em', // 480px
+	s: '48em', // 768px
+	m: '64em', // 1024px
+	l: '74em', // 1184px
+	xl: '90em', // 1440px
+}
+
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }
 

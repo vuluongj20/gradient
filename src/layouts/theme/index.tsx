@@ -1,10 +1,11 @@
 import { easings } from './animation'
-import { breakpoints } from './breakpoints'
 import { colorPalettes, getColorAliases } from './colors'
 import { spacing } from './spacing'
 import { typeScales } from './text'
 import { Theme } from './types'
 import { generateUtils } from './utils'
+
+import { breakpoints } from '@utils/styling'
 
 export type ThemeSettings = {
 	color: {

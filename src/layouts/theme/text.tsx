@@ -1,5 +1,6 @@
-import { breakpoints } from './breakpoints'
 import { TypeScaleDefinition, TypeScale } from './types'
+
+import { breakpoints } from '@utils/styling'
 
 const sohneFontFamily =
 	'Sohne, Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif'
