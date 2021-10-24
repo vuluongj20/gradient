@@ -6,7 +6,11 @@ import styled from 'styled-components'
 
 import { siteIndex, sections } from '@data/siteStructure'
 
+import Grid from '@components/grid'
+import NavPadding from '@components/navPadding'
 import TransitionLink from '@components/transitionLink'
+
+import { frameWidth } from '@utils/styling'
 
 type MenuProps = {
 	isOpen: boolean
@@ -113,6 +117,7 @@ const Menu = ({ isOpen, animation, setOpen }: MenuProps): JSX.Element => {
 
 	return (
 		<MenuWrap>
+			<StyledNavPadding />
 			{links.map((link) => {
 				const disabled = location.pathname.startsWith(link.path)
 				return (
@@ -139,9 +144,23 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	width: 0;
 	height: 100vh;
 
+	background: ${(p) => p.theme.c.background};
+
 	z-index: -1;
 
 	${(p) => p.animating && `pointer-events: none;`}
+
+	${(p) => p.theme.u.media.s} {
+		flex-direction: column;
+	}
+`
+
+const StyledNavPadding = styled(NavPadding)`
+	display: none;
+
+	${(p) => p.theme.u.media.s} {
+		display: initial;
+	}
 `
 
 const LinkWrap = styled(TransitionLink)`
@@ -149,7 +168,6 @@ const LinkWrap = styled(TransitionLink)`
 	height: 100%;
 	width: 100%;
 	position: relative;
-	background-color: ${(p) => p.theme.c.background};
 	border-left: solid 1px ${(p) => p.theme.c.line};
 	overflow: hidden;
 
@@ -159,6 +177,15 @@ const LinkWrap = styled(TransitionLink)`
 
 	&:focus-visible {
 		z-index: 1;
+	}
+
+	${(p) => p.theme.u.media.s} {
+		height: auto;
+		padding: ${(p) => p.theme.s[2]} ${frameWidth}em;
+		border-left: none;
+		${Grid}:not(:last-of-type) > & {
+			border-bottom: solid 1px ${(p) => p.theme.c.line};
+		}
 	}
 `
 
@@ -179,6 +206,18 @@ const LinkContentBox = styled.div`
 		${LinkWrap}:focus-visible & {
 		transform: rotate(-90deg) translate(1em, -50%);
 	}`}
+
+	${(p) => p.theme.u.media.s} {
+		position: initial;
+		top: auto;
+		right: auto;
+		transform: none;
+
+		${LinkWrap}:hover &,
+				${LinkWrap}:focus-visible & {
+			transform: none;
+		}
+	}
 `
 
 const LinkTitle = styled.p`
@@ -197,6 +236,14 @@ const LinkTitle = styled.p`
 const LinkTypeWrap = styled.div`
 	margin-bottom: 0.45em;
 	margin-right: 0.25em;
+
+	${(p) => p.theme.u.media.s} {
+		margin-bottom: 0.35em;
+	}
+
+	${(p) => p.theme.u.media.xs} {
+		margin-bottom: 0.25em;
+	}
 `
 
 const LinkTypeText = styled.p`

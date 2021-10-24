@@ -8,7 +8,8 @@ import Menu, { links as menuLinks } from './menu'
 
 import Grid from '@components/grid'
 
-import { reducedMotion } from '@utils/styling'
+import useWindowWidth from '@utils/hooks/useWindowWidth'
+import { numericBreakpoints, reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
@@ -16,6 +17,7 @@ const menuAnimation = reducedMotion()
 
 const Nav = (): JSX.Element => {
 	const [isOpen, setOpen] = useState<boolean>(false)
+	const windowWidth = useWindowWidth()
 	const toggleMenu = () => {
 		if (isOpen) {
 			focusTrapInstance.deactivate()
@@ -36,12 +38,14 @@ const Nav = (): JSX.Element => {
 	useEffect(() => {
 		if (isOpen) {
 			focusTrapInstance.activate()
-			gsap.timeline().add(
-				gsap.to([`${PageShadow}`, '#page-content'], {
-					x: `-${menuLinks.length * 6}em`,
-					...menuAnimation,
-				}),
-			)
+			if (windowWidth > numericBreakpoints.s) {
+				gsap.timeline().add(
+					gsap.to([`${PageShadow}`, '#page-content'], {
+						x: `-${menuLinks.length * 6}em`,
+						...menuAnimation,
+					}),
+				)
+			}
 		} else {
 			gsap.timeline().add(
 				gsap.to([`${PageShadow}`, '#page-content'], {
@@ -123,6 +127,7 @@ const PageShadow = styled.div`
 	height: 100vh;
 	cursor: pointer;
 	background: ${(p) => p.theme.c.background};
+	z-index: -1;
 	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
 `
 
