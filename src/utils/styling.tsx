@@ -14,6 +14,14 @@ export const breakpoints: Record<Breakpoint, string> = {
 	l: '74em', // 1184px
 	xl: '90em', // 1440px
 }
+/** Useful for comparing with window.innerWidth */
+export const numericBreakpoints: Record<Breakpoint, number> = {
+	xs: 480,
+	s: 768,
+	m: 1024,
+	l: 1184,
+	xl: 1440,
+}
 
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }
