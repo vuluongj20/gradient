@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import Binder from './binder'
 import Logo from './logo'
 import Menu, { links as menuLinks } from './menu'
 
@@ -40,7 +41,7 @@ const Nav = (): JSX.Element => {
 			focusTrapInstance.activate()
 			if (windowWidth > numericBreakpoints.s) {
 				gsap.timeline().add(
-					gsap.to([`${PageShadow}`, '#page-content'], {
+					gsap.to([`${Slidable}`, '#page-content'], {
 						x: `-${menuLinks.length * 6}em`,
 						...menuAnimation,
 					}),
@@ -48,7 +49,7 @@ const Nav = (): JSX.Element => {
 			}
 		} else {
 			gsap.timeline().add(
-				gsap.to([`${PageShadow}`, '#page-content'], {
+				gsap.to([`${Slidable}`, '#page-content'], {
 					x: '0',
 					...menuAnimation,
 				}),
@@ -85,25 +86,30 @@ const Nav = (): JSX.Element => {
 
 	return (
 		<Wrap onKeyDown={onKeyDown}>
-			<PageShadow
-				style={{ pointerEvents: isOpen ? 'initial' : 'none', opacity: isOpen ? 0.4 : 0 }}
-				onClick={() => {
-					focusTrapInstance.deactivate()
-					setOpen(false)
-				}}
-			/>
+			<Slidable>
+				<PageShadow
+					style={{
+						pointerEvents: isOpen ? 'initial' : 'none',
+						opacity: isOpen ? 0.4 : 0,
+					}}
+					onClick={() => {
+						focusTrapInstance.deactivate()
+						setOpen(false)
+					}}
+				/>
+				<Binder />
+			</Slidable>
 			<Menu isOpen={isOpen} animation={menuAnimation} setOpen={setOpen} />
 			<HeaderWrap background={scrolled || isOpen} border={isOpen}>
 				<Grid>
 					<HeaderInnerWrap>
-						<Logo />
-						<MenuButton onClick={toggleMenu}>
+						{/*<MenuButton onClick={toggleMenu}>
 							<MenuButtonCrossWrap visible={isOpen}>
 								<MenuButtonLine1 />
 								<MenuButtonLine2 />
 							</MenuButtonCrossWrap>
 							<MenuButtonSpan visible={!isOpen}>Menu</MenuButtonSpan>
-						</MenuButton>
+						</MenuButton>*/}
 					</HeaderInnerWrap>
 				</Grid>
 			</HeaderWrap>
@@ -118,6 +124,8 @@ const Wrap = styled.div`
 	width: 100%;
 	z-index: 9;
 `
+
+const Slidable = styled.div``
 
 const PageShadow = styled.div`
 	position: absolute;
@@ -147,7 +155,7 @@ const HeaderWrap = styled.div<{ background: boolean; border: boolean }>`
 const HeaderInnerWrap = styled.div`
 	width: 100%;
 	grid-column: 1 / -1;
-	height: 4em;
+	height: 3em;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

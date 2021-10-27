@@ -5,6 +5,7 @@ import { sections } from '@data/siteStructure'
 
 import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'
+import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
 import SEO from '@components/seo'
@@ -16,9 +17,10 @@ const IndexPage = (): JSX.Element => {
   const design = sections.find((s) => s.id === 'design')
 
   return (
-    <Page overlay>
+    <Page overlay withNavPadding={false}>
       <SEO />
       <HeroSection>
+        <Header />
         <HeroGrid>
           <CardGrid cards={hero} offsets={offsets} />
         </HeroGrid>

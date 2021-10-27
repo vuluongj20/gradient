@@ -50,8 +50,8 @@ const Stamp = (): JSX.Element => {
 	)
 }
 
-const Frame = (): JSX.Element => (
-	<FrameWrapper>
+const Binder = (): JSX.Element => (
+	<Wrap>
 		<Corner rotation={0} top left />
 		<Corner rotation={90} top right />
 		<Corner rotation={180} bottom right />
@@ -59,22 +59,18 @@ const Frame = (): JSX.Element => (
 		<Side left />
 		<Side right />
 		<Stamp />
-	</FrameWrapper>
+	</Wrap>
 )
 
-export default Frame
+export default Binder
 
-const FrameWrapper = styled('div')`
+const Wrap = styled('div')`
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
 	pointer-events: none;
-
-	${(p) => p.theme.u.media.s} {
-		display: none;
-	}
 `
 
 const CornerWrapper = styled.div<CornerProps>`

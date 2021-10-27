@@ -126,9 +126,13 @@ const ContentWrap = styled(Wrap)`
 `
 
 const Header = styled.header`
-  padding-top: ${(p) => p.theme.s[7]};
+  padding-top: ${(p) => p.theme.s[6]};
   padding-bottom: ${(p) => p.theme.s[6]};
   background: ${(p) => p.theme.c.oBackground};
+
+  h1 {
+    padding-top: 0;
+  }
 `
 
 const StyledGrid = styled(Grid)`
