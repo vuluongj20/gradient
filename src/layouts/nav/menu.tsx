@@ -14,7 +14,7 @@ import { frameWidth } from '@utils/styling'
 
 type MenuProps = {
 	isOpen: boolean
-	setOpen: Dispatch<SetStateAction<boolean>>
+	toggleMenu: Dispatch<SetStateAction<boolean>>
 	animation: {
 		duration: number
 		ease?: string
@@ -31,7 +31,7 @@ type Link = {
 type LinkProps = Link & {
 	focusable: boolean
 	disabled: boolean
-	setOpen: Dispatch<SetStateAction<boolean>>
+	toggleMenu: Dispatch<SetStateAction<boolean>>
 }
 
 export const links: Link[] = [
@@ -50,11 +50,11 @@ const Link = ({
 	type,
 	focusable,
 	disabled,
-	setOpen,
+	toggleMenu,
 }: LinkProps): JSX.Element => (
 	<LinkWrap
 		to={path}
-		onExit={() => setOpen(false)}
+		onExit={() => toggleMenu(false)}
 		className="nav-link-wrap"
 		tabIndex={focusable ? 0 : -1}
 		disabled={disabled}
@@ -71,7 +71,7 @@ const Link = ({
 	</LinkWrap>
 )
 
-const Menu = ({ isOpen, animation, setOpen }: MenuProps): JSX.Element => {
+const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	const location = useLocation()
 	useEffect(() => {
 		const scrollLockTarget = document.querySelector(`${MenuWrap}`)
@@ -124,7 +124,7 @@ const Menu = ({ isOpen, animation, setOpen }: MenuProps): JSX.Element => {
 					<Link
 						key={link.id}
 						focusable={isOpen}
-						setOpen={setOpen}
+						toggleMenu={toggleMenu}
 						disabled={disabled}
 						{...link}
 					/>
@@ -143,8 +143,9 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	right: 0;
 	width: 0;
 	height: 100vh;
+	transform: translateX(100%);
 
-	background: ${(p) => p.theme.c.background};
+	background: ${(p) => p.theme.c.surface2};
 
 	z-index: -1;
 
@@ -168,7 +169,7 @@ const LinkWrap = styled(TransitionLink)`
 	height: 100%;
 	width: 100%;
 	position: relative;
-	border-left: solid 1px ${(p) => p.theme.c.line};
+	border-right: solid 1px ${(p) => p.theme.c.line};
 	overflow: hidden;
 
 	text-decoration: none;
@@ -194,7 +195,7 @@ const LinkContentBox = styled.div`
 	justify-content: flex-end;
 	align-items: flex-end;
 	position: absolute;
-	top: 8em;
+	top: 2em;
 	right: 1em;
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);

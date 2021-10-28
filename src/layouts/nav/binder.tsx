@@ -1,33 +1,26 @@
+import gsap from 'gsap'
+import { Timeline } from 'gsap/core'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import { frameWidth } from '@utils/styling'
+import { reducedMotion } from '@utils/styling'
 
-type CornerProps = {
-	rotation: number
-	top?: boolean
-	left?: boolean
-	bottom?: boolean
-	right?: boolean
-}
-
-type SideProps = {
+type TargetProps = {
 	left?: boolean
 	right?: boolean
 }
 
-const Corner = (props: CornerProps): JSX.Element => (
-	<CornerWrapper {...props}>
-		<CornerLineHorizontal />
-		<CornerLineVertical />
-	</CornerWrapper>
-)
+type BinderProps = {
+	toggleMenu: Dispatch<SetStateAction<boolean>>
+	menuOpen: boolean
+}
 
-const Side = (props: SideProps): JSX.Element => (
-	<SideWrapper {...props}>
-		<SideLineHorizontal />
-		<SideLineVertical />
-		<SideCircle />
-	</SideWrapper>
+const Target = (props: TargetProps): JSX.Element => (
+	<TargetWrap {...props}>
+		<TargetLineHorizontal />
+		<TargetLineVertical />
+		<TargetCircle />
+	</TargetWrap>
 )
 
 const Stamp = (): JSX.Element => {
@@ -39,96 +32,135 @@ const Stamp = (): JSX.Element => {
 	const dateString = new Date(Date.now()).toLocaleString('en-US', dateFormat)
 
 	return (
-		<StampWrapper>
+		<StampWrap>
 			<StampSection>
 				<StampText>GRDNT</StampText>
 			</StampSection>
 			<StampSection>
 				<StampText>{dateString}</StampText>
 			</StampSection>
-		</StampWrapper>
+		</StampWrap>
 	)
 }
 
-const Binder = (): JSX.Element => (
+const userReducedMotion = reducedMotion()
+
+const hamOutAnimation = userReducedMotion
+	? { duration: 0 }
+	: { duration: 0.4, ease: 'power4.in', stagger: 0.05 }
+
+const crossInAnimation = userReducedMotion
+	? { duration: 0 }
+	: { duration: 0.5, ease: 'power4.out', stagger: 0.1 }
+
+const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
+	/** Initialize hamburger animation */
+	const hamTimeline = useRef<Timeline>()
+	useEffect(() => {
+		hamTimeline.current = gsap
+			.timeline()
+			.add(
+				gsap.fromTo(
+					[`${HamLineTop}`, `${HamLineBottom}`],
+					{ scaleX: 1 },
+					{ scaleX: 0, ...hamOutAnimation },
+				),
+				0,
+			)
+			.add(
+				gsap.fromTo(
+					[`${HamLineMiddle}`, `${HamLineMiddle}`],
+					{ scaleX: 0.9 },
+					{ scaleX: 0, ...hamOutAnimation },
+				),
+				0,
+			)
+			.add(
+				gsap.fromTo(
+					`${HamCrossLineInner}`,
+					{ transformOrigin: 'right', scaleX: 0 },
+					{
+						transformOrigin: 'left',
+						scaleX: 1,
+						...crossInAnimation,
+					},
+				),
+				0.4,
+			)
+	}, [])
+
+	useEffect(() => {
+		if (menuOpen) {
+			hamTimeline.current.play()
+		} else {
+			hamTimeline.current.reverse()
+		}
+	}, [menuOpen])
+
+	return (
+		<HamWrap onClick={() => toggleMenu(!menuOpen)}>
+			<HamInnerWrap>
+				<HamLineTop />
+				<HamLineMiddle />
+				<HamLineBottom />
+				<HamCrossLinePosWrap>
+					<HamCrossLineInner />
+				</HamCrossLinePosWrap>
+				<HamCrossLineNegWrap>
+					<HamCrossLineInner />
+				</HamCrossLineNegWrap>
+			</HamInnerWrap>
+		</HamWrap>
+	)
+}
+
+const Binder = ({ toggleMenu, menuOpen }: BinderProps): JSX.Element => (
 	<Wrap>
-		<Corner rotation={0} top left />
-		<Corner rotation={90} top right />
-		<Corner rotation={180} bottom right />
-		<Corner rotation={270} bottom left />
-		<Side left />
-		<Side right />
+		<Target left />
 		<Stamp />
+		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 	</Wrap>
 )
 
 export default Binder
 
-const Wrap = styled('div')`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	pointer-events: none;
+const Wrap = styled.div`
+	width: 100%;
+	height: 100%;
+	border-right: solid 1px ${(p) => p.theme.c.line};
+	background: ${(p) => p.theme.c.surface3};
 `
 
-const CornerWrapper = styled.div<CornerProps>`
-	position: absolute;
-	width: ${frameWidth * 0.5}em;
-	height: ${frameWidth * 0.5}em;
-	transform: rotate(${(p) => p.rotation}deg);
-
-	${(p) => p.top && `top: ${frameWidth * 0.5}em;`}
-	${(p) => p.bottom && `bottom: ${frameWidth * 0.5}em;`}
-	${(p) => p.left && `left: ${frameWidth * 0.5}em;`}
-	${(p) => p.right && `right: ${frameWidth * 0.5}em;`}
-`
-
-const Line = styled('div')`
+const Line = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 2px;
 	border-radius: 2px;
-	background-color: ${(p) => p.theme.c.heading};
-	opacity: 0.2;
+	background: ${(p) => p.theme.c.heading};
+	opacity: 0.4;
 `
 
-const CornerLineHorizontal = styled(Line)`
-	left: 0;
-	bottom: 0;
-`
-
-const CornerLineVertical = styled(Line)`
-	top: 0;
-	right: 2px;
-	transform-origin: top right;
-	transform: rotate(-90deg);
-`
-
-const SideWrapper = styled('div')<SideProps>`
+const TargetWrap = styled.div`
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%);
-	width: ${frameWidth * 0.6875}em;
-	height: ${frameWidth * 0.6875}em;
-
-	${(p) => p.left && `left: ${frameWidth * 0.15625}em;`}
-	${(p) => p.right && `right: ${frameWidth * 0.15625}em;`}
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1.375em;
+	height: 1.375em;
 `
 
-const SideLineHorizontal = styled(Line)`
+const TargetLineHorizontal = styled(Line)`
 	top: 50%;
 	transform: translateY(-50%);
 `
 
-const SideLineVertical = styled(Line)`
+const TargetLineVertical = styled(Line)`
 	top: calc(50% - 1px);
 	left: 0;
 	transform: rotate(90deg);
 `
 
-const SideCircle = styled('div')`
+const TargetCircle = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -137,20 +169,20 @@ const SideCircle = styled('div')`
 	height: 68.75%;
 	border: solid 2px ${(p) => p.theme.c.heading};
 	border-radius: 50%;
-	opacity: 0.2;
+	opacity: 0.4;
 `
 
-const StampWrapper = styled('div')`
+const StampWrap = styled.div`
 	display: flex;
 	flex-direction: column;
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: ${frameWidth}em;
+	width: 100%;
 	height: 100%;
 `
 
-const StampSection = styled('div')`
+const StampSection = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -158,9 +190,79 @@ const StampSection = styled('div')`
 	height: 100%;
 `
 
-const StampText = styled('p')`
-	${(p) => p.theme.t.ui.label}
+const StampText = styled.p`
+	${(p) => p.theme.t.ui.label};
 	opacity: 0.6;
+	line-height: 1.4;
 	white-space: nowrap;
 	transform: rotate(-90deg);
+`
+
+export const HamWrap = styled.button`
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 2.5em;
+	height: 2.5em;
+	padding: 0;
+	font-size: 1em;
+	cursor: pointer;
+`
+
+const HamInnerWrap = styled.div`
+	${(p) => p.theme.u.absCenter};
+	width: 1.25em;
+	height: 1.25em;
+`
+
+const HamLine = styled(Line)`
+	opacity: 1;
+	transform-origin: right;
+`
+
+const HamLineTop = styled(HamLine)`
+	top: 0.25em;
+
+	${HamWrap}:hover & {
+		transform: scaleX(1);
+	}
+`
+
+const HamLineBottom = styled(HamLine)`
+	bottom: 0.25em;
+
+	${HamWrap}:hover & {
+		transform: scaleX(1);
+	}
+`
+
+const HamLineMiddle = styled(HamLine)`
+	top: calc(50% - 1px);
+	transform: scaleX(0.9);
+
+	${HamWrap}:hover & {
+		transform: scaleX(1);
+	}
+`
+
+const HamCrossLineWrap = styled.div`
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	left: 0;
+	top: calc(50% - 1px);
+`
+
+const HamCrossLinePosWrap = styled(HamCrossLineWrap)`
+	transform: rotate(45deg);
+`
+
+const HamCrossLineNegWrap = styled(HamCrossLineWrap)`
+	transform: rotate(-45deg);
+`
+
+const HamCrossLineInner = styled(Line)`
+	opacity: 1;
+	transform-origin: left;
+	transform: scaleX(0);
 `
