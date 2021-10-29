@@ -128,7 +128,7 @@ const Wrap = styled.div`
 	width: 100%;
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.c.line};
-	background: ${(p) => p.theme.c.surface3};
+	background: ${(p) => p.theme.c.surface2};
 `
 
 const Line = styled.div`

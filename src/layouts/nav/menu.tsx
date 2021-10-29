@@ -148,7 +148,7 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	height: 100vh;
 	border-right: solid 1px ${(p) => p.theme.c.line};
 	transform: translateX(calc(100% - 1px));
-	background: ${(p) => p.theme.c.surface2};
+	background: ${(p) => p.theme.c.background};
 	overflow: hidden;
 
 	z-index: -1;
@@ -208,7 +208,7 @@ const LinkWrap = styled(TransitionLink)`
 const LinkBackground = styled.div`
 	${(p) => p.theme.u.spread};
 	width: calc(100% + 0.5em);
-	background: ${(p) => p.theme.c.surface2};
+	background: ${(p) => p.theme.c.background};
 `
 
 const LinkShadow = styled.div`
