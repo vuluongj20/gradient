@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { frameWidth, gridColCounts } from '@utils/styling'
+import { gridMargin, gridColCounts } from '@utils/styling'
 
 const Grid = styled.div`
 	display: grid;
@@ -8,8 +8,7 @@ const Grid = styled.div`
 	column-gap: ${(p) => p.theme.s[3]};
 
 	max-width: ${(p) => p.theme.b.xl};
-	margin: 0 auto;
-	padding: 0 ${frameWidth * 2}em;
+	padding: 0 ${gridMargin * 2}em;
 
 	${(p) => p.theme.u.media.l} {
 		grid-template-columns:
@@ -28,7 +27,7 @@ const Grid = styled.div`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
-		padding: 0 ${frameWidth}em;
+		padding: 0 ${gridMargin}em;
 	}
 
 	${(p) => p.theme.u.media.xs} {

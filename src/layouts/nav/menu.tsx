@@ -10,7 +10,7 @@ import Grid from '@components/grid'
 import NavPadding from '@components/navPadding'
 import TransitionLink from '@components/transitionLink'
 
-import { frameWidth } from '@utils/styling'
+import { gridMargin } from '@utils/styling'
 
 type MenuProps = {
 	isOpen: boolean
@@ -182,7 +182,7 @@ const LinkWrap = styled(TransitionLink)`
 
 	${(p) => p.theme.u.media.s} {
 		height: auto;
-		padding: ${(p) => p.theme.s[2]} ${frameWidth}em;
+		padding: ${(p) => p.theme.s[2]} ${gridMargin}em;
 		border-left: none;
 		${Grid}:not(:last-of-type) > & {
 			border-bottom: solid 1px ${(p) => p.theme.c.line};
