@@ -44,7 +44,7 @@ const Page = ({
 			<PageContent visible={pageVisible} ref={pageRef}>
 				{withNavPadding && <NavPadding />}
 				{children}
-				<LocalThemeProvider appearance="inverted">
+				<LocalThemeProvider>
 					<Footer {...footerProps} />
 				</LocalThemeProvider>
 			</PageContent>

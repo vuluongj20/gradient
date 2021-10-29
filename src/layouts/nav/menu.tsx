@@ -59,6 +59,8 @@ const Link = ({
 		tabIndex={focusable ? 0 : -1}
 		disabled={disabled}
 	>
+		<LinkShadow />
+		<LinkBackground />
 		<LinkContentBox>
 			{type && (
 				<LinkTypeWrap>
@@ -130,6 +132,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 					/>
 				)
 			})}
+			<PageContentShadow />
 		</MenuWrap>
 	)
 }
@@ -143,9 +146,10 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	right: 0;
 	width: 0;
 	height: 100vh;
-	transform: translateX(100%);
-
+	border-right: solid 1px ${(p) => p.theme.c.line};
+	transform: translateX(calc(100% - 1px));
 	background: ${(p) => p.theme.c.surface2};
+	overflow: hidden;
 
 	z-index: -1;
 
@@ -169,16 +173,27 @@ const LinkWrap = styled(TransitionLink)`
 	height: 100%;
 	width: 100%;
 	position: relative;
-	border-right: solid 1px ${(p) => p.theme.c.line};
-	overflow: hidden;
 
 	text-decoration: none;
 	cursor: pointer;
 	opacity: 0;
 
+	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
+
+	&:not(:first-of-type) {
+		border-left: solid 1px ${(p) => p.theme.c.line};
+	}
+
 	&:focus-visible {
 		z-index: 1;
 	}
+
+	${(p) =>
+		!p.theme.a.reduced &&
+		`&:hover,
+		&:focus-visible {
+		transform: translateX(-0.75em);
+	}`}
 
 	${(p) => p.theme.u.media.s} {
 		height: auto;
@@ -188,6 +203,28 @@ const LinkWrap = styled(TransitionLink)`
 			border-bottom: solid 1px ${(p) => p.theme.c.line};
 		}
 	}
+`
+
+const LinkBackground = styled.div`
+	${(p) => p.theme.u.spread};
+	width: calc(100% + 0.5em);
+	background: ${(p) => p.theme.c.surface2};
+`
+
+const LinkShadow = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1em;
+	height: 100%;
+	box-shadow: 0 0 2em rgba(12, 12, 12, 0.04);
+`
+
+const PageContentShadow = styled(LinkShadow)`
+	left: auto;
+	right: 0;
+	transform: translateX(100%);
+	z-index: 9;
 `
 
 const LinkContentBox = styled.div`
@@ -201,23 +238,11 @@ const LinkContentBox = styled.div`
 	transform: rotate(-90deg) translateY(-50%);
 	transition: transform 0.375s ${(p) => p.theme.a.easeOutQuart};
 
-	${(p) =>
-		!p.theme.a.reduced &&
-		`${LinkWrap}:hover &,
-		${LinkWrap}:focus-visible & {
-		transform: rotate(-90deg) translate(1em, -50%);
-	}`}
-
 	${(p) => p.theme.u.media.s} {
 		position: initial;
 		top: auto;
 		right: auto;
 		transform: none;
-
-		${LinkWrap}:hover &,
-				${LinkWrap}:focus-visible & {
-			transform: none;
-		}
 	}
 `
 
@@ -226,12 +251,6 @@ const LinkTitle = styled.p`
 	color: ${(p) => p.theme.c.heading};
 	margin: 0;
 	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
-
-	${(p) =>
-		p.theme.a.reduced &&
-		`${LinkWrap}:hover & {
-		color: ${p.theme.c.buttonLabelHover};
-	}`};
 `
 
 const LinkTypeWrap = styled.div`
@@ -254,12 +273,6 @@ const LinkTypeText = styled.p`
 	text-transform: uppercase;
 	color: ${(p) => p.theme.c.heading};
 	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
-
-	${(p) =>
-		p.theme.a.reduced &&
-		`${LinkWrap}:hover & {
-		color: ${p.theme.c.buttonLabelHover};
-	}`}
 `
 
 const LinkTypeLine = styled.div`
@@ -268,17 +281,4 @@ const LinkTypeLine = styled.div`
 	background-color: ${(p) => p.theme.c.heading};
 	transform-origin: right;
 	transition: 0.375s ${(p) => p.theme.a.easeOutQuart};
-
-	${(p) =>
-		!p.theme.a.reduced &&
-		`${LinkWrap}:hover &,
-		${LinkWrap}:focus-visible & {
-		transform: scaleX(1.1666);
-	}`}
-
-	${(p) =>
-		p.theme.a.reduced &&
-		`${LinkWrap}:hover & {
-			background-color: ${p.theme.c.buttonLabelHover};
-		}`}
 `
