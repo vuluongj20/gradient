@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import { siteIndex, sections } from '@data/siteStructure'
 
 import Grid from '@components/grid'
-import NavPadding from '@components/navPadding'
 import TransitionLink from '@components/transitionLink'
 
 import { gridMargin } from '@utils/styling'
@@ -119,7 +118,6 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 
 	return (
 		<MenuWrap>
-			<StyledNavPadding />
 			{links.map((link) => {
 				const disabled = location.pathname.startsWith(link.path)
 				return (
@@ -157,14 +155,6 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 
 	${(p) => p.theme.u.media.s} {
 		flex-direction: column;
-	}
-`
-
-const StyledNavPadding = styled(NavPadding)`
-	display: none;
-
-	${(p) => p.theme.u.media.s} {
-		display: initial;
 	}
 `
 

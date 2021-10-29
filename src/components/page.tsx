@@ -4,13 +4,11 @@ import { ReactNode, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Footer from './footer'
-import NavPadding from './navPadding'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	children: ReactNode
-	withNavPadding?: boolean
 	overlay?: boolean
 	footerProps?: {
 		inverted?: boolean
@@ -20,12 +18,7 @@ type Props = {
 
 const transition = { duration: 1, ease: 'power4.inOut' }
 
-const Page = ({
-	children,
-	overlay,
-	withNavPadding = true,
-	footerProps,
-}: Props): JSX.Element => {
+const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 	const { transitionStatus } = useTransitionState()
 
 	useEffect(() => {
@@ -42,7 +35,6 @@ const Page = ({
 	return (
 		<LocalThemeProvider overlay={overlay}>
 			<PageContent visible={pageVisible} ref={pageRef}>
-				{withNavPadding && <NavPadding />}
 				{children}
 				<LocalThemeProvider>
 					<Footer {...footerProps} />
