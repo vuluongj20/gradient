@@ -88,9 +88,17 @@ export default Nav
 
 const Wrap = styled.div`
 	position: fixed;
-	width: 2.5em;
+	width: 3em;
 	height: 100%;
 	z-index: 9;
+
+	${(p) => p.theme.u.media.l} {
+		width: 2.5em;
+	}
+
+	${(p) => p.theme.u.media.s} {
+		width: 2em;
+	}
 `
 
 const PageShadow = styled.div`

@@ -7,7 +7,6 @@ const Grid = styled.div`
 	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
 	column-gap: ${(p) => p.theme.s[3]};
 
-	max-width: ${(p) => p.theme.b.xl};
 	padding: 0 ${gridMargin * 2}em;
 
 	${(p) => p.theme.u.media.l} {

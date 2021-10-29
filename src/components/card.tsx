@@ -78,7 +78,7 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 const ImageWrap = styled.div`
 	${(p) => p.theme.u.flexCenter}
 	width: 100%;
-	max-height: 32em;
+	max-height: 48em;
 	border-radius: 1em 0 1em 0;
 	overflow: hidden;
 

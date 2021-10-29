@@ -202,17 +202,16 @@ export const HamWrap = styled.button`
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 2.5em;
-	height: 2.5em;
-	padding: 0;
+	width: 100%;
+	padding: 100% 0 0;
 	font-size: 1em;
 	cursor: pointer;
 `
 
 const HamInnerWrap = styled.div`
 	${(p) => p.theme.u.absCenter};
-	width: 1.25em;
-	height: 1.25em;
+	width: 50%;
+	padding-top: 50%;
 `
 
 const HamLine = styled(Line)`
@@ -221,11 +220,11 @@ const HamLine = styled(Line)`
 `
 
 const HamLineTop = styled(HamLine)`
-	top: 0.25em;
+	top: 20%;
 `
 
 const HamLineBottom = styled(HamLine)`
-	bottom: 0.25em;
+	bottom: 20%;
 `
 
 const HamLineMiddle = styled(HamLine)`
