@@ -4,12 +4,8 @@ import Grid from '@components/grid'
 
 const SectionDivider = (): JSX.Element => (
 	<Grid>
-		<Divider />
+		<hr />
 	</Grid>
 )
 
 export default SectionDivider
-
-const Divider = styled.hr`
-	border-bottom-width: 2px;
-`
