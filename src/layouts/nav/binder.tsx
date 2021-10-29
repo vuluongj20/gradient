@@ -70,7 +70,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 			.add(
 				gsap.fromTo(
 					[`${HamLineMiddle}`, `${HamLineMiddle}`],
-					{ scaleX: 0.9 },
+					{ scaleX: 1 },
 					{ scaleX: 0, ...hamOutAnimation },
 				),
 				0,
@@ -222,27 +222,15 @@ const HamLine = styled(Line)`
 
 const HamLineTop = styled(HamLine)`
 	top: 0.25em;
-
-	${HamWrap}:hover & {
-		transform: scaleX(1);
-	}
 `
 
 const HamLineBottom = styled(HamLine)`
 	bottom: 0.25em;
-
-	${HamWrap}:hover & {
-		transform: scaleX(1);
-	}
 `
 
 const HamLineMiddle = styled(HamLine)`
 	top: calc(50% - 1px);
-	transform: scaleX(0.9);
-
-	${HamWrap}:hover & {
-		transform: scaleX(1);
-	}
+	width: 85%;
 `
 
 const HamCrossLineWrap = styled.div`
