@@ -83,6 +83,7 @@ const GlobalStyles = createGlobalStyle`
     border-left: none;
     border-right: none;
     border-bottom: solid 1px ${(p) => p.theme.c.line};
+    grid-column: 1 / -1;
   }
 
   li:not(:last-child) {

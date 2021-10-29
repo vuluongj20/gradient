@@ -5,6 +5,7 @@ import { sections } from '@data/siteStructure'
 
 import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'
+import Grid from '@components/grid'
 import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
@@ -17,7 +18,7 @@ const IndexPage = (): JSX.Element => {
   const design = sections.find((s) => s.id === 'design')
 
   return (
-    <Page overlay withNavPadding={false}>
+    <Page withNavPadding={false}>
       <SEO />
       <HeroSection>
         <Header />
@@ -28,8 +29,17 @@ const IndexPage = (): JSX.Element => {
           <CardGrid cards={featured} offsets={offsets} />
         </HeroGrid>
       </HeroSection>
+      <Grid>
+        <hr />
+      </Grid>
       <Section section={technology} cards={featured} offsets={offsets} />
-      <Section section={design} cards={featured} offsets={offsets} overlay />
+      <Grid>
+        <hr />
+      </Grid>
+      <Section section={design} cards={featured} offsets={offsets} />
+      <Grid>
+        <hr />
+      </Grid>
     </Page>
   )
 }
@@ -38,7 +48,6 @@ export default IndexPage
 
 const HeroSection = styled.div`
   padding-bottom: ${(p) => p.theme.s[7]};
-  background: ${(p) => p.theme.c.oBackground};
 `
 
 const HeroGrid = styled.div`
