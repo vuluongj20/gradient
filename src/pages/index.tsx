@@ -9,6 +9,7 @@ import Grid from '@components/grid'
 import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
+import SectionDivider from '@components/sectionDivider'
 import SEO from '@components/seo'
 
 const offsets: Offsets = { xl: [0, 0], l: [0, 0], m: [0, 0], s: [0, 0], xs: [0, 0] }
@@ -29,17 +30,11 @@ const IndexPage = (): JSX.Element => {
           <CardGrid cards={featured} offsets={offsets} />
         </HeroGrid>
       </HeroSection>
-      <Grid>
-        <hr />
-      </Grid>
+      <SectionDivider />
       <Section section={technology} cards={featured} offsets={offsets} />
-      <Grid>
-        <hr />
-      </Grid>
+      <SectionDivider />
       <Section section={design} cards={featured} offsets={offsets} />
-      <Grid>
-        <hr />
-      </Grid>
+      <SectionDivider />
     </Page>
   )
 }
