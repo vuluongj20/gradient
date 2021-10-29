@@ -1,10 +1,10 @@
-import { graphql } from 'gatsby'
 import { ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
 import Page from '@components/page'
+import SectionDivider from '@components/sectionDivider'
 import TOC from '@components/toc'
 
 type Props = {
@@ -31,7 +31,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
   )
 
   return (
-    <Page footerProps={{ overlay: true }}>
+    <Page>
       <Helmet title={frontmatter.title} />
       <Header>
         <Grid>
@@ -44,10 +44,12 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
           </Wrap>
         </Grid>
       </Header>
+      <SectionDivider />
       <StyledGrid>
         <ContentWrap>{children}</ContentWrap>
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
       </StyledGrid>
+      <SectionDivider />
     </Page>
   )
 }
@@ -128,7 +130,6 @@ const ContentWrap = styled(Wrap)`
 const Header = styled.header`
   padding-top: ${(p) => p.theme.s[6]};
   padding-bottom: ${(p) => p.theme.s[6]};
-  background: ${(p) => p.theme.c.oBackground};
 
   h1 {
     padding-top: 0;
