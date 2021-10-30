@@ -20,6 +20,11 @@ const TOC = ({
 }: Props): JSX.Element => {
 	const [showUpperFade, setUpperFade] = useState<boolean>(false)
 	const [showLowerFade, setLowerFade] = useState<boolean>(false)
+	const options = {
+		root: document.querySelector(`${TocWrap}`),
+		rootMargin: '0px',
+		threshold: 1,
+	}
 	const upperCallback = (entries) => {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
@@ -38,16 +43,10 @@ const TOC = ({
 			}
 		})
 	}
+	const upperObserver = new IntersectionObserver(upperCallback, options)
+	const lowerObserver = new IntersectionObserver(lowerCallback, options)
 
 	useEffect(() => {
-		const options = {
-			root: document.querySelector(`${TocWrap}`),
-			rootMargin: '0px',
-			threshold: 1,
-		}
-		const upperObserver = new IntersectionObserver(upperCallback, options)
-		const lowerObserver = new IntersectionObserver(lowerCallback, options)
-
 		const upperTarget = document.querySelector(`${UpperIntersectionTarget}`)
 		const lowerTarget = document.querySelector(`${LowerIntersectionTarget}`)
 		tocbot.init({
@@ -66,7 +65,7 @@ const TOC = ({
 			upperObserver.unobserve(upperTarget)
 			lowerObserver.unobserve(lowerTarget)
 		}
-	}, [contentSelector])
+	}, [])
 
 	return (
 		<LocalThemeProvider overlay={overlay}>
@@ -153,11 +152,11 @@ const ScrollFade = styled.div<{ visible: boolean; overlay: boolean }>`
 	z-index: 1;
 	pointer-events: none;
 	transition: opacity 0.25s ${(p) => p.theme.a.easeOutQuad};
-	${(p) => (p.visible ? 'opacity: 100%;' : 'opacity: 0%;')}
+	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `
 
 const UpperScrollFade = styled(ScrollFade)`
-	top: 0;
+	top: 0px;
 	background: linear-gradient(
 			180deg,
 			${(p) => p.theme.c.background} 0%,

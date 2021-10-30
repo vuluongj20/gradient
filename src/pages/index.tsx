@@ -5,6 +5,7 @@ import { sections } from '@data/siteStructure'
 
 import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'
+import Grid from '@components/grid'
 import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'

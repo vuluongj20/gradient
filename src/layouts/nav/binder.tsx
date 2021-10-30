@@ -145,7 +145,7 @@ const Line = styled.div`
 	height: 2px;
 	border-radius: 2px;
 	background: ${(p) => p.theme.c.heading};
-	opacity: 40%;
+	opacity: 0.4;
 `
 
 const TargetWrap = styled.div`
@@ -181,7 +181,7 @@ const TargetCircle = styled.div`
 	height: 68.75%;
 	border: solid 2px ${(p) => p.theme.c.heading};
 	border-radius: 50%;
-	opacity: 40%;
+	opacity: 0.4;
 `
 
 const StampWrap = styled.div`
@@ -208,7 +208,7 @@ const StampSection = styled.div`
 
 const StampText = styled.p`
 	${(p) => p.theme.t.ui.label};
-	opacity: 60%;
+	opacity: 0.6;
 	line-height: 1.4;
 	white-space: nowrap;
 	transform: rotate(-90deg);
@@ -243,7 +243,7 @@ const HamInnerWrap = styled.div`
 `
 
 const HamLine = styled(Line)`
-	opacity: 100%;
+	opacity: 1;
 	transform-origin: right;
 `
 
@@ -277,7 +277,7 @@ const HamCrossLineNegWrap = styled(HamCrossLineWrap)`
 `
 
 const HamCrossLineInner = styled(Line)`
-	opacity: 100%;
+	opacity: 1;
 	transform-origin: left;
 	transform: scaleX(0);
 `
