@@ -3,7 +3,9 @@ import { Timeline } from 'gsap/core'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import { reducedMotion } from '@utils/styling'
+import TransitionLink from '@components/transitionLink'
+
+import { gridMargin, reducedMotion } from '@utils/styling'
 
 type TargetProps = {
 	left?: boolean
@@ -119,6 +121,7 @@ const Binder = ({ toggleMenu, menuOpen }: BinderProps): JSX.Element => (
 		<Target left />
 		<Stamp />
 		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
+		<Logo to="/">Gradient\</Logo>
 	</Wrap>
 )
 
@@ -129,6 +132,11 @@ const Wrap = styled.div`
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.c.line};
 	background: ${(p) => p.theme.c.surface2};
+
+	${(p) => p.theme.u.media.xs} {
+		background: ${(p) => p.theme.c.background};
+		border-right: none;
+	}
 `
 
 const Line = styled.div`
@@ -147,6 +155,10 @@ const TargetWrap = styled.div`
 	transform: translate(-50%, -50%);
 	width: 1.375em;
 	height: 1.375em;
+
+	${(p) => p.theme.u.media.xs} {
+		display: none;
+	}
 `
 
 const TargetLineHorizontal = styled(Line)`
@@ -180,6 +192,10 @@ const StampWrap = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
+
+	${(p) => p.theme.u.media.xs} {
+		display: none;
+	}
 `
 
 const StampSection = styled.div`
@@ -200,18 +216,30 @@ const StampText = styled.p`
 
 export const HamWrap = styled.button`
 	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+	left: 0;
 	width: 100%;
 	padding: 100% 0 0;
 	font-size: 1em;
 	cursor: pointer;
+
+	${(p) => p.theme.u.media.xs} {
+		left: ${gridMargin * 0.75}em;
+		transform: translateX(-25%);
+		width: 2.5em;
+		height: 100%;
+		padding: 0;
+	}
 `
 
 const HamInnerWrap = styled.div`
 	${(p) => p.theme.u.absCenter};
 	width: 50%;
 	padding-top: 50%;
+
+	${(p) => p.theme.u.media.xs} {
+		width: 50%;
+		padding-top: 50%;
+	}
 `
 
 const HamLine = styled(Line)`
@@ -252,4 +280,15 @@ const HamCrossLineInner = styled(Line)`
 	opacity: 1;
 	transform-origin: left;
 	transform: scaleX(0);
+`
+
+const Logo = styled(TransitionLink)`
+	${(p) => p.theme.t.content.h3};
+	${(p) => p.theme.u.absCenter};
+	font-weight: 700;
+	display: none;
+
+	${(p) => p.theme.u.media.xs} {
+		display: initial;
+	}
 `

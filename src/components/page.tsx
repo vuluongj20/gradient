@@ -47,7 +47,7 @@ const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 export default Page
 
 const PageContent = styled.div<{ visible: boolean }>`
+	background: ${(p) => p.theme.c.background};
 	opacity: 0;
 	${(p) => p.visible && 'opacity: 1;'};
-	background: ${(p) => p.theme.c.background};
 `

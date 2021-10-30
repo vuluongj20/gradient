@@ -51,7 +51,16 @@ export default Layout
 const PageContent = styled('div')`
 	position: relative;
 	margin: 0 auto;
-	padding-left: 2.5em;
+	padding-left: 3em;
+
+	${(p) => p.theme.u.media.l} {
+		padding-left: 2.5em;
+	}
+
+	${(p) => p.theme.u.media.xs} {
+		padding-left: 0;
+		padding-top: 2.5em;
+	}
 `
 
 const TopAnchor = styled.div`

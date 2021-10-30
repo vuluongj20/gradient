@@ -9,7 +9,8 @@ import { siteIndex, sections } from '@data/siteStructure'
 import Grid from '@components/grid'
 import TransitionLink from '@components/transitionLink'
 
-import { gridMargin } from '@utils/styling'
+import useWindowWidth from '@utils/hooks/useWindowWidth'
+import { numericBreakpoints, gridMargin } from '@utils/styling'
 
 type MenuProps = {
 	isOpen: boolean
@@ -74,46 +75,67 @@ const Link = ({
 
 const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	const location = useLocation()
+	const windowWidth = useWindowWidth()
+
 	useEffect(() => {
 		const scrollLockTarget = document.querySelector(`${MenuWrap}`)
 
 		if (isOpen) {
 			disableBodyScroll(scrollLockTarget)
 
-			gsap
-				.timeline()
-				.add(
-					gsap.to(`${MenuWrap}`, {
-						width: `${links.length * 6}em`,
-						...animation,
-					}),
-				)
-				.add(
-					gsap.to(`${LinkWrap}`, {
+			if (windowWidth > numericBreakpoints.xs) {
+				const animationDistance =
+					windowWidth > numericBreakpoints.s
+						? `+${links.length * 6}em`
+						: `+${links.length * 5}em`
+				gsap.to(`${MenuWrap}`, {
+					width: animationDistance,
+					...animation,
+				})
+				gsap.to(`${LinkWrap}`, {
+					opacity: 1,
+					...animation,
+				})
+			} else {
+				gsap.to(`${MenuWrap}`, {
+					y: 0,
+					...animation,
+				})
+				gsap.fromTo(
+					`${LinkWrap}`,
+					{ opacity: 0, scale: 0.5 },
+					{
 						opacity: 1,
+						scale: 1,
+						stagger: 0.05,
 						...animation,
-					}),
-					0,
+					},
 				)
+			}
 		} else {
 			enableBodyScroll(scrollLockTarget)
 
-			gsap
-				.timeline()
-				.add(
-					gsap.to(`${MenuWrap}`, {
-						width: 0,
-						...animation,
-					}),
-				)
-				.add(
-					gsap.to(`${LinkWrap}`, {
-						opacity: 0,
-						...animation,
-					}),
-					0,
-				)
+			if (windowWidth > numericBreakpoints.xs) {
+				gsap.to(`${MenuWrap}`, {
+					width: 0,
+					...animation,
+				})
+				gsap.to(`${LinkWrap}`, {
+					opacity: 0,
+					...animation,
+				})
+			} else {
+				gsap.to(`${MenuWrap}`, {
+					y: '-100%',
+					...animation,
+				})
+				gsap.to(`${LinkWrap}`, {
+					opacity: 0,
+					...animation,
+				})
+			}
 		}
+		/* eslint-disable-next-line react-hooks/exhaustive-deps */
 	}, [isOpen, animation])
 
 	return (
@@ -153,8 +175,12 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 
 	${(p) => p.animating && `pointer-events: none;`}
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.u.media.xs} {
+		width: 100%;
 		flex-direction: column;
+		border-right: none;
+		padding-top: 2.5em;
+		transform: translateY(-100%);
 	}
 `
 
@@ -185,12 +211,18 @@ const LinkWrap = styled(TransitionLink)`
 		transform: translateX(-0.75em);
 	}`}
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.u.media.xs} {
 		height: auto;
-		padding: ${(p) => p.theme.s[2]} ${gridMargin}em;
-		border-left: none;
-		${Grid}:not(:last-of-type) > & {
-			border-bottom: solid 1px ${(p) => p.theme.c.line};
+		padding: 0 ${gridMargin * 0.75}em;
+		transform-origin: top left;
+
+		&:hover,
+		&:focus-visible {
+			transform: translateX(0.5em) !important;
+		}
+
+		&:not(:first-of-type) {
+			border-left: none;
 		}
 	}
 `
@@ -199,6 +231,10 @@ const LinkBackground = styled.div`
 	${(p) => p.theme.u.spread};
 	width: calc(100% + 0.5em);
 	background: ${(p) => p.theme.c.background};
+
+	${(p) => p.theme.u.media.xs} {
+		display: none;
+	}
 `
 
 const LinkShadow = styled.div`
@@ -208,6 +244,10 @@ const LinkShadow = styled.div`
 	width: 1em;
 	height: 100%;
 	box-shadow: 0 0 2em rgba(12, 12, 12, 0.04);
+
+	${(p) => p.theme.u.media.xs} {
+		display: none;
+	}
 `
 
 const PageContentShadow = styled(LinkShadow)`
@@ -222,17 +262,30 @@ const LinkContentBox = styled.div`
 	justify-content: flex-end;
 	align-items: flex-end;
 	position: absolute;
-	top: 2em;
-	right: 1em;
+	top: ${(p) => p.theme.s[3]};
+	right: ${(p) => p.theme.s[2]};
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);
 	transition: transform 0.375s ${(p) => p.theme.a.easeOutQuart};
 
 	${(p) => p.theme.u.media.s} {
+		right: 0.75em;
+	}
+
+	${(p) => p.theme.u.media.xs} {
 		position: initial;
 		top: auto;
 		right: auto;
 		transform: none;
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+		align-items: center;
+		padding: ${(p) => p.theme.s[1]} 0;
+
+		${LinkWrap}:first-of-type > & {
+			padding-top: ${(p) => p.theme.s[2]};
+			border-top: solid 1px ${(p) => p.theme.c.line};
+		}
 	}
 `
 
@@ -245,14 +298,10 @@ const LinkTitle = styled.p`
 
 const LinkTypeWrap = styled.div`
 	margin-bottom: 0.45em;
-	margin-right: 0.25em;
-
-	${(p) => p.theme.u.media.s} {
-		margin-bottom: 0.35em;
-	}
+	margin-right: ${(p) => p.theme.s[0]};
 
 	${(p) => p.theme.u.media.xs} {
-		margin-bottom: 0.25em;
+		display: none;
 	}
 `
 
@@ -261,14 +310,14 @@ const LinkTypeText = styled.p`
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
-	color: ${(p) => p.theme.c.heading};
+	color: ${(p) => p.theme.c.label};
 	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
 `
 
 const LinkTypeLine = styled.div`
 	width: 6em;
 	height: 2px;
-	background-color: ${(p) => p.theme.c.heading};
+	background-color: ${(p) => p.theme.c.gray6};
 	transform-origin: right;
 	transition: 0.375s ${(p) => p.theme.a.easeOutQuart};
 `

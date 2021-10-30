@@ -21,6 +21,10 @@ const Wrap = styled.header`
 	display: flex;
 	align-items: flex-end;
 	padding: ${(p) => p.theme.s[3]} 0;
+
+	${(p) => p.theme.u.media.xs} {
+		display: none;
+	}
 `
 
 const Title = styled.a`

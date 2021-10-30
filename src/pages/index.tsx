@@ -41,9 +41,7 @@ const IndexPage = (): JSX.Element => {
 
 export default IndexPage
 
-const HeroSection = styled.div`
-  padding-bottom: ${(p) => p.theme.s[7]};
-`
+const HeroSection = styled.div``
 
 const HeroGrid = styled.div`
   &:not(:last-child) {

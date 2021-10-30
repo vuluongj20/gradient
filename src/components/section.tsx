@@ -36,7 +36,6 @@ const Section = ({ section, cards, offsets, overlay }: Props): JSX.Element => {
 export default Section
 
 const Wrap = styled.section`
-	padding: ${(p) => p.theme.s[7]} 0;
 	background: ${(p) => p.theme.c.background};
 `
 

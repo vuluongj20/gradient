@@ -34,6 +34,7 @@ const Grid = styled.div`
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
 		column-gap: ${(p) => p.theme.s[1]};
+		padding: 0 ${gridMargin * 0.75}em;
 	}
 `
 

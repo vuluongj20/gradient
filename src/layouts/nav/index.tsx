@@ -40,22 +40,25 @@ const Nav = (): JSX.Element => {
 	useEffect(() => {
 		if (menuOpen) {
 			focusTrapInstance.activate()
-			if (windowWidth > numericBreakpoints.s) {
-				gsap.timeline().add(
-					gsap.to([`${PageShadow}`, '#page-content'], {
-						x: `+${menuLinks.length * 6}em`,
-						...menuAnimation,
-					}),
-				)
+
+			if (windowWidth > numericBreakpoints.xs) {
+				const animationDistance =
+					windowWidth > numericBreakpoints.s
+						? `+${menuLinks.length * 6}em`
+						: `+${menuLinks.length * 5}em`
+
+				gsap.to([`${PageShadow}`, '#page-content'], {
+					x: animationDistance,
+					...menuAnimation,
+				})
 			}
 		} else {
-			gsap.timeline().add(
-				gsap.to([`${PageShadow}`, '#page-content'], {
-					x: '0',
-					...menuAnimation,
-				}),
-			)
+			gsap.to([`${PageShadow}`, '#page-content'], {
+				x: '0',
+				...menuAnimation,
+			})
 		}
+		/* eslint-disable-next-line react-hooks/exhaustive-deps */
 	}, [menuOpen, focusTrapInstance])
 
 	/** Escape key event listener */
@@ -96,8 +99,9 @@ const Wrap = styled.div`
 		width: 2.5em;
 	}
 
-	${(p) => p.theme.u.media.s} {
-		width: 2em;
+	${(p) => p.theme.u.media.xs} {
+		width: 100%;
+		height: 2.5em;
 	}
 `
 
