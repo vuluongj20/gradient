@@ -22,7 +22,7 @@ type Props = {
   meta?: Meta[]
 }
 
-function SEO({
+const SEO = ({
   lang,
   title,
   description,
@@ -30,8 +30,8 @@ function SEO({
   authorTwitter,
   image,
   meta,
-}: Props): JSX.Element {
-  const data = useStaticQuery(
+}: Props): JSX.Element => {
+  const { site } = useStaticQuery(
     graphql`
       query {
         site {
@@ -55,15 +55,15 @@ function SEO({
     `,
   )
 
-  const { site } = data
+  console.log(site)
 
-  const metaLang = lang ?? site.siteMetadata.lang
-  const metaDir = site.siteMetadata.dir ?? 'ltr'
+  const metaLang = lang ?? site?.siteMetadata?.lang
+  const metaDir = site?.siteMetadata?.dir ?? 'ltr'
   const metaTitle = title ? `${title} - Gradient` : `Gradient`
-  const metaDescription = description ?? site.siteMetadata.description
-  const metaAuthor = author ?? site.siteMetadata.author
-  const metaAuthorTwitter = authorTwitter ?? site.siteMetadata.authorTwitter
-  const metaImage = image ?? site.siteMetadata.image
+  const metaDescription = description ?? site?.siteMetadata?.description
+  const metaAuthor = author ?? site?.siteMetadata?.author
+  const metaAuthorTwitter = authorTwitter ?? site?.siteMetadata?.authorTwitter
+  const metaImage = image ?? site?.siteMetadata?.image
 
   return (
     <Helmet
