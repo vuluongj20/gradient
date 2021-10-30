@@ -19,7 +19,7 @@ const IndexPage = (): JSX.Element => {
   const design = sections.find((s) => s.id === 'design')
 
   return (
-    <Page withNavPadding={false}>
+    <Page>
       <SEO />
       <HeroSection>
         <Header />
