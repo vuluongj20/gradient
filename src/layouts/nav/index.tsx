@@ -74,7 +74,7 @@ const Nav = (): JSX.Element => {
 			<PageShadow
 				style={{
 					pointerEvents: menuOpen ? 'initial' : 'none',
-					opacity: menuOpen ? 0.2 : 0,
+					opacity: menuOpen ? 0.4 : 0,
 				}}
 				onClick={() => {
 					focusTrapInstance.deactivate()
