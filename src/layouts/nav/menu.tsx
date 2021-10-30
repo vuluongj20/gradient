@@ -88,8 +88,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 					windowWidth > numericBreakpoints.s
 						? `+${links.length * 6}em`
 						: `+${links.length * 5}em`
+
+				gsap.set(`${MenuWrap}`, { x: '100%', y: 0 })
 				gsap.to(`${MenuWrap}`, {
 					width: animationDistance,
+					borderRightWidth: 1,
 					...animation,
 				})
 				gsap.to(`${LinkWrap}`, {
@@ -97,6 +100,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 					...animation,
 				})
 			} else {
+				gsap.set(`${MenuWrap}`, { x: 0, width: '100%' })
 				gsap.to(`${MenuWrap}`, {
 					y: 0,
 					...animation,
@@ -118,6 +122,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 			if (windowWidth > numericBreakpoints.xs) {
 				gsap.to(`${MenuWrap}`, {
 					width: 0,
+					borderRightWidth: 0,
 					...animation,
 				})
 				gsap.to(`${LinkWrap}`, {
@@ -137,6 +142,12 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 		}
 		/* eslint-disable-next-line react-hooks/exhaustive-deps */
 	}, [isOpen, animation])
+
+	/** Close meny on resize */
+	useEffect(() => {
+		toggleMenu(false)
+		/* eslint-disable-next-line react-hooks/exhaustive-deps */
+	}, [windowWidth])
 
 	return (
 		<MenuWrap>
@@ -166,8 +177,8 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	right: 0;
 	width: 0;
 	height: 100vh;
-	border-right: solid 1px ${(p) => p.theme.c.line};
-	transform: translateX(calc(100% - 1px));
+	border-right: solid 0px ${(p) => p.theme.c.line};
+	transform: translateX(100%);
 	background: ${(p) => p.theme.c.background};
 	overflow: hidden;
 
