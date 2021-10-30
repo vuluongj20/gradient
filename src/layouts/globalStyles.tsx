@@ -54,6 +54,9 @@ const GlobalStyles = createGlobalStyle`
   a:hover {
     text-decoration: none;
   }
+  a:focus {
+    outline: none;
+  }
   a:focus-visible {
     ${(p) => p.theme.u.focusVisible}; 
   }
@@ -72,6 +75,9 @@ const GlobalStyles = createGlobalStyle`
     &:hover {
       color: ${(p) => p.theme.c.text};
     }
+  }
+  button:focus {
+    outline: none;
   }
   button:focus-visible {
     ${(p) => p.theme.u.focusVisible}; 

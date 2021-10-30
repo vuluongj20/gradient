@@ -131,6 +131,7 @@ const Wrap = styled.div`
 	width: 100%;
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.c.line};
+	box-sizing: content-box;
 	background: ${(p) => p.theme.c.surface2};
 
 	${(p) => p.theme.u.media.xs} {
@@ -218,10 +219,16 @@ export const HamWrap = styled.button`
 	position: absolute;
 	top: 0.25em;
 	left: 0.25em;
-	width: calc(100% - 0.5em);
-	padding: calc(100% - 0.5em) 0 0;
+	width: 2.375em;
+	height: 2.375em;
+	padding: 0;
 	font-size: 1em;
 	cursor: pointer;
+
+	${(p) => p.theme.u.media.l} {
+		width: 2em;
+		height: 2em;
+	}
 
 	${(p) => p.theme.u.media.xs} {
 		top: 50%;
@@ -235,8 +242,8 @@ export const HamWrap = styled.button`
 
 const HamInnerWrap = styled.div`
 	${(p) => p.theme.u.absCenter};
-	width: 62.5%;
-	padding-top: 62.5%;
+	width: 70%;
+	padding-top: 75%;
 `
 
 const HamLine = styled(Line)`
@@ -245,11 +252,11 @@ const HamLine = styled(Line)`
 `
 
 const HamLineTop = styled(HamLine)`
-	top: 20%;
+	top: 25%;
 `
 
 const HamLineBottom = styled(HamLine)`
-	bottom: 20%;
+	bottom: 25%;
 `
 
 const HamLineMiddle = styled(HamLine)`
