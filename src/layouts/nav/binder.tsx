@@ -154,8 +154,8 @@ const TargetWrap = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 1.375em;
-	height: 1.375em;
+	width: 1.5em;
+	height: 1.5em;
 
 	${(p) => p.theme.u.media.xs} {
 		display: none;
@@ -178,8 +178,8 @@ const TargetCircle = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 68.75%;
-	height: 68.75%;
+	width: 56.25%;
+	height: 56.25%;
 	border: solid 2px ${(p) => p.theme.c.heading};
 	border-radius: 50%;
 	opacity: 0.4;
@@ -217,8 +217,8 @@ const StampText = styled.p`
 
 export const HamWrap = styled.button`
 	position: absolute;
-	top: 0.25em;
-	left: 0.25em;
+	top: 0.3125em;
+	left: 0.3125em;
 	width: 2.375em;
 	height: 2.375em;
 	padding: 0;
@@ -226,6 +226,8 @@ export const HamWrap = styled.button`
 	cursor: pointer;
 
 	${(p) => p.theme.u.media.l} {
+		top: 0.25em;
+		left: 0.25em;
 		width: 2em;
 		height: 2em;
 	}
@@ -233,9 +235,7 @@ export const HamWrap = styled.button`
 	${(p) => p.theme.u.media.xs} {
 		top: 50%;
 		left: ${gridMargin * 0.75}em;
-		transform: translate(-25%, -50%);
-		width: 2em;
-		height: 2em;
+		transform: translate(-15%, -50%);
 		padding: 0;
 	}
 `
@@ -266,9 +266,9 @@ const HamLineMiddle = styled(HamLine)`
 
 const HamCrossLineWrap = styled.div`
 	position: absolute;
-	width: 100%;
+	width: 85%;
 	height: 2px;
-	left: 0;
+	left: 7.5%;
 	top: calc(50% - 1px);
 `
 
