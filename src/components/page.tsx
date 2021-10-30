@@ -48,6 +48,6 @@ export default Page
 
 const PageContent = styled.div<{ visible: boolean }>`
 	background: ${(p) => p.theme.c.background};
-	opacity: 0;
+	opacity: 0%;
 	${(p) => p.visible && 'opacity: 1;'};
 `

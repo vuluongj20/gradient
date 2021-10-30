@@ -1,5 +1,3 @@
-import { Breakpoints } from './types'
-
 import { breakpoints } from '@utils/styling'
 
 const breakpointMediaRules = Object.keys(breakpoints).map(

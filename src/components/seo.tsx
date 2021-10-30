@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
 type Meta = {
   name?: string
@@ -31,7 +31,7 @@ function SEO({
   image,
   meta,
 }: Props): JSX.Element {
-  const { site } = useStaticQuery(
+  const data = useStaticQuery(
     graphql`
       query {
         site {
@@ -54,6 +54,8 @@ function SEO({
       }
     `,
   )
+
+  const { site } = data
 
   const metaLang = lang ?? site.siteMetadata.lang
   const metaDir = site.siteMetadata.dir ?? 'ltr'
@@ -138,10 +140,6 @@ function SEO({
       ].concat(meta)}
     />
   )
-}
-
-SEO.defaultProps = {
-  meta: [],
 }
 
 export default SEO
