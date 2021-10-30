@@ -18,7 +18,7 @@ type BinderProps = {
 }
 
 const Target = (props: TargetProps): JSX.Element => (
-	<TargetWrap {...props}>
+	<TargetWrap to="/" tabIndex="-1" {...props}>
 		<TargetLineHorizontal />
 		<TargetLineVertical />
 		<TargetCircle />
@@ -36,10 +36,12 @@ const Stamp = (): JSX.Element => {
 	return (
 		<StampWrap>
 			<StampSection>
-				<StampText>GRDNT</StampText>
+				<StampText to="/">GRDNT</StampText>
 			</StampSection>
 			<StampSection>
-				<StampText>{dateString}</StampText>
+				<StampText to="/" tabIndex="-1">
+					{dateString}
+				</StampText>
 			</StampSection>
 		</StampWrap>
 	)
@@ -118,9 +120,9 @@ const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 
 const Binder = ({ toggleMenu, menuOpen }: BinderProps): JSX.Element => (
 	<Wrap>
-		<Target left />
-		<Stamp />
 		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
+		<Stamp />
+		<Target left />
 		<Logo to="/">Gradient\</Logo>
 	</Wrap>
 )
@@ -149,13 +151,14 @@ const Line = styled.div`
 	opacity: 0.4;
 `
 
-const TargetWrap = styled.div`
+const TargetWrap = styled(TransitionLink)`
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 1.5em;
 	height: 1.5em;
+	z-index: 1;
 
 	${(p) => p.theme.u.media.xs} {
 		display: none;
@@ -207,7 +210,7 @@ const StampSection = styled.div`
 	height: 100%;
 `
 
-const StampText = styled.p`
+const StampText = styled(TransitionLink)`
 	${(p) => p.theme.t.ui.label};
 	opacity: 0.6;
 	line-height: 1.4;
