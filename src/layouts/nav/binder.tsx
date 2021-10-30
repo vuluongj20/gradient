@@ -216,30 +216,27 @@ const StampText = styled.p`
 
 export const HamWrap = styled.button`
 	position: absolute;
-	left: 0;
-	width: 100%;
-	padding: 100% 0 0;
+	top: 0.25em;
+	left: 0.25em;
+	width: calc(100% - 0.5em);
+	padding: calc(100% - 0.5em) 0 0;
 	font-size: 1em;
 	cursor: pointer;
 
 	${(p) => p.theme.u.media.xs} {
+		top: 50%;
 		left: ${gridMargin * 0.75}em;
-		transform: translateX(-25%);
-		width: 2.5em;
-		height: 100%;
+		transform: translate(-25%, -50%);
+		width: 2em;
+		height: 2em;
 		padding: 0;
 	}
 `
 
 const HamInnerWrap = styled.div`
 	${(p) => p.theme.u.absCenter};
-	width: 50%;
-	padding-top: 50%;
-
-	${(p) => p.theme.u.media.xs} {
-		width: 50%;
-		padding-top: 50%;
-	}
+	width: 62.5%;
+	padding-top: 62.5%;
 `
 
 const HamLine = styled(Line)`

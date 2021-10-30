@@ -107,11 +107,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 				})
 				gsap.fromTo(
 					`${LinkWrap}`,
-					{ opacity: 0, scale: 0.5 },
+					{ opacity: 0, scaleX: 0.75 },
 					{
 						opacity: 1,
-						scale: 1,
-						stagger: 0.05,
+						scaleX: 1,
+						stagger: 0.025,
 						...animation,
 					},
 				)
@@ -190,7 +190,7 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 		width: 100%;
 		flex-direction: column;
 		border-right: none;
-		padding-top: 2.5em;
+		padding-top: calc(2.5em + ${(p) => p.theme.s[2]});
 		transform: translateY(-100%);
 	}
 `
@@ -225,7 +225,7 @@ const LinkWrap = styled(TransitionLink)`
 	${(p) => p.theme.u.media.xs} {
 		height: auto;
 		padding: 0 ${gridMargin * 0.75}em;
-		transform-origin: top left;
+		transform-origin: left;
 
 		&:hover,
 		&:focus-visible {
@@ -292,11 +292,6 @@ const LinkContentBox = styled.div`
 		justify-content: flex-end;
 		align-items: center;
 		padding: ${(p) => p.theme.s[1]} 0;
-
-		${LinkWrap}:first-of-type > & {
-			padding-top: ${(p) => p.theme.s[2]};
-			border-top: solid 1px ${(p) => p.theme.c.line};
-		}
 	}
 `
 
