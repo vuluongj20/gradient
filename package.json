@@ -29,7 +29,7 @@
     "cloudinary-react": "^1.7.0",
     "color": "^4.0.1",
     "focus-trap": "^6.7.1",
-    "gatsby": "^4.0.0-next",
+    "gatsby": "^4.0.2",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-image": "^1.11.0",
     "gatsby-plugin-layout": "^2.11.0",
