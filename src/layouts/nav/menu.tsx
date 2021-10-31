@@ -1,5 +1,6 @@
 import { useLocation } from '@reach/router'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import * as Color from 'color'
 import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
@@ -254,7 +255,7 @@ const LinkShadow = styled.div`
 	left: 0;
 	width: 1em;
 	height: 100%;
-	box-shadow: 0 0 0.5em rgba(12, 12, 12, 0.02);
+	box-shadow: 0 0 1em ${(p) => Color(p.theme.c.heading).fade(0.98)};
 
 	${(p) => p.theme.u.media.xs} {
 		display: none;
