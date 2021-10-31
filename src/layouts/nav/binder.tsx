@@ -227,6 +227,7 @@ export const HamWrap = styled.button`
 	padding: 0;
 	font-size: 1em;
 	cursor: pointer;
+	z-index: 1;
 
 	${(p) => p.theme.u.media.l} {
 		top: 0.25em;
