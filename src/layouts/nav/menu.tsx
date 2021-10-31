@@ -254,7 +254,7 @@ const LinkShadow = styled.div`
 	left: 0;
 	width: 1em;
 	height: 100%;
-	box-shadow: 0 0 2em rgba(12, 12, 12, 0.04);
+	box-shadow: 0 0 0.5em rgba(12, 12, 12, 0.02);
 
 	${(p) => p.theme.u.media.xs} {
 		display: none;
