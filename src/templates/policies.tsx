@@ -46,8 +46,8 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
       </Header>
       <SectionDivider />
       <StyledGrid>
-        <ContentWrap>{children}</ContentWrap>
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
+        <ContentWrap>{children}</ContentWrap>
       </StyledGrid>
       <SectionDivider />
     </Page>
@@ -123,22 +123,24 @@ const Wrap = styled.div`
 `
 
 const ContentWrap = styled(Wrap)`
-  padding-top: ${(p) => p.theme.s[6]};
   padding-bottom: ${(p) => p.theme.s[7]};
 `
 
 const Header = styled.header`
   padding-top: ${(p) => p.theme.s[6]};
-  padding-bottom: ${(p) => p.theme.s[6]};
 
   h1 {
     padding-top: 0;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
   }
 `
 
 const StyledGrid = styled(Grid)`
   align-items: flex-start;
   position: relative;
+  grid-auto-flow: dense;
 `
 
 const StyledTOC = styled(TOC)`
