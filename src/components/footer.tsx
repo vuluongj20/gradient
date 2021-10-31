@@ -63,7 +63,6 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 export default Footer
 
 const Wrap = styled.footer<{ overlay: boolean }>`
-	padding-top: ${(p) => p.theme.s[5]};
 	background: ${(p) => (p.overlay ? p.theme.c.oBackground : p.theme.c.background)};
 `
 
@@ -77,8 +76,12 @@ const Link = styled(TransitionLink)`
 `
 
 const SiteMap = styled(Grid)`
-	padding-bottom: ${(p) => p.theme.s[5]};
+	padding-bottom: ${(p) => p.theme.s[4]};
 	justify-items: start;
+
+	${(p) => p.theme.u.media.m} {
+		padding-bottom: ${(p) => p.theme.s[3]};
+	}
 `
 
 const Column = styled.div`
@@ -88,7 +91,7 @@ const Column = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.u.media.xs} {
 		&:not(:last-child) {
 			margin-bottom: ${(p) => p.theme.s[4]};
 		}
@@ -114,6 +117,7 @@ const ColLink = styled(Link)`
 const DisclosuresDivider = styled.hr`
 	grid-column: 1 / -1;
 	margin-bottom: ${(p) => p.theme.s[2]};
+	border-bottom-width: 1px;
 `
 
 const Policies = styled(Grid)`

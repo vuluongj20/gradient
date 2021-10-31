@@ -5,6 +5,8 @@ import styled from 'styled-components'
 
 import Footer from './footer'
 
+import SectionDivider from '@components/sectionDivider'
+
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
@@ -36,6 +38,7 @@ const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 		<LocalThemeProvider overlay={overlay}>
 			<PageContent visible={pageVisible} ref={pageRef}>
 				{children}
+				<SectionDivider mb={[5, 4, 4]} />
 				<LocalThemeProvider>
 					<Footer {...footerProps} />
 				</LocalThemeProvider>

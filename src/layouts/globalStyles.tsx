@@ -88,7 +88,7 @@ const GlobalStyles = createGlobalStyle`
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: solid 2px ${(p) => p.theme.c.line};
+    border-bottom: solid 1px ${(p) => p.theme.c.line};
     grid-column: 1 / -1;
   }
 

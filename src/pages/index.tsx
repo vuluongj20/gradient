@@ -34,7 +34,6 @@ const IndexPage = (): JSX.Element => {
       <Section section={technology} cards={featured} offsets={offsets} />
       <SectionDivider />
       <Section section={design} cards={featured} offsets={offsets} />
-      <SectionDivider />
     </Page>
   )
 }
