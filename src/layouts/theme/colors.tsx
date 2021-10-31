@@ -61,7 +61,7 @@ const charcoal: ColorPalette = {
 	name: 'Charcoal',
 	appearance: 'dark',
 	colors: {
-		surface1: '#121212',
+		surface1: '#141414',
 		surface2: '#1A1A1A',
 		surface3: '#212121',
 		gray1: '#F3F3F1',
