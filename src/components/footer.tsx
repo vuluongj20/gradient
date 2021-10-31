@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
 
-import { authorIndices } from '@data/pages/authorIndices'
-import { other } from '@data/pages/other'
-import { policies } from '@data/pages/policies'
-import { sectionIndices } from '@data/pages/sectionIndices'
-import { siteIndex } from '@data/pages/siteIndex'
+import authorIndices from '@data/pages/authorIndices'
+import other from '@data/pages/other'
+import policies from '@data/pages/policies'
+import sectionIndices from '@data/pages/sectionIndices'
+import siteIndex from '@data/pages/siteIndex'
 
 import Grid from '@components/grid'
 

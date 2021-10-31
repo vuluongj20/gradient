@@ -1,0 +1,14 @@
+[
+	{
+		"id": "technology",
+		"name": "Technology"
+	},
+	{
+		"id": "design",
+		"name": "Design"
+	},
+	{
+		"id": "law",
+		"name": "Law"
+	}
+]

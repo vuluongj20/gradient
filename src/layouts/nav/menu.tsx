@@ -5,9 +5,9 @@ import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
-import { other } from '@data/pages/other'
-import { sectionIndices } from '@data/pages/sectionIndices'
-import { siteIndex } from '@data/pages/siteIndex'
+import other from '@data/pages/other'
+import sectionIndices from '@data/pages/sectionIndices'
+import siteIndex from '@data/pages/siteIndex'
 
 import TransitionLink from '@components/transitionLink'
 

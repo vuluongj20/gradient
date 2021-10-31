@@ -1,7 +1,9 @@
 import { Page } from './types'
 
-export const siteIndex: Page = {
+const siteIndex: Page = {
 	id: 'site-index',
 	name: 'Index',
 	path: '/site-index',
 }
+
+export default siteIndex

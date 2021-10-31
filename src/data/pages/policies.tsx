@@ -1,6 +1,6 @@
 import { Page } from './types'
 
-export const policies: Page[] = [
+const policies: Page[] = [
 	{
 		id: 'terms',
 		name: 'Terms of Use',
@@ -12,3 +12,5 @@ export const policies: Page[] = [
 		path: '/policies/privacy',
 	},
 ]
+
+export default policies

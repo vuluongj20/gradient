@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { hero, featured } from '@data/home'
-import { sectionIndices } from '@data/pages/sectionIndices'
+import sectionIndices from '@data/pages/sectionIndices'
 
 import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'

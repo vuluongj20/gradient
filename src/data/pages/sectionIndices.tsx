@@ -1,7 +1,9 @@
-import { sections } from '../sections'
+import * as sections from '../sections.json'
 import { Page } from './types'
 
-export const sectionIndices: Page[] = sections.map((section) => ({
+const sectionIndices: Page[] = sections.map((section) => ({
 	...section,
 	path: `/section/${section.id}`,
 }))
+
+export default sectionIndices
