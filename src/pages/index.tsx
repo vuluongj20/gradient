@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { hero, featured } from '@data/home'
-import { sections } from '@data/siteStructure'
+import { sectionIndices } from '@data/pages/sectionIndices'
 
 import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'
@@ -14,8 +14,8 @@ import SEO from '@components/seo'
 const offsets: Offsets = { xl: [0, 0], l: [0, 0], m: [0, 0], s: [0, 0], xs: [0, 0] }
 
 const IndexPage = (): JSX.Element => {
-  const technology = sections.find((s) => s.id === 'technology')
-  const design = sections.find((s) => s.id === 'design')
+  const technology = sectionIndices.find((s) => s.id === 'technology')
+  const design = sectionIndices.find((s) => s.id === 'design')
 
   return (
     <Page>

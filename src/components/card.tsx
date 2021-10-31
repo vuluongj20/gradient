@@ -58,13 +58,13 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	}
 
 	${(p) => p.theme.u.media.l} {
-		grid-column-start: ${(p) => p.$gridCols.l.start} / ${(p) => p.$gridCols.l.end};
+		grid-column: ${(p) => p.$gridCols.l.start} / ${(p) => p.$gridCols.l.end};
 	}
 	${(p) => p.theme.u.media.m} {
-		grid-column-start: ${(p) => p.$gridCols.m.start} / ${(p) => p.$gridCols.m.end};
+		grid-column: ${(p) => p.$gridCols.m.start} / ${(p) => p.$gridCols.m.end};
 	}
 	${(p) => p.theme.u.media.s} {
-		grid-column-start: ${(p) => p.$gridCols.s.start} / ${(p) => p.$gridCols.s.end};
+		grid-column: ${(p) => p.$gridCols.s.start} / ${(p) => p.$gridCols.s.end};
 	}
 	${(p) => p.theme.u.media.xs} {
 		grid-column: 1 / -1;

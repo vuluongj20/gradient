@@ -4,7 +4,7 @@ import { CardContent } from './card'
 import CardArea, { Offsets } from './cardArea'
 import Grid from './grid'
 
-import { Page } from '@data/siteStructure'
+import { Page } from '@data/pages/types'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
@@ -21,7 +21,7 @@ const Section = ({ section, cards, offsets, overlay }: Props): JSX.Element => {
 			<Wrap>
 				<StyledGrid>
 					<TitleWrap href={section.path}>
-						<Title>{section.title}</Title>
+						<Title>{section.name}</Title>
 					</TitleWrap>
 					<CardArea cards={cards} offsets={offsets} />
 				</StyledGrid>

@@ -3,7 +3,11 @@ import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
 
-import { sections, writers, other, policies, Page } from '@data/siteStructure'
+import { authorIndices } from '@data/pages/authorIndices'
+import { other } from '@data/pages/other'
+import { policies } from '@data/pages/policies'
+import { sectionIndices } from '@data/pages/sectionIndices'
+import { siteIndex } from '@data/pages/siteIndex'
 
 import Grid from '@components/grid'
 
@@ -22,7 +26,7 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 			const disabled = location.pathname.startsWith(page.path)
 			return (
 				<Link key={page.id} to={page.path} disabled={disabled}>
-					{page.title}
+					{page.name}
 				</Link>
 			)
 		})
@@ -32,15 +36,15 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 			<SiteMap>
 				<Column>
 					<ColLabel>Sections</ColLabel>
-					{mapSiteLinks(sections, ColLink)}
+					{mapSiteLinks(sectionIndices, ColLink)}
 				</Column>
 				<Column>
-					<ColLabel>Writers</ColLabel>
-					{mapSiteLinks(writers, ColLink)}
+					<ColLabel>Authors</ColLabel>
+					{mapSiteLinks(authorIndices, ColLink)}
 				</Column>
 				<Column>
 					<ColLabel>More</ColLabel>
-					{mapSiteLinks(other, ColLink)}
+					{mapSiteLinks([siteIndex, ...other], ColLink)}
 				</Column>
 			</SiteMap>
 			<Grid>

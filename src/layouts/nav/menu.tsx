@@ -5,7 +5,9 @@ import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
-import { siteIndex, sections } from '@data/siteStructure'
+import { other } from '@data/pages/other'
+import { sectionIndices } from '@data/pages/sectionIndices'
+import { siteIndex } from '@data/pages/siteIndex'
 
 import TransitionLink from '@components/transitionLink'
 
@@ -24,7 +26,7 @@ type MenuProps = {
 type Link = {
 	id: string
 	path: string
-	title: string
+	name: string
 	type?: string
 }
 
@@ -34,19 +36,11 @@ type LinkProps = Link & {
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 }
 
-export const links: Link[] = [
-	siteIndex,
-	...sections.map((page) => ({ ...page, type: 'section' })),
-	{
-		id: 'about',
-		path: '/about',
-		title: 'About',
-	},
-]
+export const links: Link[] = [siteIndex, ...sectionIndices, ...other]
 
 const Link = ({
 	path,
-	title,
+	name,
 	type,
 	focusable,
 	disabled,
@@ -68,7 +62,7 @@ const Link = ({
 					<LinkTypeLine />
 				</LinkTypeWrap>
 			)}
-			<LinkTitle>{title}</LinkTitle>
+			<LinkTitle>{name}</LinkTitle>
 		</LinkContentBox>
 	</LinkWrap>
 )
@@ -153,6 +147,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 		<MenuWrap>
 			{links.map((link) => {
 				const disabled = location.pathname.startsWith(link.path)
+
 				return (
 					<Link
 						key={link.id}
