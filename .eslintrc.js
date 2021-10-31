@@ -23,7 +23,7 @@ module.exports = {
       },
     },
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['react-hooks', '@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
@@ -37,5 +37,7 @@ module.exports = {
   rules: {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 }
