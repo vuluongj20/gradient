@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
 type Meta = {
   name?: string
@@ -22,7 +22,7 @@ type Props = {
   meta?: Meta[]
 }
 
-function SEO({
+const SEO = ({
   lang,
   title,
   description,
@@ -30,8 +30,8 @@ function SEO({
   authorTwitter,
   image,
   meta,
-}: Props): JSX.Element {
-  const { site } = useStaticQuery(
+}: Props): JSX.Element => {
+  const data = useStaticQuery(
     graphql`
       query {
         site {
@@ -55,13 +55,15 @@ function SEO({
     `,
   )
 
-  const metaLang = lang ?? site.siteMetadata.lang
-  const metaDir = site.siteMetadata.dir ?? 'ltr'
+  const { siteMetadata } = data.site
+
+  const metaLang = lang ?? siteMetadata.lang
+  const metaDir = siteMetadata.dir ?? 'ltr'
   const metaTitle = title ? `${title} - Gradient` : `Gradient`
-  const metaDescription = description ?? site.siteMetadata.description
-  const metaAuthor = author ?? site.siteMetadata.author
-  const metaAuthorTwitter = authorTwitter ?? site.siteMetadata.authorTwitter
-  const metaImage = image ?? site.siteMetadata.image
+  const metaDescription = description ?? siteMetadata.description
+  const metaAuthor = author ?? siteMetadata.author
+  const metaAuthorTwitter = authorTwitter ?? siteMetadata.authorTwitter
+  const metaImage = image ?? siteMetadata.image
 
   return (
     <Helmet

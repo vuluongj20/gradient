@@ -44,11 +44,10 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	text-decoration: none;
 	padding-bottom: ${(p) => p.theme.s[1]};
 
-	grid-column-start: ${(p) => p.$gridCols.xl.start};
-	grid-column-end: ${(p) => p.$gridCols.xl.end};
+	grid-column: ${(p) => p.$gridCols.xl.start} / ${(p) => p.$gridCols.xl.end};
 	align-self: start;
 
-	border-radius: 1em 0 1em 0;
+	border-radius: 1em 0;
 
 	&:focus-visible {
 		${(p) => p.theme.u.focusVisible};
@@ -59,16 +58,13 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	}
 
 	${(p) => p.theme.u.media.l} {
-		grid-column-start: ${(p) => p.$gridCols.l.start};
-		grid-column-end: ${(p) => p.$gridCols.l.end};
+		grid-column-start: ${(p) => p.$gridCols.l.start} / ${(p) => p.$gridCols.l.end};
 	}
 	${(p) => p.theme.u.media.m} {
-		grid-column-start: ${(p) => p.$gridCols.m.start};
-		grid-column-end: ${(p) => p.$gridCols.m.end};
+		grid-column-start: ${(p) => p.$gridCols.m.start} / ${(p) => p.$gridCols.m.end};
 	}
 	${(p) => p.theme.u.media.s} {
-		grid-column-start: ${(p) => p.$gridCols.s.start};
-		grid-column-end: ${(p) => p.$gridCols.s.end};
+		grid-column-start: ${(p) => p.$gridCols.s.start} / ${(p) => p.$gridCols.s.end};
 	}
 	${(p) => p.theme.u.media.xs} {
 		grid-column: 1 / -1;
@@ -79,7 +75,7 @@ const ImageWrap = styled.div`
 	${(p) => p.theme.u.flexCenter}
 	width: 100%;
 	max-height: 48em;
-	border-radius: 1em 0 1em 0;
+	border-radius: 1em 0;
 	overflow: hidden;
 
 	${(p) => p.theme.u.media.m} {
@@ -117,11 +113,11 @@ const DummyTitle = styled.span`
 	text-decoration: underline;
 	text-decoration-color: ${(p) => p.theme.c.linkUnderlineHover};
 	z-index: 0;
-	opacity: 0;
+	opacity: 0%;
 	transition: opacity 0.125s ${(p) => p.theme.a.easeOutQuad};
 
 	${Wrap}:hover & {
-		opacity: 1;
+		opacity: 100%;
 	}
 `
 

@@ -48,3 +48,15 @@ export const deepMerge = (target: Record<string, unknown>, source: unknown): unk
 
 /** Simple array summation */
 export const sum = (arr: number[]): number => arr.reduce((acc, cur) => acc + cur, 0)
+
+export const debounce = (func, wait) => {
+	let timeout
+	return function (...args) {
+		const later = function () {
+			timeout = null
+			func.apply(this, args)
+		}
+		clearTimeout(timeout)
+		timeout = setTimeout(later, wait)
+	}
+}

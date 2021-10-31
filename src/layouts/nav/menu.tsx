@@ -7,7 +7,6 @@ import styled from 'styled-components'
 
 import { siteIndex, sections } from '@data/siteStructure'
 
-import Grid from '@components/grid'
 import TransitionLink from '@components/transitionLink'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
@@ -178,7 +177,7 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 	right: 0;
 	width: 0;
 	height: 100vh;
-	border-right: solid 0px ${(p) => p.theme.c.line};
+	border-right: solid 0 ${(p) => p.theme.c.line};
 	transform: translateX(100%);
 	background: ${(p) => p.theme.c.background};
 	overflow: hidden;
@@ -204,7 +203,7 @@ const LinkWrap = styled(TransitionLink)`
 
 	text-decoration: none;
 	cursor: pointer;
-	opacity: 0;
+	opacity: 0%;
 
 	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
 
@@ -256,7 +255,6 @@ const LinkShadow = styled.div`
 	width: 1em;
 	height: 100%;
 	box-shadow: 0 0 1em ${(p) => Color(p.theme.c.heading).fade(0.98)};
-
 	${(p) => p.theme.u.media.xs} {
 		display: none;
 	}
