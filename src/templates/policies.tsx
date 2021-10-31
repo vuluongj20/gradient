@@ -49,7 +49,6 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
         <ContentWrap>{children}</ContentWrap>
       </StyledGrid>
-      <SectionDivider />
     </Page>
   )
 }

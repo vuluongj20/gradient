@@ -5,10 +5,9 @@ const paper: ColorPalette = {
 	name: 'Paper',
 	appearance: 'light',
 	colors: {
-		surface1: '#FFFFFF',
-		surface2: '#FBF9F4',
+		surface1: '#FBF9F4',
+		surface2: '#FEFDFB',
 		surface3: '#F7F4EE',
-		surface4: '#F3EFE8',
 		gray1: '#1A1A1A',
 		gray2: '#333333',
 		gray3: '#4A4A4A',
@@ -65,7 +64,6 @@ const charcoal: ColorPalette = {
 		surface1: '#121212',
 		surface2: '#1A1A1A',
 		surface3: '#212121',
-		surface4: '#292929',
 		gray1: '#F3F3F1',
 		gray2: '#DCDAD6',
 		gray3: '#C6C4BE',
@@ -119,14 +117,15 @@ export const getColorAliases = (
 	overlay: boolean,
 ): ColorAliases => ({
 	// Fills & borders
-	background: overlay ? c.surface2 : c.surface1,
-	contentFill: overlay ? c.surface3 : c.surface2,
-	line: overlay ? c.gray8 : c.gray9,
+	background: overlay ? c.surface3 : c.surface2,
+	contentFill: overlay ? c.surface2 : c.surface1,
+	insetFill: overlay ? c.surface2 : c.surface1,
+	line: c.gray9,
 
 	// Overlay fills & borders,
 	// for elements on overlays
-	oBackground: c.surface2,
-	oContentFill: c.surface3,
+	oBackground: c.surface3,
+	oContentFill: c.surface2,
 	oLine: c.gray8,
 
 	// Text

@@ -29,6 +29,7 @@ const Wrap = styled.header`
 
 const Title = styled.a`
 	${(p) => p.theme.t.content.h2};
+	color: ${(p) => p.theme.c.heading};
 `
 
 const DescWrap = styled.div`
