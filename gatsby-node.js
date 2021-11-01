@@ -53,7 +53,7 @@ exports.createPages = async function ({ actions, graphql }) {
     actions.createPage({
       path: `/section/${section.slug}`,
       component: SiteIndex,
-      context: { slug: section.slug, title: section.name },
+      context: { filter: { sections: { in: [section.slug] } }, title: section.name },
     })
   })
 
@@ -76,7 +76,7 @@ exports.createPages = async function ({ actions, graphql }) {
     actions.createPage({
       path: `/author/${author.slug}`,
       component: SiteIndex,
-      context: { slug: author.slug, title: author.name },
+      context: { filter: { authors: { in: [author.slug] } }, title: author.name },
     })
   })
 }

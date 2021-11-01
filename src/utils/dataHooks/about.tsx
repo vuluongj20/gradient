@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { Page } from './types'
+import { Page } from '@types'
 
 const useAboutPage = (): Page => {
 	const data = useStaticQuery(graphql`

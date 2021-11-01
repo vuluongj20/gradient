@@ -2,7 +2,7 @@
 	{
 		"slug": "bl-mahanoy",
 		"title": "B.L. v. Mahanoy School District",
-		"sections": ["law"],
+		"sections": ["law", "technology"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "",

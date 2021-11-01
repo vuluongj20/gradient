@@ -1,13 +1,25 @@
+import { graphql } from 'gatsby'
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
 import Page from '@components/page'
+
+import { Article } from '@types'
 
 type Props = {
 	pageContext: {
 		title: string
 		section?: string
 		author?: string
+	}
+	data: {
+		allArticlesJson: {
+			edges: [
+				{
+					node: Article
+				},
+			]
+		}
 	}
 }
 
@@ -22,6 +34,24 @@ const SiteIndexPage = ({ pageContext }: Props) => {
 		</Page>
 	)
 }
+
+export const query = graphql`
+	query ($filter: ArticlesJsonFilterInput) {
+		allArticlesJson(filter: $filter) {
+			edges {
+				node {
+					title
+					sections
+					authors
+					img {
+						alt
+						src
+					}
+				}
+			}
+		}
+	}
+`
 
 export default SiteIndexPage
 

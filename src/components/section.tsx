@@ -4,7 +4,8 @@ import { CardContent } from './card'
 import CardArea, { Offsets } from './cardArea'
 import Grid from './grid'
 
-import { Page } from '@utils/dataHooks/types'
+import { Page } from '@types'
+
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
