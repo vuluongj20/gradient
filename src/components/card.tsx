@@ -7,7 +7,7 @@ import { AdaptiveGridColumns } from '@types'
 
 export type CardContent = {
 	slug: string
-	to: string
+	path: string
 	img: {
 		src: string
 		alt: string
@@ -18,9 +18,9 @@ type Props = CardContent & {
 	gridCols: AdaptiveGridColumns
 }
 
-const Card = ({ gridCols, to, img }: Props): JSX.Element => {
+const Card = ({ gridCols, path, img }: Props): JSX.Element => {
 	return (
-		<Wrap to={to} $gridCols={gridCols}>
+		<Wrap to={path} $gridCols={gridCols}>
 			<ImageWrap>
 				<Image {...img} />
 			</ImageWrap>

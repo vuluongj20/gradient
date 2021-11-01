@@ -27,14 +27,14 @@ const sizeMap: SizeMap = {
 	s: { mid: 3, lowerLimit: 4, upperLimit: 3 },
 	m: { mid: 4, lowerLimit: 4, upperLimit: 6 },
 	l: { mid: 6, lowerLimit: 4, upperLimit: 10 },
-	xl: { mid: 7, lowerLimit: 4, upperLimit: 12 },
+	xl: { mid: 10, lowerLimit: 4, upperLimit: 12 },
 }
 
 const getGridColumns = (
 	cards: CardContent[],
 	offsets: Offsets,
 ): AdaptiveGridColumns[] => {
-	const spanRanges: SpanRange[] = cards.map((card) => sizeMap[card.size])
+	const spanRanges: SpanRange[] = cards.map((card) => sizeMap[card.featuredSize])
 
 	/**
 	 * Returns CardRanges organized into rows,

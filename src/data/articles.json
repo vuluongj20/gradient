@@ -2,11 +2,49 @@
 	{
 		"slug": "bl-mahanoy",
 		"title": "B.L. v. Mahanoy School District",
-		"sections": ["law", "technology"],
+		"featuredIn": ["home"],
+		"featuredSize": "xl",
+		"sections": ["law"],
 		"authors": ["vu-luong"],
 		"img": {
-			"src": "",
-			"alt": ""
+			"src": "1.jpg",
+			"alt": "..."
+		}
+	},
+	{
+		"slug": "simulating-3d-sound",
+		"title": "Simulating 3D Sound in Stereo Headphones",
+		"featuredIn": ["home", "home-technology"],
+		"featuredSize": "m",
+		"sections": ["technology"],
+		"authors": ["vu-luong"],
+		"img": {
+			"src": "4.png",
+			"alt": "..."
+		}
+	},
+	{
+		"slug": "group-unawareness",
+		"title": "Group Unawareness",
+		"featuredIn": ["home", "home-design"],
+		"featuredSize": "s",
+		"sections": ["law"],
+		"authors": ["vu-luong"],
+		"img": {
+			"src": "5.png",
+			"alt": "..."
+		}
+	},
+	{
+		"slug": "generative-neural-nets",
+		"title": "How Generative Neural Nets Work",
+		"featuredIn": ["home", "home-technology", "home-design"],
+		"featuredSize": "m",
+		"sections": ["technology"],
+		"authors": ["vu-luong"],
+		"img": {
+			"src": "2.png",
+			"alt": "..."
 		}
 	}
 ]

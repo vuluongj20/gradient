@@ -8,8 +8,9 @@ import Section from '@components/section'
 import SectionDivider from '@components/sectionDivider'
 import SEO from '@components/seo'
 
+import useHomeDesign from '@utils/dataHooks/homeDesign'
 import useHomeFeatured from '@utils/dataHooks/homeFeatured'
-import useHomeHero from '@utils/dataHooks/homeHero'
+import useHomeTechnology from '@utils/dataHooks/homeTechnology'
 import useSectionPages from '@utils/dataHooks/sections'
 
 const offsets: Offsets = { xl: [0, 0], l: [0, 0], m: [0, 0], s: [0, 0], xs: [0, 0] }
@@ -19,8 +20,9 @@ const IndexPage = (): JSX.Element => {
   const technology = sectionPages.find((s) => s.slug === 'technology')
   const design = sectionPages.find((s) => s.slug === 'design')
 
-  const hero = useHomeHero()
   const featured = useHomeFeatured()
+  const featuredTechnology = useHomeTechnology()
+  const featuredDesign = useHomeDesign()
 
   return (
     <Page>
@@ -28,16 +30,13 @@ const IndexPage = (): JSX.Element => {
       <HeroSection>
         <Header />
         <HeroGrid>
-          <CardGrid cards={hero} offsets={offsets} />
-        </HeroGrid>
-        <HeroGrid>
           <CardGrid cards={featured} offsets={offsets} />
         </HeroGrid>
       </HeroSection>
       <SectionDivider />
-      <Section sectionLink={technology} cards={featured} offsets={offsets} />
+      <Section sectionLink={technology} cards={featuredTechnology} offsets={offsets} />
       <SectionDivider />
-      <Section sectionLink={design} cards={featured} offsets={offsets} />
+      <Section sectionLink={design} cards={featuredDesign} offsets={offsets} />
     </Page>
   )
 }
