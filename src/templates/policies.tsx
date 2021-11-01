@@ -1,10 +1,10 @@
 import { ReactNode } from 'react'
-import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
 import Page from '@components/page'
 import SectionDivider from '@components/sectionDivider'
+import SEO from '@components/seo'
 import TOC from '@components/toc'
 
 type Props = {
@@ -32,7 +32,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
 
   return (
     <Page>
-      <Helmet title={frontmatter.title} />
+      <SEO title={frontmatter.title} />
       <Header>
         <Grid>
           <Wrap>

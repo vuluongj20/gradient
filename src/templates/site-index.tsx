@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import Grid from '@components/grid'
 import Page from '@components/page'
+import SEO from '@components/seo'
 
 import { Article } from '@types'
 
@@ -26,6 +27,7 @@ type Props = {
 const SiteIndexPage = ({ pageContext }: Props) => {
 	return (
 		<Page>
+			<SEO title={pageContext.title} />
 			<Grid>
 				<PageContent>
 					<h1>{pageContext.title}</h1>
