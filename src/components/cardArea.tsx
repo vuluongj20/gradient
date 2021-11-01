@@ -2,16 +2,13 @@ import { Fragment } from 'react'
 
 import Card, { CardContent } from './card'
 
-import { AdaptiveGridColumns, Breakpoint, GridColumns } from '@types'
+import { AdaptiveGridColumns, GridColumns } from '@types'
 
 import { sum } from '@utils/functions'
 import { gridColCounts } from '@utils/styling'
 
-export type Offsets = Record<Breakpoint, [number, number]>
-
 type Props = {
 	cards: CardContent[]
-	offsets: Offsets
 }
 
 type SpanRange = {
@@ -30,10 +27,7 @@ const sizeMap: SizeMap = {
 	xl: { mid: 10, lowerLimit: 4, upperLimit: 12 },
 }
 
-const getGridColumns = (
-	cards: CardContent[],
-	offsets: Offsets,
-): AdaptiveGridColumns[] => {
+const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 	const spanRanges: SpanRange[] = cards.map((card) => sizeMap[card.featuredSize])
 
 	/**
@@ -78,11 +72,7 @@ const getGridColumns = (
 	 * Make cards wider/more narrow so they all
 	 * span entire rows, except for the last row
 	 */
-	const calibrateRows = (
-		rows: SpanRange[][],
-		nCols: number,
-		offset: number,
-	): GridColumns[] =>
+	const calibrateRows = (rows: SpanRange[][], nCols: number): GridColumns[] =>
 		rows
 			.map((row) => {
 				/** Array of sizes of cards in the row,
@@ -122,7 +112,7 @@ const getGridColumns = (
 						nextIndex = 0
 					}
 				}
-				let currentStartLocation = 1 + offset
+				let currentStartLocation = 1
 
 				const gridColsCollection: GridColumns[] = spans.map((span) => {
 					const gridCols: GridColumns = {
@@ -141,9 +131,9 @@ const getGridColumns = (
 	/** Generate the final card sizes for each breakpoint */
 	const results = [...Array(cards.length)].map(() => ({}))
 	Object.entries(gridColCounts).forEach(([key, val]) => {
-		const availableRows = val - offsets[key][0] - offsets[key][1]
+		const availableRows = val
 		const uncalibratedRows = getRows(spanRanges, availableRows)
-		const calibratedRows = calibrateRows(uncalibratedRows, availableRows, offsets[key][0])
+		const calibratedRows = calibrateRows(uncalibratedRows, availableRows)
 
 		calibratedRows.forEach((span, i) => (results[i][key] = span))
 	})
@@ -151,8 +141,8 @@ const getGridColumns = (
 	return results as AdaptiveGridColumns[]
 }
 
-const CardGrid = ({ cards, offsets }: Props): JSX.Element => {
-	const gridColumns = getGridColumns(cards, offsets)
+const CardGrid = ({ cards }: Props): JSX.Element => {
+	const gridColumns = getGridColumns(cards)
 
 	return (
 		<Fragment>

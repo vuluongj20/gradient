@@ -13,8 +13,6 @@ import useHomeFeatured from '@utils/dataHooks/homeFeatured'
 import useHomeTechnology from '@utils/dataHooks/homeTechnology'
 import useSectionPages from '@utils/dataHooks/sections'
 
-const offsets: Offsets = { xl: [0, 0], l: [0, 0], m: [0, 0], s: [0, 0], xs: [0, 0] }
-
 const IndexPage = (): JSX.Element => {
   const sectionPages = useSectionPages()
   const technology = sectionPages.find((s) => s.slug === 'technology')
@@ -30,13 +28,13 @@ const IndexPage = (): JSX.Element => {
       <HeroSection>
         <Header />
         <HeroGrid>
-          <CardGrid cards={featured} offsets={offsets} />
+          <CardGrid cards={featured} />
         </HeroGrid>
       </HeroSection>
       <SectionDivider />
-      <Section sectionLink={technology} cards={featuredTechnology} offsets={offsets} />
+      <Section sectionLink={technology} cards={featuredTechnology} />
       <SectionDivider />
-      <Section sectionLink={design} cards={featuredDesign} offsets={offsets} />
+      <Section sectionLink={design} cards={featuredDesign} />
     </Page>
   )
 }

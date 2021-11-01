@@ -1,18 +1,17 @@
 import styled from 'styled-components'
 
 import { CardContent } from './card'
-import CardArea, { Offsets } from './cardArea'
+import CardArea from './cardArea'
 
 import Grid from '@components/grid'
 
 type Props = {
 	cards: CardContent[]
-	offsets: Offsets
 }
 
-const CardGrid = ({ cards, offsets }: Props): JSX.Element => (
+const CardGrid = ({ cards }: Props): JSX.Element => (
 	<Wrap>
-		<CardArea cards={cards} offsets={offsets} />
+		<CardArea cards={cards} />
 	</Wrap>
 )
 
