@@ -22,7 +22,7 @@ const usePoliciesPages = (): Page[] => {
 		return {
 			slug: page.slug,
 			title: page.title,
-			path: `/${page.slug}`,
+			path: `/policies/${page.slug}`,
 		}
 	})
 }
