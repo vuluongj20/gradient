@@ -5,9 +5,7 @@ import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
-import other from '@data/pages/other'
-import sectionIndices from '@data/pages/sectionIndices'
-import siteIndex from '@data/pages/siteIndex'
+import useMenuLinks from './useMenuLinks'
 
 import TransitionLink from '@components/transitionLink'
 
@@ -23,24 +21,15 @@ type MenuProps = {
 	}
 }
 
-type Link = {
-	id: string
-	path: string
-	name: string
-	type?: string
-}
-
 type LinkProps = Link & {
 	focusable: boolean
 	disabled: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 }
 
-export const links: Link[] = [siteIndex, ...sectionIndices, ...other]
-
 const Link = ({
 	path,
-	name,
+	title,
 	type,
 	focusable,
 	disabled,
@@ -62,7 +51,7 @@ const Link = ({
 					<LinkTypeLine />
 				</LinkTypeWrap>
 			)}
-			<LinkTitle>{name}</LinkTitle>
+			<LinkTitle>{title}</LinkTitle>
 		</LinkContentBox>
 	</LinkWrap>
 )
@@ -70,6 +59,7 @@ const Link = ({
 const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	const location = useLocation()
 	const windowWidth = useWindowWidth()
+	const links = useMenuLinks()
 
 	useEffect(() => {
 		const scrollLockTarget = document.querySelector(`${MenuWrap}`)
@@ -150,7 +140,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 
 				return (
 					<Link
-						key={link.id}
+						key={link.slug}
 						focusable={isOpen}
 						toggleMenu={toggleMenu}
 						disabled={disabled}

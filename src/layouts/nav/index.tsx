@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Binder, { HamWrap } from './binder'
-import Menu, { links as menuLinks } from './menu'
+import Menu from './menu'
+import useMenuLinks from './useMenuLinks'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 import { numericBreakpoints, reducedMotion } from '@utils/styling'
@@ -16,6 +17,7 @@ const menuAnimation = reducedMotion()
 const Nav = (): JSX.Element => {
 	const [menuOpen, setMenuOpen] = useState<boolean>(false)
 	const windowWidth = useWindowWidth()
+	const menuLinks = useMenuLinks()
 
 	const toggleMenu = (nextState: boolean) => {
 		if (nextState) {

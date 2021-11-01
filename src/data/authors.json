@@ -1,10 +1,10 @@
 [
 	{
-		"id": "vu",
+		"slug": "vu-luong",
 		"name": "Vu Luong"
 	},
 	{
-		"id": "justin",
+		"slug": "justin-selig",
 		"name": "Justin Selig"
 	}
 ]

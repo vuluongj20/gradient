@@ -1,14 +1,14 @@
 [
 	{
-		"id": "technology",
+		"slug": "technology",
 		"name": "Technology"
 	},
 	{
-		"id": "design",
+		"slug": "design",
 		"name": "Design"
 	},
 	{
-		"id": "law",
+		"slug": "law",
 		"name": "Law"
 	}
 ]

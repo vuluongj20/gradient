@@ -4,24 +4,23 @@ import { CardContent } from './card'
 import CardArea, { Offsets } from './cardArea'
 import Grid from './grid'
 
-import { Page } from '@data/pages/types'
-
+import { Page } from '@utils/dataHooks/types'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
-	section: Page
+	sectionLink: Page
 	cards: CardContent[]
 	offsets: Offsets
 	overlay?: boolean
 }
 
-const Section = ({ section, cards, offsets, overlay }: Props): JSX.Element => {
+const Section = ({ sectionLink, cards, offsets, overlay }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider overlay={overlay}>
 			<Wrap>
 				<StyledGrid>
-					<TitleWrap href={section.path}>
-						<Title>{section.name}</Title>
+					<TitleWrap href={sectionLink.path}>
+						<Title>{sectionLink.title}</Title>
 					</TitleWrap>
 					<CardArea cards={cards} offsets={offsets} />
 				</StyledGrid>

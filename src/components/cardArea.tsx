@@ -157,7 +157,7 @@ const CardGrid = ({ cards, offsets }: Props): JSX.Element => {
 	return (
 		<Fragment>
 			{cards.map((card, i) => (
-				<Card key={card.id} {...card} gridCols={gridColumns[i]} />
+				<Card key={card.slug} {...card} gridCols={gridColumns[i]} />
 			))}
 		</Fragment>
 	)

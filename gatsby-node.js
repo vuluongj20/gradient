@@ -1,7 +1,5 @@
 const path = require('path')
 const SiteIndex = path.resolve(`./src/templates/site-index.tsx`)
-const sections = require(`./src/data/sections.json`)
-const authors = require(`./src/data/authors.json`)
 
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPlugin({
@@ -12,25 +10,73 @@ exports.onCreateBabelConfig = ({ actions }) => {
   })
 }
 
-exports.createPages = async function ({ actions }) {
-  actions.createPage({
-    path: '/site-index',
-    component: SiteIndex,
-    context: { title: 'Index' },
-  })
-
-  sections.forEach((section) => {
+exports.createPages = async function ({ actions, graphql }) {
+  const indexResult = await graphql(
+    `
+      query {
+        allIndexJson {
+          edges {
+            node {
+              slug
+              title
+            }
+          }
+        }
+      }
+    `,
+  )
+  indexResult.data.allIndexJson.edges.forEach((edge) => {
+    const page = edge.node
     actions.createPage({
-      path: `/section/${section.id}`,
+      path: `/${page.slug}`,
       component: SiteIndex,
-      context: { title: section.name, section: section.id },
+      context: { slug: page.slug, title: page.title },
     })
   })
-  authors.forEach((author) => {
+
+  const sectionsResult = await graphql(
+    `
+      query {
+        allSectionsJson {
+          edges {
+            node {
+              slug
+              name
+            }
+          }
+        }
+      }
+    `,
+  )
+  sectionsResult.data.allSectionsJson.edges.forEach((edge) => {
+    const section = edge.node
     actions.createPage({
-      path: `/author/${author.id}`,
+      path: `/section/${section.slug}`,
       component: SiteIndex,
-      context: { title: author.name, author: author.id },
+      context: { slug: section.slug, title: section.name },
+    })
+  })
+
+  const authorsResult = await graphql(
+    `
+      query {
+        allAuthorsJson {
+          edges {
+            node {
+              slug
+              name
+            }
+          }
+        }
+      }
+    `,
+  )
+  authorsResult.data.allAuthorsJson.edges.forEach((edge) => {
+    const author = edge.node
+    actions.createPage({
+      path: `/author/${author.slug}`,
+      component: SiteIndex,
+      context: { slug: author.slug, title: author.name },
     })
   })
 }

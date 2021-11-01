@@ -6,7 +6,7 @@ import TransitionLink from './transitionLink'
 import { AdaptiveGridColumns } from '@types'
 
 export type CardContent = {
-	id: string
+	slug: string
 	to: string
 	img: {
 		src: string
