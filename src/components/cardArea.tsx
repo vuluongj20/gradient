@@ -74,7 +74,7 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 	 */
 	const calibrateRows = (rows: SpanRange[][], nCols: number): GridColumns[] =>
 		rows
-			.map((row) => {
+			.map((row, rowIndex) => {
 				/** Array of sizes of cards in the row,
 				 * starting out with the 'mid' values
 				 */
@@ -89,15 +89,16 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 				 * or more narrow, and by how much
 				 */
 				let difference = nCols - sum(spans)
-				let count = 0
 				let nextIndex = 0
 
 				/**
-				 * Progressively and randomly make cards wider/more narrow
+				 * Progressively make cards wider/more narrow
 				 * until either the cards span the entire row or no more
 				 * card can be widened (usually the case in the last row)
 				 */
-				while (difference !== 0 && sum(spans) < upperLimit && count < 20) {
+				const isLastRow = rowIndex === rows.length - 1
+
+				while (difference !== 0 && !(isLastRow & (sum(spans) > upperLimit))) {
 					if (difference > 0) {
 						spans[nextIndex] += 1
 						difference -= 1
@@ -105,15 +106,19 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 						spans[nextIndex] -= 1
 						difference += 1
 					}
-					count += 1
+					/** Move to next card in the row */
 					if (nextIndex < row.length - 1) {
 						nextIndex += 1
 					} else {
 						nextIndex = 0
 					}
 				}
-				let currentStartLocation = 1
 
+				/**
+				 * Translate card spans [number] to grid-column
+				 * positions [start: number, end: number]
+				 */
+				let currentStartLocation = 1
 				const gridColsCollection: GridColumns[] = spans.map((span) => {
 					const gridCols: GridColumns = {
 						start: currentStartLocation,
