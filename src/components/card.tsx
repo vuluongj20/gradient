@@ -20,7 +20,7 @@ type Props = CardContent & {
 
 const Card = ({ gridCols, path, img }: Props): JSX.Element => {
 	return (
-		<Wrap to={path} $gridCols={gridCols}>
+		<Wrap to={path} gridCols={gridCols}>
 			<ImageWrap>
 				<Image {...img} />
 			</ImageWrap>
@@ -38,13 +38,13 @@ const Card = ({ gridCols, path, img }: Props): JSX.Element => {
 
 export default Card
 
-const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
+const Wrap = styled(TransitionLink)<{ gridCols: AdaptiveGridColumns }>`
 	position: relative;
 	width: 100%;
 	text-decoration: none;
 	padding-bottom: ${(p) => p.theme.s[1]};
 
-	grid-column: ${(p) => p.$gridCols.xl.start} / ${(p) => p.$gridCols.xl.end};
+	grid-column: ${(p) => p.gridCols.xl.start} / ${(p) => p.gridCols.xl.end};
 	align-self: start;
 
 	border-radius: 1em 0;
@@ -58,13 +58,13 @@ const Wrap = styled(TransitionLink)<{ $gridCols: AdaptiveGridColumns }>`
 	}
 
 	${(p) => p.theme.u.media.l} {
-		grid-column: ${(p) => p.$gridCols.l.start} / ${(p) => p.$gridCols.l.end};
+		grid-column: ${(p) => p.gridCols.l.start} / ${(p) => p.gridCols.l.end};
 	}
 	${(p) => p.theme.u.media.m} {
-		grid-column: ${(p) => p.$gridCols.m.start} / ${(p) => p.$gridCols.m.end};
+		grid-column: ${(p) => p.gridCols.m.start} / ${(p) => p.gridCols.m.end};
 	}
 	${(p) => p.theme.u.media.s} {
-		grid-column: ${(p) => p.$gridCols.s.start} / ${(p) => p.$gridCols.s.end};
+		grid-column: ${(p) => p.gridCols.s.start} / ${(p) => p.gridCols.s.end};
 	}
 	${(p) => p.theme.u.media.xs} {
 		grid-column: 1 / -1;
