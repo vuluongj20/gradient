@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-import { Offsets } from '@components/cardArea'
 import CardGrid from '@components/cardGrid'
 import Header from '@components/header'
 import Page from '@components/page'

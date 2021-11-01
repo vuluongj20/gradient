@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { CardContent } from './card'
-import CardArea, { Offsets } from './cardArea'
+import CardArea from './cardArea'
 import Grid from './grid'
 
 import { Page } from '@types'
