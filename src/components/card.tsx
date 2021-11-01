@@ -99,7 +99,7 @@ const ImageWrap = styled.div`
 `
 
 const TitleWrap = styled.div`
-	margin-top: 0.5em;
+	margin-top: ${(p) => p.theme.s[1]};
 `
 
 const Title = styled.p`
@@ -133,7 +133,7 @@ const DummyTitle = styled.span`
 const Tags = styled.div`
 	${(p) => p.theme.t.ui.label};
 	color: ${(p) => p.theme.c.label};
-	margin-top: ${(p) => p.theme.s[0]};
+	margin-top: ${(p) => p.theme.s[1]};
 	transition: color 0.125s ${(p) => p.theme.a.easeOutQuad};
 	text-transform: capitalize;
 
