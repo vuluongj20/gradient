@@ -11,11 +11,10 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 type Props = {
 	sectionLink: Page
 	cards: CardContent[]
-	offsets: Offsets
 	overlay?: boolean
 }
 
-const Section = ({ sectionLink, cards, offsets, overlay }: Props): JSX.Element => {
+const Section = ({ sectionLink, cards, overlay }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider overlay={overlay}>
 			<Wrap>
@@ -23,7 +22,7 @@ const Section = ({ sectionLink, cards, offsets, overlay }: Props): JSX.Element =
 					<TitleWrap href={sectionLink.path}>
 						<Title>{sectionLink.title}</Title>
 					</TitleWrap>
-					<CardArea cards={cards} offsets={offsets} />
+					<CardArea cards={cards} />
 				</StyledGrid>
 			</Wrap>
 		</LocalThemeProvider>

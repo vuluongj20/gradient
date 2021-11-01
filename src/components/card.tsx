@@ -5,9 +5,13 @@ import TransitionLink from './transitionLink'
 
 import { AdaptiveGridColumns } from '@types'
 
+import useSections from '@utils/dataHooks/sections'
+
 export type CardContent = {
 	slug: string
 	path: string
+	title: string
+	sections: string[]
 	img: {
 		src: string
 		alt: string
@@ -18,7 +22,12 @@ type Props = CardContent & {
 	gridCols: AdaptiveGridColumns
 }
 
-const Card = ({ gridCols, path, img }: Props): JSX.Element => {
+const Card = ({ gridCols, path, title, sections, img }: Props): JSX.Element => {
+	const sectionData = useSections()
+	const sectionNames = sections
+		.map((slug) => sectionData.find((s) => s.slug === slug)?.slug)
+		.join(' | ')
+
 	return (
 		<Wrap to={path} gridCols={gridCols}>
 			<ImageWrap>
@@ -27,10 +36,10 @@ const Card = ({ gridCols, path, img }: Props): JSX.Element => {
 
 			<TitleWrap>
 				<Title>
-					<DummyTitle>B.L. v. Mahanoy School District</DummyTitle>
-					B.L. v. Mahanoy School District
+					<DummyTitle>{title}</DummyTitle>
+					{title}
 				</Title>
-				<Tags>Law</Tags>
+				<Tags>{sectionNames}</Tags>
 			</TitleWrap>
 		</Wrap>
 	)
@@ -126,6 +135,7 @@ const Tags = styled.div`
 	color: ${(p) => p.theme.c.label};
 	margin-top: ${(p) => p.theme.s[0]};
 	transition: color 0.125s ${(p) => p.theme.a.easeOutQuad};
+	text-transform: capitalize;
 
 	${Wrap}:hover & {
 		color: ${(p) => p.theme.c.linkHover};

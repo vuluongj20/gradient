@@ -4,7 +4,7 @@
 		"title": "B.L. v. Mahanoy School District",
 		"featuredIn": ["home"],
 		"featuredSize": "xl",
-		"sections": ["law"],
+		"sections": ["technology"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "1.jpg",
@@ -28,7 +28,7 @@
 		"title": "Group Unawareness",
 		"featuredIn": ["home", "home-design"],
 		"featuredSize": "s",
-		"sections": ["law"],
+		"sections": ["design"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "5.png",
@@ -40,7 +40,7 @@
 		"title": "How Generative Neural Nets Work",
 		"featuredIn": ["home", "home-technology", "home-design"],
 		"featuredSize": "m",
-		"sections": ["technology"],
+		"sections": ["technology", "design"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "2.png",

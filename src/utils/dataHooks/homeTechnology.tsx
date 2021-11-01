@@ -7,6 +7,8 @@ const useHomeTechnology = () => {
 				edges {
 					node {
 						slug
+						title
+						sections
 						featuredSize
 						img {
 							src

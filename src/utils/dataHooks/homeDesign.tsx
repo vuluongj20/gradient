@@ -7,6 +7,8 @@ const useHomeDesign = () => {
 				edges {
 					node {
 						slug
+						title
+						sections
 						featuredSize
 						img {
 							src
