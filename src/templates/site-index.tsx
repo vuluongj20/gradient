@@ -14,7 +14,7 @@ type Props = {
 		author?: string
 	}
 	data: {
-		allArticlesJson: {
+		allStoriesJson: {
 			edges: [
 				{
 					node: Article
@@ -38,8 +38,8 @@ const SiteIndexPage = ({ pageContext }: Props) => {
 }
 
 export const query = graphql`
-	query ($filter: ArticlesJsonFilterInput) {
-		allArticlesJson(filter: $filter) {
+	query ($filter: StoriesJsonFilterInput) {
+		allStoriesJson(filter: $filter) {
 			edges {
 				node {
 					title

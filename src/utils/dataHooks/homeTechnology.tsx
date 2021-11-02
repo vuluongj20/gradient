@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 const useHomeTechnology = () => {
 	const data = useStaticQuery(graphql`
 		{
-			allArticlesJson(filter: { featuredIn: { in: "home-technology" } }) {
+			allStoriesJson(filter: { featuredIn: { in: "home-technology" } }) {
 				edges {
 					node {
 						slug
@@ -20,9 +20,9 @@ const useHomeTechnology = () => {
 		}
 	`)
 
-	return data.allArticlesJson.edges.map((edge) => {
-		const article = edge.node
-		return { ...article, path: `/article/${article.slug}` }
+	return data.allStoriesJson.edges.map((edge) => {
+		const story = edge.node
+		return { ...story, path: `/story/${story.slug}` }
 	})
 }
 
