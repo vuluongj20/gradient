@@ -129,7 +129,7 @@ const DisclosuresDivider = styled.hr`
 `
 
 const Policies = styled(Grid)`
-	padding-bottom: ${(p) => p.theme.s[3]};
+	padding-bottom: ${(p) => p.theme.s[2]};
 	justify-items: start;
 `
 
