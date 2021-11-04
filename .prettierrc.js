@@ -9,6 +9,7 @@ module.exports = {
     '^[./]',
     '^@data(/(.*))*$',
     '^@components/(.*)$',
+    '^@pageComponents/(.*)$',
     '^@types(/(.*))*$',
     '^@utils(/(.*))*$',
   ],

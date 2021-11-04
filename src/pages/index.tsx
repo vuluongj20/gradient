@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 import CardGrid from '@components/cardGrid'
 import Header from '@components/header'
 import Page from '@components/page'
@@ -7,43 +5,32 @@ import Section from '@components/section'
 import SectionDivider from '@components/sectionDivider'
 import SEO from '@components/seo'
 
-import useHomeDesign from '@utils/dataHooks/homeDesign'
-import useHomeFeatured from '@utils/dataHooks/homeFeatured'
-import useHomeTechnology from '@utils/dataHooks/homeTechnology'
-import useSectionPages from '@utils/dataHooks/sections'
+import useDesignStories from '@pageComponents/home/useDesignStories'
+import useFeaturedStories from '@pageComponents/home/useFeaturedStories'
+import useTechnologyStories from '@pageComponents/home/useTechnologyStories'
+
+import useSections from '@utils/dataHooks/sections'
 
 const IndexPage = (): JSX.Element => {
-  const sectionPages = useSectionPages()
-  const technology = sectionPages.find((s) => s.slug === 'technology')
-  const design = sectionPages.find((s) => s.slug === 'design')
+  const sections = useSections()
+  const technologySection = sections.find((s) => s.slug === 'technology')
+  const designSection = sections.find((s) => s.slug === 'design')
 
-  const featured = useHomeFeatured()
-  const featuredTechnology = useHomeTechnology()
-  const featuredDesign = useHomeDesign()
+  const featuredStories = useFeaturedStories()
+  const technologyStories = useTechnologyStories()
+  const designStories = useDesignStories()
 
   return (
     <Page>
       <SEO />
-      <HeroSection>
-        <Header />
-        <HeroGrid>
-          <CardGrid cards={featured} />
-        </HeroGrid>
-      </HeroSection>
+      <Header />
+      <CardGrid cards={featuredStories} />
       <SectionDivider />
-      <Section sectionLink={technology} cards={featuredTechnology} />
+      <Section sectionLink={technologySection} cards={technologyStories} />
       <SectionDivider />
-      <Section sectionLink={design} cards={featuredDesign} />
+      <Section sectionLink={designSection} cards={designStories} />
     </Page>
   )
 }
 
 export default IndexPage
-
-const HeroSection = styled.div``
-
-const HeroGrid = styled.div`
-  &:not(:last-child) {
-    margin-bottom: ${(p) => p.theme.s[4]};
-  }
-`

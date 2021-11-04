@@ -16,6 +16,7 @@ module.exports = {
         map: [
           ['@utils', './src/utils'],
           ['@components', './src/components'],
+          ['@pageComponents', './src/pageComponents'],
           ['@data', './src/data'],
           ['@types', './src/types'],
         ],

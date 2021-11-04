@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-const useHomeTechnology = () => {
+const useTechnologyStories = () => {
 	const data = useStaticQuery(graphql`
 		{
 			allStoriesJson(filter: { featuredIn: { in: "home-technology" } }) {
@@ -27,4 +27,4 @@ const useHomeTechnology = () => {
 	})
 }
 
-export default useHomeTechnology
+export default useTechnologyStories

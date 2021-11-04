@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { Page } from '@types'
 
-const useSectionPages = (): Page[] => {
+const useSections = (): Page[] => {
 	const data = useStaticQuery(graphql`
 		query {
 			allSectionsJson {
@@ -27,4 +27,4 @@ const useSectionPages = (): Page[] => {
 	})
 }
 
-export default useSectionPages
+export default useSections
