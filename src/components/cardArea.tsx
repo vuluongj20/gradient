@@ -21,7 +21,7 @@ type SizeMap = Record<'s' | 'm' | 'l' | 'xl', SpanRange>
 
 /** Maps a size shortname (s/m/l/xl) to a full size range object */
 const sizeMap: SizeMap = {
-	s: { mid: 3, lowerLimit: 4, upperLimit: 3 },
+	s: { mid: 3, lowerLimit: 3, upperLimit: 3 },
 	m: { mid: 4, lowerLimit: 4, upperLimit: 6 },
 	l: { mid: 6, lowerLimit: 4, upperLimit: 10 },
 	xl: { mid: 10, lowerLimit: 4, upperLimit: 12 },

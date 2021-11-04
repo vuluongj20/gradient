@@ -13,6 +13,7 @@ const useHomeTechnology = () => {
 						img {
 							src
 							alt
+							aspectRatio
 						}
 					}
 				}

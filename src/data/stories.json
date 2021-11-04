@@ -1,50 +1,58 @@
 [
 	{
-		"slug": "bl-mahanoy",
-		"title": "B.L. v. Mahanoy School District",
-		"featuredIn": ["home"],
-		"featuredSize": "xl",
-		"sections": ["technology"],
-		"authors": ["vu-luong"],
-		"img": {
-			"src": "1.jpg",
-			"alt": "..."
-		}
-	},
-	{
 		"slug": "simulating-3d-sound",
 		"title": "Simulating 3D Sound in Stereo Headphones",
+		"description": "More than 10 percent of Florida’s estimated manatee population has died since the start of the year, already surpassing the total number of manatee deaths in 2020, according to state wildlife officials.",
 		"featuredIn": ["home", "home-technology"],
 		"featuredSize": "m",
 		"sections": ["technology"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "4.png",
-			"alt": "..."
+			"alt": "...",
+			"aspectRatio": "square"
+		}
+	},
+	{
+		"slug": "bl-mahanoy",
+		"title": "B.L. v. Mahanoy School District",
+		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
+		"featuredIn": ["home"],
+		"featuredSize": "l",
+		"sections": ["technology"],
+		"authors": ["vu-luong"],
+		"img": {
+			"src": "1.jpg",
+			"alt": "...",
+			"aspectRatio": "wide"
 		}
 	},
 	{
 		"slug": "group-unawareness",
 		"title": "Group Unawareness",
+		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
 		"featuredIn": ["home", "home-design"],
 		"featuredSize": "s",
 		"sections": ["design"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "5.png",
-			"alt": "..."
+			"alt": "...",
+			"aspectRatio": "rect"
 		}
 	},
 	{
 		"slug": "generative-neural-nets",
 		"title": "How Generative Neural Nets Work",
+		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
 		"featuredIn": ["home", "home-technology", "home-design"],
 		"featuredSize": "m",
 		"sections": ["technology", "design"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "2.png",
-			"alt": "..."
+			"alt": "...",
+			"aspectRatio": "wide"
 		}
 	}
 ]

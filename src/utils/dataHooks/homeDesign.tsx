@@ -13,6 +13,7 @@ const useHomeDesign = () => {
 						img {
 							src
 							alt
+							aspectRatio
 						}
 					}
 				}

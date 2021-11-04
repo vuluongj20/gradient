@@ -1,9 +1,12 @@
+import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import Image from './image'
+import DynamicImage from './image'
 import TransitionLink from './transitionLink'
 
-import { AdaptiveGridColumns } from '@types'
+import Grid from '@components/grid'
+
+import { AdaptiveGridColumns, Image } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
 
@@ -12,48 +15,65 @@ export type CardContent = {
 	path: string
 	title: string
 	sections: string[]
-	img: {
-		src: string
-		alt: string
-	}
+	img: Image
 }
 
 type Props = CardContent & {
-	gridCols: AdaptiveGridColumns
+	gridCols?: AdaptiveGridColumns
+	rowLayout?: boolean
 }
 
-const Card = ({ gridCols, path, title, sections, img }: Props): JSX.Element => {
+type InnerWrapProps = {
+	children: ReactNode
+}
+
+const Card = ({
+	gridCols,
+	path,
+	title,
+	sections,
+	img,
+	rowLayout,
+}: Props): JSX.Element => {
 	const sectionData = useSections()
 	const sectionNames = sections
 		.map((slug) => sectionData.find((s) => s.slug === slug)?.slug)
 		.join(' | ')
 
-	return (
-		<Wrap to={path} gridCols={gridCols}>
-			<ImageWrap>
-				<Image {...img} />
-			</ImageWrap>
+	const InnerWrap = ({ children }: InnerWrapProps) =>
+		rowLayout ? <Grid>{children}</Grid> : <div>{children}</div>
 
-			<TitleWrap>
-				<Title>
-					<DummyTitle>{title}</DummyTitle>
-					{title}
-				</Title>
-				<Tags>{sectionNames}</Tags>
-			</TitleWrap>
+	return (
+		<Wrap to={path} rowLayout={rowLayout} gridCols={gridCols}>
+			<InnerWrap>
+				<ImageWrap rowLayout={rowLayout}>
+					<DynamicImage {...img} aspectRatio={rowLayout ? 'wide' : img.aspectRatio} />
+				</ImageWrap>
+
+				<TitleWrap rowLayout={rowLayout}>
+					<Title>
+						<DummyTitle>{title}</DummyTitle>
+						{title}
+					</Title>
+					<Tags>{sectionNames}</Tags>
+				</TitleWrap>
+			</InnerWrap>
 		</Wrap>
 	)
 }
 
 export default Card
 
-const Wrap = styled(TransitionLink)<{ gridCols: AdaptiveGridColumns }>`
+const Wrap = styled(TransitionLink)<{
+	gridCols: AdaptiveGridColumns
+	rowLayout: boolean
+}>`
+	display: block;
 	position: relative;
 	width: 100%;
 	text-decoration: none;
 	padding-bottom: ${(p) => p.theme.s[1]};
 
-	grid-column: ${(p) => p.gridCols.xl.start} / ${(p) => p.gridCols.xl.end};
 	align-self: start;
 
 	border-radius: 1em 0;
@@ -66,44 +86,61 @@ const Wrap = styled(TransitionLink)<{ gridCols: AdaptiveGridColumns }>`
 		text-decoration: none;
 	}
 
-	${(p) => p.theme.u.media.l} {
-		grid-column: ${(p) => p.gridCols.l.start} / ${(p) => p.gridCols.l.end};
-	}
-	${(p) => p.theme.u.media.m} {
-		grid-column: ${(p) => p.gridCols.m.start} / ${(p) => p.gridCols.m.end};
-	}
-	${(p) => p.theme.u.media.s} {
-		grid-column: ${(p) => p.gridCols.s.start} / ${(p) => p.gridCols.s.end};
-	}
-	${(p) => p.theme.u.media.xs} {
-		grid-column: 1 / -1;
-	}
+	${(p) =>
+		p.rowLayout
+			? `
+				width: 100%; 
+				margin-bottom: ${p.theme.s[2]};
+			`
+			: `
+				grid-column: ${p.gridCols.xl.start} / ${p.gridCols.xl.end};
+
+				${p.theme.u.media.l} {
+					grid-column: ${p.gridCols.l.start} / ${p.gridCols.l.end};
+				}
+				${p.theme.u.media.m} {
+					grid-column: ${p.gridCols.m.start} / ${p.gridCols.m.end};
+				}
+				${p.theme.u.media.s} {
+					grid-column: ${p.gridCols.s.start} / ${p.gridCols.s.end};
+				}
+				${p.theme.u.media.xs} {
+					grid-column: 1 / -1;
+				}
+	`}
 `
 
-const ImageWrap = styled.div`
-	${(p) => p.theme.u.flexCenter}
+const ImageWrap = styled.div<{ rowLayout: boolean }>`
+	${(p) => p.theme.u.flexCenter};
 	width: 100%;
 	max-height: 48em;
 	border-radius: 1em 0;
 	overflow: hidden;
 
+	${(p) => p.rowLayout && `grid-column: 1 / 4;`}
+
 	${(p) => p.theme.u.media.m} {
-		max-height: 26em;
+		max-height: 32em;
 	}
 	${(p) => p.theme.u.media.s} {
-		max-height: 20em;
+		max-height: 24em;
+		${(p) => p.rowLayout && `grid-column: 1 / -1;`}
 	}
 	${(p) => p.theme.u.media.xs} {
 		max-height: 16em;
 	}
 `
 
-const TitleWrap = styled.div`
-	margin-top: ${(p) => p.theme.s[1]};
+const TitleWrap = styled.div<{ rowLayout: boolean }>`
+	${(p) => (p.rowLayout ? `grid-column-end: span 4;` : `margin-top: ${p.theme.s[1]};`)}
+
+	${(p) => p.theme.u.media.s} {
+		margin-top: ${(p) => p.theme.s[1]};
+	}
 `
 
 const Title = styled.p`
-	${(p) => p.theme.t.content.h4}
+	${(p) => p.theme.t.content.h4};
 
 	position: relative;
 
@@ -133,7 +170,7 @@ const DummyTitle = styled.span`
 const Tags = styled.div`
 	${(p) => p.theme.t.ui.label};
 	color: ${(p) => p.theme.c.label};
-	margin-top: ${(p) => p.theme.s[1]};
+	margin-top: ${(p) => p.theme.s[0]};
 	transition: color 0.125s ${(p) => p.theme.a.easeOutQuad};
 	text-transform: capitalize;
 

@@ -1,11 +1,12 @@
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 
+import Card from '@components/card'
 import Grid from '@components/grid'
 import Page from '@components/page'
 import SEO from '@components/seo'
 
-import { Article } from '@types'
+import { Story } from '@types'
 
 type Props = {
 	pageContext: {
@@ -17,22 +18,29 @@ type Props = {
 		allStoriesJson: {
 			edges: [
 				{
-					node: Article
+					node: Story
 				},
 			]
 		}
 	}
 }
 
-const SiteIndexPage = ({ pageContext }: Props) => {
+const SiteIndexPage = ({ pageContext, data }: Props) => {
+	const stories = data.allStoriesJson.edges.map((edge) => edge.node)
+
 	return (
 		<Page>
 			<SEO title={pageContext.title} />
-			<Grid>
-				<PageContent>
+			<PageContent>
+				<Grid>
 					<h1>{pageContext.title}</h1>
-				</PageContent>
-			</Grid>
+				</Grid>
+				<Results>
+					{stories.map((story) => (
+						<Card key={story.slug} path={`/story/${story.slug}`} {...story} rowLayout />
+					))}
+				</Results>
+			</PageContent>
 		</Page>
 	)
 }
@@ -42,6 +50,7 @@ export const query = graphql`
 		allStoriesJson(filter: $filter) {
 			edges {
 				node {
+					slug
 					title
 					sections
 					authors
@@ -60,4 +69,8 @@ export default SiteIndexPage
 const PageContent = styled.div`
 	grid-column: 1 / -1;
 	padding-top: ${(p) => p.theme.s[6]};
+`
+
+const Results = styled.div`
+	margin-top: ${(p) => p.theme.s[4]};
 `

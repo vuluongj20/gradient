@@ -13,6 +13,7 @@ const useHomeFeatured = () => {
 						img {
 							src
 							alt
+							aspectRatio
 						}
 					}
 				}
