@@ -3,11 +3,9 @@ import styled from 'styled-components'
 
 import { Image } from '@types'
 
-type Props = Image & {
-	aspectRatio?: 'square' | 'wide' | 'rect'
-}
+type Props = Image
 
-const ImageWrap = ({ src, alt, aspectRatio }: Props): JSX.Element => {
+const ImageWrap = ({ src, alt, aspectRatio }: Image): JSX.Element => {
 	const getPaddingTop = (aspectRatio: string): string => {
 		switch (aspectRatio) {
 			/** 1:1 */

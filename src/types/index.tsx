@@ -10,7 +10,7 @@ export type AdaptiveGridColumns = Record<Breakpoint, GridColumns>
 export type Image = {
 	src: string
 	alt: string
-	aspectRatio: 'square' | 'rect' | 'wide'
+	aspectRatio?: 'square' | 'rect' | 'wide'
 }
 
 export type Page = {
