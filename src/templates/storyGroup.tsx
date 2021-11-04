@@ -25,7 +25,7 @@ type Props = {
 	}
 }
 
-const SiteIndexPage = ({ pageContext, data }: Props) => {
+const StoryGroupPage = ({ pageContext, data }: Props) => {
 	const stories = data.allStoriesJson.edges.map((edge) => edge.node)
 
 	return (
@@ -64,7 +64,7 @@ export const query = graphql`
 	}
 `
 
-export default SiteIndexPage
+export default StoryGroupPage
 
 const PageContent = styled.div`
 	grid-column: 1 / -1;

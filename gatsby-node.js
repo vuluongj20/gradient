@@ -1,5 +1,5 @@
 const path = require('path')
-const SiteIndex = path.resolve(`./src/templates/site-index.tsx`)
+const StoryGroup = path.resolve(`./src/templates/storyGroup.tsx`)
 
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPlugin({
@@ -29,7 +29,7 @@ exports.createPages = async function ({ actions, graphql }) {
     const page = edge.node
     actions.createPage({
       path: `/${page.slug}`,
-      component: SiteIndex,
+      component: StoryGroup,
       context: { slug: page.slug, title: page.title },
     })
   })
@@ -52,7 +52,7 @@ exports.createPages = async function ({ actions, graphql }) {
     const section = edge.node
     actions.createPage({
       path: `/section/${section.slug}`,
-      component: SiteIndex,
+      component: StoryGroup,
       context: { filter: { sections: { in: [section.slug] } }, title: section.name },
     })
   })
@@ -75,7 +75,7 @@ exports.createPages = async function ({ actions, graphql }) {
     const author = edge.node
     actions.createPage({
       path: `/author/${author.slug}`,
-      component: SiteIndex,
+      component: StoryGroup,
       context: { filter: { authors: { in: [author.slug] } }, title: author.name },
     })
   })
