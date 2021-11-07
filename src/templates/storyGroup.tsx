@@ -145,6 +145,6 @@ const Title = styled.h1`
 `
 
 const Results = styled(Grid)`
-	margin-top: ${(p) => p.theme.s[2]};
+	margin-top: ${(p) => p.theme.s[1]};
 	grid-row-gap: ${(p) => p.theme.s[2]};
 `
