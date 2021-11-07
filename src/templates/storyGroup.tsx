@@ -82,9 +82,9 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 		<Page>
 			<SEO title={pageContext.title} />
 			<PageContent>
-				<Grid>
+				<Header>
 					<h1>{pageContext.title}</h1>
-				</Grid>
+				</Header>
 				<FilterBar filters={filters} onChange={onChange} />
 				<Results>
 					{filteredStories.map((story) => (
@@ -122,6 +122,11 @@ const PageContent = styled.div`
 	padding-top: ${(p) => p.theme.s[6]};
 `
 
-const Results = styled.div`
-	margin-top: ${(p) => p.theme.s[4]};
+const Header = styled(Grid)`
+	margin-bottom: ${(p) => p.theme.s[5]};
+`
+
+const Results = styled(Grid)`
+	margin-top: ${(p) => p.theme.s[2]};
+	grid-row-gap: ${(p) => p.theme.s[2]};
 `

@@ -41,7 +41,7 @@ const Card = ({
 		.join(' | ')
 
 	const InnerWrap = ({ children }: InnerWrapProps) =>
-		rowLayout ? <Grid>{children}</Grid> : <div>{children}</div>
+		rowLayout ? <StyledInnerGrid>{children}</StyledInnerGrid> : <div>{children}</div>
 
 	return (
 		<Wrap to={path} rowLayout={rowLayout} gridCols={gridCols}>
@@ -72,7 +72,6 @@ const Wrap = styled(TransitionLink)<{
 	position: relative;
 	width: 100%;
 	text-decoration: none;
-	padding-bottom: ${(p) => p.theme.s[1]};
 
 	align-self: start;
 
@@ -89,10 +88,10 @@ const Wrap = styled(TransitionLink)<{
 	${(p) =>
 		p.rowLayout
 			? `
-				width: 100%; 
-				margin-bottom: ${p.theme.s[2]};
+				grid-column: 1 / -1;
 			`
 			: `
+				padding-bottom: ${p.theme.s[1]};
 				grid-column: ${p.gridCols.xl.start} / ${p.gridCols.xl.end};
 
 				${p.theme.u.media.l} {
@@ -108,6 +107,10 @@ const Wrap = styled(TransitionLink)<{
 					grid-column: 1 / -1;
 				}
 	`}
+`
+
+const StyledInnerGrid = styled(Grid)`
+	padding: 0;
 `
 
 const ImageWrap = styled.div<{ rowLayout: boolean }>`
