@@ -10,6 +10,7 @@ import Popover from './popover'
 type Props = {
 	name: string
 	label: string
+	defaultSelectedKey: string
 	onChange: (name: string, value: string) => void
 	children: ReactNode
 	className: string

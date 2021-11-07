@@ -39,9 +39,10 @@ const Option = ({ item, state }: OptionProps) => {
   )
 }
 
-const ListBox = ({ state, label }: ListBoxProps) => {
+const ListBox = (props: ListBoxProps) => {
   const ref = useRef()
-  const { listBoxProps } = useListBox({ label }, state, ref)
+  const { state } = props
+  const { listBoxProps } = useListBox(props, state, ref)
 
   return (
     <StyledListBox {...listBoxProps} ref={ref}>
