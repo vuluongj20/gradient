@@ -42,7 +42,6 @@ const Link = ({
 		tabIndex={focusable ? 0 : -1}
 		disabled={disabled}
 	>
-		<LinkShadow />
 		<LinkBackground />
 		<LinkContentBox>
 			{type && (
@@ -148,7 +147,6 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 					/>
 				)
 			})}
-			<PageContentShadow />
 		</MenuWrap>
 	)
 }
@@ -231,25 +229,6 @@ const LinkBackground = styled.div`
 	${(p) => p.theme.u.media.xs} {
 		display: none;
 	}
-`
-
-const LinkShadow = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 1em;
-	height: 100%;
-	box-shadow: 0 0 1em ${(p) => Color(p.theme.c.heading).fade(0.98)};
-	${(p) => p.theme.u.media.xs} {
-		display: none;
-	}
-`
-
-const PageContentShadow = styled(LinkShadow)`
-	left: auto;
-	right: 0;
-	transform: translateX(100%);
-	z-index: 9;
 `
 
 const LinkContentBox = styled.div`
