@@ -11,6 +11,8 @@
 			"@components/*": ["./src/components/*"],
 			"@pageComponents": ["./src/pageComponents"],
 			"@pageComponents/*": ["./src/pageComponents/*"],
+			"@icons": ["./src/icons"],
+			"@icons/*": ["./src/icons/*"],
 			"@data": ["./src/data"],
 			"@data/*": ["./src/data/*"],
 			"@types": ["./src/types"],

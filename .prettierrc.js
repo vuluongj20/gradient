@@ -10,6 +10,7 @@ module.exports = {
     '^@data(/(.*))*$',
     '^@components/(.*)$',
     '^@pageComponents/(.*)$',
+    '^@icons/(.*)$',
     '^@types(/(.*))*$',
     '^@utils(/(.*))*$',
   ],

@@ -17,6 +17,7 @@ module.exports = {
           ['@utils', './src/utils'],
           ['@components', './src/components'],
           ['@pageComponents', './src/pageComponents'],
+          ['@icons', './src/icons'],
           ['@data', './src/data'],
           ['@types', './src/types'],
         ],
