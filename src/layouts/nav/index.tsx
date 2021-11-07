@@ -12,7 +12,7 @@ import { numericBreakpoints, reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
-	: { duration: 1, ease: 'power4.inOut' }
+	: { duration: 0.75, ease: 'power4.inOut' }
 
 const Nav = (): JSX.Element => {
 	const [menuOpen, setMenuOpen] = useState<boolean>(false)

@@ -18,16 +18,17 @@ type Props = {
 	}
 }
 
-const transition = { duration: 1, ease: 'power4.inOut' }
+const transitionIn = { duration: 1, ease: 'power4.out' }
+const transitionOut = { duration: 0.75, ease: 'power4.inOut' }
 
 const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 	const { transitionStatus } = useTransitionState()
 
 	useEffect(() => {
 		if (transitionStatus === 'entering') {
-			gsap.to(pageRef.current, { opacity: 1, ...transition })
+			gsap.to(pageRef.current, { opacity: 1, ...transitionIn })
 		} else if (transitionStatus === 'exiting') {
-			gsap.to(pageRef.current, { opacity: 0, ...transition })
+			gsap.to(pageRef.current, { opacity: 0, ...transitionOut })
 		}
 	}, [transitionStatus])
 

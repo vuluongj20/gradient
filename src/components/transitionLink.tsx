@@ -29,7 +29,7 @@ const Link = ({
 			length: 1,
 		}}
 		entry={{
-			delay: 1,
+			delay: 0.75,
 			duration: 1,
 		}}
 		onClick={onClick}
