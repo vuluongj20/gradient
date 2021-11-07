@@ -274,18 +274,22 @@ const LinkTypeWrap = styled.div`
 `
 
 const LinkTypeText = styled.p`
-	${(p) => p.theme.t.ui.label}
+	${(p) => p.theme.t.ui.label};
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
-	color: ${(p) => p.theme.c.label};
+	color: ${(p) => p.theme.c.heading};
 	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
 `
 
 const LinkTypeLine = styled.div`
 	width: 6em;
 	height: 2px;
-	background-color: ${(p) => p.theme.c.gray6};
+	background-color: ${(p) => p.theme.c.heading};
 	transform-origin: right;
 	transition: 0.375s ${(p) => p.theme.a.easeOutQuart};
+
+	${LinkWrap}.disabled & {
+		background-color: ${(p) => p.theme.c.label};
+	}
 `
