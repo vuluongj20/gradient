@@ -3,8 +3,6 @@ import styled from 'styled-components'
 
 import { Image } from '@types'
 
-type Props = Image
-
 const ImageWrap = ({ src, alt, aspectRatio }: Image): JSX.Element => {
 	const getPaddingTop = (aspectRatio: string): string => {
 		switch (aspectRatio) {
@@ -48,6 +46,7 @@ const Wrap = styled.div<{ paddingTop?: string }>`
 	display: block;
 	width: 100%;
 	position: relative;
+	background: ${(p) => p.theme.c.oBackground};
 
 	${(p) => p.paddingTop && `padding-top: ${p.paddingTop};`}
 `
