@@ -53,4 +53,5 @@ const Wrap = styled(Grid)`
 
 const StyledSelect = styled(Select)`
 	grid-column-end: span 2;
+	padding: 0 ${(p) => p.theme.s[0]};
 `

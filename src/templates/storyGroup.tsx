@@ -40,8 +40,8 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 
 	const sections = useSections()
 	const authors = useAuthors()
-	const showSectionFilters = !pageContext.filter.sections
-	const showAuthorFilters = !pageContext.filter.authors
+	const showSectionFilters = !pageContext.filter?.sections
+	const showAuthorFilters = !pageContext.filter?.authors
 	const filters: FilterProps[] = [
 		...(showSectionFilters
 			? [
