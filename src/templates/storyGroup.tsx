@@ -19,6 +19,10 @@ type Props = {
 		title: string
 		section?: string
 		author?: string
+		filter?: {
+			sections?: { in: string }
+			authors?: { in: string }
+		}
 	}
 	data: {
 		allStoriesJson: {
@@ -36,25 +40,35 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 
 	const sections = useSections()
 	const authors = useAuthors()
+	const showSectionFilters = !pageContext.filter.sections
+	const showAuthorFilters = !pageContext.filter.authors
 	const filters: FilterProps[] = [
-		{
-			id: 'section',
-			label: 'Filter section',
-			defaultValue: 'all',
-			options: [
-				{ value: 'all', label: 'All sections', selected: true },
-				...sections.map((s) => ({ value: s.slug, label: s.title })),
-			],
-		},
-		{
-			id: 'author',
-			label: 'Filter author',
-			defaultValue: 'all',
-			options: [
-				{ value: 'all', label: 'All authors', selected: true },
-				...authors.map((a) => ({ value: a.slug, label: a.title })),
-			],
-		},
+		...(showSectionFilters
+			? [
+					{
+						id: 'section',
+						label: 'Filter section',
+						defaultValue: 'all',
+						options: [
+							{ value: 'all', label: 'All sections', selected: true },
+							...sections.map((s) => ({ value: s.slug, label: s.title })),
+						],
+					},
+			  ]
+			: []),
+		...(showAuthorFilters
+			? [
+					{
+						id: 'author',
+						label: 'Filter author',
+						defaultValue: 'all',
+						options: [
+							{ value: 'all', label: 'All authors', selected: true },
+							...authors.map((a) => ({ value: a.slug, label: a.title })),
+						],
+					},
+			  ]
+			: []),
 	]
 	const [selectedSection, setSelectedSection] = useState('all')
 	const [selectedAuthor, setSelectedAuthor] = useState('all')
