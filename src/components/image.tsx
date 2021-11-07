@@ -35,6 +35,13 @@ const ImageWrap = ({ src, alt, aspectRatio }: Image): JSX.Element => {
 				publicId={`gradient/${src}`}
 				alt={alt}
 				spread={!!aspectRatio}
+				dpr="auto"
+				width="auto"
+				crop="scale"
+				quality="auto"
+				fetchFormat="auto"
+				responsive
+				responsiveUseBreakpoints="true"
 			/>
 		</Wrap>
 	)
