@@ -46,14 +46,14 @@ const sohne: TypeScaleDefinition = {
 		fontFamily: sohneFontFamily,
 		fontWeight: 400,
 		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
-		letterSpacing: '0.01em',
+		letterSpacing: '0em',
 		lineHeight: 1.5,
 	},
 	label: {
 		fontFamily: sohneFontFamily,
-		fontSizes: { xl: 0.875, l: 0.875, m: 0.875, s: 0.875, xs: 0.875 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
 		fontWeight: 500,
-		letterSpacing: '0.02em',
+		letterSpacing: '0.01em',
 		textTransform: 'uppercase',
 		lineHeight: 1.2,
 	},
@@ -110,7 +110,7 @@ const domaine: TypeScaleDefinition = {
 	},
 	label: {
 		fontFamily: domaineBodyFontFamily,
-		fontSizes: { xl: 0.875, l: 0.875, m: 0.875, s: 0.875, xs: 0.875 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
@@ -120,8 +120,14 @@ const getCSSStyleObject = (scale: TypeScaleDefinition): TypeScale => {
 	const result = {}
 
 	Object.keys(scale).map((key) => {
-		const { fontFamily, fontWeight, lineHeight, fontSizes } = scale[key]
-		result[key] = { fontFamily, fontWeight, lineHeight, fontSize: `${fontSizes.xl}em` }
+		const { fontFamily, fontWeight, lineHeight, letterSpacing, fontSizes } = scale[key]
+		result[key] = {
+			fontFamily,
+			fontWeight,
+			lineHeight,
+			letterSpacing,
+			fontSize: `${fontSizes.xl}em`,
+		}
 
 		Object.keys(fontSizes).map((breakpoint) => {
 			result[key][`@media only screen and (max-width: ${breakpoints[breakpoint]})`] = {
