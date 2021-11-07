@@ -108,10 +108,9 @@ const Column = styled.div`
 
 const ColLabel = styled.p`
 	${(p) => p.theme.t.ui.label};
-	text-transform: uppercase;
 	color: ${(p) => p.theme.c.label};
 
-	margin-bottom: ${(p) => p.theme.s[2]};
+	margin-bottom: ${(p) => p.theme.s[1]};
 `
 
 const ColLink = styled(Link)`
