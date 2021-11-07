@@ -38,11 +38,7 @@ const DescWrap = styled.div`
 	transform: translateX(-0.25em);
 
 	${(p) => p.theme.u.media.m} {
-		margin-bottom: 0.5em;
-	}
-
-	${(p) => p.theme.u.media.s} {
-		margin-bottom: 0.5em;
+		margin-bottom: 0.4em;
 	}
 
 	${(p) => p.theme.u.media.xs} {
@@ -53,10 +49,13 @@ const DescWrap = styled.div`
 const DescLine = styled.p`
 	${(p) => p.theme.t.ui.label};
 	color: ${(p) => p.theme.c.heading};
-	line-height: 1.2;
+
+	&& {
+		font-size: 0.875em;
+		line-height: 1.2;
+	}
 `
 
 const DescSecondLine = styled(DescLine)`
 	text-indent: 0.6em;
-	margin-bottom: 0.05em;
 `
