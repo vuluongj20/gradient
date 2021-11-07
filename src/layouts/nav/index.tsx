@@ -51,17 +51,12 @@ const Nav = (): JSX.Element => {
 
 				gsap.to([`${PageShadow}`, '#page-content'], {
 					x: animationDistance,
-					pointerEvents: 'none',
-					onComplete: () =>
-						gsap.set([`${PageShadow}`, '#page-content'], { pointerEvents: 'initial' }),
 					...menuAnimation,
 				})
 			}
 		} else {
 			gsap.to([`${PageShadow}`, '#page-content'], {
-				x: '0',
-				pointerEvents: 'none',
-				onComplete: () => gsap.set(['#page-content'], { pointerEvents: 'initial' }),
+				x: 0,
 				...menuAnimation,
 			})
 		}
@@ -79,10 +74,7 @@ const Nav = (): JSX.Element => {
 	return (
 		<Wrap onKeyDown={onKeyDown}>
 			<PageShadow
-				style={{
-					pointerEvents: menuOpen ? 'initial' : 'none',
-					opacity: menuOpen ? 0.4 : 0,
-				}}
+				active={menuOpen}
 				onClick={() => {
 					focusTrapInstance.deactivate()
 					toggleMenu(false)
@@ -112,14 +104,32 @@ const Wrap = styled.div`
 	}
 `
 
-const PageShadow = styled.div`
+const PageShadow = styled.div<{ active: boolean }>`
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 3em;
 	width: 100vw;
 	height: 100vh;
 	cursor: pointer;
 	background: ${(p) => p.theme.c.background};
 	z-index: -1;
+	pointer-events: none;
+	opacity: 0;
 	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
+
+	${(p) =>
+		p.active &&
+		`
+		pointerEvents: initial;
+		opacity: 0.4;
+		z-index: 1;
+		`}
+
+	${(p) => p.theme.u.media.l} {
+		left: 2.5em;
+	}
+
+	${(p) => p.theme.u.media.xs} {
+		left: 0;
+	}
 `
