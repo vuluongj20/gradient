@@ -47,6 +47,8 @@ export default FilterBar
 const Wrap = styled(Grid)`
 	position: sticky;
 	top: 0;
+	padding-top: ${(p) => p.theme.s[0]};
+	padding-bottom: ${(p) => p.theme.s[0]};
 	background: ${(p) => p.theme.c.background};
 	z-index: 9;
 `

@@ -97,7 +97,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			<SEO title={pageContext.title} />
 			<PageContent>
 				<Header>
-					<h1>{pageContext.title}</h1>
+					<Title>{pageContext.title}</Title>
 				</Header>
 				<FilterBar filters={filters} onChange={onChange} />
 				<Results>
@@ -138,6 +138,10 @@ const PageContent = styled.div`
 
 const Header = styled(Grid)`
 	margin-bottom: ${(p) => p.theme.s[5]};
+`
+
+const Title = styled.h1`
+	grid-column: 1 / -1;
 `
 
 const Results = styled(Grid)`
