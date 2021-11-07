@@ -51,12 +51,18 @@ const Nav = (): JSX.Element => {
 
 				gsap.to([`${PageShadow}`, '#page-content'], {
 					x: animationDistance,
+					pointerEvents: 'none',
+					onComplete: () =>
+						gsap.set([`${PageShadow}`, '#page-content'], { pointerEvents: 'initial' }),
 					...menuAnimation,
 				})
 			}
 		} else {
 			gsap.to([`${PageShadow}`, '#page-content'], {
 				x: '0',
+				pointerEvents: 'none',
+				onComplete: () =>
+					gsap.set([`${PageShadow}`, '#page-content'], { pointerEvents: 'initial' }),
 				...menuAnimation,
 			})
 		}

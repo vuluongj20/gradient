@@ -1,6 +1,5 @@
 import { useLocation } from '@reach/router'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
-import * as Color from 'color'
 import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
@@ -38,20 +37,21 @@ const Link = ({
 	<LinkWrap
 		to={path}
 		onExit={() => toggleMenu(false)}
-		className="nav-link-wrap"
+		className={`nav-link-wrap ${disabled ? 'disabled' : ''}`}
 		tabIndex={focusable ? 0 : -1}
 		disabled={disabled}
 	>
-		<LinkBackground />
-		<LinkContentBox>
-			{type && (
-				<LinkTypeWrap>
-					<LinkTypeText>{type}</LinkTypeText>
-					<LinkTypeLine />
-				</LinkTypeWrap>
-			)}
-			<LinkTitle>{title}</LinkTitle>
-		</LinkContentBox>
+		<LinkInnerWrap>
+			<LinkContentBox>
+				{type && (
+					<LinkTypeWrap>
+						<LinkTypeText>{type}</LinkTypeText>
+						<LinkTypeLine />
+					</LinkTypeWrap>
+				)}
+				<LinkTitle>{title}</LinkTitle>
+			</LinkContentBox>
+		</LinkInnerWrap>
 	</LinkWrap>
 )
 
@@ -67,19 +67,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 			disableBodyScroll(scrollLockTarget)
 
 			if (windowWidth > numericBreakpoints.xs) {
-				const animationDistance =
-					windowWidth > numericBreakpoints.s
-						? `+${links.length * 6}em`
-						: `+${links.length * 5}em`
-
-				gsap.set(`${MenuWrap}`, { x: '100%', y: 0 })
-				gsap.to(`${MenuWrap}`, {
-					width: animationDistance,
-					borderRightWidth: 1,
-					...animation,
-				})
 				gsap.to(`${LinkWrap}`, {
 					opacity: 1,
+					x: (i) => `+${(i + 1) * (windowWidth > numericBreakpoints.s ? 6 : 5)}em`,
+					pointerEvents: 'none',
+					onComplete: () => gsap.set(`${LinkWrap}`, { pointerEvents: 'initial' }),
 					...animation,
 				})
 			} else {
@@ -103,13 +95,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 			enableBodyScroll(scrollLockTarget)
 
 			if (windowWidth > numericBreakpoints.xs) {
-				gsap.to(`${MenuWrap}`, {
-					width: 0,
-					borderRightWidth: 0,
-					...animation,
-				})
 				gsap.to(`${LinkWrap}`, {
 					opacity: 0,
+					x: 0,
+					pointerEvents: 'none',
+					onComplete: () => gsap.set(`${LinkWrap}`, { pointerEvents: 'initial' }),
 					...animation,
 				})
 			} else {
@@ -153,21 +143,17 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 
 export default Menu
 
-const MenuWrap = styled.nav<{ animating: boolean }>`
+const MenuWrap = styled.nav`
 	display: flex;
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 0;
 	height: 100vh;
-	border-right: solid 0 ${(p) => p.theme.c.line};
 	transform: translateX(100%);
 	background: ${(p) => p.theme.c.background};
-	overflow: hidden;
 
 	z-index: -1;
-
-	${(p) => p.animating && `pointer-events: none;`}
 
 	${(p) => p.theme.u.media.xs} {
 		width: 100%;
@@ -181,39 +167,31 @@ const MenuWrap = styled.nav<{ animating: boolean }>`
 const LinkWrap = styled(TransitionLink)`
 	display: block;
 	height: 100%;
-	width: 100%;
-	position: relative;
+	width: 6em;
+	position: absolute;
+	top: 0;
+	right: 0;
 
 	text-decoration: none;
-	cursor: pointer;
 	opacity: 0%;
 
-	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
-
-	&:not(:first-of-type) {
-		border-left: solid 1px ${(p) => p.theme.c.line};
+	${(p) => p.theme.u.media.s} {
+		width: 5em;
 	}
 
 	&:focus-visible {
 		z-index: 1;
 	}
 
-	${(p) =>
-		!p.theme.a.reduced &&
-		`&:hover,
-		&:focus-visible {
-		transform: translateX(-0.75em);
-	}`}
+	&:last-of-type {
+		border-right: solid 1px ${(p) => p.theme.c.line};
+	}
 
 	${(p) => p.theme.u.media.xs} {
+		position: relative;
 		height: auto;
+		width: 100%;
 		padding: 0 ${gridMargin * 0.75}em;
-		transform-origin: left;
-
-		&:hover,
-		&:focus-visible {
-			transform: translateX(0.5em) !important;
-		}
 
 		&:not(:first-of-type) {
 			border-left: none;
@@ -221,13 +199,38 @@ const LinkWrap = styled(TransitionLink)`
 	}
 `
 
-const LinkBackground = styled.div`
+const LinkInnerWrap = styled.div`
 	${(p) => p.theme.u.spread};
-	width: calc(100% + 0.5em);
+	cursor: pointer;
 	background: ${(p) => p.theme.c.background};
+	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
+
+	${LinkWrap}:not(:first-of-type) > & {
+		border-left: solid 1px ${(p) => p.theme.c.line};
+	}
+	${LinkWrap}.disabled > & {
+		pointer-events: none;
+	}
+
+	${(p) =>
+		!p.theme.a.reduced &&
+		`&:hover {
+		transform: translateY(0.5em);
+	}`}
 
 	${(p) => p.theme.u.media.xs} {
-		display: none;
+		position: relative;
+		${LinkWrap}:not(:first-of-type) > & {
+			border-left: none;
+		}
+
+		&:hover {
+			transform: translateX(0.25em);
+		}
+
+		&:not(:first-of-type) {
+			border-left: none;
+		}
 	}
 `
 
@@ -241,10 +244,6 @@ const LinkContentBox = styled.div`
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);
 	transition: transform 0.375s ${(p) => p.theme.a.easeOutQuart};
-
-	${(p) => p.theme.u.media.s} {
-		right: 0.75em;
-	}
 
 	${(p) => p.theme.u.media.xs} {
 		position: initial;
