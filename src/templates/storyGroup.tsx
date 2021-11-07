@@ -137,7 +137,7 @@ const PageContent = styled.div`
 `
 
 const Header = styled(Grid)`
-	margin-bottom: ${(p) => p.theme.s[5]};
+	margin-bottom: ${(p) => p.theme.s[4]};
 `
 
 const Title = styled.h1`
