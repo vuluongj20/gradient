@@ -130,6 +130,6 @@ const PageShadow = styled.div<{ active: boolean }>`
 	}
 
 	${(p) => p.theme.u.media.xs} {
-		left: 0;
+		display: none;
 	}
 `

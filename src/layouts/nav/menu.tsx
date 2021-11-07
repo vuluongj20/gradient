@@ -190,8 +190,10 @@ const LinkWrap = styled(TransitionLink)`
 	${(p) => p.theme.u.media.xs} {
 		position: relative;
 		height: auto;
-		width: 100%;
+		width: calc(100% - ${(p) => p.theme.s[1]});
 		padding: 0 ${gridMargin * 0.75}em;
+		margin: 0 auto;
+		box-sizing: border-box;
 
 		&:not(:first-of-type) {
 			border-left: none;
@@ -214,7 +216,8 @@ const LinkInnerWrap = styled.div`
 
 	${(p) =>
 		!p.theme.a.reduced &&
-		`&:hover {
+		`&:hover,
+		${LinkWrap}:focus-visible > & {
 		transform: translateY(0.5em);
 	}`}
 
@@ -224,7 +227,8 @@ const LinkInnerWrap = styled.div`
 			border-left: none;
 		}
 
-		&:hover {
+		&:hover,
+		${LinkWrap}:focus-visible > & {
 			transform: translateX(0.25em);
 		}
 
