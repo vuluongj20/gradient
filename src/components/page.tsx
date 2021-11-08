@@ -39,7 +39,7 @@ const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 		<LocalThemeProvider overlay={overlay}>
 			<PageContent visible={pageVisible} ref={pageRef}>
 				{children}
-				<SectionDivider mb={5} />
+				<SectionDivider mb={0} />
 				<LocalThemeProvider>
 					<Footer {...footerProps} />
 				</LocalThemeProvider>

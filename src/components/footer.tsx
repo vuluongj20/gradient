@@ -84,12 +84,8 @@ const Link = styled(TransitionLink)`
 `
 
 const SiteMap = styled(Grid)`
-	padding-bottom: ${(p) => p.theme.s[4]};
 	justify-items: start;
-
-	${(p) => p.theme.u.media.m} {
-		padding-bottom: ${(p) => p.theme.s[3]};
-	}
+	${(p) => p.theme.u.spacing.paddingVertical[4]};
 `
 
 const Column = styled.div`
@@ -123,11 +119,12 @@ const ColLink = styled(Link)`
 
 const DisclosuresDivider = styled.hr`
 	grid-column: 1 / -1;
-	margin-bottom: ${(p) => p.theme.s[2]};
 	border-bottom-width: 1px;
+	margin: 0;
 `
 
 const Policies = styled(Grid)`
+	padding-top: ${(p) => p.theme.s[2]};
 	padding-bottom: ${(p) => p.theme.s[2]};
 	justify-items: start;
 `

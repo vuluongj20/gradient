@@ -93,8 +93,8 @@ const Wrap = styled.div`
     ${(p) => p.theme.t.ui.h6}
   }
   hr {
-    margin-top: ${(p) => p.theme.s[6]};
-    margin-bottom: ${(p) => p.theme.s[5]};
+    ${(p) => p.theme.u.spacing.marginTop[6]};
+    ${(p) => p.theme.u.spacing.marginBottom[5]};
   }
   li {
     margin-bottom: ${(p) => p.theme.s[1]};
@@ -121,12 +121,10 @@ const Wrap = styled.div`
   }
 `
 
-const ContentWrap = styled(Wrap)`
-  padding-bottom: ${(p) => p.theme.s[7]};
-`
+const ContentWrap = styled(Wrap)``
 
 const Header = styled.header`
-  padding-top: ${(p) => p.theme.s[6]};
+  ${(p) => p.theme.u.spacing.paddingTop[6]};
 
   h1 {
     padding-top: 0;
@@ -146,8 +144,8 @@ const StyledTOC = styled(TOC)`
   grid-column: -4 / -1;
   position: sticky;
   top: 0;
-  padding-top: ${(p) => p.theme.s[7]};
-  padding-bottom: ${(p) => p.theme.s[4]};
+  ${(p) => p.theme.u.spacing.paddingTop[6]};
+  ${(p) => p.theme.u.spacing.paddingBottom[4]};
 
   ${(p) => p.theme.u.media.l} {
     display: none;
