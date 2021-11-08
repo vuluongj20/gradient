@@ -9,7 +9,7 @@ import useMenuLinks from './useMenuLinks'
 import TransitionLink from '@components/transitionLink'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints, gridMargin } from '@utils/styling'
+import { numericBreakpoints, paddingHorizontal } from '@utils/styling'
 
 type MenuProps = {
 	isOpen: boolean
@@ -177,7 +177,7 @@ const LinkWrap = styled(TransitionLink)`
 		position: relative;
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.s[1]});
-		padding: 0 ${gridMargin * 0.75}em;
+		padding: 0 ${paddingHorizontal * 0.75}em;
 		margin: 0 auto;
 		box-sizing: border-box;
 

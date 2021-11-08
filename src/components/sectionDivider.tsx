@@ -1,19 +1,21 @@
 import styled from 'styled-components'
 
-import Grid from '@components/grid'
-
 type Props = {
 	mt?: number
 	mb?: number
 }
 
 const SectionDivider = ({ mt = 7, mb = 7 }: Props): JSX.Element => (
-	<Grid>
+	<Wrap>
 		<Divider mt={mt} mb={mb} />
-	</Grid>
+	</Wrap>
 )
 
 export default SectionDivider
+
+const Wrap = styled.div`
+	${(p) => p.theme.u.spacing.paddingHorizontal};
+`
 
 const Divider = styled.hr<Props>`
 	${(p) => p.theme.u.spacing.marginTop[p.mt]};

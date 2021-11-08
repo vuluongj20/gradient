@@ -4,6 +4,7 @@ import { Theme } from './index'
 
 import { Breakpoint } from '@types'
 
+import { paddingHorizontal } from '@utils/styling'
 import { breakpoints } from '@utils/styling'
 
 type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
@@ -23,8 +24,9 @@ type SpacingName =
 	| 'marginVertical'
 	| 'marginTop'
 	| 'marginBottom'
+	| 'paddingHorizontal'
 
-export type SpacingUtil = { spacing: Record<SpacingName, CSSGroup[]> }
+export type SpacingUtil = { spacing: Record<SpacingName, CSSGroup[] | CSSGroup> }
 
 export type Utils = CSSUtil & MediaUtil & SpacingUtil
 
@@ -97,5 +99,17 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 		marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
 		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
 		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
+		paddingHorizontal: {
+			paddingLeft: `${paddingHorizontal * 2}em`,
+			paddingRight: `${paddingHorizontal * 2}em`,
+			[`@media only screen and (max-width: ${theme.b.s})`]: {
+				paddingLeft: `${paddingHorizontal}em`,
+				paddingRight: `${paddingHorizontal}em`,
+			},
+			[`@media only screen and (max-width: ${theme.b.xs})`]: {
+				paddingLeft: `${paddingHorizontal * 0.75}em`,
+				paddingRight: `${paddingHorizontal * 0.75}em`,
+			},
+		},
 	},
 })

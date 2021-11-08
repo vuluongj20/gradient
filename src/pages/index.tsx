@@ -23,8 +23,10 @@ const IndexPage = (): JSX.Element => {
   return (
     <Page>
       <SEO />
-      <Header />
-      <CardGrid cards={featuredStories} />
+      <section>
+        <Header />
+        <CardGrid cards={featuredStories} />
+      </section>
       <SectionDivider />
       <Section sectionLink={technologySection} cards={technologyStories} />
       <SectionDivider />

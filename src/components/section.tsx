@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 import { CardContent } from './card'
-import CardArea from './cardArea'
-import Grid from './grid'
+import CardGrid from './cardGrid'
 
 import { Page } from '@types'
 
@@ -18,12 +17,12 @@ const Section = ({ sectionLink, cards, overlay }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider overlay={overlay}>
 			<Wrap>
-				<StyledGrid>
-					<TitleWrap href={sectionLink.path}>
+				<TitleWrap>
+					<TitleLink href={sectionLink.path}>
 						<Title>{sectionLink.title}</Title>
-					</TitleWrap>
-					<CardArea cards={cards} />
-				</StyledGrid>
+					</TitleLink>
+				</TitleWrap>
+				<CardGrid cards={cards} />
 			</Wrap>
 		</LocalThemeProvider>
 	)
@@ -35,27 +34,16 @@ const Wrap = styled.section`
 	background: ${(p) => p.theme.c.background};
 `
 
-const StyledGrid = styled(Grid)`
-	row-gap: ${(p) => p.theme.s[4]};
+const TitleWrap = styled.div`
+	margin-bottom: ${(p) => p.theme.s[3]};
+	${(p) => p.theme.u.spacing.paddingHorizontal};
 `
 
-const TitleWrap = styled.a`
-	position: relative;
-	margin-right: auto;
-	border-radius: ${(p) => p.theme.s[0]};
-
-	grid-column: 1 / -1;
-	grid-row: 1;
-
-	${(p) => p.theme.u.media.s} {
-		grid-column: 1 / -1;
-	}
+const TitleLink = styled.a`
+	display: inline-block;
 `
 
 const Title = styled.h2`
 	${(p) => p.theme.t.ui.h3};
-
-	position: relative;
-	display: flex;
-	align-items: flex-end;
+	display: inline;
 `

@@ -1,33 +1,29 @@
 import styled from 'styled-components'
 
-import Grid from '@components/grid'
-
 const Header = (): JSX.Element => (
-	<Grid>
-		<Wrap>
-			<Title>Gradient\</Title>
-			<DescWrap>
-				<DescLine>On technology, design,</DescLine>
-				<DescSecondLine>philosophy, and the law</DescSecondLine>
-			</DescWrap>
-		</Wrap>
-	</Grid>
+	<Wrap>
+		<Title>Gradient\</Title>
+		<DescWrap>
+			<DescLine>On technology, design,</DescLine>
+			<DescSecondLine>philosophy, and the law</DescSecondLine>
+		</DescWrap>
+	</Wrap>
 )
 
 export default Header
 
 const Wrap = styled.header`
-	grid-column: 1 / 6;
 	display: flex;
 	align-items: flex-end;
 	padding: ${(p) => p.theme.s[3]} 0;
+	${(p) => p.theme.u.spacing.paddingHorizontal};
 
 	${(p) => p.theme.u.media.xs} {
 		display: none;
 	}
 `
 
-const Title = styled.a`
+const Title = styled.h1`
 	${(p) => p.theme.t.content.h2};
 	color: ${(p) => p.theme.c.heading};
 `

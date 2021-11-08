@@ -101,7 +101,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 					<Title>{pageContext.title}</Title>
 				</Header>
 				<FilterBar filters={filters} onChange={onChange} />
-				<Results>
+				<Results as="main">
 					{filteredStories.map((story) => (
 						<Card key={story.slug} path={`/story/${story.slug}`} {...story} rowLayout />
 					))}
@@ -133,11 +133,11 @@ export const query = graphql`
 export default StoryGroupPage
 
 const PageContent = styled.div`
-	grid-column: 1 / -1;
 	${(p) => p.theme.u.spacing.paddingTop[6]};
 `
 
-const Header = styled(Grid)`
+const Header = styled.header`
+	${(p) => p.theme.u.spacing.paddingHorizontal};
 	${(p) => p.theme.u.spacing.marginBottom[4]};
 `
 

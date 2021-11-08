@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-import { gridMargin, gridColCounts } from '@utils/styling'
+import { gridColCounts } from '@utils/styling'
 
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
 	column-gap: ${(p) => p.theme.s[3]};
 
-	padding: 0 ${gridMargin * 2}em;
+	${(p) => p.theme.u.spacing.paddingHorizontal};
 
 	${(p) => p.theme.u.media.l} {
 		grid-template-columns:
@@ -26,7 +26,6 @@ const Grid = styled.div`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
-		padding: 0 ${gridMargin}em;
 	}
 
 	${(p) => p.theme.u.media.xs} {
@@ -34,7 +33,6 @@ const Grid = styled.div`
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
 		column-gap: ${(p) => p.theme.s[1]};
-		padding: 0 ${gridMargin * 0.75}em;
 	}
 `
 

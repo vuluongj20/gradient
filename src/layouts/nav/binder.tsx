@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
 
-import { gridMargin, reducedMotion } from '@utils/styling'
+import { reducedMotion, paddingHorizontal } from '@utils/styling'
 
 type TargetProps = {
 	left?: boolean
@@ -238,7 +238,7 @@ export const HamWrap = styled.button`
 
 	${(p) => p.theme.u.media.xs} {
 		top: 50%;
-		left: ${gridMargin * 0.75}em;
+		left: ${paddingHorizontal * 0.75}em;
 		transform: translate(-15%, -50%);
 		padding: 0;
 	}
