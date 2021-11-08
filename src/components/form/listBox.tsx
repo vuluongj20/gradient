@@ -1,15 +1,21 @@
-import { useListBox, useOption } from '@react-aria/listbox'
+import {
+  useListBox,
+  useOption,
+  AriaListBoxOptions,
+  AriaOptionProps,
+} from '@react-aria/listbox'
+import { SelectState } from '@react-stately/select'
+import { Node } from '@react-types/shared'
 import { useRef } from 'react'
 import styled from 'styled-components'
 
-type ListBoxProps = {
-  state: any
-  label: string
+type ListBoxProps = AriaListBoxOptions<unknown> & {
+  state: SelectState<unknown>
 }
 
-type OptionProps = {
-  item: any
-  state: any
+type OptionProps = AriaOptionProps & {
+  item: Node<unknown>
+  state: SelectState<unknown>
 }
 
 type StyledOptionProps = {
@@ -18,8 +24,9 @@ type StyledOptionProps = {
   isDisabled: boolean
 }
 
-const Option = ({ item, state }: OptionProps) => {
+const Option = (props: OptionProps) => {
   const ref = useRef()
+  const { item, state } = props
   const { optionProps, isSelected, isFocused, isDisabled } = useOption(
     { key: item.key },
     state,

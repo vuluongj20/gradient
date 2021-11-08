@@ -31,7 +31,7 @@ const FilterBar = ({ filters, onChange }: Props): JSX.Element => {
 					name={f.id}
 					label={f.label}
 					defaultSelectedKey={f.defaultValue}
-					onChange={onChange}
+					onSelectionChange={(key: string) => onChange(f.id, key)}
 				>
 					{f.options.map((o) => (
 						<Item key={o.value}>{o.label}</Item>

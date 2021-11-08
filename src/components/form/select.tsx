@@ -1,30 +1,23 @@
 import { useButton } from '@react-aria/button'
 import { HiddenSelect, useSelect } from '@react-aria/select'
 import { useSelectState } from '@react-stately/select'
-import { useRef, useEffect, ReactNode } from 'react'
+import { SelectProps } from '@react-types/select'
+import { useRef } from 'react'
 import styled from 'styled-components'
 
 import ListBox from './listBox'
 import Popover from './popover'
 
-type Props = {
+type Props = SelectProps<object> & {
 	name: string
-	label: string
-	defaultSelectedKey: string
-	onChange: (name: string, value: string) => void
-	children: ReactNode
 	className: string
 }
 
 const Select = (props: Props) => {
 	const ref = useRef()
-	const state = useSelectState<Props>(props)
+	const state = useSelectState(props)
 	const { triggerProps, valueProps, menuProps } = useSelect(props, state, ref)
 	const { buttonProps } = useButton(triggerProps, ref)
-
-	useEffect(() => {
-		props.onChange && props.onChange(props.name, state.selectedItem?.key as string)
-	}, [props, state.selectedItem])
 
 	return (
 		<Wrap className={props.className}>
