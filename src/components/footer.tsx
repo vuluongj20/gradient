@@ -53,7 +53,7 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 				<DisclosuresDivider />
 			</Grid>
 			<Policies>
-				<PolicyText>© {new Date().getFullYear()} Gradient</PolicyText>
+				<PolicyText>Gradient</PolicyText>
 				{mapSiteLinks(policiesPages, PolicyLink)}
 			</Policies>
 		</Wrap>
