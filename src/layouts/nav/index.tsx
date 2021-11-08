@@ -60,6 +60,8 @@ const Nav = (): JSX.Element => {
 				...menuAnimation,
 			})
 		}
+
+		return () => focusTrapInstance.deactivate()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [menuOpen, focusTrapInstance])
 
