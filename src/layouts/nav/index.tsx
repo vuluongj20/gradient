@@ -114,14 +114,14 @@ const PageShadow = styled.div<{ active: boolean }>`
 	background: ${(p) => p.theme.c.background};
 	z-index: -1;
 	pointer-events: none;
-	opacity: 0;
+	opacity: 0%;
 	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
 
 	${(p) =>
 		p.active &&
 		`
 		pointerEvents: initial;
-		opacity: 0.4;
+		opacity: 40%;
 		z-index: 1;
 		`}
 

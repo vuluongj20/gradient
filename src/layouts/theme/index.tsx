@@ -1,11 +1,31 @@
-import { easings } from './animation'
-import { colorPalettes, getColorAliases } from './colors'
+import { easings, Animation } from './animation'
+import { colorPalettes, getColorAliases, ColorPalette, ColorAliases } from './colors'
 import { spacing } from './spacing'
-import { typeScales } from './text'
-import { Theme } from './types'
-import { generateUtils } from './utils'
+import { textScales, TextScale } from './text'
+import { generateUtils, Utils } from './utils'
+
+import { Breakpoint } from '@types'
 
 import { breakpoints } from '@utils/styling'
+
+export type Theme = {
+	/** Color */
+	c: ColorPalette['colors'] & ColorAliases
+	/** Text */
+	t: {
+		rootSize: string
+		ui: TextScale
+		content: TextScale
+	}
+	/** Animation */
+	a: Animation
+	/** Breakpoints */
+	b: Record<Breakpoint, string>
+	/** Spacing */
+	s: string[]
+	/** Utilities */
+	u: Utils
+}
 
 export type ThemeSettings = {
 	color: {
@@ -16,8 +36,8 @@ export type ThemeSettings = {
 		increaseContrast: boolean
 	}
 	text: {
-		ui: keyof typeof typeScales
-		content: keyof typeof typeScales
+		ui: keyof typeof textScales
+		content: keyof typeof textScales
 	}
 	alwaysShowVideoCaptions: boolean
 }
@@ -29,8 +49,8 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 	},
 	t: {
 		rootSize: '100%',
-		ui: typeScales.sohne,
-		content: typeScales.domaine,
+		ui: textScales.sohne,
+		content: textScales.domaine,
 	},
 	a: {
 		...easings,
@@ -84,8 +104,8 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 		},
 		t: {
 			rootSize: '100%',
-			ui: typeScales[settings.text.ui],
-			content: typeScales[settings.text.content],
+			ui: textScales[settings.text.ui],
+			content: textScales[settings.text.content],
 		},
 		a: {
 			...easings,

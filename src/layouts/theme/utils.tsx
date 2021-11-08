@@ -1,8 +1,32 @@
-import { Theme, Utils, CSSGroup } from './types'
+import * as CSS from 'csstype'
+
+import { Theme } from './index'
 
 import { Breakpoint } from '@types'
 
 import { breakpoints } from '@utils/styling'
+
+type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
+
+type CSSGroup = CSSObject | CSS.Properties
+
+type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
+
+type CSSUtil = Record<CSSUtilName, CSS.Properties>
+
+type MediaUtil = { media: Record<Breakpoint, string> }
+
+type SpacingName =
+	| 'paddingVertical'
+	| 'paddingTop'
+	| 'paddingBottom'
+	| 'marginVertical'
+	| 'marginTop'
+	| 'marginBottom'
+
+export type SpacingUtil = { spacing: Record<SpacingName, CSSGroup[]> }
+
+export type Utils = CSSUtil & MediaUtil & SpacingUtil
 
 const breakpointNames = Object.keys(breakpoints)
 

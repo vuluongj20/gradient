@@ -1,11 +1,34 @@
-import { TypeScaleDefinition, TypeScale } from './types'
+import * as CSS from 'csstype'
+
+import { Breakpoint } from '@types'
 
 import { breakpoints } from '@utils/styling'
+
+type TextCategoryStyles = {
+	fontFamily: string
+	fontWeight: number
+	lineHeight: number
+	fontSize?: string
+	letterSpacing?: string
+	textTransform?: 'capitalize' | 'uppercase' | 'lowercase'
+}
+
+type TextCategoryDefinition = TextCategoryStyles & {
+	fontSizes: Record<Breakpoint, number>
+}
+
+type TextCategory = TextCategoryStyles & Record<string, CSS.Properties>
+
+type TextCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
+
+type TextScaleDefinition = Record<TextCategoryName, TextCategoryDefinition>
+
+export type TextScale = Record<TextCategoryName, TextCategory>
 
 const sohneFontFamily =
 	'Sohne, Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif'
 
-const sohne: TypeScaleDefinition = {
+const sohne: TextScaleDefinition = {
 	h1: {
 		fontFamily: sohneFontFamily,
 		fontSizes: { xl: 4.25, l: 4.25, m: 3, s: 3, xs: 1.8125 },
@@ -65,7 +88,7 @@ const domaineHeadingFontFamily =
 const domaineBodyFontFamily =
 	'"Domaine Text", Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif'
 
-const domaine: TypeScaleDefinition = {
+const domaine: TextScaleDefinition = {
 	h1: {
 		fontFamily: domaineHeadingFontFamily,
 		fontSizes: { xl: 4.25, l: 4.25, m: 3, s: 3, xs: 1.8125 },
@@ -116,7 +139,7 @@ const domaine: TypeScaleDefinition = {
 	},
 }
 
-const getCSSStyleObject = (scale: TypeScaleDefinition): TypeScale => {
+const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
 	const result = {}
 
 	Object.keys(scale).map((key) => {
@@ -136,10 +159,10 @@ const getCSSStyleObject = (scale: TypeScaleDefinition): TypeScale => {
 		})
 	})
 
-	return result as TypeScale
+	return result as TextScale
 }
 
-export const typeScales = {
+export const textScales = {
 	sohne: getCSSStyleObject(sohne),
 	domaine: getCSSStyleObject(domaine),
 }

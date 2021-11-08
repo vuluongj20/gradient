@@ -1,4 +1,34 @@
-import { Easings } from './types'
+type EasingName =
+	| 'easeInSine'
+	| 'easeOutSine'
+	| 'easeInOutSine'
+	| 'easeInQuad'
+	| 'easeOutQuad'
+	| 'easeInOutQuad'
+	| 'easeInCubic'
+	| 'easeOutCubic'
+	| 'easeInOutCubic'
+	| 'easeInQuart'
+	| 'easeOutQuart'
+	| 'easeInOutQuart'
+	| 'easeInQuint'
+	| 'easeOutQuint'
+	| 'easeInOutQuint'
+	| 'easeInExpo'
+	| 'easeOutExpo'
+	| 'easeInOutExpo'
+	| 'easeInCirc'
+	| 'easeOutCirc'
+	| 'easeInOutCirc'
+	| 'easeInBack'
+	| 'easeOutBack'
+	| 'easeInOutBack'
+
+type Easings = Record<EasingName, string>
+
+export type Animation = Easings & {
+	reduced: boolean
+}
 
 export const easings: Easings = {
 	easeInSine: 'cubic-bezier(0.12, 0, 0.39, 0)',
