@@ -22,41 +22,37 @@ type MenuProps = {
 
 type LinkProps = Link & {
 	focusable: boolean
-	disabled: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 }
 
-const Link = ({
-	path,
-	title,
-	type,
-	focusable,
-	disabled,
-	toggleMenu,
-}: LinkProps): JSX.Element => (
-	<LinkWrap
-		to={path}
-		onExit={() => toggleMenu(false)}
-		className={`nav-link-wrap ${disabled ? 'disabled' : ''}`}
-		tabIndex={focusable ? 0 : -1}
-		disabled={disabled}
-	>
-		<LinkInnerWrap>
-			<LinkContentBox>
-				{type && (
-					<LinkTypeWrap>
-						<LinkTypeText>{type}</LinkTypeText>
-						<LinkTypeLine />
-					</LinkTypeWrap>
-				)}
-				<LinkTitle>{title}</LinkTitle>
-			</LinkContentBox>
-		</LinkInnerWrap>
-	</LinkWrap>
-)
+const Link = ({ path, title, type, focusable, toggleMenu }: LinkProps): JSX.Element => {
+	const location = useLocation()
+	const disabled = location.pathname.startsWith(path)
+
+	return (
+		<LinkWrap
+			to={path}
+			onClick={() => disabled && toggleMenu(false)}
+			onExit={() => toggleMenu(false)}
+			className="nav-link-wrap"
+			tabIndex={focusable ? 0 : -1}
+		>
+			<LinkInnerWrap>
+				<LinkContentBox>
+					{type && (
+						<LinkTypeWrap>
+							<LinkTypeText>{type}</LinkTypeText>
+							<LinkTypeLine />
+						</LinkTypeWrap>
+					)}
+					<LinkTitle>{title}</LinkTitle>
+				</LinkContentBox>
+			</LinkInnerWrap>
+		</LinkWrap>
+	)
+}
 
 const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
-	const location = useLocation()
 	const windowWidth = useWindowWidth()
 	const links = useMenuLinks()
 
@@ -124,19 +120,9 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 
 	return (
 		<MenuWrap>
-			{links.map((link) => {
-				const disabled = location.pathname.startsWith(link.path)
-
-				return (
-					<Link
-						key={link.slug}
-						focusable={isOpen}
-						toggleMenu={toggleMenu}
-						disabled={disabled}
-						{...link}
-					/>
-				)
-			})}
+			{links.map((link) => (
+				<Link key={link.slug} focusable={isOpen} toggleMenu={toggleMenu} {...link} />
+			))}
 		</MenuWrap>
 	)
 }
@@ -209,9 +195,6 @@ const LinkInnerWrap = styled.div`
 
 	${LinkWrap}:not(:first-of-type) > & {
 		border-left: solid 1px ${(p) => p.theme.c.line};
-	}
-	${LinkWrap}.disabled > & {
-		pointer-events: none;
 	}
 
 	${(p) =>
@@ -292,8 +275,4 @@ const LinkTypeLine = styled.div`
 	background-color: ${(p) => p.theme.c.heading};
 	transform-origin: right;
 	transition: 0.375s ${(p) => p.theme.a.easeOutQuart};
-
-	${LinkWrap}.disabled & {
-		background-color: ${(p) => p.theme.c.label};
-	}
 `
