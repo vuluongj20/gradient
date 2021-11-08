@@ -1,4 +1,40 @@
-import { Theme, Utils } from './types'
+import { Theme, Utils, CSSGroup } from './types'
+
+import { Breakpoint } from '@types'
+
+import { breakpoints } from '@utils/styling'
+
+const breakpointNames = Object.keys(breakpoints)
+
+const adaptiveSpacing: Record<Breakpoint, number>[] = [
+	{ xl: 0, l: 0, m: 0, s: 0, xs: 0 },
+	{ xl: 1, l: 1, m: 1, s: 1, xs: 0 },
+	{ xl: 2, l: 2, m: 1, s: 1, xs: 1 },
+	{ xl: 3, l: 3, m: 2, s: 2, xs: 1 },
+	{ xl: 4, l: 4, m: 3, s: 3, xs: 2 },
+	{ xl: 5, l: 5, m: 4, s: 4, xs: 2 },
+	{ xl: 6, l: 6, m: 5, s: 5, xs: 3 },
+	{ xl: 7, l: 7, m: 6, s: 6, xs: 4 },
+	{ xl: 8, l: 8, m: 7, s: 7, xs: 5 },
+]
+
+const generateAdaptiveSpacing = (
+	theme: Omit<Theme, 'u'>,
+	properties: string[],
+): CSSGroup[] => {
+	const generateCSSProperties = (props: string[], value: string): CSSGroup =>
+		Object.fromEntries(props.map((p) => [p, value]))
+
+	return theme.s.map((s, i) => ({
+		...generateCSSProperties(properties, s),
+		...Object.fromEntries(
+			breakpointNames.map((b) => [
+				`@media only screen and (max-width: ${theme.b[b]})`,
+				generateCSSProperties(properties, theme.s[adaptiveSpacing[i][b]]),
+			]),
+		),
+	}))
+}
 
 export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 	spread: {
@@ -29,5 +65,13 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 		m: `@media only screen and (max-width: ${theme.b.m})`,
 		l: `@media only screen and (max-width: ${theme.b.l})`,
 		xl: `@media only screen and (max-width: ${theme.b.xl})`,
+	},
+	spacing: {
+		paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),
+		paddingTop: generateAdaptiveSpacing(theme, ['paddingTop']),
+		paddingBottom: generateAdaptiveSpacing(theme, ['paddingBottom']),
+		marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
+		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
+		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
 	},
 })

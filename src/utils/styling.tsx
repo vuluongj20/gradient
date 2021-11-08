@@ -8,19 +8,19 @@ type ColCounts = Record<Breakpoint, number>
  * into individual components too.
  */
 export const breakpoints: Record<Breakpoint, string> = {
-	xs: '30em', // 480px
-	s: '48em', // 768px
-	m: '64em', // 1024px
-	l: '74em', // 1184px
 	xl: '90em', // 1440px
+	l: '74em', // 1184px
+	m: '64em', // 1024px
+	s: '48em', // 768px
+	xs: '30em', // 480px
 }
 /** Useful for comparing with window.innerWidth */
 export const numericBreakpoints: Record<Breakpoint, number> = {
-	xs: 480,
-	s: 768,
-	m: 1024,
-	l: 1184,
 	xl: 1440,
+	l: 1184,
+	m: 1024,
+	s: 768,
+	xs: 480,
 }
 
 /** Number of grid columns at different breakpoints */

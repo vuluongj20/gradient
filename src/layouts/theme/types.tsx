@@ -135,13 +135,27 @@ export type Animation = Easings & {
 	reduced: boolean
 }
 
+type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
+
+export type CSSGroup = CSSObject | CSS.Properties
+
 type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 
 type CSSUtil = Record<CSSUtilName, CSS.Properties>
 
 type MediaUtil = { media: Record<Breakpoint, string> }
 
-export type Utils = CSSUtil & MediaUtil
+type SpacingName =
+	| 'paddingVertical'
+	| 'paddingTop'
+	| 'paddingBottom'
+	| 'marginVertical'
+	| 'marginTop'
+	| 'marginBottom'
+
+export type SpacingUtil = { spacing: Record<SpacingName, CSSGroup[]> }
+
+export type Utils = CSSUtil & MediaUtil & SpacingUtil
 
 export type Breakpoints = Record<Breakpoint, string>
 
