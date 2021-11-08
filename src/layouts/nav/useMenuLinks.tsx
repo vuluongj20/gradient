@@ -1,6 +1,5 @@
-import useAboutPage from '@utils/dataHooks/about'
+import useHomePage from '@utils/dataHooks/home'
 import useSectionPages from '@utils/dataHooks/sections'
-import useIndexPage from '@utils/dataHooks/siteIndex'
 
 type Link = {
 	slug: string
@@ -11,13 +10,11 @@ type Link = {
 
 const useMenuLinks = () => {
 	const sectionPages = useSectionPages()
-	const indexPage = useIndexPage()
-	const aboutPage = useAboutPage()
+	const homePage = useHomePage()
 
 	const menuLinks: Link[] = [
-		indexPage,
+		homePage,
 		...sectionPages.map((sp) => ({ ...sp, type: 'section' })),
-		aboutPage,
 	]
 
 	return menuLinks

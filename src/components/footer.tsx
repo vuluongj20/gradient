@@ -5,7 +5,6 @@ import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
 
-import useAboutPage from '@utils/dataHooks/about'
 import useAuthorPages from '@utils/dataHooks/authors'
 import usePoliciesPages from '@utils/dataHooks/policies'
 import useSectionPages from '@utils/dataHooks/sections'
@@ -22,7 +21,6 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 	const sectionPages = useSectionPages()
 	const authorPages = useAuthorPages()
 	const indexPage = useIndexPage()
-	const aboutPage = useAboutPage()
 	const policiesPages = usePoliciesPages()
 
 	const mapSiteLinks = (pages: Page[], Link) =>
@@ -48,7 +46,7 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 				</Column>
 				<Column>
 					<ColLabel>More</ColLabel>
-					{mapSiteLinks([indexPage, aboutPage], ColLink)}
+					{mapSiteLinks([indexPage], ColLink)}
 				</Column>
 			</SiteMap>
 			<Grid>
