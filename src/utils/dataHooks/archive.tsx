@@ -2,10 +2,10 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { Page } from '@types'
 
-const useIndexPage = (): Page => {
+const useArchivePage = (): Page => {
 	const data = useStaticQuery(graphql`
 		query {
-			allIndexJson {
+			allArchiveJson {
 				edges {
 					node {
 						slug
@@ -16,7 +16,7 @@ const useIndexPage = (): Page => {
 		}
 	`)
 
-	const edge = data.allIndexJson.edges[0].node
+	const edge = data.allArchiveJson.edges[0].node
 	return {
 		slug: edge.slug,
 		title: edge.title,
@@ -24,4 +24,4 @@ const useIndexPage = (): Page => {
 	}
 }
 
-export default useIndexPage
+export default useArchivePage

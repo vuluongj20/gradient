@@ -14,7 +14,7 @@ exports.createPages = async function ({ actions, graphql }) {
   const indexResult = await graphql(
     `
       query {
-        allIndexJson {
+        allArchiveJson {
           edges {
             node {
               slug
@@ -25,7 +25,7 @@ exports.createPages = async function ({ actions, graphql }) {
       }
     `,
   )
-  indexResult.data.allIndexJson.edges.forEach((edge) => {
+  indexResult.data.allArchiveJson.edges.forEach((edge) => {
     const page = edge.node
     actions.createPage({
       path: `/${page.slug}`,
