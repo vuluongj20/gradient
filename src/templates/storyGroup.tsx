@@ -134,11 +134,11 @@ export default StoryGroupPage
 
 const PageContent = styled.div`
 	grid-column: 1 / -1;
-	padding-top: ${(p) => p.theme.s[6]};
+	${(p) => p.theme.u.spacing.paddingTop[6]};
 `
 
 const Header = styled(Grid)`
-	margin-bottom: ${(p) => p.theme.s[4]};
+	${(p) => p.theme.u.spacing.marginBottom[4]};
 `
 
 const Title = styled.h1`
@@ -147,5 +147,5 @@ const Title = styled.h1`
 
 const Results = styled(Grid)`
 	margin-top: ${(p) => p.theme.s[1]};
-	grid-row-gap: ${(p) => p.theme.s[2]};
+	grid-row-gap: ${(p) => p.theme.s[3]};
 `

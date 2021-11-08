@@ -120,7 +120,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	border-radius: 1em 0;
 	overflow: hidden;
 
-	${(p) => p.rowLayout && `grid-column: 1 / 4;`}
+	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
 	${(p) => p.theme.u.media.m} {
 		max-height: 32em;
