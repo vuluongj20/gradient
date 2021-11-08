@@ -60,7 +60,7 @@ const Nav = (): JSX.Element => {
 				...menuAnimation,
 			})
 		}
-		/* eslint-disable-next-line react-hooks/exhaustive-deps */
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [menuOpen, focusTrapInstance])
 
 	/** Escape key event listener */

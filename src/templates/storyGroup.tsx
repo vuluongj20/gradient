@@ -90,6 +90,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			.filter((s) => selectedSection === 'all' || s.sections.includes(selectedSection))
 			.filter((s) => selectedAuthor === 'all' || s.authors.includes(selectedAuthor))
 		setFilteredStories(result)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedSection, selectedAuthor])
 
 	return (

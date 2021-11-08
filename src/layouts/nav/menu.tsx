@@ -113,13 +113,13 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 				})
 			}
 		}
-		/* eslint-disable-next-line react-hooks/exhaustive-deps */
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen, animation])
 
 	/** Close meny on resize */
 	useEffect(() => {
 		toggleMenu(false)
-		/* eslint-disable-next-line react-hooks/exhaustive-deps */
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [windowWidth])
 
 	return (
