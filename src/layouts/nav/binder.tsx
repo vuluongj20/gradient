@@ -51,11 +51,11 @@ const userReducedMotion = reducedMotion()
 
 const hamOutAnimation = userReducedMotion
 	? { duration: 0 }
-	: { duration: 0.4, ease: 'power4.in', stagger: 0.05 }
+	: { duration: 0.3, ease: 'power4.in', stagger: 0.05 }
 
 const crossInAnimation = userReducedMotion
 	? { duration: 0 }
-	: { duration: 0.5, ease: 'power4.out', stagger: 0.1 }
+	: { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
 
 const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 	/** Initialize hamburger animation */
@@ -89,7 +89,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 						...crossInAnimation,
 					},
 				),
-				0.4,
+				0.3,
 			)
 	}, [])
 
