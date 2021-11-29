@@ -11,6 +11,33 @@ exports.onCreateBabelConfig = ({ actions }) => {
 }
 
 exports.createPages = async function ({ actions, graphql }) {
+  const storyResults = await graphql(
+    `
+      query {
+        allStoriesJson {
+          edges {
+            node {
+              slug
+              title
+              buildPage
+            }
+          }
+        }
+      }
+    `,
+  )
+  storyResults.data.allStoriesJson.edges.forEach((edge) => {
+    const story = edge.node
+    const component = path.resolve(`./src/stories/${story.slug}/index.tsx`)
+
+    story.buildPage &&
+      actions.createPage({
+        path: `/story/${story.slug}`,
+        component,
+        context: { slug: story.slug, title: story.title },
+      })
+  })
+
   const indexResult = await graphql(
     `
       query {

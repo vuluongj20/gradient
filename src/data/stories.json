@@ -1,17 +1,18 @@
 [
 	{
-		"slug": "simulating-3d-sound",
-		"title": "Simulating 3D Sound in Stereo Headphones",
+		"slug": "co2",
+		"title": "CO2",
 		"description": "More than 10 percent of Florida’s estimated manatee population has died since the start of the year, already surpassing the total number of manatee deaths in 2020, according to state wildlife officials.",
-		"featuredIn": ["home", "home-technology"],
+		"featuredIn": ["home"],
 		"featuredSize": "m",
-		"sections": ["technology"],
+		"sections": [],
 		"authors": ["vu-luong"],
 		"img": {
-			"src": "4.png",
+			"src": "co2.svg",
 			"alt": "...",
 			"aspectRatio": "square"
-		}
+		},
+		"buildPage": true
 	},
 	{
 		"slug": "bl-mahanoy",

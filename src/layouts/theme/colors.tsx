@@ -219,6 +219,9 @@ export const getColorAliases = (
 
 	linkHover: c.red1,
 	linkUnderlineHover: c.red2,
+
+	error: c.red1,
+	success: c.green1,
 })
 
 export const colorPalettes = {

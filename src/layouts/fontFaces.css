@@ -146,3 +146,21 @@
 		url('/fonts/domaine-text/DomaineText-BoldItalic.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-BoldItalic.otf') format('opentype');
 }
+
+@font-face {
+	font-family: 'Pitch';
+	font-weight: 500;
+	font-style: normal;
+	src: url('/fonts/pitch/Pitch-Medium.woff2') format('woff2'),
+		url('/fonts/pitch/Pitch-Medium.woff') format('woff'),
+		url('/fonts/pitch/Pitch-Medium.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'Pitch';
+	font-weight: 700;
+	font-style: normal;
+	src: url('/fonts/pitch/Pitch-Bold.woff2') format('woff2'),
+		url('/fonts/pitch/Pitch-Bold.woff') format('woff'),
+		url('/fonts/pitch/Pitch-Bold.otf') format('opentype');
+}

@@ -1,3 +1,6 @@
+/** Check if current environment is development */
+export const isDev = process.env.NODE_ENV === 'development'
+
 /** Check if an item is an object */
 export const isObject = (item: unknown): boolean =>
 	item && typeof item === 'object' && !Array.isArray(item)

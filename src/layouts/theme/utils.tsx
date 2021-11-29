@@ -4,8 +4,7 @@ import { Theme } from './index'
 
 import { Breakpoint } from '@types'
 
-import { paddingHorizontal } from '@utils/styling'
-import { breakpoints } from '@utils/styling'
+import { paddingHorizontal , breakpoints } from '@utils/styling'
 
 type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
 
