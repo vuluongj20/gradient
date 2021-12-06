@@ -81,8 +81,8 @@ const paper: ColorPalette = {
 	name: 'Paper',
 	appearance: 'light',
 	colors: {
-		surface1: '#FBF9F4',
-		surface2: '#FEFDFB',
+		surface1: '#FCF3F3',
+		surface2: '#FEFBFB',
 		surface3: '#F7F4EE',
 		gray1: '#1A1A1A',
 		gray2: '#333333',
