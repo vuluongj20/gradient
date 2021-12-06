@@ -31,12 +31,12 @@ const Wrap = styled.div`
 `
 
 const Title = styled.h1`
-  margin-bottom: ${(p) => p.theme.u.spacing.marginBottom[0]};
+  ${(p) => p.theme.u.spacing.marginBottom[0]};
 `
 
 const Text = styled.p`
   max-width: 36em;
-  margin-bottom: ${(p) => p.theme.u.spacing.marginBottom[1]};
+  ${(p) => p.theme.u.spacing.marginBottom[1]};
 `
 
 const Link = styled.a`
