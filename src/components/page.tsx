@@ -51,6 +51,10 @@ const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 export default Page
 
 const PageContent = styled.div<{ visible: boolean }>`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
 	background: ${(p) => p.theme.c.background};
 	opacity: 0%;
 	${(p) => p.visible && 'opacity: 1;'};
