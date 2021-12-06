@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import Page from '@components/page'
+import TransitionLink from '@components/transitionLink'
 
 const Page404 = () => (
   <Page>
@@ -11,7 +12,7 @@ const Page404 = () => (
         typed in the correct URL, or go back to the home page and start looking from
         there.
       </Text>
-      <Link href="/">Take me home.</Link>
+      <Link to="/">Take me home.</Link>
     </Wrap>
   </Page>
 )
@@ -39,7 +40,7 @@ const Text = styled.p`
   ${(p) => p.theme.u.spacing.marginBottom[1]};
 `
 
-const Link = styled.a`
+const Link = styled(TransitionLink)`
   text-decoration: underline;
   text-decoration-color: ${(p) => p.theme.c.label};
   &:hover {
