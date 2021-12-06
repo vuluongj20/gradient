@@ -8,6 +8,7 @@ import Grid from '@components/grid'
 import Page from '@components/page'
 import SectionDivider from '@components/sectionDivider'
 
+import { isDev } from '@utils/functions'
 import SettingsContext from '@utils/settingsContext'
 
 export type Data = {
@@ -23,6 +24,10 @@ export type VizData = {
   }
   vizContent: { state: string; des: string; params?: number[] }[]
 }
+
+const dataUrl = isDev
+  ? '/data/weekly_in_situ_co2_mlo.csv'
+  : 'https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'
 
 const vizs: VizData[] = [
   {
@@ -133,7 +138,7 @@ const Main = (): JSX.Element => {
       animationObserverInstance.observe(el)
     })
 
-    csv('/data/weekly_in_situ_co2_mlo.csv').then((resData) => {
+    csv(dataUrl).then((resData) => {
       resData.forEach(function (d) {
         d.date = timeParse('%Y-%m-%d')(d.date)
         d.level = +d.level
