@@ -10,7 +10,7 @@
 		"img": {
 			"src": "co2.svg",
 			"alt": "...",
-			"aspectRatio": "square"
+			"aspectRatio": "rect"
 		},
 		"buildPage": true
 	},
