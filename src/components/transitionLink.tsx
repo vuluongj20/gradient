@@ -38,7 +38,10 @@ const Link = ({
 		entry={{
 			delay: 0.75,
 			trigger: ({ node }) => {
-				gsap.fromTo(node, { opacity: 0 }, { opacity: 1, ...transitionIn })
+				gsap.set(node, { opacity: 0 })
+				document.fonts.ready.then(() => {
+					gsap.to(node, { opacity: 1, ...transitionIn })
+				})
 			},
 			duration: 1,
 		}}
