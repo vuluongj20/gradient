@@ -122,7 +122,15 @@ export const query = graphql`
 					authors
 					img {
 						alt
-						src
+						src {
+							childImageSharp {
+								gatsbyImageData(
+									placeholder: BLURRED
+									formats: [AUTO, WEBP, AVIF]
+									layout: FULL_WIDTH
+								)
+							}
+						}
 					}
 				}
 			}

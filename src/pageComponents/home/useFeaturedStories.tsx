@@ -11,7 +11,15 @@ const useFeaturedStories = () => {
 						sections
 						featuredSize
 						img {
-							src
+							src {
+								childImageSharp {
+									gatsbyImageData(
+										placeholder: BLURRED
+										formats: [AUTO, WEBP, AVIF]
+										layout: FULL_WIDTH
+									)
+								}
+							}
 							alt
 							aspectRatio
 						}

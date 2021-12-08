@@ -8,7 +8,7 @@
 		"sections": [],
 		"authors": ["vu-luong"],
 		"img": {
-			"src": "co2.svg",
+			"src": "../images/co2/preview.png",
 			"alt": "...",
 			"aspectRatio": "rect"
 		},
@@ -23,7 +23,7 @@
 		"sections": ["technology"],
 		"authors": ["vu-luong"],
 		"img": {
-			"src": "1.jpg",
+			"src": "../images/1.jpg",
 			"alt": "...",
 			"aspectRatio": "wide"
 		}
@@ -37,7 +37,7 @@
 		"sections": ["design"],
 		"authors": ["vu-luong"],
 		"img": {
-			"src": "5.png",
+			"src": "../images/2.png",
 			"alt": "...",
 			"aspectRatio": "rect"
 		}
@@ -46,12 +46,12 @@
 		"slug": "generative-neural-nets",
 		"title": "How Generative Neural Nets Work",
 		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
-		"featuredIn": ["home", "home-technology", "home-design"],
+		"featuredIn": ["home", "home-technology"],
 		"featuredSize": "m",
 		"sections": ["technology", "design"],
 		"authors": ["vu-luong"],
 		"img": {
-			"src": "2.png",
+			"src": "../images/3.png",
 			"alt": "...",
 			"aspectRatio": "wide"
 		}

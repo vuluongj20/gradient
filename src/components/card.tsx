@@ -1,7 +1,7 @@
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import DynamicImage from './image'
 import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
@@ -43,11 +43,13 @@ const Card = ({
 	const InnerWrap = ({ children }: InnerWrapProps) =>
 		rowLayout ? <StyledInnerGrid>{children}</StyledInnerGrid> : <div>{children}</div>
 
+	const image = getImage(img.src)
+
 	return (
 		<Wrap to={path} rowLayout={rowLayout} gridCols={gridCols}>
 			<InnerWrap>
 				<ImageWrap rowLayout={rowLayout}>
-					<DynamicImage {...img} aspectRatio={rowLayout ? 'wide' : img.aspectRatio} />
+					<StyledGatsbyImage image={image} alt={img.alt} />
 				</ImageWrap>
 
 				<TitleWrap rowLayout={rowLayout}>
@@ -132,6 +134,10 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) => p.theme.u.media.xs} {
 		max-height: 16em;
 	}
+`
+
+const StyledGatsbyImage = styled(GatsbyImage)`
+	width: 100%;
 `
 
 const TitleWrap = styled.div<{ rowLayout: boolean }>`

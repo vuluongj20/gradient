@@ -26,7 +26,7 @@ export type VizData = {
 }
 
 const dataUrl = isDev
-  ? '/data/weekly_in_situ_co2_mlo.csv'
+  ? '/co2/weekly_in_situ_co2_mlo.csv'
   : 'https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'
 
 const vizs: VizData[] = [
