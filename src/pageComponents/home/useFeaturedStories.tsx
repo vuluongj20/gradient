@@ -13,11 +13,7 @@ const useFeaturedStories = () => {
 						img {
 							src {
 								childImageSharp {
-									gatsbyImageData(
-										placeholder: BLURRED
-										formats: [AUTO, WEBP, AVIF]
-										layout: FULL_WIDTH
-									)
+									gatsbyImageData(layout: FULL_WIDTH)
 								}
 							}
 							alt
