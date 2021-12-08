@@ -1,4 +1,5 @@
 import TransitionLink from 'gatsby-plugin-transition-link'
+import gsap from 'gsap'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
@@ -11,6 +12,9 @@ type Props = {
 	tabIndex?: number
 	disabled?: boolean
 }
+
+const transitionOut = { duration: 0.75, ease: 'power4.inOut' }
+const transitionIn = { duration: 1, ease: 'power4.out' }
 
 const Link = ({
 	to,
@@ -25,11 +29,17 @@ const Link = ({
 		to={to}
 		className={className}
 		exit={{
-			trigger: onExit,
-			length: 1,
+			trigger: ({ node }) => {
+				onExit?.()
+				gsap.to(node, { opacity: 0, ...transitionOut })
+			},
+			length: 0.75,
 		}}
 		entry={{
 			delay: 0.75,
+			trigger: ({ node }) => {
+				gsap.fromTo(node, { opacity: 0 }, { opacity: 1, ...transitionIn })
+			},
 			duration: 1,
 		}}
 		onClick={onClick}

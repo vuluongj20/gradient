@@ -1,6 +1,4 @@
-import { useTransitionState } from 'gatsby-plugin-transition-link/hooks'
-import gsap from 'gsap'
-import { ReactNode, useEffect, useRef } from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components'
 
 import Footer from './footer'
@@ -18,26 +16,10 @@ type Props = {
 	}
 }
 
-const transitionIn = { duration: 1, ease: 'power4.out' }
-const transitionOut = { duration: 0.75, ease: 'power4.inOut' }
-
 const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
-	const { transitionStatus } = useTransitionState()
-
-	useEffect(() => {
-		if (transitionStatus === 'entering') {
-			gsap.to(pageRef.current, { opacity: 1, ...transitionIn })
-		} else if (transitionStatus === 'exiting') {
-			gsap.to(pageRef.current, { opacity: 0, ...transitionOut })
-		}
-	}, [transitionStatus])
-
-	const pageRef = useRef()
-	const pageVisible = transitionStatus === 'entered' || transitionStatus === 'exiting'
-
 	return (
 		<LocalThemeProvider overlay={overlay}>
-			<PageContent visible={pageVisible} ref={pageRef}>
+			<PageContent>
 				{children}
 				<SectionDivider mb={0} />
 				<LocalThemeProvider>
@@ -50,12 +32,10 @@ const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
 
 export default Page
 
-const PageContent = styled.div<{ visible: boolean }>`
+const PageContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 100vh;
 	background: ${(p) => p.theme.c.background};
-	opacity: 0%;
-	${(p) => p.visible && 'opacity: 1;'};
 `
