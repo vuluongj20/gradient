@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 
 import Card, { CardContent } from './card'
 
@@ -147,7 +147,8 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 }
 
 const CardGrid = ({ cards }: Props): JSX.Element => {
-	const gridColumns = getGridColumns(cards)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const gridColumns = useMemo(() => getGridColumns(cards), [])
 
 	return (
 		<Fragment>

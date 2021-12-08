@@ -1,5 +1,5 @@
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
@@ -49,7 +49,7 @@ const Card = ({
 		<Wrap to={path} rowLayout={rowLayout} gridCols={gridCols}>
 			<InnerWrap>
 				<ImageWrap rowLayout={rowLayout}>
-					<StyledGatsbyImage image={image} alt={img.alt} />
+					<StyledGatsbyImage image={image} alt={img.alt} loading="eager" />
 				</ImageWrap>
 
 				<TitleWrap rowLayout={rowLayout}>
@@ -64,7 +64,7 @@ const Card = ({
 	)
 }
 
-export default Card
+export default memo(Card)
 
 const Wrap = styled(TransitionLink)<{
 	gridCols: AdaptiveGridColumns
@@ -77,7 +77,9 @@ const Wrap = styled(TransitionLink)<{
 
 	align-self: start;
 
-	border-radius: 1em 0;
+	img {
+		border-radius: 1em 0;
+	}
 
 	&:focus-visible {
 		${(p) => p.theme.u.focusVisible};
