@@ -165,7 +165,7 @@ const LinkWrap = styled(TransitionLink)`
 		width: 5em;
 	}
 
-	&:focus-visible {
+	&.focus-visible {
 		z-index: 1;
 	}
 
@@ -200,7 +200,7 @@ const LinkInnerWrap = styled.div`
 	${(p) =>
 		!p.theme.a.reduced &&
 		`&:hover,
-		${LinkWrap}:focus-visible > & {
+		${LinkWrap}.focus-visible > & {
 		transform: translateY(0.5em);
 	}`}
 
@@ -211,7 +211,7 @@ const LinkInnerWrap = styled.div`
 		}
 
 		&:hover,
-		${LinkWrap}:focus-visible > & {
+		${LinkWrap}.focus-visible > & {
 			transform: translateX(0.25em);
 		}
 

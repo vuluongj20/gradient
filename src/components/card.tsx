@@ -76,12 +76,13 @@ const Wrap = styled(TransitionLink)<{
 	text-decoration: none;
 
 	align-self: start;
+	border-radius: 1em 0;
 
 	img {
 		border-radius: 1em 0;
 	}
 
-	&:focus-visible {
+	&.focus-visible {
 		${(p) => p.theme.u.focusVisible};
 	}
 

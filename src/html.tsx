@@ -71,6 +71,7 @@ export default function HTML(props: Props): JSX.Element {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
+        <script src="https://unpkg.com/focus-visible@5.2.0/dist/focus-visible.min.js" />
       </body>
     </html>
   )
