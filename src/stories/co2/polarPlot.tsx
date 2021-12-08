@@ -35,17 +35,10 @@ const PolarPlot = ({ data, content }: Props) => {
       .domain([0, 365.25])
       .range([0, 2 * Math.PI]),
     r = scaleLinear()
-      .domain([
-        0,
-        max(data, (d) => {
-          return d.level
-        }),
-      ])
+      .domain([0, max(data, (d) => d.level)])
       .range([0, innerRadius])
       .nice(),
-    minDate = min(data, function (d) {
-      return d.date
-    }),
+    minDate = min(data, (d) => d.date),
     xDays = data.map(
       (d) => (d.date.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24),
     ),
@@ -307,7 +300,6 @@ const PolarPlot = ({ data, content }: Props) => {
                   })
                   .curve(curveBasis),
               )
-            console.log(svg)
             totalLength = grandDaddy.select('.data-line').node().getTotalLength()
             grandDaddy
               .select('.data-line')
@@ -432,6 +424,11 @@ const PolarPlot = ({ data, content }: Props) => {
               })
             break
           case 2: // Stretches
+            r.domain(
+              extent(data, (data) => {
+                return data.level
+              }),
+            ).nice()
             svg
               .append('path')
               .attr('class', 'winter stretch')
@@ -441,10 +438,10 @@ const PolarPlot = ({ data, content }: Props) => {
               .attr('stroke-width', strokeWidth / 2)
               .attr('d', (data) => {
                 const line = lineRadial()
-                    .angle(function (_, index) {
+                    .angle((_, index) => {
                       return a(xDaysParsed[index + 3112])
                     })
-                    .radius(function (d) {
+                    .radius((d) => {
                       return r(d.level)
                     })
                     .curve(curveBasis),
