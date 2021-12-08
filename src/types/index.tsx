@@ -1,3 +1,5 @@
+import { ImageDataLike } from 'gatsby-plugin-image'
+
 export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
 
 export type GridColumns = {
@@ -8,7 +10,7 @@ export type GridColumns = {
 export type AdaptiveGridColumns = Record<Breakpoint, GridColumns>
 
 export type Image = {
-	src: string
+	src: ImageDataLike
 	alt: string
 	aspectRatio?: 'square' | 'rect' | 'wide'
 }
