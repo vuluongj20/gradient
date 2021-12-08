@@ -175,11 +175,7 @@ const Main = (): JSX.Element => {
           <MetaInnerWrap>
             {mainContent.meta.map((column, index) => {
               return (
-                <MetaColumn
-                  className="animate parent blur"
-                  key={index}
-                  href={column.link}
-                >
+                <MetaColumn className="animate parent" key={index} href={column.link}>
                   {column.name}
                 </MetaColumn>
               )
@@ -213,22 +209,12 @@ const Wrap = styled.article`
   .animate {
     backface-visibility: hidden;
     will-change: transform, opacity, filter;
+    opacity: 0;
   }
-  .animate.blur {
-    opacity: 0%;
-  }
-  .animate.blur.on {
+  .animate.on {
     animation: opacity 1s ${(p) => p.theme.a.easeOutQuad} forwards;
   }
 
-  @keyframes blur {
-    from {
-      filter: blur(20px);
-    }
-    to {
-      filter: blur(0);
-    }
-  }
   @keyframes opacity {
     from {
       opacity: 0%;

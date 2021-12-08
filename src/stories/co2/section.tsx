@@ -39,7 +39,7 @@ const Section = ({ data, vizData, animationObserver }: Props): JSX.Element => {
       <ContentWrap>
         {vizData.text.des.map((para, index) => {
           return (
-            <Para key={index} className="animate blur">
+            <Para key={index} className="animate">
               {para.map((segment, index) => {
                 switch (segment.type) {
                   case 'span':
