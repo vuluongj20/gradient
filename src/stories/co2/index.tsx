@@ -193,14 +193,14 @@ const Wrap = styled.article`
 
   h1,
   h2 {
-    font-family: Pitch, 'Courier New', monospace;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
     font-weight: 700;
   }
   p,
   a,
   text {
-    font-family: Pitch, 'Courier New', monospace;
-    font-weight: 600;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    font-weight: 400;
   }
 
   .animate {
