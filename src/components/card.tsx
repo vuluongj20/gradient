@@ -76,11 +76,6 @@ const Wrap = styled(TransitionLink)<{
 	text-decoration: none;
 
 	align-self: start;
-	border-radius: 1em 0;
-
-	img {
-		border-radius: 1em 0;
-	}
 
 	&.focus-visible {
 		${(p) => p.theme.u.focusVisible};
@@ -122,7 +117,6 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) => p.theme.u.flexCenter};
 	width: 100%;
 	max-height: 48em;
-	border-radius: 1em 0;
 	overflow: hidden;
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}

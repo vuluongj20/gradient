@@ -22,9 +22,9 @@ type SizeMap = Record<'s' | 'm' | 'l' | 'xl', SpanRange>
 /** Maps a size shortname (s/m/l/xl) to a full size range object */
 const sizeMap: SizeMap = {
 	s: { mid: 3, lowerLimit: 3, upperLimit: 3 },
-	m: { mid: 4, lowerLimit: 4, upperLimit: 6 },
-	l: { mid: 6, lowerLimit: 4, upperLimit: 10 },
-	xl: { mid: 10, lowerLimit: 4, upperLimit: 12 },
+	m: { mid: 4, lowerLimit: 3, upperLimit: 4 },
+	l: { mid: 5, lowerLimit: 3, upperLimit: 6 },
+	xl: { mid: 7, lowerLimit: 3, upperLimit: 8 },
 }
 
 const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
@@ -98,7 +98,7 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 				 */
 				const isLastRow = rowIndex === rows.length - 1
 
-				while (difference !== 0 && !(isLastRow & (sum(spans) > upperLimit))) {
+				while (difference !== 0 && !(isLastRow && sum(spans) > upperLimit)) {
 					if (difference > 0) {
 						spans[nextIndex] += 1
 						difference -= 1
