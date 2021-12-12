@@ -55,6 +55,7 @@ const generateFontFaceAtRule = (d: FontDefinition) => `
   font-family: '${d.fontFamily}';
   font-weight: ${d.fontWeight};
   font-style: ${d.fontStyle};
+  font-display: swap;
   src: ${d.src.map((src) => `url('${src.url}') format('${src.format}')`).join(',\n    ')};
 }
 `

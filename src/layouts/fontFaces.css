@@ -2,6 +2,7 @@
 	font-family: 'Sohne';
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/sohne/Sohne-Buch.woff2') format('woff2'),
 		url('/fonts/sohne/Sohne-Buch.woff') format('woff'),
 		url('/fonts/sohne/Sohne-Buch.otf') format('opentype');
@@ -11,6 +12,7 @@
 	font-family: 'Sohne';
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/sohne/Sohne-Kraftig.woff2') format('woff2'),
 		url('/fonts/sohne/Sohne-Kraftig.woff') format('woff'),
 		url('/fonts/sohne/Sohne-Kraftig.otf') format('opentype');
@@ -20,6 +22,7 @@
 	font-family: 'Sohne';
 	font-weight: 600;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/sohne/Sohne-Halbfett.woff2') format('woff2'),
 		url('/fonts/sohne/Sohne-Halbfett.woff') format('woff'),
 		url('/fonts/sohne/Sohne-Halbfett.otf') format('opentype');
@@ -29,6 +32,7 @@
 	font-family: 'Domaine Display Narrow';
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Medium.woff2')
 			format('woff2'),
 		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Medium.woff') format('woff'),
@@ -40,6 +44,7 @@
 	font-family: 'Domaine Display Narrow';
 	font-weight: 500;
 	font-style: italic;
+	font-display: swap;
 	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-MediumItalic.woff2')
 			format('woff2'),
 		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-MediumItalic.woff')
@@ -52,6 +57,7 @@
 	font-family: 'Domaine Display Narrow';
 	font-weight: 600;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Semibold.woff2')
 			format('woff2'),
 		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Semibold.woff') format('woff'),
@@ -63,6 +69,7 @@
 	font-family: 'Domaine Display Narrow';
 	font-weight: 600;
 	font-style: italic;
+	font-display: swap;
 	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-SemiboldItalic.woff2')
 			format('woff2'),
 		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-SemiboldItalic.woff')
@@ -75,6 +82,7 @@
 	font-family: 'Domaine Display Narrow';
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Bold.woff2')
 			format('woff2'),
 		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Bold.woff') format('woff'),
@@ -85,6 +93,7 @@
 	font-family: 'Domaine Display Narrow';
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-BoldItalic.woff2')
 			format('woff2'),
 		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-BoldItalic.woff')
@@ -97,6 +106,7 @@
 	font-family: 'Domaine Text';
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/domaine-text/DomaineText-Regular.woff2') format('woff2'),
 		url('/fonts/domaine-text/DomaineText-Regular.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-Regular.otf') format('opentype');
@@ -106,6 +116,7 @@
 	font-family: 'Domaine Text';
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 	src: url('/fonts/domaine-text/DomaineText-RegularItalic.woff2') format('woff2'),
 		url('/fonts/domaine-text/DomaineText-RegularItalic.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-RegularItalic.otf') format('opentype');
@@ -115,6 +126,7 @@
 	font-family: 'Domaine Text';
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/domaine-text/DomaineText-Medium.woff2') format('woff2'),
 		url('/fonts/domaine-text/DomaineText-Medium.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-Medium.otf') format('opentype');
@@ -124,6 +136,7 @@
 	font-family: 'Domaine Text';
 	font-weight: 500;
 	font-style: italic;
+	font-display: swap;
 	src: url('/fonts/domaine-text/DomaineText-MediumItalic.woff2') format('woff2'),
 		url('/fonts/domaine-text/DomaineText-MediumItalic.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-MediumItalic.otf') format('opentype');
@@ -133,6 +146,7 @@
 	font-family: 'Domaine Text';
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/domaine-text/DomaineText-Bold.woff2') format('woff2'),
 		url('/fonts/domaine-text/DomaineText-Bold.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-Bold.otf') format('opentype');
@@ -142,6 +156,7 @@
 	font-family: 'Domaine Text';
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 	src: url('/fonts/domaine-text/DomaineText-BoldItalic.woff2') format('woff2'),
 		url('/fonts/domaine-text/DomaineText-BoldItalic.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-BoldItalic.otf') format('opentype');
@@ -151,6 +166,7 @@
 	font-family: 'Pitch';
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/pitch/Pitch-Medium.woff2') format('woff2'),
 		url('/fonts/pitch/Pitch-Medium.woff') format('woff'),
 		url('/fonts/pitch/Pitch-Medium.otf') format('opentype');
@@ -160,6 +176,7 @@
 	font-family: 'Pitch';
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 	src: url('/fonts/pitch/Pitch-Bold.woff2') format('woff2'),
 		url('/fonts/pitch/Pitch-Bold.woff') format('woff'),
 		url('/fonts/pitch/Pitch-Bold.otf') format('opentype');
