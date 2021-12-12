@@ -102,7 +102,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 	}, [menuOpen])
 
 	return (
-		<HamWrap onClick={() => toggleMenu(!menuOpen)}>
+		<HamWrap onClick={() => toggleMenu(!menuOpen)} aria-label="Menu">
 			<HamInnerWrap>
 				<HamLineTop />
 				<HamLineMiddle />
