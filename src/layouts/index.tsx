@@ -1,4 +1,3 @@
-import { CloudinaryContext } from 'cloudinary-react'
 import { ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -27,22 +26,20 @@ const Layout = ({ children }: Props): JSX.Element => {
 	}
 
 	return (
-		<CloudinaryContext cloudName="vuluongj20" secure="true">
-			<SettingsProvider>
-				<SettingsContext.Consumer>
-					{({ settings }) => (
-						<ThemeProvider theme={getTheme(settings.theme)}>
-							<GlobalStyles />
-							<Nav />
-							<PageContent id="page-content">
-								<TopAnchor id="page-top-anchor" />
-								{children}
-							</PageContent>
-						</ThemeProvider>
-					)}
-				</SettingsContext.Consumer>
-			</SettingsProvider>
-		</CloudinaryContext>
+		<SettingsProvider>
+			<SettingsContext.Consumer>
+				{({ settings }) => (
+					<ThemeProvider theme={getTheme(settings.theme)}>
+						<GlobalStyles />
+						<Nav />
+						<PageContent id="page-content">
+							<TopAnchor id="page-top-anchor" />
+							{children}
+						</PageContent>
+					</ThemeProvider>
+				)}
+			</SettingsContext.Consumer>
+		</SettingsProvider>
 	)
 }
 

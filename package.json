@@ -26,7 +26,6 @@
     "@mdx-js/react": "^1.6.22",
     "babel-plugin-styled-components": "^1.13.2",
     "body-scroll-lock": "^4.0.0-beta.0",
-    "cloudinary-react": "^1.7.0",
     "color": "^4.0.1",
     "d3": "^7.1.1",
     "esm": "^3.2.25",
