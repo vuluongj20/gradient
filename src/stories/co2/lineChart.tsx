@@ -218,7 +218,7 @@ const LineChart = ({ data, content }: Props) => {
                       return y(d.level) + margin.top
                     }),
                 )
-                .attr('stroke-width', strokeWidth),
+                .attr('stroke-width', strokeWidth * 1.5),
               // Mouse hover line
               hoverLine = svg
                 .insert('path', '.data-line')
@@ -382,7 +382,7 @@ const LineChart = ({ data, content }: Props) => {
                       return y(yReg[i]) + margin.top
                     }),
                 )
-                .attr('stroke-width', strokeWidth),
+                .attr('stroke-width', strokeWidth * 1.5),
               hoverRegCircle = svg
                 .append('circle')
                 .attr('class', 'hover-reg-circle')
@@ -1235,7 +1235,7 @@ const Wrap = styled.div`
   }
   .grid line {
     stroke: ${(p) => p.theme.c.line};
-    opacity: 60%;
+    opacity: 80%;
     stroke-width: 1;
   }
 

@@ -288,7 +288,7 @@ const PolarPlot = ({ data, content }: Props) => {
               .datum(data.slice(0, 37))
               .attr('transform', 'translate(' + radius + ' ' + radius + ')')
               .attr('stroke', 'url(#polar-grad)')
-              .attr('stroke-width', strokeWidth)
+              .attr('stroke-width', strokeWidth * 1.5)
               .attr(
                 'd',
                 lineRadial()
@@ -771,7 +771,7 @@ const Wrap = styled.div`
   .grid-circle {
     fill: none;
     stroke: ${(p) => p.theme.c.line};
-    opacity: 60%;
+    opacity: 80%;
     stroke-width: 1;
     transition: opacity ${(p) => p.theme.a.easeOutCubic} 800ms;
   }

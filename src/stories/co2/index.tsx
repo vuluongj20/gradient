@@ -119,8 +119,6 @@ const Main = (): JSX.Element => {
   const { dispatch } = useContext(SettingsContext)
 
   useEffect(() => {
-    dispatch({ type: 'update-color', key: 'appearance', value: 'dark' })
-
     const animationObserverInstance = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -196,14 +194,13 @@ const Wrap = styled.article`
   h1,
   h2 {
     font-family: Pitch, 'Courier New', monospace;
+    font-weight: 700;
   }
   p,
-  a {
-    font-weight: 500;
-    font-family: Pitch, 'Courier New', monospace;
-  }
+  a,
   text {
     font-family: Pitch, 'Courier New', monospace;
+    font-weight: 600;
   }
 
   .animate {
