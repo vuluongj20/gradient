@@ -89,14 +89,7 @@ const PolarPlot = ({ data, content }: Props) => {
         .attr('width', radius * 2)
         .attr('height', radius * 2)
         .attr('class', 'viz'),
-      defs = svg.append('defs'),
-      gradient = defs
-        .append('linearGradient')
-        .attr('id', 'polar-grad')
-        .attr('x1', '30%')
-        .attr('x2', '70%')
-        .attr('y1', '70%')
-        .attr('y2', '30%')
+      defs = svg.append('defs')
 
     grandDaddy.select('.viz-divider').attr('class', 'viz-divider on')
 
@@ -118,15 +111,6 @@ const PolarPlot = ({ data, content }: Props) => {
       .attr('width', '100%')
       .attr('height', '100%')
       .attr('transform', 'rotate(0)')
-
-    gradient
-      .append('stop')
-      .attr('offset', '0%')
-      .attr('style', 'stop-color: var(--warm); stop-opacity: 1')
-    gradient
-      .append('stop')
-      .attr('offset', '100%')
-      .attr('style', 'stop-color: var(--cool); stop-opacity: 1')
 
     const rAxis = svg
         .append('g')
@@ -287,7 +271,6 @@ const PolarPlot = ({ data, content }: Props) => {
               .attr('class', 'data-line')
               .datum(data.slice(0, 37))
               .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-              .attr('stroke', 'url(#polar-grad)')
               .attr('stroke-width', strokeWidth * 1.5)
               .attr(
                 'd',
@@ -789,6 +772,8 @@ const Wrap = styled.div`
   .data-line {
     stroke-linejoin: round;
     fill: none;
+    stroke: ${(p) => p.theme.c.label};
+    opacity: 0.8;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
