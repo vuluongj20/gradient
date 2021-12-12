@@ -97,5 +97,6 @@ module.exports = {
         injectPageProps: false,
       },
     },
+    'gatsby-plugin-gatsby-cloud',
   ],
 }
