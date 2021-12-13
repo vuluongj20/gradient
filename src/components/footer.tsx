@@ -5,10 +5,12 @@ import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
 
+import { Page } from '@types'
+
 import useArchivePage from '@utils/dataHooks/archive'
 import useAuthorPages from '@utils/dataHooks/authors'
 import usePoliciesPages from '@utils/dataHooks/policies'
-import useSectionPages from '@utils/dataHooks/sections'
+import useSections from '@utils/dataHooks/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
@@ -18,7 +20,13 @@ type Props = {
 
 const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 	const location = useLocation()
-	const sectionPages = useSectionPages()
+	const sections = useSections()
+	const sectionPages = sections.map((section) => ({
+		slug: section.slug,
+		path: section.path,
+		title: section.name,
+		type: 'section',
+	}))
 	const authorPages = useAuthorPages()
 	const archivePage = useArchivePage()
 	const policiesPages = usePoliciesPages()

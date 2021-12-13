@@ -20,7 +20,7 @@
 		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
 		"featuredIn": ["top"],
 		"featuredSize": "l",
-		"sections": ["technology"],
+		"sections": ["misc"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "../images/1.jpg",
@@ -48,7 +48,7 @@
 		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
 		"featuredIn": ["top", "language"],
 		"featuredSize": "m",
-		"sections": ["technology", "design"],
+		"sections": ["design"],
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "../images/3.png",
