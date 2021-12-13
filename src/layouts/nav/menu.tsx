@@ -209,12 +209,12 @@ const LinkInnerWrap = styled.div`
 
 	${(p) => p.theme.u.media.xs} {
 		position: relative;
-		${/* sc-selector */ LinkWrap}:not(:first-of-type) > & {
+		${LinkWrap}:not(:first-of-type) > & {
 			border-left: none;
 		}
 
 		&:hover,
-		${/* sc-selector */ LinkWrap}.focus-visible > & {
+		${LinkWrap}.focus-visible > & {
 			transform: translateX(0.25em);
 		}
 
