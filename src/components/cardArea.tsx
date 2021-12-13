@@ -1,14 +1,14 @@
 import { Fragment, useMemo } from 'react'
 
-import Card, { CardContent } from './card'
+import Card from './card'
 
-import { AdaptiveGridColumns, GridColumns } from '@types'
+import { AdaptiveGridColumns, GridColumns, Story } from '@types'
 
 import { sum } from '@utils/functions'
 import { gridColCounts } from '@utils/styling'
 
 type Props = {
-	cards: CardContent[]
+	stories: Story[]
 }
 
 type SpanRange = {
@@ -27,15 +27,15 @@ const sizeMap: SizeMap = {
 	xl: { mid: 7, lowerLimit: 3, upperLimit: 8 },
 }
 
-const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
-	const spanRanges: SpanRange[] = cards.map((card) => sizeMap[card.featuredSize])
+const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
+	const spanRanges: SpanRange[] = stories.map((card) => sizeMap[card.featuredSize])
 
 	/**
 	 * Returns CardRanges organized into rows,
 	 * based on how many columns are available
 	 */
 	const getRows = (spanRanges: SpanRange[], nCols: number): SpanRange[][] => {
-		const rows: SpanRange[][] = [[spanRanges[0]]]
+		const rows: SpanRange[][] = [...(spanRanges[0] ? [[spanRanges[0]]] : [])]
 		const remainingSpanRanges: SpanRange[] = [...spanRanges.slice(1)]
 		let potentialNewRowConfig: SpanRange[] = [spanRanges[0], remainingSpanRanges[0]]
 		let currentRowIndex = 0
@@ -75,7 +75,8 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 	const calibrateRows = (rows: SpanRange[][], nCols: number): GridColumns[] =>
 		rows
 			.map((row, rowIndex) => {
-				/** Array of sizes of cards in the row,
+				/**
+				 * Array of sizes of cards in the row,
 				 * starting out with the 'mid' values
 				 */
 				const spans = row.map((spanRange) => spanRange.mid)
@@ -134,7 +135,7 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 			.flat(1)
 
 	/** Generate the final card sizes for each breakpoint */
-	const results = [...Array(cards.length)].map(() => ({}))
+	const results = [...Array(stories.length)].map(() => ({}))
 	Object.entries(gridColCounts).forEach(([key, val]) => {
 		const availableRows = val
 		const uncalibratedRows = getRows(spanRanges, availableRows)
@@ -146,14 +147,14 @@ const getGridColumns = (cards: CardContent[]): AdaptiveGridColumns[] => {
 	return results as AdaptiveGridColumns[]
 }
 
-const CardGrid = ({ cards }: Props): JSX.Element => {
+const CardGrid = ({ stories }: Props): JSX.Element => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const gridColumns = useMemo(() => getGridColumns(cards), [])
+	const gridColumns = useMemo(() => getGridColumns(stories), [])
 
 	return (
 		<Fragment>
-			{cards.map((card, i) => (
-				<Card key={card.slug} {...card} gridCols={gridColumns[i]} />
+			{stories.map((story, i) => (
+				<Card key={story.slug} {...story} gridCols={gridColumns[i]} />
 			))}
 		</Fragment>
 	)

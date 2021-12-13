@@ -1,8 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { Page } from '@types'
+import { Section } from '@types'
 
-const useSections = (): Page[] => {
+const useSections = (): Section[] => {
 	const data = useStaticQuery(graphql`
 		query {
 			allSectionsJson {
@@ -20,8 +20,7 @@ const useSections = (): Page[] => {
 		const page = edge.node
 
 		return {
-			slug: page.slug,
-			title: page.name,
+			...page,
 			path: `/section/${page.slug}`,
 		}
 	})

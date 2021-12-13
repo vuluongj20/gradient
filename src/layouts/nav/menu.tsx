@@ -20,7 +20,10 @@ type MenuProps = {
 	}
 }
 
-type LinkProps = Link & {
+type LinkProps = {
+	path: string
+	title: string
+	type: string
 	focusable: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 }
@@ -206,12 +209,12 @@ const LinkInnerWrap = styled.div`
 
 	${(p) => p.theme.u.media.xs} {
 		position: relative;
-		${LinkWrap}:not(:first-of-type) > & {
+		${/* sc-selector */ LinkWrap}:not(:first-of-type) > & {
 			border-left: none;
 		}
 
 		&:hover,
-		${LinkWrap}.focus-visible > & {
+		${/* sc-selector */ LinkWrap}.focus-visible > & {
 			transform: translateX(0.25em);
 		}
 

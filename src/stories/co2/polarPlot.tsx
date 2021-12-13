@@ -773,7 +773,7 @@ const Wrap = styled.div`
     stroke-linejoin: round;
     fill: none;
     stroke: ${(p) => p.theme.c.label};
-    opacity: 0.8;
+    opacity: 80%;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 

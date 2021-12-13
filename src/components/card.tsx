@@ -6,19 +6,12 @@ import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
 
-import { AdaptiveGridColumns, Image } from '@types'
+import { AdaptiveGridColumns, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
 
-export type CardContent = {
-	slug: string
+type Props = Story & {
 	path: string
-	title: string
-	sections: string[]
-	img: Image
-}
-
-type Props = CardContent & {
 	gridCols?: AdaptiveGridColumns
 	rowLayout?: boolean
 }

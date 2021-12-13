@@ -1,17 +1,18 @@
 import styled from 'styled-components'
 
-import { CardContent } from './card'
 import CardArea from './cardArea'
 
 import Grid from '@components/grid'
 
+import { Story } from '@types'
+
 type Props = {
-	cards: CardContent[]
+	stories: Story[]
 }
 
-const CardGrid = ({ cards }: Props): JSX.Element => (
+const CardGrid = ({ stories }: Props): JSX.Element => (
 	<Wrap>
-		<CardArea cards={cards} />
+		<CardArea stories={stories} />
 	</Wrap>
 )
 

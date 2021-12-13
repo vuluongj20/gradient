@@ -206,7 +206,7 @@ const Wrap = styled.article`
   .animate {
     backface-visibility: hidden;
     will-change: transform, opacity, filter;
-    opacity: 0;
+    opacity: 0%;
   }
   .animate.on {
     animation: opacity 1s ${(p) => p.theme.a.easeOutQuad} forwards;

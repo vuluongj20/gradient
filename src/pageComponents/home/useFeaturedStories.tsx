@@ -1,14 +1,17 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-const useFeaturedStories = () => {
+import { Story } from '@types'
+
+const useFeaturedStories = (): Story[] => {
 	const data = useStaticQuery(graphql`
 		{
-			allStoriesJson(filter: { featuredIn: { in: "home" } }) {
+			allStoriesJson(filter: { featuredIn: { ne: null } }) {
 				edges {
 					node {
 						slug
 						title
 						sections
+						featuredIn
 						featuredSize
 						img {
 							src {

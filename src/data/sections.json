@@ -1,10 +1,14 @@
 [
 	{
-		"slug": "technology",
-		"name": "Technology"
+		"slug": "language",
+		"name": "Language"
 	},
 	{
 		"slug": "design",
 		"name": "Design"
+	},
+	{
+		"slug": "misc",
+		"name": "Misc."
 	}
 ]

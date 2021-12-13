@@ -21,10 +21,20 @@ export type Page = {
 	path: string
 }
 
+export type Section = {
+	slug: string
+	name: string
+	path: string
+}
+
 export type Story = {
 	slug: string
 	title: string
+	featuredIn?: string[]
+	featuredSize?: string
 	sections: string[]
 	authors: string[]
 	img: Image
+	buildPage?: boolean
+	path: string
 }

@@ -76,9 +76,9 @@ const GlobalStyles = createGlobalStyle`
       color: ${(p) => p.theme.c.text};
     }
   }
-  // button:focus {
-  //   outline: none;
-  // }
+  button:focus {
+    outline: none;
+  }
   button.focus-visible {
     ${(p) => p.theme.u.focusVisible}; 
   }

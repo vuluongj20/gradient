@@ -1,28 +1,27 @@
 import styled from 'styled-components'
 
-import { CardContent } from './card'
 import CardGrid from './cardGrid'
 
-import { Page } from '@types'
+import { Section as ISection, Story } from '@types'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
-	sectionLink: Page
-	cards: CardContent[]
+	section: ISection
+	stories: Story[]
 	overlay?: boolean
 }
 
-const Section = ({ sectionLink, cards, overlay }: Props): JSX.Element => {
+const Section = ({ section, stories, overlay }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider overlay={overlay}>
 			<Wrap>
 				<TitleWrap>
-					<TitleLink href={sectionLink.path}>
-						<Title>{sectionLink.title}</Title>
+					<TitleLink href={section.path}>
+						<Title>{section.name}</Title>
 					</TitleLink>
 				</TitleWrap>
-				<CardGrid cards={cards} />
+				<CardGrid stories={stories} />
 			</Wrap>
 		</LocalThemeProvider>
 	)
