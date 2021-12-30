@@ -69,6 +69,7 @@ const Wrap = styled(TransitionLink)<{
 	text-decoration: none;
 
 	align-self: start;
+	border-radius: 0.4em;
 
 	&.focus-visible {
 		${(p) => p.theme.u.focusVisible};
@@ -111,6 +112,8 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	width: 100%;
 	max-height: 48em;
 	overflow: hidden;
+	border-radius: 0.4em;
+	-webkit-mask-image: -webkit-radial-gradient(white, black);
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
