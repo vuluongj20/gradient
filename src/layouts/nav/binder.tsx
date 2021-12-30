@@ -134,7 +134,7 @@ const Wrap = styled.div`
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.c.line};
 	box-sizing: content-box;
-	background: ${(p) => p.theme.c.insetFill};
+	background: ${(p) => p.theme.c.iBackground};
 
 	${(p) => p.theme.u.media.xs} {
 		background: ${(p) => p.theme.c.background};
