@@ -195,6 +195,7 @@ const Wrap = styled.article`
     font-family: 'Roboto Mono', 'Courier New', monospace;
     font-weight: 700;
   }
+
   p,
   a,
   text {
@@ -212,8 +213,6 @@ const Wrap = styled.article`
   }
 
   svg {
-    width: 100%;
-    height: 100%;
     margin: 0 auto;
   }
 
@@ -228,9 +227,8 @@ const Wrap = styled.article`
 `
 
 const HeroWrap = styled.header`
-  height: 100vh;
-  min-height: 460px;
   ${(p) => p.theme.u.flexCenter};
+  ${(p) => p.theme.u.spacing.paddingVertical[8]}
 `
 
 const HeroInnerWrap = styled(Grid)`
