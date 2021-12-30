@@ -27,28 +27,15 @@ export type VizData = {
 const dataUrl =
   'https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'
 
+const heroText = [
+  'Industrialization has led to astonishing economic growth in many countries in the world. At the same time, the ever rising demand in energy has led to more coal and fuel burning, animal farming, and artificial deforestation. All of these activities have resulted in significant increases in atmospheric carbon dioxide and other greenhouse gases. But just how quickly have CO₂ levels increased in the last few decades?',
+  'The Mauna Loa Observatory in Hawaii has been recording atmospheric CO₂ levels since 1958. The dataset offers great insights into the state of the earth in the past, present, and where it could be in the future.',
+]
+
 const vizs: VizData[] = [
   {
     key: 'line-chart',
     height: '600vh',
-    text: {
-      des: [
-        [
-          {
-            type: 'span',
-            content:
-              'Industrialization has led to astonishing economic growth in many countries in the world. At the same time, the ever rising demand in energy has led to more coal and fuel burning, animal farming, and artificial deforestation. All of these activities have resulted in significant increases in atmospheric carbon dioxide and other greenhouse gases. But just how quickly have CO₂ levels increased in the last few decades?',
-          },
-        ],
-        [
-          {
-            type: 'span',
-            content:
-              'The Mauna Loa Observatory in Hawaii has been recording atmospheric CO₂ levels since 1958. The dataset offers great insights into the state of the earth in the past, present, and where it could be in the future.',
-          },
-        ],
-      ],
-    },
     vizContent: [
       {
         state: 'initial',
@@ -146,12 +133,15 @@ const Main = (): JSX.Element => {
   return (
     <Page>
       <Wrap id="App">
-        <HeroWrap>
+        <HeroWrap as="header">
           <HeroInnerWrap>
-            <HeroText>
-              <HeroSpan>Carbon Dioxide&nbsp;</HeroSpan>
-              <HeroSpan>Trends Since 1958</HeroSpan>
-            </HeroText>
+            <HeroHeading>
+              <HeroHeadingSpan>Carbon Dioxide&nbsp;</HeroHeadingSpan>
+              <HeroHeadingSpan>Trends Since 1958</HeroHeadingSpan>
+            </HeroHeading>
+            {heroText.map((para, i) => {
+              return <HeroText key={i}>{para}</HeroText>
+            })}
           </HeroInnerWrap>
         </HeroWrap>
         {data &&
@@ -226,16 +216,11 @@ const Wrap = styled.article`
   }
 `
 
-const HeroWrap = styled.header`
-  ${(p) => p.theme.utils.flexCenter};
+const HeroWrap = styled(Grid)`
   ${(p) => p.theme.utils.spacing.paddingVertical[8]}
 `
 
-const HeroInnerWrap = styled(Grid)`
-  width: 100%;
-`
-
-const HeroText = styled.h1`
+const HeroInnerWrap = styled.div`
   grid-column: 2 / -2;
 
   ${(p) => p.theme.utils.media.m} {
@@ -247,7 +232,11 @@ const HeroText = styled.h1`
   }
 `
 
-const HeroSpan = styled.span`
+const HeroHeading = styled.h1`
+  margin-bottom: ${(p) => p.theme.space[2]};
+`
+
+const HeroHeadingSpan = styled.span`
   display: block;
   margin-bottom: 0.2em;
 
@@ -255,6 +244,11 @@ const HeroSpan = styled.span`
     display: inline;
     white-space: prewrap;
   }
+`
+
+const HeroText = styled.p`
+  margin-bottom: ${(p) => p.theme.space[2]};
+  max-width: 48em;
 `
 
 const MetaWrap = styled.section``

@@ -43,7 +43,7 @@ const Section = ({ data, vizData, animationObserver }: Props): JSX.Element => {
     >
       <InnerWrap>
         <ContentWrap>
-          {vizData.text.des.map((para, index) => {
+          {vizData.text?.des?.map((para, index) => {
             return (
               <Para key={index} className="animate">
                 {para.map((segment, index) => {
@@ -83,7 +83,7 @@ const ContentWrap = styled.div``
 const Para = styled.p`
   grid-column: 2 / -2;
   margin-bottom: ${(p) => p.theme.space[2]};
-  max-width: 40em;
+  max-width: 48em;
 
   ${(p) => p.theme.utils.media.s} {
     grid-column: 1 / -1;

@@ -1280,6 +1280,7 @@ const Wrap = styled.div`
     transform: translate(-14.6em, -4.72em);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     will-change: transform, width, height;
+    filter: drop-shadow(${(p) => p.theme.shadows.s});
   }
   .hover-text-group.big > .hover-rect {
     width: 17.8em;
@@ -1348,6 +1349,7 @@ const Wrap = styled.div`
     transform: translate(-1.2em, -1.65em);
     will-change: width;
     transition: width 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    filter: drop-shadow(${(p) => p.theme.shadows.s});
   }
   .mse-rect.quadratic {
     width: 14.8em;
