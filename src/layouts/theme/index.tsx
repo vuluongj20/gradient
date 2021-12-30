@@ -7,34 +7,33 @@ import { Breakpoint } from '@types'
 
 import {
 	breakpoints,
-	borderRadii,
+	radii,
 	boxShadowsLight,
 	boxShadowsDark,
-	spacing,
+	space,
 } from '@utils/styling'
 
-export type Theme = {
-	/** Color */
-	c: ColorPalette['colors'] & ColorAliases
-	/** Box shadow */
-	sh: Partial<Record<Breakpoint, string>>
-	/** Text */
-	t: {
-		rootSize: string
-		ui: TextScale
-		content: TextScale
+export type Theme = ColorPalette['colors'] &
+	ColorAliases & {
+		/** Box shadow */
+		shadows: Partial<Record<Breakpoint, string>>
+		/** Text */
+		text: {
+			rootSize: string
+			ui: TextScale
+			content: TextScale
+		}
+		/** Animation */
+		animation: Animation
+		/** Breakpoints */
+		breakpoints: Record<Breakpoint, string>
+		/** Border radius */
+		radii: Partial<Record<Breakpoint, string>>
+		/** Spacing */
+		space: string[]
+		/** Utilities */
+		utils: Utils
 	}
-	/** Animation */
-	a: Animation
-	/** Breakpoints */
-	b: Record<Breakpoint, string>
-	/** Border radius */
-	r: Partial<Record<Breakpoint, string>>
-	/** Spacing */
-	s: string[]
-	/** Utilities */
-	u: Utils
-}
 
 export type ThemeSettings = {
 	color: {
@@ -52,23 +51,23 @@ export type ThemeSettings = {
 }
 
 const partialDefaultTheme: Omit<Theme, 'u'> = {
-	c: {
+	colors: {
 		...colorPalettes.paper.colors,
 		...getColorAliases(colorPalettes.paper.colors, false),
 	},
-	sh: boxShadowsLight,
-	t: {
+	shadows: boxShadowsLight,
+	text: {
 		rootSize: '100%',
 		ui: textScales.sohne,
 		content: textScales.domaine,
 	},
-	a: {
+	animation: {
 		...easings,
 		reduced: false,
 	},
-	s: spacing,
-	b: breakpoints,
-	r: borderRadii,
+	breakpoints: breakpoints,
+	space,
+	radii,
 }
 
 const defaultTheme: Theme = {
@@ -123,27 +122,27 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 	const partialTheme: Omit<Theme, 'u'> = {
-		c: {
+		colors: {
 			...colorPalettes[colorPalette].colors,
 			...getColorAliases(colorPalettes[colorPalette].colors, settings.color.overlay),
 		},
-		sh: appearance === 'light' ? boxShadowsLight : boxShadowsDark,
-		t: {
+		shadows: appearance === 'light' ? boxShadowsLight : boxShadowsDark,
+		text: {
 			rootSize: '100%',
 			ui: textScales[settings.text.ui],
 			content: textScales[settings.text.content],
 		},
-		a: {
+		animation: {
 			...easings,
 			reduced: reducedMotion,
 		},
-		s: spacing,
-		b: breakpoints,
-		r: borderRadii,
+		breakpoints: breakpoints,
+		space,
+		radii,
 	}
 
 	return {
 		...partialTheme,
-		u: generateUtils(partialTheme),
+		utils: generateUtils(partialTheme),
 	}
 }
