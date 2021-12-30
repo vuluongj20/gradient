@@ -24,7 +24,37 @@ export const numericBreakpoints: Record<Breakpoint, number> = {
 }
 
 /** Border radii */
-export const borderRadii: string[] = ['0.25em', '0.5em', '1em', '1.5em', '2em']
+export const borderRadii: Partial<Record<Breakpoint, string>> = {
+	s: '0.25em',
+	m: '0.5em',
+	l: '1em',
+}
+
+/** Box shadows */
+export const boxShadowsLight: Partial<Record<Breakpoint, string>> = {
+	s: '0 1px 2px rgba(33, 37, 41, 0.04)',
+	m: '0 1px 4px rgba(33, 37, 41, 0.06)',
+	l: '0 4px 32px rgba(33, 37, 41, 0.08)',
+}
+
+export const boxShadowsDark: Partial<Record<Breakpoint, string>> = {
+	s: '0 1px 2px rgba(13, 13, 13, 0.16)',
+	m: '0 1px 4px rgba(13, 13, 13, 0.24)',
+	l: '0 4px 32px rgba(13, 13, 13, 0.32)',
+}
+
+/** Spacing */
+export const spacing = [
+	'0.25em',
+	'0.5em',
+	'1em',
+	'1.5em',
+	'2em',
+	'3em',
+	'4em',
+	'6em',
+	'8em',
+]
 
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }

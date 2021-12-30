@@ -1,16 +1,23 @@
 import { easings, Animation } from './animation'
 import { colorPalettes, getColorAliases, ColorPalette, ColorAliases } from './colors'
-import { spacing } from './spacing'
 import { textScales, TextScale } from './text'
 import { generateUtils, Utils } from './utils'
 
 import { Breakpoint } from '@types'
 
-import { breakpoints, borderRadii } from '@utils/styling'
+import {
+	breakpoints,
+	borderRadii,
+	boxShadowsLight,
+	boxShadowsDark,
+	spacing,
+} from '@utils/styling'
 
 export type Theme = {
 	/** Color */
 	c: ColorPalette['colors'] & ColorAliases
+	/** Box shadow */
+	sh: Partial<Record<Breakpoint, string>>
 	/** Text */
 	t: {
 		rootSize: string
@@ -21,8 +28,8 @@ export type Theme = {
 	a: Animation
 	/** Breakpoints */
 	b: Record<Breakpoint, string>
-	/** Breakpoints */
-	r: string[]
+	/** Border radius */
+	r: Partial<Record<Breakpoint, string>>
 	/** Spacing */
 	s: string[]
 	/** Utilities */
@@ -49,6 +56,7 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 		...colorPalettes.paper.colors,
 		...getColorAliases(colorPalettes.paper.colors, false),
 	},
+	sh: boxShadowsLight,
 	t: {
 		rootSize: '100%',
 		ui: textScales.sohne,
@@ -66,6 +74,19 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 const defaultTheme: Theme = {
 	...partialDefaultTheme,
 	u: generateUtils(partialDefaultTheme),
+}
+
+export const getAppearance = (colorSettings: ThemeSettings['color']): string => {
+	let appearance: ThemeSettings['color']['appearance']
+	if (colorSettings.appearance === 'auto') {
+		appearance = window.matchMedia('(prefers-color-scheme: dark)').matches
+			? 'dark'
+			: 'light'
+	} else {
+		appearance = colorSettings.appearance
+	}
+
+	return appearance
 }
 
 export const getColorPalette = (colorSettings: ThemeSettings['color']): string => {
@@ -95,6 +116,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 	}
 
 	/** Color */
+	const appearance = getAppearance(settings.color)
 	const colorPalette = getColorPalette(settings.color)
 
 	/** Animation */
@@ -105,6 +127,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			...colorPalettes[colorPalette].colors,
 			...getColorAliases(colorPalettes[colorPalette].colors, settings.color.overlay),
 		},
+		sh: appearance === 'light' ? boxShadowsLight : boxShadowsDark,
 		t: {
 			rootSize: '100%',
 			ui: textScales[settings.text.ui],

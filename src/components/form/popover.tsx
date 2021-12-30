@@ -37,8 +37,9 @@ const Wrap = styled.div`
   position: absolute;
   width: 100%;
   background: ${(p) => p.theme.c.oBackground};
-  border-radius: ${(p) => p.theme.r[1]};
+  border-radius: ${(p) => p.theme.r.m};
   border: solid 1px ${(p) => p.theme.c.line};
   padding: ${(p) => p.theme.s[0]};
   transform: translateX(-${(p) => p.theme.s[2]});
+  box-shadow: ${(p) => p.theme.sh.l};
 `

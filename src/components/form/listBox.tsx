@@ -68,7 +68,7 @@ const StyledOption = styled.li<StyledOptionProps>`
   outline: none;
   color: ${(p) => p.theme.c.text};
   padding: ${(p) => p.theme.s[1]} ${(p) => p.theme.s[2]};
-  border-radius: ${(p) => p.theme.r[1]};
+  border-radius: ${(p) => p.theme.r.m};
 
   && {
     margin: 0;
