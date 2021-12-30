@@ -109,11 +109,23 @@ const StyledInnerGrid = styled(Grid)`
 
 const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) => p.theme.utils.flexCenter};
+	position: relative;
 	width: 100%;
 	max-height: 48em;
 	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
 	-webkit-mask-image: -webkit-radial-gradient(white, black);
+
+	::after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: ${(p) => p.theme.radii.m};
+		box-shadow: inset 0 0 0 1px ${(p) => p.theme.colors.line};
+	}
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
