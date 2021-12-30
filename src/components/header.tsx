@@ -29,12 +29,12 @@ const Title = styled.h1`
 `
 
 const DescWrap = styled.div`
-	margin-bottom: 0.6em;
+	margin-bottom: 0.5em;
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25em);
 
 	${(p) => p.theme.utils.media.m} {
-		margin-bottom: 0.4em;
+		margin-bottom: 0.2em;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
