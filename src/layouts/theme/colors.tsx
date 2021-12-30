@@ -84,6 +84,7 @@ const paper: ColorPalette = {
 		surface1: '#FAFAFA',
 		surface2: '#FFFFFF',
 		surface3: '#FFFFFF',
+		surface4: '#F5F5F5',
 		gray1: '#212529',
 		gray2: '#33383D',
 		gray3: '#494F55',
@@ -92,7 +93,7 @@ const paper: ColorPalette = {
 		gray6: '#898F94',
 		gray7: 'rgba(148, 153, 158, 0.7)',
 		gray8: 'rgba(148, 153, 158, 0.4)',
-		gray9: 'rgba(148, 153, 158, 0.24)',
+		gray9: 'rgba(148, 153, 158, 0.2)',
 		red1: '#E33B12',
 		red2: '#EE542F',
 		red3: '#F2775A',
@@ -140,6 +141,7 @@ const charcoal: ColorPalette = {
 		surface1: '#171717',
 		surface2: '#1A1A1A',
 		surface3: '#1F1F1F',
+		surface4: '#292929',
 		gray1: '#F1F2F4',
 		gray2: '#D5D9DC',
 		gray3: '#BDC2C7',
@@ -190,19 +192,34 @@ const charcoal: ColorPalette = {
 
 export const getColorAliases = (
 	c: ColorPalette['colors'],
-	overlay?: boolean,
+	type: 'default' | 'overlay' | 'inset' = 'default',
 ): ColorAliases => ({
 	// Fills & borders
-	background: overlay ? c.surface3 : c.surface2,
-	contentFill: overlay ? c.surface2 : c.surface1,
-	insetFill: overlay ? c.surface2 : c.surface1,
+	background: c.surface2,
+	hoverBackground: c.surface4,
 	line: c.gray9,
 
-	// Overlay fills & borders,
-	// for elements on overlays
+	// Overlay
 	oBackground: c.surface3,
-	oContentFill: c.surface2,
+	oHoverBackground: c.surface4,
 	oLine: c.gray8,
+
+	// Inset
+	iBackground: c.surface1,
+	iHoverBackground: c.surface2,
+	iLine: c.gray8,
+
+	...(type === 'overlay' && {
+		background: c.surface3,
+		hoverBackground: c.surface4,
+		line: c.gray8,
+	}),
+
+	...(type === 'inset' && {
+		background: c.surface1,
+		hoverBackground: c.surface2,
+		line: c.gray8,
+	}),
 
 	// Text
 	heading: c.gray1,

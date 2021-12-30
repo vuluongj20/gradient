@@ -36,8 +36,9 @@ export default Popover
 const Wrap = styled.div`
   position: absolute;
   width: 100%;
-  background: ${(p) => p.theme.c.background};
-  padding: ${(p) => p.theme.s[2]};
-  padding-top: ${(p) => p.theme.s[1]};
+  background: ${(p) => p.theme.c.oBackground};
+  border-radius: 0.4em;
+  border: solid 1px ${(p) => p.theme.c.line};
+  padding: ${(p) => p.theme.s[0]};
   transform: translateX(-${(p) => p.theme.s[2]});
 `

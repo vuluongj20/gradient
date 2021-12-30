@@ -51,7 +51,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All sections', selected: true },
-							...sections.map((s) => ({ value: s.slug, label: s.title })),
+							...sections.map((s) => ({ value: s.slug, label: s.name })),
 						],
 					},
 			  ]

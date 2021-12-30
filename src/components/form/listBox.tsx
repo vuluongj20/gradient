@@ -67,17 +67,16 @@ const StyledOption = styled.li<StyledOptionProps>`
   cursor: pointer;
   outline: none;
   color: ${(p) => p.theme.c.text};
-  padding: ${(p) => p.theme.s[1]} 0;
+  padding: ${(p) => p.theme.s[1]} ${(p) => p.theme.s[2]};
+  border-radius: 0.4em;
 
   && {
     margin: 0;
   }
 
-  &:hover {
-    color: ${(p) => p.theme.c.red1};
-  }
+  ${(p) => p.isFocused && `background: ${p.theme.c.oHoverBackground};`}
 
-  ${(p) => (p.isSelected || p.isFocused) && `color: ${p.theme.c.red1};`}
+  ${(p) => p.isSelected && `color: ${p.theme.c.red1};`}
 `
 
 const StyledListBox = styled.ul`
