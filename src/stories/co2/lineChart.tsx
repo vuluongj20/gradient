@@ -218,7 +218,7 @@ const LineChart = ({ data, content }: Props) => {
                       return y(d.level) + margin.top
                     }),
                 )
-                .attr('stroke-width', strokeWidth * 1.5),
+                .attr('stroke-width', strokeWidth),
               // Mouse hover line
               hoverLine = svg
                 .insert('path', '.data-line')
