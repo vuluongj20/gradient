@@ -3,19 +3,21 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as tocbot from 'tocbot'
 
+import { Theme } from '@theme'
+
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	label: string
 	contentSelector: string
-	overlay?: boolean
+	elevation?: Theme['colors']['elevation']
 	className: string
 }
 
 const TOC = ({
 	label,
 	contentSelector,
-	overlay = false,
+	elevation = 'default',
 	className,
 }: Props): JSX.Element => {
 	const [showUpperFade, setUpperFade] = useState<boolean>(false)
@@ -69,17 +71,17 @@ const TOC = ({
 	}, [contentSelector])
 
 	return (
-		<LocalThemeProvider overlay={overlay}>
+		<LocalThemeProvider elevation={elevation}>
 			<TocWrap className={className}>
 				<TocLabel>{label}</TocLabel>
 				<TocInnerWrap>
-					<UpperScrollFade visible={showUpperFade} overlay={overlay} />
+					<UpperScrollFade visible={showUpperFade} />
 					<TocInnerContentWrap>
 						<UpperIntersectionTarget />
 						<TocContent />
 						<LowerIntersectionTarget />
 					</TocInnerContentWrap>
-					<LowerScrollFade visible={showLowerFade} overlay={overlay} />
+					<LowerScrollFade visible={showLowerFade} />
 				</TocInnerWrap>
 			</TocWrap>
 		</LocalThemeProvider>
@@ -146,7 +148,7 @@ const IntersectionTarget = styled.div`
 const UpperIntersectionTarget = styled(IntersectionTarget)``
 const LowerIntersectionTarget = styled(IntersectionTarget)``
 
-const ScrollFade = styled.div<{ visible: boolean; overlay: boolean }>`
+const ScrollFade = styled.div<{ visible: boolean }>`
 	position: absolute;
 	width: 100%;
 	height: ${(p) => p.theme.space[6]};

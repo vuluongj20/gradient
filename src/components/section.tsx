@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 import CardGrid from './cardGrid'
 
+import { Theme } from '@theme'
+
 import { Section as ISection, Story } from '@types'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
@@ -9,12 +11,12 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 type Props = {
 	section: ISection
 	stories: Story[]
-	overlay?: boolean
+	elevation?: Theme['colors']['elevation']
 }
 
-const Section = ({ section, stories, overlay }: Props): JSX.Element => {
+const Section = ({ section, stories, elevation }: Props): JSX.Element => {
 	return (
-		<LocalThemeProvider overlay={overlay}>
+		<LocalThemeProvider elevation={elevation}>
 			<Wrap>
 				<TitleWrap>
 					<TitleLink href={section.path}>

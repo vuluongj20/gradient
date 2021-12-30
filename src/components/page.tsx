@@ -3,22 +3,24 @@ import styled from 'styled-components'
 
 import Footer from './footer'
 
+import { Theme } from '@theme'
+
 import SectionDivider from '@components/sectionDivider'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	children: ReactNode
-	overlay?: boolean
+	elevation?: Theme['colors']['elevation']
 	footerProps?: {
 		inverted?: boolean
-		overlay?: boolean
+		elevation?: Theme['colors']['elevation']
 	}
 }
 
-const Page = ({ children, overlay, footerProps }: Props): JSX.Element => {
+const Page = ({ children, elevation, footerProps }: Props): JSX.Element => {
 	return (
-		<LocalThemeProvider overlay={overlay}>
+		<LocalThemeProvider elevation={elevation}>
 			<PageContent>
 				{children}
 				<SectionDivider mb={0} />

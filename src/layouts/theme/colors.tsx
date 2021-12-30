@@ -92,7 +92,7 @@ const paper: ColorPalette = {
 		gray5: '#737A82',
 		gray6: '#898F94',
 		gray7: 'rgba(148, 153, 158, 0.7)',
-		gray8: 'rgba(148, 153, 158, 0.4)',
+		gray8: 'rgba(148, 153, 158, 0.32)',
 		gray9: 'rgba(148, 153, 158, 0.2)',
 		red1: '#E33B12',
 		red2: '#EE542F',
@@ -149,7 +149,7 @@ const charcoal: ColorPalette = {
 		gray5: '#858C93',
 		gray6: '#6D7378',
 		gray7: 'rgba(102, 107, 112, 0.7)',
-		gray8: 'rgba(102, 107, 112, 0.4)',
+		gray8: 'rgba(102, 107, 112, 0.32)',
 		gray9: 'rgba(102, 107, 112, 0.18)',
 		red1: 'rgba(255, 115, 82, 1)',
 		red2: 'rgba(255, 115, 82, 0.9)',
@@ -191,54 +191,55 @@ const charcoal: ColorPalette = {
 }
 
 export const getColorAliases = (
-	c: ColorPalette['colors'],
-	type: 'default' | 'overlay' | 'inset' = 'default',
+	colors: ColorPalette['colors'],
+	elevation: 'default' | 'overlay' | 'inset' = 'default',
 ): ColorAliases => ({
-	// Fills & borders
-	background: c.surface2,
-	hoverBackground: c.surface4,
-	line: c.gray9,
+	...(elevation === 'default' && {
+		background: colors.surface2,
+		hoverBackground: colors.surface4,
+		line: colors.gray9,
+	}),
+
+	...(elevation === 'overlay' && {
+		background: colors.surface3,
+		hoverBackground: colors.surface4,
+		line: colors.gray8,
+	}),
+
+	...(elevation === 'inset' && {
+		background: colors.surface1,
+		hoverBackground: colors.surface2,
+		line: colors.gray8,
+	}),
 
 	// Overlay
-	oBackground: c.surface3,
-	oHoverBackground: c.surface4,
-	oLine: c.gray8,
+	oBackground: colors.surface3,
+	oHoverBackground: colors.surface4,
+	oLine: colors.gray8,
 
 	// Inset
-	iBackground: c.surface1,
-	iHoverBackground: c.surface2,
-	iLine: c.gray8,
-
-	...(type === 'overlay' && {
-		background: c.surface3,
-		hoverBackground: c.surface4,
-		line: c.gray8,
-	}),
-
-	...(type === 'inset' && {
-		background: c.surface1,
-		hoverBackground: c.surface2,
-		line: c.gray8,
-	}),
+	iBackground: colors.surface1,
+	iHoverBackground: colors.surface2,
+	iLine: colors.gray8,
 
 	// Text
-	heading: c.gray1,
-	text: c.gray2,
-	label: c.gray5,
+	heading: colors.gray1,
+	text: colors.gray2,
+	label: colors.gray5,
 
-	buttonLabel: c.gray1,
-	buttonLabelHover: c.gray3,
+	buttonLabel: colors.gray1,
+	buttonLabelHover: colors.gray3,
 
-	focus: c.red3,
+	focus: colors.red3,
 
-	link: c.red1,
-	linkUnderline: c.red5,
+	link: colors.red1,
+	linkUnderline: colors.red5,
 
-	linkHover: c.red1,
-	linkUnderlineHover: c.red2,
+	linkHover: colors.red1,
+	linkUnderlineHover: colors.red2,
 
-	error: c.red1,
-	success: c.green1,
+	error: colors.red1,
+	success: colors.green1,
 })
 
 export const colorPalettes = {

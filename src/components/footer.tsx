@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
 
+import { Theme } from '@theme'
+
 import Grid from '@components/grid'
 
 import { Page } from '@types'
@@ -14,11 +16,11 @@ import useSections from '@utils/dataHooks/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
-	overlay?: boolean
+	elevation?: Theme['colors']['elevation']
 	inverted?: boolean
 }
 
-const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
+const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element => {
 	const location = useLocation()
 	const sections = useSections()
 	const sectionPages = sections.map((section) => ({
@@ -41,44 +43,39 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 			)
 		})
 
-	const footer = (
-		<Wrap overlay={overlay}>
-			<SiteMap>
-				<Column>
-					<ColLabel>Sections</ColLabel>
-					{mapSiteLinks(sectionPages, ColLink)}
-				</Column>
-				<Column>
-					<ColLabel>Authors</ColLabel>
-					{mapSiteLinks(authorPages, ColLink)}
-				</Column>
-				<Column>
-					<ColLabel>More</ColLabel>
-					{mapSiteLinks([archivePage], ColLink)}
-				</Column>
-			</SiteMap>
-			<Grid>
-				<DisclosuresDivider />
-			</Grid>
-			<Policies>
-				<PolicyText>Gradient</PolicyText>
-				{mapSiteLinks(policiesPages, PolicyLink)}
-			</Policies>
-		</Wrap>
+	return (
+		<LocalThemeProvider appearance={inverted ? 'inverted' : null}>
+			<Wrap elevation={elevation}>
+				<SiteMap>
+					<Column>
+						<ColLabel>Sections</ColLabel>
+						{mapSiteLinks(sectionPages, ColLink)}
+					</Column>
+					<Column>
+						<ColLabel>Authors</ColLabel>
+						{mapSiteLinks(authorPages, ColLink)}
+					</Column>
+					<Column>
+						<ColLabel>More</ColLabel>
+						{mapSiteLinks([archivePage], ColLink)}
+					</Column>
+				</SiteMap>
+				<Grid>
+					<DisclosuresDivider />
+				</Grid>
+				<Policies>
+					<PolicyText>Gradient</PolicyText>
+					{mapSiteLinks(policiesPages, PolicyLink)}
+				</Policies>
+			</Wrap>
+		</LocalThemeProvider>
 	)
-
-	if (inverted) {
-		return <LocalThemeProvider appearance="inverted">{footer}</LocalThemeProvider>
-	}
-
-	return footer
 }
 
 export default Footer
 
-const Wrap = styled.footer<{ overlay: boolean }>`
-	background: ${(p) =>
-		p.overlay ? p.theme.colors.oBackground : p.theme.colors.background};
+const Wrap = styled.footer`
+	background: ${(p) => p.theme.colors.background};
 `
 
 const Link = styled(TransitionLink)`

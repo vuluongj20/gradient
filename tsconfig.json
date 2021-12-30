@@ -16,7 +16,9 @@
 			"@data": ["./src/data"],
 			"@data/*": ["./src/data/*"],
 			"@types": ["./src/types"],
-			"@types/*": ["./src/types/*"]
+			"@types/*": ["./src/types/*"],
+			"@theme": ["./src/layouts/theme"],
+			"@theme/*": ["./src/layouts/theme/*"]
 		}
 	},
 	"exclude": ["node_modules", "public"]

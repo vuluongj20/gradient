@@ -40,5 +40,5 @@ const Wrap = styled.div`
   border-radius: ${(p) => p.theme.radii.m};
   padding: ${(p) => p.theme.space[0]};
   transform: translateX(-${(p) => p.theme.space[2]});
-  box-shadow: 0 0 0 1px ${(p) => p.theme.colors.line}, ${(p) => p.theme.shadows.l};
+  box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
 `

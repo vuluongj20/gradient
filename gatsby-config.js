@@ -86,6 +86,7 @@ module.exports = {
           '@icons': path.resolve(__dirname, 'src/icons'),
           '@data': path.resolve(__dirname, 'src/data'),
           '@types': path.resolve(__dirname, 'src/types'),
+          '@theme': path.resolve(__dirname, 'src/layouts/theme'),
         },
         extensions: ['js', 'jsx', 'ts', 'tsx'],
       },

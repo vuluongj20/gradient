@@ -12,7 +12,7 @@ import SettingsContext from './settingsContext'
 type Props = {
 	children: ReactNode
 	appearance?: ThemeSettings['color']['appearance'] | 'inverted'
-	overlay?: boolean
+	elevation?: ThemeSettings['color']['elevation']
 	/** Type scale for UI text */
 	uiScale?: ThemeSettings['text']['ui']
 	/** Type scale for main text content */
@@ -22,7 +22,7 @@ type Props = {
 const LocalThemeProvider = ({
 	children,
 	appearance,
-	overlay,
+	elevation,
 	uiScale,
 	contentScale,
 }: Props): JSX.Element => {
@@ -41,7 +41,7 @@ const LocalThemeProvider = ({
 	 * Falls back to current settings if
 	 * appearance is not defined
 	 */
-	const localColor = { appearance: localAppearance, overlay }
+	const localColor = { appearance: localAppearance, elevation }
 
 	/**
 	 * Falls back to current settings if
