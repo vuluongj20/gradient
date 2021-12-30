@@ -6,7 +6,7 @@ import { generateUtils, Utils } from './utils'
 
 import { Breakpoint } from '@types'
 
-import { breakpoints } from '@utils/styling'
+import { breakpoints, borderRadii } from '@utils/styling'
 
 export type Theme = {
 	/** Color */
@@ -21,6 +21,8 @@ export type Theme = {
 	a: Animation
 	/** Breakpoints */
 	b: Record<Breakpoint, string>
+	/** Breakpoints */
+	r: string[]
 	/** Spacing */
 	s: string[]
 	/** Utilities */
@@ -58,6 +60,7 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 	},
 	s: spacing,
 	b: breakpoints,
+	r: borderRadii,
 }
 
 const defaultTheme: Theme = {
@@ -113,6 +116,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 		},
 		s: spacing,
 		b: breakpoints,
+		r: borderRadii,
 	}
 
 	return {

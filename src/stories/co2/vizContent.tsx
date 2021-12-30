@@ -105,7 +105,7 @@ export const VizDesText = styled.p`
 	margin: 0;
 	padding: 0.8em 1.2em;
 	background: ${(p) => p.theme.c.oBackground};
-	border-radius: 0.4em;
+	border-radius: ${(p) => p.theme.r[1]};
 	border: solid 1px ${(p) => p.theme.c.line};
 
 	@supports (backdrop-filter: blur(0)) {

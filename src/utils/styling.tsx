@@ -23,6 +23,9 @@ export const numericBreakpoints: Record<Breakpoint, number> = {
 	xs: 480,
 }
 
+/** Border radii */
+export const borderRadii: string[] = ['0.25em', '0.5em', '1em', '1.5em', '2em']
+
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }
 
