@@ -132,12 +132,12 @@ export default Binder
 const Wrap = styled.div`
 	width: 100%;
 	height: 100%;
-	border-right: solid 1px ${(p) => p.theme.c.line};
+	border-right: solid 1px ${(p) => p.theme.colors.line};
 	box-sizing: content-box;
-	background: ${(p) => p.theme.c.iBackground};
+	background: ${(p) => p.theme.colors.iBackground};
 
-	${(p) => p.theme.u.media.xs} {
-		background: ${(p) => p.theme.c.background};
+	${(p) => p.theme.utils.media.xs} {
+		background: ${(p) => p.theme.colors.background};
 		border-right: none;
 	}
 `
@@ -147,7 +147,7 @@ const Line = styled.div`
 	width: 100%;
 	height: 2px;
 	border-radius: 2px;
-	background: ${(p) => p.theme.c.heading};
+	background: ${(p) => p.theme.colors.heading};
 	opacity: 40%;
 `
 
@@ -160,7 +160,7 @@ const TargetWrap = styled(TransitionLink)`
 	height: 1.5em;
 	z-index: 1;
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}
 `
@@ -183,7 +183,7 @@ const TargetCircle = styled.div`
 	transform: translate(-50%, -50%);
 	width: 56.25%;
 	height: 56.25%;
-	border: solid 2px ${(p) => p.theme.c.heading};
+	border: solid 2px ${(p) => p.theme.colors.heading};
 	border-radius: 50%;
 	opacity: 40%;
 `
@@ -197,7 +197,7 @@ const StampWrap = styled.div`
 	width: 100%;
 	height: 100%;
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}
 `
@@ -211,7 +211,7 @@ const StampSection = styled.div`
 `
 
 const StampText = styled(TransitionLink)`
-	${(p) => p.theme.t.ui.label};
+	${(p) => p.theme.text.ui.label};
 	opacity: 60%;
 	line-height: 1.4;
 	white-space: nowrap;
@@ -229,14 +229,14 @@ export const HamWrap = styled.button`
 	cursor: pointer;
 	z-index: 1;
 
-	${(p) => p.theme.u.media.l} {
+	${(p) => p.theme.utils.media.l} {
 		top: 0.25em;
 		left: 0.25em;
 		width: 2em;
 		height: 2em;
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		top: 50%;
 		left: ${paddingHorizontal * 0.75}em;
 		transform: translate(-15%, -50%);
@@ -245,7 +245,7 @@ export const HamWrap = styled.button`
 `
 
 const HamInnerWrap = styled.div`
-	${(p) => p.theme.u.absCenter};
+	${(p) => p.theme.utils.absCenter};
 	width: 70%;
 	padding-top: 75%;
 `
@@ -291,12 +291,12 @@ const HamCrossLineInner = styled(Line)`
 `
 
 const Logo = styled(TransitionLink)`
-	${(p) => p.theme.t.content.h3};
-	${(p) => p.theme.u.absCenter};
+	${(p) => p.theme.text.content.h3};
+	${(p) => p.theme.utils.absCenter};
 	font-weight: 700;
 	display: none;
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: initial;
 	}
 `

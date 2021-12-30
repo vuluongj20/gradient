@@ -49,10 +49,10 @@ const Wrap = styled.div`
 `
 
 const Trigger = styled.button`
-	padding: ${(p) => p.theme.s[1]} 0;
+	padding: ${(p) => p.theme.space[1]} 0;
 `
 
 const TriggerArrow = styled.span`
-	margin-left: ${(p) => p.theme.s[0]};
+	margin-left: ${(p) => p.theme.space[0]};
 	font-size: 0.75em;
 `

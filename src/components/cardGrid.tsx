@@ -19,5 +19,5 @@ const CardGrid = ({ stories }: Props): JSX.Element => (
 export default CardGrid
 
 const Wrap = styled(Grid)`
-	row-gap: ${(p) => p.theme.s[4]};
+	row-gap: ${(p) => p.theme.space[4]};
 `

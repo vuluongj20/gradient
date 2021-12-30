@@ -63,20 +63,20 @@ const ListBox = (props: ListBoxProps) => {
 export default ListBox
 
 const StyledOption = styled.li<StyledOptionProps>`
-  ${(p) => p.theme.t.ui.label};
+  ${(p) => p.theme.text.ui.label};
   cursor: pointer;
   outline: none;
-  color: ${(p) => p.theme.c.text};
-  padding: ${(p) => p.theme.s[1]} ${(p) => p.theme.s[2]};
-  border-radius: ${(p) => p.theme.r.m};
+  color: ${(p) => p.theme.colors.text};
+  padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
+  border-radius: ${(p) => p.theme.radii.m};
 
   && {
     margin: 0;
   }
 
-  ${(p) => p.isFocused && `background: ${p.theme.c.oHoverBackground};`}
+  ${(p) => p.isFocused && `background: ${p.theme.colors.oHoverBackground};`}
 
-  ${(p) => p.isSelected && `color: ${p.theme.c.red1};`}
+  ${(p) => p.isSelected && `color: ${p.theme.colors.red1};`}
 `
 
 const StyledListBox = styled.ul`

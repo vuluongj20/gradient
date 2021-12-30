@@ -15,36 +15,36 @@ export default Header
 const Wrap = styled.header`
 	display: flex;
 	align-items: flex-end;
-	padding: ${(p) => p.theme.s[3]} 0;
-	${(p) => p.theme.u.spacing.paddingHorizontal};
+	padding: ${(p) => p.theme.space[3]} 0;
+	${(p) => p.theme.utils.spacing.paddingHorizontal};
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}
 `
 
 const Title = styled.h1`
-	${(p) => p.theme.t.content.h2};
-	color: ${(p) => p.theme.c.heading};
+	${(p) => p.theme.text.content.h2};
+	color: ${(p) => p.theme.colors.heading};
 `
 
 const DescWrap = styled.div`
 	margin-bottom: 0.6em;
-	margin-left: ${(p) => p.theme.s[0]};
+	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25em);
 
-	${(p) => p.theme.u.media.m} {
+	${(p) => p.theme.utils.media.m} {
 		margin-bottom: 0.4em;
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}
 `
 
 const DescLine = styled.p`
-	${(p) => p.theme.t.ui.label};
-	color: ${(p) => p.theme.c.heading};
+	${(p) => p.theme.text.ui.label};
+	color: ${(p) => p.theme.colors.heading};
 
 	&& {
 		font-size: 0.875em;

@@ -96,11 +96,11 @@ const Wrap = styled.div`
 	height: 100%;
 	z-index: 9;
 
-	${(p) => p.theme.u.media.l} {
+	${(p) => p.theme.utils.media.l} {
 		width: 2.5em;
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		width: 100%;
 		height: 2.5em;
 	}
@@ -113,11 +113,11 @@ const PageShadow = styled.div<{ active: boolean }>`
 	width: 100vw;
 	height: 100vh;
 	cursor: pointer;
-	background: ${(p) => p.theme.c.background};
+	background: ${(p) => p.theme.colors.background};
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0%;
-	transition: opacity 1s ${(p) => p.theme.a.easeInOutQuint};
+	transition: opacity 1s ${(p) => p.theme.animation.easeInOutQuint};
 
 	${(p) =>
 		p.active &&
@@ -127,11 +127,11 @@ const PageShadow = styled.div<{ active: boolean }>`
 		z-index: 1;
 		`}
 
-	${(p) => p.theme.u.media.l} {
+	${(p) => p.theme.utils.media.l} {
 		left: 2.5em;
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}
 `

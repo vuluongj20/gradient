@@ -24,7 +24,7 @@ export const numericBreakpoints: Record<Breakpoint, number> = {
 }
 
 /** Border radii */
-export const borderRadii: Partial<Record<Breakpoint, string>> = {
+export const radii: Partial<Record<Breakpoint, string>> = {
 	s: '0.25em',
 	m: '0.5em',
 	l: '1em',
@@ -44,7 +44,7 @@ export const boxShadowsDark: Partial<Record<Breakpoint, string>> = {
 }
 
 /** Spacing */
-export const spacing = [
+export const space = [
 	'0.25em',
 	'0.5em',
 	'1em',

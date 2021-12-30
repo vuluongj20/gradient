@@ -47,13 +47,13 @@ export default FilterBar
 const Wrap = styled(Grid)`
 	position: sticky;
 	top: 0;
-	padding-top: ${(p) => p.theme.s[0]};
-	padding-bottom: ${(p) => p.theme.s[0]};
-	background: ${(p) => p.theme.c.background};
+	padding-top: ${(p) => p.theme.space[0]};
+	padding-bottom: ${(p) => p.theme.space[0]};
+	background: ${(p) => p.theme.colors.background};
 	z-index: 9;
 `
 
 const StyledSelect = styled(Select)`
 	grid-column-end: span 2;
-	padding: 0 ${(p) => p.theme.s[0]};
+	padding: 0 ${(p) => p.theme.space[0]};
 `

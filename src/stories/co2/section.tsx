@@ -73,7 +73,7 @@ const InnerWrap = styled.div`
   flex-direction: column;
   grid-column: 2 / -2;
 
-  ${(p) => p.theme.u.media.m} {
+  ${(p) => p.theme.utils.media.m} {
     grid-column: 1 / -1;
   }
 `
@@ -82,10 +82,10 @@ const ContentWrap = styled.div``
 
 const Para = styled.p`
   grid-column: 2 / -2;
-  margin-bottom: ${(p) => p.theme.s[2]};
+  margin-bottom: ${(p) => p.theme.space[2]};
   max-width: 40em;
 
-  ${(p) => p.theme.u.media.s} {
+  ${(p) => p.theme.utils.media.s} {
     grid-column: 1 / -1;
   }
 `

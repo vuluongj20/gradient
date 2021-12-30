@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   html {
-    font-size: ${(p) => p.theme.t.rootSize};
+    font-size: ${(p) => p.theme.text.rootSize};
     line-height: 1.5;
     box-sizing: border-box;
     margin: 0;
@@ -20,36 +20,36 @@ const GlobalStyles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     direction: ltr;
     text-align: left;
-    font-family: ${(p) => p.theme.t.ui.body.fontFamily};
-    font-size: ${(p) => p.theme.t.rootSize};
-    color: ${(p) => p.theme.c.text};
+    font-family: ${(p) => p.theme.text.ui.body.fontFamily};
+    font-size: ${(p) => p.theme.text.rootSize};
+    color: ${(p) => p.theme.colors.text};
     line-height: 1.5;
     margin: 0;
     padding: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: ${(p) => p.theme.c.heading};
+    color: ${(p) => p.theme.colors.heading};
     margin: 0;
   }
-  h1 {${(p) => p.theme.t.ui.h1}}
-  h2 {${(p) => p.theme.t.ui.h2}}
-  h3 {${(p) => p.theme.t.ui.h3}}
-  h4 {${(p) => p.theme.t.ui.h4}}
-  h5 {${(p) => p.theme.t.ui.h5}}
-  h6 {${(p) => p.theme.t.ui.h6}}
+  h1 {${(p) => p.theme.text.ui.h1}}
+  h2 {${(p) => p.theme.text.ui.h2}}
+  h3 {${(p) => p.theme.text.ui.h3}}
+  h4 {${(p) => p.theme.text.ui.h4}}
+  h5 {${(p) => p.theme.text.ui.h5}}
+  h6 {${(p) => p.theme.text.ui.h6}}
 
   p, a {
-    ${(p) => p.theme.t.ui.body}; 
+    ${(p) => p.theme.text.ui.body}; 
     margin: 0;
   }
 
   a {
-    color: ${(p) => p.theme.c.text};
+    color: ${(p) => p.theme.colors.text};
     text-decoration: none;
     cursor: pointer;
-    border-radius: ${(p) => p.theme.r.s};
-    transition: color, box-shadow 0.125s ${(p) => p.theme.a.easeOutQuad};
+    border-radius: ${(p) => p.theme.radii.s};
+    transition: color, box-shadow 0.125s ${(p) => p.theme.animation.easeOutQuad};
   }
   a:hover {
     text-decoration: none;
@@ -58,29 +58,29 @@ const GlobalStyles = createGlobalStyle`
     outline: none;
   }
   a.focus-visible {
-    ${(p) => p.theme.u.focusVisible}; 
+    ${(p) => p.theme.utils.focusVisible}; 
   }
 
   button {
-    ${(p) => p.theme.t.ui.label};
-    color: ${(p) => p.theme.c.buttonLabel};
+    ${(p) => p.theme.text.ui.label};
+    color: ${(p) => p.theme.colors.buttonLabel};
 
     appearance: none;
     background: transparent;
     border: none;
-    border-radius: ${(p) => p.theme.r.s};
+    border-radius: ${(p) => p.theme.radii.s};
     cursor: pointer;
-    transition: color, box-shadow 0.125s ${(p) => p.theme.a.easeOutQuad};
+    transition: color, box-shadow 0.125s ${(p) => p.theme.animation.easeOutQuad};
 
     &:hover {
-      color: ${(p) => p.theme.c.text};
+      color: ${(p) => p.theme.colors.text};
     }
   }
   button:focus {
     outline: none;
   }
   button.focus-visible {
-    ${(p) => p.theme.u.focusVisible}; 
+    ${(p) => p.theme.utils.focusVisible}; 
   }
 
   hr {
@@ -88,12 +88,12 @@ const GlobalStyles = createGlobalStyle`
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: solid 1px ${(p) => p.theme.c.line};
+    border-bottom: solid 1px ${(p) => p.theme.colors.line};
     grid-column: 1 / -1;
   }
 
   li:not(:last-child) {
-    margin-bottom: ${(p) => p.theme.s[1]};
+    margin-bottom: ${(p) => p.theme.space[1]};
   }
 
   .tl-edges {

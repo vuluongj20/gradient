@@ -66,65 +66,65 @@ const Wrap = styled.div`
   h5,
   h6 {
     :not(hr + *):not(:first-child) {
-      margin-top: ${(p) => p.theme.s[4]};
+      margin-top: ${(p) => p.theme.space[4]};
     }
-    padding-top: ${(p) => p.theme.s[1]};
-    margin-bottom: ${(p) => p.theme.s[1]};
+    padding-top: ${(p) => p.theme.space[1]};
+    margin-bottom: ${(p) => p.theme.space[1]};
   }
   p {
-    margin-bottom: ${(p) => p.theme.s[2]};
+    margin-bottom: ${(p) => p.theme.space[2]};
   }
   h1 {
-    ${(p) => p.theme.t.ui.h2}
+    ${(p) => p.theme.text.ui.h2}
   }
   h2 {
-    ${(p) => p.theme.t.ui.h4}
+    ${(p) => p.theme.text.ui.h4}
   }
   h3 {
-    ${(p) => p.theme.t.ui.h6}
+    ${(p) => p.theme.text.ui.h6}
   }
   h4 {
-    ${(p) => p.theme.t.ui.h6}
+    ${(p) => p.theme.text.ui.h6}
   }
   h5 {
-    ${(p) => p.theme.t.ui.h6}
+    ${(p) => p.theme.text.ui.h6}
   }
   h6 {
-    ${(p) => p.theme.t.ui.h6}
+    ${(p) => p.theme.text.ui.h6}
   }
   hr {
-    ${(p) => p.theme.u.spacing.marginTop[6]};
-    ${(p) => p.theme.u.spacing.marginBottom[5]};
+    ${(p) => p.theme.utils.spacing.marginTop[6]};
+    ${(p) => p.theme.utils.spacing.marginBottom[5]};
   }
   li {
-    margin-bottom: ${(p) => p.theme.s[1]};
+    margin-bottom: ${(p) => p.theme.space[1]};
   }
 
-  ${(p) => p.theme.u.media.l} {
+  ${(p) => p.theme.utils.media.l} {
     grid-column: 1 / -3;
   }
-  ${(p) => p.theme.u.media.m} {
+  ${(p) => p.theme.utils.media.m} {
     grid-column: 1 / -2;
   }
-  ${(p) => p.theme.u.media.s} {
+  ${(p) => p.theme.utils.media.s} {
     grid-column: 1 / -1;
   }
 
   a {
-    color: ${(p) => p.theme.c.link};
+    color: ${(p) => p.theme.colors.link};
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.c.linkUnderline};
+    text-decoration-color: ${(p) => p.theme.colors.linkUnderline};
   }
   a:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.c.linkUnderlineHover};
+    text-decoration-color: ${(p) => p.theme.colors.linkUnderlineHover};
   }
 `
 
 const ContentWrap = styled(Wrap)``
 
 const Header = styled.header`
-  ${(p) => p.theme.u.spacing.paddingTop[6]};
+  ${(p) => p.theme.utils.spacing.paddingTop[6]};
 
   h1 {
     padding-top: 0;
@@ -144,10 +144,10 @@ const StyledTOC = styled(TOC)`
   grid-column: -4 / -1;
   position: sticky;
   top: 0;
-  ${(p) => p.theme.u.spacing.paddingTop[6]};
-  ${(p) => p.theme.u.spacing.paddingBottom[4]};
+  ${(p) => p.theme.utils.spacing.paddingTop[6]};
+  ${(p) => p.theme.utils.spacing.paddingBottom[4]};
 
-  ${(p) => p.theme.u.media.l} {
+  ${(p) => p.theme.utils.media.l} {
     display: none;
   }
 `

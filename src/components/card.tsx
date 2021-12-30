@@ -69,10 +69,10 @@ const Wrap = styled(TransitionLink)<{
 	text-decoration: none;
 
 	align-self: start;
-	border-radius: ${(p) => p.theme.r.m};
+	border-radius: ${(p) => p.theme.radii.m};
 
 	&.focus-visible {
-		${(p) => p.theme.u.focusVisible};
+		${(p) => p.theme.utils.focusVisible};
 	}
 
 	&:hover {
@@ -85,19 +85,19 @@ const Wrap = styled(TransitionLink)<{
 				grid-column: 1 / -1;
 			`
 			: `
-				padding-bottom: ${p.theme.s[1]};
+				padding-bottom: ${p.theme.space[1]};
 				grid-column: ${p.gridCols.xl.start} / ${p.gridCols.xl.end};
 
-				${p.theme.u.media.l} {
+				${p.theme.utils.media.l} {
 					grid-column: ${p.gridCols.l.start} / ${p.gridCols.l.end};
 				}
-				${p.theme.u.media.m} {
+				${p.theme.utils.media.m} {
 					grid-column: ${p.gridCols.m.start} / ${p.gridCols.m.end};
 				}
-				${p.theme.u.media.s} {
+				${p.theme.utils.media.s} {
 					grid-column: ${p.gridCols.s.start} / ${p.gridCols.s.end};
 				}
-				${p.theme.u.media.xs} {
+				${p.theme.utils.media.xs} {
 					grid-column: 1 / -1;
 				}
 	`}
@@ -108,23 +108,23 @@ const StyledInnerGrid = styled(Grid)`
 `
 
 const ImageWrap = styled.div<{ rowLayout: boolean }>`
-	${(p) => p.theme.u.flexCenter};
+	${(p) => p.theme.utils.flexCenter};
 	width: 100%;
 	max-height: 48em;
 	overflow: hidden;
-	border-radius: ${(p) => p.theme.r.m};
+	border-radius: ${(p) => p.theme.radii.m};
 	-webkit-mask-image: -webkit-radial-gradient(white, black);
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
-	${(p) => p.theme.u.media.m} {
+	${(p) => p.theme.utils.media.m} {
 		max-height: 32em;
 	}
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.utils.media.s} {
 		max-height: 24em;
 		${(p) => p.rowLayout && `grid-column: 1 / -1;`}
 	}
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		max-height: 16em;
 	}
 `
@@ -134,35 +134,36 @@ const StyledGatsbyImage = styled(GatsbyImage)`
 `
 
 const TitleWrap = styled.div<{ rowLayout: boolean }>`
-	${(p) => (p.rowLayout ? `grid-column-end: span 4;` : `margin-top: ${p.theme.s[1]};`)}
+	${(p) =>
+		p.rowLayout ? `grid-column-end: span 4;` : `margin-top: ${p.theme.space[1]};`}
 
-	${(p) => p.theme.u.media.s} {
-		margin-top: ${(p) => p.theme.s[1]};
+	${(p) => p.theme.utils.media.s} {
+		margin-top: ${(p) => p.theme.space[1]};
 	}
 `
 
 const Title = styled.p`
-	${(p) => p.theme.t.content.h4};
+	${(p) => p.theme.text.content.h4};
 
 	position: relative;
 
-	color: ${(p) => p.theme.c.heading};
-	transition: color 0.1s ${(p) => p.theme.a.easeOutQuad};
+	color: ${(p) => p.theme.colors.heading};
+	transition: color 0.1s ${(p) => p.theme.animation.easeOutQuad};
 
 	${Wrap}:hover & {
-		color: ${(p) => p.theme.c.linkHover};
+		color: ${(p) => p.theme.colors.linkHover};
 	}
 `
 
 const DummyTitle = styled.span`
-	${(p) => p.theme.u.spread};
+	${(p) => p.theme.utils.spread};
 
 	color: transparent;
 	text-decoration: underline;
-	text-decoration-color: ${(p) => p.theme.c.linkUnderlineHover};
+	text-decoration-color: ${(p) => p.theme.colors.linkUnderlineHover};
 	z-index: 0;
 	opacity: 0%;
-	transition: opacity 0.125s ${(p) => p.theme.a.easeOutQuad};
+	transition: opacity 0.125s ${(p) => p.theme.animation.easeOutQuad};
 
 	${Wrap}:hover & {
 		opacity: 100%;
@@ -170,13 +171,13 @@ const DummyTitle = styled.span`
 `
 
 const Tags = styled.div`
-	${(p) => p.theme.t.ui.label};
-	color: ${(p) => p.theme.c.label};
-	margin-top: ${(p) => p.theme.s[0]};
-	transition: color 0.125s ${(p) => p.theme.a.easeOutQuad};
+	${(p) => p.theme.text.ui.label};
+	color: ${(p) => p.theme.colors.label};
+	margin-top: ${(p) => p.theme.space[0]};
+	transition: color 0.125s ${(p) => p.theme.animation.easeOutQuad};
 	text-transform: capitalize;
 
 	${Wrap}:hover & {
-		color: ${(p) => p.theme.c.linkHover};
+		color: ${(p) => p.theme.colors.linkHover};
 	}
 `

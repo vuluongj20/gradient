@@ -60,10 +60,10 @@ const StyledTransitionLink = styled(TransitionLink)<{ disabled: boolean }>`
 		p.disabled &&
 		`
 		&& {
-			color: ${p.theme.c.label};
+			color: ${p.theme.colors.label};
 			pointer-events: none;
 			p, span {
-				color: ${p.theme.c.label};
+				color: ${p.theme.colors.label};
 			}
 		}
 		`}

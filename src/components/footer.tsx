@@ -77,21 +77,22 @@ const Footer = ({ overlay = false, inverted = false }: Props): JSX.Element => {
 export default Footer
 
 const Wrap = styled.footer<{ overlay: boolean }>`
-	background: ${(p) => (p.overlay ? p.theme.c.oBackground : p.theme.c.background)};
+	background: ${(p) =>
+		p.overlay ? p.theme.colors.oBackground : p.theme.colors.background};
 `
 
 const Link = styled(TransitionLink)`
-	color: ${(p) => p.theme.c.heading};
+	color: ${(p) => p.theme.colors.heading};
 
 	&:hover {
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.c.label};
+		text-decoration-color: ${(p) => p.theme.colors.label};
 	}
 `
 
 const SiteMap = styled(Grid)`
 	justify-items: start;
-	${(p) => p.theme.u.spacing.paddingVertical[4]};
+	${(p) => p.theme.utils.spacing.paddingVertical[4]};
 `
 
 const Column = styled.div`
@@ -101,25 +102,25 @@ const Column = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		&:not(:last-child) {
-			margin-bottom: ${(p) => p.theme.s[4]};
+			margin-bottom: ${(p) => p.theme.space[4]};
 		}
 	}
 `
 
 const ColLabel = styled.p`
-	${(p) => p.theme.t.ui.label};
-	color: ${(p) => p.theme.c.label};
+	${(p) => p.theme.text.ui.label};
+	color: ${(p) => p.theme.colors.label};
 
-	margin-bottom: ${(p) => p.theme.s[1]};
+	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
 const ColLink = styled(Link)`
 	text-decoration: none;
 
 	&:not(:last-child) {
-		margin-bottom: ${(p) => p.theme.s[1]};
+		margin-bottom: ${(p) => p.theme.space[1]};
 	}
 `
 
@@ -130,18 +131,18 @@ const DisclosuresDivider = styled.hr`
 `
 
 const Policies = styled(Grid)`
-	padding-top: ${(p) => p.theme.s[2]};
-	padding-bottom: ${(p) => p.theme.s[2]};
+	padding-top: ${(p) => p.theme.space[2]};
+	padding-bottom: ${(p) => p.theme.space[2]};
 	justify-items: start;
 `
 
 const PolicyText = styled.p`
 	grid-column-end: span 2;
-	color: ${(p) => p.theme.c.label};
+	color: ${(p) => p.theme.colors.label};
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		grid-column-end: span 4;
-		margin-bottom: ${(p) => p.theme.s[1]};
+		margin-bottom: ${(p) => p.theme.space[1]};
 	}
 `
 

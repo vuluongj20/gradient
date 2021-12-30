@@ -96,7 +96,7 @@ const TocWrap = styled.div`
 const TocInnerWrap = styled.div`
 	position: relative;
 	height: 100%;
-	padding-top: ${(p) => p.theme.s[2]};
+	padding-top: ${(p) => p.theme.space[2]};
 `
 
 const TocInnerContentWrap = styled.div`
@@ -108,31 +108,31 @@ const TocInnerContentWrap = styled.div`
 `
 
 const TocLabel = styled.p`
-	${(p) => p.theme.t.ui.label};
-	color: ${(p) => p.theme.c.label};
+	${(p) => p.theme.text.ui.label};
+	color: ${(p) => p.theme.colors.label};
 	text-transform: uppercase;
 `
 
 const TocContent = styled.div`
 	ol {
 		margin-top: 0;
-		padding-left: ${(p) => p.theme.s[3]};
+		padding-left: ${(p) => p.theme.space[3]};
 	}
 
 	li,
 	li > a {
-		color: ${(p) => p.theme.c.label};
+		color: ${(p) => p.theme.colors.label};
 		font-weight: 400;
 	}
 	li:hover,
 	li:hover > a {
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.c.label};
+		text-decoration-color: ${(p) => p.theme.colors.label};
 	}
 	li.active,
 	li.active > a {
 		font-weight: 500;
-		color: ${(p) => p.theme.c.heading};
+		color: ${(p) => p.theme.colors.heading};
 		text-decoration: none;
 	}
 `
@@ -149,10 +149,10 @@ const LowerIntersectionTarget = styled(IntersectionTarget)``
 const ScrollFade = styled.div<{ visible: boolean; overlay: boolean }>`
 	position: absolute;
 	width: 100%;
-	height: ${(p) => p.theme.s[6]};
+	height: ${(p) => p.theme.space[6]};
 	z-index: 1;
 	pointer-events: none;
-	transition: opacity 0.25s ${(p) => p.theme.a.easeOutQuad};
+	transition: opacity 0.25s ${(p) => p.theme.animation.easeOutQuad};
 	${(p) => (p.visible ? 'opacity: 100%;' : 'opacity: 0%;')}
 `
 
@@ -160,25 +160,25 @@ const UpperScrollFade = styled(ScrollFade)`
 	top: 0;
 	background: linear-gradient(
 			180deg,
-			${(p) => p.theme.c.background} 0%,
-			${(p) => Color(p.theme.c.background).fade(1)} 100%
+			${(p) => p.theme.colors.background} 0%,
+			${(p) => Color(p.theme.colors.background).fade(1)} 100%
 		),
 		linear-gradient(
 			180deg,
-			${(p) => p.theme.c.background} 0%,
-			${(p) => Color(p.theme.c.background).fade(1)} 100%
+			${(p) => p.theme.colors.background} 0%,
+			${(p) => Color(p.theme.colors.background).fade(1)} 100%
 		);
 `
 const LowerScrollFade = styled(ScrollFade)`
 	bottom: -1px;
 	background: linear-gradient(
 			0deg,
-			${(p) => p.theme.c.background} 0%,
-			${(p) => Color(p.theme.c.background).fade(1)} 100%
+			${(p) => p.theme.colors.background} 0%,
+			${(p) => Color(p.theme.colors.background).fade(1)} 100%
 		),
 		linear-gradient(
 			0deg,
-			${(p) => p.theme.c.background} 0%,
-			${(p) => Color(p.theme.c.background).fade(1)} 100%
+			${(p) => p.theme.colors.background} 0%,
+			${(p) => Color(p.theme.colors.background).fade(1)} 100%
 		);
 `

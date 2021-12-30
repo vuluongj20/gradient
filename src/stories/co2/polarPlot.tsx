@@ -733,7 +733,7 @@ const Wrap = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  max-width: ${(p) => p.theme.b.m};
+  max-width: ${(p) => p.theme.breakpoints.m};
   margin: 0 auto;
 
   ${VizScrollBox} {
@@ -745,24 +745,24 @@ const Wrap = styled.div`
   .ticks .tick {
     font-size: 0.9em;
     position: relative;
-    fill: ${(p) => p.theme.c.label};
-    transition: opacity ${(p) => p.theme.a.easeOutCubic} 800ms;
+    fill: ${(p) => p.theme.colors.label};
+    transition: opacity ${(p) => p.theme.animation.easeOutCubic} 800ms;
   }
   .tick:not(.secondary) {
-    animation: opacity ${(p) => p.theme.a.easeOutCubic} 800ms;
+    animation: opacity ${(p) => p.theme.animation.easeOutCubic} 800ms;
   }
   .ticks .tick .text {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
   }
 
   /* Grid lines */
   .grid-line,
   .grid-circle {
     fill: none;
-    stroke: ${(p) => p.theme.c.line};
+    stroke: ${(p) => p.theme.colors.line};
     opacity: 80%;
     stroke-width: 1;
-    transition: opacity ${(p) => p.theme.a.easeOutCubic} 800ms;
+    transition: opacity ${(p) => p.theme.animation.easeOutCubic} 800ms;
   }
   .grid-circle.secondary,
   .r.tick.secondary,
@@ -778,20 +778,20 @@ const Wrap = styled.div`
   .data-line {
     stroke-linejoin: round;
     fill: none;
-    stroke: ${(p) => p.theme.c.label};
+    stroke: ${(p) => p.theme.colors.label};
     opacity: 80%;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   .stretch {
-    stroke: ${(p) => p.theme.c.label};
+    stroke: ${(p) => p.theme.colors.label};
   }
   .winter.stretch {
-    fill: ${(p) => p.theme.c.blue1};
+    fill: ${(p) => p.theme.colors.blue1};
     opacity: 40%;
   }
   .summer.stretch {
-    fill: ${(p) => p.theme.c.red1};
+    fill: ${(p) => p.theme.colors.red1};
     opacity: 40%;
   }
 `

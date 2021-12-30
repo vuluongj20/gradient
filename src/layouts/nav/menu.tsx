@@ -140,15 +140,15 @@ const MenuWrap = styled.nav`
 	width: 0;
 	height: 100vh;
 	transform: translateX(100%);
-	background: ${(p) => p.theme.c.background};
+	background: ${(p) => p.theme.colors.background};
 
 	z-index: -1;
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		width: 100%;
 		flex-direction: column;
 		border-right: none;
-		padding-top: calc(2.5em + ${(p) => p.theme.s[2]});
+		padding-top: calc(2.5em + ${(p) => p.theme.space[2]});
 		transform: translateY(-100%);
 	}
 `
@@ -164,7 +164,7 @@ const LinkWrap = styled(TransitionLink)`
 	text-decoration: none;
 	opacity: 0%;
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.utils.media.s} {
 		width: 5em;
 	}
 
@@ -173,13 +173,13 @@ const LinkWrap = styled(TransitionLink)`
 	}
 
 	&:last-of-type {
-		border-right: solid 1px ${(p) => p.theme.c.line};
+		border-right: solid 1px ${(p) => p.theme.colors.line};
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		position: relative;
 		height: auto;
-		width: calc(100% - ${(p) => p.theme.s[1]});
+		width: calc(100% - ${(p) => p.theme.space[1]});
 		padding: 0 ${paddingHorizontal * 0.75}em;
 		margin: 0 auto;
 		box-sizing: border-box;
@@ -191,23 +191,23 @@ const LinkWrap = styled(TransitionLink)`
 `
 
 const LinkInnerWrap = styled.div`
-	${(p) => p.theme.u.spread};
+	${(p) => p.theme.utils.spread};
 	cursor: pointer;
-	background: ${(p) => p.theme.c.background};
-	transition: transform 0.25s ${(p) => p.theme.a.easeOutQuad};
+	background: ${(p) => p.theme.colors.background};
+	transition: transform 0.25s ${(p) => p.theme.animation.easeOutQuad};
 
 	${LinkWrap}:not(:first-of-type) > & {
-		border-left: solid 1px ${(p) => p.theme.c.line};
+		border-left: solid 1px ${(p) => p.theme.colors.line};
 	}
 
 	${(p) =>
-		!p.theme.a.reduced &&
+		!p.theme.animation.reduced &&
 		`&:hover,
 		${LinkWrap}.focus-visible > & {
 		transform: translateY(0.5em);
 	}`}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		position: relative;
 		${LinkWrap}:not(:first-of-type) > & {
 			border-left: none;
@@ -229,13 +229,13 @@ const LinkContentBox = styled.div`
 	justify-content: flex-end;
 	align-items: flex-end;
 	position: absolute;
-	top: ${(p) => p.theme.s[3]};
-	right: ${(p) => p.theme.s[2]};
+	top: ${(p) => p.theme.space[3]};
+	right: ${(p) => p.theme.space[2]};
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);
-	transition: transform 0.375s ${(p) => p.theme.a.easeOutQuart};
+	transition: transform 0.375s ${(p) => p.theme.animation.easeOutQuart};
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		position: initial;
 		top: auto;
 		right: auto;
@@ -243,39 +243,39 @@ const LinkContentBox = styled.div`
 		flex-direction: row-reverse;
 		justify-content: flex-end;
 		align-items: center;
-		padding: ${(p) => p.theme.s[1]} 0;
+		padding: ${(p) => p.theme.space[1]} 0;
 	}
 `
 
 const LinkTitle = styled.p`
-	${(p) => p.theme.t.ui.h3}
-	color: ${(p) => p.theme.c.heading};
+	${(p) => p.theme.text.ui.h3}
+	color: ${(p) => p.theme.colors.heading};
 	margin: 0;
-	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
+	transition: color 0.25s ${(p) => p.theme.animation.easeOutQuad};
 `
 
 const LinkTypeWrap = styled.div`
 	margin-bottom: 0.45em;
-	margin-right: ${(p) => p.theme.s[0]};
+	margin-right: ${(p) => p.theme.space[0]};
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}
 `
 
 const LinkTypeText = styled.p`
-	${(p) => p.theme.t.ui.label};
+	${(p) => p.theme.text.ui.label};
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
-	color: ${(p) => p.theme.c.heading};
-	transition: color 0.25s ${(p) => p.theme.a.easeOutQuad};
+	color: ${(p) => p.theme.colors.heading};
+	transition: color 0.25s ${(p) => p.theme.animation.easeOutQuad};
 `
 
 const LinkTypeLine = styled.div`
 	width: 6em;
 	height: 2px;
-	background-color: ${(p) => p.theme.c.heading};
+	background-color: ${(p) => p.theme.colors.heading};
 	transform-origin: right;
-	transition: 0.375s ${(p) => p.theme.a.easeOutQuart};
+	transition: 0.375s ${(p) => p.theme.animation.easeOutQuart};
 `

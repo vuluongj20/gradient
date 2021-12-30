@@ -69,7 +69,7 @@ export const VizScrollBox = styled.div`
 	flex-direction: column;
 	pointer-events: none;
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.utils.media.s} {
 		width: 85%;
 	}
 `
@@ -81,7 +81,7 @@ export const VizDesWrap = styled.div`
 	height: 100%;
 	flex-shrink: 1;
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.utils.media.s} {
 		width: 100%;
 		align-items: center;
 	}
@@ -104,21 +104,21 @@ export const VizDesText = styled.p`
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0.8em 1.2em;
-	background: ${(p) => p.theme.c.oBackground};
-	border-radius: ${(p) => p.theme.r.m};
-	border: solid 1px ${(p) => p.theme.c.line};
+	background: ${(p) => p.theme.colors.oBackground};
+	border-radius: ${(p) => p.theme.radii.m};
+	border: solid 1px ${(p) => p.theme.colors.line};
 
 	@supports (backdrop-filter: blur(0)) {
-		background: ${(p) => p.theme.c.oBackground};
+		background: ${(p) => p.theme.colors.oBackground};
 		backdrop-filter: saturate(0.5) blur(32px);
-		border: solid 1px ${(p) => p.theme.c.line};
+		border: solid 1px ${(p) => p.theme.colors.line};
 	}
 
 	&.dummy {
 		visibility: hidden;
 	}
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.utils.media.s} {
 		width: 20em;
 	}
 `

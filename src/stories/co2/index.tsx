@@ -186,9 +186,9 @@ const Main = (): JSX.Element => {
 export default Main
 
 const Wrap = styled.article`
-  --theme: ${(p) => p.theme.c.green1};
-  --warm: ${(p) => p.theme.c.red1};
-  --cool: ${(p) => p.theme.c.blue1};
+  --theme: ${(p) => p.theme.colors.green1};
+  --warm: ${(p) => p.theme.colors.red1};
+  --cool: ${(p) => p.theme.colors.blue1};
 
   h1,
   h2 {
@@ -209,7 +209,7 @@ const Wrap = styled.article`
     opacity: 0%;
   }
   .animate.on {
-    animation: opacity 1s ${(p) => p.theme.a.easeOutQuad} forwards;
+    animation: opacity 1s ${(p) => p.theme.animation.easeOutQuad} forwards;
   }
 
   svg {
@@ -227,8 +227,8 @@ const Wrap = styled.article`
 `
 
 const HeroWrap = styled.header`
-  ${(p) => p.theme.u.flexCenter};
-  ${(p) => p.theme.u.spacing.paddingVertical[8]}
+  ${(p) => p.theme.utils.flexCenter};
+  ${(p) => p.theme.utils.spacing.paddingVertical[8]}
 `
 
 const HeroInnerWrap = styled(Grid)`
@@ -238,11 +238,11 @@ const HeroInnerWrap = styled(Grid)`
 const HeroText = styled.h1`
   grid-column: 2 / -2;
 
-  ${(p) => p.theme.u.media.m} {
+  ${(p) => p.theme.utils.media.m} {
     grid-column: 1 / -2;
   }
 
-  ${(p) => p.theme.u.media.s} {
+  ${(p) => p.theme.utils.media.s} {
     grid-column: 1 / -1;
   }
 `
@@ -251,7 +251,7 @@ const HeroSpan = styled.span`
   display: block;
   margin-bottom: 0.2em;
 
-  ${(p) => p.theme.u.media.m} {
+  ${(p) => p.theme.utils.media.m} {
     display: inline;
     white-space: prewrap;
   }
@@ -265,6 +265,6 @@ const MetaColumn = styled.a`
   grid-column-end: span 6;
   &:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.c.label};
+    text-decoration-color: ${(p) => p.theme.colors.label};
   }
 `

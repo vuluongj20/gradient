@@ -36,10 +36,10 @@ export default Popover
 const Wrap = styled.div`
   position: absolute;
   width: 100%;
-  background: ${(p) => p.theme.c.oBackground};
-  border-radius: ${(p) => p.theme.r.m};
-  border: solid 1px ${(p) => p.theme.c.line};
-  padding: ${(p) => p.theme.s[0]};
-  transform: translateX(-${(p) => p.theme.s[2]});
-  box-shadow: ${(p) => p.theme.sh.l};
+  background: ${(p) => p.theme.colors.oBackground};
+  border-radius: ${(p) => p.theme.radii.m};
+  border: solid 1px ${(p) => p.theme.colors.line};
+  padding: ${(p) => p.theme.space[0]};
+  transform: translateX(-${(p) => p.theme.space[2]});
+  box-shadow: ${(p) => p.theme.shadows.l};
 `

@@ -1202,7 +1202,7 @@ const Wrap = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  max-width: ${(p) => p.theme.b.l};
+  max-width: ${(p) => p.theme.breakpoints.l};
   margin: 0 auto;
 
   .viz-svg-wrap {
@@ -1216,7 +1216,7 @@ const Wrap = styled.div`
   }
   .axis text {
     font-size: 16px;
-    color: ${(p) => p.theme.c.label};
+    color: ${(p) => p.theme.colors.label};
   }
   .axis > .tick {
     position: relative;
@@ -1228,7 +1228,7 @@ const Wrap = styled.div`
     transform: translateY(-0.8em);
   }
   .bottom-axis {
-    stroke: ${(p) => p.theme.c.label};
+    stroke: ${(p) => p.theme.colors.label};
     stroke-linecap: round;
   }
 
@@ -1237,19 +1237,19 @@ const Wrap = styled.div`
     display: none;
   }
   .grid line {
-    stroke: ${(p) => p.theme.c.line};
+    stroke: ${(p) => p.theme.colors.line};
     opacity: 80%;
     stroke-width: 1;
   }
 
   .data-line {
-    stroke: ${(p) => p.theme.c.text};
+    stroke: ${(p) => p.theme.colors.text};
     stroke-linejoin: round;
     fill: none;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
   .data-line.faded {
-    stroke: ${(p) => p.theme.c.label};
+    stroke: ${(p) => p.theme.colors.label};
     opacity: 20%;
   }
   .reg-line {
@@ -1260,13 +1260,13 @@ const Wrap = styled.div`
 
   /* Hover elements */
   .hover-line {
-    stroke: ${(p) => p.theme.c.label};
+    stroke: ${(p) => p.theme.colors.label};
   }
   .hover-data-circle {
     fill: var(--theme);
   }
   .hover-data-circle.out {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
   }
   .hover-text-group {
     font-size: 0.8em;
@@ -1275,8 +1275,8 @@ const Wrap = styled.div`
   .hover-rect {
     width: 13.1em;
     height: 2.8em;
-    fill: ${(p) => p.theme.c.oBackground};
-    stroke: ${(p) => p.theme.c.line};
+    fill: ${(p) => p.theme.colors.oBackground};
+    stroke: ${(p) => p.theme.colors.line};
     transform: translate(-14.6em, -4.72em);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     will-change: transform, width, height;
@@ -1290,13 +1290,13 @@ const Wrap = styled.div`
   .hover-data-label,
   .hover-reg-label,
   .hover-diff-label {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
   }
   .hover-data-label {
     transform: translate(-13.46em, -3em);
   }
   .hover-data-text {
-    fill: ${(p) => p.theme.c.heading};
+    fill: ${(p) => p.theme.colors.heading};
     transform: translate(-8.8em, -3em);
     font-weight: 700;
   }
@@ -1307,7 +1307,7 @@ const Wrap = styled.div`
     transform: translate(-8.8em, -7em);
   }
   .hover-data-text.out {
-    fill: ${(p) => p.theme.c.text};
+    fill: ${(p) => p.theme.colors.text};
   }
 
   .hover-reg-circle {
@@ -1323,13 +1323,13 @@ const Wrap = styled.div`
   }
 
   .hover-diff-line {
-    stroke: ${(p) => p.theme.c.error};
+    stroke: ${(p) => p.theme.colors.error};
   }
   .hover-diff-label {
     transform: translate(-17.7em, -3.4em);
   }
   .hover-diff-text {
-    fill: ${(p) => p.theme.c.error};
+    fill: ${(p) => p.theme.colors.error};
     transform: translate(-8.8em, -3.4em);
     font-weight: 700;
   }
@@ -1339,8 +1339,8 @@ const Wrap = styled.div`
     font-size: 14px;
   }
   .mse-rect {
-    fill: ${(p) => p.theme.c.oBackground};
-    stroke: ${(p) => p.theme.c.line};
+    fill: ${(p) => p.theme.colors.oBackground};
+    stroke: ${(p) => p.theme.colors.line};
     rx: 0.4em;
     ry: 0.4em;
     width: 12.6em;
@@ -1356,31 +1356,31 @@ const Wrap = styled.div`
     width: 24em;
   }
   .mse-title {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
   }
   .mse-equation-label {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
     transform: translateY(1.6em);
   }
   .mse-equation {
     position: absolute;
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
     transform: translate(3.6em, 1.6em);
   }
   .mse-equation > .span {
-    fill: ${(p) => p.theme.c.text};
+    fill: ${(p) => p.theme.colors.text};
     font-weight: 700;
     transition: fill 800ms var(ease-out-cubic);
   }
   .mse-equation > .span.off {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
   }
   .mse-acc-label {
-    fill: ${(p) => p.theme.c.label};
+    fill: ${(p) => p.theme.colors.label};
     transform: translateY(3.2em);
   }
   .mse-acc-text {
-    fill: ${(p) => p.theme.c.error};
+    fill: ${(p) => p.theme.colors.error};
     transform: translate(3.2em, 3.2em);
     font-weight: 700;
   }

@@ -4,7 +4,7 @@ import { Theme } from './index'
 
 import { Breakpoint } from '@types'
 
-import { paddingHorizontal , breakpoints } from '@utils/styling'
+import { paddingHorizontal, breakpoints } from '@utils/styling'
 
 type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
 
@@ -50,12 +50,12 @@ const generateAdaptiveSpacing = (
 	const generateCSSProperties = (props: string[], value: string): CSSGroup =>
 		Object.fromEntries(props.map((p) => [p, value]))
 
-	return theme.s.map((s, i) => ({
+	return theme.space.map((s, i) => ({
 		...generateCSSProperties(properties, s),
 		...Object.fromEntries(
 			breakpointNames.map((b) => [
-				`@media only screen and (max-width: ${theme.b[b]})`,
-				generateCSSProperties(properties, theme.s[adaptiveSpacing[i][b]]),
+				`@media only screen and (max-width: ${theme.breakpoints[b]})`,
+				generateCSSProperties(properties, theme.space[adaptiveSpacing[i][b]]),
 			]),
 		),
 	}))
@@ -82,14 +82,14 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 	},
 	focusVisible: {
 		outline: 'none',
-		boxShadow: `0 0 0 4px ${theme.c.focus}`,
+		boxShadow: `0 0 0 4px ${theme.colors.focus}`,
 	},
 	media: {
-		xs: `@media only screen and (max-width: ${theme.b.xs})`,
-		s: `@media only screen and (max-width: ${theme.b.s})`,
-		m: `@media only screen and (max-width: ${theme.b.m})`,
-		l: `@media only screen and (max-width: ${theme.b.l})`,
-		xl: `@media only screen and (max-width: ${theme.b.xl})`,
+		xs: `@media only screen and (max-width: ${theme.breakpoints.xs})`,
+		s: `@media only screen and (max-width: ${theme.breakpoints.s})`,
+		m: `@media only screen and (max-width: ${theme.breakpoints.m})`,
+		l: `@media only screen and (max-width: ${theme.breakpoints.l})`,
+		xl: `@media only screen and (max-width: ${theme.breakpoints.xl})`,
 	},
 	spacing: {
 		paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),
@@ -101,11 +101,11 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 		paddingHorizontal: {
 			paddingLeft: `${paddingHorizontal * 2}em`,
 			paddingRight: `${paddingHorizontal * 2}em`,
-			[`@media only screen and (max-width: ${theme.b.s})`]: {
+			[`@media only screen and (max-width: ${theme.breakpoints.s})`]: {
 				paddingLeft: `${paddingHorizontal}em`,
 				paddingRight: `${paddingHorizontal}em`,
 			},
-			[`@media only screen and (max-width: ${theme.b.xs})`]: {
+			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
 				paddingLeft: `${paddingHorizontal * 0.75}em`,
 				paddingRight: `${paddingHorizontal * 0.75}em`,
 			},

@@ -50,11 +50,11 @@ const PageContent = styled('div')`
 	margin: 0 auto;
 	padding-left: 3em;
 
-	${(p) => p.theme.u.media.l} {
+	${(p) => p.theme.utils.media.l} {
 		padding-left: 2.5em;
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		padding-left: 0;
 		padding-top: 2.5em;
 	}

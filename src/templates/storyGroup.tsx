@@ -137,12 +137,12 @@ export const query = graphql`
 export default StoryGroupPage
 
 const PageContent = styled.div`
-	${(p) => p.theme.u.spacing.paddingTop[6]};
+	${(p) => p.theme.utils.spacing.paddingTop[6]};
 `
 
 const Header = styled.header`
-	${(p) => p.theme.u.spacing.paddingHorizontal};
-	${(p) => p.theme.u.spacing.marginBottom[4]};
+	${(p) => p.theme.utils.spacing.paddingHorizontal};
+	${(p) => p.theme.utils.spacing.marginBottom[4]};
 `
 
 const Title = styled.h1`
@@ -150,6 +150,6 @@ const Title = styled.h1`
 `
 
 const Results = styled(Grid)`
-	margin-top: ${(p) => p.theme.s[1]};
-	grid-row-gap: ${(p) => p.theme.s[3]};
+	margin-top: ${(p) => p.theme.space[1]};
+	grid-row-gap: ${(p) => p.theme.space[3]};
 `

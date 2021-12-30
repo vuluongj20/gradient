@@ -5,34 +5,34 @@ import { gridColCounts } from '@utils/styling'
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
-	column-gap: ${(p) => p.theme.s[3]};
+	column-gap: ${(p) => p.theme.space[3]};
 
-	${(p) => p.theme.u.spacing.paddingHorizontal};
+	${(p) => p.theme.utils.spacing.paddingHorizontal};
 
-	${(p) => p.theme.u.media.l} {
+	${(p) => p.theme.utils.media.l} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.l}, 1fr)
 			[end];
 	}
 
-	${(p) => p.theme.u.media.m} {
+	${(p) => p.theme.utils.media.m} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
-		column-gap: ${(p) => p.theme.s[2]};
+		column-gap: ${(p) => p.theme.space[2]};
 	}
 
-	${(p) => p.theme.u.media.s} {
+	${(p) => p.theme.utils.media.s} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
 	}
 
-	${(p) => p.theme.u.media.xs} {
+	${(p) => p.theme.utils.media.xs} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
-		column-gap: ${(p) => p.theme.s[1]};
+		column-gap: ${(p) => p.theme.space[1]};
 	}
 `
 

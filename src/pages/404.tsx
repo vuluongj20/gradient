@@ -22,29 +22,29 @@ export default Page404
 const Wrap = styled.div`
   flex: 1;
   flex-direction: column;
-  ${(p) => p.theme.u.flexCenter};
-  ${(p) => p.theme.u.spacing.paddingVertical[7]};
-  ${(p) => p.theme.u.spacing.paddingHorizontal};
+  ${(p) => p.theme.utils.flexCenter};
+  ${(p) => p.theme.utils.spacing.paddingVertical[7]};
+  ${(p) => p.theme.utils.spacing.paddingHorizontal};
 
-  ${(p) => p.theme.u.media.xs} {
+  ${(p) => p.theme.utils.media.xs} {
     align-items: flex-start;
   }
 `
 
 const Title = styled.h1`
-  ${(p) => p.theme.u.spacing.marginBottom[0]};
+  ${(p) => p.theme.utils.spacing.marginBottom[0]};
 `
 
 const Text = styled.p`
   max-width: 36em;
-  ${(p) => p.theme.u.spacing.marginBottom[1]};
+  ${(p) => p.theme.utils.spacing.marginBottom[1]};
 `
 
 const Link = styled(TransitionLink)`
   text-decoration: underline;
-  text-decoration-color: ${(p) => p.theme.c.label};
+  text-decoration-color: ${(p) => p.theme.colors.label};
   &:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.c.text};
+    text-decoration-color: ${(p) => p.theme.colors.text};
   }
 `
