@@ -41,7 +41,6 @@ export const VizWrap = styled.div`
 	align-items: center;
 	position: sticky;
 	top: -1px;
-	${(p) => p.theme.u.spacing.paddingHorizontal};
 `
 
 export const VizSvgOuterWrap = styled.div`

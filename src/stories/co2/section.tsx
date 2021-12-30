@@ -35,38 +35,50 @@ const Section = ({ data, vizData, animationObserver }: Props): JSX.Element => {
   }, [])
 
   return (
-    <Wrap className="section-wrap" ref={wrapRef} style={{ height: vizData.height }}>
-      <ContentWrap>
-        {vizData.text.des.map((para, index) => {
-          return (
-            <Para key={index} className="animate">
-              {para.map((segment, index) => {
-                switch (segment.type) {
-                  case 'span':
-                    return <span key={index}>{segment.content}</span>
-                  case 'sub':
-                    return <sub key={index}>{segment.content}</sub>
-                  default:
-                    return null
-                }
-              })}
-            </Para>
-          )
-        })}
-      </ContentWrap>
-      {renderSwitch()}
-    </Wrap>
+    <Grid
+      as="section"
+      className="section-wrap"
+      ref={wrapRef}
+      style={{ height: vizData.height }}
+    >
+      <InnerWrap>
+        <ContentWrap>
+          {vizData.text.des.map((para, index) => {
+            return (
+              <Para key={index} className="animate">
+                {para.map((segment, index) => {
+                  switch (segment.type) {
+                    case 'span':
+                      return <span key={index}>{segment.content}</span>
+                    case 'sub':
+                      return <sub key={index}>{segment.content}</sub>
+                    default:
+                      return null
+                  }
+                })}
+              </Para>
+            )
+          })}
+        </ContentWrap>
+        {renderSwitch()}
+      </InnerWrap>
+    </Grid>
   )
 }
 
 export default Section
 
-const Wrap = styled.section`
+const InnerWrap = styled.div`
   display: flex;
   flex-direction: column;
+  grid-column: 2 / -2;
+
+  ${(p) => p.theme.u.media.m} {
+    grid-column: 1 / -1;
+  }
 `
 
-const ContentWrap = styled(Grid)``
+const ContentWrap = styled.div``
 
 const Para = styled.p`
   grid-column: 2 / -2;

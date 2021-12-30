@@ -8,7 +8,6 @@ import Grid from '@components/grid'
 import Page from '@components/page'
 import SectionDivider from '@components/sectionDivider'
 
-import { isDev } from '@utils/functions'
 import SettingsContext from '@utils/settingsContext'
 
 export type Data = {
@@ -25,9 +24,8 @@ export type VizData = {
   vizContent: { state: string; des: string; params?: number[] }[]
 }
 
-const dataUrl = isDev
-  ? '/co2/weekly_in_situ_co2_mlo.csv'
-  : 'https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'
+const dataUrl =
+  'https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'
 
 const vizs: VizData[] = [
   {
@@ -151,7 +149,8 @@ const Main = (): JSX.Element => {
         <HeroWrap>
           <HeroInnerWrap>
             <HeroText>
-              <HeroSpan>CO₂</HeroSpan>
+              <HeroSpan>Carbon Dioxide&nbsp;</HeroSpan>
+              <HeroSpan>Trends Since 1958</HeroSpan>
             </HeroText>
           </HeroInnerWrap>
         </HeroWrap>
@@ -212,6 +211,12 @@ const Wrap = styled.article`
     animation: opacity 1s ${(p) => p.theme.a.easeOutQuad} forwards;
   }
 
+  svg {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
   @keyframes opacity {
     from {
       opacity: 0%;
@@ -234,8 +239,12 @@ const HeroInnerWrap = styled(Grid)`
 
 const HeroText = styled.h1`
   grid-column: 2 / -2;
+
+  ${(p) => p.theme.u.media.m} {
+    grid-column: 1 / -2;
+  }
+
   ${(p) => p.theme.u.media.s} {
-    text-align: left;
     grid-column: 1 / -1;
   }
 `
@@ -243,6 +252,11 @@ const HeroText = styled.h1`
 const HeroSpan = styled.span`
   display: block;
   margin-bottom: 0.2em;
+
+  ${(p) => p.theme.u.media.m} {
+    display: inline;
+    white-space: prewrap;
+  }
 `
 
 const MetaWrap = styled.section``

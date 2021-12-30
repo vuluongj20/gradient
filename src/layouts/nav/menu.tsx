@@ -214,7 +214,7 @@ const LinkInnerWrap = styled.div`
 		}
 
 		&:hover,
-		${LinkWrap}.focus-visible > & {
+		${/* sc-selector */ LinkWrap}.focus-visible > & {
 			transform: translateX(0.25em);
 		}
 

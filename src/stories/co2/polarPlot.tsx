@@ -28,7 +28,10 @@ const PolarPlot = ({ data, content }: Props) => {
   const [vizCreated, setVizCreated] = useState(false)
   const vizRef = useRef(null)
 
-  const radius = Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85) / 2,
+  const radius = Math.min(
+      Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85) / 2,
+      1024,
+    ),
     margin = radius > 280 ? 40 : 20,
     innerRadius = radius - margin,
     a = scaleLinear()
@@ -729,6 +732,9 @@ export default PolarPlot
 const Wrap = styled.div`
   position: relative;
   height: 100%;
+  width: 100%;
+  max-width: ${(p) => p.theme.b.m};
+  margin: 0 auto;
 
   ${VizScrollBox} {
     right: 0;

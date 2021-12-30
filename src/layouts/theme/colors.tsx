@@ -92,7 +92,7 @@ const paper: ColorPalette = {
 		gray6: '#8F8F8F',
 		gray7: 'rgba(153, 153, 153, 0.7)',
 		gray8: 'rgba(153, 153, 153, 0.4)',
-		gray9: 'rgba(153, 153, 153, 0.18)',
+		gray9: 'rgba(153, 153, 153, 0.24)',
 		red1: '#E33B12',
 		red2: '#EE542F',
 		red3: '#F2775A',

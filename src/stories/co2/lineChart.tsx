@@ -32,7 +32,7 @@ const LineChart = ({ data, content }: Props) => {
   const [vizCreated, setVizCreated] = useState(false)
   const vizRef = useRef(null)
 
-  const width = window.innerWidth * 0.85,
+  const width = Math.min(window.innerWidth * 0.85, 1184),
     height = Math.min(window.innerHeight * 0.85, window.innerWidth * 1.2),
     margin = {
       top: 20,
@@ -1201,6 +1201,9 @@ export default LineChart
 const Wrap = styled.div`
   position: relative;
   height: 100%;
+  width: 100%;
+  max-width: ${(p) => p.theme.b.l};
+  margin: 0 auto;
 
   .viz-svg-wrap {
     width: 85%;
@@ -1212,7 +1215,7 @@ const Wrap = styled.div`
     display: none;
   }
   .axis text {
-    font-size: 14px;
+    font-size: 16px;
     color: ${(p) => p.theme.c.label};
   }
   .axis > .tick {
