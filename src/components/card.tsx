@@ -114,7 +114,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	max-height: 48em;
 	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
-	-webkit-mask-image: -webkit-radial-gradient(white, black);
+	mask-image: radial-gradient(white, black);
 
 	::after {
 		content: '';
