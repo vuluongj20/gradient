@@ -123,7 +123,7 @@ const Binder = ({ toggleMenu, menuOpen }: BinderProps): JSX.Element => (
 		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 		<Stamp />
 		<Target left />
-		<Logo to="/">Gradient\</Logo>
+		<Logo to="/">Gradient</Logo>
 	</Wrap>
 )
 

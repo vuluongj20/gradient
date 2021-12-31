@@ -19,22 +19,26 @@ const Wrap = styled.header`
 	${(p) => p.theme.utils.spacing.paddingHorizontal};
 
 	${(p) => p.theme.utils.media.xs} {
-		display: none;
+		padding: ${(p) => p.theme.space[1]} 0;
 	}
 `
 
 const Title = styled.h1`
-	${(p) => p.theme.text.content.h2};
+	${(p) => p.theme.text.content.h1};
 	color: ${(p) => p.theme.colors.heading};
+
+	${(p) => p.theme.utils.media.xs} {
+		display: none;
+	}
 `
 
 const DescWrap = styled.div`
-	margin-bottom: 0.5em;
+	margin-bottom: 0.6em;
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25em);
 
 	${(p) => p.theme.utils.media.m} {
-		margin-bottom: 0.2em;
+		margin-bottom: 0.3em;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -47,7 +51,6 @@ const DescLine = styled.p`
 	color: ${(p) => p.theme.colors.heading};
 
 	&& {
-		font-size: 0.875em;
 		line-height: 1.2;
 	}
 `

@@ -102,7 +102,7 @@ const Wrap = styled.div`
 
 	${(p) => p.theme.utils.media.xs} {
 		width: 100%;
-		height: 2.5em;
+		height: 2.75em;
 	}
 `
 
