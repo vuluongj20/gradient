@@ -34,16 +34,16 @@ const Popover = ({ isOpen, onClose, children }: Props) => {
 export default Popover
 
 const slideDownAnimation = (p) => keyframes`
- 0% { 
-   opacity: 0%; 
-   transform: translate(-${p.theme.space[2]}, -2em); 
-   pointer-events: none; 
- }
- 100% { 
-   opacity: 100%; 
-   transform: translate(-${p.theme.space[2]}, 0); 
-   pointer-events: all; 
- }
+  from { 
+    opacity: 0%; 
+    transform: translate(-${p.theme.space[2]}, -2em); 
+    pointer-events: none; 
+  }
+  to { 
+    opacity: 100%; 
+    transform: translate(-${p.theme.space[2]}, 0); 
+    pointer-events: all; 
+   }
 `
 
 const Wrap = styled.div`
