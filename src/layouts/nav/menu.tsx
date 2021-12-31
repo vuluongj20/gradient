@@ -255,8 +255,12 @@ const LinkTitle = styled.p`
 `
 
 const LinkTypeWrap = styled.div`
-	margin-bottom: 0.45em;
+	margin-bottom: 0.75em;
 	margin-right: ${(p) => p.theme.space[0]};
+
+	${(p) => p.theme.utils.media.m} {
+		margin-bottom: 0.7em;
+	}
 
 	${(p) => p.theme.utils.media.xs} {
 		display: none;
@@ -264,7 +268,9 @@ const LinkTypeWrap = styled.div`
 `
 
 const LinkTypeText = styled.p`
-	${(p) => p.theme.text.ui.label};
+	font-weight: 500;
+	font-size: 0.875em;
+	line-height: 1;
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
