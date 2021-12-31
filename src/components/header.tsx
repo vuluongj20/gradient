@@ -4,8 +4,8 @@ const Header = (): JSX.Element => (
 	<Wrap>
 		<Title>Gradient\</Title>
 		<DescWrap>
-			<DescLine>On technology, design,</DescLine>
-			<DescSecondLine>philosophy, and the law</DescSecondLine>
+			<DescLine>Ideas on technology, design,</DescLine>
+			<DescSecondLine>language, and philosophy</DescSecondLine>
 		</DescWrap>
 	</Wrap>
 )
