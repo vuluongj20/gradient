@@ -38,9 +38,9 @@ export const boxShadowsLight: Partial<Record<Breakpoint, string>> = {
 }
 
 export const boxShadowsDark: Partial<Record<Breakpoint, string>> = {
-	s: '0 1px 2px rgba(13, 13, 13, 0.16)',
-	m: '0 1px 4px rgba(13, 13, 13, 0.24)',
-	l: '0 4px 32px rgba(13, 13, 13, 0.32)',
+	s: '0 1px 2px rgb(25, 25, 25)',
+	m: '0 1px 4px rgb(25, 25, 25)',
+	l: '0 4px 32px rgb(25, 25, 25)',
 }
 
 /** Spacing */
