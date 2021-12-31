@@ -209,17 +209,18 @@ const LinkInnerWrap = styled.div`
 
 	${(p) => p.theme.utils.media.xs} {
 		position: relative;
-		${LinkWrap}:not(:first-of-type) > & {
+		${/* sc-selector */ LinkWrap}:not(:first-of-type) > & {
+			border-left: none;
+			border-top: solid 1px ${(p) => p.theme.colors.line};
+		}
+
+		&:not(:first-of-type) {
 			border-left: none;
 		}
 
 		&:hover,
 		${/* sc-selector */ LinkWrap}.focus-visible > & {
-			transform: translateX(0.25em);
-		}
-
-		&:not(:first-of-type) {
-			border-left: none;
+			transform: none;
 		}
 	}
 `
@@ -244,6 +245,11 @@ const LinkContentBox = styled.div`
 		justify-content: flex-end;
 		align-items: center;
 		padding: ${(p) => p.theme.space[1]} 0;
+
+		${/* sc-selector */ LinkInnerWrap}:hover > &,
+		${/* sc-selector */ LinkWrap}.focus-visible & {
+			transform: translate(0.25em, 0);
+		}
 	}
 `
 
