@@ -1,7 +1,8 @@
 import { FocusScope } from '@react-aria/focus'
 import { DismissButton, useOverlay } from '@react-aria/overlays'
 import { ReactNode, useRef } from 'react'
-import styled, { keyframes } from 'styled-components'
+import { CSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
 
 type Props = {
   isOpen: boolean
@@ -23,28 +24,17 @@ const Popover = ({ isOpen, onClose, children }: Props) => {
 
   return (
     <FocusScope restoreFocus>
-      <Wrap {...overlayProps} ref={ref}>
-        {children}
-        <DismissButton onDismiss={onClose} />
-      </Wrap>
+      <CSSTransition in={isOpen} timeout={200} unmountOnExit>
+        <Wrap {...overlayProps} ref={ref}>
+          {children}
+          <DismissButton onDismiss={onClose} />
+        </Wrap>
+      </CSSTransition>
     </FocusScope>
   )
 }
 
 export default Popover
-
-const slideDownAnimation = (p) => keyframes`
-  from { 
-    opacity: 0%; 
-    transform: translate(-${p.theme.space[2]}, -2em); 
-    pointer-events: none; 
-  }
-  to { 
-    opacity: 100%; 
-    transform: translate(-${p.theme.space[2]}, 0); 
-    pointer-events: all; 
-   }
-`
 
 const Wrap = styled.div`
   position: absolute;
@@ -53,5 +43,20 @@ const Wrap = styled.div`
   border-radius: ${(p) => p.theme.radii.m};
   padding: ${(p) => p.theme.space[0]};
   box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
-  animation: ${slideDownAnimation} 0.2s ${(p) => p.theme.animation.easeOutExpo} forwards;
+  transition: 0.2s ${(p) => p.theme.animation.easeOutExpo};
+  opacity: 0%;
+  transform: translate(-${(p) => p.theme.space[2]}, -2em);
+  pointer-events: none;
+
+  &.enter-active,
+  &.enter-done {
+    opacity: 100%;
+    transform: translate(-${(p) => p.theme.space[2]}, 0);
+    pointer-events: all;
+  }
+
+  &.exit-active {
+    opacity: 0%;
+    transform: translate(-${(p) => p.theme.space[2]}, 0);
+  }
 `

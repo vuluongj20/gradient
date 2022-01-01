@@ -33,11 +33,9 @@ const Select = (props: Props) => {
 				</span>
 				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
 			</Trigger>
-			{state.isOpen && (
-				<Popover isOpen={state.isOpen} onClose={state.close}>
-					<ListBox {...menuProps} state={state} label={props.label} />
-				</Popover>
-			)}
+			<Popover isOpen={state.isOpen} onClose={state.close}>
+				<ListBox {...menuProps} state={state} label={props.label} />
+			</Popover>
 		</Wrap>
 	)
 }
