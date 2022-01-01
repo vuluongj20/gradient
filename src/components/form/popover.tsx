@@ -43,9 +43,9 @@ const Wrap = styled.div`
   border-radius: ${(p) => p.theme.radii.m};
   padding: ${(p) => p.theme.space[0]};
   box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
-  transition: 0.2s ${(p) => p.theme.animation.easeOutExpo};
-  opacity: 0%;
   transform: translate(-${(p) => p.theme.space[2]}, -2em);
+  transition: 0.2s ${(p) => p.theme.animation.easeOutQuart};
+  opacity: 0%;
   pointer-events: none;
 
   &.enter-active,
