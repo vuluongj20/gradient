@@ -2,6 +2,7 @@ type ColorKeys =
 	| 'surface1'
 	| 'surface2'
 	| 'surface3'
+	| 'surface4'
 	| 'gray1'
 	| 'gray2'
 	| 'gray3'
@@ -57,12 +58,14 @@ export type ColorPalette = {
 
 type ColorAliasName =
 	| 'background'
-	| 'contentFill'
-	| 'insetFill'
+	| 'hoverBackground'
 	| 'line'
 	| 'oBackground'
-	| 'oContentFill'
+	| 'oHoverBackground'
 	| 'oLine'
+	| 'iBackground'
+	| 'iHoverBackground'
+	| 'iLine'
 	| 'focus'
 	| 'heading'
 	| 'text'
@@ -73,6 +76,8 @@ type ColorAliasName =
 	| 'linkUnderline'
 	| 'linkHover'
 	| 'linkUnderlineHover'
+	| 'success'
+	| 'error'
 
 export type ColorAliases = Record<ColorAliasName, string>
 
