@@ -96,6 +96,10 @@ const Wrap = styled.div`
 	height: 100%;
 	z-index: 9;
 
+	@media print {
+		display: none;
+	}
+
 	${(p) => p.theme.utils.media.l} {
 		width: 2.5em;
 	}

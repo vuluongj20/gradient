@@ -48,7 +48,10 @@ export default Layout
 const PageContent = styled('div')`
 	position: relative;
 	margin: 0 auto;
-	padding-left: 3em;
+
+	@media not print {
+		padding-left: 3em;
+	}
 
 	${(p) => p.theme.utils.media.l} {
 		padding-left: 2.5em;
