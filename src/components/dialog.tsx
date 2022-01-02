@@ -70,7 +70,7 @@ export default Dialog
 
 const OuterWrap = styled.div`
 	${(p) => p.theme.utils.flexCenter};
-	${(p) => p.theme.utils.spacing.paddingHorizontal};
+	${(p) => p.theme.utils.space.paddingHorizontal};
 	position: fixed;
 	z-index: 10;
 	top: 0;
@@ -92,7 +92,7 @@ const OuterWrap = styled.div`
 `
 
 const Wrap = styled.div`
-	${(p) => p.theme.utils.spacing.paddingVertical[4]};
+	${(p) => p.theme.utils.space.paddingVertical[4]};
 	padding-left: ${(p) => p.theme.space[5]};
 	padding-right: ${(p) => p.theme.space[5]};
 	background: ${(p) => p.theme.colors.oBackground};

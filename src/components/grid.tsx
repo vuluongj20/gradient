@@ -7,7 +7,7 @@ const Grid = styled.div`
 	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
 	column-gap: ${(p) => p.theme.space[3]};
 
-	${(p) => p.theme.utils.spacing.paddingHorizontal};
+	${(p) => p.theme.utils.space.paddingHorizontal};
 
 	${(p) => p.theme.utils.media.l} {
 		grid-template-columns:

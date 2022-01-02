@@ -91,7 +91,7 @@ export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
 		l: `@media only screen and (max-width: ${theme.breakpoints.l})`,
 		xl: `@media only screen and (max-width: ${theme.breakpoints.xl})`,
 	},
-	spacing: {
+	space: {
 		paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),
 		paddingTop: generateAdaptiveSpacing(theme, ['paddingTop']),
 		paddingBottom: generateAdaptiveSpacing(theme, ['paddingBottom']),

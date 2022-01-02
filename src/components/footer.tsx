@@ -89,7 +89,7 @@ const Link = styled(TransitionLink)`
 
 const SiteMap = styled(Grid)`
 	justify-items: start;
-	${(p) => p.theme.utils.spacing.paddingVertical[4]};
+	${(p) => p.theme.utils.space.paddingVertical[4]};
 `
 
 const Column = styled.div`

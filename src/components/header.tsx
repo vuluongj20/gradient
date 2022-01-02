@@ -16,7 +16,7 @@ const Wrap = styled.header`
 	display: flex;
 	align-items: flex-end;
 	padding: ${(p) => p.theme.space[3]} 0;
-	${(p) => p.theme.utils.spacing.paddingHorizontal};
+	${(p) => p.theme.utils.space.paddingHorizontal};
 
 	${(p) => p.theme.utils.media.xs} {
 		padding: ${(p) => p.theme.space[1]} 0;

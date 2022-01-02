@@ -23,8 +23,8 @@ const Wrap = styled.div`
   flex: 1;
   flex-direction: column;
   ${(p) => p.theme.utils.flexCenter};
-  ${(p) => p.theme.utils.spacing.paddingVertical[7]};
-  ${(p) => p.theme.utils.spacing.paddingHorizontal};
+  ${(p) => p.theme.utils.space.paddingVertical[7]};
+  ${(p) => p.theme.utils.space.paddingHorizontal};
 
   ${(p) => p.theme.utils.media.xs} {
     align-items: flex-start;
@@ -32,12 +32,12 @@ const Wrap = styled.div`
 `
 
 const Title = styled.h1`
-  ${(p) => p.theme.utils.spacing.marginBottom[0]};
+  ${(p) => p.theme.utils.space.marginBottom[0]};
 `
 
 const Text = styled.p`
   max-width: 36em;
-  ${(p) => p.theme.utils.spacing.marginBottom[1]};
+  ${(p) => p.theme.utils.space.marginBottom[1]};
 `
 
 const Link = styled(TransitionLink)`

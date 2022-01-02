@@ -217,7 +217,7 @@ const Wrap = styled.article`
 `
 
 const HeroWrap = styled(Grid)`
-  ${(p) => p.theme.utils.spacing.paddingVertical[8]}
+  ${(p) => p.theme.utils.space.paddingVertical[8]}
 `
 
 const HeroInnerWrap = styled.div`

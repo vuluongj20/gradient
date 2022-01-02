@@ -14,10 +14,10 @@ const SectionDivider = ({ mt = 7, mb = 7 }: Props): JSX.Element => (
 export default SectionDivider
 
 const Wrap = styled.div`
-	${(p) => p.theme.utils.spacing.paddingHorizontal};
+	${(p) => p.theme.utils.space.paddingHorizontal};
 `
 
 const Divider = styled.hr<Props>`
-	${(p) => p.theme.utils.spacing.marginTop[p.mt]};
-	${(p) => p.theme.utils.spacing.marginBottom[p.mb]};
+	${(p) => p.theme.utils.space.marginTop[p.mt]};
+	${(p) => p.theme.utils.space.marginBottom[p.mb]};
 `
