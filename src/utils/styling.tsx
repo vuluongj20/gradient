@@ -27,7 +27,7 @@ export const numericBreakpoints: Record<Breakpoint, number> = {
 export const radii: Partial<Record<Breakpoint, string>> = {
 	s: '0.25em',
 	m: '0.5em',
-	l: '1em',
+	l: '0.75em',
 }
 
 /** Box shadows */

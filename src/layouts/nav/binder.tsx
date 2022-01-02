@@ -3,6 +3,8 @@ import { Timeline } from 'gsap/core'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import Settings from './settings'
+
 import TransitionLink from '@components/transitionLink'
 
 import { reducedMotion, paddingHorizontal } from '@utils/styling'
@@ -124,6 +126,7 @@ const Binder = ({ toggleMenu, menuOpen }: BinderProps): JSX.Element => (
 		<Stamp />
 		<Target left />
 		<Logo to="/">Gradient</Logo>
+		<StyledSettings />
 	</Wrap>
 )
 
@@ -299,4 +302,11 @@ const Logo = styled(TransitionLink)`
 	${(p) => p.theme.utils.media.xs} {
 		display: initial;
 	}
+`
+
+const StyledSettings = styled(Settings)`
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
 `

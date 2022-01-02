@@ -12,6 +12,9 @@ const GlobalStyles = createGlobalStyle`
   *::before,
   *::after {
     box-sizing: inherit;
+    transition: background-color 0.5s ${(p) => p.theme.animation.easeOutQuart}, 
+      border-color 0.5s ${(p) => p.theme.animation.easeOutQuart},
+      color 0.5s ${(p) => p.theme.animation.easeOutQuart};
   }
 
   body {

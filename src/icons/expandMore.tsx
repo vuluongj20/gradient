@@ -1,13 +1,7 @@
-import SVG from '../svg'
+import SVG, { IconProps } from './svg'
 
-type Props = {
-	color: string
-	className: string
-}
-
-const IconExpandMore = ({ color, className }: Props) => (
-	<SVG color={color} className={className}>
-		<path d="M18 18H0V0h18v18z" fill="none" opacity=".87" />
+const IconExpandMore = ({ color, className, useAlt }: IconProps) => (
+	<SVG color={color} className={className} useAlt={useAlt} alt="Arrow pointing down">
 		<path d="M4.18558 7.25613C3.91282 7.56786 3.9444 8.04168 4.25613 8.31444L8.25613 11.8144C8.5389 12.0619 8.96112 12.0619 9.24389 11.8144L13.2439 8.31444C13.5556 8.04168 13.5872 7.56786 13.3144 7.25613C13.0417 6.9444 12.5679 6.91282 12.2561 7.18558L8.75001 10.2534L5.24389 7.18558C4.93216 6.91282 4.45834 6.9444 4.18558 7.25613Z" />
 	</SVG>
 )

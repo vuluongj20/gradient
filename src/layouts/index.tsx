@@ -1,3 +1,4 @@
+import { OverlayProvider } from '@react-aria/overlays'
 import { ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -30,12 +31,14 @@ const Layout = ({ children }: Props): JSX.Element => {
 			<SettingsContext.Consumer>
 				{({ settings }) => (
 					<ThemeProvider theme={getTheme(settings.theme)}>
-						<GlobalStyles />
-						<Nav />
-						<PageContent id="page-content">
-							<TopAnchor id="page-top-anchor" />
-							{children}
-						</PageContent>
+						<OverlayProvider>
+							<GlobalStyles />
+							<Nav />
+							<PageContent id="page-content">
+								<TopAnchor id="page-top-anchor" />
+								{children}
+							</PageContent>
+						</OverlayProvider>
 					</ThemeProvider>
 				)}
 			</SettingsContext.Consumer>
