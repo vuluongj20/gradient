@@ -7,16 +7,28 @@ import Dialog, { DialogProps } from './dialog'
 
 type Props = {
 	/**
-	 * Inside trigger button
+	 * For optionally replacing the trigger button.
+	 * Should return a button with the props and ref (from p) attached
 	 */
 	trigger?: (p) => ReactNode
+	/**
+	 * If the trigger prop hasn't been provided, use this prop to
+	 * create a basic button with the provided label
+	 */
 	buttonLabel?: ReactNode
 	dialogTitle?: string
+	/**
+	 * Optionally pass props to the <Dialog /> component
+	 */
 	dialogProps?: Partial<DialogProps>
 	/**
-	 * Inside dialog
+	 * Content inside the dialog
 	 */
 	dialogContent?: ReactNode | ((p) => ReactNode)
+	/**
+	 * Whether to show the close button (as a cross in the
+	 * top right corner), defaults to true
+	 */
 	showCloseButton?: boolean
 }
 
