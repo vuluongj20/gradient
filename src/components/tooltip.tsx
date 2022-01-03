@@ -12,11 +12,12 @@ export type TooltipPlacement = Placement
 type Props = AriaTooltipProps & {
   state: TooltipTriggerState
   children: ReactNode
-  placement: Placement
   triggerRef: RefObject<HTMLElement>
+  placement: Placement
+  offset: number
 }
 
-const Tooltip = ({ triggerRef, placement, state, ...props }: Props) => {
+const Tooltip = ({ triggerRef, placement, offset, state, ...props }: Props) => {
   const ref = useRef()
   const { tooltipProps } = useTooltip(props, state)
 
@@ -25,7 +26,7 @@ const Tooltip = ({ triggerRef, placement, state, ...props }: Props) => {
       targetRef: triggerRef,
       overlayRef: ref,
       placement,
-      offset: 8,
+      offset,
       isOpen: state.isOpen,
       containerPadding: 0,
     })
@@ -51,9 +52,11 @@ type TriggerProps = TooltipTriggerProps & {
   content: ReactNode
   children: (p: TriggerChildrenProps) => JSX.Element
   placement?: Placement
+  offset?: number
 }
 const TooltipTrigger = ({
   placement = 'bottom',
+  offset = 8,
   delay = 1000,
   content,
   ...props
@@ -71,7 +74,13 @@ const TooltipTrigger = ({
   return (
     <TriggerWrap {...props}>
       {props.children({ props: triggerProps, ref })}
-      <Tooltip triggerRef={ref} state={state} placement={placement} {...tooltipProps}>
+      <Tooltip
+        state={state}
+        triggerRef={ref}
+        placement={placement}
+        offset={offset}
+        {...tooltipProps}
+      >
         {content}
       </Tooltip>
     </TriggerWrap>

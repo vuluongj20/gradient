@@ -69,6 +69,7 @@ const StyledOption = styled.li<StyledOptionProps>`
   color: ${(p) => p.theme.colors.text};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   border-radius: ${(p) => p.theme.radii.m};
+  white-space: nowrap;
 
   && {
     margin: 0;
@@ -83,4 +84,5 @@ const StyledListBox = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
+  min-width: 8em;
 `

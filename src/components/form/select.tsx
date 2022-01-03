@@ -33,7 +33,7 @@ const Select = (props: Props) => {
 				</span>
 				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
 			</Trigger>
-			<Popover isOpen={state.isOpen} onClose={state.close}>
+			<Popover isOpen={state.isOpen} triggerRef={ref} onClose={state.close} offset={0}>
 				<ListBox {...menuProps} state={state} label={props.label} />
 			</Popover>
 		</Wrap>
