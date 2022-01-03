@@ -1,6 +1,6 @@
 import 'styled-components'
 
-import { Theme } from './types'
+import { Theme } from './index'
 
 /** Add type checking to theme prop */
 declare module 'styled-components' {
