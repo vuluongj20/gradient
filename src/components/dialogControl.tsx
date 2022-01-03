@@ -80,8 +80,7 @@ const DialogControl = ({
 				<Dialog
 					{...dialogProps}
 					title={dialogTitle}
-					isOpen
-					/*isOpen={state.isOpen}*/
+					isOpen={state.isOpen}
 					onClose={state.close}
 					showCloseButton={showCloseButton}
 					closeButtonProps={closeButtonProps}

@@ -45,7 +45,7 @@ const Dialog = ({
 
 	return (
 		// todo: remove appear
-		<CSSTransition in={props.isOpen} timeout={200} mountOnEnter appear>
+		<CSSTransition in={props.isOpen} timeout={500} mountOnEnter unmountOnExit appear>
 			<OuterWrap>
 				<Backdrop {...underlayProps}>
 					<FocusScope contain restoreFocus autoFocus>
@@ -72,8 +72,14 @@ const Dialog = ({
 export default Dialog
 
 const OuterWrap = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	transition: 0.5s ${(p) => p.theme.animation.easeOutQuart};
 	opacity: 0%;
+	z-index: 10;
 
 	&.enter-active,
 	&.enter-done {
@@ -86,15 +92,12 @@ const OuterWrap = styled.div`
 `
 
 const Backdrop = styled.div`
+	${(p) => p.theme.utils.spread};
 	${(p) => p.theme.utils.flexCenter};
 	${(p) => p.theme.utils.space.paddingHorizontal};
-	position: fixed;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+
 	background: ${(p) => p.theme.colors.line};
+	z-index: 100;
 `
 
 const Wrap = styled.div`
