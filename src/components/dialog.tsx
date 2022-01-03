@@ -44,8 +44,7 @@ const Dialog = ({
 	}, [props.isOpen])
 
 	return (
-		// todo: remove appear
-		<CSSTransition in={props.isOpen} timeout={500} mountOnEnter unmountOnExit appear>
+		<CSSTransition in={props.isOpen} timeout={500} mountOnEnter unmountOnExit>
 			<OuterWrap>
 				<Backdrop {...underlayProps}>
 					<FocusScope contain restoreFocus autoFocus>
