@@ -100,9 +100,9 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 	width: 0;
 	transform: translateX(0);
 	opacity: 0%;
-	transition: transform 0.5s ${(p) => p.theme.animation.easeOutQuart},
-		width 0.5s ${(p) => p.theme.animation.easeOutQuart},
-		opacity 0.5s ${(p) => p.theme.animation.easeOutQuart};
+	transition: transform 0.25s ${(p) => p.theme.animation.easeOutQuart},
+		width 0.25s ${(p) => p.theme.animation.easeOutQuart},
+		opacity 0.25s ${(p) => p.theme.animation.easeOutQuart};
 
 	${(p) =>
 		(p.left || p.width) &&
