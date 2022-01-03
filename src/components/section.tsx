@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import CardGrid from './cardGrid'
+import CardGroup from './cardGroup'
 
 import { Theme } from '@theme'
 
@@ -23,7 +23,7 @@ const Section = ({ section, stories, elevation }: Props): JSX.Element => {
 						<Title>{section.name}</Title>
 					</TitleLink>
 				</TitleWrap>
-				<CardGrid stories={stories} />
+				<CardGroup stories={stories} />
 			</Wrap>
 		</LocalThemeProvider>
 	)

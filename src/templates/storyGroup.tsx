@@ -1,10 +1,10 @@
 import { graphql } from 'gatsby'
 import { useState, useEffect } from 'react'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import Card from '@components/card'
 import FilterBar, { FilterProps } from '@components/filterBar'
-import RadioBar from '@components/form/radioBar'
 import Grid from '@components/grid'
 import Page from '@components/page'
 import SEO from '@components/seo'
@@ -101,11 +101,20 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 					<Title>{pageContext.title}</Title>
 				</Header>
 				<FilterBar filters={filters} onChange={onChange} />
-				<Results as="main">
-					{filteredStories.map((story) => (
-						<Card key={story.slug} path={`/story/${story.slug}`} {...story} rowLayout />
-					))}
-				</Results>
+				<SwitchTransition>
+					<CSSTransition timeout={375} key={`${selectedSection}-${selectedAuthor}`}>
+						<Results>
+							{filteredStories.map((story) => (
+								<Card
+									key={story.slug}
+									path={`/story/${story.slug}`}
+									{...story}
+									rowLayout
+								/>
+							))}
+						</Results>
+					</CSSTransition>
+				</SwitchTransition>
 			</PageContent>
 		</Page>
 	)
@@ -152,4 +161,17 @@ const Title = styled.h1`
 const Results = styled(Grid)`
 	margin-top: ${(p) => p.theme.space[1]};
 	grid-row-gap: ${(p) => p.theme.space[3]};
+
+	&.enter {
+		opacity: 0%;
+	}
+	&.enter-active,
+	&.enter-done {
+		transition: opacity 0.5s ${(p) => p.theme.animation.easeOutQuart};
+		opacity: 100%;
+	}
+	&.exit-active {
+		transition: opacity 0.375s ${(p) => p.theme.animation.easeInOutQuart};
+		opacity: 0%;
+	}
 `

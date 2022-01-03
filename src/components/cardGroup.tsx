@@ -1,6 +1,9 @@
-import { Fragment, useMemo } from 'react'
+import { useMemo } from 'react'
+import styled from 'styled-components'
 
 import Card from './card'
+
+import Grid from '@components/grid'
 
 import { AdaptiveGridColumns, GridColumns, Story } from '@types'
 
@@ -147,17 +150,21 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 	return results as AdaptiveGridColumns[]
 }
 
-const CardGrid = ({ stories }: Props): JSX.Element => {
+const CardGroup = ({ stories }: Props): JSX.Element => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const gridColumns = useMemo(() => getGridColumns(stories), [])
 
 	return (
-		<Fragment>
+		<Wrap>
 			{stories.map((story, i) => (
 				<Card key={story.slug} {...story} gridCols={gridColumns[i]} />
 			))}
-		</Fragment>
+		</Wrap>
 	)
 }
 
-export default CardGrid
+export default CardGroup
+
+const Wrap = styled(Grid)`
+	row-gap: ${(p) => p.theme.space[4]};
+`

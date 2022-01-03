@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 
-import CardGrid from '@components/cardGrid'
+import CardGroup from '@components/cardGroup'
 import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
@@ -33,7 +33,7 @@ const IndexPage = (): JSX.Element => {
       <SEO />
       <section>
         <Header />
-        <CardGrid stories={topFeaturedStories} />
+        <CardGroup stories={topFeaturedStories} />
       </section>
 
       {featuredSections.map((s) => {
