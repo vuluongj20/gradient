@@ -76,30 +76,20 @@ const Radio = ({ nextValue, state, ...props }: RadioProps) => {
 	const isSelected = state.selectedValue === props.value
 	const nextOptionIsSelected = state.selectedValue === nextValue
 
-	if (props.tooltip) {
-		return (
-			<Tooltip content={props.tooltip} data-radio-value={props.value}>
-				{({ props: tProps, ref: tRef }) => (
-					<RadioWrap
-						isSelected={isSelected}
-						ref={tRef as RefObject<HTMLLabelElement>}
-						{...tProps}
-					>
-						<RadioInput {...inputProps} ref={ref} />
-						{props.children}
-						<Divider visible={!isSelected && !nextOptionIsSelected} />
-					</RadioWrap>
-				)}
-			</Tooltip>
-		)
-	}
-
 	return (
-		<RadioWrap data-radio-value={props.value} isSelected={isSelected}>
-			<RadioInput {...inputProps} ref={ref} />
-			{props.children}
-			<Divider visible={!isSelected && !nextOptionIsSelected} />
-		</RadioWrap>
+		<Tooltip content={props.tooltip} data-radio-value={props.value}>
+			{({ props: tProps, ref: tRef }) => (
+				<RadioWrap
+					isSelected={isSelected}
+					ref={tRef as RefObject<HTMLLabelElement>}
+					{...tProps}
+				>
+					<RadioInput {...inputProps} ref={ref} />
+					{props.children}
+					<Divider visible={!isSelected && !nextOptionIsSelected} />
+				</RadioWrap>
+			)}
+		</Tooltip>
 	)
 }
 

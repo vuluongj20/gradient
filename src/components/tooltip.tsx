@@ -8,6 +8,7 @@ import { RefObject, ReactNode, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
+export type TooltipPlacement = Placement
 type Props = AriaTooltipProps & {
   state: TooltipTriggerState
   children: ReactNode
@@ -48,7 +49,7 @@ type TriggerChildrenProps = {
 }
 type TriggerProps = TooltipTriggerProps & {
   content: ReactNode
-  children: (p: TriggerChildrenProps) => ReactNode
+  children: (p: TriggerChildrenProps) => JSX.Element
   placement?: Placement
 }
 const TooltipTrigger = ({
@@ -64,6 +65,8 @@ const TooltipTrigger = ({
     state,
     ref,
   )
+
+  if (!content) return props.children({ props: {}, ref })
 
   return (
     <TriggerWrap {...props}>
