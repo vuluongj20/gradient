@@ -138,7 +138,7 @@ const Divider = styled.div<{ visible: boolean }>`
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
 	${(p) => !p.visible && `opacity: 0%;`}
-	${/* sc-selector*/ RadioWrap}:last-of-type > & {
+	${/* sc-selector */ RadioWrap}:last-of-type > & {
 		display: none;
 	}
 `
@@ -156,9 +156,4 @@ const RadioInput = styled.input`
 	transition: box-shadow ${(p) => p.theme.animation.fastOut};
 	cursor: pointer;
 	z-index: -1;
-
-	/*&.focus-visible {
-		box-shadow: inset 0 0 0 1px ${(p) => p.theme.colors.focus},
-			0 0 0 4px ${(p) => p.theme.colors.focus};
-	}*/
 `

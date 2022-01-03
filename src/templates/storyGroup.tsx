@@ -42,7 +42,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 	const authors = useAuthors()
 	const showSectionFilters = !pageContext.filter?.sections
 	const showAuthorFilters = !pageContext.filter?.authors
-	const filters: FilterProps[] = [
+	const filters = [
 		...(showSectionFilters
 			? [
 					{
@@ -69,7 +69,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 					},
 			  ]
 			: []),
-	]
+	] as FilterProps[]
 	const [selectedSection, setSelectedSection] = useState('all')
 	const [selectedAuthor, setSelectedAuthor] = useState('all')
 	const onChange = (filterName, value) => {

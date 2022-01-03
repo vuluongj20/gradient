@@ -105,20 +105,20 @@ const Wrap = styled.div`
 	padding-left: ${(p) => p.theme.space[5]};
 	padding-right: ${(p) => p.theme.space[5]};
 	background: ${(p) => p.theme.colors.oBackground};
-	border-radius	${(p) => p.theme.radii.l};
+	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
 	transform: translateY(4em);
 	transition: ${(p) => p.theme.animation.mediumOut};
 	text-align: left;
 	align-items: flex-start;
 
-	${OuterWrap}.enter-active &,
-	${OuterWrap}.enter-done & {
-	  transform: translateY(0);
+	${/* sc-selector */ OuterWrap}.enter-active &,
+	${/* sc-selector */ OuterWrap}.enter-done & {
+		transform: translateY(0);
 	}
 
-	${OuterWrap}.exit-active & {
-	  transform: translateY(0);
+	${/* sc-selector */ OuterWrap}.exit-active & {
+		transform: translateY(0);
 	}
 
 	${(p) => p.theme.utils.media.m} {
