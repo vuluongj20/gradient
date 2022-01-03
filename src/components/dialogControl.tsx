@@ -40,7 +40,6 @@ const DialogControl = ({
 	dialogContent,
 	showCloseButton = true,
 }: Props) => {
-	console.log('DialogControl')
 	const state = useOverlayTriggerState({})
 	const openButtonRef = useRef()
 	const closeButtonRef = useRef()

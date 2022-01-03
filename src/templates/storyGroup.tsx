@@ -8,6 +8,7 @@ import FilterBar, { FilterProps } from '@components/filterBar'
 import Grid from '@components/grid'
 import Page from '@components/page'
 import SEO from '@components/seo'
+import Tooltip from '@components/tooltip'
 
 import { Story } from '@types'
 
@@ -99,6 +100,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			<PageContent>
 				<Header>
 					<Title>{pageContext.title}</Title>
+					<Tooltip />
 				</Header>
 				<FilterBar filters={filters} onChange={onChange} />
 				<SwitchTransition>

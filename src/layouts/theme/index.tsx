@@ -8,6 +8,7 @@ import { Breakpoint } from '@types'
 import {
 	breakpoints,
 	radii,
+	zIndices,
 	boxShadowsLight,
 	boxShadowsDark,
 	textShadows,
@@ -32,6 +33,8 @@ export type Theme = {
 	breakpoints: Record<Breakpoint, string>
 	/** Border radius */
 	radii: Partial<Record<Breakpoint, string>>
+	/** z-indices */
+	zIndices: Record<string, number>
 	/** Spacing */
 	space: string[]
 	/** Utilities */
@@ -71,6 +74,7 @@ const partialDefaultTheme: Omit<Theme, 'utils'> = {
 	breakpoints: breakpoints,
 	space,
 	radii,
+	zIndices,
 }
 
 const defaultTheme: Theme = {
@@ -145,6 +149,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 		breakpoints: breakpoints,
 		space,
 		radii,
+		zIndices,
 	}
 
 	return {

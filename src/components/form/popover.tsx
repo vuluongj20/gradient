@@ -47,6 +47,7 @@ const Wrap = styled.div`
   transition: ${(p) => p.theme.animation.fastOut};
   opacity: 0%;
   pointer-events: none;
+  z-index: ${(p) => p.theme.zIndices.popover};
 
   &.enter-active,
   &.enter-done {

@@ -23,6 +23,17 @@ export const numericBreakpoints: Record<Breakpoint, number> = {
 	xs: 480,
 }
 
+/**
+ * Should be kept in one place (inside theme) for better
+ *  management, to prevent unintentional mixups
+ */
+export const zIndices: Record<string, number> = {
+	nav: 9,
+	dialog: 10,
+	popover: 10,
+	tooltip: 10,
+}
+
 /** Border radii */
 export const radii: Partial<Record<Breakpoint, string>> = {
 	s: '0.25em',

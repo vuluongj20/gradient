@@ -94,7 +94,7 @@ const Wrap = styled.div`
 	position: fixed;
 	width: 3em;
 	height: 100%;
-	z-index: 9;
+	z-index: ${(p) => p.theme.zIndices.nav};
 
 	@media print {
 		display: none;

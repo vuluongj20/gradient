@@ -79,7 +79,7 @@ const OuterWrap = styled.div`
 	right: 0;
 	transition: ${(p) => p.theme.animation.mediumOut};
 	opacity: 0%;
-	z-index: 10;
+	z-index: ${(p) => p.theme.zIndices.dialog};
 
 	&.enter-active,
 	&.enter-done {
@@ -97,7 +97,6 @@ const Backdrop = styled.div`
 	${(p) => p.theme.utils.space.paddingHorizontal};
 
 	background: ${(p) => p.theme.colors.line};
-	z-index: 100;
 `
 
 const Wrap = styled.div`
