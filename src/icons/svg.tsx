@@ -38,9 +38,9 @@ export default SVG
 
 const StyledSVG = styled.svg<{ color: string }>`
 	fill: ${(p) => (p.color === 'currentColor' ? 'currentColor' : p.theme.colors[p.color])};
-	transition: color 0.125s ${(p) => p.theme.animation.easeOutQuad};
+	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	path {
-		transition: color 0.125s ${(p) => p.theme.animation.easeOutQuad};
+		transition: color ${(p) => p.theme.animation.vFastOut};
 	}
 `

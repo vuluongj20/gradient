@@ -12,10 +12,10 @@ const GlobalStyles = createGlobalStyle`
   *::before,
   *::after {
     box-sizing: inherit;
-    transition: background-color 0.5s ${(p) => p.theme.animation.easeOutQuart}, 
-      border-color 0.5s ${(p) => p.theme.animation.easeOutQuart},
-      box-shadow 0.5s ${(p) => p.theme.animation.easeOutQuart},
-      color 0.5s ${(p) => p.theme.animation.easeOutQuart};
+    transition: background-color ${(p) => p.theme.animation.mediumOut}, 
+      border-color ${(p) => p.theme.animation.mediumOut},
+      box-shadow ${(p) => p.theme.animation.mediumOut},
+      color ${(p) => p.theme.animation.mediumOut};
   }
 
   body {
@@ -53,7 +53,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     cursor: pointer;
     border-radius: ${(p) => p.theme.radii.s};
-    transition: color, box-shadow 0.125s ${(p) => p.theme.animation.easeOutQuad};
+    transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
   }
   a:hover {
     text-decoration: none;
@@ -74,7 +74,7 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     border-radius: ${(p) => p.theme.radii.s};
     cursor: pointer;
-    transition: color, box-shadow 0.125s ${(p) => p.theme.animation.easeOutQuad};
+    transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
 
     &:hover {
       color: ${(p) => p.theme.colors.text};
@@ -89,7 +89,7 @@ const GlobalStyles = createGlobalStyle`
 
   input {
     font-size: ${(p) => p.theme.text.rootSize};
-    transition: color, box-shadow 0.125s ${(p) => p.theme.animation.easeOutQuad};
+    transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
   }
   input:focus {
     outline: none;

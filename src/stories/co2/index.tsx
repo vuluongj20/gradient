@@ -199,7 +199,7 @@ const Wrap = styled.article`
     opacity: 0%;
   }
   .animate.on {
-    animation: opacity 1s ${(p) => p.theme.animation.easeOutQuad} forwards;
+    animation: opacity ${(p) => p.theme.animation.slowOut} forwards;
   }
 
   svg {

@@ -1,4 +1,4 @@
-import { easings, Animation } from './animation'
+import { animation, Animation } from './animation'
 import { colorPalettes, getColorAliases, ColorPalette, ColorAliases } from './colors'
 import { textScales, TextScale } from './text'
 import { generateUtils, Utils } from './utils'
@@ -65,7 +65,7 @@ const partialDefaultTheme: Omit<Theme, 'utils'> = {
 		content: textScales.domaine,
 	},
 	animation: {
-		...easings,
+		...animation,
 		reduced: false,
 	},
 	breakpoints: breakpoints,
@@ -139,7 +139,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			content: textScales[settings.text.content],
 		},
 		animation: {
-			...easings,
+			...animation,
 			reduced: reducedMotion,
 		},
 		breakpoints: breakpoints,

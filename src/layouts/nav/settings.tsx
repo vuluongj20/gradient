@@ -33,7 +33,7 @@ const Wrap = styled.div``
 const ButtonInnerWrap = styled.div`
 	color: ${(p) => p.theme.colors.label};
 	padding: ${(p) => p.theme.space[1]};
-	transition: color 0.25s ${(p) => p.theme.animation.easeOutQuart};
+	transition: color ${(p) => p.theme.animation.fastOut};
 
 	&:hover {
 		color: ${(p) => p.theme.colors.heading};

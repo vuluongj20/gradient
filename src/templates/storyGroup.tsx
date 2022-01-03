@@ -167,11 +167,11 @@ const Results = styled(Grid)`
 	}
 	&.enter-active,
 	&.enter-done {
-		transition: opacity 0.5s ${(p) => p.theme.animation.easeOutQuart};
+		transition: opacity ${(p) => p.theme.animation.mediumOut};
 		opacity: 100%;
 	}
 	&.exit-active {
-		transition: opacity 0.375s ${(p) => p.theme.animation.easeInOutQuart};
+		transition: opacity 0.375s ${(p) => p.theme.animation.inOutQuart};
 		opacity: 0%;
 	}
 `

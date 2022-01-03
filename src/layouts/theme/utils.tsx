@@ -10,9 +10,14 @@ type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
 
 type CSSGroup = CSSObject | CSS.Properties
 
-type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
+type CSSUtilName =
+	| 'spread'
+	| 'flexCenter'
+	| 'absCenter'
+	| 'focusVisible'
+	| 'defaultTransitions'
 
-type CSSUtil = Record<CSSUtilName, CSS.Properties>
+type CSSUtil = Record<CSSUtilName, CSSGroup | string>
 
 type MediaUtil = { media: Record<Breakpoint, string> }
 
@@ -25,7 +30,7 @@ type SpacingName =
 	| 'marginBottom'
 	| 'paddingHorizontal'
 
-export type SpacingUtil = { spacing: Record<SpacingName, CSSGroup[] | CSSGroup> }
+export type SpacingUtil = { space: Record<SpacingName, CSSGroup[] | CSSGroup> }
 
 export type Utils = CSSUtil & MediaUtil & SpacingUtil
 
@@ -84,6 +89,10 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		outline: 'none',
 		boxShadow: `0 0 0 4px ${theme.colors.focus}`,
 	},
+	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
+      border-color 0.5s ${theme.animation.outQuart},
+      box-shadow 0.5s ${theme.animation.outQuart},
+      color 0.5s ${theme.animation.outQuart}`,
 	media: {
 		xs: `@media only screen and (max-width: ${theme.breakpoints.xs})`,
 		s: `@media only screen and (max-width: ${theme.breakpoints.s})`,

@@ -194,7 +194,7 @@ const LinkInnerWrap = styled.div`
 	${(p) => p.theme.utils.spread};
 	cursor: pointer;
 	background: ${(p) => p.theme.colors.background};
-	transition: transform 0.25s ${(p) => p.theme.animation.easeOutQuad};
+	transition: transform ${(p) => p.theme.animation.fastOut};
 
 	${LinkWrap}:not(:first-of-type) > & {
 		border-left: solid 1px ${(p) => p.theme.colors.line};
@@ -234,7 +234,7 @@ const LinkContentBox = styled.div`
 	right: ${(p) => p.theme.space[2]};
 	transform-origin: center right;
 	transform: rotate(-90deg) translateY(-50%);
-	transition: transform 0.375s ${(p) => p.theme.animation.easeOutQuart};
+	transition: transform 0.375s ${(p) => p.theme.animation.outQuart};
 
 	${(p) => p.theme.utils.media.xs} {
 		position: initial;
@@ -257,7 +257,7 @@ const LinkTitle = styled.p`
 	${(p) => p.theme.text.ui.h3}
 	color: ${(p) => p.theme.colors.heading};
 	margin: 0;
-	transition: color 0.25s ${(p) => p.theme.animation.easeOutQuad};
+	transition: color ${(p) => p.theme.animation.fastOut};
 `
 
 const LinkTypeWrap = styled.div`
@@ -281,7 +281,7 @@ const LinkTypeText = styled.p`
 	text-align: right;
 	text-transform: uppercase;
 	color: ${(p) => p.theme.colors.heading};
-	transition: color 0.25s ${(p) => p.theme.animation.easeOutQuad};
+	transition: color ${(p) => p.theme.animation.fastOut};
 `
 
 const LinkTypeLine = styled.div`
@@ -289,5 +289,5 @@ const LinkTypeLine = styled.div`
 	height: 2px;
 	background-color: ${(p) => p.theme.colors.heading};
 	transform-origin: right;
-	transition: 0.375s ${(p) => p.theme.animation.easeOutQuart};
+	transition: 0.375s ${(p) => p.theme.animation.outQuart};
 `

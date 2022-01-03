@@ -100,9 +100,8 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 	width: 0;
 	transform: translateX(0);
 	opacity: 0%;
-	transition: transform 0.25s ${(p) => p.theme.animation.easeOutQuart},
-		width 0.25s ${(p) => p.theme.animation.easeOutQuart},
-		opacity 0.25s ${(p) => p.theme.animation.easeOutQuart};
+	transition: transform ${(p) => p.theme.animation.fastOut},
+		width ${(p) => p.theme.animation.fastOut}, opacity ${(p) => p.theme.animation.fastOut};
 
 	${(p) =>
 		(p.left || p.width) &&
@@ -136,7 +135,7 @@ const Divider = styled.div<{ visible: boolean }>`
 	height: 50%;
 	transform: translateY(-50%);
 	border-right: solid 1px ${(p) => p.theme.colors.line};
-	transition: opacity 0.5s ${(p) => p.theme.animation.easeOutQuart};
+	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
 	${(p) => !p.visible && `opacity: 0%;`}
 	${/* sc-selector*/ RadioWrap}:last-of-type > & {
@@ -154,7 +153,7 @@ const RadioInput = styled.input`
 	padding: 0;
 	margin: 0 1px;
 	border-radius: ${(p) => p.theme.radii.m};
-	transition: box-shadow 0.25s ${(p) => p.theme.animation.easeOutQuart};
+	transition: box-shadow ${(p) => p.theme.animation.fastOut};
 	cursor: pointer;
 	z-index: -1;
 

@@ -121,7 +121,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0%;
-	transition: opacity 1s ${(p) => p.theme.animation.easeInOutQuint};
+	transition: opacity ${(p) => p.theme.animation.slowInOut};
 
 	${(p) =>
 		p.active &&

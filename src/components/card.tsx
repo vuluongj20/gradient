@@ -160,7 +160,7 @@ const Title = styled.p`
 	position: relative;
 
 	color: ${(p) => p.theme.colors.heading};
-	transition: color 0.1s ${(p) => p.theme.animation.easeOutQuad};
+	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	${Wrap}:hover & {
 		color: ${(p) => p.theme.colors.linkHover};
@@ -175,7 +175,7 @@ const DummyTitle = styled.span`
 	text-decoration-color: ${(p) => p.theme.colors.linkUnderlineHover};
 	z-index: 0;
 	opacity: 0%;
-	transition: opacity 0.125s ${(p) => p.theme.animation.easeOutQuad};
+	transition: opacity ${(p) => p.theme.animation.vFastOut};
 
 	${Wrap}:hover & {
 		opacity: 100%;
@@ -186,7 +186,7 @@ const Tags = styled.div`
 	${(p) => p.theme.text.ui.label};
 	color: ${(p) => p.theme.colors.label};
 	margin-top: ${(p) => p.theme.space[0]};
-	transition: color 0.125s ${(p) => p.theme.animation.easeOutQuad};
+	transition: color ${(p) => p.theme.animation.vFastOut};
 	text-transform: capitalize;
 
 	${Wrap}:hover & {

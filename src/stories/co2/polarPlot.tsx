@@ -746,10 +746,10 @@ const Wrap = styled.div`
     font-size: 0.9em;
     position: relative;
     fill: ${(p) => p.theme.colors.label};
-    transition: opacity ${(p) => p.theme.animation.easeOutCubic} 800ms;
+    transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
   .tick:not(.secondary) {
-    animation: opacity ${(p) => p.theme.animation.easeOutCubic} 800ms;
+    animation: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
   .ticks .tick .text {
     fill: ${(p) => p.theme.colors.label};
@@ -762,7 +762,7 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.colors.line};
     opacity: 80%;
     stroke-width: 1;
-    transition: opacity ${(p) => p.theme.animation.easeOutCubic} 800ms;
+    transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
   .grid-circle.secondary,
   .r.tick.secondary,

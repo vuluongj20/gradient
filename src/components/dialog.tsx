@@ -77,7 +77,7 @@ const OuterWrap = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	transition: 0.5s ${(p) => p.theme.animation.easeOutQuart};
+	transition: ${(p) => p.theme.animation.mediumOut};
 	opacity: 0%;
 	z-index: 10;
 
@@ -108,7 +108,7 @@ const Wrap = styled.div`
 	border-radius	${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
 	transform: translateY(4em);
-	transition: 0.5s ${(p) => p.theme.animation.easeOutQuart};
+	transition: ${(p) => p.theme.animation.mediumOut};
 	text-align: left;
 	align-items: flex-start;
 
