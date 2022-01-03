@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
     transition: background-color 0.5s ${(p) => p.theme.animation.easeOutQuart}, 
       border-color 0.5s ${(p) => p.theme.animation.easeOutQuart},
-      box-shadow 0.5s ${(p) => p.theme.animation.easeOutQuart}
+      box-shadow 0.5s ${(p) => p.theme.animation.easeOutQuart},
       color 0.5s ${(p) => p.theme.animation.easeOutQuart};
   }
 
