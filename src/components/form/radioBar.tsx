@@ -15,7 +15,7 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 	const ref = useRef(null)
 	const state = useRadioGroupState(props)
 	const { radioGroupProps } = useRadioGroup(props, state)
-	const [handleLookup, setHandleLookup] = useState<Record<string, HandleStyles>>([])
+	const [handleLookup, setHandleLookup] = useState<Record<string, HandleStyles>>({})
 	const [handleStyles, setHandleStyles] = useState<HandleStyles>(null)
 
 	/**
@@ -97,8 +97,6 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 	background: ${(p) => p.theme.colors.activeBackground};
 	border-radius: ${(p) => p.theme.radii.m};
 	box-shadow: ${(p) => p.theme.shadows.m};
-	width: 0;
-	transform: translateX(0);
 	opacity: 0%;
 	transition: transform ${(p) => p.theme.animation.fastOut},
 		width ${(p) => p.theme.animation.fastOut}, opacity ${(p) => p.theme.animation.fastOut};
