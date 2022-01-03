@@ -80,7 +80,7 @@ const TooltipTrigger = ({
 
 export default TooltipTrigger
 
-const TooltipWrap = styled.div<{ placement: PlacementAxis }>`
+const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
   background: ${(p) => p.theme.colors.oBackground};
   border: solid 1px ${(p) => p.theme.colors.oLine};

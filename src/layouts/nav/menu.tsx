@@ -23,7 +23,7 @@ type MenuProps = {
 type LinkProps = {
 	path: string
 	title: string
-	type: string
+	type?: string
 	focusable: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
 
-import { Theme } from '@theme'
+import { ThemeSettings } from '@theme'
 
 import Grid from '@components/grid'
 
@@ -16,7 +16,7 @@ import useSections from '@utils/dataHooks/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
-	elevation?: Theme['colors']['elevation']
+	elevation?: ThemeSettings['color']['elevation']
 	inverted?: boolean
 }
 
@@ -44,8 +44,8 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 		})
 
 	return (
-		<LocalThemeProvider appearance={inverted ? 'inverted' : null}>
-			<Wrap elevation={elevation}>
+		<LocalThemeProvider appearance={inverted ? 'inverted' : null} elevation={elevation}>
+			<Wrap>
 				<SiteMap>
 					<Column>
 						<ColLabel>Sections</ColLabel>

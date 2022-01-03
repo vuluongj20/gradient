@@ -72,72 +72,74 @@ const SEO = ({
         dir: metaDir,
       }}
       title={title ? `${title} - Gradient` : `Gradient`}
-      meta={[
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1, viewport-fit=cover',
-        },
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          name: `author`,
-          content: metaAuthor,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          property: `og:title`,
-          content: metaTitle,
-        },
-        {
-          property: `og:image`,
-          content: metaImage.url,
-        },
-        {
-          property: `og:image:alt`,
-          content: metaImage.alt,
-        },
-        {
-          property: `og:image:width`,
-          content: metaImage.width,
-        },
-        {
-          property: `og:image:height`,
-          content: metaImage.height,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: metaAuthorTwitter,
-        },
-        {
-          name: `twitter:title`,
-          content: metaTitle,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-        {
-          name: `twitter:image`,
-          content: metaImage.url,
-        },
-        {
-          name: `twitter:image:alt`,
-          content: metaImage.alt,
-        },
-      ].concat(meta)}
+      meta={(
+        [
+          {
+            name: 'viewport',
+            content: 'width=device-width, initial-scale=1, viewport-fit=cover',
+          },
+          {
+            name: `description`,
+            content: metaDescription,
+          },
+          {
+            name: `author`,
+            content: metaAuthor,
+          },
+          {
+            property: `og:type`,
+            content: `website`,
+          },
+          {
+            property: `og:title`,
+            content: metaTitle,
+          },
+          {
+            property: `og:image`,
+            content: metaImage.url,
+          },
+          {
+            property: `og:image:alt`,
+            content: metaImage.alt,
+          },
+          {
+            property: `og:image:width`,
+            content: metaImage.width,
+          },
+          {
+            property: `og:image:height`,
+            content: metaImage.height,
+          },
+          {
+            property: `og:description`,
+            content: metaDescription,
+          },
+          {
+            name: `twitter:card`,
+            content: `summary`,
+          },
+          {
+            name: `twitter:creator`,
+            content: metaAuthorTwitter,
+          },
+          {
+            name: `twitter:title`,
+            content: metaTitle,
+          },
+          {
+            name: `twitter:description`,
+            content: metaDescription,
+          },
+          {
+            name: `twitter:image`,
+            content: metaImage.url,
+          },
+          {
+            name: `twitter:image:alt`,
+            content: metaImage.alt,
+          },
+        ] as Meta[]
+      ).concat(meta)}
     />
   )
 }

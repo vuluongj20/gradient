@@ -3,15 +3,15 @@ import { HTMLAttributes } from 'react'
 import { colorAliases } from './layouts/theme/colors'
 
 type Props = {
-  htmlAttributes: HTMLAttributes<HTMLDocument>
-  headComponents: JSX.Element[]
+  htmlAttributes: HTMLAttributes<HTMLHtmlElement>
+  headComponents: HTMLHeadElement | HTMLHeadElement[]
   bodyAttributes: HTMLAttributes<HTMLBodyElement>
-  preBodyComponents: JSX.Element[]
+  preBodyComponents: HTMLHeadElement | HTMLHeadElement[]
   body: string
-  postBodyComponents: JSX.Element[]
+  postBodyComponents: HTMLHeadElement | HTMLHeadElement[]
 }
 
-export default function HTML(props: Props): JSX.Element {
+const HTML = (props: Props) => {
   return (
     <html lang="en" {...props.htmlAttributes}>
       <head>
@@ -76,3 +76,5 @@ export default function HTML(props: Props): JSX.Element {
     </html>
   )
 }
+
+export default HTML

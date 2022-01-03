@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as tocbot from 'tocbot'
 
-import { Theme } from '@theme'
+import { ThemeSettings } from '@theme'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	label: string
 	contentSelector: string
-	elevation?: Theme['colors']['elevation']
-	className: string
+	elevation?: ThemeSettings['color']['elevation']
+	className?: string
 }
 
 const TOC = ({
@@ -57,6 +57,8 @@ const TOC = ({
 			tocSelector: `${TocContent}`,
 			scrollSmooth: false,
 			headingSelector: 'h2',
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			activeListItemClass: 'active',
 		})
 

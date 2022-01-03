@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import CardGroup from './cardGroup'
 
-import { Theme } from '@theme'
+import { ThemeSettings } from '@theme'
 
 import { Section as ISection, Story } from '@types'
 
@@ -11,7 +11,7 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 type Props = {
 	section: ISection
 	stories: Story[]
-	elevation?: Theme['colors']['elevation']
+	elevation?: ThemeSettings['color']['elevation']
 }
 
 const Section = ({ section, stories, elevation }: Props): JSX.Element => {

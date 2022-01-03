@@ -1,4 +1,4 @@
-import * as CSS from 'csstype'
+import { CSSObject } from 'styled-components'
 
 import { Theme } from './index'
 
@@ -6,18 +6,13 @@ import { Breakpoint } from '@types'
 
 import { paddingHorizontal, breakpoints } from '@utils/styling'
 
-type CSSObject = Record<keyof CSS.Properties, CSS.Properties>
+type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 
-type CSSGroup = CSSObject | CSS.Properties
+type CSSUtil = Record<CSSUtilName, CSSObject>
 
-type CSSUtilName =
-	| 'spread'
-	| 'flexCenter'
-	| 'absCenter'
-	| 'focusVisible'
-	| 'defaultTransitions'
+type CSSStringUtilName = 'defaultTransitions'
 
-type CSSUtil = Record<CSSUtilName, CSSGroup | string>
+type CSSStringUtil = Record<CSSStringUtilName, string>
 
 type MediaUtil = { media: Record<Breakpoint, string> }
 
@@ -30,9 +25,9 @@ type SpacingName =
 	| 'marginBottom'
 	| 'paddingHorizontal'
 
-export type SpacingUtil = { space: Record<SpacingName, CSSGroup[] | CSSGroup> }
+export type SpacingUtil = { space: Record<SpacingName, CSSObject | CSSObject[]> }
 
-export type Utils = CSSUtil & MediaUtil & SpacingUtil
+export type Utils = CSSUtil & CSSStringUtil & MediaUtil & SpacingUtil
 
 const breakpointNames = Object.keys(breakpoints)
 
@@ -51,8 +46,8 @@ const adaptiveSpacing: Record<Breakpoint, number>[] = [
 const generateAdaptiveSpacing = (
 	theme: Omit<Theme, 'utils'>,
 	properties: string[],
-): CSSGroup[] => {
-	const generateCSSProperties = (props: string[], value: string): CSSGroup =>
+): CSSObject[] => {
+	const generateCSSProperties = (props: string[], value: string): CSSObject =>
 		Object.fromEntries(props.map((p) => [p, value]))
 
 	return theme.space.map((s, i) => ({

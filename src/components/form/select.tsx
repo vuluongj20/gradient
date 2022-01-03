@@ -10,7 +10,7 @@ import Popover from './popover'
 
 type Props = SelectProps<object> & {
 	name: string
-	className: string
+	className?: string
 }
 
 const Select = (props: Props) => {

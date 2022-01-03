@@ -16,9 +16,10 @@
     "cbuild": "gatsby clean & gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix & npx stylelint '*/**/*.{js,jsx,ts,tsx}'",
     "eslint": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix",
-    "stylelint": "npx stylelint '*/**/*.{js,jsx,ts,tsx}'"
+    "stylelint": "npx stylelint '*/**/*.{js,jsx,ts,tsx}'",
+    "tslint": "tsc --noemit --skipLibCheck",
+    "lint": "yarn eslint & yarn tslint & yarn stylelint"
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.14.9",

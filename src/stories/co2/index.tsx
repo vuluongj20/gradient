@@ -18,8 +18,8 @@ export type Data = {
 export type VizData = {
   key: string
   height: string
-  text: {
-    des: { type: 'span' | 'sub'; content: string }[][]
+  text?: {
+    des?: { type: 'span' | 'sub'; content: string }[][]
   }
   vizContent: { state: string; des: string; params?: number[] }[]
 }

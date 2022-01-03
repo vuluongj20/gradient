@@ -1,5 +1,4 @@
 import gsap from 'gsap'
-import { Timeline } from 'gsap/core'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -20,7 +19,7 @@ type BinderProps = {
 }
 
 const Target = (props: TargetProps): JSX.Element => (
-	<TargetWrap to="/" tabIndex="-1" {...props}>
+	<TargetWrap to="/" tabIndex={-1} {...props}>
 		<TargetLineHorizontal />
 		<TargetLineVertical />
 		<TargetCircle />
@@ -41,7 +40,7 @@ const Stamp = (): JSX.Element => {
 				<StampText to="/">GRDNT</StampText>
 			</StampSection>
 			<StampSection>
-				<StampText to="/" tabIndex="-1">
+				<StampText to="/" tabIndex={-1}>
 					{dateString}
 				</StampText>
 			</StampSection>
@@ -61,7 +60,7 @@ const crossInAnimation = userReducedMotion
 
 const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 	/** Initialize hamburger animation */
-	const hamTimeline = useRef<Timeline>()
+	const hamTimeline = useRef<gsap.core.Timeline>()
 	useEffect(() => {
 		hamTimeline.current = gsap
 			.timeline()

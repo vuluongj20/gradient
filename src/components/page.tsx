@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Footer from './footer'
 
-import { Theme } from '@theme'
+import { ThemeSettings } from '@theme'
 
 import SectionDivider from '@components/sectionDivider'
 
@@ -11,10 +11,10 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	children: ReactNode
-	elevation?: Theme['colors']['elevation']
+	elevation?: ThemeSettings['color']['elevation']
 	footerProps?: {
 		inverted?: boolean
-		elevation?: Theme['colors']['elevation']
+		elevation?: ThemeSettings['color']['elevation']
 	}
 }
 

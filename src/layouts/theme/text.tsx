@@ -1,4 +1,4 @@
-import * as CSS from 'csstype'
+import { CSSObject } from 'styled-components'
 
 import { Breakpoint } from '@types'
 
@@ -17,7 +17,7 @@ type TextCategoryDefinition = TextCategoryStyles & {
 	fontSizes: Record<Breakpoint, number>
 }
 
-type TextCategory = TextCategoryStyles & Record<string, CSS.Properties>
+type TextCategory = CSSObject
 
 type TextCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
 
