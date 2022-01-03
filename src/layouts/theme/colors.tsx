@@ -95,7 +95,7 @@ const paper: ColorPalette = {
 		surface1: '#FAFAFA',
 		surface2: '#FFFFFF',
 		surface3: '#FFFFFF',
-		surface4: '#F5F5F5',
+		surface4: '#F2F2F2',
 		gray1: '#212529',
 		gray2: '#33383D',
 		gray3: '#494F55',
