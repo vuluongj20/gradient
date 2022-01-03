@@ -1,11 +1,18 @@
 import { useRadioGroup, useRadio } from '@react-aria/radio'
 import { useRadioGroupState, RadioGroupState } from '@react-stately/radio'
 import { AriaRadioProps, AriaRadioGroupProps } from '@react-types/radio'
-import { useRef, useEffect, useState } from 'react'
+import { RefObject, ReactNode, useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import Tooltip from '@components/tooltip'
+
+type Option = {
+	value: string
+	label: string
+	tooltip?: ReactNode
+}
 type RadioBarProps = AriaRadioGroupProps & {
-	options: { value: string; label: string }[]
+	options: Option[]
 	moveLeft?: boolean
 }
 
@@ -45,8 +52,8 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 				<Radio
 					key={option.value}
 					state={state}
-					{...option}
 					nextValue={props.options[i + 1]?.value}
+					{...option}
 				>
 					{option.label}
 				</Radio>
@@ -56,16 +63,36 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 	)
 }
 
-type RadioProps = AriaRadioProps & {
-	state: RadioGroupState
-	nextValue?: string
-}
+type RadioProps = AriaRadioProps &
+	Option & {
+		state: RadioGroupState
+		nextValue?: string
+		children: ReactNode
+	}
 
 const Radio = ({ nextValue, state, ...props }: RadioProps) => {
 	const ref = useRef(null)
 	const { inputProps } = useRadio(props, state, ref)
 	const isSelected = state.selectedValue === props.value
 	const nextOptionIsSelected = state.selectedValue === nextValue
+
+	if (props.tooltip) {
+		return (
+			<Tooltip content={props.tooltip} data-radio-value={props.value}>
+				{({ props: tProps, ref: tRef }) => (
+					<RadioWrap
+						isSelected={isSelected}
+						ref={tRef as RefObject<HTMLLabelElement>}
+						{...tProps}
+					>
+						<RadioInput {...inputProps} ref={ref} />
+						{props.children}
+						<Divider visible={!isSelected && !nextOptionIsSelected} />
+					</RadioWrap>
+				)}
+			</Tooltip>
+		)
+	}
 
 	return (
 		<RadioWrap data-radio-value={props.value} isSelected={isSelected}>

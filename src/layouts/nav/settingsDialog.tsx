@@ -12,9 +12,13 @@ const Dialog = () => {
 	} = useContext(SettingsContext)
 
 	const appearanceOptions = [
-		{ value: 'auto', label: 'Sync with system' },
-		{ value: 'light', label: 'Light' },
-		{ value: 'dark', label: 'Dark' },
+		{
+			value: 'auto',
+			label: 'Sync with system',
+			tooltip: "Match your system's active appearance",
+		},
+		{ value: 'light', label: 'Light', tooltip: 'Use light appearance' },
+		{ value: 'dark', label: 'Dark', tooltip: 'Use dark appearance' },
 	]
 
 	const setAppearance = (option: string) => {

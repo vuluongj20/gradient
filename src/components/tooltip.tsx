@@ -4,7 +4,7 @@ import { mergeProps } from '@react-aria/utils'
 import { useTooltipTriggerState, TooltipTriggerState } from '@react-stately/tooltip'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { AriaTooltipProps, TooltipTriggerProps } from '@react-types/tooltip'
-import { MutableRefObject, ReactNode, useRef } from 'react'
+import { RefObject, ReactNode, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
@@ -12,7 +12,7 @@ type Props = AriaTooltipProps & {
   state: TooltipTriggerState
   children: ReactNode
   placement: Placement
-  triggerRef: MutableRefObject<HTMLDivElement>
+  triggerRef: RefObject<HTMLElement>
 }
 
 const Tooltip = ({ triggerRef, placement, state, ...props }: Props) => {
@@ -44,7 +44,7 @@ const Tooltip = ({ triggerRef, placement, state, ...props }: Props) => {
 
 type TriggerChildrenProps = {
   props: TooltipTriggerAria['triggerProps']
-  ref: MutableRefObject<HTMLElement>
+  ref: RefObject<HTMLElement>
 }
 type TriggerProps = TooltipTriggerProps & {
   content: ReactNode
@@ -66,7 +66,7 @@ const TooltipTrigger = ({
   )
 
   return (
-    <TriggerWrap>
+    <TriggerWrap {...props}>
       {props.children({ props: triggerProps, ref })}
       <Tooltip triggerRef={ref} state={state} placement={placement} {...tooltipProps}>
         {content}
