@@ -44,23 +44,26 @@ const Dialog = ({
 	}, [props.isOpen])
 
 	return (
-		<CSSTransition in={props.isOpen} timeout={200} unmountOnExit mountOnEnter>
-			<OuterWrap {...underlayProps}>
-				<FocusScope contain restoreFocus autoFocus>
-					<Wrap {...overlayProps} {...dialogProps} {...modalProps} ref={ref}>
-						{showCloseButton && (
-							<CloseButton {...closeButtonProps} aria-label="Dismiss">
-								<StyledIconClose />
-							</CloseButton>
-						)}
-						{title && (
-							<TitleWrap>
-								<Title {...titleProps}>{title}</Title>
-							</TitleWrap>
-						)}
-						{children}
-					</Wrap>
-				</FocusScope>
+		// todo: remove appear
+		<CSSTransition in={props.isOpen} timeout={200} mountOnEnter appear>
+			<OuterWrap>
+				<Backdrop {...underlayProps}>
+					<FocusScope contain restoreFocus autoFocus>
+						<Wrap {...overlayProps} {...dialogProps} {...modalProps} ref={ref}>
+							{showCloseButton && (
+								<CloseButton {...closeButtonProps} aria-label="Dismiss">
+									<StyledIconClose />
+								</CloseButton>
+							)}
+							{title && (
+								<TitleWrap>
+									<Title {...titleProps}>{title}</Title>
+								</TitleWrap>
+							)}
+							{children}
+						</Wrap>
+					</FocusScope>
+				</Backdrop>
 			</OuterWrap>
 		</CSSTransition>
 	)
@@ -69,15 +72,6 @@ const Dialog = ({
 export default Dialog
 
 const OuterWrap = styled.div`
-	${(p) => p.theme.utils.flexCenter};
-	${(p) => p.theme.utils.space.paddingHorizontal};
-	position: fixed;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background: ${(p) => p.theme.colors.line};
 	transition: 0.5s ${(p) => p.theme.animation.easeOutQuart};
 	opacity: 0%;
 
@@ -89,6 +83,18 @@ const OuterWrap = styled.div`
 	&.exit-active {
 		opacity: 0%;
 	}
+`
+
+const Backdrop = styled.div`
+	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.utils.space.paddingHorizontal};
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: ${(p) => p.theme.colors.line};
 `
 
 const Wrap = styled.div`
@@ -127,14 +133,16 @@ const TitleWrap = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding-right: ${(p) => p.theme.space[0]};
+	padding-right: ${(p) => p.theme.space[2]};
+	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
 const CloseButton = styled.button`
+	display: flex;
 	position: absolute;
 	top: ${(p) => p.theme.space[1]};
 	right: ${(p) => p.theme.space[1]};
-	padding: ${(p) => p.theme.space[1]};
+	padding: ${(p) => p.theme.space[0]};
 	color: ${(p) => p.theme.colors.label};
 
 	&:hover {

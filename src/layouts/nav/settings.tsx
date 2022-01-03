@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import SettingsDialog from './settingsDialog'
+
 import DialogControl from '@components/dialogControl'
 
 import IconVisibility from '@icons/visibility'
@@ -13,7 +15,7 @@ const Settings = ({ className }: Props) => {
 		<Wrap className={className}>
 			<DialogControl
 				dialogTitle="Reading Preferences"
-				dialogContent={<p>Another hello there to you! Another hello there to you!</p>}
+				dialogContent={SettingsDialog}
 				buttonLabel={
 					<ButtonInnerWrap>
 						<IconVisibility />
