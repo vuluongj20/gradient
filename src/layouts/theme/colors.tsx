@@ -1,4 +1,6 @@
 type ColorKeys =
+	| 'white'
+	| 'black'
 	| 'surface1'
 	| 'surface2'
 	| 'surface3'
@@ -70,6 +72,8 @@ type ColorAliasName =
 	| 'heading'
 	| 'text'
 	| 'label'
+	| 'activeBackground'
+	| 'onActiveBackground'
 	| 'buttonLabel'
 	| 'buttonLabelHover'
 	| 'link'
@@ -86,6 +90,8 @@ const paper: ColorPalette = {
 	name: 'Paper',
 	appearance: 'light',
 	colors: {
+		white: '#F1F2F4',
+		black: '#212529',
 		surface1: '#FAFAFA',
 		surface2: '#FFFFFF',
 		surface3: '#FFFFFF',
@@ -143,6 +149,8 @@ const charcoal: ColorPalette = {
 	name: 'Charcoal',
 	appearance: 'dark',
 	colors: {
+		white: '#F1F2F4',
+		black: '#212529',
 		surface1: '#171717',
 		surface2: '#1A1A1A',
 		surface3: '#1F1F1F',
@@ -236,6 +244,9 @@ export const getColorAliases = (
 	buttonLabelHover: colors.gray3,
 
 	focus: colors.red3,
+
+	activeBackground: colors.red2,
+	onActiveBackground: colors.white,
 
 	link: colors.red1,
 	linkUnderline: colors.red5,

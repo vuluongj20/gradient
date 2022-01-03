@@ -44,7 +44,7 @@ const adaptiveSpacing: Record<Breakpoint, number>[] = [
 ]
 
 const generateAdaptiveSpacing = (
-	theme: Omit<Theme, 'u'>,
+	theme: Omit<Theme, 'utils'>,
 	properties: string[],
 ): CSSGroup[] => {
 	const generateCSSProperties = (props: string[], value: string): CSSGroup =>
@@ -61,7 +61,7 @@ const generateAdaptiveSpacing = (
 	}))
 }
 
-export const generateUtils = (theme: Omit<Theme, 'u'>): Utils => ({
+export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	spread: {
 		position: 'absolute',
 		top: 0,

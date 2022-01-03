@@ -12,7 +12,7 @@ const Settings = ({ className }: Props) => {
 	return (
 		<Wrap className={className}>
 			<DialogControl
-				dialogTitle="Hello there"
+				dialogTitle="Reading Preferences"
 				dialogContent={<p>Another hello there to you! Another hello there to you!</p>}
 				buttonLabel={
 					<ButtonInnerWrap>

@@ -86,6 +86,17 @@ const GlobalStyles = createGlobalStyle`
     ${(p) => p.theme.utils.focusVisible}; 
   }
 
+  input {
+    font-size: ${(p) => p.theme.text.rootSize};
+    transition: color, box-shadow 0.125s ${(p) => p.theme.animation.easeOutQuad};
+  }
+  input:focus {
+    outline: none;
+  }
+  input.focus-visible {
+    ${(p) => p.theme.utils.focusVisible}; 
+  }
+
   hr {
     width: 100%;
     border-top: none;

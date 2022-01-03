@@ -10,30 +10,33 @@ import {
 	radii,
 	boxShadowsLight,
 	boxShadowsDark,
+	textShadows,
 	space,
 } from '@utils/styling'
 
-export type Theme = ColorPalette['colors'] &
-	ColorAliases & {
-		/** Box shadow */
-		shadows: Partial<Record<Breakpoint, string>>
-		/** Text */
-		text: {
-			rootSize: string
-			ui: TextScale
-			content: TextScale
-		}
-		/** Animation */
-		animation: Animation
-		/** Breakpoints */
-		breakpoints: Record<Breakpoint, string>
-		/** Border radius */
-		radii: Partial<Record<Breakpoint, string>>
-		/** Spacing */
-		space: string[]
-		/** Utilities */
-		utils: Utils
+export type Theme = {
+	colors: ColorPalette['colors'] & ColorAliases
+	/** Text */
+	text: {
+		rootSize: string
+		ui: TextScale
+		content: TextScale
 	}
+	/** Box shadow */
+	shadows: Partial<Record<Breakpoint, string>> & {
+		text: string
+	}
+	/** Animation */
+	animation: Animation
+	/** Breakpoints */
+	breakpoints: Record<Breakpoint, string>
+	/** Border radius */
+	radii: Partial<Record<Breakpoint, string>>
+	/** Spacing */
+	space: string[]
+	/** Utilities */
+	utils: Utils
+}
 
 export type ThemeSettings = {
 	color: {
@@ -50,12 +53,12 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
-const partialDefaultTheme: Omit<Theme, 'u'> = {
+const partialDefaultTheme: Omit<Theme, 'utils'> = {
 	colors: {
 		...colorPalettes.paper.colors,
-		...getColorAliases(colorPalettes.paper.colors, false),
+		...getColorAliases(colorPalettes.paper.colors, 'default'),
 	},
-	shadows: boxShadowsLight,
+	shadows: { ...boxShadowsLight, text: textShadows.light },
 	text: {
 		rootSize: '100%',
 		ui: textScales.sohne,
@@ -72,7 +75,7 @@ const partialDefaultTheme: Omit<Theme, 'u'> = {
 
 const defaultTheme: Theme = {
 	...partialDefaultTheme,
-	u: generateUtils(partialDefaultTheme),
+	utils: generateUtils(partialDefaultTheme),
 }
 
 export const getAppearance = (colorSettings: ThemeSettings['color']): string => {
@@ -121,12 +124,15 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 	/** Animation */
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-	const partialTheme: Omit<Theme, 'u'> = {
+	const partialTheme: Omit<Theme, 'utils'> = {
 		colors: {
 			...colorPalettes[colorPalette].colors,
 			...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
 		},
-		shadows: appearance === 'light' ? boxShadowsLight : boxShadowsDark,
+		shadows:
+			appearance === 'light'
+				? { ...boxShadowsLight, text: textShadows.light }
+				: { ...boxShadowsDark, text: textShadows.dark },
 		text: {
 			rootSize: '100%',
 			ui: textScales[settings.text.ui],

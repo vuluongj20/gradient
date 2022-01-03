@@ -5,7 +5,7 @@ import Select from './form/select'
 
 import Grid from '@components/grid'
 
-type FilterProps = {
+export type FilterProps = {
 	id: string
 	label: string
 	defaultValue: string
