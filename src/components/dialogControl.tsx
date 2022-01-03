@@ -1,4 +1,4 @@
-import { useButton } from '@react-aria/button'
+import { ButtonAria, useButton } from '@react-aria/button'
 import { OverlayContainer } from '@react-aria/overlays'
 import { useOverlayTriggerState } from '@react-stately/overlays'
 import { Fragment, ReactNode, useRef } from 'react'
@@ -24,7 +24,9 @@ type Props = {
 	/**
 	 * Content inside the dialog
 	 */
-	dialogContent?: ReactNode | ((p) => ReactNode)
+	dialogContent?:
+		| ReactNode
+		| ((buttonProps: ButtonAria<unknown>['buttonProps']) => ReactNode)
 	/**
 	 * Whether to show the close button (as a cross in the
 	 * top right corner), defaults to true
