@@ -51,10 +51,21 @@ type TriggerChildrenProps = {
 }
 
 type TriggerProps = TooltipTriggerProps & {
-  /** Contents of the tooltip */
+  /**
+   * Contents of the tooltip
+   */
   content: ReactNode
-  /** Tooltip trigger */
+  /**
+   * Tooltip trigger. The props and ref are provided
+   * (p: TriggerChildrenProps). Should return a trigger
+   * element with the props and ref attached.
+   */
   children: (p: TriggerChildrenProps) => JSX.Element
+  /**
+   * Whether to stretch (via theme.utils.spread) the
+   * tooltip container to match its parent's bounds
+   */
+  spread?: boolean
   placement?: Placement
   offset?: number
   className?: string
@@ -62,6 +73,7 @@ type TriggerProps = TooltipTriggerProps & {
 
 const TooltipTrigger = (
   {
+    spread = false,
     placement = 'bottom',
     offset = 8,
     delay = 1000,
@@ -85,7 +97,7 @@ const TooltipTrigger = (
   if (!content) return props.children({ props: {}, ref })
 
   return (
-    <TriggerWrap className={className} {...props}>
+    <TriggerWrap className={className} spread={spread} {...props}>
       {props.children({ props: triggerProps, ref })}
       <Tooltip
         state={state}
@@ -136,6 +148,6 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   }
 `
 
-const TriggerWrap = styled.div`
-  position: relative;
+const TriggerWrap = styled.div<{ spread: boolean }>`
+  ${(p) => (p.spread ? p.theme.utils.spread : `position: relative`)};
 `

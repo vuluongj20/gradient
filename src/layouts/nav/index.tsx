@@ -3,7 +3,8 @@ import gsap from 'gsap'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import Binder, { HamWrap } from './binder'
+import Binder from './binder'
+import { HamWrap } from './ham'
 import Menu, { MenuWrap } from './menu'
 import useMenuLinks from './useMenuLinks'
 

@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
+import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
 import TransitionLink from '@components/transitionLink'
@@ -123,9 +124,16 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 
 	return (
 		<MenuWrap>
-			{links.map((link) => (
-				<Link key={link.slug} focusable={isOpen} toggleMenu={toggleMenu} {...link} />
-			))}
+			<LinksWrap>
+				{links.map((link) => (
+					<Link key={link.slug} focusable={isOpen} toggleMenu={toggleMenu} {...link} />
+				))}
+			</LinksWrap>
+			<UtilsWrap>
+				<UtilsInnerWrap>
+					<StyledSettings withLabel />
+				</UtilsInnerWrap>
+			</UtilsWrap>
 		</MenuWrap>
 	)
 }
@@ -147,11 +155,14 @@ export const MenuWrap = styled.nav`
 	${(p) => p.theme.utils.media.xs} {
 		width: 100%;
 		flex-direction: column;
+		justify-content: space-between;
 		border-right: none;
 		padding-top: calc(2.5em + ${(p) => p.theme.space[2]});
 		transform: translateY(-100%);
 	}
 `
+
+const LinksWrap = styled.div``
 
 const LinkWrap = styled(TransitionLink)`
 	display: block;
@@ -290,4 +301,26 @@ const LinkTypeLine = styled.div`
 	background-color: ${(p) => p.theme.colors.heading};
 	transform-origin: right;
 	transition: 0.375s ${(p) => p.theme.animation.outQuart};
+`
+
+const UtilsWrap = styled.div`
+	display: none;
+	padding: 0 ${paddingHorizontal * 0.75}em;
+
+	${(p) => p.theme.utils.media.xs} {
+		display: block;
+	}
+`
+
+const UtilsInnerWrap = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: stretch;
+	gap: ${(p) => p.theme.space[1]};
+	padding: ${(p) => p.theme.space[1]} 0;
+	border-top: solid 1px ${(p) => p.theme.colors.line};
+`
+
+const StyledSettings = styled(Settings)`
+	transform: translateX(-${(p) => p.theme.space[0]});
 `
