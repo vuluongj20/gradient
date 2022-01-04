@@ -341,7 +341,7 @@ const Logo = styled(TransitionLink)`
 
 const StyledSettings = styled(Settings)`
 	position: absolute;
-	bottom: 0;
+	bottom: ${(p) => p.theme.space[1]};
 	left: 50%;
 	transform: translateX(-50%);
 `

@@ -4,7 +4,7 @@ import { mergeProps } from '@react-aria/utils'
 import { useTooltipTriggerState, TooltipTriggerState } from '@react-stately/tooltip'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { AriaTooltipProps, TooltipTriggerProps } from '@react-types/tooltip'
-import { RefObject, ReactNode, useRef } from 'react'
+import { RefObject, ReactNode, useRef, forwardRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
@@ -51,22 +51,28 @@ type TriggerChildrenProps = {
 }
 
 type TriggerProps = TooltipTriggerProps & {
+  /** Contents of the tooltip */
   content: ReactNode
+  /** Tooltip trigger */
   children: (p: TriggerChildrenProps) => JSX.Element
   placement?: Placement
   offset?: number
   className?: string
 }
 
-const TooltipTrigger = ({
-  placement = 'bottom',
-  offset = 8,
-  delay = 1000,
-  className,
-  content,
-  ...props
-}: TriggerProps) => {
-  const ref = useRef()
+const TooltipTrigger = (
+  {
+    placement = 'bottom',
+    offset = 8,
+    delay = 1000,
+    className,
+    content,
+    ...props
+  }: TriggerProps,
+  refProp,
+) => {
+  const internalRef = useRef()
+  const ref = refProp ?? internalRef
   const state = useTooltipTriggerState({ delay, ...props })
   const { triggerProps, tooltipProps } = useTooltipTrigger(
     { delay, ...props },
@@ -74,6 +80,8 @@ const TooltipTrigger = ({
     ref,
   )
 
+  // If no tooltip content is provided, then simply return
+  // the trigger element without any tooltip associated with it
   if (!content) return props.children({ props: {}, ref })
 
   return (
@@ -92,7 +100,7 @@ const TooltipTrigger = ({
   )
 }
 
-export default TooltipTrigger
+export default forwardRef(TooltipTrigger)
 
 const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};

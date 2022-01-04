@@ -1,16 +1,26 @@
 import { ButtonAria, useButton } from '@react-aria/button'
 import { OverlayContainer } from '@react-aria/overlays'
+import { mergeProps } from '@react-aria/utils'
 import { useOverlayTriggerState } from '@react-stately/overlays'
-import { Fragment, ReactNode, useRef } from 'react'
+import { Fragment, ReactNode, RefObject, useRef } from 'react'
 
 import Dialog, { DialogProps } from './dialog'
+
+import Tooltip, { TooltipPlacement } from '@components/tooltip'
+
+type TriggerChildrenProps = {
+	props: ButtonAria<unknown>
+	ref: RefObject<HTMLElement>
+}
 
 type Props = {
 	/**
 	 * For optionally replacing the trigger button.
 	 * Should return a button with the props and ref (from p) attached
 	 */
-	trigger?: (p) => ReactNode
+	trigger?: (p: TriggerChildrenProps) => ReactNode
+	triggerTooltip?: string
+	triggerTooltipPlacement?: TooltipPlacement
 	/**
 	 * If the trigger prop hasn't been provided, use this prop to
 	 * create a basic button with the provided label
@@ -24,9 +34,9 @@ type Props = {
 	/**
 	 * Content inside the dialog
 	 */
-	dialogContent?:
+	dialogContent?: 
 		| ReactNode
-		| ((buttonProps: ButtonAria<unknown>['buttonProps']) => ReactNode)
+		| ((closeButtonProps: ButtonAria<unknown>['buttonProps']) => ReactNode)
 	/**
 	 * Whether to show the close button (as a cross in the
 	 * top right corner), defaults to true
@@ -36,15 +46,17 @@ type Props = {
 
 const DialogControl = ({
 	trigger,
+	triggerTooltip,
+	triggerTooltipPlacement,
 	buttonLabel,
 	dialogProps = {},
 	dialogTitle,
 	dialogContent,
 	showCloseButton = true,
 }: Props) => {
-	const state = useOverlayTriggerState({})
 	const openButtonRef = useRef()
 	const closeButtonRef = useRef()
+	const state = useOverlayTriggerState({})
 
 	const { buttonProps: openButtonProps } = useButton(
 		{ onPress: () => state.open() },
@@ -61,9 +73,20 @@ const DialogControl = ({
 			return trigger({ props: openButtonProps, ref: openButtonRef })
 		}
 		return (
-			<button {...openButtonProps} ref={openButtonRef}>
-				{buttonLabel}
-			</button>
+			<Tooltip
+				content={triggerTooltip}
+				placement={triggerTooltipPlacement}
+				ref={openButtonRef}
+			>
+				{({ props: tooltipTriggerProps }) => (
+					<button
+						ref={openButtonRef}
+						{...mergeProps(tooltipTriggerProps, openButtonProps)}
+					>
+						{buttonLabel}
+					</button>
+				)}
+			</Tooltip>
 		)
 	}
 
