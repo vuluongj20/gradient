@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import SettingsDialog from './settingsDialog'
 
-import DialogControl from '@components/dialogControl'
+import Dialog from '@components/dialog'
 
 import IconVisibility from '@icons/visibility'
 
@@ -13,10 +13,10 @@ type Props = {
 const Settings = ({ className }: Props) => {
 	return (
 		<Wrap className={className}>
-			<DialogControl
-				dialogTitle="Reading Preferences"
-				dialogContent={SettingsDialog}
-				buttonLabel={
+			<Dialog
+				title="Reading Preferences"
+				content={SettingsDialog}
+				triggerLabel={
 					<ButtonInnerWrap>
 						<IconVisibility />
 					</ButtonInnerWrap>
