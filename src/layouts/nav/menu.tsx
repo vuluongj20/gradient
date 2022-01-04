@@ -132,7 +132,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 
 export default Menu
 
-const MenuWrap = styled.nav`
+export const MenuWrap = styled.nav`
 	display: flex;
 	position: absolute;
 	top: 0;
@@ -160,7 +160,7 @@ const LinkWrap = styled(TransitionLink)`
 	position: absolute;
 	top: 0;
 	right: 0;
-
+	background: ${(p) => p.theme.colors.background};
 	text-decoration: none;
 	opacity: 0%;
 
@@ -170,6 +170,7 @@ const LinkWrap = styled(TransitionLink)`
 
 	&.focus-visible {
 		z-index: 1;
+		box-shadow: inset 0 0 0 4px ${(p) => p.theme.colors.focus};
 	}
 
 	&:last-of-type {
@@ -193,7 +194,6 @@ const LinkWrap = styled(TransitionLink)`
 const LinkInnerWrap = styled.div`
 	${(p) => p.theme.utils.spread};
 	cursor: pointer;
-	background: ${(p) => p.theme.colors.background};
 	transition: transform ${(p) => p.theme.animation.fastOut};
 
 	${LinkWrap}:not(:first-of-type) > & {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Binder, { HamWrap } from './binder'
-import Menu from './menu'
+import Menu, { MenuWrap } from './menu'
 import useMenuLinks from './useMenuLinks'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
@@ -30,13 +30,12 @@ const Nav = (): JSX.Element => {
 
 	const focusTrapOptions = {
 		returnFocusOnDeactivate: true,
-		initialFocus: `${HamWrap}`,
-		setReturnFocus: `${HamWrap}`,
+		setReturnFocus: document.querySelector(`${HamWrap}`) as HTMLElement,
 	}
 
 	const focusTrapInstance =
 		typeof window !== 'undefined' && typeof document !== 'undefined'
-			? focusTrap.createFocusTrap(`${Wrap}`, focusTrapOptions)
+			? focusTrap.createFocusTrap(`${MenuWrap}`, focusTrapOptions)
 			: null
 
 	useEffect(() => {

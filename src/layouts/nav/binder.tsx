@@ -1,10 +1,13 @@
 import { useLocation } from '@reach/router'
+import { useButton } from '@react-aria/button'
+import { mergeProps } from '@react-aria/utils'
 import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Settings from './settings'
 
+import Tooltip from '@components/tooltip'
 import TransitionLink from '@components/transitionLink'
 
 import { reducedMotion, paddingHorizontal } from '@utils/styling'
@@ -76,6 +79,9 @@ const crossInAnimation = userReducedMotion
 	: { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
 
 const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
+	const ref = useRef()
+	const { buttonProps } = useButton({ onPress: () => toggleMenu(!menuOpen) }, ref)
+
 	/** Initialize hamburger animation */
 	const hamTimeline = useRef<gsap.core.Timeline>()
 	useEffect(() => {
@@ -120,19 +126,23 @@ const Hamburger = ({ toggleMenu, menuOpen }: BinderProps) => {
 	}, [menuOpen])
 
 	return (
-		<HamWrap onClick={() => toggleMenu(!menuOpen)} aria-label="Menu">
-			<HamInnerWrap>
-				<HamLineTop />
-				<HamLineMiddle />
-				<HamLineBottom />
-				<HamCrossLinePosWrap>
-					<HamCrossLineInner />
-				</HamCrossLinePosWrap>
-				<HamCrossLineNegWrap>
-					<HamCrossLineInner />
-				</HamCrossLineNegWrap>
-			</HamInnerWrap>
-		</HamWrap>
+		<Tooltip content="Menu" placement="right">
+			{({ props, ref }) => (
+				<HamWrap aria-label="Menu" ref={ref} {...mergeProps(props, buttonProps)}>
+					<HamInnerWrap>
+						<HamLineTop />
+						<HamLineMiddle />
+						<HamLineBottom />
+						<HamCrossLinePosWrap>
+							<HamCrossLineInner />
+						</HamCrossLinePosWrap>
+						<HamCrossLineNegWrap>
+							<HamCrossLineInner />
+						</HamCrossLineNegWrap>
+					</HamInnerWrap>
+				</HamWrap>
+			)}
+		</Tooltip>
 	)
 }
 
