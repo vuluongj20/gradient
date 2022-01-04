@@ -1,3 +1,4 @@
+import { useLocation } from '@reach/router'
 import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
@@ -27,6 +28,8 @@ const Target = (props: TargetProps): JSX.Element => (
 )
 
 const Stamp = (): JSX.Element => {
+	const location = useLocation()
+	const disabled = location.pathname === '/'
 	const dateFormat: Intl.DateTimeFormatOptions = {
 		year: 'numeric',
 		month: 'short',
@@ -37,12 +40,26 @@ const Stamp = (): JSX.Element => {
 	return (
 		<StampWrap>
 			<StampSection>
-				<StampText to="/">GRDNT</StampText>
+				<StampLink
+					to="/"
+					tooltip={!disabled && 'Return home'}
+					tooltipPlacement="right"
+					height={4}
+					tabIndex={disabled ? -1 : 0}
+				>
+					<StampText>GRDNT</StampText>
+				</StampLink>
 			</StampSection>
 			<StampSection>
-				<StampText to="/" tabIndex={-1}>
-					{dateString}
-				</StampText>
+				<StampLink
+					to="/"
+					tooltip={!disabled && 'Return home'}
+					tooltipPlacement="right"
+					height={6}
+					tabIndex={-1}
+				>
+					<StampText>{dateString}</StampText>
+				</StampLink>
 			</StampSection>
 		</StampWrap>
 	)
@@ -132,6 +149,7 @@ const Binder = ({ toggleMenu, menuOpen }: BinderProps): JSX.Element => (
 export default Binder
 
 const Wrap = styled.div`
+	position: relative;
 	width: 100%;
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.colors.line};
@@ -212,11 +230,19 @@ const StampSection = styled.div`
 	height: 100%;
 `
 
-const StampText = styled(TransitionLink)`
+const StampLink = styled(TransitionLink)<{ height: number }>`
 	${(p) => p.theme.text.ui.label};
+	${(p) => p.theme.utils.flexCenter};
+	display: inline-flex;
+	position: relative;
+	width: 1.4em;
+	height: ${(p) => p.height}em;
 	opacity: 60%;
 	line-height: 1.4;
 	white-space: nowrap;
+`
+
+const StampText = styled.span`
 	transform: rotate(-90deg);
 `
 

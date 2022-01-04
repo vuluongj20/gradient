@@ -9,6 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
 export type TooltipPlacement = Placement
+
 type Props = AriaTooltipProps & {
   state: TooltipTriggerState
   children: ReactNode
@@ -48,16 +49,20 @@ type TriggerChildrenProps = {
   props: TooltipTriggerAria['triggerProps']
   ref: RefObject<HTMLElement>
 }
+
 type TriggerProps = TooltipTriggerProps & {
   content: ReactNode
   children: (p: TriggerChildrenProps) => JSX.Element
   placement?: Placement
   offset?: number
+  className?: string
 }
+
 const TooltipTrigger = ({
   placement = 'bottom',
   offset = 8,
   delay = 1000,
+  className,
   content,
   ...props
 }: TriggerProps) => {
@@ -72,7 +77,7 @@ const TooltipTrigger = ({
   if (!content) return props.children({ props: {}, ref })
 
   return (
-    <TriggerWrap {...props}>
+    <TriggerWrap className={className} {...props}>
       {props.children({ props: triggerProps, ref })}
       <Tooltip
         state={state}
