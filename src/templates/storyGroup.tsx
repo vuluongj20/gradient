@@ -102,7 +102,13 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 				</Header>
 				<FilterBar filters={filters} onChange={onChange} />
 				<SwitchTransition>
-					<CSSTransition timeout={375} key={`${selectedSection}-${selectedAuthor}`}>
+					<CSSTransition
+						timeout={{
+							enter: 500,
+							exit: 375,
+						}}
+						key={`${selectedSection}-${selectedAuthor}`}
+					>
 						<Results>
 							{filteredStories.map((story) => (
 								<Card
