@@ -1,8 +1,8 @@
 import { useLocation } from '@reach/router'
 import { FocusScope } from '@react-aria/focus'
-import { usePreventScroll } from '@react-aria/overlays'
+import { usePreventScroll, useModal } from '@react-aria/overlays'
 import gsap from 'gsap'
-import { useEffect, Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import styled from 'styled-components'
 
 import Settings from './settings'
@@ -62,6 +62,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	const links = useMenuLinks()
 
 	usePreventScroll({ isDisabled: !isOpen })
+	const { modalProps } = useModal({ isDisabled: !isOpen })
 
 	useEffect(() => {
 		if (isOpen) {

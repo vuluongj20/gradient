@@ -1,70 +1,61 @@
 import { useDialog } from '@react-aria/dialog'
 import { FocusScope } from '@react-aria/focus'
-import { useOverlay, useModal } from '@react-aria/overlays'
+import { useOverlay, useModal, usePreventScroll } from '@react-aria/overlays'
+import { mergeProps } from '@react-aria/utils'
 import { ButtonProps } from '@react-types/button'
 import { AriaDialogProps } from '@react-types/dialog'
-import { OverlayProps } from '@react-types/overlays'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
-import { ReactNode, useRef, useEffect } from 'react'
-import { CSSTransition } from 'react-transition-group'
+import { ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
 import IconClose from '@icons/close'
 
-export type DialogContentProps = AriaDialogProps &
-	OverlayProps & {
-		title?: string
-		isOpen: boolean
-		onClose: () => void
-		children?: ReactNode
-		isDismissable?: boolean
-		showCloseButton: boolean
-		closeButtonProps: ButtonProps
-	}
+export type DialogContentProps = AriaDialogProps & {
+	title?: string
+	isOpen: boolean
+	onClose: () => void
+	animationState?: string
+	renderContent?: () => ReactNode
+	isDismissable?: boolean
+	showCloseButton: boolean
+	closeButtonProps: ButtonProps
+}
 
 const DialogContent = ({
+	animationState,
 	isDismissable = true,
 	showCloseButton,
 	closeButtonProps,
+	renderContent,
 	...props
 }: DialogContentProps) => {
-	const { title, children } = props
-	const ref = useRef()
-	const { modalProps } = useModal()
+	const { title } = props
+	const ref = useRef(null)
 	const { overlayProps, underlayProps } = useOverlay({ ...props, isDismissable }, ref)
 	const { dialogProps, titleProps } = useDialog(props, ref)
 
-	useEffect(() => {
-		if (!ref.current) return null
-		if (props.isOpen) {
-			disableBodyScroll(ref.current)
-		} else {
-			enableBodyScroll(ref.current)
-		}
-	}, [props.isOpen])
+	usePreventScroll()
+	const { modalProps } = useModal()
 
 	return (
-		<CSSTransition in={props.isOpen} timeout={500} mountOnEnter unmountOnExit>
-			<OuterWrap>
-				<Backdrop {...underlayProps}>
-					<FocusScope contain restoreFocus autoFocus>
-						<Wrap {...overlayProps} {...dialogProps} {...modalProps} ref={ref}>
-							{showCloseButton && (
-								<CloseButton {...closeButtonProps} aria-label="Dismiss">
-									<StyledIconClose />
-								</CloseButton>
-							)}
-							{title && (
-								<TitleWrap>
-									<Title {...titleProps}>{title}</Title>
-								</TitleWrap>
-							)}
-							{children}
-						</Wrap>
-					</FocusScope>
-				</Backdrop>
-			</OuterWrap>
-		</CSSTransition>
+		<OuterWrap className={animationState}>
+			<Backdrop {...underlayProps}>
+				<FocusScope contain restoreFocus autoFocus>
+					<Wrap ref={ref} {...mergeProps(overlayProps, dialogProps, modalProps)}>
+						{showCloseButton && (
+							<CloseButton {...closeButtonProps} aria-label="Dismiss">
+								<StyledIconClose />
+							</CloseButton>
+						)}
+						{title && (
+							<TitleWrap>
+								<Title {...titleProps}>{title}</Title>
+							</TitleWrap>
+						)}
+						{renderContent()}
+					</Wrap>
+				</FocusScope>
+			</Backdrop>
+		</OuterWrap>
 	)
 }
 
@@ -80,12 +71,12 @@ const OuterWrap = styled.div`
 	opacity: 0%;
 	z-index: ${(p) => p.theme.zIndices.dialog};
 
-	&.enter-active,
-	&.enter-done {
+	&.entering,
+	&.entered {
 		opacity: 100%;
 	}
 
-	&.exit-active {
+	&.exiting {
 		opacity: 0%;
 	}
 `
@@ -110,12 +101,12 @@ const Wrap = styled.div`
 	text-align: left;
 	align-items: flex-start;
 
-	${/* sc-selector */ OuterWrap}.enter-active &,
-	${/* sc-selector */ OuterWrap}.enter-done & {
+	${/* sc-selector */ OuterWrap}.entering &,
+	${/* sc-selector */ OuterWrap}.entered & {
 		transform: translateY(0);
 	}
 
-	${/* sc-selector */ OuterWrap}.exit-active & {
+	${/* sc-selector */ OuterWrap}.exiting & {
 		transform: translateY(0);
 	}
 

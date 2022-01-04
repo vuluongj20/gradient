@@ -3,6 +3,7 @@ import { OverlayContainer } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { useOverlayTriggerState } from '@react-stately/overlays'
 import { Fragment, ReactNode, RefObject, useRef } from 'react'
+import { Transition } from 'react-transition-group'
 
 import DialogContent, { DialogContentProps } from './dialogContent'
 
@@ -111,18 +112,22 @@ const Dialog = ({
 	return (
 		<Fragment>
 			{renderOpenButton()}
-			<OverlayContainer>
-				<DialogContent
-					{...contentProps}
-					title={title}
-					isOpen={state.isOpen}
-					onClose={state.close}
-					showCloseButton={showCloseButton}
-					closeButtonProps={closeButtonProps}
-				>
-					{renderDialogContent()}
-				</DialogContent>
-			</OverlayContainer>
+			<Transition in={state.isOpen} timeout={500} mountOnEnter unmountOnExit>
+				{(animationState) => (
+					<OverlayContainer>
+						<DialogContent
+							{...contentProps}
+							title={title}
+							isOpen={state.isOpen}
+							onClose={state.close}
+							showCloseButton={showCloseButton}
+							closeButtonProps={closeButtonProps}
+							animationState={animationState}
+							renderContent={renderDialogContent}
+						/>
+					</OverlayContainer>
+				)}
+			</Transition>
 		</Fragment>
 	)
 }

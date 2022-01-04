@@ -44,7 +44,7 @@ const Popover = ({
     })
 
   return (
-    <FocusScope restoreFocus>
+    <FocusScope restoreFocus autoFocus contain>
       <CSSTransition in={isOpen} timeout={200} unmountOnExit>
         <Wrap
           {...mergeProps(overlayProps, positionProps)}
