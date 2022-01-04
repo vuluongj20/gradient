@@ -4,7 +4,7 @@ import SettingsDialog from './settingsDialog'
 
 import Dialog from '@components/dialog'
 
-import IconVisibility from '@icons/visibility'
+import IconSettings from '@icons/settings'
 
 type Props = {
 	className?: string
@@ -14,14 +14,14 @@ const Settings = ({ className }: Props) => {
 	return (
 		<Wrap className={className}>
 			<Dialog
-				title="Reading Preferences"
+				title="Settings"
 				content={SettingsDialog}
 				triggerLabel={
 					<ButtonInnerWrap>
-						<IconVisibility />
+						<IconSettings />
 					</ButtonInnerWrap>
 				}
-				triggerTooltip="Reading preferences"
+				triggerTooltip="Settings"
 				triggerTooltipPlacement="right"
 			/>
 		</Wrap>

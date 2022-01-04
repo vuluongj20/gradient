@@ -45,7 +45,7 @@ const Stamp = (): JSX.Element => {
 			<StampSection>
 				<StampLink
 					to="/"
-					tooltip={!disabled && 'Return home'}
+					tooltip={!disabled && 'Home'}
 					tooltipPlacement="right"
 					height={4}
 					tabIndex={disabled ? -1 : 0}
@@ -56,7 +56,7 @@ const Stamp = (): JSX.Element => {
 			<StampSection>
 				<StampLink
 					to="/"
-					tooltip={!disabled && 'Return home'}
+					tooltip={!disabled && 'Home'}
 					tooltipPlacement="right"
 					height={6}
 					tabIndex={-1}
