@@ -72,7 +72,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 
 	return (
 		<HamOuterWrap>
-			<Tooltip content="Menu" placement="right" spread>
+			<Tooltip content={menuOpen ? 'Close menu' : 'Menu'} placement="right" spread>
 				{({ props, ref }) => (
 					<HamWrap aria-label="Menu" ref={ref} {...mergeProps(props, buttonProps)}>
 						<HamInnerWrap>
@@ -121,7 +121,7 @@ const HamOuterWrap = styled.div`
 	}
 `
 
-export const HamWrap = styled.button`
+const HamWrap = styled.button`
 	${(p) => p.theme.utils.spread};
 	box-sizing: border-box;
 `

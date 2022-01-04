@@ -1,11 +1,9 @@
-import * as focusTrap from 'focus-trap'
 import gsap from 'gsap'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Binder from './binder'
-import { HamWrap } from './ham'
-import Menu, { MenuWrap } from './menu'
+import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
@@ -24,25 +22,12 @@ const Nav = (): JSX.Element => {
 		if (nextState) {
 			setMenuOpen(nextState)
 		} else {
-			focusTrapInstance.deactivate()
 			setMenuOpen(nextState)
 		}
 	}
 
-	const focusTrapOptions = {
-		returnFocusOnDeactivate: true,
-		setReturnFocus: document.querySelector(`${HamWrap}`) as HTMLElement,
-	}
-
-	const focusTrapInstance =
-		typeof window !== 'undefined' && typeof document !== 'undefined'
-			? focusTrap.createFocusTrap(`${MenuWrap}`, focusTrapOptions)
-			: null
-
 	useEffect(() => {
 		if (menuOpen) {
-			focusTrapInstance.activate()
-
 			if (windowWidth > numericBreakpoints.xs) {
 				const animationDistance =
 					windowWidth > numericBreakpoints.s
@@ -61,29 +46,19 @@ const Nav = (): JSX.Element => {
 			})
 		}
 
-		return () => {
-			focusTrapInstance.deactivate()
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [menuOpen, focusTrapInstance])
+	}, [menuOpen])
 
 	/** Escape key event listener */
 	const onKeyDown = (e) => {
 		if (e.key === 'Escape') {
-			focusTrapInstance.deactivate()
 			toggleMenu(false)
 		}
 	}
 
 	return (
 		<Wrap onKeyDown={onKeyDown}>
-			<PageShadow
-				active={menuOpen}
-				onClick={() => {
-					focusTrapInstance.deactivate()
-					toggleMenu(false)
-				}}
-			/>
+			<PageShadow active={menuOpen} onClick={() => toggleMenu(false)} />
 			<Binder toggleMenu={toggleMenu} menuOpen={menuOpen} />
 			<Menu toggleMenu={toggleMenu} isOpen={menuOpen} animation={menuAnimation} />
 		</Wrap>
@@ -108,7 +83,7 @@ const Wrap = styled.div`
 
 	${(p) => p.theme.utils.media.xs} {
 		width: 100%;
-		height: 2.75em;
+		height: 0;
 	}
 `
 

@@ -1,5 +1,6 @@
 import { useLocation } from '@reach/router'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { FocusScope } from '@react-aria/focus'
+import { usePreventScroll } from '@react-aria/overlays'
 import gsap from 'gsap'
 import { useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
@@ -60,12 +61,10 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	const windowWidth = useWindowWidth()
 	const links = useMenuLinks()
 
+	usePreventScroll({ isDisabled: !isOpen })
+
 	useEffect(() => {
-		const scrollLockTarget = document.querySelector(`${MenuWrap}`)
-
 		if (isOpen) {
-			disableBodyScroll(scrollLockTarget)
-
 			if (windowWidth > numericBreakpoints.xs) {
 				gsap.to(`${LinkWrap}`, {
 					opacity: 1,
@@ -92,8 +91,6 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 				)
 			}
 		} else {
-			enableBodyScroll(scrollLockTarget)
-
 			if (windowWidth > numericBreakpoints.xs) {
 				gsap.to(`${LinkWrap}`, {
 					opacity: 0,
@@ -123,36 +120,40 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	}, [windowWidth])
 
 	return (
-		<MenuWrap>
-			<LinksWrap>
-				{links.map((link) => (
-					<Link key={link.slug} focusable={isOpen} toggleMenu={toggleMenu} {...link} />
-				))}
-			</LinksWrap>
-			<UtilsWrap>
-				<UtilsInnerWrap>
-					<StyledSettings withLabel />
-				</UtilsInnerWrap>
-			</UtilsWrap>
-		</MenuWrap>
+		<FocusScope autoFocus restoreFocus contain>
+			<MenuWrap>
+				<LinksWrap>
+					{links.map((link) => (
+						<Link key={link.slug} focusable={isOpen} toggleMenu={toggleMenu} {...link} />
+					))}
+				</LinksWrap>
+				<UtilsWrap>
+					<UtilsInnerWrap>
+						<StyledSettings withLabel />
+					</UtilsInnerWrap>
+				</UtilsWrap>
+			</MenuWrap>
+		</FocusScope>
 	)
 }
 
 export default Menu
 
-export const MenuWrap = styled.nav`
+const MenuWrap = styled.nav`
 	display: flex;
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 0;
-	height: 100vh;
+	height: 100%;
+	max-height: 100vh;
 	transform: translateX(100%);
 	background: ${(p) => p.theme.colors.background};
 
 	z-index: -1;
 
 	${(p) => p.theme.utils.media.xs} {
+		position: fixed;
 		width: 100%;
 		flex-direction: column;
 		justify-content: space-between;
@@ -306,6 +307,10 @@ const LinkTypeLine = styled.div`
 const UtilsWrap = styled.div`
 	display: none;
 	padding: 0 ${paddingHorizontal * 0.75}em;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 
 	${(p) => p.theme.utils.media.xs} {
 		display: block;

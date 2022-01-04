@@ -30,6 +30,11 @@ const Wrap = styled.div`
 	background: ${(p) => p.theme.colors.iBackground};
 
 	${(p) => p.theme.utils.media.xs} {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 2.75em;
 		background: ${(p) => p.theme.colors.background};
 		border-right: none;
 	}
