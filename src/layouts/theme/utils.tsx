@@ -86,8 +86,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	},
 	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
       border-color 0.5s ${theme.animation.outQuart},
-      box-shadow 0.5s ${theme.animation.outQuart},
-      color 0.5s ${theme.animation.outQuart}`,
+      box-shadow 0.5s ${theme.animation.outQuart}`,
 	media: {
 		xs: `@media only screen and (max-width: ${theme.breakpoints.xs})`,
 		s: `@media only screen and (max-width: ${theme.breakpoints.s})`,
