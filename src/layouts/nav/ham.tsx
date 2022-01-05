@@ -109,8 +109,8 @@ const HamOuterWrap = styled.div`
 	${(p) => p.theme.utils.media.l} {
 		top: 0.25em;
 		left: 0.25em;
-		width: 2em;
-		height: 2em;
+		width: 2.125em;
+		height: 2.125em;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -118,6 +118,8 @@ const HamOuterWrap = styled.div`
 		left: ${paddingHorizontal * 0.75}em;
 		transform: translate(-15%, -50%);
 		padding: 0;
+		width: 3em;
+		height: 3em;
 	}
 `
 
@@ -130,6 +132,11 @@ const HamInnerWrap = styled.div`
 	${(p) => p.theme.utils.absCenter};
 	width: 70%;
 	padding-top: 75%;
+
+	${(p) => p.theme.utils.media.xs} {
+		width: 1.5em;
+		padding-top: 50%;
+	}
 `
 
 const Line = styled.div`

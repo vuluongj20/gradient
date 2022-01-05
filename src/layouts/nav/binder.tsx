@@ -49,7 +49,7 @@ const Wrap = styled.div`
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 2.75em;
+		height: 3em;
 		background: ${(p) => p.theme.colors.background};
 		border-right: none;
 	}
