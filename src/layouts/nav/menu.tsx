@@ -1,6 +1,6 @@
 import { useLocation } from '@reach/router'
 import { FocusScope } from '@react-aria/focus'
-import { usePreventScroll, useModal } from '@react-aria/overlays'
+import { usePreventScroll } from '@react-aria/overlays'
 import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import styled from 'styled-components'
@@ -12,15 +12,6 @@ import TransitionLink from '@components/transitionLink'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 import { numericBreakpoints, paddingHorizontal } from '@utils/styling'
-
-type MenuProps = {
-	isOpen: boolean
-	toggleMenu: Dispatch<SetStateAction<boolean>>
-	animation: {
-		duration: number
-		ease?: string
-	}
-}
 
 type LinkProps = {
 	path: string
@@ -35,14 +26,13 @@ const Link = ({ path, title, type, focusable, toggleMenu }: LinkProps): JSX.Elem
 	const disabled = location.pathname.startsWith(path)
 
 	return (
-		<LinkWrap
-			to={path}
-			onClick={() => disabled && toggleMenu(false)}
-			onExit={() => toggleMenu(false)}
-			className="nav-link-wrap"
-			tabIndex={focusable ? 0 : -1}
-		>
-			<LinkInnerWrap>
+		<LinkWrap onClick={() => disabled && toggleMenu(false)}>
+			<LinkInnerWrap
+				to={path}
+				className="nav-link-wrap"
+				tabIndex={focusable ? 0 : -1}
+				onExit={() => toggleMenu(false)}
+			>
 				<LinkContentBox>
 					{type && (
 						<LinkTypeWrap>
@@ -57,12 +47,21 @@ const Link = ({ path, title, type, focusable, toggleMenu }: LinkProps): JSX.Elem
 	)
 }
 
+type MenuProps = {
+	isOpen: boolean
+	toggleMenu: Dispatch<SetStateAction<boolean>>
+	animation: {
+		duration: number
+		ease?: string
+	}
+	animationState: string
+}
+
 const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	const windowWidth = useWindowWidth()
 	const links = useMenuLinks()
 
 	usePreventScroll({ isDisabled: !isOpen })
-	const { modalProps } = useModal({ isDisabled: !isOpen })
 
 	useEffect(() => {
 		if (isOpen) {
@@ -164,9 +163,12 @@ const MenuWrap = styled.nav`
 	}
 `
 
-const LinksWrap = styled.div``
+const LinksWrap = styled.ul`
+	padding: 0;
+	margin: 0;
+`
 
-const LinkWrap = styled(TransitionLink)`
+const LinkWrap = styled.li`
 	display: block;
 	height: 100%;
 	width: 6em;
@@ -174,6 +176,7 @@ const LinkWrap = styled(TransitionLink)`
 	top: 0;
 	right: 0;
 	background: ${(p) => p.theme.colors.background};
+	margin: 0;
 	text-decoration: none;
 	opacity: 0%;
 
@@ -195,8 +198,11 @@ const LinkWrap = styled(TransitionLink)`
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.space[1]});
 		padding: 0 ${paddingHorizontal * 0.75}em;
-		margin: 0 auto;
 		box-sizing: border-box;
+
+		&& {
+			margin: 0 auto;
+		}
 
 		&:not(:first-of-type) {
 			border-left: none;
@@ -204,7 +210,7 @@ const LinkWrap = styled(TransitionLink)`
 	}
 `
 
-const LinkInnerWrap = styled.div`
+const LinkInnerWrap = styled(TransitionLink)`
 	${(p) => p.theme.utils.spread};
 	cursor: pointer;
 	transition: transform ${(p) => p.theme.animation.fastOut};
@@ -221,7 +227,9 @@ const LinkInnerWrap = styled.div`
 	}`}
 
 	${(p) => p.theme.utils.media.xs} {
+		display: block;
 		position: relative;
+		padding: ${(p) => p.theme.space[1]} 0;
 		${/* sc-selector */ LinkWrap}:not(:first-of-type) > & {
 			border-left: none;
 			border-top: solid 1px ${(p) => p.theme.colors.line};
@@ -323,7 +331,7 @@ const UtilsInnerWrap = styled.div`
 	align-items: center;
 	justify-content: stretch;
 	gap: ${(p) => p.theme.space[1]};
-	padding: ${(p) => p.theme.space[1]} 0;
+	padding: ${(p) => p.theme.space[2]} 0;
 	border-top: solid 1px ${(p) => p.theme.colors.line};
 `
 
