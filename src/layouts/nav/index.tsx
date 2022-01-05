@@ -98,11 +98,13 @@ const Nav = (): JSX.Element => {
 				toggleMenu={toggleMenu}
 				menuOpen={menuOpen}
 				beforeSettingsDialogOpen={beforeSettingsDialogOpen}
+				afterSettingsDialogClose={afterSettingsDialogClose}
 			/>
 			<Menu
 				toggleMenu={toggleMenu}
 				isOpen={menuOpen}
 				animations={animations}
+				beforeSettingsDialogOpen={beforeSettingsDialogOpen}
 				afterSettingsDialogClose={afterSettingsDialogClose}
 			/>
 		</Wrap>
