@@ -53,6 +53,14 @@ type Props = {
 	 * top right corner), defaults to true
 	 */
 	showCloseButton?: boolean
+	/**
+	 * Called before the dialog opens
+	 */
+	beforeOpen?: () => void
+	/**
+	 * Called before the dialog opens
+	 */
+	afterClose?: () => void
 }
 
 const Dialog = ({
@@ -64,18 +72,30 @@ const Dialog = ({
 	title,
 	content,
 	showCloseButton = true,
+	beforeOpen,
+	afterClose,
 }: Props) => {
 	const openButtonRef = useRef()
 	const closeButtonRef = useRef()
 	const state = useOverlayTriggerState({})
 
 	const { buttonProps: openButtonProps } = useButton(
-		{ onPress: () => state.open() },
+		{
+			onPress: () => {
+				beforeOpen?.()
+				state.open()
+			},
+		},
 		openButtonRef,
 	)
 
 	const { buttonProps: closeButtonProps } = useButton(
-		{ onPress: () => state.close() },
+		{
+			onPress: () => {
+				state.close()
+				afterClose?.()
+			},
+		},
 		closeButtonRef,
 	)
 

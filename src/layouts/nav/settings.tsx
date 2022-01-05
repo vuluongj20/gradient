@@ -9,14 +9,23 @@ import IconSettings from '@icons/settings'
 type Props = {
 	withLabel?: boolean
 	className?: string
+	beforeDialogOpen?: () => void
+	afterDialogClose?: () => void
 }
 
-const Settings = ({ withLabel, className }: Props) => {
+const Settings = ({
+	withLabel,
+	className,
+	beforeDialogOpen,
+	afterDialogClose,
+}: Props) => {
 	return (
 		<Wrap className={className}>
 			<Dialog
 				title="Settings"
 				content={SettingsDialog}
+				beforeOpen={beforeDialogOpen}
+				afterClose={afterDialogClose}
 				triggerLabel={
 					<TriggerInnerWrap>
 						<IconSettings />

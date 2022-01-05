@@ -7,19 +7,30 @@ import Target from './target'
 
 import TransitionLink from '@components/transitionLink'
 
-type Props = HamProps
+type Props = HamProps & {
+	beforeSettingsDialogOpen?: () => void
+	afterSettingsDialogClose?: () => void
+}
 
-const Binder = ({ toggleMenu, menuOpen }: Props): JSX.Element => (
+const Binder = ({
+	toggleMenu,
+	menuOpen,
+	beforeSettingsDialogOpen,
+	afterSettingsDialogClose,
+}: Props): JSX.Element => (
 	<Wrap>
 		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 		<Stamp />
 		<Target left />
 		<LogoWrap>
-			<Logo to="/" tooltip="Home" spread>
+			<Logo to="/" tooltip="Home">
 				Gradient
 			</Logo>
 		</LogoWrap>
-		<StyledSettings />
+		<StyledSettings
+			beforeDialogOpen={beforeSettingsDialogOpen}
+			afterDialogClose={afterSettingsDialogClose}
+		/>
 	</Wrap>
 )
 

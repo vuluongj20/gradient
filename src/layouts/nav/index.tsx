@@ -16,12 +16,17 @@ const animations = {
 }
 
 const Nav = (): JSX.Element => {
+	// Create & intialize refs
 	const focusTrapRef = useRef(null)
 	const pageContentRef = useRef(null)
 
+	useEffect(() => {
+		focusTrapRef.current = focusTrap.createFocusTrap(`${Wrap}`)
+		pageContentRef.current = document.querySelector('#page-content')
+	}, [])
+
+	// Initialize & manage open state
 	const [menuOpen, setMenuOpen] = useState<boolean>(false)
-	const windowWidth = useWindowWidth()
-	const menuLinks = useMenuLinks()
 
 	const toggleMenu = (nextState: boolean) => {
 		if (nextState) {
@@ -31,10 +36,7 @@ const Nav = (): JSX.Element => {
 		}
 	}
 
-	useEffect(() => {
-		focusTrapRef.current = focusTrap.createFocusTrap(`${Wrap}`)
-		pageContentRef.current = document.querySelector('#page-content')
-	}, [])
+	// Trap focus on menu open
 	useEffect(() => {
 		if (menuOpen) {
 			focusTrapRef.current.activate()
@@ -42,6 +44,10 @@ const Nav = (): JSX.Element => {
 			focusTrapRef.current.deactivate()
 		}
 	}, [menuOpen])
+
+	// Apply animations w/ gsap
+	const windowWidth = useWindowWidth()
+	const menuLinks = useMenuLinks()
 
 	useEffect(() => {
 		if (menuOpen) {
@@ -68,18 +74,37 @@ const Nav = (): JSX.Element => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [menuOpen])
 
-	/** Escape key event listener */
+	// Handle escape key press
 	const onKeyDown = (e) => {
 		if (e.key === 'Escape') {
 			toggleMenu(false)
 		}
 	}
 
+	const beforeSettingsDialogOpen = () => {
+		if (!menuOpen) return
+		focusTrapRef.current.pause()
+	}
+
+	const afterSettingsDialogClose = () => {
+		if (!menuOpen) return
+		focusTrapRef.current.unpause()
+	}
+
 	return (
 		<Wrap onKeyDown={onKeyDown}>
 			<PageShadow active={menuOpen} onClick={() => toggleMenu(false)} />
-			<Binder toggleMenu={toggleMenu} menuOpen={menuOpen} />
-			<Menu toggleMenu={toggleMenu} isOpen={menuOpen} animations={animations} />
+			<Binder
+				toggleMenu={toggleMenu}
+				menuOpen={menuOpen}
+				beforeSettingsDialogOpen={beforeSettingsDialogOpen}
+			/>
+			<Menu
+				toggleMenu={toggleMenu}
+				isOpen={menuOpen}
+				animations={animations}
+				afterSettingsDialogClose={afterSettingsDialogClose}
+			/>
 		</Wrap>
 	)
 }

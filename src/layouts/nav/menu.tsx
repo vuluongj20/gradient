@@ -20,9 +20,17 @@ type Props = {
 			ease?: string
 		}
 	>
+	beforeSettingsDialogOpen?: () => void
+	afterSettingsDialogClose?: () => void
 }
 
-const Menu = ({ isOpen, animations, toggleMenu }: Props): JSX.Element => {
+const Menu = ({
+	isOpen,
+	animations,
+	toggleMenu,
+	beforeSettingsDialogOpen,
+	afterSettingsDialogClose,
+}: Props): JSX.Element => {
 	const windowWidth = useWindowWidth()
 	const links = useMenuLinks()
 
@@ -106,7 +114,11 @@ const Menu = ({ isOpen, animations, toggleMenu }: Props): JSX.Element => {
 			</LinksWrap>
 			<UtilsWrap>
 				<UtilsInnerWrap>
-					<StyledSettings withLabel />
+					<StyledSettings
+						withLabel
+						beforeDialogOpen={beforeSettingsDialogOpen}
+						afterDialogClose={afterSettingsDialogClose}
+					/>
 				</UtilsInnerWrap>
 			</UtilsWrap>
 		</MenuWrap>
