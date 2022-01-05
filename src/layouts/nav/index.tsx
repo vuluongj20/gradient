@@ -10,9 +10,10 @@ import useMenuLinks from './useMenuLinks'
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 import { numericBreakpoints, reducedMotion } from '@utils/styling'
 
-const menuAnimation = reducedMotion()
-	? { duration: 0 }
-	: { duration: 0.75, ease: 'power3.out' }
+const animations = {
+	exit: reducedMotion() ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
+	entry: reducedMotion() ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
+}
 
 const Nav = (): JSX.Element => {
 	const focusTrapRef = useRef(null)
@@ -53,14 +54,14 @@ const Nav = (): JSX.Element => {
 
 				gsap.to([`${PageShadow}`, '#page-content'], {
 					x: animationDistance,
-					...menuAnimation,
+					...animations.entry,
 				})
 			}
 		} else {
 			pageContentRef.current?.setAttribute('aria-hidden', 'false')
 			gsap.to([`${PageShadow}`, '#page-content'], {
 				x: 0,
-				...menuAnimation,
+				...animations.exit,
 			})
 		}
 
@@ -78,7 +79,7 @@ const Nav = (): JSX.Element => {
 		<Wrap onKeyDown={onKeyDown}>
 			<PageShadow active={menuOpen} onClick={() => toggleMenu(false)} />
 			<Binder toggleMenu={toggleMenu} menuOpen={menuOpen} />
-			<Menu toggleMenu={toggleMenu} isOpen={menuOpen} animation={menuAnimation} />
+			<Menu toggleMenu={toggleMenu} isOpen={menuOpen} animations={animations} />
 		</Wrap>
 	)
 }
@@ -122,7 +123,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 		p.active &&
 		`
 		pointerEvents: initial;
-		opacity: 40%;
+		opacity: 20%;
 		z-index: 1;
 		`}
 

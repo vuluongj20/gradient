@@ -17,8 +17,8 @@ type Props = {
 	disabled?: boolean
 }
 
-const transitionOut = { duration: 0.75, ease: 'power3.out' }
-const transitionIn = { duration: 1, ease: 'power3.out' }
+const exitTransition = { duration: 0.75, ease: 'power3.inOut' }
+const entryTransition = { duration: 1, ease: 'power3.out' }
 
 const Link = ({
 	to,
@@ -40,7 +40,7 @@ const Link = ({
 				exit={{
 					trigger: ({ node }) => {
 						onExit?.()
-						gsap.to(node, { opacity: 0, ...transitionOut })
+						gsap.to(node, { opacity: 0, ...exitTransition })
 					},
 					length: 0.75,
 				}}
@@ -49,7 +49,7 @@ const Link = ({
 					trigger: ({ node }) => {
 						gsap.set(node, { opacity: 0 })
 						document.fonts.ready.then(() => {
-							gsap.to(node, { opacity: 1, ...transitionIn })
+							gsap.to(node, { opacity: 1, ...entryTransition })
 						})
 					},
 					duration: 1,

@@ -13,13 +13,16 @@ import { numericBreakpoints, paddingHorizontal } from '@utils/styling'
 type Props = {
 	isOpen: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
-	animation: {
-		duration: number
-		ease?: string
-	}
+	animations: Record<
+		'exit' | 'entry',
+		{
+			duration: number
+			ease?: string
+		}
+	>
 }
 
-const Menu = ({ isOpen, animation, toggleMenu }: Props): JSX.Element => {
+const Menu = ({ isOpen, animations, toggleMenu }: Props): JSX.Element => {
 	const windowWidth = useWindowWidth()
 	const links = useMenuLinks()
 
@@ -33,17 +36,17 @@ const Menu = ({ isOpen, animation, toggleMenu }: Props): JSX.Element => {
 					x: (i) => `+${(i + 1) * (windowWidth > numericBreakpoints.s ? 6 : 5)}em`,
 					pointerEvents: 'none',
 					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
-					...animation,
+					...animations.entry,
 				})
 			} else {
 				gsap.set(`${MenuWrap}`, { x: 0, width: '100%' })
 				gsap.to(`${MenuWrap}`, {
 					y: 0,
-					...animation,
+					...animations.entry,
 				})
 				gsap.to(`${UtilsWrap}`, {
 					opacity: 1,
-					...animation,
+					...animations.entry,
 				})
 				gsap.fromTo(
 					`${MenuLinkWrap}`,
@@ -52,7 +55,7 @@ const Menu = ({ isOpen, animation, toggleMenu }: Props): JSX.Element => {
 						opacity: 1,
 						scaleX: 1,
 						stagger: 0.025,
-						...animation,
+						...animations.entry,
 					},
 				)
 			}
@@ -63,25 +66,25 @@ const Menu = ({ isOpen, animation, toggleMenu }: Props): JSX.Element => {
 					x: 0,
 					pointerEvents: 'none',
 					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
-					...animation,
+					...animations.exit,
 				})
 			} else {
 				gsap.to(`${MenuWrap}`, {
 					y: '-100%',
-					...animation,
+					...animations.exit,
 				})
 				gsap.to(`${UtilsWrap}`, {
 					opacity: 0,
-					...animation,
+					...animations.exit,
 				})
 				gsap.to(`${MenuLinkWrap}`, {
 					opacity: 0,
-					...animation,
+					...animations.exit,
 				})
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen, animation])
+	}, [isOpen])
 
 	// Close menu on resize
 	useEffect(() => {
