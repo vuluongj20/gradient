@@ -66,7 +66,7 @@ export const Wrap = styled.li`
 		position: relative;
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.space[1]});
-		padding: 0 ${paddingHorizontal * 0.75}em;
+		padding: 0 ${paddingHorizontal * 0.5}em;
 		box-sizing: border-box;
 
 		&& {

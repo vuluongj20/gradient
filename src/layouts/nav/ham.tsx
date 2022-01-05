@@ -115,7 +115,7 @@ const HamOuterWrap = styled.div`
 
 	${(p) => p.theme.utils.media.xs} {
 		top: 50%;
-		left: ${paddingHorizontal * 0.75}em;
+		left: ${paddingHorizontal * 0.5}em;
 		transform: translate(-15%, -50%);
 		padding: 0;
 		width: 2.5em;

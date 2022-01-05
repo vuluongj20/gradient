@@ -157,7 +157,7 @@ const LinksWrap = styled.ul`
 `
 const UtilsWrap = styled.div`
 	display: none;
-	padding: 0 ${paddingHorizontal * 0.75}em;
+	padding: 0 ${paddingHorizontal * 0.5}em;
 	position: fixed;
 	bottom: 0;
 	left: 0;

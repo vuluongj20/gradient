@@ -109,8 +109,8 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 				paddingRight: `${paddingHorizontal}em`,
 			},
 			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
-				paddingLeft: `${paddingHorizontal * 0.75}em`,
-				paddingRight: `${paddingHorizontal * 0.75}em`,
+				paddingLeft: `${paddingHorizontal * 0.5}em`,
+				paddingRight: `${paddingHorizontal * 0.5}em`,
 			},
 		},
 	},
