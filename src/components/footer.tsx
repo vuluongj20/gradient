@@ -33,13 +33,15 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 	const archivePage = useArchivePage()
 	const policiesPages = usePoliciesPages()
 
-	const mapSiteLinks = (pages: Page[], Link) =>
+	const mapSiteLinks = (pages: Page[], Wrap) =>
 		pages.map((page) => {
 			const disabled = location.pathname.startsWith(page.path)
 			return (
-				<Link key={page.slug} to={page.path} disabled={disabled}>
-					{page.title}
-				</Link>
+				<Wrap key={page.slug}>
+					<StyledLink to={page.path} disabled={disabled}>
+						{page.title}
+					</StyledLink>
+				</Wrap>
 			)
 		})
 
@@ -92,7 +94,7 @@ const SiteMap = styled(Grid)`
 	${(p) => p.theme.utils.space.paddingVertical[4]};
 `
 
-const Column = styled.div`
+const Column = styled.ul`
 	grid-column-end: span 2;
 
 	display: flex;
@@ -113,13 +115,7 @@ const ColLabel = styled.p`
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
-const ColLink = styled(Link)`
-	text-decoration: none;
-
-	&:not(:last-child) {
-		margin-bottom: ${(p) => p.theme.space[1]};
-	}
-`
+const ColLink = styled.li``
 
 const DisclosuresDivider = styled.hr`
 	grid-column: 1 / -1;
@@ -143,6 +139,18 @@ const PolicyText = styled.p`
 	}
 `
 
-const PolicyLink = styled(Link)`
+const PolicyLink = styled.li`
 	grid-column-end: span 2;
+`
+
+const StyledLink = styled(Link)`
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&:not(:last-child) {
+		margin-bottom: ${(p) => p.theme.space[1]};
+	}
 `

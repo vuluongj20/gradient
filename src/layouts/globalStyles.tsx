@@ -107,6 +107,15 @@ const GlobalStyles = createGlobalStyle`
     grid-column: 1 / -1;
   }
 
+  ol, ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
   li:not(:last-child) {
     margin-bottom: ${(p) => p.theme.space[1]};
   }

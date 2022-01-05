@@ -184,11 +184,6 @@ const LinkWrap = styled.li`
 		width: 5em;
 	}
 
-	&.focus-visible {
-		z-index: 1;
-		box-shadow: inset 0 0 0 4px ${(p) => p.theme.colors.focus};
-	}
-
 	&:last-of-type {
 		border-right: solid 1px ${(p) => p.theme.colors.line};
 	}
@@ -215,33 +210,29 @@ const LinkInnerWrap = styled(TransitionLink)`
 	cursor: pointer;
 	transition: transform ${(p) => p.theme.animation.fastOut};
 
-	${LinkWrap}:not(:first-of-type) > & {
-		border-left: solid 1px ${(p) => p.theme.colors.line};
+	&.focus-visible {
+		z-index: 1;
+		box-shadow: inset 0 0 0 4px ${(p) => p.theme.colors.focus};
 	}
 
-	${(p) =>
-		!p.theme.animation.reduced &&
-		`&:hover,
-		${LinkWrap}.focus-visible > & {
-		transform: translateY(0.5em);
-	}`}
+	${LinkWrap}:not(:first-of-type) > &::after {
+		content: '';
+		${(p) => p.theme.utils.spread};
+		border-left: solid 1px ${(p) => p.theme.colors.line};
+	}
 
 	${(p) => p.theme.utils.media.xs} {
 		display: block;
 		position: relative;
 		padding: ${(p) => p.theme.space[1]} 0;
-		${/* sc-selector */ LinkWrap}:not(:first-of-type) > & {
+
+		${/* sc-selector */ LinkWrap}:not(:first-of-type) > &::after {
 			border-left: none;
 			border-top: solid 1px ${(p) => p.theme.colors.line};
 		}
 
 		&:not(:first-of-type) {
 			border-left: none;
-		}
-
-		&:hover,
-		${/* sc-selector */ LinkWrap}.focus-visible > & {
-			transform: none;
 		}
 	}
 `
@@ -257,6 +248,13 @@ const LinkContentBox = styled.div`
 	transform: rotate(-90deg) translateY(-50%);
 	transition: transform 0.375s ${(p) => p.theme.animation.outQuart};
 
+	${(p) =>
+		!p.theme.animation.reduced &&
+		`${LinkInnerWrap}:hover > &,
+		${LinkInnerWrap}.focus-visible > & {
+		transform: rotate(-90deg) translate(-0.5em, -50%);
+	}`}
+
 	${(p) => p.theme.utils.media.xs} {
 		position: initial;
 		top: auto;
@@ -268,7 +266,7 @@ const LinkContentBox = styled.div`
 		padding: ${(p) => p.theme.space[1]} 0;
 
 		${/* sc-selector */ LinkInnerWrap}:hover > &,
-		${/* sc-selector */ LinkWrap}.focus-visible & {
+		${/* sc-selector */ LinkInnerWrap}.focus-visible & {
 			transform: translate(0.25em, 0);
 		}
 	}
