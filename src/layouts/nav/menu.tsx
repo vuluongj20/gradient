@@ -1,63 +1,25 @@
-import { useLocation } from '@reach/router'
-import { FocusScope } from '@react-aria/focus'
 import { usePreventScroll } from '@react-aria/overlays'
 import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import styled from 'styled-components'
 
+import MenuLink, { Wrap as MenuLinkWrap } from './menuLink'
 import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
-
-import TransitionLink from '@components/transitionLink'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 import { numericBreakpoints, paddingHorizontal } from '@utils/styling'
 
-type LinkProps = {
-	path: string
-	title: string
-	type?: string
-	focusable: boolean
-	toggleMenu: Dispatch<SetStateAction<boolean>>
-}
-
-const Link = ({ path, title, type, focusable, toggleMenu }: LinkProps): JSX.Element => {
-	const location = useLocation()
-	const disabled = location.pathname.startsWith(path)
-
-	return (
-		<LinkWrap onClick={() => disabled && toggleMenu(false)}>
-			<LinkInnerWrap
-				to={path}
-				className="nav-link-wrap"
-				tabIndex={focusable ? 0 : -1}
-				onExit={() => toggleMenu(false)}
-			>
-				<LinkContentBox>
-					{type && (
-						<LinkTypeWrap>
-							<LinkTypeText>{type}</LinkTypeText>
-							<LinkTypeLine />
-						</LinkTypeWrap>
-					)}
-					<LinkTitle>{title}</LinkTitle>
-				</LinkContentBox>
-			</LinkInnerWrap>
-		</LinkWrap>
-	)
-}
-
-type MenuProps = {
+type Props = {
 	isOpen: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 	animation: {
 		duration: number
 		ease?: string
 	}
-	animationState: string
 }
 
-const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
+const Menu = ({ isOpen, animation, toggleMenu }: Props): JSX.Element => {
 	const windowWidth = useWindowWidth()
 	const links = useMenuLinks()
 
@@ -66,11 +28,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 	useEffect(() => {
 		if (isOpen) {
 			if (windowWidth > numericBreakpoints.xs) {
-				gsap.to(`${LinkWrap}`, {
+				gsap.to(`${MenuLinkWrap}`, {
 					opacity: 1,
 					x: (i) => `+${(i + 1) * (windowWidth > numericBreakpoints.s ? 6 : 5)}em`,
 					pointerEvents: 'none',
-					onComplete: () => gsap.set(`${LinkWrap}`, { pointerEvents: 'initial' }),
+					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 					...animation,
 				})
 			} else {
@@ -79,8 +41,12 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 					y: 0,
 					...animation,
 				})
+				gsap.to(`${UtilsWrap}`, {
+					opacity: 1,
+					...animation,
+				})
 				gsap.fromTo(
-					`${LinkWrap}`,
+					`${MenuLinkWrap}`,
 					{ opacity: 0, scaleX: 0.75 },
 					{
 						opacity: 1,
@@ -92,11 +58,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 			}
 		} else {
 			if (windowWidth > numericBreakpoints.xs) {
-				gsap.to(`${LinkWrap}`, {
+				gsap.to(`${MenuLinkWrap}`, {
 					opacity: 0,
 					x: 0,
 					pointerEvents: 'none',
-					onComplete: () => gsap.set(`${LinkWrap}`, { pointerEvents: 'initial' }),
+					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 					...animation,
 				})
 			} else {
@@ -104,7 +70,11 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 					y: '-100%',
 					...animation,
 				})
-				gsap.to(`${LinkWrap}`, {
+				gsap.to(`${UtilsWrap}`, {
+					opacity: 0,
+					...animation,
+				})
+				gsap.to(`${MenuLinkWrap}`, {
 					opacity: 0,
 					...animation,
 				})
@@ -113,27 +83,30 @@ const Menu = ({ isOpen, animation, toggleMenu }: MenuProps): JSX.Element => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen, animation])
 
-	/** Close meny on resize */
+	// Close menu on resize
 	useEffect(() => {
 		toggleMenu(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [windowWidth])
 
 	return (
-		<FocusScope autoFocus restoreFocus contain>
-			<MenuWrap>
-				<LinksWrap>
-					{links.map((link) => (
-						<Link key={link.slug} focusable={isOpen} toggleMenu={toggleMenu} {...link} />
-					))}
-				</LinksWrap>
-				<UtilsWrap>
-					<UtilsInnerWrap>
-						<StyledSettings withLabel />
-					</UtilsInnerWrap>
-				</UtilsWrap>
-			</MenuWrap>
-		</FocusScope>
+		<MenuWrap>
+			<LinksWrap>
+				{links.map((link) => (
+					<MenuLink
+						key={link.slug}
+						focusable={isOpen}
+						toggleMenu={toggleMenu}
+						{...link}
+					/>
+				))}
+			</LinksWrap>
+			<UtilsWrap>
+				<UtilsInnerWrap>
+					<StyledSettings withLabel />
+				</UtilsInnerWrap>
+			</UtilsWrap>
+		</MenuWrap>
 	)
 }
 
@@ -167,150 +140,6 @@ const LinksWrap = styled.ul`
 	padding: 0;
 	margin: 0;
 `
-
-const LinkWrap = styled.li`
-	display: block;
-	height: 100%;
-	width: 6em;
-	position: absolute;
-	top: 0;
-	right: 0;
-	background: ${(p) => p.theme.colors.background};
-	margin: 0;
-	text-decoration: none;
-	opacity: 0%;
-
-	${(p) => p.theme.utils.media.s} {
-		width: 5em;
-	}
-
-	&:last-of-type {
-		border-right: solid 1px ${(p) => p.theme.colors.line};
-	}
-
-	${(p) => p.theme.utils.media.xs} {
-		position: relative;
-		height: auto;
-		width: calc(100% - ${(p) => p.theme.space[1]});
-		padding: 0 ${paddingHorizontal * 0.75}em;
-		box-sizing: border-box;
-
-		&& {
-			margin: 0 auto;
-		}
-
-		&:not(:first-of-type) {
-			border-left: none;
-		}
-	}
-`
-
-const LinkInnerWrap = styled(TransitionLink)`
-	${(p) => p.theme.utils.spread};
-	cursor: pointer;
-	transition: transform ${(p) => p.theme.animation.fastOut};
-
-	&.focus-visible {
-		z-index: 1;
-		box-shadow: inset 0 0 0 4px ${(p) => p.theme.colors.focus};
-	}
-
-	${LinkWrap}:not(:first-of-type) > &::after {
-		content: '';
-		${(p) => p.theme.utils.spread};
-		border-left: solid 1px ${(p) => p.theme.colors.line};
-	}
-
-	${(p) => p.theme.utils.media.xs} {
-		display: block;
-		position: relative;
-		padding: ${(p) => p.theme.space[1]} 0;
-
-		${/* sc-selector */ LinkWrap}:not(:first-of-type) > &::after {
-			border-left: none;
-			border-top: solid 1px ${(p) => p.theme.colors.line};
-		}
-
-		&:not(:first-of-type) {
-			border-left: none;
-		}
-	}
-`
-
-const LinkContentBox = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	position: absolute;
-	top: ${(p) => p.theme.space[3]};
-	right: ${(p) => p.theme.space[2]};
-	transform-origin: center right;
-	transform: rotate(-90deg) translateY(-50%);
-	transition: transform 0.375s ${(p) => p.theme.animation.outQuart};
-
-	${(p) =>
-		!p.theme.animation.reduced &&
-		`${LinkInnerWrap}:hover > &,
-		${LinkInnerWrap}.focus-visible > & {
-		transform: rotate(-90deg) translate(-0.5em, -50%);
-	}`}
-
-	${(p) => p.theme.utils.media.xs} {
-		position: initial;
-		top: auto;
-		right: auto;
-		transform: none;
-		flex-direction: row-reverse;
-		justify-content: flex-end;
-		align-items: center;
-		padding: ${(p) => p.theme.space[1]} 0;
-
-		${/* sc-selector */ LinkInnerWrap}:hover > &,
-		${/* sc-selector */ LinkInnerWrap}.focus-visible & {
-			transform: translate(0.25em, 0);
-		}
-	}
-`
-
-const LinkTitle = styled.p`
-	${(p) => p.theme.text.ui.h3}
-	color: ${(p) => p.theme.colors.heading};
-	margin: 0;
-	transition: color ${(p) => p.theme.animation.fastOut};
-`
-
-const LinkTypeWrap = styled.div`
-	margin-bottom: 0.75em;
-	margin-right: ${(p) => p.theme.space[0]};
-
-	${(p) => p.theme.utils.media.m} {
-		margin-bottom: 0.7em;
-	}
-
-	${(p) => p.theme.utils.media.xs} {
-		display: none;
-	}
-`
-
-const LinkTypeText = styled.p`
-	font-weight: 500;
-	font-size: 0.875em;
-	line-height: 1;
-	margin: 0;
-	text-align: right;
-	text-transform: uppercase;
-	color: ${(p) => p.theme.colors.heading};
-	transition: color ${(p) => p.theme.animation.fastOut};
-`
-
-const LinkTypeLine = styled.div`
-	width: 6em;
-	height: 2px;
-	background-color: ${(p) => p.theme.colors.heading};
-	transform-origin: right;
-	transition: 0.375s ${(p) => p.theme.animation.outQuart};
-`
-
 const UtilsWrap = styled.div`
 	display: none;
 	padding: 0 ${paddingHorizontal * 0.75}em;
@@ -318,6 +147,7 @@ const UtilsWrap = styled.div`
 	bottom: 0;
 	left: 0;
 	width: 100%;
+	opacity: 0%;
 
 	${(p) => p.theme.utils.media.xs} {
 		display: block;

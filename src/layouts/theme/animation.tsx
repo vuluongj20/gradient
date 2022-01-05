@@ -84,9 +84,9 @@ export const animationAliases: AnimationAliases = {
 	mediumIn: `0.5s ${easings.inQuart}`,
 	mediumOut: `0.5s ${easings.outQuart}`,
 	mediumInOut: `0.5s ${easings.inOutQuart}`,
-	slowIn: `1s ${easings.inQuart}`,
-	slowOut: `1s ${easings.outQuart}`,
-	slowInOut: `1s ${easings.inOutQuart}`,
+	slowIn: `1s ${easings.inCubic}`,
+	slowOut: `1s ${easings.outCubic}`,
+	slowInOut: `1s ${easings.inOutCubic}`,
 }
 
 export const animation: Easings & AnimationAliases = { ...easings, ...animationAliases }

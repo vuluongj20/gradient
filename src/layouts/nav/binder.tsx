@@ -14,7 +14,11 @@ const Binder = ({ toggleMenu, menuOpen }: Props): JSX.Element => (
 		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 		<Stamp />
 		<Target left />
-		<Logo to="/">Gradient</Logo>
+		<LogoWrap>
+			<Logo to="/" tooltip="Home" spread>
+				Gradient
+			</Logo>
+		</LogoWrap>
 		<StyledSettings />
 	</Wrap>
 )
@@ -40,15 +44,17 @@ const Wrap = styled.div`
 	}
 `
 
-const Logo = styled(TransitionLink)`
-	${(p) => p.theme.text.content.h3};
+const LogoWrap = styled.div`
 	${(p) => p.theme.utils.absCenter};
-	font-weight: 700;
 	display: none;
 
 	${(p) => p.theme.utils.media.xs} {
 		display: initial;
 	}
+`
+const Logo = styled(TransitionLink)`
+	${(p) => p.theme.text.content.h3};
+	font-weight: 700;
 `
 
 const StyledSettings = styled(Settings)`

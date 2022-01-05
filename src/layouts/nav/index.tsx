@@ -1,5 +1,6 @@
+import * as focusTrap from 'focus-trap'
 import gsap from 'gsap'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 
 import Binder from './binder'
@@ -11,9 +12,12 @@ import { numericBreakpoints, reducedMotion } from '@utils/styling'
 
 const menuAnimation = reducedMotion()
 	? { duration: 0 }
-	: { duration: 0.75, ease: 'power4.inOut' }
+	: { duration: 0.75, ease: 'power3.out' }
 
 const Nav = (): JSX.Element => {
+	const focusTrapRef = useRef(null)
+	const pageContentRef = useRef(null)
+
 	const [menuOpen, setMenuOpen] = useState<boolean>(false)
 	const windowWidth = useWindowWidth()
 	const menuLinks = useMenuLinks()
@@ -27,7 +31,20 @@ const Nav = (): JSX.Element => {
 	}
 
 	useEffect(() => {
+		focusTrapRef.current = focusTrap.createFocusTrap(`${Wrap}`)
+		pageContentRef.current = document.querySelector('#page-content')
+	}, [])
+	useEffect(() => {
 		if (menuOpen) {
+			focusTrapRef.current.activate()
+		} else {
+			focusTrapRef.current.deactivate()
+		}
+	}, [menuOpen])
+
+	useEffect(() => {
+		if (menuOpen) {
+			pageContentRef.current?.setAttribute('aria-hidden', 'true')
 			if (windowWidth > numericBreakpoints.xs) {
 				const animationDistance =
 					windowWidth > numericBreakpoints.s
@@ -40,6 +57,7 @@ const Nav = (): JSX.Element => {
 				})
 			}
 		} else {
+			pageContentRef.current?.setAttribute('aria-hidden', 'false')
 			gsap.to([`${PageShadow}`, '#page-content'], {
 				x: 0,
 				...menuAnimation,

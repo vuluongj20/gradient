@@ -3,6 +3,7 @@ import { HiddenSelect, useSelect } from '@react-aria/select'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
 import { useRef } from 'react'
+import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import ListBox from './listBox'
@@ -33,9 +34,19 @@ const Select = (props: Props) => {
 				</span>
 				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
 			</Trigger>
-			<Popover isOpen={state.isOpen} triggerRef={ref} onClose={state.close} offset={0}>
-				<ListBox {...menuProps} state={state} label={props.label} />
-			</Popover>
+			<Transition in={state.isOpen} timeout={200} unmountOnExit mountOnEnter>
+				{(animationState) => (
+					<Popover
+						isOpen={state.isOpen}
+						triggerRef={ref}
+						onClose={state.close}
+						offset={0}
+						animationState={animationState}
+					>
+						<ListBox {...menuProps} state={state} label={props.label} />
+					</Popover>
+				)}
+			</Transition>
 		</Wrap>
 	)
 }

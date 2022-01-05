@@ -17,8 +17,8 @@ type Props = {
 	disabled?: boolean
 }
 
-const transitionOut = { duration: 0.75, ease: 'power4.inOut' }
-const transitionIn = { duration: 1, ease: 'power4.out' }
+const transitionOut = { duration: 0.75, ease: 'power3.out' }
+const transitionIn = { duration: 1, ease: 'power3.out' }
 
 const Link = ({
 	to,
