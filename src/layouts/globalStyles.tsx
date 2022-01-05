@@ -14,8 +14,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
     transition: background-color ${(p) => p.theme.animation.mediumOut}, 
       border-color ${(p) => p.theme.animation.mediumOut},
-      box-shadow ${(p) => p.theme.animation.mediumOut},
-      color ${(p) => p.theme.animation.mediumOut};
+      box-shadow ${(p) => p.theme.animation.mediumOut};
   }
 
   body {
