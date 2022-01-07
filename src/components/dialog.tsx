@@ -40,6 +40,10 @@ type Props = {
 	 */
 	triggerTooltipPlacement?: TooltipPlacement
 	/**
+	 * Whether the trigger is disabled
+	 */
+	triggerDisabled?: boolean
+	/**
 	 * Dialog title
 	 */
 	title?: string
@@ -86,6 +90,7 @@ const Dialog = ({
 	triggerLabel,
 	triggerTooltip,
 	triggerTooltipPlacement,
+	triggerDisabled,
 	title,
 	content,
 	contentProps = {},
@@ -104,6 +109,7 @@ const Dialog = ({
 
 	const { buttonProps: openButtonProps } = useButton(
 		{
+			isDisabled: triggerDisabled,
 			onPress: () => {
 				beforeOpen?.()
 				if (isControlled) {

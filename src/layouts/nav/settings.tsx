@@ -11,6 +11,7 @@ type Props = {
 	className?: string
 	beforeDialogOpen?: () => void
 	afterDialogClose?: () => void
+	dialogTriggerDisabled?: boolean
 }
 
 const Settings = ({
@@ -18,6 +19,7 @@ const Settings = ({
 	className,
 	beforeDialogOpen,
 	afterDialogClose,
+	dialogTriggerDisabled,
 }: Props) => {
 	return (
 		<Wrap className={className}>
@@ -32,6 +34,7 @@ const Settings = ({
 						{withLabel && <TriggerLabel>Settings</TriggerLabel>}
 					</TriggerInnerWrap>
 				}
+				triggerDisabled={dialogTriggerDisabled}
 				triggerTooltip={!withLabel && 'Settings'}
 				triggerTooltipPlacement="right"
 			/>

@@ -118,6 +118,7 @@ const Menu = ({
 						withLabel
 						beforeDialogOpen={beforeSettingsDialogOpen}
 						afterDialogClose={afterSettingsDialogClose}
+						dialogTriggerDisabled={!isOpen}
 					/>
 				</UtilsInnerWrap>
 			</UtilsWrap>
