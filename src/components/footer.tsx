@@ -115,7 +115,9 @@ const ColLabel = styled.p`
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
-const ColLink = styled.li``
+const ColLink = styled.li`
+	margin-bottom: ${(p) => p.theme.space[0]};
+`
 
 const DisclosuresDivider = styled.hr`
 	grid-column: 1 / -1;

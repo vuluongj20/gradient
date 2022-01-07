@@ -42,7 +42,7 @@ const GlobalStyles = createGlobalStyle`
   h5 {${(p) => p.theme.text.ui.h5}}
   h6 {${(p) => p.theme.text.ui.h6}}
 
-  p, a {
+  p, a, li {
     ${(p) => p.theme.text.ui.body}; 
     margin: 0;
   }
@@ -113,10 +113,6 @@ const GlobalStyles = createGlobalStyle`
 
   li {
     list-style-type: none;
-  }
-
-  li:not(:last-child) {
-    margin-bottom: ${(p) => p.theme.space[1]};
   }
 
   .tl-edges {
