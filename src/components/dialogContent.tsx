@@ -41,16 +41,14 @@ const DialogContent = ({
 			<Backdrop {...underlayProps}>
 				<FocusScope contain restoreFocus autoFocus>
 					<Wrap ref={ref} {...mergeProps(overlayProps, dialogProps, modalProps)}>
-						{showCloseButton && (
-							<CloseButton {...closeButtonProps} aria-label="Dismiss">
-								<StyledIconClose />
-							</CloseButton>
-						)}
-						{title && (
-							<TitleWrap>
-								<Title {...titleProps}>{title}</Title>
-							</TitleWrap>
-						)}
+						<TitleWrap>
+							<Title {...titleProps}>{title}</Title>
+							{showCloseButton && (
+								<CloseButton {...closeButtonProps} aria-label="Dismiss">
+									<StyledIconClose />
+								</CloseButton>
+							)}
+						</TitleWrap>
 						{renderContent()}
 					</Wrap>
 				</FocusScope>
@@ -90,9 +88,9 @@ const Backdrop = styled.div`
 `
 
 const Wrap = styled.div`
-	${(p) => p.theme.utils.space.paddingVertical[4]};
-	padding-left: ${(p) => p.theme.space[5]};
-	padding-right: ${(p) => p.theme.space[5]};
+	${(p) => p.theme.utils.space.paddingVertical[3]};
+	padding-left: ${(p) => p.theme.space[3]};
+	padding-right: ${(p) => p.theme.space[3]};
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
@@ -125,17 +123,16 @@ const TitleWrap = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding-right: ${(p) => p.theme.space[2]};
-	margin-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: ${(p) => p.theme.space[2]};
+	padding-bottom: ${(p) => p.theme.space[1]};
+	border-bottom: solid 1px ${(p) => p.theme.colors.line};
 `
 
 const CloseButton = styled.button`
+	${(p) => p.theme.text.ui.h3};
 	display: flex;
-	position: absolute;
-	top: ${(p) => p.theme.space[1]};
-	right: ${(p) => p.theme.space[1]};
-	padding: ${(p) => p.theme.space[0]};
 	color: ${(p) => p.theme.colors.label};
+	transform: translateX(${(p) => p.theme.space[0]});
 
 	&:hover {
 		color: ${(p) => p.theme.colors.heading};
@@ -143,8 +140,8 @@ const CloseButton = styled.button`
 `
 
 const StyledIconClose = styled(IconClose)`
-	width: 1.75em;
-	height: 1.75em;
+	width: 0.875em;
+	height: 0.875em;
 `
 
 const Title = styled.h2`

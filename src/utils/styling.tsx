@@ -62,15 +62,15 @@ export const textShadows = {
 
 /** Spacing */
 export const space = [
-	'0.25em',
-	'0.5em',
-	'1em',
-	'1.5em',
-	'2em',
-	'3em',
-	'4em',
-	'6em',
-	'8em',
+	'4px',
+	'8px',
+	'16px',
+	'24px',
+	'32px',
+	'48px',
+	'64px',
+	'96px',
+	'128px',
 ]
 
 /** Number of grid columns at different breakpoints */
