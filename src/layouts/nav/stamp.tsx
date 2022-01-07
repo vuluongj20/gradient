@@ -20,8 +20,11 @@ const Stamp = (): JSX.Element => {
 					to="/"
 					tooltip={!disabled && 'Home'}
 					tooltipPlacement="right"
+					tooltipAriaHidden
 					height={4}
 					tabIndex={disabled ? -1 : 0}
+					aria-hidden={disabled ? true : false}
+					aria-label="Return to home page"
 				>
 					<StampText>GRDNT</StampText>
 				</StampLink>
@@ -33,6 +36,7 @@ const Stamp = (): JSX.Element => {
 					tooltipPlacement="right"
 					height={6}
 					tabIndex={-1}
+					aria-hidden="true"
 				>
 					<StampText>{dateString}</StampText>
 				</StampLink>
@@ -57,7 +61,7 @@ const StampWrap = styled.div`
 	}
 `
 
-const StampSection = styled.div`
+const StampSection = styled.li`
 	display: flex;
 	justify-content: center;
 	align-items: center;

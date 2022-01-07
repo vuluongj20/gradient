@@ -34,10 +34,7 @@ const Layout = ({ children }: Props): JSX.Element => {
 						<OverlayProvider>
 							<GlobalStyles />
 							<Nav />
-							<PageContent id="page-content">
-								<TopAnchor id="page-top-anchor" />
-								{children}
-							</PageContent>
+							<PageContent id="page-content">{children}</PageContent>
 						</OverlayProvider>
 					</ThemeProvider>
 				)}
@@ -48,7 +45,7 @@ const Layout = ({ children }: Props): JSX.Element => {
 
 export default Layout
 
-const PageContent = styled('div')`
+const PageContent = styled('main')`
 	position: relative;
 	margin: 0 auto;
 
@@ -64,11 +61,4 @@ const PageContent = styled('div')`
 		padding-left: 0;
 		padding-top: 2.5em;
 	}
-`
-
-const TopAnchor = styled.div`
-	width: 100%;
-	height: 0;
-	position: absolute;
-	top: 0;
 `

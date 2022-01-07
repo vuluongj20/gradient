@@ -7,6 +7,7 @@ import Dialog from '@components/dialog'
 import IconSettings from '@icons/settings'
 
 type Props = {
+	as?: string
 	withLabel?: boolean
 	className?: string
 	beforeDialogOpen?: () => void
@@ -22,7 +23,7 @@ const Settings = ({
 	dialogTriggerDisabled,
 }: Props) => {
 	return (
-		<Wrap className={className}>
+		<Wrap className={className} aria-label="Open settings">
 			<Dialog
 				title="Settings"
 				content={SettingsDialog}
@@ -30,13 +31,12 @@ const Settings = ({
 				afterClose={afterDialogClose}
 				triggerLabel={
 					<TriggerInnerWrap>
-						<IconSettings />
+						<IconSettings useAlt={!withLabel} />
 						{withLabel && <TriggerLabel>Settings</TriggerLabel>}
 					</TriggerInnerWrap>
 				}
 				triggerDisabled={dialogTriggerDisabled}
-				triggerTooltip={!withLabel && 'Settings'}
-				triggerTooltipPlacement="right"
+				triggerAriaLabel="Open settings"
 			/>
 		</Wrap>
 	)
@@ -44,7 +44,7 @@ const Settings = ({
 
 export default Settings
 
-const Wrap = styled.div``
+const Wrap = styled.li``
 
 const TriggerInnerWrap = styled.div`
 	${(p) => p.theme.utils.flexCenter};

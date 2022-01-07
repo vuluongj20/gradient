@@ -21,11 +21,9 @@ const Binder = ({
 	<Wrap>
 		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 		<Stamp />
-		<Target left />
+		<Target />
 		<LogoWrap>
-			<Logo to="/" tooltip="Home">
-				Gradient
-			</Logo>
+			<Logo to="/">Gradient</Logo>
 		</LogoWrap>
 		<StyledSettings
 			beforeDialogOpen={beforeSettingsDialogOpen}
@@ -36,7 +34,7 @@ const Binder = ({
 
 export default Binder
 
-const Wrap = styled.div`
+const Wrap = styled.ul`
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -55,7 +53,7 @@ const Wrap = styled.div`
 	}
 `
 
-const LogoWrap = styled.div`
+const LogoWrap = styled.li`
 	${(p) => p.theme.utils.absCenter};
 	display: none;
 

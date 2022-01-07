@@ -46,8 +46,8 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 		...(showSectionFilters
 			? [
 					{
-						id: 'section',
-						label: 'Filter section',
+						name: 'section',
+						label: 'By section',
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All sections', selected: true },
@@ -59,8 +59,8 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 		...(showAuthorFilters
 			? [
 					{
-						id: 'author',
-						label: 'Filter author',
+						name: 'author',
+						label: 'By author',
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All authors', selected: true },
@@ -72,7 +72,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 	] as FilterProps[]
 	const [selectedSection, setSelectedSection] = useState('all')
 	const [selectedAuthor, setSelectedAuthor] = useState('all')
-	const onChange = (filterName, value) => {
+	const onChange = (filterName: string, value: string) => {
 		switch (filterName) {
 			case 'section':
 				setSelectedSection(value)
@@ -100,7 +100,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 				<Header>
 					<Title>{pageContext.title}</Title>
 				</Header>
-				<FilterBar filters={filters} onChange={onChange} />
+				<FilterBar filters={filters} onChange={onChange} aria-label="Filters" />
 				<SwitchTransition>
 					<CSSTransition
 						timeout={{

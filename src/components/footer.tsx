@@ -1,4 +1,3 @@
-import { useLocation } from '@reach/router'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
@@ -21,7 +20,6 @@ type Props = {
 }
 
 const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element => {
-	const location = useLocation()
 	const sections = useSections()
 	const sectionPages = sections.map((section) => ({
 		slug: section.slug,
@@ -35,12 +33,9 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 
 	const mapSiteLinks = (pages: Page[], Wrap) =>
 		pages.map((page) => {
-			const disabled = location.pathname.startsWith(page.path)
 			return (
 				<Wrap key={page.slug}>
-					<StyledLink to={page.path} disabled={disabled}>
-						{page.title}
-					</StyledLink>
+					<StyledLink to={page.path}>{page.title}</StyledLink>
 				</Wrap>
 			)
 		})
@@ -48,7 +43,7 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 	return (
 		<LocalThemeProvider appearance={inverted ? 'inverted' : null} elevation={elevation}>
 			<Wrap>
-				<SiteMap>
+				<SiteMap as="nav">
 					<Column>
 						<ColLabel>Sections</ColLabel>
 						{mapSiteLinks(sectionPages, ColLink)}
@@ -66,7 +61,7 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 					<DisclosuresDivider />
 				</Grid>
 				<Policies>
-					<PolicyText>Gradient</PolicyText>
+					<PolicyText aria-hidden="true">Gradient</PolicyText>
 					{mapSiteLinks(policiesPages, PolicyLink)}
 				</Policies>
 			</Wrap>

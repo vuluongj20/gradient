@@ -1,10 +1,7 @@
 import { useButton } from '@react-aria/button'
-import { mergeProps } from '@react-aria/utils'
 import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-
-import Tooltip from '@components/tooltip'
 
 import { reducedMotion, paddingHorizontal } from '@utils/styling'
 
@@ -72,30 +69,30 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 
 	return (
 		<HamOuterWrap>
-			<Tooltip content={menuOpen ? 'Close menu' : 'Menu'} placement="right" spread>
-				{({ props, ref }) => (
-					<HamWrap aria-label="Menu" ref={ref} {...mergeProps(props, buttonProps)}>
-						<HamInnerWrap>
-							<HamLineTop />
-							<HamLineMiddle />
-							<HamLineBottom />
-							<HamCrossLinePosWrap>
-								<HamCrossLineInner />
-							</HamCrossLinePosWrap>
-							<HamCrossLineNegWrap>
-								<HamCrossLineInner />
-							</HamCrossLineNegWrap>
-						</HamInnerWrap>
-					</HamWrap>
-				)}
-			</Tooltip>
+			<HamWrap
+				ref={ref}
+				aria-label={menuOpen ? 'Close menu' : 'Open nav menu'}
+				{...buttonProps}
+			>
+				<HamInnerWrap>
+					<HamLineTop />
+					<HamLineMiddle />
+					<HamLineBottom />
+					<HamCrossLinePosWrap>
+						<HamCrossLineInner />
+					</HamCrossLinePosWrap>
+					<HamCrossLineNegWrap>
+						<HamCrossLineInner />
+					</HamCrossLineNegWrap>
+				</HamInnerWrap>
+			</HamWrap>
 		</HamOuterWrap>
 	)
 }
 
 export default Hamburger
 
-const HamOuterWrap = styled.div`
+const HamOuterWrap = styled.li`
 	position: absolute;
 	top: 0.3125em;
 	left: 0.3125em;

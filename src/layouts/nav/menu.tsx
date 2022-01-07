@@ -101,7 +101,7 @@ const Menu = ({
 	}, [windowWidth])
 
 	return (
-		<MenuWrap>
+		<MenuWrap aria-hidden={!isOpen}>
 			<LinksWrap>
 				{links.map((link) => (
 					<MenuLink
@@ -128,7 +128,7 @@ const Menu = ({
 
 export default Menu
 
-const MenuWrap = styled.nav`
+const MenuWrap = styled.div`
 	display: flex;
 	position: absolute;
 	top: 0;

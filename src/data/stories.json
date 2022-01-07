@@ -9,7 +9,7 @@
 		"authors": ["vu-luong"],
 		"img": {
 			"src": "../images/co2/preview.png",
-			"alt": "...",
+			"alt": "Polar plot with red-blue data line",
 			"aspectRatio": "rect"
 		},
 		"buildPage": true

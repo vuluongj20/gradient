@@ -1,20 +1,18 @@
 import TransitionLink from 'gatsby-plugin-transition-link'
 import gsap from 'gsap'
-import { ReactNode } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import Tooltip, { TooltipPlacement } from '@components/tooltip'
 
-type Props = {
+type Props = HTMLAttributes<HTMLAnchorElement> & {
 	to: string
 	children: ReactNode
 	onExit?: () => void
 	onClick?: () => void
 	tooltip?: string
 	tooltipPlacement?: TooltipPlacement
-	className?: string
-	tabIndex?: number
-	disabled?: boolean
+	tooltipAriaHidden?: boolean
 }
 
 const exitTransition = { duration: 0.75, ease: 'power3.inOut' }
@@ -24,46 +22,51 @@ const Link = ({
 	to,
 	children,
 	onExit,
-	onClick,
 	tooltip,
 	tooltipPlacement,
-	className,
-	tabIndex = 0,
-	disabled,
-}: Props): JSX.Element => (
-	<Tooltip content={tooltip} placement={tooltipPlacement}>
-		{({ props, ref }) => (
-			<StyledTransitionLink
-				ref={ref}
-				to={to}
-				className={className}
-				exit={{
-					trigger: ({ node }) => {
-						onExit?.()
-						gsap.to(node, { opacity: 0, ...exitTransition })
-					},
-					length: 0.75,
-				}}
-				entry={{
-					delay: 0.75,
-					trigger: ({ node }) => {
-						gsap.set(node, { opacity: 0 })
-						document.fonts.ready.then(() => {
-							gsap.to(node, { opacity: 1, ...entryTransition })
-						})
-					},
-					duration: 1,
-				}}
-				onClick={onClick}
-				disabled={disabled}
-				{...props}
-				tabIndex={tabIndex}
-			>
-				{children}
-			</StyledTransitionLink>
-		)}
-	</Tooltip>
-)
+	tooltipAriaHidden,
+	...rest
+}: Props): JSX.Element => {
+	const exit = {
+		trigger: ({ node }) => {
+			onExit?.()
+			gsap.to(node, { opacity: 0, ...exitTransition })
+		},
+		length: 0.75,
+	}
+
+	const entry = {
+		delay: 0.75,
+		trigger: ({ node }) => {
+			gsap.set(node, { opacity: 0 })
+			document.fonts.ready.then(() => {
+				gsap.to(node, { opacity: 1, ...entryTransition })
+			})
+		},
+		duration: 1,
+	}
+
+	return (
+		<Tooltip
+			content={tooltip}
+			placement={tooltipPlacement}
+			ariaHidden={tooltipAriaHidden}
+		>
+			{({ props: tooltipProps, ref }) => (
+				<StyledTransitionLink
+					ref={ref}
+					to={to}
+					exit={exit}
+					entry={entry}
+					{...tooltipProps}
+					{...rest}
+				>
+					{children}
+				</StyledTransitionLink>
+			)}
+		</Tooltip>
+	)
+}
 
 export default Link
 

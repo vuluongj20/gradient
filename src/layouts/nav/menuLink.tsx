@@ -27,13 +27,13 @@ const Link = ({ path, title, type, focusable, toggleMenu }: Props): JSX.Element 
 				onExit={() => toggleMenu(false)}
 			>
 				<ContentBox>
+					<Title>{title}</Title>
 					{type && (
-						<TypeWrap>
+						<TypeWrap aria-hidden="true">
 							<TypeText>{type}</TypeText>
 							<TypeLine />
 						</TypeWrap>
 					)}
-					<Title>{title}</Title>
 				</ContentBox>
 			</InnerWrap>
 		</Wrap>
@@ -113,6 +113,7 @@ const InnerWrap = styled(TransitionLink)`
 
 const ContentBox = styled.div`
 	display: flex;
+	flex-direction: row-reverse;
 	justify-content: flex-end;
 	align-items: flex-end;
 	position: absolute;

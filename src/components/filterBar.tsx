@@ -6,7 +6,7 @@ import Select from './form/select'
 import Grid from '@components/grid'
 
 export type FilterProps = {
-	id: string
+	name: string
 	label: string
 	defaultValue: string
 	options: [
@@ -23,19 +23,23 @@ type Props = {
 	showDialogOnMobile?: boolean
 }
 
-const FilterBar = ({ filters, onChange, showDialogOnMobile }: Props): JSX.Element => {
+const FilterBar = ({
+	filters,
+	onChange,
+	showDialogOnMobile,
+	...rest
+}: Props): JSX.Element => {
 	return (
-		<Wrap>
-			{filters.map((f) => (
+		<Wrap {...rest}>
+			{filters.map((filter) => (
 				<StyledSelect
-					key={f.id}
-					name={f.id}
-					label={f.label}
-					defaultSelectedKey={f.defaultValue}
-					onSelectionChange={(key: string) => onChange(f.id, key)}
+					key={filter.name}
+					defaultSelectedKey={filter.defaultValue}
+					onSelectionChange={(key: string) => onChange(filter.name, key)}
 					showDialogOnMobile={showDialogOnMobile}
+					{...filter}
 				>
-					{f.options.map((o) => (
+					{filter.options.map((o) => (
 						<Item key={o.value}>{o.label}</Item>
 					))}
 				</StyledSelect>

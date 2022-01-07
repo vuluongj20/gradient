@@ -53,7 +53,7 @@ const DialogContent = ({
 							</Title>
 							{showCloseButton && (
 								<CloseButton compact={compact} aria-label="Dismiss" {...closeButtonProps}>
-									<StyledIconClose />
+									<StyledIconClose useAlt />
 								</CloseButton>
 							)}
 						</TitleWrap>

@@ -2,13 +2,8 @@ import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
 
-type Props = {
-	left?: boolean
-	right?: boolean
-}
-
-const Target = (props: Props): JSX.Element => (
-	<TargetWrap to="/" tabIndex={-1} {...props}>
+const Target = (): JSX.Element => (
+	<TargetWrap to="/" tabIndex={-1} aria-hidden="true">
 		<TargetLineHorizontal />
 		<TargetLineVertical />
 		<TargetCircle />

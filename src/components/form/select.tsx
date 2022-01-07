@@ -1,5 +1,6 @@
 import { useButton } from '@react-aria/button'
 import { HiddenSelect, useSelect } from '@react-aria/select'
+import { VisuallyHidden } from '@react-aria/visually-hidden'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
 import { Fragment, useRef } from 'react'
@@ -30,14 +31,19 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 
 	const shouldRenderAsDialog = showDialogOnMobile && windowWidth <= numericBreakpoints.xs
 
-	const renderTrigger = () => (
-		<Trigger {...buttonProps} ref={ref}>
-			<span {...valueProps}>
-				{state.selectedItem ? state.selectedItem.rendered : 'Select an option'}
-			</span>
-			<TriggerArrow aria-hidden="true">▼</TriggerArrow>
-		</Trigger>
-	)
+	const renderTrigger = () => {
+		const label = state.selectedItem ? state.selectedItem.rendered : 'Select an option'
+
+		return (
+			<Trigger {...buttonProps} ref={ref}>
+				<span {...valueProps}>
+					<VisuallyHidden>{`(Filter) ${props.label}:`}</VisuallyHidden>
+					{label}
+				</span>
+				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
+			</Trigger>
+		)
+	}
 
 	const renderContent = () => (
 		<ListBox state={state} label={props.label} shouldFocusWrap {...menuProps} />

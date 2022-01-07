@@ -43,6 +43,7 @@ type Props = {
 	 * Whether the trigger is disabled
 	 */
 	triggerDisabled?: boolean
+	triggerAriaLabel?: string
 	/**
 	 * Dialog title
 	 */
@@ -91,6 +92,7 @@ const Dialog = ({
 	triggerTooltip,
 	triggerTooltipPlacement,
 	triggerDisabled,
+	triggerAriaLabel,
 	title,
 	content,
 	contentProps = {},
@@ -151,6 +153,7 @@ const Dialog = ({
 				{({ props: tooltipTriggerProps }) => (
 					<button
 						ref={openButtonRef}
+						aria-label={triggerAriaLabel}
 						{...mergeProps(tooltipTriggerProps, openButtonProps)}
 					>
 						{triggerLabel}

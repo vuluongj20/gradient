@@ -39,7 +39,7 @@ const Card = ({
 	const image = getImage(img.src)
 
 	return (
-		<Wrap to={path} rowLayout={rowLayout} gridCols={gridCols}>
+		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols}>
 			<InnerWrap>
 				<ImageWrap rowLayout={rowLayout}>
 					<StyledGatsbyImage image={image} alt={img.alt} loading="eager" />
@@ -47,7 +47,7 @@ const Card = ({
 
 				<TitleWrap rowLayout={rowLayout}>
 					<Title>
-						<DummyTitle>{title}</DummyTitle>
+						<DummyTitle aria-hidden="true">{title}</DummyTitle>
 						{title}
 					</Title>
 					<Tags>{sectionNames}</Tags>
@@ -60,8 +60,8 @@ const Card = ({
 export default memo(Card)
 
 const Wrap = styled(TransitionLink)<{
-	gridCols: AdaptiveGridColumns
-	rowLayout: boolean
+	$gridCols: AdaptiveGridColumns
+	$rowLayout: boolean
 }>`
 	display: block;
 	position: relative;
@@ -80,22 +80,22 @@ const Wrap = styled(TransitionLink)<{
 	}
 
 	${(p) =>
-		p.rowLayout
+		p.$rowLayout
 			? `
 				grid-column: 1 / -1;
 			`
 			: `
 				padding-bottom: ${p.theme.space[1]};
-				grid-column: ${p.gridCols.xl.start} / ${p.gridCols.xl.end};
+				grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
 
 				${p.theme.utils.media.l} {
-					grid-column: ${p.gridCols.l.start} / ${p.gridCols.l.end};
+					grid-column: ${p.$gridCols.l.start} / ${p.$gridCols.l.end};
 				}
 				${p.theme.utils.media.m} {
-					grid-column: ${p.gridCols.m.start} / ${p.gridCols.m.end};
+					grid-column: ${p.$gridCols.m.start} / ${p.$gridCols.m.end};
 				}
 				${p.theme.utils.media.s} {
-					grid-column: ${p.gridCols.s.start} / ${p.gridCols.s.end};
+					grid-column: ${p.$gridCols.s.start} / ${p.$gridCols.s.end};
 				}
 				${p.theme.utils.media.xs} {
 					grid-column: 1 / -1;

@@ -16,9 +16,17 @@ type Props = AriaTooltipProps & {
   triggerRef: RefObject<HTMLElement>
   placement: Placement
   offset: number
+  ariaHidden?: boolean
 }
 
-const Tooltip = ({ triggerRef, placement, offset, state, ...props }: Props) => {
+const Tooltip = ({
+  triggerRef,
+  placement,
+  offset,
+  ariaHidden,
+  state,
+  ...props
+}: Props) => {
   const ref = useRef()
   const { tooltipProps } = useTooltip(props, state)
 
@@ -37,6 +45,7 @@ const Tooltip = ({ triggerRef, placement, offset, state, ...props }: Props) => {
       <TooltipWrap
         ref={ref}
         placement={calculatedPlacement || placement}
+        aria-hidden={ariaHidden}
         {...mergeProps(props, tooltipProps, positionProps)}
       >
         {props.children}
@@ -68,6 +77,7 @@ type TriggerProps = TooltipTriggerProps & {
   spread?: boolean
   placement?: Placement
   offset?: number
+  ariaHidden?: boolean
   className?: string
 }
 
@@ -77,6 +87,7 @@ const TooltipTrigger = (
     placement = 'bottom',
     offset = 8,
     delay = 1000,
+    ariaHidden = false,
     className,
     content,
     ...props
@@ -104,6 +115,7 @@ const TooltipTrigger = (
         triggerRef={ref}
         placement={placement}
         offset={offset}
+        ariaHidden={ariaHidden}
         {...tooltipProps}
       >
         {content}

@@ -92,8 +92,12 @@ const Nav = (): JSX.Element => {
 	}
 
 	return (
-		<Wrap onKeyDown={onKeyDown}>
-			<PageShadow active={menuOpen} onClick={() => toggleMenu(false)} />
+		<Wrap onKeyDown={onKeyDown} aria-label="Global">
+			<PageShadow
+				active={menuOpen}
+				onClick={() => toggleMenu(false)}
+				aria-hidden={true}
+			/>
 			<Binder
 				toggleMenu={toggleMenu}
 				menuOpen={menuOpen}
@@ -113,7 +117,7 @@ const Nav = (): JSX.Element => {
 
 export default Nav
 
-const Wrap = styled.div`
+const Wrap = styled.nav`
 	position: fixed;
 	width: 3em;
 	height: 100%;

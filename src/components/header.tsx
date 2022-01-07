@@ -32,7 +32,7 @@ const Title = styled.h1`
 	}
 `
 
-const DescWrap = styled.div`
+const DescWrap = styled.p`
 	margin-bottom: 0.6em;
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25em);
@@ -46,7 +46,8 @@ const DescWrap = styled.div`
 	}
 `
 
-const DescLine = styled.p`
+const DescLine = styled.span`
+	display: block;
 	${(p) => p.theme.text.ui.label};
 	color: ${(p) => p.theme.colors.heading};
 
