@@ -68,12 +68,8 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
   opacity: 0%;
   z-index: ${(p) => p.theme.zIndices.popover};
 
-  ${(p) =>
-    p.placement === 'top' &&
-    `transform: translate(-${p.theme.space[2]}, ${p.theme.space[2]})`};
-  ${(p) =>
-    p.placement === 'bottom' &&
-    `transform: translate(-${p.theme.space[2]}, -${p.theme.space[2]})`};
+  ${(p) => p.placement === 'top' && `transform: translateY(${p.theme.space[2]})`};
+  ${(p) => p.placement === 'bottom' && `transform: translateY(-${p.theme.space[2]})`};
   ${(p) => p.placement === 'left' && `transform: translateX(${p.theme.space[2]})`};
   ${(p) => p.placement === 'right' && `transform: translateX(-${p.theme.space[2]})`};
 
@@ -82,14 +78,18 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
     opacity: 100%;
     transform: translate(-${(p) => p.theme.space[2]}, 0);
 
-    ${(p) => p.placement === 'top' && `transform: translate(-${p.theme.space[2]}, 0)`};
-    ${(p) => p.placement === 'bottom' && `transform: translate(-${p.theme.space[2]}, 0)`};
+    ${(p) => p.placement === 'top' && `transform: translateY(0)`};
+    ${(p) => p.placement === 'bottom' && `transform: translateY(0)`};
     ${(p) => p.placement === 'left' && `transform: translateX(0)`};
     ${(p) => p.placement === 'right' && `transform: translateX(0)`};
   }
 
   &.exiting {
     opacity: 0%;
-    transform: translate(-${(p) => p.theme.space[2]}, 0);
+
+    ${(p) => p.placement === 'top' && `transform: translateY(0)`};
+    ${(p) => p.placement === 'bottom' && `transform: translateY(0)`};
+    ${(p) => p.placement === 'left' && `transform: translateX(0)`};
+    ${(p) => p.placement === 'right' && `transform: translateX(0)`};
   }
 `

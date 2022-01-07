@@ -20,9 +20,10 @@ export type FilterProps = {
 type Props = {
 	filters: FilterProps[]
 	onChange: (filterName: string, value: string) => void
+	showDialogOnMobile?: boolean
 }
 
-const FilterBar = ({ filters, onChange }: Props): JSX.Element => {
+const FilterBar = ({ filters, onChange, showDialogOnMobile }: Props): JSX.Element => {
 	return (
 		<Wrap>
 			{filters.map((f) => (
@@ -32,6 +33,7 @@ const FilterBar = ({ filters, onChange }: Props): JSX.Element => {
 					label={f.label}
 					defaultSelectedKey={f.defaultValue}
 					onSelectionChange={(key: string) => onChange(f.id, key)}
+					showDialogOnMobile={showDialogOnMobile}
 				>
 					{f.options.map((o) => (
 						<Item key={o.value}>{o.label}</Item>

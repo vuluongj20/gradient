@@ -2,38 +2,50 @@ import { useButton } from '@react-aria/button'
 import { HiddenSelect, useSelect } from '@react-aria/select'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
-import { useRef } from 'react'
+import { Fragment, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import ListBox from './listBox'
 import Popover from './popover'
 
+import Dialog from '@components/dialog'
+
+import useWindowWidth from '@utils/hooks/useWindowWidth'
+import { numericBreakpoints } from '@utils/styling'
+
 type Props = SelectProps<object> & {
 	name: string
 	className?: string
+	showDialogOnMobile?: boolean
 }
 
-const Select = (props: Props) => {
+const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props) => {
 	const ref = useRef()
 	const state = useSelectState(props)
 	const { triggerProps, valueProps, menuProps } = useSelect(props, state, ref)
 	const { buttonProps } = useButton(triggerProps, ref)
 
-	return (
-		<Wrap className={props.className}>
-			<HiddenSelect
-				state={state}
-				triggerRef={ref}
-				label={props.label}
-				name={props.name}
-			/>
-			<Trigger {...buttonProps} ref={ref}>
-				<span {...valueProps}>
-					{state.selectedItem ? state.selectedItem.rendered : 'Select an option'}
-				</span>
-				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
-			</Trigger>
+	const windowWidth = useWindowWidth()
+
+	const shouldRenderAsDialog = showDialogOnMobile && windowWidth <= numericBreakpoints.xs
+
+	const renderTrigger = () => (
+		<Trigger {...buttonProps} ref={ref}>
+			<span {...valueProps}>
+				{state.selectedItem ? state.selectedItem.rendered : 'Select an option'}
+			</span>
+			<TriggerArrow aria-hidden="true">▼</TriggerArrow>
+		</Trigger>
+	)
+
+	const renderContent = () => (
+		<ListBox state={state} label={props.label} shouldFocusWrap {...menuProps} />
+	)
+
+	const overlayForm = (
+		<Fragment>
+			{renderTrigger()}
 			<Transition in={state.isOpen} timeout={200} unmountOnExit mountOnEnter>
 				{(animationState) => (
 					<Popover
@@ -43,10 +55,30 @@ const Select = (props: Props) => {
 						offset={0}
 						animationState={animationState}
 					>
-						<ListBox {...menuProps} state={state} label={props.label} />
+						{renderContent()}
 					</Popover>
 				)}
 			</Transition>
+		</Fragment>
+	)
+
+	const dialogForm = (
+		<Dialog
+			isOpen={state.isOpen}
+			open={state.open}
+			close={state.close}
+			trigger={renderTrigger}
+			triggerRef={ref}
+			title={props.label as string}
+			content={renderContent()}
+			contentProps={{ compact: true, onClose: state.close }}
+		/>
+	)
+
+	return (
+		<Wrap className={className}>
+			<HiddenSelect state={state} triggerRef={ref} label={props.label} name={name} />
+			{shouldRenderAsDialog ? dialogForm : overlayForm}
 		</Wrap>
 	)
 }

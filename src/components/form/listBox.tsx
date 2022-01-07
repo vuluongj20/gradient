@@ -13,18 +13,33 @@ type ListBoxProps = AriaListBoxOptions<unknown> & {
   state: SelectState<unknown>
 }
 
-type OptionProps = AriaOptionProps & {
+const ListBox = ({ state, ...props }: ListBoxProps) => {
+  const ref = useRef()
+  const { listBoxProps } = useListBox(props, state, ref)
+
+  return (
+    <StyledListBox ref={ref} {...listBoxProps}>
+      {[...state.collection].map((item) => (
+        <Item key={item.key} item={item} state={state} />
+      ))}
+    </StyledListBox>
+  )
+}
+
+export default ListBox
+
+type ItemProps = AriaOptionProps & {
   item: Node<unknown>
   state: SelectState<unknown>
 }
 
-type StyledOptionProps = {
+type StyledItemProps = {
   isSelected: boolean
   isFocused: boolean
   isDisabled: boolean
 }
 
-const Option = (props: OptionProps) => {
+const Item = (props: ItemProps) => {
   const ref = useRef()
   const { item, state } = props
   const { optionProps, isSelected, isFocused, isDisabled } = useOption(
@@ -34,7 +49,7 @@ const Option = (props: OptionProps) => {
   )
 
   return (
-    <StyledOption
+    <StyledItem
       {...optionProps}
       isSelected={isSelected}
       isFocused={isFocused}
@@ -42,27 +57,19 @@ const Option = (props: OptionProps) => {
       ref={ref}
     >
       {item.rendered}
-    </StyledOption>
+    </StyledItem>
   )
 }
 
-const ListBox = (props: ListBoxProps) => {
-  const ref = useRef()
-  const { state } = props
-  const { listBoxProps } = useListBox(props, state, ref)
+const StyledListBox = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  min-width: 8em;
+  border-radius: ${(p) => p.theme.radii.m};
+`
 
-  return (
-    <StyledListBox {...listBoxProps} ref={ref}>
-      {[...state.collection].map((item) => (
-        <Option key={item.key} item={item} state={state} />
-      ))}
-    </StyledListBox>
-  )
-}
-
-export default ListBox
-
-const StyledOption = styled.li<StyledOptionProps>`
+const StyledItem = styled.li<StyledItemProps>`
   ${(p) => p.theme.text.ui.label};
   cursor: pointer;
   outline: none;
@@ -78,11 +85,4 @@ const StyledOption = styled.li<StyledOptionProps>`
   ${(p) => p.isFocused && `background: ${p.theme.colors.oHoverBackground};`}
 
   ${(p) => p.isSelected && `color: ${p.theme.colors.red1};`}
-`
-
-const StyledListBox = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  min-width: 8em;
 `

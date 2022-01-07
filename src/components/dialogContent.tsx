@@ -18,6 +18,7 @@ export type DialogContentProps = AriaDialogProps & {
 	isDismissable?: boolean
 	showCloseButton: boolean
 	closeButtonProps: ButtonProps
+	compact?: boolean
 }
 
 const DialogContent = ({
@@ -26,6 +27,7 @@ const DialogContent = ({
 	showCloseButton,
 	closeButtonProps,
 	renderContent,
+	compact = false,
 	...props
 }: DialogContentProps) => {
 	const { title } = props
@@ -40,11 +42,17 @@ const DialogContent = ({
 		<OuterWrap className={animationState}>
 			<Backdrop {...underlayProps}>
 				<FocusScope contain restoreFocus autoFocus>
-					<Wrap ref={ref} {...mergeProps(overlayProps, dialogProps, modalProps)}>
-						<TitleWrap>
-							<Title {...titleProps}>{title}</Title>
+					<Wrap
+						ref={ref}
+						{...mergeProps(overlayProps, dialogProps, modalProps)}
+						compact={compact}
+					>
+						<TitleWrap compact={compact}>
+							<Title compact={compact} {...titleProps}>
+								{title}
+							</Title>
 							{showCloseButton && (
-								<CloseButton {...closeButtonProps} aria-label="Dismiss">
+								<CloseButton compact={compact} aria-label="Dismiss" {...closeButtonProps}>
 									<StyledIconClose />
 								</CloseButton>
 							)}
@@ -87,10 +95,7 @@ const Backdrop = styled.div`
 	background: ${(p) => p.theme.colors.line};
 `
 
-const Wrap = styled.div`
-	${(p) => p.theme.utils.space.paddingVertical[3]};
-	padding-left: ${(p) => p.theme.space[3]};
-	padding-right: ${(p) => p.theme.space[3]};
+const Wrap = styled.div<{ compact: boolean }>`
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
@@ -98,9 +103,13 @@ const Wrap = styled.div`
 	transition: ${(p) => p.theme.animation.mediumOut};
 	text-align: left;
 	align-items: flex-start;
+	padding: ${(p) =>
+		p.compact
+			? `${p.theme.space[0]} ${p.theme.space[0]}`
+			: `${p.theme.space[3]} ${p.theme.space[4]}`};
 
 	${/* sc-selector */ OuterWrap}.entering &,
-	${/* sc-selector */ OuterWrap}.entered & {
+		${/* sc-selector */ OuterWrap}.entered & {
 		transform: translateY(0);
 	}
 
@@ -108,31 +117,38 @@ const Wrap = styled.div`
 		transform: translateY(0);
 	}
 
-	${(p) => p.theme.utils.media.m} {
-		padding-left: ${(p) => p.theme.space[4]};
-		padding-right: ${(p) => p.theme.space[4]};
-	}
-
 	${(p) => p.theme.utils.media.xs} {
-		padding-left: ${(p) => p.theme.space[3]};
-		padding-right: ${(p) => p.theme.space[3]};
+		padding: ${(p) =>
+			p.compact
+				? `${p.theme.space[0]} ${p.theme.space[0]}`
+				: `${p.theme.space[2]} ${p.theme.space[3]}`};
 	}
 `
 
-const TitleWrap = styled.div`
+const TitleWrap = styled.div<{ compact: boolean }>`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: ${(p) => p.theme.space[2]};
 	padding-bottom: ${(p) => p.theme.space[1]};
 	border-bottom: solid 1px ${(p) => p.theme.colors.line};
+
+	${(p) =>
+		p.compact &&
+		`
+		padding: ${p.theme.space[1]} 0; 
+		margin: 0 ${p.theme.space[1]} ${p.theme.space[0]} ${p.theme.space[2]};
+		gap: ${p.theme.space[2]};
+	`};
 `
 
-const CloseButton = styled.button`
-	${(p) => p.theme.text.ui.h3};
+const CloseButton = styled.button<{ compact: boolean }>`
 	display: flex;
+	padding: ${(p) => p.theme.space[1]};
+	margin: -${(p) => p.theme.space[1]};
 	color: ${(p) => p.theme.colors.label};
-	transform: translateX(${(p) => p.theme.space[0]});
+
+	${(p) => (p.compact ? p.theme.text.ui.label : p.theme.text.ui.h4)};
 
 	&:hover {
 		color: ${(p) => p.theme.colors.heading};
@@ -140,10 +156,13 @@ const CloseButton = styled.button`
 `
 
 const StyledIconClose = styled(IconClose)`
-	width: 0.875em;
-	height: 0.875em;
+	width: 1em;
+	height: 1em;
+
+	min-width: 1.25rem;
+	min-height: 1.25rem;
 `
 
-const Title = styled.h2`
-	${(p) => p.theme.text.ui.h3};
+const Title = styled.h2<{ compact: boolean }>`
+	${(p) => (p.compact ? p.theme.text.ui.label : p.theme.text.ui.h4)};
 `

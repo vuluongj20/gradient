@@ -27,6 +27,11 @@ type Props = {
 	 */
 	triggerLabel?: ReactNode
 	/**
+	 * Optional ref to use on the trigger. If not defined, <Dialog />
+	 * will create and use its own internal ref.
+	 */
+	triggerRef?: RefObject<HTMLButtonElement>
+	/**
 	 * Optional tooltip on trigger element
 	 */
 	triggerTooltip?: string
@@ -61,29 +66,51 @@ type Props = {
 	 * Called before the dialog opens
 	 */
 	afterClose?: () => void
+	/**
+	 * Optionally control the open state
+	 */
+	isOpen?: boolean
+	/**
+	 * Replace dialog open function when it is controlled
+	 */
+	open?: () => void
+	/**
+	 * Replace dialog close function when it is controlled
+	 */
+	close?: () => void
 }
 
 const Dialog = ({
 	trigger,
+	triggerRef,
 	triggerLabel,
 	triggerTooltip,
 	triggerTooltipPlacement,
-	contentProps = {},
 	title,
 	content,
+	contentProps = {},
 	showCloseButton = true,
 	beforeOpen,
 	afterClose,
+	isOpen,
+	open,
+	close,
 }: Props) => {
-	const openButtonRef = useRef()
+	const internalOpenButtonRef = useRef()
+	const openButtonRef = triggerRef ?? internalOpenButtonRef
 	const closeButtonRef = useRef()
-	const state = useOverlayTriggerState({})
+	const isControlled = typeof isOpen !== 'undefined'
+	const state = useOverlayTriggerState(isControlled ? { isOpen } : {})
 
 	const { buttonProps: openButtonProps } = useButton(
 		{
 			onPress: () => {
 				beforeOpen?.()
-				state.open()
+				if (isControlled) {
+					open?.()
+				} else {
+					state.open()
+				}
 			},
 		},
 		openButtonRef,
@@ -92,6 +119,11 @@ const Dialog = ({
 	const { buttonProps: closeButtonProps } = useButton(
 		{
 			onPress: () => {
+				if (isControlled) {
+					close?.()
+				} else {
+					state.close()
+				}
 				state.close()
 				afterClose?.()
 			},

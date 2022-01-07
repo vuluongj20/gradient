@@ -150,7 +150,7 @@ const TitleWrap = styled.div<{ rowLayout: boolean }>`
 		p.rowLayout ? `grid-column-end: span 4;` : `margin-top: ${p.theme.space[1]};`}
 
 	${(p) => p.theme.utils.media.s} {
-		margin-top: ${(p) => p.theme.space[1]};
+		margin: ${(p) => p.theme.space[1]} 0;
 	}
 `
 
