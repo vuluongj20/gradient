@@ -7,6 +7,7 @@ module.exports = {
   bracketSpacing: true,
   importOrder: [
     '^[./]',
+    '^@images(/(.*))*$',
     '^@data(/(.*))*$',
     '^@theme(/(.*))*$',
     '^@components/(.*)$',

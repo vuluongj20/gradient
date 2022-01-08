@@ -10,12 +10,6 @@ module.exports = {
       'An online publication on the topics of technology, design, philosophy, and the law.',
     author: 'Vu Luong',
     authorTwitter: '@vuluongj20',
-    image: {
-      src: '/images/og.png',
-      alt: 'Wordmark logo that says Gradient \\',
-      width: 1200,
-      height: 630,
-    },
   },
   plugins: [
     'gatsby-plugin-styled-components',
@@ -87,6 +81,7 @@ module.exports = {
           '@data': path.resolve(__dirname, 'src/data'),
           '@types': path.resolve(__dirname, 'src/types'),
           '@theme': path.resolve(__dirname, 'src/layouts/theme'),
+          '@images': path.resolve(__dirname, 'src/images'),
         },
         extensions: ['js', 'jsx', 'ts', 'tsx'],
       },

@@ -1,6 +1,8 @@
 import { useStaticQuery, graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
 
+import defaultOgImage from '@images/og.png'
+
 type Meta = {
   name?: string
   property?: string
@@ -43,12 +45,6 @@ const SEO = ({
             author
             authorTwitter
             siteUrl
-            image {
-              src
-              alt
-              width
-              height
-            }
           }
         }
       }
@@ -63,7 +59,12 @@ const SEO = ({
   const metaDescription = description ?? siteMetadata.description
   const metaAuthor = author ?? siteMetadata.author
   const metaAuthorTwitter = authorTwitter ?? siteMetadata.authorTwitter
-  const metaImage = image ?? siteMetadata.image
+  const metaImage = image ?? {
+    src: defaultOgImage,
+    alt: 'Wordmark logo that says Gradient \\',
+    width: 1200,
+    height: 630,
+  }
 
   return (
     <Helmet
