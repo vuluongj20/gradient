@@ -25,7 +25,7 @@ const Card = ({
 	path,
 	title,
 	sections,
-	img,
+	image,
 	rowLayout,
 }: Props): JSX.Element => {
 	const sectionData = useSections()
@@ -36,13 +36,13 @@ const Card = ({
 	const InnerWrap = ({ children }: InnerWrapProps) =>
 		rowLayout ? <StyledInnerGrid>{children}</StyledInnerGrid> : <div>{children}</div>
 
-	const image = getImage(img.src)
+	const imageData = getImage(image.src)
 
 	return (
 		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols}>
 			<InnerWrap>
 				<ImageWrap rowLayout={rowLayout}>
-					<StyledGatsbyImage image={image} alt={img.alt} loading="eager" />
+					<StyledGatsbyImage image={imageData} alt={image.alt} loading="eager" />
 				</ImageWrap>
 
 				<TitleWrap rowLayout={rowLayout}>

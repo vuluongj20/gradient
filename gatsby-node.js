@@ -19,6 +19,16 @@ exports.createPages = async function ({ actions, graphql }) {
             node {
               slug
               title
+              description
+              authors
+              image {
+                alt
+                src {
+                  childImageSharp {
+                    gatsbyImageData(layout: FULL_WIDTH, width: 1200, height: 630)
+                  }
+                }
+              }
               buildPage
             }
           }
@@ -33,8 +43,13 @@ exports.createPages = async function ({ actions, graphql }) {
     story.buildPage &&
       actions.createPage({
         path: `/story/${story.slug}`,
-        component,
-        context: { slug: story.slug, title: story.title },
+        component: component,
+        context: {
+          slug: story.slug,
+          title: story.title,
+          description: story.description,
+          image: { ...story.image, width: 1200, height: 630 },
+        },
       })
   })
 
@@ -57,7 +72,7 @@ exports.createPages = async function ({ actions, graphql }) {
     actions.createPage({
       path: `/${page.slug}`,
       component: StoryGroup,
-      context: { slug: page.slug, title: page.title },
+      context: { slug: page.slug, title: page.title, description: page.description },
     })
   })
 
@@ -80,7 +95,11 @@ exports.createPages = async function ({ actions, graphql }) {
     actions.createPage({
       path: `/section/${section.slug}`,
       component: StoryGroup,
-      context: { filter: { sections: { in: [section.slug] } }, title: section.name },
+      context: {
+        filter: { sections: { in: [section.slug] } },
+        title: section.name,
+        description: section.description,
+      },
     })
   })
 
@@ -103,7 +122,11 @@ exports.createPages = async function ({ actions, graphql }) {
     actions.createPage({
       path: `/author/${author.slug}`,
       component: StoryGroup,
-      context: { filter: { authors: { in: [author.slug] } }, title: author.name },
+      context: {
+        filter: { authors: { in: [author.slug] } },
+        title: author.name,
+        description: author.description,
+      },
     })
   })
 }

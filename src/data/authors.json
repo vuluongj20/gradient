@@ -1,10 +1,12 @@
 [
 	{
 		"slug": "vu-luong",
-		"name": "Vu Luong"
+		"name": "Vu Luong",
+		"description": "Vu Luong is "
 	},
 	{
 		"slug": "justin-selig",
-		"name": "Justin Selig"
+		"name": "Justin Selig",
+		"description": ""
 	}
 ]

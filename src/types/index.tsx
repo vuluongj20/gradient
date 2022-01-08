@@ -34,7 +34,7 @@ export type Story = {
 	featuredSize?: string
 	sections: string[]
 	authors: string[]
-	img: Image
+	image: Image
 	buildPage?: boolean
 	path: string
 }

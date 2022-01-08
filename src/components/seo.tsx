@@ -7,15 +7,15 @@ type Meta = {
   content: string
 }
 
-type Props = {
+export type SEOProps = {
   lang?: string
   title?: string
   description?: string
   author?: string
   authorTwitter?: string
   image?: {
-    url: string
-    alt?: string
+    src: string
+    alt: string
     width?: number
     height?: number
   }
@@ -30,7 +30,7 @@ const SEO = ({
   authorTwitter,
   image,
   meta,
-}: Props): JSX.Element => {
+}: SEOProps): JSX.Element => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -44,7 +44,7 @@ const SEO = ({
             authorTwitter
             siteUrl
             image {
-              url
+              src
               alt
               width
               height
@@ -96,7 +96,7 @@ const SEO = ({
           },
           {
             property: `og:image`,
-            content: metaImage.url,
+            content: metaImage.src,
           },
           {
             property: `og:image:alt`,
@@ -132,7 +132,7 @@ const SEO = ({
           },
           {
             name: `twitter:image`,
-            content: metaImage.url,
+            content: metaImage.src,
           },
           {
             name: `twitter:image:alt`,

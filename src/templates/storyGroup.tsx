@@ -7,7 +7,6 @@ import Card from '@components/card'
 import FilterBar, { FilterProps } from '@components/filterBar'
 import Grid from '@components/grid'
 import Page from '@components/page'
-import SEO from '@components/seo'
 
 import { Story } from '@types'
 
@@ -95,7 +94,6 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 
 	return (
 		<Page>
-			<SEO title={pageContext.title} />
 			<PageContent>
 				<Header>
 					<Title>{pageContext.title}</Title>
@@ -135,7 +133,7 @@ export const query = graphql`
 					title
 					sections
 					authors
-					img {
+					image {
 						alt
 						src {
 							childImageSharp {

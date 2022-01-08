@@ -30,7 +30,6 @@ const IndexPage = (): JSX.Element => {
 
   return (
     <Page>
-      <SEO />
       <section>
         <Header />
         <CardGroup stories={topFeaturedStories} />

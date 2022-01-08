@@ -1,4 +1,5 @@
 import { OverlayProvider } from '@react-aria/overlays'
+import { getSrc } from 'gatsby-plugin-image'
 import { ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -7,11 +8,19 @@ import GlobalStyles from './globalStyles'
 import Nav from './nav'
 import { getTheme } from './theme'
 
+import SEO, { SEOProps } from '@components/seo'
+
 import SettingsContext, { SettingsProvider } from '@utils/settingsContext'
 
-type Props = { children: ReactNode }
+type Props = {
+	children: ReactNode
+	pageContext: SEOProps
+}
 
-const Layout = ({ children }: Props): JSX.Element => {
+const Layout = ({
+	children,
+	pageContext: { title, description, author, image },
+}: Props): JSX.Element => {
 	const [mounted, setMounted] = useState(false)
 	useEffect(() => {
 		setMounted(true)
@@ -26,12 +35,25 @@ const Layout = ({ children }: Props): JSX.Element => {
 		return null
 	}
 
+	const seo = {
+		title,
+		description,
+		author,
+		image: image && {
+			src: typeof image.src === 'string' ? image : getSrc(image.src),
+			alt: image.alt,
+			width: image.width,
+			height: image.height,
+		},
+	}
+
 	return (
 		<SettingsProvider>
 			<SettingsContext.Consumer>
 				{({ settings }) => (
 					<ThemeProvider theme={getTheme(settings.theme)}>
 						<OverlayProvider>
+							<SEO {...seo} />
 							<GlobalStyles />
 							<Nav />
 							<PageContent id="page-content">{children}</PageContent>
