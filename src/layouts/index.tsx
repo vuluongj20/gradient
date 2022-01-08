@@ -1,4 +1,5 @@
 import { OverlayProvider } from '@react-aria/overlays'
+import { SSRProvider } from '@react-aria/ssr'
 import { getSrc } from 'gatsby-plugin-image'
 import { ReactNode } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
@@ -38,12 +39,14 @@ const Layout = ({
 			<SettingsContext.Consumer>
 				{({ settings }) => (
 					<ThemeProvider theme={getTheme(settings.theme)}>
-						<OverlayProvider>
-							<SEO {...seo} />
-							<GlobalStyles />
-							<Nav />
-							<PageContent id="page-content">{children}</PageContent>
-						</OverlayProvider>
+						<SSRProvider>
+							<OverlayProvider>
+								<SEO {...seo} />
+								<GlobalStyles />
+								<Nav />
+								<PageContent id="page-content">{children}</PageContent>
+							</OverlayProvider>
+						</SSRProvider>
 					</ThemeProvider>
 				)}
 			</SettingsContext.Consumer>
