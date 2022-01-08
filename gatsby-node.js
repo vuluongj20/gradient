@@ -25,7 +25,7 @@ exports.createPages = async function ({ actions, graphql }) {
                 alt
                 src {
                   childImageSharp {
-                    gatsbyImageData(layout: FULL_WIDTH, width: 1200, height: 630)
+                    gatsbyImageData(width: 1200, height: 630)
                   }
                 }
               }

@@ -1,6 +1,6 @@
 import { OverlayProvider } from '@react-aria/overlays'
 import { getSrc } from 'gatsby-plugin-image'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
 import './fontFaces.css'
@@ -21,20 +21,6 @@ const Layout = ({
 	children,
 	pageContext: { title, description, author, image },
 }: Props): JSX.Element => {
-	const [mounted, setMounted] = useState(false)
-	useEffect(() => {
-		setMounted(true)
-	}, [])
-
-	/**
-	 * Only render when the component has fully mounted,
-	 * to ensure the settings context and theme context
-	 * have fully initialized.
-	 */
-	if (!mounted) {
-		return null
-	}
-
 	const seo = {
 		title,
 		description,
