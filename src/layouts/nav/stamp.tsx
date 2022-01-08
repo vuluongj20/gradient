@@ -29,14 +29,13 @@ const Stamp = (): JSX.Element => {
 					<StampText>GRDNT</StampText>
 				</StampLink>
 			</StampSection>
-			<StampSection>
+			<StampSection aria-hidden="true">
 				<StampLink
 					to="/"
 					tooltip={!disabled && 'Home'}
 					tooltipPlacement="right"
 					height={6}
 					tabIndex={-1}
-					aria-hidden="true"
 				>
 					<StampText>{dateString}</StampText>
 				</StampLink>

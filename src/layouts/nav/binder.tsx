@@ -19,22 +19,24 @@ const Binder = ({
 	afterSettingsDialogClose,
 }: Props): JSX.Element => (
 	<Wrap>
-		<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
+		<ListWrap>
+			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
+			<LogoWrap>
+				<Logo to="/">Gradient</Logo>
+			</LogoWrap>
+			<StyledSettings
+				beforeDialogOpen={beforeSettingsDialogOpen}
+				afterDialogClose={afterSettingsDialogClose}
+			/>
+		</ListWrap>
 		<Stamp />
 		<Target />
-		<LogoWrap>
-			<Logo to="/">Gradient</Logo>
-		</LogoWrap>
-		<StyledSettings
-			beforeDialogOpen={beforeSettingsDialogOpen}
-			afterDialogClose={afterSettingsDialogClose}
-		/>
 	</Wrap>
 )
 
 export default Binder
 
-const Wrap = styled.ul`
+const Wrap = styled.div`
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -52,6 +54,8 @@ const Wrap = styled.ul`
 		border-right: none;
 	}
 `
+
+const ListWrap = styled.ul``
 
 const LogoWrap = styled.li`
 	${(p) => p.theme.utils.absCenter};
