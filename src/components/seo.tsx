@@ -67,6 +67,7 @@ const SEO = ({
 
   return (
     <Helmet
+      defer={false}
       htmlAttributes={{
         lang: metaLang,
         dir: metaDir,
