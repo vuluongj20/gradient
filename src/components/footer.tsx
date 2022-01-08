@@ -1,4 +1,3 @@
-import { useLabel } from '@react-aria/label'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'

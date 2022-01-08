@@ -40,7 +40,7 @@ const Layout = ({
 		description,
 		author,
 		image: image && {
-			src: typeof image.src === 'string' ? image : getSrc(image.src),
+			src: typeof image.src === 'string' ? image.src : getSrc(image.src),
 			alt: image.alt,
 			width: image.width,
 			height: image.height,

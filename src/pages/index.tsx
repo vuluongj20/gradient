@@ -5,7 +5,6 @@ import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
 import SectionDivider from '@components/sectionDivider'
-import SEO from '@components/seo'
 
 import useFeaturedStories from '@pageComponents/home/useFeaturedStories'
 
