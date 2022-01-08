@@ -1,3 +1,4 @@
+import { useLabel } from '@react-aria/label'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
@@ -31,14 +32,17 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 	const archivePage = useArchivePage()
 	const policiesPages = usePoliciesPages()
 
-	const mapSiteLinks = (pages: Page[], Wrap) =>
-		pages.map((page) => {
-			return (
-				<Wrap key={page.slug}>
-					<StyledLink to={page.path}>{page.title}</StyledLink>
-				</Wrap>
-			)
-		})
+	const mapSiteLinks = (pages: Page[], OuterWrap, LinkWrap) => (
+		<OuterWrap>
+			{pages.map((page) => {
+				return (
+					<LinkWrap key={page.slug}>
+						<StyledLink to={page.path}>{page.title}</StyledLink>
+					</LinkWrap>
+				)
+			})}
+		</OuterWrap>
+	)
 
 	return (
 		<LocalThemeProvider appearance={inverted ? 'inverted' : null} elevation={elevation}>
@@ -46,15 +50,15 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 				<SiteMap as="nav">
 					<Column>
 						<ColLabel>Sections</ColLabel>
-						{mapSiteLinks(sectionPages, ColLink)}
+						{mapSiteLinks(sectionPages, ColContent, ColLink)}
 					</Column>
 					<Column>
 						<ColLabel>Authors</ColLabel>
-						{mapSiteLinks(authorPages, ColLink)}
+						{mapSiteLinks(authorPages, ColContent, ColLink)}
 					</Column>
 					<Column>
 						<ColLabel>More</ColLabel>
-						{mapSiteLinks([archivePage], ColLink)}
+						{mapSiteLinks([archivePage], ColContent, ColLink)}
 					</Column>
 				</SiteMap>
 				<Grid>
@@ -62,7 +66,7 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 				</Grid>
 				<Policies>
 					<PolicyText aria-hidden="true">Gradient</PolicyText>
-					{mapSiteLinks(policiesPages, PolicyLink)}
+					{mapSiteLinks(policiesPages, PolicyContent, PolicyLink)}
 				</Policies>
 			</Wrap>
 		</LocalThemeProvider>
@@ -89,7 +93,7 @@ const SiteMap = styled(Grid)`
 	${(p) => p.theme.utils.space.paddingVertical[4]};
 `
 
-const Column = styled.ul`
+const Column = styled.div`
 	grid-column-end: span 2;
 
 	display: flex;
@@ -103,12 +107,14 @@ const Column = styled.ul`
 	}
 `
 
-const ColLabel = styled.p`
+const ColLabel = styled.label`
 	${(p) => p.theme.text.ui.label};
 	color: ${(p) => p.theme.colors.label};
 
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
+
+const ColContent = styled.ul``
 
 const ColLink = styled.li`
 	margin-bottom: ${(p) => p.theme.space[0]};
@@ -134,6 +140,10 @@ const PolicyText = styled.p`
 		grid-column-end: span 4;
 		margin-bottom: ${(p) => p.theme.space[1]};
 	}
+`
+
+const PolicyContent = styled.ul`
+	display: contents;
 `
 
 const PolicyLink = styled.li`
