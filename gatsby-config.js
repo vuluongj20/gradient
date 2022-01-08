@@ -11,7 +11,7 @@ module.exports = {
     author: 'Vu Luong',
     authorTwitter: '@vuluongj20',
     image: {
-      src: '/images/og.png',
+      src: '/images/og2.png',
       alt: 'Wordmark logo that says Gradient \\',
       width: 1200,
       height: 630,
