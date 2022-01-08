@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 
 import Page from '@components/page'
+import SEO from '@components/seo'
 import TransitionLink from '@components/transitionLink'
 
 const Page404 = () => (
   <Page>
+    <SEO title={'Page Not Found'} />
     <Wrap>
-      <Title>Page not found :(</Title>
+      <Title>Page Not Found…</Title>
       <Text>
-        We couldn&apos;t find the page you&apos;re looking for. The sadness… Make sure you
-        typed in the correct URL, or go back to the home page and start looking from
-        there.
+        We couldn&apos;t find the page you&apos;re looking for. Make sure you typed in the
+        correct URL, or go back to the home page and start looking from there.
       </Text>
       <Link to="/">Take me home.</Link>
     </Wrap>
@@ -32,11 +33,12 @@ const Wrap = styled.div`
 `
 
 const Title = styled.h1`
-  ${(p) => p.theme.utils.space.marginBottom[0]};
+  ${(p) => p.theme.utils.space.marginBottom[4]};
 `
 
 const Text = styled.p`
-  max-width: 36em;
+  max-width: 24em;
+  text-align: center;
   ${(p) => p.theme.utils.space.marginBottom[1]};
 `
 
