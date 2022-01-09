@@ -1,7 +1,7 @@
 import { OverlayProvider } from '@react-aria/overlays'
 import { SSRProvider } from '@react-aria/ssr'
 import { getSrc } from 'gatsby-plugin-image'
-import { ReactNode } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
 import './fontFaces.css'
@@ -22,6 +22,12 @@ const Layout = ({
 	children,
 	pageContext: { title, description, author, image },
 }: Props): JSX.Element => {
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+
 	const seo = {
 		title,
 		description,
@@ -34,7 +40,7 @@ const Layout = ({
 		},
 	}
 
-	return (
+	const content = (
 		<SettingsProvider>
 			<SettingsContext.Consumer>
 				{({ settings }) => (
@@ -52,6 +58,12 @@ const Layout = ({
 			</SettingsContext.Consumer>
 		</SettingsProvider>
 	)
+
+	if (!mounted) {
+		return <div style={{ visibility: 'hidden' }}>{content}</div>
+	}
+
+	return content
 }
 
 export default Layout

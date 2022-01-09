@@ -1,6 +1,6 @@
 import { ThemeSettings } from '../layouts/theme'
 
-export type State = {
+export type Settings = {
 	theme: ThemeSettings
 }
 
@@ -8,7 +8,7 @@ export type Action =
 	| { type: 'update-color'; key: string; value: string }
 	| { type: 'update-text'; key: string; value: string }
 
-export const defaultSettings: State = {
+export const defaultSettings: Settings = {
 	theme: {
 		color: {
 			appearance: 'auto',
@@ -25,7 +25,16 @@ export const defaultSettings: State = {
 	},
 }
 
-export const reducer = (state: State, action: Action): State => {
+export const init = (initialSettings): Settings => {
+	if (typeof window === 'undefined' || typeof document === 'undefined') {
+		return initialSettings
+	}
+
+	const localSettings = JSON.parse(localStorage.getItem('UP')) as Settings
+	return { ...initialSettings, ...localSettings }
+}
+
+export const reducer = (state: Settings, action: Action): Settings => {
 	switch (action.type) {
 		case 'update-color':
 			return {
@@ -49,6 +58,8 @@ export const reducer = (state: State, action: Action): State => {
 					},
 				},
 			}
+		case 'rehydrate':
+			return init(state, action.payload)
 		default:
 			return state
 	}

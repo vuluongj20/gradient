@@ -48,17 +48,22 @@ const HTML = (props: Props) => {
             __html: `
             (function () {
               try {
-                const theme = localStorage.getItem('theme')
-                if (!theme || theme === 'auto') {
-                  const preferDarkTheme =
+                const localSettings = JSON.parse(localStorage.getItem('UP'))
+                const appearance = localSettings?.theme?.colors?.appearance
+                const lightPalette = localSettings?.theme?.colors?.lightPalette
+                const darkPalette = localSettings?.theme?.colors?.darkPalette
+
+                if (!appearance || appearance === 'auto') {
+                  const preferDarkAppearance =
                     window.matchMedia('(prefers-color-scheme: dark)').matches === true
-                  if (preferDarkTheme) {
-                    document.body.classList.add('theme-dark')
+                  if (preferDarkAppearance) {
+                    document.body.classList.add('palette-' + darkPalette)
                   } else {
-                    document.body.classList.add('theme-light')
+                    document.body.classList.add('palette-' + lightPalette)
                   }
                 } else {
-                  document.body.classList.add('theme-' + theme)
+                  const palette = appearance === 'light' ? lightPalette : darkPalette
+                  document.body.classList.add('palette-' + palette)
                 }
               } catch (e) {console.warn(e)}
             })();
