@@ -9,6 +9,7 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
+import { numericBreakpoints, gridColCounts } from '@utils/styling'
 
 type Props = Story & {
 	path: string
@@ -20,13 +21,34 @@ type InnerWrapProps = {
 	children: ReactNode
 }
 
+const getImageSizesProp = (gridCols: AdaptiveGridColumns, rowLayout: boolean): string => {
+	if (rowLayout) return `(max-width: ${numericBreakpoints.s}px) 100vw, 40vw`
+	if (!gridCols) return '90vw'
+
+	return (
+		['xs', 's', 'm', 'l', 'xl']
+			.map((breakpoint) => {
+				const gridColumns = gridCols[breakpoint]
+				const maxWidth = numericBreakpoints[breakpoint]
+				const slotWidth = Math.round(
+					((gridColumns.end - gridColumns.start) / gridColCounts[breakpoint]) * 100,
+				)
+
+				return `(max-width: ${maxWidth}px) ${slotWidth}vw`
+			})
+			.join(', ') +
+		// default slot width, for screens larger than the XL breakpoint
+		`, ${Math.round(((gridCols.xl.end - gridCols.xl.start) / 12) * 100)}vw`
+	)
+}
+
 const Card = ({
 	gridCols,
 	path,
 	title,
 	sections,
 	image,
-	rowLayout,
+	rowLayout = false,
 }: Props): JSX.Element => {
 	const sectionData = useSections()
 	const sectionNames = sections
@@ -42,7 +64,12 @@ const Card = ({
 		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols}>
 			<InnerWrap>
 				<ImageWrap rowLayout={rowLayout}>
-					<StyledGatsbyImage image={imageData} alt={image.alt} loading="eager" />
+					<StyledGatsbyImage
+						image={imageData}
+						alt={image.alt}
+						sizes={getImageSizesProp(gridCols, rowLayout)}
+						loading="eager"
+					/>
 				</ImageWrap>
 
 				<TitleWrap rowLayout={rowLayout}>
