@@ -118,6 +118,14 @@ const GlobalStyles = createGlobalStyle`
   .tl-edges {
     overflow: initial;
   }
+
+  .autolinked-header.before {
+    ${(p) => p.theme.utils.flexCenter};
+     height: 100%;
+  }
+  .autolinked-header svg {
+    fill: ${(p) => p.theme.colors.label};
+  }
 `
 
 export default GlobalStyles

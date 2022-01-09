@@ -69,28 +69,27 @@ const Wrap = styled.div`
       margin-top: ${(p) => p.theme.space[4]};
     }
     padding-top: ${(p) => p.theme.space[1]};
-    margin-bottom: ${(p) => p.theme.space[1]};
+  }
+  .autolinked-header.before {
+    padding-top: ${(p) => p.theme.space[1]};
   }
   p {
     margin-bottom: ${(p) => p.theme.space[2]};
   }
   h1 {
     ${(p) => p.theme.text.ui.h2}
+    margin-bottom: ${(p) => p.theme.space[4]};
   }
   h2 {
     ${(p) => p.theme.text.ui.h4}
+    margin-bottom: ${(p) => p.theme.space[2]};
   }
-  h3 {
-    ${(p) => p.theme.text.ui.h6}
-  }
-  h4 {
-    ${(p) => p.theme.text.ui.h6}
-  }
-  h5 {
-    ${(p) => p.theme.text.ui.h6}
-  }
+  h3,
+  h4,
+  h5,
   h6 {
     ${(p) => p.theme.text.ui.h6}
+    margin-bottom: ${(p) => p.theme.space[1]};
   }
   hr {
     ${(p) => p.theme.utils.space.marginTop[6]};

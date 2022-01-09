@@ -30,7 +30,10 @@ module.exports = {
         },
         gatsbyRemarkPlugins: [
           {
-            resolve: `gatsby-remark-slug`,
+            resolve: 'gatsby-remark-autolink-headers',
+            options: {
+              className: 'autolinked-header',
+            },
           },
         ],
       },
