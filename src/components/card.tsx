@@ -21,11 +21,17 @@ type InnerWrapProps = {
 	children: ReactNode
 }
 
+/**
+ * Returns custom value for the "sizes" image prop, based on width
+ * information from gridCols
+ */
 const getImageSizesProp = (gridCols: AdaptiveGridColumns, rowLayout: boolean): string => {
 	if (rowLayout) return `(max-width: ${numericBreakpoints.s}px) 100vw, 40vw`
 	if (!gridCols) return '90vw'
 
 	return (
+		// Using a raw array to ensure that the breakpoint values are
+		// organized from smallest to largest
 		['xs', 's', 'm', 'l', 'xl']
 			.map((breakpoint) => {
 				const gridColumns = gridCols[breakpoint]
