@@ -93,6 +93,15 @@ module.exports = {
         injectPageProps: false,
       },
     },
-    'gatsby-plugin-gatsby-cloud',
+    {
+      resolve: 'gatsby-plugin-gatsby-cloud',
+      options: {
+        headers: {
+          'fonts/*': [
+            'Cache-Control: public,max-age=31536000,s-maxage=31536000,immutable',
+          ],
+        },
+      },
+    },
   ],
 }
