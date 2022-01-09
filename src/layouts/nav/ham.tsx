@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { reducedMotion, paddingHorizontal } from '@utils/styling'
 
-export type HamProps = {
+export type Props = {
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 	menuOpen: boolean
 }
@@ -20,7 +20,7 @@ const crossInAnimation = userReducedMotion
 	? { duration: 0 }
 	: { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
 
-const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
+const Hamburger = ({ toggleMenu, menuOpen }: Props) => {
 	const ref = useRef()
 	const { buttonProps } = useButton({ onPress: () => toggleMenu(!menuOpen) }, ref)
 
@@ -31,7 +31,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 			.timeline()
 			.add(
 				gsap.fromTo(
-					[`${HamLineTop}`, `${HamLineBottom}`],
+					[`${LineTop}`, `${LineBottom}`],
 					{ scaleX: 1 },
 					{ scaleX: 0, ...hamOutAnimation },
 				),
@@ -39,7 +39,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 			)
 			.add(
 				gsap.fromTo(
-					[`${HamLineMiddle}`, `${HamLineMiddle}`],
+					[`${LineMiddle}`, `${LineMiddle}`],
 					{ scaleX: 1 },
 					{ scaleX: 0, ...hamOutAnimation },
 				),
@@ -47,7 +47,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 			)
 			.add(
 				gsap.fromTo(
-					`${HamCrossLineInner}`,
+					`${CrossLineInner}`,
 					{ transformOrigin: 'right', scaleX: 0 },
 					{
 						transformOrigin: 'left',
@@ -68,71 +68,69 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 	}, [menuOpen])
 
 	return (
-		<HamOuterWrap>
-			<HamWrap
+		<Wrap>
+			<Button
 				ref={ref}
 				aria-label={menuOpen ? 'Close menu' : 'Open nav menu'}
 				{...buttonProps}
 			>
-				<HamInnerWrap>
-					<HamLineTop />
-					<HamLineMiddle />
-					<HamLineBottom />
-					<HamCrossLinePosWrap>
-						<HamCrossLineInner />
-					</HamCrossLinePosWrap>
-					<HamCrossLineNegWrap>
-						<HamCrossLineInner />
-					</HamCrossLineNegWrap>
-				</HamInnerWrap>
-			</HamWrap>
-		</HamOuterWrap>
+				<InnerWrap>
+					<LineTop />
+					<LineMiddle />
+					<LineBottom />
+					<CrossLinePosWrap>
+						<CrossLineInner />
+					</CrossLinePosWrap>
+					<CrossLineNegWrap>
+						<CrossLineInner />
+					</CrossLineNegWrap>
+				</InnerWrap>
+			</Button>
+		</Wrap>
 	)
 }
 
 export default Hamburger
 
-const HamOuterWrap = styled.li`
-	position: absolute;
-	top: 0.3125em;
-	left: 0.3125em;
-	width: 2.375em;
-	height: 2.375em;
-	padding: 0;
-	font-size: 1em;
-	cursor: pointer;
-	z-index: 1;
-
-	${(p) => p.theme.utils.media.l} {
-		top: 0.25em;
-		left: 0.25em;
-		width: 2.125em;
-		height: 2.125em;
-	}
+const Wrap = styled.li`
+	${(p) => p.theme.utils.flexCenter};
+	width: 100%;
+	position: relative;
 
 	${(p) => p.theme.utils.media.xs} {
+		position: absolute;
 		top: 50%;
 		left: ${paddingHorizontal * 0.5}em;
-		transform: translate(-15%, -50%);
-		padding: 0;
-		width: 2.5em;
-		height: 2.5em;
+		transform: translateY(-50%);
+		width: auto;
 	}
 `
 
-const HamWrap = styled.button`
-	${(p) => p.theme.utils.spread};
+const Button = styled.button`
+	${(p) => p.theme.utils.flexCenter};
 	box-sizing: border-box;
-`
-
-const HamInnerWrap = styled.div`
-	${(p) => p.theme.utils.absCenter};
-	width: 70%;
-	padding-top: 75%;
+	width: calc(100% - ${(p) => p.theme.space[1]});
+	padding: ${(p) => p.theme.space[0]};
 
 	${(p) => p.theme.utils.media.xs} {
-		width: 1.5em;
-		padding-top: 55%;
+		width: auto;
+		transform: translateX(-${(p) => p.theme.space[0]});
+	}
+`
+
+const InnerWrap = styled.div`
+	position: relative;
+	width: 1.75em;
+	height: 1.75em;
+
+	${(p) => p.theme.utils.media.l} {
+		width: 1.625em;
+		height: 1.625em;
+	}
+
+	${(p) => p.theme.utils.media.xs} {
+		width: 1.75em;
+		height: 1.75em;
 	}
 `
 
@@ -140,46 +138,40 @@ const Line = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 2px;
-	border-radius: 2px;
+	border-radius: 4px;
 	background: ${(p) => p.theme.colors.heading};
-	opacity: 40%;
 `
 
-const HamLine = styled(Line)`
-	opacity: 100%;
-	transform-origin: right;
+const LineTop = styled(Line)`
+	top: calc(50% - 0.25em - 2px);
 `
 
-const HamLineTop = styled(HamLine)`
-	top: 25%;
+const LineBottom = styled(Line)`
+	top: calc(50% + 0.25em);
 `
 
-const HamLineBottom = styled(HamLine)`
-	bottom: 25%;
-`
-
-const HamLineMiddle = styled(HamLine)`
+const LineMiddle = styled(Line)`
 	top: calc(50% - 1px);
-	width: 85%;
+	width: 80%;
 `
 
-const HamCrossLineWrap = styled.div`
+const CrossLineWrap = styled.div`
 	position: absolute;
-	width: 85%;
+	width: 90%;
 	height: 2px;
 	left: 7.5%;
 	top: calc(50% - 1px);
 `
 
-const HamCrossLinePosWrap = styled(HamCrossLineWrap)`
+const CrossLinePosWrap = styled(CrossLineWrap)`
 	transform: rotate(45deg);
 `
 
-const HamCrossLineNegWrap = styled(HamCrossLineWrap)`
+const CrossLineNegWrap = styled(CrossLineWrap)`
 	transform: rotate(-45deg);
 `
 
-const HamCrossLineInner = styled(Line)`
+const CrossLineInner = styled(Line)`
 	opacity: 100%;
 	transform-origin: left;
 	transform: scaleX(0);

@@ -1,9 +1,9 @@
+import { useLocation } from '@reach/router'
 import styled from 'styled-components'
 
+import Decorations from './decorations'
 import Hamburger, { HamProps } from './ham'
 import Settings from './settings'
-import Stamp from './stamp'
-import Target from './target'
 
 import TransitionLink from '@components/transitionLink'
 
@@ -17,31 +17,38 @@ const Binder = ({
 	menuOpen,
 	beforeSettingsDialogOpen,
 	afterSettingsDialogClose,
-}: Props): JSX.Element => (
-	<Wrap>
-		<ListWrap>
+}: Props): JSX.Element => {
+	const location = useLocation()
+	const linkIsDisabled = location.pathname === '/'
+
+	return (
+		<Wrap>
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
-			<LogoWrap>
-				<Logo to="/">Gradient</Logo>
+			<Decorations />
+			<LogoWrap aria-hidden={linkIsDisabled}>
+				<Logo to="/" tabIndex={linkIsDisabled ? -1 : 0}>
+					Gradient
+				</Logo>
 			</LogoWrap>
 			<StyledSettings
 				beforeDialogOpen={beforeSettingsDialogOpen}
 				afterDialogClose={afterSettingsDialogClose}
 			/>
-		</ListWrap>
-		<Stamp />
-		<Target />
-	</Wrap>
-)
+		</Wrap>
+	)
+}
 
 export default Binder
 
-const Wrap = styled.div`
+const Wrap = styled.ul`
+	${(p) => p.theme.utils.flexCenter};
+	flex-direction: column;
 	position: relative;
 	width: 100%;
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.colors.line};
-	box-sizing: content-box;
+	box-sizing: border-box;
+	padding: ${(p) => p.theme.space[0]} 0;
 	background: ${(p) => p.theme.colors.iBackground};
 
 	${(p) => p.theme.utils.media.xs} {
@@ -54,8 +61,6 @@ const Wrap = styled.div`
 		border-right: none;
 	}
 `
-
-const ListWrap = styled.ul``
 
 const LogoWrap = styled.li`
 	${(p) => p.theme.utils.absCenter};
@@ -71,11 +76,6 @@ const Logo = styled(TransitionLink)`
 `
 
 const StyledSettings = styled(Settings)`
-	position: absolute;
-	bottom: ${(p) => p.theme.space[1]};
-	left: 50%;
-	transform: translateX(-50%);
-
 	${(p) => p.theme.utils.media.xs} {
 		display: none;
 	}

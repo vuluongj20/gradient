@@ -3,14 +3,33 @@ import styled from 'styled-components'
 import TransitionLink from '@components/transitionLink'
 
 const Target = (): JSX.Element => (
-	<TargetWrap to="/" tabIndex={-1} aria-hidden="true">
-		<TargetLineHorizontal />
-		<TargetLineVertical />
-		<TargetCircle />
-	</TargetWrap>
+	<OuterWrap aria-hidden="true">
+		<StyledLink to="/" tabIndex={-1}>
+			<LineHorizontal />
+			<LineVertical />
+			<Circle />
+		</StyledLink>
+	</OuterWrap>
 )
 
 export default Target
+
+const OuterWrap = styled.li`
+	${(p) => p.theme.utils.flexCenter};
+	position: relative;
+	width: 1.5em;
+	height: 1.5em;
+	flex-shrink: 0;
+
+	${(p) => p.theme.utils.media.xs} {
+		display: none;
+	}
+`
+
+const StyledLink = styled(TransitionLink)`
+	${(p) => p.theme.utils.spread};
+	z-index: 1;
+`
 
 const Line = styled.div`
 	position: absolute;
@@ -21,38 +40,24 @@ const Line = styled.div`
 	opacity: 40%;
 `
 
-const TargetWrap = styled(TransitionLink)`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 1.5em;
-	height: 1.5em;
-	z-index: 1;
-
-	${(p) => p.theme.utils.media.xs} {
-		display: none;
-	}
-`
-
-const TargetLineHorizontal = styled(Line)`
+const LineHorizontal = styled(Line)`
 	top: 50%;
 	transform: translateY(-50%);
 `
 
-const TargetLineVertical = styled(Line)`
+const LineVertical = styled(Line)`
 	top: calc(50% - 1px);
 	left: 0;
 	transform: rotate(90deg);
 `
 
-const TargetCircle = styled.div`
+const Circle = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 56.25%;
-	height: 56.25%;
+	width: 68.75%;
+	height: 68.75%;
 	border: solid 2px ${(p) => p.theme.colors.heading};
 	border-radius: 50%;
 	opacity: 40%;
