@@ -27,7 +27,6 @@ const Dialog = () => {
 
 	return (
 		<InnerWrap>
-			<p>Manage reading preferences</p>
 			<Section>
 				<SectionTitle>Appearance</SectionTitle>
 				<RadioBar
@@ -47,10 +46,10 @@ export default Dialog
 const InnerWrap = styled.div``
 
 const Section = styled.section`
-	${(p) => p.theme.utils.space.paddingVertical[5]};
+	${(p) => p.theme.utils.space.paddingVertical[0]};
 `
 
 const SectionTitle = styled.h3`
-	${(p) => p.theme.text.ui.h4};
-	margin-bottom: ${(p) => p.theme.space[0]};
+	${(p) => p.theme.text.ui.h5};
+	margin-bottom: ${(p) => p.theme.space[1]};
 `
