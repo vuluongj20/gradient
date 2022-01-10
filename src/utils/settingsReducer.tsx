@@ -58,8 +58,6 @@ export const reducer = (state: Settings, action: Action): Settings => {
 					},
 				},
 			}
-		case 'rehydrate':
-			return init(state, action.payload)
 		default:
 			return state
 	}

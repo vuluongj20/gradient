@@ -6,7 +6,7 @@ import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
 
-import { AdaptiveGridColumns, Story } from '@types'
+import { AdaptiveGridColumns, Story, Image } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
 import { numericBreakpoints, gridColCounts } from '@utils/styling'
@@ -15,6 +15,7 @@ type Props = Story & {
 	path: string
 	gridCols?: AdaptiveGridColumns
 	rowLayout?: boolean
+	imageLoading?: Image['loading']
 }
 
 type InnerWrapProps = {
@@ -54,6 +55,7 @@ const Card = ({
 	title,
 	sections,
 	image,
+	imageLoading = 'lazy',
 	rowLayout = false,
 }: Props): JSX.Element => {
 	const sectionData = useSections()
@@ -72,10 +74,10 @@ const Card = ({
 				<ImageWrap rowLayout={rowLayout}>
 					<StyledGatsbyImage
 						image={imageData}
-						backgroundColor={imageData.backgroundColor}
 						alt={image.alt}
 						sizes={getImageSizesProp(gridCols, rowLayout)}
-						loading="eager"
+						backgroundColor={imageData.backgroundColor}
+						loading={imageLoading}
 					/>
 				</ImageWrap>
 

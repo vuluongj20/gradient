@@ -31,7 +31,7 @@ const IndexPage = (): JSX.Element => {
     <Page>
       <section>
         <Header />
-        <CardGroup stories={topFeaturedStories} />
+        <CardGroup stories={topFeaturedStories} imageLoading="eager" />
       </section>
 
       {featuredSections.map((s) => {

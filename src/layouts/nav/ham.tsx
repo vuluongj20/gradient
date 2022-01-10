@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { reducedMotion, paddingHorizontal } from '@utils/styling'
 
-export type Props = {
+export type HamProps = {
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 	menuOpen: boolean
 }
@@ -20,7 +20,7 @@ const crossInAnimation = userReducedMotion
 	? { duration: 0 }
 	: { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
 
-const Hamburger = ({ toggleMenu, menuOpen }: Props) => {
+const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 	const ref = useRef()
 	const { buttonProps } = useButton({ onPress: () => toggleMenu(!menuOpen) }, ref)
 

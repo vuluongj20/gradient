@@ -13,6 +13,7 @@ export type Image = {
 	src: ImageDataLike
 	alt: string
 	aspectRatio?: 'square' | 'rect' | 'wide'
+	loading?: 'eager' | 'lazy'
 }
 
 export type Page = {

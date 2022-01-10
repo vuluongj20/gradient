@@ -5,13 +5,14 @@ import Card from './card'
 
 import Grid from '@components/grid'
 
-import { AdaptiveGridColumns, GridColumns, Story } from '@types'
+import { AdaptiveGridColumns, GridColumns, Story, Image } from '@types'
 
 import { sum } from '@utils/functions'
 import { gridColCounts } from '@utils/styling'
 
 type Props = {
 	stories: Story[]
+	imageLoading?: Image['loading']
 }
 
 type SpanRange = {
@@ -150,14 +151,19 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 	return results as AdaptiveGridColumns[]
 }
 
-const CardGroup = ({ stories }: Props): JSX.Element => {
+const CardGroup = ({ stories, imageLoading }: Props): JSX.Element => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const gridColumns = useMemo(() => getGridColumns(stories), [])
 
 	return (
 		<Wrap>
 			{stories.map((story, i) => (
-				<Card key={story.slug} {...story} gridCols={gridColumns[i]} />
+				<Card
+					key={story.slug}
+					{...story}
+					gridCols={gridColumns[i]}
+					imageLoading={imageLoading}
+				/>
 			))}
 		</Wrap>
 	)

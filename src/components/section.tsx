@@ -4,7 +4,7 @@ import CardGroup from './cardGroup'
 
 import { ThemeSettings } from '@theme'
 
-import { Section as ISection, Story } from '@types'
+import { Section as ISection, Story, Image } from '@types'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
@@ -12,9 +12,10 @@ type Props = {
 	section: ISection
 	stories: Story[]
 	elevation?: ThemeSettings['color']['elevation']
+	imageLoading?: Image['loading']
 }
 
-const Section = ({ section, stories, elevation }: Props): JSX.Element => {
+const Section = ({ section, stories, elevation, imageLoading }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider elevation={elevation}>
 			<Wrap>
@@ -23,7 +24,7 @@ const Section = ({ section, stories, elevation }: Props): JSX.Element => {
 						<Title>{section.name}</Title>
 					</TitleLink>
 				</TitleWrap>
-				<CardGroup stories={stories} />
+				<CardGroup stories={stories} imageLoading={imageLoading} />
 			</Wrap>
 		</LocalThemeProvider>
 	)
