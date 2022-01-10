@@ -66,8 +66,6 @@ const Card = ({
 
 	const imageData = getImage(image.src)
 
-	console.log(imageData)
-
 	return (
 		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols}>
 			<InnerWrap>
