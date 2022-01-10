@@ -79,12 +79,17 @@ const LineChart = ({ data, content }: Props) => {
         .attr('preserveAspectRatio', 'xMidYMid meet')
         .attr('viewBox', '0 0 ' + width + ' ' + height)
         .attr('class', 'viz')
+        .attr(
+          'aria-label',
+          'Time series showing the steady increase in atmospheric carbon dioxide levels from 1958 to 2020',
+        )
     grandDaddy.select('.viz-divider').attr('class', 'viz-divider on')
 
     // Grid lines
     svg
       .append('g')
       .attr('class', 'y grid')
+      .attr('aria-hidden', 'true')
       .attr('transform', 'translate(' + margin.left + ', ' + height + ')')
       .call(axisBottom(x).ticks(5).tickSize(-height).tickFormat(''))
     grandDaddy.selectAll('.y.grid>.tick').each(function (d, i) {
@@ -106,6 +111,7 @@ const LineChart = ({ data, content }: Props) => {
     svg
       .append('g')
       .attr('class', 'x grid')
+      .attr('aria-hidden', 'true')
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
       .call(axisRight(y).ticks(5).tickSize(width).tickFormat(''))
     grandDaddy.selectAll('.x.grid>.tick').each(function (d, i) {
@@ -129,6 +135,7 @@ const LineChart = ({ data, content }: Props) => {
     svg
       .append('g')
       .attr('class', 'x axis')
+      .attr('aria-hidden', 'true')
       .attr(
         'transform',
         'translate(' + margin.left + ', ' + (innerHeight + margin.top) + ')',
@@ -147,6 +154,7 @@ const LineChart = ({ data, content }: Props) => {
     svg
       .append('g')
       .attr('class', 'y axis')
+      .attr('aria-hidden', 'true')
       .attr(
         'transform',
         'translate(' + (innerWidth + margin.left) + ', ' + margin.top + ')',
@@ -242,6 +250,7 @@ const LineChart = ({ data, content }: Props) => {
                   'translate(' + (margin.left + 24) + ' ' + (margin.top + 24) + ')',
                 )
                 .style('opacity', 0)
+                .attr('aria-hidden', 'true')
 
             hoverGroup
               .append('rect')

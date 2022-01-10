@@ -14,8 +14,8 @@ const VizContent = ({ content }: Props) => (
 			</VizSvgOuterWrap>
 		</VizWrap>
 		<VizScrollBox>
-			<VizDesText className="dummy" data-index="-1"></VizDesText>
-			<VizScrollAnchorTop />
+			<VizDesText className="dummy" data-index="-1" aria-hidden="true"></VizDesText>
+			<VizScrollAnchorTop aria-hidden="true" />
 			<VizDesWrap>
 				{content.map((chunk, index) => {
 					return (
@@ -25,7 +25,7 @@ const VizContent = ({ content }: Props) => (
 					)
 				})}
 			</VizDesWrap>
-			<VizScrollAnchorBottom />
+			<VizScrollAnchorBottom aria-hidden="true" />
 		</VizScrollBox>
 	</Wrap>
 )

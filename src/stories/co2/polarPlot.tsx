@@ -91,7 +91,11 @@ const PolarPlot = ({ data, content }: Props) => {
         .attr('viewBox', '0 0 ' + radius * 2 + ' ' + radius * 2)
         .attr('width', radius * 2)
         .attr('height', radius * 2)
-        .attr('class', 'viz'),
+        .attr('class', 'viz')
+        .attr(
+          'aria-label',
+          'Polar plot that presents the same carbon dioxide data but as a circular swirl expanding outward',
+        ),
       defs = svg.append('defs')
 
     grandDaddy.select('.viz-divider').attr('class', 'viz-divider on')
@@ -118,10 +122,12 @@ const PolarPlot = ({ data, content }: Props) => {
     const rAxis = svg
         .append('g')
         .attr('class', 'r axis')
+        .attr('aria-hidden', 'true')
         .attr('transform', 'translate(' + radius + ' ' + radius + ')'),
       aAxis = svg
         .append('g')
         .attr('class', 'a axis')
+        .attr('aria-hidden', 'true')
         .attr('transform', 'translate(' + radius + ' ' + radius + ')')
 
     rAxis
