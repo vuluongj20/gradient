@@ -137,6 +137,7 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   transition: ${(p) => p.theme.utils.defaultTransitions},
     opacity ${(p) => p.theme.animation.fastOut},
     transform ${(p) => p.theme.animation.fastOut};
+  will-change: opacity, transform;
 
   color: ${(p) => p.theme.colors.label};
   line-height: 1.2;
@@ -144,15 +145,17 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   font-size: 0.75em;
   font-weight: 500;
 
-  ${(p) => p.placement === 'top' && `transform: translateY(${p.theme.space[1]})`};
-  ${(p) => p.placement === 'bottom' && `transform: translateY(-${p.theme.space[1]})`};
-  ${(p) => p.placement === 'left' && `transform: translateX(${p.theme.space[1]})`};
-  ${(p) => p.placement === 'right' && `transform: translateX(-${p.theme.space[1]})`};
+  ${(p) => p.placement === 'top' && `transform: translate3d(0, ${p.theme.space[1]}, 0)`};
+  ${(p) =>
+    p.placement === 'bottom' && `transform: translate3d(0, -${p.theme.space[1]}, 0)`};
+  ${(p) => p.placement === 'left' && `transform: translate3d(${p.theme.space[1]}, 0, 0)`};
+  ${(p) =>
+    p.placement === 'right' && `transform: translate3d(-${p.theme.space[1]}, 0, 0)`};
 
   &.enter-active,
   &.enter-done {
     opacity: 100%;
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   &.exit-active {
