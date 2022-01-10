@@ -66,12 +66,15 @@ const Card = ({
 
 	const imageData = getImage(image.src)
 
+	console.log(imageData)
+
 	return (
 		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols}>
 			<InnerWrap>
 				<ImageWrap rowLayout={rowLayout}>
 					<StyledGatsbyImage
 						image={imageData}
+						backgroundColor={imageData.backgroundColor}
 						alt={image.alt}
 						sizes={getImageSizesProp(gridCols, rowLayout)}
 						loading="eager"
@@ -148,6 +151,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
 	mask-image: radial-gradient(white, black);
+	background: ${(p) => p.theme.colors.iBackground};
 
 	::after {
 		content: '';
