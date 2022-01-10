@@ -46,7 +46,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			? [
 					{
 						name: 'section',
-						label: 'By section',
+						label: 'Section',
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All sections', selected: true },
@@ -59,7 +59,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			? [
 					{
 						name: 'author',
-						label: 'By author',
+						label: 'Author',
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All authors', selected: true },

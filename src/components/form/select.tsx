@@ -25,7 +25,16 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 	const ref = useRef()
 	const state = useSelectState(props)
 	const { triggerProps, valueProps, menuProps } = useSelect(props, state, ref)
-	const { buttonProps } = useButton(triggerProps, ref)
+	const { buttonProps } = useButton(
+		{
+			...triggerProps,
+			'aria-labelledby': null,
+			'aria-label': `${props.label} (Filter) – ${
+				state.selectedItem ? `selected ${state.selectedItem.rendered}` : 'none selected'
+			}`,
+		},
+		ref,
+	)
 
 	const windowWidth = useWindowWidth()
 
@@ -36,8 +45,7 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 
 		return (
 			<Trigger {...buttonProps} ref={ref}>
-				<span {...valueProps}>
-					<VisuallyHidden>{`(Filter) ${props.label}:`}</VisuallyHidden>
+				<span {...valueProps} aria-hidden="true">
 					{label}
 				</span>
 				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
