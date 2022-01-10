@@ -66,30 +66,33 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
   box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
   transition: ${(p) => p.theme.animation.fastOut};
   opacity: 0%;
+  will-change: opacity, transform;
   z-index: ${(p) => p.theme.zIndices.popover};
 
-  ${(p) => p.placement === 'top' && `transform: translateY(${p.theme.space[2]})`};
-  ${(p) => p.placement === 'bottom' && `transform: translateY(-${p.theme.space[2]})`};
-  ${(p) => p.placement === 'left' && `transform: translateX(${p.theme.space[2]})`};
-  ${(p) => p.placement === 'right' && `transform: translateX(-${p.theme.space[2]})`};
+  ${(p) => p.placement === 'top' && `transform: translate3d(0, ${p.theme.space[2]}, 0)`};
+  ${(p) =>
+    p.placement === 'bottom' && `transform: translate3d(0, -${p.theme.space[2]}, 0)`};
+  ${(p) => p.placement === 'left' && `transform: translate3d(${p.theme.space[2]}, 0, 0)`};
+  ${(p) =>
+    p.placement === 'right' && `transform: translate3d(-${p.theme.space[2]}, 0, 0)`};
 
   &.entering,
   &.entered {
     opacity: 100%;
     transform: translate(-${(p) => p.theme.space[2]}, 0);
 
-    ${(p) => p.placement === 'top' && `transform: translateY(0)`};
-    ${(p) => p.placement === 'bottom' && `transform: translateY(0)`};
-    ${(p) => p.placement === 'left' && `transform: translateX(0)`};
-    ${(p) => p.placement === 'right' && `transform: translateX(0)`};
+    ${(p) => p.placement === 'top' && `transform: translate3d(0, 0, 0)`};
+    ${(p) => p.placement === 'bottom' && `transform: translate3d(0, 0, 0)`};
+    ${(p) => p.placement === 'left' && `transform: translate3d(0, 0, 0)`};
+    ${(p) => p.placement === 'right' && `transform: translate3d(0, 0, 0)`};
   }
 
   &.exiting {
     opacity: 0%;
 
-    ${(p) => p.placement === 'top' && `transform: translateY(0)`};
-    ${(p) => p.placement === 'bottom' && `transform: translateY(0)`};
-    ${(p) => p.placement === 'left' && `transform: translateX(0)`};
-    ${(p) => p.placement === 'right' && `transform: translateX(0)`};
+    ${(p) => p.placement === 'top' && `transform: translate3d(0, 0, 0)`};
+    ${(p) => p.placement === 'bottom' && `transform: translate3d(0, 0, 0)`};
+    ${(p) => p.placement === 'left' && `transform: translate3d(0, 0, 0)`};
+    ${(p) => p.placement === 'right' && `transform: translate3d(0, 0, 0)`};
   }
 `

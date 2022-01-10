@@ -74,7 +74,9 @@ const OuterWrap = styled.div`
 	bottom: 0;
 	right: 0;
 	transition: ${(p) => p.theme.animation.mediumOut};
+	transform: translateZ(0);
 	opacity: 0%;
+	will-change: opacity;
 	z-index: ${(p) => p.theme.zIndices.dialog};
 
 	&.entering,
@@ -99,8 +101,9 @@ const Wrap = styled.div<{ compact: boolean }>`
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
-	transform: translateY(4em);
-	transition: ${(p) => p.theme.animation.mediumOut};
+	transform: translate3d(0, 4em, 0);
+	transition: transform ${(p) => p.theme.animation.mediumOut};
+	will-change: transform;
 	text-align: left;
 	align-items: flex-start;
 	padding: ${(p) =>
@@ -110,11 +113,11 @@ const Wrap = styled.div<{ compact: boolean }>`
 
 	${/* sc-selector */ OuterWrap}.entering &,
 		${/* sc-selector */ OuterWrap}.entered & {
-		transform: translateY(0);
+		transform: translate3d(0, 0, 0);
 	}
 
 	${/* sc-selector */ OuterWrap}.exiting & {
-		transform: translateY(0);
+		transform: translate3d(0, 0, 0);
 	}
 
 	${(p) => p.theme.utils.media.xs} {
