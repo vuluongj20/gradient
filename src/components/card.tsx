@@ -1,3 +1,4 @@
+import { VisuallyHidden } from '@react-aria/visually-hidden'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { ReactNode, memo } from 'react'
 import styled from 'styled-components'
@@ -60,7 +61,7 @@ const Card = ({
 }: Props): JSX.Element => {
 	const sectionData = useSections()
 	const sectionNames = sections
-		.map((slug) => sectionData.find((s) => s.slug === slug)?.slug)
+		.map((slug) => sectionData.find((s) => s.slug === slug)?.name)
 		.join(' | ')
 
 	const InnerWrap = ({ children }: InnerWrapProps) =>
@@ -71,7 +72,7 @@ const Card = ({
 	return (
 		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols}>
 			<InnerWrap>
-				<ImageWrap rowLayout={rowLayout}>
+				<ImageWrap rowLayout={rowLayout} aria-hidden="true">
 					<StyledGatsbyImage
 						image={imageData}
 						alt={image.alt}
@@ -86,7 +87,10 @@ const Card = ({
 						<DummyTitle aria-hidden="true">{title}</DummyTitle>
 						{title}
 					</Title>
-					<Tags>{sectionNames}</Tags>
+					<Tags>
+						<VisuallyHidden elementType="span">{`In:`}</VisuallyHidden>
+						{sectionNames}
+					</Tags>
 				</TitleWrap>
 			</InnerWrap>
 		</Wrap>

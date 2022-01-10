@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Header = (): JSX.Element => (
 	<Wrap>
-		<Title>Gradient\</Title>
+		<Title aria-label="Gradient">Gradient\</Title>
 		<DescWrap>
 			<DescLine>Ideas on technology, design,</DescLine>
 			<DescSecondLine>language, and philosophy</DescSecondLine>

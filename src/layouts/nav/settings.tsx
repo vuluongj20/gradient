@@ -23,14 +23,14 @@ const Settings = ({
 	dialogTriggerDisabled,
 }: Props) => {
 	return (
-		<Wrap className={className} aria-label="Open settings">
+		<Wrap className={className}>
 			<Dialog
 				title="Settings"
 				content={SettingsDialog}
 				beforeOpen={beforeDialogOpen}
 				afterClose={afterDialogClose}
 				triggerLabel={
-					<TriggerInnerWrap>
+					<TriggerInnerWrap aria-hidden="true">
 						<IconSettings useAlt={!withLabel} />
 						{withLabel && <TriggerLabel>Settings</TriggerLabel>}
 					</TriggerInnerWrap>
