@@ -1,10 +1,10 @@
 import { useOverlayPosition } from '@react-aria/overlays'
 import { TooltipTriggerAria, useTooltip, useTooltipTrigger } from '@react-aria/tooltip'
 import { mergeProps } from '@react-aria/utils'
-import { useTooltipTriggerState, TooltipTriggerState } from '@react-stately/tooltip'
+import { TooltipTriggerState, useTooltipTriggerState } from '@react-stately/tooltip'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { AriaTooltipProps, TooltipTriggerProps } from '@react-types/tooltip'
-import { RefObject, ReactNode, useRef, forwardRef } from 'react'
+import { ReactNode, RefObject, forwardRef, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 

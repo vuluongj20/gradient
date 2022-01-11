@@ -1,10 +1,10 @@
 // A React context for global user settings.
 // This context is provided in layouts/index.tsx and is available
 // globally to all pages and components vis useContext().
-import { createContext, Dispatch, ReactNode, useEffect, useReducer } from 'react'
+import { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'react'
 
 import { getColorPalette } from '../layouts/theme'
-import { defaultSettings, reducer, init, Action, Settings } from './settingsReducer'
+import { Action, Settings, defaultSettings, init, reducer } from './settingsReducer'
 
 type Props = {
 	children: ReactNode

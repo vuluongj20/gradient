@@ -1,6 +1,6 @@
 import * as focusTrap from 'focus-trap'
 import gsap from 'gsap'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import Binder from './binder'

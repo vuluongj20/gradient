@@ -1,7 +1,7 @@
 import { DismissButton, useOverlay, useOverlayPosition } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
-import { RefObject, ReactNode, useRef } from 'react'
+import { ReactNode, RefObject, useRef } from 'react'
 import styled from 'styled-components'
 
 type Props = {

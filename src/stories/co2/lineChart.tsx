@@ -1,22 +1,22 @@
 import {
-  select,
-  scaleLinear,
-  scaleTime,
-  extent,
-  min,
   axisBottom,
   axisRight,
-  line,
-  pointer,
   easeCubic,
   easeCubicOut,
+  extent,
   interpolate,
+  line,
+  min,
+  pointer,
+  scaleLinear,
+  scaleTime,
+  select,
 } from 'd3'
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
-import VizContent, { VizSvgWrap, VizDesText } from './vizContent'
+import VizContent, { VizDesText, VizSvgWrap } from './vizContent'
 
 const mse = [18.2, 5.06, 0.97]
 

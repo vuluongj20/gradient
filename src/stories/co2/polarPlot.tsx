@@ -1,20 +1,20 @@
 import {
-  select,
-  scaleLinear,
-  extent,
-  max,
-  min,
-  lineRadial,
   curveBasis,
   easeCubic,
   easeCubicIn,
   easeCubicOut,
+  extent,
+  lineRadial,
+  max,
+  min,
+  scaleLinear,
+  select,
 } from 'd3'
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
-import VizContent, { VizSvgWrap, VizDesText, VizScrollBox } from './vizContent'
+import VizContent, { VizDesText, VizScrollBox, VizSvgWrap } from './vizContent'
 
 type Props = {
   data: Data

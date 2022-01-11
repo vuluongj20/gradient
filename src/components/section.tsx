@@ -4,7 +4,7 @@ import CardGroup from './cardGroup'
 
 import { ThemeSettings } from '@theme'
 
-import { Section as ISection, Story, Image } from '@types'
+import { Section as ISection, Image, Story } from '@types'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 

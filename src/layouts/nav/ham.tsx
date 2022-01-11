@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import { reducedMotion, paddingHorizontal } from '@utils/styling'
+import { paddingHorizontal, reducedMotion } from '@utils/styling'
 
 export type HamProps = {
 	toggleMenu: Dispatch<SetStateAction<boolean>>

@@ -7,10 +7,10 @@ import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
 
-import { AdaptiveGridColumns, Story, Image } from '@types'
+import { AdaptiveGridColumns, Image, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
-import { numericBreakpoints, gridColCounts } from '@utils/styling'
+import { gridColCounts, numericBreakpoints } from '@utils/styling'
 
 type Props = Story & {
 	path: string

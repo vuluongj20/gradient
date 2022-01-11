@@ -1,6 +1,6 @@
 import { useDialog } from '@react-aria/dialog'
 import { FocusScope } from '@react-aria/focus'
-import { useOverlay, useModal, usePreventScroll } from '@react-aria/overlays'
+import { useModal, useOverlay, usePreventScroll } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { ButtonProps } from '@react-types/button'
 import { AriaDialogProps } from '@react-types/dialog'

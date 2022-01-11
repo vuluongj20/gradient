@@ -1,18 +1,18 @@
-import { animation, Animation } from './animation'
-import { colorPalettes, getColorAliases, ColorPalette, ColorAliases } from './colors'
-import { textScales, TextScale } from './text'
-import { generateUtils, Utils } from './utils'
+import { Animation, animation } from './animation'
+import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './colors'
+import { TextScale, textScales } from './text'
+import { Utils, generateUtils } from './utils'
 
 import { Breakpoint } from '@types'
 
 import {
+	boxShadowsDark,
+	boxShadowsLight,
 	breakpoints,
 	radii,
-	zIndices,
-	boxShadowsLight,
-	boxShadowsDark,
-	textShadows,
 	space,
+	textShadows,
+	zIndices,
 } from '@utils/styling'
 
 export type Theme = {

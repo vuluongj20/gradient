@@ -1,8 +1,8 @@
 import {
-  useListBox,
-  useOption,
   AriaListBoxOptions,
   AriaOptionProps,
+  useListBox,
+  useOption,
 } from '@react-aria/listbox'
 import { SelectState } from '@react-stately/select'
 import { Node } from '@react-types/shared'

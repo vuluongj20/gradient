@@ -5,7 +5,7 @@
 import { ReactNode, useContext } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { getTheme, ThemeSettings } from '../layouts/theme'
+import { ThemeSettings, getTheme } from '../layouts/theme'
 import { deepMerge } from './functions'
 import SettingsContext from './settingsContext'
 

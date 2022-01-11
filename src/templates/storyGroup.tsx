@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 

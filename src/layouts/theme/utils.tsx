@@ -4,7 +4,7 @@ import { Theme } from './index'
 
 import { Breakpoint } from '@types'
 
-import { paddingHorizontal, breakpoints } from '@utils/styling'
+import { breakpoints, paddingHorizontal } from '@utils/styling'
 
 type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 

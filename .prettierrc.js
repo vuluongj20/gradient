@@ -17,4 +17,5 @@ module.exports = {
     '^@utils(/(.*))*$',
   ],
   importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
 }

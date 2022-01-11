@@ -1,5 +1,5 @@
 import { csv, timeParse } from 'd3'
-import { useState, useEffect, useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Section from './section'

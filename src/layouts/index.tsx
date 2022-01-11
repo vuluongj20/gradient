@@ -1,7 +1,7 @@
 import { OverlayProvider } from '@react-aria/overlays'
 import { SSRProvider } from '@react-aria/ssr'
 import { getSrc } from 'gatsby-plugin-image'
-import { ReactNode, useState, useEffect } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
 import './fontFaces.css'
