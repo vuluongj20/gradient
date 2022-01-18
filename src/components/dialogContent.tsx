@@ -101,7 +101,7 @@ const Wrap = styled.div<{ compact: boolean }>`
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
-	transform: translate3d(0, 4em, 0);
+	transform: translate3d(0, 4rem, 0);
 	transition: transform ${(p) => p.theme.animation.mediumOut};
 	will-change: transform;
 	text-align: left;
@@ -159,8 +159,8 @@ const CloseButton = styled.button<{ compact: boolean }>`
 `
 
 const StyledIconClose = styled(IconClose)`
-	width: 1em;
-	height: 1em;
+	width: 1rem;
+	height: 1rem;
 
 	min-width: 1.25rem;
 	min-height: 1.25rem;

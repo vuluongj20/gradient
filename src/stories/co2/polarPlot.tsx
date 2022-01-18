@@ -749,7 +749,7 @@ const Wrap = styled.div`
   /* Axes */
   .axis .tick,
   .ticks .tick {
-    font-size: 0.9em;
+    font-size: 0.9rem;
     position: relative;
     fill: ${(p) => p.theme.colors.label};
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;

@@ -8,11 +8,11 @@ type ColCounts = Record<Breakpoint, number>
  * into individual components too.
  */
 export const breakpoints: Record<Breakpoint, string> = {
-	xl: '90em', // 1440px
-	l: '74em', // 1184px
-	m: '64em', // 1024px
-	s: '48em', // 768px
-	xs: '30em', // 480px
+	xl: '90rem', // 1440px
+	l: '74rem', // 1184px
+	m: '64rem', // 1024px
+	s: '48rem', // 768px
+	xs: '30rem', // 480px
 }
 /** Useful for comparing with window.innerWidth */
 export const numericBreakpoints: Record<Breakpoint, number> = {
@@ -36,9 +36,9 @@ export const zIndices: Record<string, number> = {
 
 /** Border radii */
 export const radii: Partial<Record<Breakpoint, string>> = {
-	s: '0.25em',
-	m: '0.5em',
-	l: '0.75em',
+	s: '0.25rem',
+	m: '0.5rem',
+	l: '0.75rem',
 }
 
 /** Box shadows */

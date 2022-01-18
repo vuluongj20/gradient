@@ -17,8 +17,8 @@ export default Target
 const OuterWrap = styled.li`
 	${(p) => p.theme.utils.flexCenter};
 	position: relative;
-	width: 1.5em;
-	height: 1.5em;
+	width: 1.5rem;
+	height: 1.5rem;
 	flex-shrink: 0;
 
 	${(p) => p.theme.utils.media.xs} {

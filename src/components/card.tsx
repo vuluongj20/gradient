@@ -151,7 +151,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) => p.theme.utils.flexCenter};
 	position: relative;
 	width: 100%;
-	max-height: 48em;
+	max-height: 48rem;
 	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
 	mask-image: radial-gradient(white, black);
@@ -171,14 +171,14 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
 	${(p) => p.theme.utils.media.m} {
-		max-height: 32em;
+		max-height: 32rem;
 	}
 	${(p) => p.theme.utils.media.s} {
-		max-height: 24em;
+		max-height: 24rem;
 		${(p) => p.rowLayout && `grid-column: 1 / -1;`}
 	}
 	${(p) => p.theme.utils.media.xs} {
-		max-height: 16em;
+		max-height: 16rem;
 	}
 `
 

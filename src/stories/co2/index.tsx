@@ -239,7 +239,7 @@ const HeroHeading = styled.h1`
 
 const HeroHeadingSpan = styled.span`
   display: block;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.2rem;
 
   ${(p) => p.theme.utils.media.m} {
     display: inline;
@@ -249,7 +249,7 @@ const HeroHeadingSpan = styled.span`
 
 const HeroText = styled.p`
   margin-bottom: ${(p) => p.theme.space[2]};
-  max-width: 48em;
+  max-width: 48rem;
 `
 
 const MetaWrap = styled.section``

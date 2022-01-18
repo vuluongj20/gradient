@@ -66,8 +66,8 @@ const Link = styled(TransitionLink)<{ height: number }>`
 	${(p) => p.theme.utils.flexCenter};
 	display: inline-flex;
 	position: relative;
-	width: 1.4em;
-	height: ${(p) => p.height}em;
+	width: 1.4rem;
+	height: ${(p) => p.height}rem;
 	line-height: 1.4;
 	white-space: nowrap;
 `

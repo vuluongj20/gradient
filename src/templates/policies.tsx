@@ -57,7 +57,7 @@ export default PlainText
 
 const Wrap = styled.div`
   grid-column: 1 / -5;
-  font-size: 1.125em;
+  font-size: 1.125rem;
 
   h1,
   h2,

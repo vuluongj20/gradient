@@ -56,7 +56,7 @@ const Wrap = styled.ul`
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 3em;
+		height: 3rem;
 		background: ${(p) => p.theme.colors.background};
 		border-right: none;
 	}

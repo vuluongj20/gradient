@@ -65,7 +65,7 @@ const StyledListBox = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
-  min-width: 8em;
+  min-width: 8rem;
   border-radius: ${(p) => p.theme.radii.m};
 `
 
@@ -76,6 +76,7 @@ const StyledItem = styled.li<StyledItemProps>`
   color: ${(p) => p.theme.colors.text};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   border-radius: ${(p) => p.theme.radii.m};
+  transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s;
   white-space: nowrap;
 
   && {

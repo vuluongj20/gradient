@@ -142,7 +142,7 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   color: ${(p) => p.theme.colors.label};
   line-height: 1.2;
   letter-spacing: +0.01em;
-  font-size: 0.75em;
+  font-size: 0.75rem;
   font-weight: 500;
 
   ${(p) => p.placement === 'top' && `transform: translate3d(0, ${p.theme.space[1]}, 0)`};

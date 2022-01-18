@@ -45,7 +45,7 @@ export default Link
 export const Wrap = styled.li`
 	display: block;
 	height: 100%;
-	width: 6em;
+	width: 6rem;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -55,7 +55,7 @@ export const Wrap = styled.li`
 	opacity: 0%;
 
 	${(p) => p.theme.utils.media.s} {
-		width: 5em;
+		width: 5rem;
 	}
 
 	&:last-of-type {
@@ -66,7 +66,7 @@ export const Wrap = styled.li`
 		position: relative;
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.space[1]});
-		padding: 0 ${paddingHorizontal * 0.5}em;
+		padding: 0 ${paddingHorizontal * 0.5}rem;
 		box-sizing: border-box;
 
 		&& {
@@ -127,7 +127,7 @@ const ContentBox = styled.div`
 		!p.theme.animation.reduced &&
 		`${/* sc-selector */ InnerWrap}:hover > &,
 		${/* sc-selector */ InnerWrap}.focus-visible > & {
-		transform: rotate(-90deg) translate(-0.5em, -50%);
+		transform: rotate(-90deg) translate(-0.5rem, -50%);
 	}`}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -142,7 +142,7 @@ const ContentBox = styled.div`
 
 		${/* sc-selector */ InnerWrap}:hover > &,
 		${/* sc-selector */ InnerWrap}.focus-visible & {
-			transform: translate(0.25em, 0);
+			transform: translate(0.25rem, 0);
 		}
 	}
 `
@@ -155,11 +155,11 @@ const Title = styled.p`
 `
 
 const TypeWrap = styled.div`
-	margin-bottom: 0.75em;
+	margin-bottom: 0.75rem;
 	margin-right: ${(p) => p.theme.space[0]};
 
 	${(p) => p.theme.utils.media.m} {
-		margin-bottom: 0.7em;
+		margin-bottom: 0.7rem;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -169,7 +169,7 @@ const TypeWrap = styled.div`
 
 const TypeText = styled.p`
 	font-weight: 500;
-	font-size: 0.875em;
+	font-size: 0.875rem;
 	line-height: 1;
 	margin: 0;
 	text-align: right;
@@ -179,7 +179,7 @@ const TypeText = styled.p`
 `
 
 const TypeLine = styled.div`
-	width: 6em;
+	width: 6rem;
 	height: 2px;
 	background-color: ${(p) => p.theme.colors.heading};
 	transform-origin: right;

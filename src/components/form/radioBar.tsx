@@ -130,7 +130,7 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 const RadioWrap = styled.label<{ isSelected: boolean }>`
 	position: relative;
 	display: block;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[2]};
+	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
 	cursor: pointer;
 
 	${(p) =>

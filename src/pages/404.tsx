@@ -37,7 +37,7 @@ const Title = styled.h1`
 `
 
 const Text = styled.p`
-  max-width: 24em;
+  max-width: 24rem;
   text-align: center;
   ${(p) => p.theme.utils.space.marginBottom[1]};
 `

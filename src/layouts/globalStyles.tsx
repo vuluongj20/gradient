@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyles = createGlobalStyle`
   html {
     font-size: ${(p) => p.theme.text.rootSize};
-    line-height: 1.5;
+    line-height: 1.2;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -26,7 +26,6 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${(p) => p.theme.text.ui.body.fontFamily};
     font-size: ${(p) => p.theme.text.rootSize};
     color: ${(p) => p.theme.colors.text};
-    line-height: 1.5;
     margin: 0;
     padding: 0;
   }

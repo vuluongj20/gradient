@@ -109,5 +109,5 @@ const Trigger = styled.button`
 
 const TriggerArrow = styled.span`
 	margin-left: ${(p) => p.theme.space[0]};
-	font-size: 0.75em;
+	font-size: 0.75rem;
 `

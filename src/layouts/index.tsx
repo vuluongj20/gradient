@@ -73,15 +73,15 @@ const PageContent = styled('main')`
 	margin: 0 auto;
 
 	@media not print {
-		padding-left: 3em;
+		padding-left: 3rem;
 	}
 
 	${(p) => p.theme.utils.media.l} {
-		padding-left: 2.5em;
+		padding-left: 2.5rem;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
 		padding-left: 0;
-		padding-top: 2.5em;
+		padding-top: 2.5rem;
 	}
 `

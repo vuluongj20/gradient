@@ -1231,10 +1231,10 @@ const Wrap = styled.div`
     position: relative;
   }
   .axis.x text {
-    transform: translateX(1.6em);
+    transform: translateX(1.6rem);
   }
   .axis.y text {
-    transform: translateY(-0.8em);
+    transform: translateY(-0.8rem);
   }
   .bottom-axis {
     stroke: ${(p) => p.theme.colors.label};
@@ -1278,23 +1278,23 @@ const Wrap = styled.div`
     fill: ${(p) => p.theme.colors.label};
   }
   .hover-text-group {
-    font-size: 0.8em;
-    padding: 0.8em 2em;
+    font-size: 0.8rem;
+    padding: 0.8rem 2rem;
   }
   .hover-rect {
-    width: 13.1em;
-    height: 2.8em;
+    width: 13.1rem;
+    height: 2.8rem;
     fill: ${(p) => p.theme.colors.oBackground};
     stroke: ${(p) => p.theme.colors.line};
-    transform: translate(-14.6em, -4.72em);
+    transform: translate(-14.6rem, -4.72rem);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     will-change: transform, width, height;
     filter: drop-shadow(${(p) => p.theme.shadows.s});
   }
   .hover-text-group.big > .hover-rect {
-    width: 17.8em;
-    height: 6.4em;
-    transform: translate(-19em, -8.75em);
+    width: 17.8rem;
+    height: 6.4rem;
+    transform: translate(-19rem, -8.75rem);
   }
 
   .hover-data-label,
@@ -1303,18 +1303,18 @@ const Wrap = styled.div`
     fill: ${(p) => p.theme.colors.label};
   }
   .hover-data-label {
-    transform: translate(-13.46em, -3em);
+    transform: translate(-13.46rem, -3rem);
   }
   .hover-data-text {
     fill: ${(p) => p.theme.colors.heading};
-    transform: translate(-8.8em, -3em);
+    transform: translate(-8.8rem, -3rem);
     font-weight: 700;
   }
   .hover-data-label.big {
-    transform: translate(-13.46em, -7em);
+    transform: translate(-13.46rem, -7rem);
   }
   .hover-data-text.big {
-    transform: translate(-8.8em, -7em);
+    transform: translate(-8.8rem, -7rem);
   }
   .hover-data-text.out {
     fill: ${(p) => p.theme.colors.text};
@@ -1324,11 +1324,11 @@ const Wrap = styled.div`
     fill: var(--theme);
   }
   .hover-reg-label {
-    transform: translate(-15.9em, -5.2em);
+    transform: translate(-15.9rem, -5.2rem);
   }
   .hover-reg-text {
     fill: var(--theme);
-    transform: translate(-8.8em, -5.2em);
+    transform: translate(-8.8rem, -5.2rem);
     font-weight: 700;
   }
 
@@ -1336,11 +1336,11 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.colors.error};
   }
   .hover-diff-label {
-    transform: translate(-17.7em, -3.4em);
+    transform: translate(-17.7rem, -3.4rem);
   }
   .hover-diff-text {
     fill: ${(p) => p.theme.colors.error};
-    transform: translate(-8.8em, -3.4em);
+    transform: translate(-8.8rem, -3.4rem);
     font-weight: 700;
   }
 
@@ -1351,32 +1351,32 @@ const Wrap = styled.div`
   .mse-rect {
     fill: ${(p) => p.theme.colors.oBackground};
     stroke: ${(p) => p.theme.colors.line};
-    rx: 0.4em;
-    ry: 0.4em;
-    width: 12.6em;
-    height: 5.8em;
-    transform: translate(-1.2em, -1.65em);
+    rx: 0.4rem;
+    ry: 0.4rem;
+    width: 12.6rem;
+    height: 5.8rem;
+    transform: translate(-1.2rem, -1.65rem);
     will-change: width;
     transition: width 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     filter: drop-shadow(${(p) => p.theme.shadows.s});
   }
   .mse-rect.quadratic {
-    width: 14.8em;
+    width: 14.8rem;
   }
   .mse-rect.cosine {
-    width: 24em;
+    width: 24rem;
   }
   .mse-title {
     fill: ${(p) => p.theme.colors.label};
   }
   .mse-equation-label {
     fill: ${(p) => p.theme.colors.label};
-    transform: translateY(1.6em);
+    transform: translateY(1.6rem);
   }
   .mse-equation {
     position: absolute;
     fill: ${(p) => p.theme.colors.label};
-    transform: translate(3.6em, 1.6em);
+    transform: translate(3.6rem, 1.6rem);
   }
   .mse-equation > .span {
     fill: ${(p) => p.theme.colors.text};
@@ -1388,11 +1388,11 @@ const Wrap = styled.div`
   }
   .mse-acc-label {
     fill: ${(p) => p.theme.colors.label};
-    transform: translateY(3.2em);
+    transform: translateY(3.2rem);
   }
   .mse-acc-text {
     fill: ${(p) => p.theme.colors.error};
-    transform: translate(3.2em, 3.2em);
+    transform: translate(3.2rem, 3.2rem);
     font-weight: 700;
   }
 `

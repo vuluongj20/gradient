@@ -55,8 +55,8 @@ const Nav = (): JSX.Element => {
 			if (windowWidth > numericBreakpoints.xs) {
 				const animationDistance =
 					windowWidth > numericBreakpoints.s
-						? `+${menuLinks.length * 6}em`
-						: `+${menuLinks.length * 5}em`
+						? `+${menuLinks.length * 6}rem`
+						: `+${menuLinks.length * 5}rem`
 
 				gsap.to([`${PageShadow}`, '#page-content'], {
 					x: animationDistance,
@@ -119,7 +119,7 @@ export default Nav
 
 const Wrap = styled.nav`
 	position: fixed;
-	width: 3em;
+	width: 3rem;
 	height: 100%;
 	z-index: ${(p) => p.theme.zIndices.nav};
 
@@ -128,7 +128,7 @@ const Wrap = styled.nav`
 	}
 
 	${(p) => p.theme.utils.media.l} {
-		width: 2.5em;
+		width: 2.5rem;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -140,7 +140,7 @@ const Wrap = styled.nav`
 const PageShadow = styled.div<{ active: boolean }>`
 	position: absolute;
 	top: 0;
-	left: 3em;
+	left: 3rem;
 	width: 100vw;
 	height: 100vh;
 	cursor: pointer;
@@ -159,7 +159,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 		`}
 
 	${(p) => p.theme.utils.media.l} {
-		left: 2.5em;
+		left: 2.5rem;
 	}
 
 	${(p) => p.theme.utils.media.xs} {

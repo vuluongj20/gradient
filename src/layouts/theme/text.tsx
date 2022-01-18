@@ -74,12 +74,12 @@ const sohne: TextScaleDefinition = {
 	body: {
 		fontFamily: sohneFontFamily,
 		fontWeight: 400,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 0.9375 },
 		lineHeight: 1.5,
 	},
 	label: {
 		fontFamily: sohneFontFamily,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 0.9375 },
 		fontWeight: 500,
 		textTransform: 'uppercase',
 		lineHeight: 1.2,
@@ -135,13 +135,13 @@ const domaine: TextScaleDefinition = {
 	},
 	body: {
 		fontFamily: domaineBodyFontFamily,
-		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1.125 },
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1 },
 		fontWeight: 400,
 		lineHeight: 1.5,
 	},
 	label: {
 		fontFamily: domaineBodyFontFamily,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 1 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 0.9375 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
@@ -157,12 +157,12 @@ const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
 			fontWeight,
 			lineHeight,
 			letterSpacing,
-			fontSize: `${fontSizes.xl}em`,
+			fontSize: `${fontSizes.xl}rem`,
 		}
 
 		Object.keys(fontSizes).map((breakpoint) => {
 			result[key][`@media only screen and (max-width: ${breakpoints[breakpoint]})`] = {
-				fontSize: `${fontSizes[breakpoint]}em`,
+				fontSize: `${fontSizes[breakpoint]}rem`,
 			}
 		})
 	})

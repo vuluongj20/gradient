@@ -41,7 +41,7 @@ const Menu = ({
 			if (windowWidth > numericBreakpoints.xs) {
 				gsap.to(`${MenuLinkWrap}`, {
 					opacity: 1,
-					x: (i) => `+${(i + 1) * (windowWidth > numericBreakpoints.s ? 6 : 5)}em`,
+					x: (i) => `+${(i + 1) * (windowWidth > numericBreakpoints.s ? 6 : 5)}rem`,
 					pointerEvents: 'none',
 					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 					...animations.entry,
@@ -147,7 +147,7 @@ const MenuWrap = styled.div`
 		flex-direction: column;
 		justify-content: space-between;
 		border-right: none;
-		padding-top: calc(2.5em + ${(p) => p.theme.space[2]});
+		padding-top: calc(2.5rem + ${(p) => p.theme.space[2]});
 		transform: translateY(-100%);
 	}
 `
@@ -158,7 +158,7 @@ const LinksWrap = styled.ul`
 `
 const UtilsWrap = styled.div`
 	display: none;
-	padding: 0 ${paddingHorizontal * 0.5}em;
+	padding: 0 ${paddingHorizontal * 0.5}rem;
 	position: fixed;
 	bottom: 0;
 	left: 0;

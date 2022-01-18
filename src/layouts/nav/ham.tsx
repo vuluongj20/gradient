@@ -100,7 +100,7 @@ const Wrap = styled.li`
 	${(p) => p.theme.utils.media.xs} {
 		position: absolute;
 		top: 50%;
-		left: ${paddingHorizontal * 0.5}em;
+		left: ${paddingHorizontal * 0.5}rem;
 		transform: translateY(-50%);
 		width: auto;
 	}
@@ -120,17 +120,17 @@ const Button = styled.button`
 
 const InnerWrap = styled.div`
 	position: relative;
-	width: 1.75em;
-	height: 1.75em;
+	width: 1.75rem;
+	height: 1.75rem;
 
 	${(p) => p.theme.utils.media.l} {
-		width: 1.625em;
-		height: 1.625em;
+		width: 1.625rem;
+		height: 1.625rem;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
-		width: 1.75em;
-		height: 1.75em;
+		width: 1.75rem;
+		height: 1.75rem;
 	}
 `
 
@@ -143,11 +143,11 @@ const Line = styled.div`
 `
 
 const LineTop = styled(Line)`
-	top: calc(50% - 0.25em - 2px);
+	top: calc(50% - 0.25rem - 2px);
 `
 
 const LineBottom = styled(Line)`
-	top: calc(50% + 0.25em);
+	top: calc(50% + 0.25rem);
 `
 
 const LineMiddle = styled(Line)`

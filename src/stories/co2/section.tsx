@@ -83,7 +83,7 @@ const ContentWrap = styled.div``
 const Para = styled.p`
   grid-column: 2 / -2;
   margin-bottom: ${(p) => p.theme.space[2]};
-  max-width: 48em;
+  max-width: 48rem;
 
   ${(p) => p.theme.utils.media.s} {
     grid-column: 1 / -1;

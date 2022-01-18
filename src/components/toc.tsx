@@ -108,7 +108,7 @@ const TocInnerContentWrap = styled.div`
 	height: 100%;
 	overflow-y: scroll;
 	overscroll-behavior: contain;
-	padding-right: 1em;
+	padding-right: 1rem;
 `
 
 const TocLabel = styled.p`
@@ -144,7 +144,7 @@ const TocContent = styled.div`
 const IntersectionTarget = styled.div`
 	width: 100%;
 	height: 1px;
-	margin: 0.125em 0;
+	margin: 0.125rem 0;
 `
 
 const UpperIntersectionTarget = styled(IntersectionTarget)``

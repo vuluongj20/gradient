@@ -99,11 +99,11 @@ export const VizScrollAnchorBottom = styled.div`
 
 export const VizDesText = styled.p`
 	display: block;
-	width: 24em;
+	width: 24rem;
 	max-width: 100%;
 	box-sizing: border-box;
 	margin: 0;
-	padding: 0.8em 1.2em;
+	padding: 0.8rem 1.2rem;
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.m};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.line}, ${(p) => p.theme.shadows.l};
@@ -113,6 +113,6 @@ export const VizDesText = styled.p`
 	}
 
 	${(p) => p.theme.utils.media.s} {
-		width: 20em;
+		width: 20rem;
 	}
 `
