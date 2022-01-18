@@ -19,6 +19,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
+        name: 'Gradient',
+        short_name: 'Gradient',
+        start_url: '/',
+        background_color: '#FFFFFF',
+        theme_color: '#FFFFFF',
+        display: 'standalone',
         icon: 'src/images/icon.png',
       },
     },
