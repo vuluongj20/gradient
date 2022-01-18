@@ -749,11 +749,19 @@ const Wrap = styled.div`
   /* Axes */
   .axis .tick,
   .ticks .tick {
-    font-size: 0.9rem;
+    font-size: 0.9375rem;
     position: relative;
     fill: ${(p) => p.theme.colors.label};
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
+
+  ${(p) => p.theme.utils.media.xs} {
+    .axis .tick,
+    .ticks .tick {
+      font-size: 0.875rem;
+    }
+  }
+
   .tick:not(.secondary) {
     animation: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }

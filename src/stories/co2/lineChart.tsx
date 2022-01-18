@@ -320,29 +320,16 @@ const LineChart = ({ data, content }: Props) => {
 
               if (closestDatumIndex <= 0 && hoverOn) {
                 hoverOn = false
-                hoverGroup.transition().duration(200).ease(easeCubic).style('opacity', 0)
-                hoverLine.transition().duration(200).ease(easeCubic).style('opacity', 0)
+                hoverGroup.style('opacity', 0)
+                hoverLine.style('opacity', 0)
+                hoverDataCircle.style('opacity', 0)
               } else if (closestDatumIndex > 0 && !hoverOn) {
                 hoverOn = true
-                hoverGroup.transition().duration(200).ease(easeCubic).style('opacity', 1)
-                hoverLine.transition().duration(200).ease(easeCubic).style('opacity', 0.4)
-                hoverDataCircle
-                  .transition()
-                  .duration(200)
-                  .ease(easeCubic)
-                  .style('opacity', 1)
-                grandDaddy
-                  .select('.hover-reg-circle')
-                  .transition()
-                  .duration(200)
-                  .ease(easeCubic)
-                  .style('opacity', 1)
-                grandDaddy
-                  .select('.hover-diff-line')
-                  .transition()
-                  .duration(200)
-                  .ease(easeCubic)
-                  .style('opacity', 1)
+                hoverGroup.style('opacity', 1)
+                hoverLine.style('opacity', 0.4)
+                hoverDataCircle.style('opacity', 1)
+                grandDaddy.select('.hover-reg-circle').style('opacity', 1)
+                grandDaddy.select('.hover-diff-line').style('opacity', 1)
               }
             }
 
@@ -400,8 +387,7 @@ const LineChart = ({ data, content }: Props) => {
               hoverDiffLine = svg
                 .insert('path', '.hover-data-circle')
                 .attr('class', 'hover-diff-line')
-                .attr('stroke-width', strokeWidth)
-                .style('opacity', 0),
+                .attr('stroke-width', strokeWidth),
               hoverGroupSelection = grandDaddy.select('.hover-text-group'),
               hoverRegLabel = hoverGroupSelection
                 .append('text')
@@ -423,9 +409,9 @@ const LineChart = ({ data, content }: Props) => {
                 .attr(
                   'transform',
                   'translate(' +
-                    (width > 768
-                      ? innerWidth + margin.left - 300
-                      : innerWidth + margin.left - 300) +
+                    (width > 480
+                      ? innerWidth + margin.left - 360
+                      : innerWidth + margin.left - 200) +
                     ', ' +
                     (width > 768
                       ? innerHeight + margin.top - 100
@@ -575,6 +561,12 @@ const LineChart = ({ data, content }: Props) => {
                   ? yReg[0].toFixed(2) + ' ppm'
                   : yReg[yReg.length - 1].toFixed(2) + ' ppm',
               )
+
+              if (hoverY === -10) {
+                hoverRegCircle.style('opacity', 0)
+              } else {
+                hoverRegCircle.style('opacity', 1)
+              }
 
               hoverDiffLine.attr(
                 'd',
@@ -1216,7 +1208,7 @@ const Wrap = styled.div`
 
   .viz-svg-wrap {
     width: 85%;
-    overflow: hidden;
+    overflow: visible;
   }
 
   /* Axes */
@@ -1224,8 +1216,13 @@ const Wrap = styled.div`
     display: none;
   }
   .axis text {
-    font-size: 16px;
+    font-size: 0.9375rem;
     color: ${(p) => p.theme.colors.label};
+  }
+  ${(p) => p.theme.utils.media.xs} {
+    .axis text {
+      font-size: 0.8125rem;
+    }
   }
   .axis > .tick {
     position: relative;
@@ -1272,29 +1269,41 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.colors.label};
   }
   .hover-data-circle {
+    opacity: 0;
     fill: var(--theme);
   }
   .hover-data-circle.out {
-    fill: ${(p) => p.theme.colors.label};
+    fill: var(--warm);
   }
   .hover-text-group {
-    font-size: 0.8rem;
-    padding: 0.8rem 2rem;
+    font-size: 0.9375rem;
+    padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
+  }
+  ${(p) => p.theme.utils.media.s} {
+    .hover-text-group {
+      font-size: 0.8125rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+  ${(p) => p.theme.utils.media.s} {
+    .hover-text-group {
+      font-size: 0.75rem;
+    }
   }
   .hover-rect {
-    width: 13.1rem;
-    height: 2.8rem;
+    width: 13.1em;
+    height: 2.8em;
     fill: ${(p) => p.theme.colors.oBackground};
     stroke: ${(p) => p.theme.colors.line};
-    transform: translate(-14.6rem, -4.72rem);
+    transform: translate(-14.6em, -4.72em);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     will-change: transform, width, height;
     filter: drop-shadow(${(p) => p.theme.shadows.s});
   }
   .hover-text-group.big > .hover-rect {
-    width: 17.8rem;
-    height: 6.4rem;
-    transform: translate(-19rem, -8.75rem);
+    width: 17.8em;
+    height: 6.4em;
+    transform: translate(-19em, -8.75em);
   }
 
   .hover-data-label,
@@ -1303,18 +1312,18 @@ const Wrap = styled.div`
     fill: ${(p) => p.theme.colors.label};
   }
   .hover-data-label {
-    transform: translate(-13.46rem, -3rem);
+    transform: translate(-13.46em, -3em);
   }
   .hover-data-text {
     fill: ${(p) => p.theme.colors.heading};
-    transform: translate(-8.8rem, -3rem);
+    transform: translate(-8.8em, -3em);
     font-weight: 700;
   }
   .hover-data-label.big {
-    transform: translate(-13.46rem, -7rem);
+    transform: translate(-13.46em, -7em);
   }
   .hover-data-text.big {
-    transform: translate(-8.8rem, -7rem);
+    transform: translate(-8.8em, -7em);
   }
   .hover-data-text.out {
     fill: ${(p) => p.theme.colors.text};
@@ -1324,11 +1333,11 @@ const Wrap = styled.div`
     fill: var(--theme);
   }
   .hover-reg-label {
-    transform: translate(-15.9rem, -5.2rem);
+    transform: translate(-15.9em, -5.2em);
   }
   .hover-reg-text {
     fill: var(--theme);
-    transform: translate(-8.8rem, -5.2rem);
+    transform: translate(-8.8em, -5.2em);
     font-weight: 700;
   }
 
@@ -1336,47 +1345,57 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.colors.error};
   }
   .hover-diff-label {
-    transform: translate(-17.7rem, -3.4rem);
+    transform: translate(-17.7em, -3.4em);
   }
   .hover-diff-text {
     fill: ${(p) => p.theme.colors.error};
-    transform: translate(-8.8rem, -3.4rem);
+    transform: translate(-8.8em, -3.4em);
     font-weight: 700;
   }
 
   /* MSE */
   .mse-group {
-    font-size: 14px;
+    font-size: 0.9375rem;
+  }
+  ${(p) => p.theme.utils.media.s} {
+    .mse-group {
+      font-size: 0.8125rem;
+    }
+  }
+  ${(p) => p.theme.utils.media.xs} {
+    .mse-group {
+      font-size: 0.75rem;
+    }
   }
   .mse-rect {
     fill: ${(p) => p.theme.colors.oBackground};
     stroke: ${(p) => p.theme.colors.line};
     rx: 0.4rem;
     ry: 0.4rem;
-    width: 12.6rem;
-    height: 5.8rem;
-    transform: translate(-1.2rem, -1.65rem);
+    width: 12.6em;
+    height: 5.8em;
+    transform: translate(-1.2em, -1.65em);
     will-change: width;
     transition: width 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     filter: drop-shadow(${(p) => p.theme.shadows.s});
   }
   .mse-rect.quadratic {
-    width: 14.8rem;
+    width: 14.8em;
   }
   .mse-rect.cosine {
-    width: 24rem;
+    width: 24em;
   }
   .mse-title {
     fill: ${(p) => p.theme.colors.label};
   }
   .mse-equation-label {
     fill: ${(p) => p.theme.colors.label};
-    transform: translateY(1.6rem);
+    transform: translateY(1.6em);
   }
   .mse-equation {
     position: absolute;
     fill: ${(p) => p.theme.colors.label};
-    transform: translate(3.6rem, 1.6rem);
+    transform: translate(3.6em, 1.6em);
   }
   .mse-equation > .span {
     fill: ${(p) => p.theme.colors.text};
@@ -1388,11 +1407,11 @@ const Wrap = styled.div`
   }
   .mse-acc-label {
     fill: ${(p) => p.theme.colors.label};
-    transform: translateY(3.2rem);
+    transform: translateY(3.2em);
   }
   .mse-acc-text {
     fill: ${(p) => p.theme.colors.error};
-    transform: translate(3.2rem, 3.2rem);
+    transform: translate(3.2em, 3.2em);
     font-weight: 700;
   }
 `

@@ -103,7 +103,7 @@ export const VizDesText = styled.p`
 	max-width: 100%;
 	box-sizing: border-box;
 	margin: 0;
-	padding: 0.8rem 1.2rem;
+	padding: ${(p) => p.theme.space[2]} ${(p) => p.theme.space[3]};
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.m};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.line}, ${(p) => p.theme.shadows.l};

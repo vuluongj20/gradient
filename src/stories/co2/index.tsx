@@ -205,6 +205,7 @@ const Wrap = styled.article`
 
   svg {
     margin: 0 auto;
+    overflow: visible;
   }
 
   @keyframes opacity {
