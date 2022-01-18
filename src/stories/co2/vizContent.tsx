@@ -108,12 +108,6 @@ export const VizDesText = styled.p`
 	border-radius: ${(p) => p.theme.radii.m};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.line}, ${(p) => p.theme.shadows.l};
 
-	@supports (backdrop-filter: blur(0)) {
-		background: ${(p) => p.theme.colors.oBackground};
-		backdrop-filter: saturate(0.5) blur(32px);
-		border: solid 1px ${(p) => p.theme.colors.line};
-	}
-
 	&.dummy {
 		visibility: hidden;
 	}
