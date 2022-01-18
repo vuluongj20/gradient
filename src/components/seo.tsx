@@ -13,6 +13,7 @@ export type SEOProps = {
   lang?: string
   title?: string
   description?: string
+  type?: string
   author?: string
   authorTwitter?: string
   image?: {
@@ -28,6 +29,7 @@ const SEO = ({
   lang,
   title,
   description,
+  type,
   author,
   authorTwitter,
   image,
@@ -38,10 +40,11 @@ const SEO = ({
       query {
         site {
           siteMetadata {
-            lang
             dir
+            lang
             title
             description
+            type
             author
             authorTwitter
             siteUrl
@@ -53,10 +56,13 @@ const SEO = ({
 
   const { siteMetadata } = data.site
 
+  const metaDir = siteMetadata.dir
   const metaLang = lang ?? siteMetadata.lang
-  const metaDir = siteMetadata.dir ?? 'ltr'
-  const metaTitle = title ? `${title} - Gradient` : `Gradient`
+  const metaTitle = title
+    ? `${title} - Gradient`
+    : `Gradient - Ideas on Technology, Design, Philosophy, and the Law`
   const metaDescription = description ?? siteMetadata.description
+  const metaType = type ?? siteMetadata.type
   const metaAuthor = author ?? siteMetadata.author
   const metaAuthorTwitter = authorTwitter ?? siteMetadata.authorTwitter
   const metaImage = image ?? {
@@ -73,7 +79,7 @@ const SEO = ({
         lang: metaLang,
         dir: metaDir,
       }}
-      title={title ? `${title} - Gradient` : `Gradient`}
+      title={metaTitle}
       meta={(
         [
           {
@@ -89,12 +95,20 @@ const SEO = ({
             content: metaAuthor,
           },
           {
-            property: `og:type`,
-            content: `website`,
+            property: `og:site_name`,
+            content: `Gradient`,
           },
           {
             property: `og:title`,
             content: metaTitle,
+          },
+          {
+            property: `og:description`,
+            content: metaDescription,
+          },
+          {
+            property: `og:type`,
+            content: metaType,
           },
           {
             property: `og:image`,
@@ -111,10 +125,6 @@ const SEO = ({
           {
             property: `og:image:height`,
             content: metaImage.height,
-          },
-          {
-            property: `og:description`,
-            content: metaDescription,
           },
           {
             name: `twitter:card`,

@@ -5,9 +5,10 @@ module.exports = {
     lang: 'en-US',
     dir: 'ltr',
     siteUrl: 'https://www.gradient.ooo',
-    title: 'Gradient',
+    title: 'Gradient – Ideas on Technology, Design, Philosophy, and the Law',
     description:
       'An online publication on the topics of technology, design, philosophy, and the law.',
+    type: 'website',
     author: 'Vu Luong',
     authorTwitter: '@vuluongj20',
   },
