@@ -143,7 +143,6 @@ const PageShadow = styled.div<{ active: boolean }>`
 	left: 3rem;
 	width: 100vw;
 	height: 100vh;
-	cursor: pointer;
 	background: ${(p) => p.theme.colors.background};
 	z-index: -1;
 	pointer-events: none;
@@ -153,7 +152,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 	${(p) =>
 		p.active &&
 		`
-		pointerEvents: initial;
+		pointer-events: initial;
 		opacity: 20%;
 		z-index: 1;
 		`}
