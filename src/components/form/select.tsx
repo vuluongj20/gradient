@@ -1,6 +1,5 @@
 import { useButton } from '@react-aria/button'
 import { HiddenSelect, useSelect } from '@react-aria/select'
-import { VisuallyHidden } from '@react-aria/visually-hidden'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
 import { Fragment, useRef } from 'react'

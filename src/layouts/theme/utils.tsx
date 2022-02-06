@@ -2,9 +2,7 @@ import { CSSObject } from 'styled-components'
 
 import { Theme } from './index'
 
-import { Breakpoint } from '@types'
-
-import { breakpoints, paddingHorizontal } from '@utils/styling'
+import { Breakpoint, breakpoints, paddingHorizontal } from '@utils/styling'
 
 type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 

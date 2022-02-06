@@ -1,7 +1,6 @@
-import { Breakpoint } from '@types'
-
 type ColCounts = Record<Breakpoint, number>
 
+export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
 /**
  * List of breakpoints. This should be in the utils folder
  * instead of the theme folder since we may want to import it

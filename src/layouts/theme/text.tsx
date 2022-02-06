@@ -1,8 +1,6 @@
 import { CSSObject } from 'styled-components'
 
-import { Breakpoint } from '@types'
-
-import { breakpoints } from '@utils/styling'
+import { Breakpoint, breakpoints } from '@utils/styling'
 
 type TextCategoryStyles = {
 	fontFamily: string

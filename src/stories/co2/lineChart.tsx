@@ -1269,7 +1269,7 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.colors.label};
   }
   .hover-data-circle {
-    opacity: 0;
+    opacity: 0%;
     fill: var(--theme);
   }
   .hover-data-circle.out {

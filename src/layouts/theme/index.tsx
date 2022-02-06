@@ -3,9 +3,7 @@ import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './co
 import { TextScale, textScales } from './text'
 import { Utils, generateUtils } from './utils'
 
-import { Breakpoint } from '@types'
-
-import {
+import { Breakpoint ,
 	boxShadowsDark,
 	boxShadowsLight,
 	breakpoints,
