@@ -1,5 +1,5 @@
 import { csv, timeParse } from 'd3'
-import { useContext, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Section from './section'
@@ -144,31 +144,33 @@ const Main = (): JSX.Element => {
             })}
           </HeroInnerWrap>
         </HeroWrap>
-        {data &&
-          animationObserver &&
-          vizs.map((viz, i) => {
-            return [
-              <Section
-                key={i}
-                data={data}
-                vizData={viz}
-                animationObserver={animationObserver}
-              />,
-              i !== vizs.length - 1 ? <SectionDivider key={i + '-divider'} /> : null,
-            ]
-          })}
-        <SectionDivider />
-        <MetaWrap>
-          <MetaInnerWrap>
-            {mainContent.meta.map((column, index) => {
-              return (
-                <MetaColumn className="animate parent" key={index} href={column.link}>
-                  {column.name}
-                </MetaColumn>
-              )
+        {data && animationObserver && (
+          <Fragment>
+            {vizs.map((viz, i) => {
+              return [
+                <Section
+                  key={i}
+                  data={data}
+                  vizData={viz}
+                  animationObserver={animationObserver}
+                />,
+                i !== vizs.length - 1 ? <SectionDivider key={i + '-divider'} /> : null,
+              ]
             })}
-          </MetaInnerWrap>
-        </MetaWrap>
+            <SectionDivider />
+            <MetaWrap>
+              <MetaInnerWrap>
+                {mainContent.meta.map((column, index) => {
+                  return (
+                    <MetaColumn key={index} href={column.link}>
+                      {column.name}
+                    </MetaColumn>
+                  )
+                })}
+              </MetaInnerWrap>
+            </MetaWrap>
+          </Fragment>
+        )}
       </Wrap>
     </Page>
   )
