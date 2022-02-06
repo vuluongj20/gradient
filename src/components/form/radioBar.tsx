@@ -53,6 +53,7 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 					key={option.value}
 					state={state}
 					nextValue={props.options[i + 1]?.value}
+					lastValue={props.options[props.options.length - 1].value}
 					{...option}
 				>
 					{option.label}
@@ -66,14 +67,16 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 type RadioProps = AriaRadioProps &
 	Option & {
 		state: RadioGroupState
+		lastValue: string
 		nextValue?: string
 		children: ReactNode
 	}
 
-const Radio = ({ nextValue, state, ...props }: RadioProps) => {
+const Radio = ({ lastValue, nextValue, state, ...props }: RadioProps) => {
 	const ref = useRef(null)
 	const { inputProps } = useRadio(props, state, ref)
 	const isSelected = state.selectedValue === props.value
+	const isLastOption = props.value === lastValue
 	const nextOptionIsSelected = state.selectedValue === nextValue
 
 	return (
@@ -86,7 +89,7 @@ const Radio = ({ nextValue, state, ...props }: RadioProps) => {
 				>
 					<RadioInput {...inputProps} ref={ref} />
 					{props.children}
-					<Divider visible={!isSelected && !nextOptionIsSelected} />
+					<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
 				</RadioWrap>
 			)}
 		</Tooltip>
@@ -153,9 +156,6 @@ const Divider = styled.div<{ visible: boolean }>`
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
 	${(p) => !p.visible && `opacity: 0%;`}
-	${/* sc-selector */ RadioWrap}:last-of-type > & {
-		display: none;
-	}
 `
 
 const RadioInput = styled.input`
