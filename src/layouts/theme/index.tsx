@@ -3,7 +3,8 @@ import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './co
 import { TextScale, textScales } from './text'
 import { Utils, generateUtils } from './utils'
 
-import { Breakpoint ,
+import {
+	Breakpoint,
 	boxShadowsDark,
 	boxShadowsLight,
 	breakpoints,
@@ -11,7 +12,7 @@ import { Breakpoint ,
 	space,
 	textShadows,
 	zIndices,
-} from '@utils/styling'
+} from '@utils/style'
 
 export type Theme = {
 	colors: ColorPalette['colors'] & ColorAliases

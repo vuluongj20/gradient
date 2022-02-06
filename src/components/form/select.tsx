@@ -12,7 +12,7 @@ import Popover from './popover'
 import Dialog from '@components/dialog'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints } from '@utils/styling'
+import { numericBreakpoints } from '@utils/style'
 
 type Props = SelectProps<object> & {
 	name: string

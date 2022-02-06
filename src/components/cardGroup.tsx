@@ -8,7 +8,7 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, GridColumns, Image, Story } from '@types'
 
 import { sum } from '@utils/functions'
-import { gridColCounts } from '@utils/styling'
+import { gridColCounts } from '@utils/style'
 
 type Props = {
 	stories: Story[]

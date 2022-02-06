@@ -8,7 +8,7 @@ import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints, reducedMotion } from '@utils/styling'
+import { numericBreakpoints, reducedMotion } from '@utils/style'
 
 const animations = {
 	exit: reducedMotion() ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },

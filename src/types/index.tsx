@@ -1,6 +1,6 @@
 import { ImageDataLike } from 'gatsby-plugin-image'
 
-import { Breakpoint } from '@utils/styling'
+import { Breakpoint } from '@utils/style'
 
 export type GridColumns = {
 	start: number

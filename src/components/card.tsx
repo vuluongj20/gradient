@@ -10,7 +10,7 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, Image, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
-import { gridColCounts, numericBreakpoints } from '@utils/styling'
+import { gridColCounts, numericBreakpoints } from '@utils/style'
 
 type Props = Story & {
 	path: string

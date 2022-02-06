@@ -8,7 +8,7 @@ import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints, paddingHorizontal } from '@utils/styling'
+import { numericBreakpoints, paddingHorizontal } from '@utils/style'
 
 type Props = {
 	isOpen: boolean

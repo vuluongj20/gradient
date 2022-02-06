@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
 
-import { paddingHorizontal } from '@utils/styling'
+import { paddingHorizontal } from '@utils/style'
 
 type Props = {
 	path: string

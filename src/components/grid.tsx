@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { gridColCounts } from '@utils/styling'
+import { gridColCounts } from '@utils/style'
 
 const Grid = styled.div`
 	display: grid;
