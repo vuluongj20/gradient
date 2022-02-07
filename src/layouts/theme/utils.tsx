@@ -8,7 +8,7 @@ type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
 
 type CSSUtil = Record<CSSUtilName, CSSObject>
 
-type CSSStringUtilName = 'defaultTransitions'
+type CSSStringUtilName = 'defaultTransitions' | 'lineHeight'
 
 type CSSStringUtil = Record<CSSStringUtilName, string>
 
@@ -81,7 +81,9 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	focusVisible: {
 		outline: 'none',
 		boxShadow: `0 0 0 4px ${theme.colors.focus}`,
+		zIndex: 1,
 	},
+	lineHeight: `calc(1rem * ${theme.text.ui.body.lineHeight})`,
 	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
       border-color 0.5s ${theme.animation.outQuart},
       box-shadow 0.5s ${theme.animation.outQuart}`,

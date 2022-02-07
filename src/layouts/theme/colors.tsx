@@ -72,6 +72,7 @@ type ColorAliasName =
 	| 'heading'
 	| 'text'
 	| 'label'
+	| 'activeText'
 	| 'activeBackground'
 	| 'onActiveBackground'
 	| 'buttonLabel'
@@ -245,6 +246,7 @@ export const getColorAliases = (
 
 	focus: colors.red3,
 
+	activeText: colors.red1,
 	activeBackground: colors.red2,
 	onActiveBackground: colors.white,
 
