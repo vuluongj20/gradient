@@ -26,7 +26,6 @@ const Settings = ({
 		<Wrap className={className}>
 			<Dialog
 				title="Settings"
-				isOpen
 				content={SettingsDialog}
 				beforeOpen={beforeDialogOpen}
 				afterClose={afterDialogClose}
