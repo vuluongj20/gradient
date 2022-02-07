@@ -104,6 +104,7 @@ const Backdrop = styled.div`
 
 const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 	width: ${(p) => p.theme.breakpoints[p.size]};
+	max-width: 100%;
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
@@ -165,8 +166,8 @@ const CloseButton = styled.button<{ compact: boolean }>`
 `
 
 const StyledIconClose = styled(IconClose)`
-	width: 1rem;
-	height: 1rem;
+	width: 1em;
+	height: 1em;
 
 	min-width: 1.25rem;
 	min-height: 1.25rem;
