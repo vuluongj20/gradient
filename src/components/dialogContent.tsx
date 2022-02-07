@@ -9,6 +9,8 @@ import styled from 'styled-components'
 
 import IconClose from '@icons/close'
 
+import { Breakpoint } from '@utils/style'
+
 export type DialogContentProps = AriaDialogProps & {
 	title?: string
 	isOpen: boolean
@@ -19,6 +21,7 @@ export type DialogContentProps = AriaDialogProps & {
 	showCloseButton: boolean
 	closeButtonProps: ButtonProps
 	compact?: boolean
+	size?: Breakpoint
 }
 
 const DialogContent = ({
@@ -28,6 +31,7 @@ const DialogContent = ({
 	closeButtonProps,
 	renderContent,
 	compact = false,
+	size = 's',
 	...props
 }: DialogContentProps) => {
 	const { title } = props
@@ -46,6 +50,7 @@ const DialogContent = ({
 						ref={ref}
 						{...mergeProps(overlayProps, dialogProps, modalProps)}
 						compact={compact}
+						size={size}
 					>
 						<TitleWrap compact={compact}>
 							<Title compact={compact} {...titleProps}>
@@ -97,7 +102,8 @@ const Backdrop = styled.div`
 	background: ${(p) => p.theme.colors.line};
 `
 
-const Wrap = styled.div<{ compact: boolean }>`
+const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
+	width: ${(p) => p.theme.breakpoints[p.size]};
 	background: ${(p) => p.theme.colors.oBackground};
 	border-radius: ${(p) => p.theme.radii.l};
 	box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
