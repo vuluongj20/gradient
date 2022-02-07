@@ -43,4 +43,4 @@ const SettingsProvider = ({ children }: Props): JSX.Element => {
 	return <Context.Provider value={{ settings, dispatch }}>{children}</Context.Provider>
 }
 
-export { Context as default, SettingsProvider }
+export { Context as default, SettingsProvider, Settings }

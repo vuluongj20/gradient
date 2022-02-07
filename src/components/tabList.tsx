@@ -9,6 +9,8 @@ import styled from 'styled-components'
 import Tab from '@components/tab'
 import TabPanel from '@components/tabPanel'
 
+import LocalThemeProvider from '@utils/localThemeProvider'
+
 export type TabItem = {
   key: string
   label: string
@@ -20,7 +22,9 @@ export type TabItem = {
 type TabListProps = AriaTabListProps<TabItem> & {
   items: TabItem[]
   insetPanel?: boolean
+  height?: string
   className?: string
+  children?: ReactNode
 }
 
 const TabList = (props: TabListProps) => {
@@ -41,6 +45,7 @@ const TabListInner = ({
   className,
   orientation = 'horizontal',
   insetPanel = false,
+  height,
   ...props
 }: Omit<TabListProps, 'items'>) => {
   const ref = useRef()
@@ -48,34 +53,37 @@ const TabListInner = ({
   const { tabListProps } = useTabList({ orientation, ...props }, state, ref)
 
   return (
-    <Wrap className={className} orientation={orientation}>
+    <Wrap className={className} orientation={orientation} height={height}>
       <TabsWrap orientation={orientation} ref={ref} {...tabListProps}>
         {[...state.collection].map((item) => (
           <Tab key={item.key} item={item} state={state} />
         ))}
       </TabsWrap>
-      <PanelsWrap inset={insetPanel}>
-        <SwitchTransition>
-          <CSSTransition
-            timeout={{
-              enter: 250,
-              exit: 125,
-            }}
-            key={state.selectedItem?.key}
-          >
-            <TabPanel key={state.selectedItem?.key} state={state} />
-          </CSSTransition>
-        </SwitchTransition>
-      </PanelsWrap>
+      <LocalThemeProvider inset={insetPanel}>
+        <PanelsWrap>
+          <SwitchTransition>
+            <CSSTransition
+              timeout={{
+                enter: 250,
+                exit: 125,
+              }}
+              key={state.selectedItem?.key}
+            >
+              <TabPanel key={state.selectedItem?.key} state={state} />
+            </CSSTransition>
+          </SwitchTransition>
+        </PanelsWrap>
+      </LocalThemeProvider>
     </Wrap>
   )
 }
 
-const Wrap = styled.div<{ orientation: TabListProps['orientation'] }>`
+const Wrap = styled.div<{ orientation: TabListProps['orientation']; height: string }>`
   display: flex;
   gap: ${(p) => p.theme.space[1]};
 
-  ${(p) => p.orientation === 'horizontal' && `flex-direction: column;`}
+  ${(p) => p.height && `height: ${p.height};`}
+  ${(p) => p.orientation === 'horizontal' && `flex-direction: column;`};
 `
 
 const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
@@ -86,12 +94,9 @@ const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
 `
 
 const PanelsWrap = styled.div<{ inset: boolean }>`
+  height: 100%;
+  width: 100%;
   border-radius: ${(p) => p.theme.radii.m};
-
-  ${(p) =>
-    p.inset &&
-    `
-    background: ${p.theme.colors.iBackground};
-    border: solid 1px ${p.theme.colors.line};
-  `}
+  background: ${(p) => p.theme.colors.background};
+  border: solid 1px ${(p) => p.theme.colors.line};
 `

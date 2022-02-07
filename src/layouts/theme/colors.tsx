@@ -5,6 +5,7 @@ type ColorKeys =
 	| 'surface2'
 	| 'surface3'
 	| 'surface4'
+	| 'surface5'
 	| 'gray1'
 	| 'gray2'
 	| 'gray3'
@@ -93,10 +94,11 @@ const paper: ColorPalette = {
 	colors: {
 		white: '#F1F2F4',
 		black: '#212529',
-		surface1: '#FAFAFA',
-		surface2: '#FFFFFF',
+		surface1: '#F2F2F2',
+		surface2: '#FAFAFA',
 		surface3: '#FFFFFF',
-		surface4: '#F2F2F2',
+		surface4: '#FFFFFF',
+		surface5: '#F2F2F2',
 		gray1: '#212529',
 		gray2: '#33383D',
 		gray3: '#494F55',
@@ -104,8 +106,8 @@ const paper: ColorPalette = {
 		gray5: '#71777F',
 		gray6: '#898F94',
 		gray7: 'rgba(148, 153, 158, 0.7)',
-		gray8: 'rgba(148, 153, 158, 0.28)',
-		gray9: 'rgba(148, 153, 158, 0.2)',
+		gray8: 'rgba(148, 153, 158, 0.26)',
+		gray9: 'rgba(148, 153, 158, 0.20)',
 		red1: '#E33B12',
 		red2: '#EE542F',
 		red3: '#F2775A',
@@ -152,10 +154,11 @@ const charcoal: ColorPalette = {
 	colors: {
 		white: '#F1F2F4',
 		black: '#212529',
-		surface1: '#171717',
-		surface2: '#1A1A1A',
-		surface3: '#1F1F1F',
-		surface4: '#292929',
+		surface1: '#131313',
+		surface2: '#171717',
+		surface3: '#1A1A1A',
+		surface4: '#1F1F1F',
+		surface5: '#292929',
 		gray1: '#F1F2F4',
 		gray2: '#D5D9DC',
 		gray3: '#BDC2C7',
@@ -163,7 +166,7 @@ const charcoal: ColorPalette = {
 		gray5: '#858C93',
 		gray6: '#6D7378',
 		gray7: 'rgba(102, 107, 112, 0.7)',
-		gray8: 'rgba(102, 107, 112, 0.32)',
+		gray8: 'rgba(102, 107, 112, 0.28)',
 		gray9: 'rgba(102, 107, 112, 0.18)',
 		red1: 'rgba(255, 115, 82, 1)',
 		red2: 'rgba(255, 115, 82, 0.9)',
@@ -206,66 +209,68 @@ const charcoal: ColorPalette = {
 
 export const getColorAliases = (
 	colors: ColorPalette['colors'],
-	elevation: 'default' | 'overlay' | 'inset' = 'default',
-): ColorAliases => ({
-	...(elevation === 'default' && {
-		background: colors.surface2,
-		hoverBackground: colors.surface4,
-		line: colors.gray9,
-	}),
+	elevation: number,
+): ColorAliases => {
+	const getBackground = (elevation: number) => {
+		const blockedElevation = Math.min(Math.max(elevation, 0), 5)
+		return colors[`surface${blockedElevation}`]
+	}
 
-	...(elevation === 'overlay' && {
-		background: colors.surface3,
-		hoverBackground: colors.surface4,
-		line: colors.gray8,
-	}),
+	const getHoverBackground = (elevation: number) => {
+		if (elevation > 2) {
+			return colors.surface5
+		}
+		return colors.surface5
+	}
 
-	...(elevation === 'inset' && {
-		background: colors.surface1,
-		hoverBackground: colors.surface2,
-		line: colors.gray8,
-	}),
+	const getLine = (elevation: number) => {
+		if (elevation > 2) {
+			return colors.gray9
+		}
+		return colors.gray8
+	}
 
-	// Overlay
-	oBackground: colors.surface3,
-	oHoverBackground: colors.surface4,
-	oLine: colors.gray8,
+	return {
+		background: getBackground(elevation),
+		hoverBackground: getHoverBackground(elevation),
+		line: getLine(elevation),
 
-	// Inset
-	iBackground: colors.surface1,
-	iHoverBackground: colors.surface2,
-	iLine: colors.gray8,
+		// Overlay
+		oBackground: getBackground(elevation + 1),
+		oHoverBackground: getHoverBackground(elevation + 1),
+		oLine: getLine(elevation + 1),
 
-	// Text
-	heading: colors.gray1,
-	text: colors.gray2,
-	label: colors.gray5,
+		// Inset
+		iBackground: getBackground(elevation - 1),
+		iHoverBackground: getHoverBackground(elevation - 1),
+		iLine: getHoverBackground(elevation - 1),
 
-	buttonLabel: colors.gray1,
-	buttonLabelHover: colors.gray3,
+		// Text
+		heading: colors.gray1,
+		text: colors.gray2,
+		label: colors.gray5,
 
-	focus: colors.red3,
+		buttonLabel: colors.gray1,
+		buttonLabelHover: colors.gray3,
 
-	activeText: colors.red1,
-	activeBackground: colors.red2,
-	onActiveBackground: colors.white,
+		focus: colors.red3,
 
-	link: colors.red1,
-	linkUnderline: colors.red5,
+		activeText: colors.red1,
+		activeBackground: colors.red2,
+		onActiveBackground: colors.white,
 
-	linkHover: colors.red1,
-	linkUnderlineHover: colors.red2,
+		link: colors.red1,
+		linkUnderline: colors.red5,
 
-	error: colors.red1,
-	success: colors.green1,
-})
+		linkHover: colors.red1,
+		linkUnderlineHover: colors.red2,
+
+		error: colors.red1,
+		success: colors.green1,
+	}
+}
 
 export const colorPalettes = {
 	paper,
 	charcoal,
-}
-
-export const colorAliases = {
-	paper: getColorAliases(paper.colors),
-	charcoal: getColorAliases(charcoal.colors),
 }

@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
 
-import { ThemeSettings } from '@theme'
-
 import Grid from '@components/grid'
 
 import { Page } from '@types'
@@ -15,11 +13,11 @@ import useSections from '@utils/dataHooks/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
-	elevation?: ThemeSettings['color']['elevation']
+	inset?: boolean
 	inverted?: boolean
 }
 
-const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element => {
+const Footer = ({ inset = false, inverted = false }: Props): JSX.Element => {
 	const sections = useSections()
 	const sectionPages = sections.map((section) => ({
 		slug: section.slug,
@@ -44,7 +42,7 @@ const Footer = ({ elevation = 'default', inverted = false }: Props): JSX.Element
 	)
 
 	return (
-		<LocalThemeProvider appearance={inverted ? 'inverted' : null} elevation={elevation}>
+		<LocalThemeProvider appearance={inverted ? 'inverted' : null} inset={inset}>
 			<Wrap>
 				<SiteMap as="nav">
 					<Column>

@@ -12,7 +12,7 @@ export const defaultSettings: Settings = {
 	theme: {
 		color: {
 			appearance: 'auto',
-			elevation: 'default',
+			elevation: 3,
 			lightPalette: 'paper',
 			darkPalette: 'charcoal',
 			increaseContrast: false,

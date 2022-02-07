@@ -2,31 +2,24 @@ import styled from 'styled-components'
 
 import CardGroup from './cardGroup'
 
-import { ThemeSettings } from '@theme'
-
 import { Section as ISection, Image, Story } from '@types'
-
-import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	section: ISection
 	stories: Story[]
-	elevation?: ThemeSettings['color']['elevation']
 	imageLoading?: Image['loading']
 }
 
-const Section = ({ section, stories, elevation, imageLoading }: Props): JSX.Element => {
+const Section = ({ section, stories, imageLoading }: Props): JSX.Element => {
 	return (
-		<LocalThemeProvider elevation={elevation}>
-			<Wrap>
-				<TitleWrap>
-					<TitleLink href={section.path}>
-						<Title>{section.name}</Title>
-					</TitleLink>
-				</TitleWrap>
-				<CardGroup stories={stories} imageLoading={imageLoading} />
-			</Wrap>
-		</LocalThemeProvider>
+		<Wrap>
+			<TitleWrap>
+				<TitleLink href={section.path}>
+					<Title>{section.name}</Title>
+				</TitleLink>
+			</TitleWrap>
+			<CardGroup stories={stories} imageLoading={imageLoading} />
+		</Wrap>
 	)
 }
 

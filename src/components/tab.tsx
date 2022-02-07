@@ -36,6 +36,7 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   display: flex;
   gap: ${(p) => p.theme.space[1]};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
+  padding-right: ${(p) => p.theme.space[3]};
   border-radius: ${(p) => p.theme.radii.m};
   cursor: pointer;
 

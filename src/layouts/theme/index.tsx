@@ -43,7 +43,7 @@ export type Theme = {
 export type ThemeSettings = {
 	color: {
 		appearance: 'light' | 'dark' | 'auto'
-		elevation?: 'default' | 'inset' | 'overlay'
+		elevation?: number
 		lightPalette: keyof typeof colorPalettes
 		darkPalette: keyof typeof colorPalettes
 		increaseContrast: boolean
@@ -58,7 +58,7 @@ export type ThemeSettings = {
 const partialDefaultTheme: Omit<Theme, 'utils'> = {
 	colors: {
 		...colorPalettes.paper.colors,
-		...getColorAliases(colorPalettes.paper.colors, 'default'),
+		...getColorAliases(colorPalettes.paper.colors, 3),
 	},
 	shadows: { ...boxShadowsLight, text: textShadows.light },
 	text: {
@@ -129,6 +129,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 
 	const partialTheme: Omit<Theme, 'utils'> = {
 		colors: {
+			elevation: 3,
 			...colorPalettes[colorPalette].colors,
 			...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
 		},

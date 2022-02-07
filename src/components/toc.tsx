@@ -3,23 +3,13 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as tocbot from 'tocbot'
 
-import { ThemeSettings } from '@theme'
-
-import LocalThemeProvider from '@utils/localThemeProvider'
-
 type Props = {
 	label: string
 	contentSelector: string
-	elevation?: ThemeSettings['color']['elevation']
 	className?: string
 }
 
-const TOC = ({
-	label,
-	contentSelector,
-	elevation = 'default',
-	className,
-}: Props): JSX.Element => {
+const TOC = ({ label, contentSelector, className }: Props): JSX.Element => {
 	const [showUpperFade, setUpperFade] = useState<boolean>(false)
 	const [showLowerFade, setLowerFade] = useState<boolean>(false)
 	const upperCallback = (entries) => {
@@ -73,20 +63,18 @@ const TOC = ({
 	}, [contentSelector])
 
 	return (
-		<LocalThemeProvider elevation={elevation}>
-			<TocWrap className={className}>
-				<TocLabel>{label}</TocLabel>
-				<TocInnerWrap>
-					<UpperScrollFade visible={showUpperFade} />
-					<TocInnerContentWrap>
-						<UpperIntersectionTarget />
-						<TocContent />
-						<LowerIntersectionTarget />
-					</TocInnerContentWrap>
-					<LowerScrollFade visible={showLowerFade} />
-				</TocInnerWrap>
-			</TocWrap>
-		</LocalThemeProvider>
+		<TocWrap className={className}>
+			<TocLabel>{label}</TocLabel>
+			<TocInnerWrap>
+				<UpperScrollFade visible={showUpperFade} />
+				<TocInnerContentWrap>
+					<UpperIntersectionTarget />
+					<TocContent />
+					<LowerIntersectionTarget />
+				</TocInnerContentWrap>
+				<LowerScrollFade visible={showLowerFade} />
+			</TocInnerWrap>
+		</TocWrap>
 	)
 }
 
