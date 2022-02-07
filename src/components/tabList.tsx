@@ -19,6 +19,7 @@ export type TabItem = {
 
 type TabListProps = AriaTabListProps<TabItem> & {
   items: TabItem[]
+  insetPanel?: boolean
   className?: string
 }
 
@@ -39,6 +40,7 @@ export default TabList
 const TabListInner = ({
   className,
   orientation = 'horizontal',
+  insetPanel = false,
   ...props
 }: Omit<TabListProps, 'items'>) => {
   const ref = useRef()
@@ -52,29 +54,44 @@ const TabListInner = ({
           <Tab key={item.key} item={item} state={state} />
         ))}
       </TabsWrap>
-      <SwitchTransition>
-        <CSSTransition
-          timeout={{
-            enter: 250,
-            exit: 125,
-          }}
-          key={state.selectedItem?.key}
-        >
-          <TabPanel key={state.selectedItem?.key} state={state} />
-        </CSSTransition>
-      </SwitchTransition>
+      <PanelsWrap inset={insetPanel}>
+        <SwitchTransition>
+          <CSSTransition
+            timeout={{
+              enter: 250,
+              exit: 125,
+            }}
+            key={state.selectedItem?.key}
+          >
+            <TabPanel key={state.selectedItem?.key} state={state} />
+          </CSSTransition>
+        </SwitchTransition>
+      </PanelsWrap>
     </Wrap>
   )
 }
 
 const Wrap = styled.div<{ orientation: TabListProps['orientation'] }>`
   display: flex;
+  gap: ${(p) => p.theme.space[1]};
 
   ${(p) => p.orientation === 'horizontal' && `flex-direction: column;`}
 `
 
 const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
   display: flex;
+  gap: 1px;
 
   ${(p) => p.orientation === 'vertical' && `flex-direction: column;`}
+`
+
+const PanelsWrap = styled.div<{ inset: boolean }>`
+  border-radius: ${(p) => p.theme.radii.m};
+
+  ${(p) =>
+    p.inset &&
+    `
+    background: ${p.theme.colors.iBackground};
+    border: solid 1px ${p.theme.colors.line};
+  `}
 `
