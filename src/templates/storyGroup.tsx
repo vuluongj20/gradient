@@ -103,7 +103,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 					<CSSTransition
 						timeout={{
 							enter: 250,
-							exit: 250,
+							exit: 125,
 						}}
 						key={`${selectedSection}-${selectedAuthor}`}
 					>
@@ -175,7 +175,7 @@ const Results = styled(Grid)`
 		opacity: 100%;
 	}
 	&.exit-active {
-		transition: opacity ${(p) => p.theme.animation.fastIn};
+		transition: opacity ${(p) => p.theme.animation.vFastIn};
 		opacity: 0%;
 	}
 `
