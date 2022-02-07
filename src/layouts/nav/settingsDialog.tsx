@@ -2,6 +2,9 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 
 import RadioBar from '@components/radioBar'
+import TabList from '@components/tabList'
+
+import IconSettings from '@icons/settings'
 
 import SettingsContext from '@utils/settingsContext'
 
@@ -25,18 +28,36 @@ const Dialog = () => {
 		dispatchSettings({ type: 'update-color', key: 'appearance', value: option })
 	}
 
+	const tabItems = [
+		{
+			key: 'hello',
+			label: 'Appearance',
+			content: (
+				<Section>
+					<SectionTitle>Appearance</SectionTitle>
+					<RadioBar
+						label="Appearance"
+						options={appearanceOptions}
+						onChange={setAppearance}
+						value={themeSettings.color.appearance}
+						moveLeft
+					/>
+				</Section>
+			),
+			leadingItems: <IconSettings />,
+		},
+		{
+			key: 'woah',
+			label: 'Account',
+			content:
+				'It has distinctive black bars on its forelegs and a black-tipped, stubby tail, from which it derives its name. It reaches a body length of up to 125 cm (50 in). It is an adaptable predator inhabiting wooded areas, semidesert, urban edge, forest edge, and swampland environments.',
+			leadingItems: <IconSettings />,
+		},
+	]
+
 	return (
 		<InnerWrap>
-			<Section>
-				<SectionTitle>Appearance</SectionTitle>
-				<RadioBar
-					label="Appearance"
-					options={appearanceOptions}
-					onChange={setAppearance}
-					value={themeSettings.color.appearance}
-					moveLeft
-				/>
-			</Section>
+			<TabList orientation="vertical" insetPanel height="24rem" items={tabItems} />
 		</InnerWrap>
 	)
 }
