@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 
-import RadioBar from '@components/form/radioBar'
+import RadioBar from '@components/radioBar'
 
 import SettingsContext from '@utils/settingsContext'
 

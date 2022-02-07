@@ -1,9 +1,8 @@
 import { Item } from '@react-stately/collections'
 import styled from 'styled-components'
 
-import Select from './form/select'
-
 import Grid from '@components/grid'
+import Select from '@components/select'
 
 export type FilterProps = {
 	name: string

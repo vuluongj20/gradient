@@ -6,10 +6,9 @@ import { Fragment, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
-import ListBox from './listBox'
-import Popover from './popover'
-
 import Dialog from '@components/dialog'
+import ListBox from '@components/listBox'
+import Popover from '@components/popover'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 import { numericBreakpoints } from '@utils/style'
