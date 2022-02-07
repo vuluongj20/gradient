@@ -22,7 +22,7 @@ const TabPanel = ({ state, ...props }: TabPanelProps) => {
 export default TabPanel
 
 const Wrap = styled.div`
-  padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
+  padding: ${(p) => p.theme.space[2]} ${(p) => p.theme.space[3]};
 
   &.enter {
     opacity: 0%;
