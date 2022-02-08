@@ -123,12 +123,10 @@ const ContentBox = styled.div`
 	transform: rotate(-90deg) translateY(-50%);
 	transition: transform 0.375s ${(p) => p.theme.animation.outQuart};
 
-	${(p) =>
-		!p.theme.animation.reduced &&
-		`${/* sc-selector */ InnerWrap}:hover > &,
-		${/* sc-selector */ InnerWrap}.focus-visible > & {
+	${/* sc-selector */ InnerWrap}:hover > &,
+	${/* sc-selector */ InnerWrap}.focus-visible > & {
 		transform: rotate(-90deg) translate(-0.5rem, -50%);
-	}`}
+	}
 
 	${(p) => p.theme.utils.media.xs} {
 		position: initial;

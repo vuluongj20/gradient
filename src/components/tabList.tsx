@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import Tab from '@components/tab'
 import TabPanel from '@components/tabPanel'
 
+import useBreakpoint from '@utils/hooks/useBreakpoint'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 export type TabItem = {
@@ -19,7 +20,7 @@ export type TabItem = {
   trailingItems?: ReactNode
 }
 
-type TabListProps = AriaTabListProps<TabItem> & {
+type TabListProps = Omit<AriaTabListProps<TabItem>, 'children'> & {
   items: TabItem[]
   insetPanel?: boolean
   height?: string
@@ -41,20 +42,28 @@ const TabList = (props: TabListProps) => {
 
 export default TabList
 
+type TabListInnerProps = Omit<TabListProps, 'items'> & {
+  children: AriaTabListProps<TabItem>['children']
+}
+
 const TabListInner = ({
   className,
   orientation = 'horizontal',
   insetPanel = false,
   height,
   ...props
-}: Omit<TabListProps, 'items'>) => {
+}: TabListInnerProps) => {
   const ref = useRef()
   const state = useTabListState(props)
   const { tabListProps } = useTabList({ orientation, ...props }, state, ref)
 
+  // Force horizontal orientation on small screens
+  const breakpointSmall = useBreakpoint('s')
+  const modifiedOrientation = breakpointSmall ? 'horizontal' : orientation
+
   return (
-    <Wrap className={className} orientation={orientation} height={height}>
-      <TabsWrap orientation={orientation} ref={ref} {...tabListProps}>
+    <Wrap className={className} orientation={modifiedOrientation} height={height}>
+      <TabsWrap orientation={modifiedOrientation} ref={ref} {...tabListProps}>
         {[...state.collection].map((item) => (
           <Tab key={item.key} item={item} state={state} />
         ))}
@@ -83,7 +92,12 @@ const Wrap = styled.div<{ orientation: TabListProps['orientation']; height: stri
   gap: ${(p) => p.theme.space[1]};
 
   ${(p) => p.height && `height: ${p.height};`}
-  ${(p) => p.orientation === 'horizontal' && `flex-direction: column;`};
+  ${(p) =>
+    p.orientation === 'horizontal' &&
+    `
+    flex-direction: column;
+    align-items: center;
+  `};
 `
 
 const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
@@ -93,7 +107,7 @@ const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
   ${(p) => p.orientation === 'vertical' && `flex-direction: column;`}
 `
 
-const PanelsWrap = styled.div<{ inset: boolean }>`
+const PanelsWrap = styled.div`
   height: 100%;
   width: 100%;
   border-radius: ${(p) => p.theme.radii.m};

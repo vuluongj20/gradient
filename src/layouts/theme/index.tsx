@@ -121,9 +121,6 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 	const appearance = getAppearance(settings.color)
 	const colorPalette = getColorPalette(settings.color)
 
-	/** Animation */
-	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
 	const partialTheme: Omit<Theme, 'utils'> = {
 		colors: {
 			elevation: 3,
@@ -139,10 +136,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			ui: textScales[settings.text.ui],
 			content: textScales[settings.text.content],
 		},
-		animation: {
-			...animation,
-			reduced: reducedMotion,
-		},
+		animation,
 		breakpoints: breakpoints,
 		space,
 		radii,
