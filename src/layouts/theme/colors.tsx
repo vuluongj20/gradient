@@ -274,3 +274,8 @@ export const colorPalettes = {
 	paper,
 	charcoal,
 }
+
+export const colorAliases = {
+	paper: getColorAliases(paper.colors, 3),
+	charcoal: getColorAliases(charcoal.colors, 3),
+}
