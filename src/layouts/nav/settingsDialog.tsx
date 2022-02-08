@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import RadioBar from '@components/radioBar'
 import TabList from '@components/tabList'
 
-import IconSettings from '@icons/settings'
+import IconAccount from '@icons/account'
+import IconPalette from '@icons/palette'
+import IconShield from '@icons/shield'
 
 import SettingsContext from '@utils/settingsContext'
 
@@ -44,14 +46,21 @@ const Dialog = () => {
 					/>
 				</Section>
 			),
-			leadingItems: <IconSettings />,
+			leadingItems: <IconPalette />,
 		},
 		{
-			key: 'woah',
+			key: 'account',
 			label: 'Account',
 			content:
 				'It has distinctive black bars on its forelegs and a black-tipped, stubby tail, from which it derives its name. It reaches a body length of up to 125 cm (50 in). It is an adaptable predator inhabiting wooded areas, semidesert, urban edge, forest edge, and swampland environments.',
-			leadingItems: <IconSettings />,
+			leadingItems: <IconAccount />,
+		},
+		{
+			key: 'privacy',
+			label: 'Privacy',
+			content:
+				'It has distinctive black bars on its forelegs and a black-tipped, stubby tail, from which it derives its name. It reaches a body length of up to 125 cm (50 in). It is an adaptable predator inhabiting wooded areas, semidesert, urban edge, forest edge, and swampland environments.',
+			leadingItems: <IconShield />,
 		},
 	]
 

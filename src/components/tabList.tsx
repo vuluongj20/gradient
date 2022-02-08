@@ -89,7 +89,7 @@ const TabListInner = ({
 
 const Wrap = styled.div<{ orientation: TabListProps['orientation']; height: string }>`
   display: flex;
-  gap: ${(p) => p.theme.space[1]};
+  gap: ${(p) => p.theme.space[2]};
 
   ${(p) => p.height && `height: ${p.height};`}
   ${(p) =>
