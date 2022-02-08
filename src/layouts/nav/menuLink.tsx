@@ -89,9 +89,7 @@ const InnerWrap = styled(TransitionLink)`
 		box-shadow: inset 0 0 0 4px ${(p) => p.theme.colors.focus};
 	}
 
-	${/* sc-selector */ Wrap}:not(:first-of-type) > &::after {
-		content: '';
-		${(p) => p.theme.utils.spread};
+	${/* sc-selector */ Wrap}:not(:first-of-type) > & {
 		border-left: solid 1px ${(p) => p.theme.colors.line};
 	}
 
