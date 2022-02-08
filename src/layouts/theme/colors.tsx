@@ -224,10 +224,10 @@ export const getColorAliases = (
 	}
 
 	const getLine = (elevation: number) => {
-		if (elevation > 2) {
-			return colors.gray9
+		if (elevation > 3) {
+			return colors.gray8
 		}
-		return colors.gray8
+		return colors.gray9
 	}
 
 	return {
