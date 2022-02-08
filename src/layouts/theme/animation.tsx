@@ -42,10 +42,7 @@ type AnimationAliasName =
 
 type AnimationAliases = Record<AnimationAliasName, string>
 
-export type Animation = Easings &
-	AnimationAliases & {
-		reduced: boolean
-	}
+export type Animation = Easings & AnimationAliases
 
 export const easings: Easings = {
 	inSine: 'cubic-bezier(0.12, 0, 0.39, 0)',

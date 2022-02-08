@@ -66,10 +66,7 @@ const partialDefaultTheme: Omit<Theme, 'utils'> = {
 		ui: textScales.sohne,
 		content: textScales.domaine,
 	},
-	animation: {
-		...animation,
-		reduced: false,
-	},
+	animation,
 	breakpoints: breakpoints,
 	space,
 	radii,
