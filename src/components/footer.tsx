@@ -42,7 +42,7 @@ const Footer = ({ inset = false, inverted = false }: Props): JSX.Element => {
 	)
 
 	return (
-		<LocalThemeProvider appearance={inverted ? 'inverted' : null} inset={inset}>
+		<LocalThemeProvider inverted={inverted} inset={inset}>
 			<Wrap>
 				<SiteMap as="nav">
 					<Column>

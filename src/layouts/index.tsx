@@ -10,7 +10,7 @@ import Nav from './nav'
 
 import SEO, { SEOProps } from '@components/seo'
 
-import LocalThemeProvider from '@utils/localThemeProvider'
+import GlobalThemeProvider from '@utils/globalThemeProvider'
 import { SettingsProvider } from '@utils/settingsContext'
 
 type Props = {
@@ -38,13 +38,13 @@ const Layout = ({
 		<SSRProvider>
 			<SEO {...seo} />
 			<SettingsProvider>
-				<LocalThemeProvider>
+				<GlobalThemeProvider>
 					<OverlayProvider>
 						<GlobalStyles />
 						<Nav />
 						<PageContent id="page-content">{children}</PageContent>
 					</OverlayProvider>
-				</LocalThemeProvider>
+				</GlobalThemeProvider>
 			</SettingsProvider>
 		</SSRProvider>
 	)

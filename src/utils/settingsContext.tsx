@@ -3,8 +3,9 @@
 // globally to all pages and components vis useContext().
 import { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'react'
 
-import { useColorPalette } from '../layouts/theme'
 import { Action, Settings, defaultSettings, init, reducer } from './settingsReducer'
+
+import { useColorPalette } from '@theme/colors'
 
 type Props = {
 	children: ReactNode

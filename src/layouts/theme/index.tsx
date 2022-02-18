@@ -1,5 +1,12 @@
 import { Animation, animation } from './animation'
-import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './colors'
+import {
+	ColorAliases,
+	ColorPalette,
+	colorPalettes,
+	getColorAliases,
+	useAppearance,
+	useColorPalette,
+} from './colors'
 import { TextScale, textScales } from './text'
 import { Utils, generateUtils } from './utils'
 
@@ -19,6 +26,7 @@ export type Appearance = 'light' | 'dark'
 
 export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
+		elevation: number
 		appearance: Appearance
 		reducedMotion: boolean
 		/** Text */
@@ -47,7 +55,7 @@ export type Theme = ColorPalette['colors'] &
 export type ThemeSettings = {
 	color: {
 		appearance: Appearance | 'auto'
-		elevation?: number
+		elevation: number
 		lightPalette: keyof typeof colorPalettes
 		darkPalette: keyof typeof colorPalettes
 		increaseContrast: boolean
@@ -59,46 +67,35 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
-export const useAppearance = (colorSettings: ThemeSettings['color']): Appearance => {
-	const preferDark = useMatchMedia('(prefers-color-scheme: dark)')
-
-	if (colorSettings.appearance === 'auto') {
-		return preferDark ? 'dark' : 'light'
-	}
-
-	return colorSettings.appearance
-}
-
-export const useColorPalette = (
-	colorSettings: ThemeSettings['color'],
-): keyof typeof colorPalettes => {
-	const appearance = useAppearance(colorSettings)
-
-	if (appearance === 'dark') {
-		return colorSettings.darkPalette
-	} else {
-		return colorSettings.lightPalette
-	}
-}
-
 export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const appearance = useAppearance(settings.color)
 	const colorPalette = useColorPalette(settings.color)
 	const reducedMotion = useMatchMedia('(prefers-reduced-motion)')
+	const elevation = settings.color.elevation
+
+	const colors = colorPalettes[colorPalette].colors
+	const colorAliases = getColorAliases(colorPalettes[colorPalette].colors, elevation)
+
+	const shadows =
+		appearance === 'light'
+			? { ...boxShadowsLight, text: textShadows.light }
+			: { ...boxShadowsDark, text: textShadows.dark }
+
+	const text = {
+		system: textScales[settings.text.system],
+		content: textScales[settings.text.content],
+	}
 
 	const partialTheme: Omit<Theme, 'utils'> = {
+		elevation,
 		appearance,
 		reducedMotion,
-		...colorPalettes[colorPalette].colors,
-		...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
-		shadows:
-			appearance === 'light'
-				? { ...boxShadowsLight, text: textShadows.light }
-				: { ...boxShadowsDark, text: textShadows.dark },
-		text: {
-			system: textScales[settings.text.system],
-			content: textScales[settings.text.content],
-		},
+
+		...colors,
+		...colorAliases,
+
+		shadows,
+		text,
 		animation,
 		breakpoints: breakpoints,
 		space,
