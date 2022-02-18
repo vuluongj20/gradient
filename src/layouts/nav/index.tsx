@@ -143,7 +143,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 	left: 3rem;
 	width: 100vw;
 	height: 100vh;
-	background: ${(p) => p.theme.colors.background};
+	background: ${(p) => p.theme.background};
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0%;

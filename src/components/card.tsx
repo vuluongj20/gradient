@@ -155,7 +155,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
 	mask-image: radial-gradient(white, black);
-	background: ${(p) => p.theme.colors.iBackground};
+	background: ${(p) => p.theme.iBackground};
 
 	::after {
 		content: '';
@@ -165,7 +165,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 		width: 100%;
 		height: 100%;
 		border-radius: ${(p) => p.theme.radii.m};
-		box-shadow: inset 0 0 0 1px ${(p) => p.theme.colors.line};
+		box-shadow: inset 0 0 0 1px ${(p) => p.theme.line};
 	}
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
@@ -200,11 +200,11 @@ const Title = styled.p`
 
 	position: relative;
 
-	color: ${(p) => p.theme.colors.heading};
+	color: ${(p) => p.theme.heading};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	${Wrap}:hover & {
-		color: ${(p) => p.theme.colors.linkHover};
+		color: ${(p) => p.theme.linkHover};
 	}
 `
 
@@ -213,7 +213,7 @@ const DummyTitle = styled.span`
 
 	color: transparent;
 	text-decoration: underline;
-	text-decoration-color: ${(p) => p.theme.colors.linkUnderlineHover};
+	text-decoration-color: ${(p) => p.theme.linkUnderlineHover};
 	z-index: 0;
 	opacity: 0%;
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
@@ -225,12 +225,12 @@ const DummyTitle = styled.span`
 
 const Tags = styled.div`
 	${(p) => p.theme.text.ui.label};
-	color: ${(p) => p.theme.colors.label};
+	color: ${(p) => p.theme.label};
 	margin-top: ${(p) => p.theme.space[0]};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 	text-transform: capitalize;
 
 	${Wrap}:hover & {
-		color: ${(p) => p.theme.colors.linkHover};
+		color: ${(p) => p.theme.linkHover};
 	}
 `

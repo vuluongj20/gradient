@@ -80,7 +80,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	},
 	focusVisible: {
 		outline: 'none',
-		boxShadow: `0 0 0 4px ${theme.colors.focus}`,
+		boxShadow: `0 0 0 4px ${theme.focus}`,
 		zIndex: 1,
 	},
 	lineHeight: `calc(1rem * ${theme.text.ui.body.lineHeight})`,

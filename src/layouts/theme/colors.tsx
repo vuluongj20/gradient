@@ -71,7 +71,7 @@ type ColorAliasName =
 	| 'iLine'
 	| 'focus'
 	| 'heading'
-	| 'text'
+	| 'body'
 	| 'label'
 	| 'activeText'
 	| 'activeBackground'
@@ -247,7 +247,7 @@ export const getColorAliases = (
 
 		// Text
 		heading: colors.gray1,
-		text: colors.gray2,
+		body: colors.gray2,
 		label: colors.gray5,
 
 		buttonLabel: colors.gray1,

@@ -1217,7 +1217,7 @@ const Wrap = styled.div`
   }
   .axis text {
     font-size: 0.9375rem;
-    color: ${(p) => p.theme.colors.label};
+    color: ${(p) => p.theme.label};
   }
   ${(p) => p.theme.utils.media.xs} {
     .axis text {
@@ -1234,7 +1234,7 @@ const Wrap = styled.div`
     transform: translateY(-0.8rem);
   }
   .bottom-axis {
-    stroke: ${(p) => p.theme.colors.label};
+    stroke: ${(p) => p.theme.label};
     stroke-linecap: round;
   }
 
@@ -1243,19 +1243,19 @@ const Wrap = styled.div`
     display: none;
   }
   .grid line {
-    stroke: ${(p) => p.theme.colors.line};
+    stroke: ${(p) => p.theme.line};
     opacity: 80%;
     stroke-width: 1;
   }
 
   .data-line {
-    stroke: ${(p) => p.theme.colors.text};
+    stroke: ${(p) => p.theme.body};
     stroke-linejoin: round;
     fill: none;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
   .data-line.faded {
-    stroke: ${(p) => p.theme.colors.label};
+    stroke: ${(p) => p.theme.label};
     opacity: 20%;
   }
   .reg-line {
@@ -1266,7 +1266,7 @@ const Wrap = styled.div`
 
   /* Hover elements */
   .hover-line {
-    stroke: ${(p) => p.theme.colors.label};
+    stroke: ${(p) => p.theme.label};
   }
   .hover-data-circle {
     opacity: 0%;
@@ -1293,8 +1293,8 @@ const Wrap = styled.div`
   .hover-rect {
     width: 13.1em;
     height: 2.8em;
-    fill: ${(p) => p.theme.colors.oBackground};
-    stroke: ${(p) => p.theme.colors.line};
+    fill: ${(p) => p.theme.oBackground};
+    stroke: ${(p) => p.theme.line};
     transform: translate(-14.6em, -4.72em);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     will-change: transform, width, height;
@@ -1309,13 +1309,13 @@ const Wrap = styled.div`
   .hover-data-label,
   .hover-reg-label,
   .hover-diff-label {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
   }
   .hover-data-label {
     transform: translate(-13.46em, -3em);
   }
   .hover-data-text {
-    fill: ${(p) => p.theme.colors.heading};
+    fill: ${(p) => p.theme.heading};
     transform: translate(-8.8em, -3em);
     font-weight: 700;
   }
@@ -1326,7 +1326,7 @@ const Wrap = styled.div`
     transform: translate(-8.8em, -7em);
   }
   .hover-data-text.out {
-    fill: ${(p) => p.theme.colors.text};
+    fill: ${(p) => p.theme.body};
   }
 
   .hover-reg-circle {
@@ -1342,13 +1342,13 @@ const Wrap = styled.div`
   }
 
   .hover-diff-line {
-    stroke: ${(p) => p.theme.colors.error};
+    stroke: ${(p) => p.theme.error};
   }
   .hover-diff-label {
     transform: translate(-17.7em, -3.4em);
   }
   .hover-diff-text {
-    fill: ${(p) => p.theme.colors.error};
+    fill: ${(p) => p.theme.error};
     transform: translate(-8.8em, -3.4em);
     font-weight: 700;
   }
@@ -1368,8 +1368,8 @@ const Wrap = styled.div`
     }
   }
   .mse-rect {
-    fill: ${(p) => p.theme.colors.oBackground};
-    stroke: ${(p) => p.theme.colors.line};
+    fill: ${(p) => p.theme.oBackground};
+    stroke: ${(p) => p.theme.line};
     rx: 0.4rem;
     ry: 0.4rem;
     width: 12.6em;
@@ -1386,31 +1386,31 @@ const Wrap = styled.div`
     width: 24em;
   }
   .mse-title {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
   }
   .mse-equation-label {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
     transform: translateY(1.6em);
   }
   .mse-equation {
     position: absolute;
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
     transform: translate(3.6em, 1.6em);
   }
   .mse-equation > .span {
-    fill: ${(p) => p.theme.colors.text};
+    fill: ${(p) => p.theme.body};
     font-weight: 700;
     transition: fill 800ms var(ease-out-cubic);
   }
   .mse-equation > .span.off {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
   }
   .mse-acc-label {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
     transform: translateY(3.2em);
   }
   .mse-acc-text {
-    fill: ${(p) => p.theme.colors.error};
+    fill: ${(p) => p.theme.error};
     transform: translate(3.2em, 3.2em);
     font-weight: 700;
   }

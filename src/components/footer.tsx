@@ -73,15 +73,15 @@ const Footer = ({ inset = false, inverted = false }: Props): JSX.Element => {
 export default Footer
 
 const Wrap = styled.footer`
-	background: ${(p) => p.theme.colors.background};
+	background: ${(p) => p.theme.background};
 `
 
 const Link = styled(TransitionLink)`
-	color: ${(p) => p.theme.colors.heading};
+	color: ${(p) => p.theme.heading};
 
 	&:hover {
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.colors.label};
+		text-decoration-color: ${(p) => p.theme.label};
 	}
 `
 
@@ -106,7 +106,7 @@ const Column = styled.div`
 
 const ColLabel = styled.label`
 	${(p) => p.theme.text.ui.label};
-	color: ${(p) => p.theme.colors.label};
+	color: ${(p) => p.theme.label};
 
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
@@ -131,7 +131,7 @@ const Policies = styled(Grid)`
 
 const PolicyText = styled.p`
 	grid-column-end: span 2;
-	color: ${(p) => p.theme.colors.label};
+	color: ${(p) => p.theme.label};
 
 	${(p) => p.theme.utils.media.xs} {
 		grid-column-end: span 4;

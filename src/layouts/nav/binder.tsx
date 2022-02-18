@@ -46,10 +46,10 @@ const Wrap = styled.ul`
 	position: relative;
 	width: 100%;
 	height: 100%;
-	border-right: solid 1px ${(p) => p.theme.colors.line};
+	border-right: solid 1px ${(p) => p.theme.line};
 	box-sizing: border-box;
 	padding: ${(p) => p.theme.space[0]} 0;
-	background: ${(p) => p.theme.colors.iBackground};
+	background: ${(p) => p.theme.iBackground};
 
 	${(p) => p.theme.utils.media.xs} {
 		position: fixed;
@@ -57,7 +57,7 @@ const Wrap = styled.ul`
 		left: 0;
 		width: 100%;
 		height: 3rem;
-		background: ${(p) => p.theme.colors.background};
+		background: ${(p) => p.theme.background};
 		border-right: none;
 	}
 `

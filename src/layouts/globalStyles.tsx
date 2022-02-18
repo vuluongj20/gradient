@@ -25,13 +25,13 @@ const GlobalStyles = createGlobalStyle`
     text-align: left;
     font-family: ${(p) => p.theme.text.ui.body.fontFamily};
     font-size: ${(p) => p.theme.text.rootSize};
-    color: ${(p) => p.theme.colors.text};
+    color: ${(p) => p.theme.body};
     margin: 0;
     padding: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: ${(p) => p.theme.colors.heading};
+    color: ${(p) => p.theme.heading};
     margin: 0;
   }
   h1 {${(p) => p.theme.text.ui.h1}}
@@ -47,7 +47,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${(p) => p.theme.colors.text};
+    color: ${(p) => p.theme.body};
     text-decoration: none;
     cursor: pointer;
     border-radius: ${(p) => p.theme.radii.s};
@@ -65,7 +65,7 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     ${(p) => p.theme.text.ui.label};
-    color: ${(p) => p.theme.colors.buttonLabel};
+    color: ${(p) => p.theme.buttonLabel};
 
     appearance: none;
     background: transparent;
@@ -75,7 +75,7 @@ const GlobalStyles = createGlobalStyle`
     transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
 
     &:hover {
-      color: ${(p) => p.theme.colors.text};
+      color: ${(p) => p.theme.body};
     }
   }
   button:focus {
@@ -101,7 +101,7 @@ const GlobalStyles = createGlobalStyle`
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: solid 1px ${(p) => p.theme.colors.line};
+    border-bottom: solid 1px ${(p) => p.theme.line};
     grid-column: 1 / -1;
   }
 
@@ -123,7 +123,7 @@ const GlobalStyles = createGlobalStyle`
      height: 100%;
   }
   .autolinked-header svg {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
   }
 `
 

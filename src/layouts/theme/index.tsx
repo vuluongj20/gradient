@@ -15,31 +15,31 @@ import {
 	zIndices,
 } from '@utils/style'
 
-export type Theme = {
-	colors: ColorPalette['colors'] & ColorAliases
-	/** Text */
-	text: {
-		rootSize: string
-		ui: TextScale
-		content: TextScale
+export type Theme = ColorPalette['colors'] &
+	ColorAliases & {
+		/** Text */
+		text: {
+			rootSize: string
+			ui: TextScale
+			content: TextScale
+		}
+		/** Box shadow */
+		shadows: Partial<Record<Breakpoint, string>> & {
+			text: string
+		}
+		/** Animation */
+		animation: Animation
+		/** Breakpoints */
+		breakpoints: Record<Breakpoint, string>
+		/** Border radius */
+		radii: Partial<Record<Breakpoint, string>>
+		/** z-indices */
+		zIndices: Record<string, number>
+		/** Spacing */
+		space: string[]
+		/** Utilities */
+		utils: Utils
 	}
-	/** Box shadow */
-	shadows: Partial<Record<Breakpoint, string>> & {
-		text: string
-	}
-	/** Animation */
-	animation: Animation
-	/** Breakpoints */
-	breakpoints: Record<Breakpoint, string>
-	/** Border radius */
-	radii: Partial<Record<Breakpoint, string>>
-	/** z-indices */
-	zIndices: Record<string, number>
-	/** Spacing */
-	space: string[]
-	/** Utilities */
-	utils: Utils
-}
 
 export type ThemeSettings = {
 	color: {
@@ -83,11 +83,8 @@ export const useThemeObject = (settings: ThemeSettings): Theme => {
 	// const reduceMotion = useMatchMedia('(prefers-reduced-motion)')
 
 	const partialTheme: Omit<Theme, 'utils'> = {
-		colors: {
-			elevation: 3,
-			...colorPalettes[colorPalette].colors,
-			...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
-		},
+		...colorPalettes[colorPalette].colors,
+		...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
 		shadows:
 			appearance === 'light'
 				? { ...boxShadowsLight, text: textShadows.light }

@@ -128,8 +128,8 @@ export default forwardRef(TooltipTrigger)
 
 const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
-  background: ${(p) => p.theme.colors.oBackground};
-  border: solid 1px ${(p) => p.theme.colors.oLine};
+  background: ${(p) => p.theme.oBackground};
+  border: solid 1px ${(p) => p.theme.oLine};
   border-radius: ${(p) => p.theme.radii.s};
   box-shadow: ${(p) => p.theme.shadows.l};
   z-index: ${(p) => p.theme.zIndices.tooltip};
@@ -139,7 +139,7 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
     transform ${(p) => p.theme.animation.fastOut};
   will-change: opacity, transform;
 
-  color: ${(p) => p.theme.colors.label};
+  color: ${(p) => p.theme.label};
   line-height: 1.2;
   letter-spacing: +0.01em;
   font-size: 0.75rem;

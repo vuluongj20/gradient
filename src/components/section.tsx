@@ -26,7 +26,7 @@ const Section = ({ section, stories, imageLoading }: Props): JSX.Element => {
 export default Section
 
 const Wrap = styled.section`
-	background: ${(p) => p.theme.colors.background};
+	background: ${(p) => p.theme.background};
 `
 
 const TitleWrap = styled.div`

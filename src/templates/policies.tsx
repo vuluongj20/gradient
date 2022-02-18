@@ -110,13 +110,13 @@ const Wrap = styled.div`
   }
 
   a {
-    color: ${(p) => p.theme.colors.link};
+    color: ${(p) => p.theme.link};
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.colors.linkUnderline};
+    text-decoration-color: ${(p) => p.theme.linkUnderline};
   }
   a:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.colors.linkUnderlineHover};
+    text-decoration-color: ${(p) => p.theme.linkUnderlineHover};
   }
 `
 

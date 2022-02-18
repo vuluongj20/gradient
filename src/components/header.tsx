@@ -25,7 +25,7 @@ const Wrap = styled.header`
 
 const Title = styled.h1`
 	${(p) => p.theme.text.content.h1};
-	color: ${(p) => p.theme.colors.heading};
+	color: ${(p) => p.theme.heading};
 
 	${(p) => p.theme.utils.media.xs} {
 		display: none;
@@ -49,7 +49,7 @@ const DescWrap = styled.p`
 const DescLine = styled.span`
 	display: block;
 	${(p) => p.theme.text.ui.label};
-	color: ${(p) => p.theme.colors.heading};
+	color: ${(p) => p.theme.heading};
 
 	&& {
 		line-height: 1.2;

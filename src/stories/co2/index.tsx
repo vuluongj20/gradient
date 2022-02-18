@@ -178,9 +178,9 @@ const Main = (): JSX.Element => {
 export default Main
 
 const Wrap = styled.article`
-  --theme: ${(p) => p.theme.colors.green1};
-  --warm: ${(p) => p.theme.colors.red1};
-  --cool: ${(p) => p.theme.colors.blue1};
+  --theme: ${(p) => p.theme.green1};
+  --warm: ${(p) => p.theme.red1};
+  --cool: ${(p) => p.theme.blue1};
   min-height: 100vh;
 
   h1,
@@ -263,6 +263,6 @@ const MetaColumn = styled.a`
   grid-column-end: span 6;
   &:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.colors.label};
+    text-decoration-color: ${(p) => p.theme.label};
   }
 `

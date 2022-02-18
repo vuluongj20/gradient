@@ -3,7 +3,7 @@
 // globally to all pages and components vis useContext().
 import { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'react'
 
-import { useAppearance, useColorPalette } from '../layouts/theme'
+import { useColorPalette } from '../layouts/theme'
 import { Action, Settings, defaultSettings, init, reducer } from './settingsReducer'
 
 type Props = {

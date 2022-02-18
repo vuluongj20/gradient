@@ -73,7 +73,7 @@ const StyledItem = styled.li<StyledItemProps>`
   ${(p) => p.theme.text.ui.label};
   cursor: pointer;
   outline: none;
-  color: ${(p) => p.theme.colors.text};
+  color: ${(p) => p.theme.body};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   border-radius: ${(p) => p.theme.radii.m};
   transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s;
@@ -83,7 +83,7 @@ const StyledItem = styled.li<StyledItemProps>`
     margin: 0;
   }
 
-  ${(p) => p.isFocused && `background: ${p.theme.colors.oHoverBackground};`}
+  ${(p) => p.isFocused && `background: ${p.theme.oHoverBackground};`}
 
-  ${(p) => p.isSelected && `color: ${p.theme.colors.red1};`}
+  ${(p) => p.isSelected && `color: ${p.theme.activeText};`}
 `

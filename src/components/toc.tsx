@@ -101,7 +101,7 @@ const TocInnerContentWrap = styled.div`
 
 const TocLabel = styled.p`
 	${(p) => p.theme.text.ui.label};
-	color: ${(p) => p.theme.colors.label};
+	color: ${(p) => p.theme.label};
 	text-transform: uppercase;
 `
 
@@ -112,18 +112,18 @@ const TocContent = styled.div`
 
 	li,
 	li > a {
-		color: ${(p) => p.theme.colors.label};
+		color: ${(p) => p.theme.label};
 		font-weight: 400;
 	}
 	li:hover,
 	li:hover > a {
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.colors.label};
+		text-decoration-color: ${(p) => p.theme.label};
 	}
 	li.active,
 	li.active > a {
 		font-weight: 500;
-		color: ${(p) => p.theme.colors.heading};
+		color: ${(p) => p.theme.heading};
 		text-decoration: none;
 	}
 `
@@ -151,25 +151,25 @@ const UpperScrollFade = styled(ScrollFade)`
 	top: 0;
 	background: linear-gradient(
 			180deg,
-			${(p) => p.theme.colors.background} 0%,
-			${(p) => Color(p.theme.colors.background).fade(1)} 100%
+			${(p) => p.theme.background} 0%,
+			${(p) => Color(p.theme.background).fade(1)} 100%
 		),
 		linear-gradient(
 			180deg,
-			${(p) => p.theme.colors.background} 0%,
-			${(p) => Color(p.theme.colors.background).fade(1)} 100%
+			${(p) => p.theme.background} 0%,
+			${(p) => Color(p.theme.background).fade(1)} 100%
 		);
 `
 const LowerScrollFade = styled(ScrollFade)`
 	bottom: -1px;
 	background: linear-gradient(
 			0deg,
-			${(p) => p.theme.colors.background} 0%,
-			${(p) => Color(p.theme.colors.background).fade(1)} 100%
+			${(p) => p.theme.background} 0%,
+			${(p) => Color(p.theme.background).fade(1)} 100%
 		),
 		linear-gradient(
 			0deg,
-			${(p) => p.theme.colors.background} 0%,
-			${(p) => Color(p.theme.colors.background).fade(1)} 100%
+			${(p) => p.theme.background} 0%,
+			${(p) => Color(p.theme.background).fade(1)} 100%
 		);
 `

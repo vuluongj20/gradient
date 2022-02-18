@@ -41,7 +41,7 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   cursor: pointer;
 
   &:hover {
-    background: ${(p) => p.theme.colors.hoverBackground};
+    background: ${(p) => p.theme.hoverBackground};
   }
 
   &:focus {
@@ -54,8 +54,8 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   ${(p) =>
     p.isSelected &&
     `
-    color: ${p.theme.colors.activeText};
-    background: ${p.theme.colors.hoverBackground};
+    color: ${p.theme.activeText};
+    background: ${p.theme.hoverBackground};
   `}
 `
 

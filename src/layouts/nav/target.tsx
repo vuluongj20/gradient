@@ -36,7 +36,7 @@ const Line = styled.div`
 	width: 100%;
 	height: 2px;
 	border-radius: 2px;
-	background: ${(p) => p.theme.colors.heading};
+	background: ${(p) => p.theme.heading};
 	opacity: 40%;
 `
 
@@ -58,7 +58,7 @@ const Circle = styled.div`
 	transform: translate(-50%, -50%);
 	width: 68.75%;
 	height: 68.75%;
-	border: solid 2px ${(p) => p.theme.colors.heading};
+	border: solid 2px ${(p) => p.theme.heading};
 	border-radius: 50%;
 	opacity: 40%;
 `

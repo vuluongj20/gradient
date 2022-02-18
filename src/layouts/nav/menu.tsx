@@ -137,7 +137,7 @@ const MenuWrap = styled.div`
 	height: 100%;
 	max-height: 100vh;
 	transform: translateX(100%);
-	background: ${(p) => p.theme.colors.background};
+	background: ${(p) => p.theme.background};
 
 	z-index: -1;
 
@@ -176,7 +176,7 @@ const UtilsInnerWrap = styled.div`
 	justify-content: stretch;
 	gap: ${(p) => p.theme.space[1]};
 	padding: ${(p) => p.theme.space[2]} 0;
-	border-top: solid 1px ${(p) => p.theme.colors.line};
+	border-top: solid 1px ${(p) => p.theme.line};
 `
 
 const StyledSettings = styled(Settings)`

@@ -1,8 +1,12 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
+import { ColorAliases, ColorPalette } from '@theme/colors'
+
+type ColorProp = ColorPalette['colors'] | ColorAliases | 'currentColor'
+
 export type IconProps = {
-	color?: string
+	color?: ColorProp
 	className?: string
 	useAlt?: boolean
 }
@@ -25,8 +29,8 @@ const SVG = ({
 			width="18px"
 			height="18px"
 			viewBox="0 0 24 24"
-			color={color}
 			className={className}
+			$color={color}
 			{...(useAlt && { alt })}
 		>
 			{children}
@@ -36,8 +40,8 @@ const SVG = ({
 
 export default SVG
 
-const StyledSVG = styled.svg<{ color: string }>`
-	fill: ${(p) => (p.color === 'currentColor' ? 'currentColor' : p.theme.colors[p.color])};
+const StyledSVG = styled.svg<{ $color: ColorProp }>`
+	fill: ${(p) => (p.$color === 'currentColor' ? 'currentColor' : p.theme[p.color])};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	path {

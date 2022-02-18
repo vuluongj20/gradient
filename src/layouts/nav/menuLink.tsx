@@ -49,7 +49,7 @@ export const Wrap = styled.li`
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: ${(p) => p.theme.colors.background};
+	background: ${(p) => p.theme.background};
 	margin: 0;
 	text-decoration: none;
 	opacity: 0%;
@@ -59,7 +59,7 @@ export const Wrap = styled.li`
 	}
 
 	&:last-of-type {
-		border-right: solid 1px ${(p) => p.theme.colors.line};
+		border-right: solid 1px ${(p) => p.theme.line};
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -86,11 +86,11 @@ const InnerWrap = styled(TransitionLink)`
 
 	&.focus-visible {
 		z-index: 1;
-		box-shadow: inset 0 0 0 4px ${(p) => p.theme.colors.focus};
+		box-shadow: inset 0 0 0 4px ${(p) => p.theme.focus};
 	}
 
 	${/* sc-selector */ Wrap}:not(:first-of-type) > & {
-		border-left: solid 1px ${(p) => p.theme.colors.line};
+		border-left: solid 1px ${(p) => p.theme.line};
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -100,7 +100,7 @@ const InnerWrap = styled(TransitionLink)`
 
 		${/* sc-selector */ Wrap}:not(:first-of-type) > &::after {
 			border-left: none;
-			border-top: solid 1px ${(p) => p.theme.colors.line};
+			border-top: solid 1px ${(p) => p.theme.line};
 		}
 
 		&:not(:first-of-type) {
@@ -145,7 +145,7 @@ const ContentBox = styled.div`
 
 const Title = styled.p`
 	${(p) => p.theme.text.ui.h3}
-	color: ${(p) => p.theme.colors.heading};
+	color: ${(p) => p.theme.heading};
 	margin: 0;
 	transition: color ${(p) => p.theme.animation.fastOut};
 `
@@ -170,14 +170,14 @@ const TypeText = styled.p`
 	margin: 0;
 	text-align: right;
 	text-transform: uppercase;
-	color: ${(p) => p.theme.colors.heading};
+	color: ${(p) => p.theme.heading};
 	transition: color ${(p) => p.theme.animation.fastOut};
 `
 
 const TypeLine = styled.div`
 	width: 6rem;
 	height: 2px;
-	background-color: ${(p) => p.theme.colors.heading};
+	background-color: ${(p) => p.theme.heading};
 	transform-origin: right;
 	transition: 0.375s ${(p) => p.theme.animation.outQuart};
 `

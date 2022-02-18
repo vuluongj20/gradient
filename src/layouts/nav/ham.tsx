@@ -139,7 +139,7 @@ const Line = styled.div`
 	width: 100%;
 	height: 2px;
 	border-radius: 4px;
-	background: ${(p) => p.theme.colors.heading};
+	background: ${(p) => p.theme.heading};
 `
 
 const LineTop = styled(Line)`

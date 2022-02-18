@@ -54,7 +54,7 @@ const Wrap = styled(Grid)`
 	top: 0;
 	padding-top: ${(p) => p.theme.space[0]};
 	padding-bottom: ${(p) => p.theme.space[0]};
-	background: ${(p) => p.theme.colors.background};
+	background: ${(p) => p.theme.background};
 	z-index: 9;
 `
 

@@ -44,9 +44,9 @@ const Text = styled.p`
 
 const Link = styled(TransitionLink)`
   text-decoration: underline;
-  text-decoration-color: ${(p) => p.theme.colors.label};
+  text-decoration-color: ${(p) => p.theme.label};
   &:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.colors.text};
+    text-decoration-color: ${(p) => p.theme.body};
   }
 `

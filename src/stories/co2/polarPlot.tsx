@@ -751,7 +751,7 @@ const Wrap = styled.div`
   .ticks .tick {
     font-size: 0.9375rem;
     position: relative;
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
 
@@ -766,14 +766,14 @@ const Wrap = styled.div`
     animation: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
   .ticks .tick .text {
-    fill: ${(p) => p.theme.colors.label};
+    fill: ${(p) => p.theme.label};
   }
 
   /* Grid lines */
   .grid-line,
   .grid-circle {
     fill: none;
-    stroke: ${(p) => p.theme.colors.line};
+    stroke: ${(p) => p.theme.line};
     opacity: 80%;
     stroke-width: 1;
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
@@ -792,20 +792,20 @@ const Wrap = styled.div`
   .data-line {
     stroke-linejoin: round;
     fill: none;
-    stroke: ${(p) => p.theme.colors.label};
+    stroke: ${(p) => p.theme.label};
     opacity: 80%;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   .stretch {
-    stroke: ${(p) => p.theme.colors.label};
+    stroke: ${(p) => p.theme.label};
   }
   .winter.stretch {
-    fill: ${(p) => p.theme.colors.blue1};
+    fill: var(--cool);
     opacity: 40%;
   }
   .summer.stretch {
-    fill: ${(p) => p.theme.colors.red1};
+    fill: var(--warm);
     opacity: 40%;
   }
 `

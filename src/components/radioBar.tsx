@@ -101,9 +101,8 @@ export default RadioBar
 const GroupWrap = styled.div<{ moveLeft?: boolean }>`
 	position: relative;
 	display: inline-flex;
-	background: ${(p) => p.theme.colors.iBackground};
-	box-shadow: inset 0 0 0 1px ${(p) => p.theme.colors.line},
-		inset ${(p) => p.theme.shadows.s};
+	background: ${(p) => p.theme.iBackground};
+	box-shadow: inset 0 0 0 1px ${(p) => p.theme.line}, inset ${(p) => p.theme.shadows.s};
 	border-radius: ${(p) => p.theme.radii.m};
 
 	${(p) => p.moveLeft && `transform: translateX(-${p.theme.space[0]})`}
@@ -114,7 +113,7 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 	top: 0;
 	left: 0;
 	height: 100%;
-	background: ${(p) => p.theme.colors.activeBackground};
+	background: ${(p) => p.theme.activeBackground};
 	border-radius: ${(p) => p.theme.radii.m};
 	box-shadow: ${(p) => p.theme.shadows.m};
 	opacity: 0%;
@@ -139,7 +138,7 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 	${(p) =>
 		p.isSelected &&
 		`
-		color: ${p.theme.colors.onActiveBackground};
+		color: ${p.theme.onActiveBackground};
 		text-shadow: ${p.theme.shadows.text};
 		z-index: 1;
 	`}
@@ -152,7 +151,7 @@ const Divider = styled.div<{ visible: boolean }>`
 	width: 0;
 	height: 50%;
 	transform: translateY(-50%);
-	border-right: solid 1px ${(p) => p.theme.colors.line};
+	border-right: solid 1px ${(p) => p.theme.line};
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
 	${(p) => !p.visible && `opacity: 0%;`}

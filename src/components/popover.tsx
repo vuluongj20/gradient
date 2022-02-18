@@ -60,10 +60,10 @@ export default Popover
 
 const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
   position: absolute;
-  background: ${(p) => p.theme.colors.oBackground};
+  background: ${(p) => p.theme.oBackground};
   border-radius: ${(p) => p.theme.radii.m};
   padding: ${(p) => p.theme.space[0]};
-  box-shadow: 0 0 0 1px ${(p) => p.theme.colors.oLine}, ${(p) => p.theme.shadows.l};
+  box-shadow: 0 0 0 1px ${(p) => p.theme.oLine}, ${(p) => p.theme.shadows.l};
   transition: ${(p) => p.theme.animation.fastOut};
   opacity: 0%;
   will-change: opacity, transform;
