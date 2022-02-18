@@ -127,6 +127,10 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 		transform: translateX(${p.left}px);
 		width: ${p.width}px;
 	`}
+
+	@media (prefers-reduced-motion) {
+		display: none;
+	}
 `
 
 const RadioWrap = styled.label<{ isSelected: boolean }>`
@@ -135,12 +139,30 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
 	cursor: pointer;
 
+	@media (prefers-reduced-motion) {
+		&::after {
+			content: '';
+			${(p) => p.theme.utils.spread};
+			border-radius: ${(p) => p.theme.radii.m};
+			background: ${(p) => p.theme.activeBackground};
+			z-index: -1;
+			opacity: 0;
+			transition: opacity ${(p) => p.theme.animation.fastOut};
+		}
+	}
+
 	${(p) =>
 		p.isSelected &&
 		`
 		color: ${p.theme.onActiveBackground};
 		text-shadow: ${p.theme.shadows.text};
 		z-index: 1;
+
+		@media (prefers-reduced-motion) {
+			&::after {
+				opacity: 1;
+			}
+		}
 	`}
 `
 

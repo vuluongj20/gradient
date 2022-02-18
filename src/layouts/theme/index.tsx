@@ -70,7 +70,6 @@ export type ThemeSettings = {
 export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const appearance = useAppearance(settings.color)
 	const colorPalette = useColorPalette(settings.color)
-	const reducedMotion = useMatchMedia('(prefers-reduced-motion)')
 	const elevation = settings.color.elevation
 
 	const colors = colorPalettes[colorPalette].colors
@@ -89,7 +88,6 @@ export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const partialTheme: Omit<Theme, 'utils'> = {
 		elevation,
 		appearance,
-		reducedMotion,
 
 		...colors,
 		...colorAliases,

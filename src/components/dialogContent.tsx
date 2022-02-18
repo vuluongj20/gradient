@@ -133,6 +133,10 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 				? `${p.theme.space[0]} ${p.theme.space[0]}`
 				: `${p.theme.space[2]} ${p.theme.space[3]}`};
 	}
+
+	@media (prefers-reduced-motion) {
+		transition: none;
+	}
 `
 
 const TitleWrap = styled.div<{ compact: boolean }>`
