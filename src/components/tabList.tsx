@@ -93,11 +93,13 @@ const Wrap = styled.div<{ orientation: TabListProps['orientation']; height: stri
 
   ${(p) => p.height && `height: ${p.height};`}
   ${(p) =>
-    p.orientation === 'horizontal' &&
-    `
-    flex-direction: column;
-    align-items: center;
-  `};
+    p.orientation === 'horizontal'
+      ? `
+        flex-direction: column;
+        align-items: center;
+        gap: ${p.theme.space[1]};
+      `
+      : `gap: ${p.theme.space[2]};`};
 `
 
 const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
