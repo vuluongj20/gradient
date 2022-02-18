@@ -77,7 +77,6 @@ export const useColorPalette = (colorSettings: ThemeSettings['color']): string =
 }
 
 export const useThemeObject = (settings: ThemeSettings): Theme => {
-	/** Color */
 	const appearance = useAppearance(settings.color)
 	const colorPalette = useColorPalette(settings.color)
 
