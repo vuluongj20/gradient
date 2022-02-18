@@ -5,7 +5,7 @@
 import { ReactNode, useContext } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { ThemeSettings, getTheme } from '../layouts/theme'
+import { ThemeSettings, useThemeObject } from '../layouts/theme'
 import { deepMerge } from './functions'
 import SettingsContext from './settingsContext'
 
@@ -63,7 +63,7 @@ const LocalThemeProvider = ({
 		text: localText,
 	}) as ThemeSettings
 
-	const localTheme = getTheme(mergedThemeSettings)
+	const localTheme = useThemeObject(mergedThemeSettings)
 
 	return <ThemeProvider theme={localTheme}>{children}</ThemeProvider>
 }

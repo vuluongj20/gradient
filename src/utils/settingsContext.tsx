@@ -3,7 +3,7 @@
 // globally to all pages and components vis useContext().
 import { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'react'
 
-import { getColorPalette } from '../layouts/theme'
+import { useAppearance, useColorPalette } from '../layouts/theme'
 import { Action, Settings, defaultSettings, init, reducer } from './settingsReducer'
 
 type Props = {
@@ -23,6 +23,8 @@ const Context = createContext<ContextValue>({
 const SettingsProvider = ({ children }: Props): JSX.Element => {
 	const [settings, dispatch] = useReducer(reducer, defaultSettings, init)
 
+	const colorPalette = useColorPalette(settings.theme.color)
+
 	// Update local storage on state change
 	useEffect(() => {
 		localStorage.setItem('UP', JSON.stringify(settings))
@@ -30,15 +32,13 @@ const SettingsProvider = ({ children }: Props): JSX.Element => {
 
 	// Update body background color, if needed, on state change
 	useEffect(() => {
-		const newColorPalette = getColorPalette(settings.theme.color)
-
 		document.body.classList.forEach((className) => {
 			if (className.startsWith('palette-')) {
 				document.body.classList.remove(className)
 			}
 		})
-		document.body.classList.add(`palette-${newColorPalette}`)
-	}, [settings.theme.color])
+		document.body.classList.add(`palette-${colorPalette}`)
+	}, [colorPalette])
 
 	return <Context.Provider value={{ settings, dispatch }}>{children}</Context.Provider>
 }

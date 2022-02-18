@@ -3,6 +3,7 @@ import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './co
 import { TextScale, textScales } from './text'
 import { Utils, generateUtils } from './utils'
 
+import useMatchMedia from '@utils/hooks/useMatchMedia'
 import {
 	Breakpoint,
 	boxShadowsDark,
@@ -55,51 +56,18 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
-const partialDefaultTheme: Omit<Theme, 'utils'> = {
-	colors: {
-		...colorPalettes.paper.colors,
-		...getColorAliases(colorPalettes.paper.colors, 3),
-	},
-	shadows: { ...boxShadowsLight, text: textShadows.light },
-	text: {
-		rootSize: '100%',
-		ui: textScales.sohne,
-		content: textScales.domaine,
-	},
-	animation,
-	breakpoints: breakpoints,
-	space,
-	radii,
-	zIndices,
-}
+export const useAppearance = (colorSettings: ThemeSettings['color']): string => {
+	const preferDark = useMatchMedia('(prefers-color-scheme: dark)')
 
-const defaultTheme: Theme = {
-	...partialDefaultTheme,
-	utils: generateUtils(partialDefaultTheme),
-}
-
-export const getAppearance = (colorSettings: ThemeSettings['color']): string => {
-	let appearance: ThemeSettings['color']['appearance']
 	if (colorSettings.appearance === 'auto') {
-		appearance = window.matchMedia('(prefers-color-scheme: dark)').matches
-			? 'dark'
-			: 'light'
-	} else {
-		appearance = colorSettings.appearance
+		return preferDark ? 'dark' : 'light'
 	}
 
-	return appearance
+	return colorSettings.appearance
 }
 
-export const getColorPalette = (colorSettings: ThemeSettings['color']): string => {
-	let appearance: ThemeSettings['color']['appearance']
-	if (colorSettings.appearance === 'auto') {
-		appearance = window.matchMedia('(prefers-color-scheme: dark)').matches
-			? 'dark'
-			: 'light'
-	} else {
-		appearance = colorSettings.appearance
-	}
+export const useColorPalette = (colorSettings: ThemeSettings['color']): string => {
+	const appearance = useAppearance(colorSettings)
 
 	if (appearance === 'dark') {
 		return colorSettings.darkPalette
@@ -108,18 +76,12 @@ export const getColorPalette = (colorSettings: ThemeSettings['color']): string =
 	}
 }
 
-export const getTheme = (settings: ThemeSettings): Theme => {
-	/**
-	 * During the Gatsby build process, window and document are undefined
-	 * so return the default theme instead
-	 */
-	if (typeof window === 'undefined' || typeof document === 'undefined') {
-		return defaultTheme
-	}
-
+export const useThemeObject = (settings: ThemeSettings): Theme => {
 	/** Color */
-	const appearance = getAppearance(settings.color)
-	const colorPalette = getColorPalette(settings.color)
+	const appearance = useAppearance(settings.color)
+	const colorPalette = useColorPalette(settings.color)
+
+	// const reduceMotion = useMatchMedia('(prefers-reduced-motion)')
 
 	const partialTheme: Omit<Theme, 'utils'> = {
 		colors: {

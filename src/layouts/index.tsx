@@ -2,16 +2,16 @@ import { OverlayProvider } from '@react-aria/overlays'
 import { SSRProvider } from '@react-aria/ssr'
 import { getSrc } from 'gatsby-plugin-image'
 import { ReactNode, useEffect, useState } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 import './fontFaces.css'
 import GlobalStyles from './globalStyles'
 import Nav from './nav'
-import { getTheme } from './theme'
 
 import SEO, { SEOProps } from '@components/seo'
 
-import SettingsContext, { SettingsProvider } from '@utils/settingsContext'
+import LocalThemeProvider from '@utils/localThemeProvider'
+import { SettingsProvider } from '@utils/settingsContext'
 
 type Props = {
 	children: ReactNode
@@ -22,12 +22,6 @@ const Layout = ({
 	children,
 	pageContext: { title, description, author, image },
 }: Props): JSX.Element => {
-	const [mounted, setMounted] = useState(false)
-
-	useEffect(() => {
-		setMounted(true)
-	}, [])
-
 	const seo = {
 		title,
 		description,
@@ -41,28 +35,29 @@ const Layout = ({
 	}
 
 	const content = (
-		<SettingsProvider>
-			<SettingsContext.Consumer>
-				{({ settings }) => (
-					<ThemeProvider theme={getTheme(settings.theme)}>
-						<SSRProvider>
-							<OverlayProvider>
-								<SEO {...seo} />
-								<GlobalStyles />
-								<Nav />
-								<PageContent id="page-content">{children}</PageContent>
-							</OverlayProvider>
-						</SSRProvider>
-					</ThemeProvider>
-				)}
-			</SettingsContext.Consumer>
-		</SettingsProvider>
+		<SSRProvider>
+			<SEO {...seo} />
+			<SettingsProvider>
+				<LocalThemeProvider>
+					<OverlayProvider>
+						<GlobalStyles />
+						<Nav />
+						<PageContent id="page-content">{children}</PageContent>
+					</OverlayProvider>
+				</LocalThemeProvider>
+			</SettingsProvider>
+		</SSRProvider>
 	)
+
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
 
 	if (!mounted) {
 		return <div style={{ visibility: 'hidden' }}>{content}</div>
 	}
-
 	return content
 }
 
