@@ -7,8 +7,7 @@ import Binder from './binder'
 import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
-import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints } from '@utils/style'
+import useBreakpoint from '@utils/hooks/useBreakpoint'
 
 const Nav = (): JSX.Element => {
 	// Create & intialize refs
@@ -47,31 +46,32 @@ const Nav = (): JSX.Element => {
 		exit: reducedMotion ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
 		entry: reducedMotion ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
 	}
-	const windowWidth = useWindowWidth()
 	const menuLinks = useMenuLinks()
+
+	const isXS = useBreakpoint('xs')
+	const isS = useBreakpoint('s')
 
 	useEffect(() => {
 		if (menuOpen) {
 			pageContentRef.current?.setAttribute('aria-hidden', 'true')
-			if (windowWidth > numericBreakpoints.xs) {
-				const animationDistance =
-					windowWidth > numericBreakpoints.s
-						? `+${menuLinks.length * 6}rem`
-						: `+${menuLinks.length * 5}rem`
+			if (!isXS) {
+				const animationDistance = isS
+					? `+${menuLinks.length * 5}rem`
+					: `+${menuLinks.length * 6}rem`
 
 				gsap.to([`${PageShadow}`, '#page-content'], {
 					x: animationDistance,
 					...animations.entry,
 				})
 			}
-		} else {
-			pageContentRef.current?.setAttribute('aria-hidden', 'false')
-			gsap.to([`${PageShadow}`, '#page-content'], {
-				x: 0,
-				...animations.exit,
-			})
+			return
 		}
 
+		pageContentRef.current?.setAttribute('aria-hidden', 'false')
+		gsap.to([`${PageShadow}`, '#page-content'], {
+			x: 0,
+			...animations.exit,
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [menuOpen])
 

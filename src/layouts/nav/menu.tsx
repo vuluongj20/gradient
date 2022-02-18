@@ -38,7 +38,7 @@ const Menu = ({
 	usePreventScroll({ isDisabled: !isOpen })
 
 	useEffect(() => {
-		// Opening
+		// On menu OPEN
 		if (isOpen) {
 			if (isXS) {
 				gsap.set(`${MenuWrap}`, { x: 0 })
@@ -60,41 +60,44 @@ const Menu = ({
 						...animations.entry,
 					},
 				)
-			} else {
-				gsap.to(`${MenuLinkWrap}`, {
-					opacity: 1,
-					x: (i) => `+${(i + 1) * (isS ? 5 : 6)}rem`,
-					pointerEvents: 'none',
-					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
-					...animations.entry,
-				})
+				return
 			}
-			// Closing
-		} else {
-			if (isXS) {
-				gsap.to(`${MenuWrap}`, {
-					y: '-100%',
-					clearProps: 'y',
-					...animations.exit,
-				})
-				gsap.to(`${UtilsWrap}`, {
-					opacity: 0,
-					...animations.exit,
-				})
-				gsap.to(`${MenuLinkWrap}`, {
-					opacity: 0,
-					...animations.exit,
-				})
-			} else {
-				gsap.to(`${MenuLinkWrap}`, {
-					opacity: 0,
-					x: 0,
-					pointerEvents: 'none',
-					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
-					...animations.exit,
-				})
-			}
+
+			gsap.to(`${MenuLinkWrap}`, {
+				opacity: 1,
+				x: (i) => `+${(i + 1) * (isS ? 5 : 6)}rem`,
+				pointerEvents: 'none',
+				onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
+				...animations.entry,
+			})
+			return
 		}
+
+		// On menu CLOSE
+		if (isXS) {
+			gsap.to(`${MenuWrap}`, {
+				y: '-100%',
+				clearProps: 'y',
+				...animations.exit,
+			})
+			gsap.to(`${UtilsWrap}`, {
+				opacity: 0,
+				...animations.exit,
+			})
+			gsap.to(`${MenuLinkWrap}`, {
+				opacity: 0,
+				...animations.exit,
+			})
+			return
+		}
+
+		gsap.to(`${MenuLinkWrap}`, {
+			opacity: 0,
+			x: 0,
+			pointerEvents: 'none',
+			onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
+			...animations.exit,
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen, animations])
 

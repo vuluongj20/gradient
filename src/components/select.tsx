@@ -10,8 +10,7 @@ import Dialog from '@components/dialog'
 import ListBox from '@components/listBox'
 import Popover from '@components/popover'
 
-import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints } from '@utils/style'
+import useBreakpoint from '@utils/hooks/useBreakpoint'
 
 type Props = SelectProps<object> & {
 	name: string
@@ -34,9 +33,9 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 		ref,
 	)
 
-	const windowWidth = useWindowWidth()
+	const isXS = useBreakpoint('xs')
 
-	const shouldRenderAsDialog = showDialogOnMobile && windowWidth <= numericBreakpoints.xs
+	const shouldRenderAsDialog = showDialogOnMobile && isXS
 
 	const renderTrigger = () => {
 		const label = state.selectedItem ? state.selectedItem.rendered : 'Select an option'
