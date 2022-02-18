@@ -158,7 +158,7 @@ const CloseButton = styled.button<{ compact: boolean }>`
 	margin: -${(p) => p.theme.space[1]};
 	color: ${(p) => p.theme.label};
 
-	${(p) => (p.compact ? p.theme.text.ui.label : p.theme.text.ui.h4)};
+	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h4)};
 
 	&:hover {
 		color: ${(p) => p.theme.heading};
@@ -174,5 +174,5 @@ const StyledIconClose = styled(IconClose)`
 `
 
 const Title = styled.h2<{ compact: boolean }>`
-	${(p) => (p.compact ? p.theme.text.ui.label : p.theme.text.ui.h4)};
+	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h4)};
 `

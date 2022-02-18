@@ -80,6 +80,6 @@ const Section = styled.section`
 `
 
 const SectionTitle = styled.h3`
-	${(p) => p.theme.text.ui.h5};
+	${(p) => p.theme.text.system.h5};
 	margin-bottom: ${(p) => p.theme.space[1]};
 `

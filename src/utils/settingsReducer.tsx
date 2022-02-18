@@ -1,4 +1,4 @@
-import { ThemeSettings } from '../layouts/theme'
+import { ThemeSettings } from '@theme'
 
 export type Settings = {
 	theme: ThemeSettings
@@ -18,7 +18,7 @@ export const defaultSettings: Settings = {
 			increaseContrast: false,
 		},
 		text: {
-			ui: 'sohne',
+			system: 'sohne',
 			content: 'domaine',
 		},
 		alwaysShowVideoCaptions: false,

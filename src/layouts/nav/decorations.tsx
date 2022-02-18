@@ -62,7 +62,7 @@ const Section = styled.li`
 `
 
 const Link = styled(TransitionLink)<{ height: number }>`
-	${(p) => p.theme.text.ui.label};
+	${(p) => p.theme.text.system.label};
 	${(p) => p.theme.utils.flexCenter};
 	display: inline-flex;
 	position: relative;

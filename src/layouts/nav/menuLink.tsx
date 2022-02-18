@@ -144,7 +144,7 @@ const ContentBox = styled.div`
 `
 
 const Title = styled.p`
-	${(p) => p.theme.text.ui.h3}
+	${(p) => p.theme.text.system.h3}
 	color: ${(p) => p.theme.heading};
 	margin: 0;
 	transition: color ${(p) => p.theme.animation.fastOut};

@@ -48,7 +48,7 @@ const DescWrap = styled.p`
 
 const DescLine = styled.span`
 	display: block;
-	${(p) => p.theme.text.ui.label};
+	${(p) => p.theme.text.system.label};
 	color: ${(p) => p.theme.heading};
 
 	&& {

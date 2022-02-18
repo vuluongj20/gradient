@@ -19,7 +19,7 @@ export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
 		/** Text */
 		text: {
-			ui: TextScale
+			system: TextScale
 			content: TextScale
 		}
 		/** Box shadow */
@@ -49,7 +49,7 @@ export type ThemeSettings = {
 		increaseContrast: boolean
 	}
 	text: {
-		ui: keyof typeof textScales
+		system: keyof typeof textScales
 		content: keyof typeof textScales
 	}
 	alwaysShowVideoCaptions: boolean
@@ -89,7 +89,7 @@ export const useThemeObject = (settings: ThemeSettings): Theme => {
 				? { ...boxShadowsLight, text: textShadows.light }
 				: { ...boxShadowsDark, text: textShadows.dark },
 		text: {
-			ui: textScales[settings.text.ui],
+			system: textScales[settings.text.system],
 			content: textScales[settings.text.content],
 		},
 		animation,

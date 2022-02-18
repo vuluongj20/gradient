@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     direction: ltr;
     text-align: left;
-    font-family: ${(p) => p.theme.text.ui.body.fontFamily};
+    font-family: ${(p) => p.theme.text.system.body.fontFamily};
     font-size: 1rem;
     color: ${(p) => p.theme.body};
     margin: 0;
@@ -34,15 +34,15 @@ const GlobalStyles = createGlobalStyle`
     color: ${(p) => p.theme.heading};
     margin: 0;
   }
-  h1 {${(p) => p.theme.text.ui.h1}}
-  h2 {${(p) => p.theme.text.ui.h2}}
-  h3 {${(p) => p.theme.text.ui.h3}}
-  h4 {${(p) => p.theme.text.ui.h4}}
-  h5 {${(p) => p.theme.text.ui.h5}}
-  h6 {${(p) => p.theme.text.ui.h6}}
+  h1 {${(p) => p.theme.text.system.h1}}
+  h2 {${(p) => p.theme.text.system.h2}}
+  h3 {${(p) => p.theme.text.system.h3}}
+  h4 {${(p) => p.theme.text.system.h4}}
+  h5 {${(p) => p.theme.text.system.h5}}
+  h6 {${(p) => p.theme.text.system.h6}}
 
   p, a, li {
-    ${(p) => p.theme.text.ui.body}; 
+    ${(p) => p.theme.text.system.body}; 
     margin: 0;
   }
 
@@ -64,7 +64,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button {
-    ${(p) => p.theme.text.ui.label};
+    ${(p) => p.theme.text.system.label};
     color: ${(p) => p.theme.buttonLabel};
 
     appearance: none;

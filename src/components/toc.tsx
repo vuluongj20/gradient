@@ -100,7 +100,7 @@ const TocInnerContentWrap = styled.div`
 `
 
 const TocLabel = styled.p`
-	${(p) => p.theme.text.ui.label};
+	${(p) => p.theme.text.system.label};
 	color: ${(p) => p.theme.label};
 	text-transform: uppercase;
 `

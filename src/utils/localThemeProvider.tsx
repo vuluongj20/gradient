@@ -15,8 +15,8 @@ type Props = {
 	elevation?: number
 	inset?: boolean
 	overlay?: boolean
-	/** Type scale for UI text */
-	uiScale?: ThemeSettings['text']['ui']
+	/** Type scale for system text */
+	systemScale?: ThemeSettings['text']['system']
 	/** Type scale for main text content */
 	contentScale?: ThemeSettings['text']['content']
 }
@@ -26,7 +26,7 @@ const LocalThemeProvider = ({
 	appearance,
 	inset,
 	overlay,
-	uiScale,
+	systemScale,
 	contentScale,
 }: Props): JSX.Element => {
 	const {
@@ -54,7 +54,7 @@ const LocalThemeProvider = ({
 	 * uiScale/contentScale is not defined
 	 */
 	const localText = {
-		...(uiScale && { ui: uiScale }),
+		...(systemScale && { system: systemScale }),
 		...(contentScale && { content: contentScale }),
 	}
 

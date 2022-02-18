@@ -224,7 +224,7 @@ const DummyTitle = styled.span`
 `
 
 const Tags = styled.div`
-	${(p) => p.theme.text.ui.label};
+	${(p) => p.theme.text.system.label};
 	color: ${(p) => p.theme.label};
 	margin-top: ${(p) => p.theme.space[0]};
 	transition: color ${(p) => p.theme.animation.vFastOut};

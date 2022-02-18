@@ -105,7 +105,7 @@ const Column = styled.div`
 `
 
 const ColLabel = styled.label`
-	${(p) => p.theme.text.ui.label};
+	${(p) => p.theme.text.system.label};
 	color: ${(p) => p.theme.label};
 
 	margin-bottom: ${(p) => p.theme.space[1]};

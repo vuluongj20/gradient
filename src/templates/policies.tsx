@@ -77,18 +77,18 @@ const Wrap = styled.div`
     margin-bottom: ${(p) => p.theme.space[2]};
   }
   h1 {
-    ${(p) => p.theme.text.ui.h2}
+    ${(p) => p.theme.text.system.h2}
     margin-bottom: ${(p) => p.theme.space[4]};
   }
   h2 {
-    ${(p) => p.theme.text.ui.h4}
+    ${(p) => p.theme.text.system.h4}
     margin-bottom: ${(p) => p.theme.space[2]};
   }
   h3,
   h4,
   h5,
   h6 {
-    ${(p) => p.theme.text.ui.h6}
+    ${(p) => p.theme.text.system.h6}
     margin-bottom: ${(p) => p.theme.space[1]};
   }
   hr {

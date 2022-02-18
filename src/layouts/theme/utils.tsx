@@ -83,7 +83,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		boxShadow: `0 0 0 4px ${theme.focus}`,
 		zIndex: 1,
 	},
-	lineHeight: `calc(1rem * ${theme.text.ui.body.lineHeight})`,
+	lineHeight: `calc(1rem * ${theme.text.system.body.lineHeight})`,
 	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
       border-color 0.5s ${theme.animation.outQuart},
       box-shadow 0.5s ${theme.animation.outQuart}`,
