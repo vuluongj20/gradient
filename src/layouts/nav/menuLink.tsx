@@ -69,12 +69,12 @@ export const Wrap = styled.li`
 		padding: 0 ${paddingHorizontal * 0.5}rem;
 		box-sizing: border-box;
 
-		&& {
-			margin: 0 auto;
+		&:last-of-type {
+			border-right: none;
 		}
 
-		&:not(:first-of-type) {
-			border-left: none;
+		&& {
+			margin: 0 auto;
 		}
 	}
 `
@@ -98,8 +98,16 @@ const InnerWrap = styled(TransitionLink)`
 		position: relative;
 		padding: ${(p) => p.theme.space[1]} 0;
 
-		${/* sc-selector */ Wrap}:not(:first-of-type) > &::after {
+		${/* sc-selector */ Wrap}:not(:first-of-type) > & {
 			border-left: none;
+		}
+
+		${/* sc-selector */ Wrap}:not(:first-of-type) > &::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
 			border-top: solid 1px ${(p) => p.theme.line};
 		}
 

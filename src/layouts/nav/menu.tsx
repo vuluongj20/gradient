@@ -7,8 +7,8 @@ import MenuLink, { Wrap as MenuLinkWrap } from './menuLink'
 import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
-import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints, paddingHorizontal } from '@utils/style'
+import useBreakpoint from '@utils/hooks/useBreakpoint'
+import { paddingHorizontal } from '@utils/style'
 
 type Props = {
 	isOpen: boolean
@@ -31,23 +31,17 @@ const Menu = ({
 	beforeSettingsDialogOpen,
 	afterSettingsDialogClose,
 }: Props): JSX.Element => {
-	const windowWidth = useWindowWidth()
+	const isXS = useBreakpoint('xs')
+	const isS = useBreakpoint('s')
 	const links = useMenuLinks()
 
 	usePreventScroll({ isDisabled: !isOpen })
 
 	useEffect(() => {
+		// Opening
 		if (isOpen) {
-			if (windowWidth > numericBreakpoints.xs) {
-				gsap.to(`${MenuLinkWrap}`, {
-					opacity: 1,
-					x: (i) => `+${(i + 1) * (windowWidth > numericBreakpoints.s ? 6 : 5)}rem`,
-					pointerEvents: 'none',
-					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
-					...animations.entry,
-				})
-			} else {
-				gsap.set(`${MenuWrap}`, { x: 0, width: '100%' })
+			if (isXS) {
+				gsap.set(`${MenuWrap}`, { x: 0 })
 				gsap.to(`${MenuWrap}`, {
 					y: 0,
 					...animations.entry,
@@ -66,19 +60,21 @@ const Menu = ({
 						...animations.entry,
 					},
 				)
-			}
-		} else {
-			if (windowWidth > numericBreakpoints.xs) {
+			} else {
 				gsap.to(`${MenuLinkWrap}`, {
-					opacity: 0,
-					x: 0,
+					opacity: 1,
+					x: (i) => `+${(i + 1) * (isS ? 5 : 6)}rem`,
 					pointerEvents: 'none',
 					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
-					...animations.exit,
+					...animations.entry,
 				})
-			} else {
+			}
+			// Closing
+		} else {
+			if (isXS) {
 				gsap.to(`${MenuWrap}`, {
 					y: '-100%',
+					clearProps: 'y',
 					...animations.exit,
 				})
 				gsap.to(`${UtilsWrap}`, {
@@ -87,6 +83,14 @@ const Menu = ({
 				})
 				gsap.to(`${MenuLinkWrap}`, {
 					opacity: 0,
+					...animations.exit,
+				})
+			} else {
+				gsap.to(`${MenuLinkWrap}`, {
+					opacity: 0,
+					x: 0,
+					pointerEvents: 'none',
+					onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 					...animations.exit,
 				})
 			}
@@ -98,7 +102,7 @@ const Menu = ({
 	useEffect(() => {
 		toggleMenu(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [windowWidth])
+	}, [isXS, isS])
 
 	return (
 		<MenuWrap aria-hidden={!isOpen}>
