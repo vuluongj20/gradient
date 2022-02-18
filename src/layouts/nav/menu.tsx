@@ -96,7 +96,7 @@ const Menu = ({
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen])
+	}, [isOpen, animations])
 
 	// Close menu on resize
 	useEffect(() => {

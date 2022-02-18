@@ -15,11 +15,12 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 	const { buttonProps } = useButton({ onPress: () => toggleMenu(!menuOpen) }, ref)
 
 	/** Initialize hamburger animation */
-	const hamOutAnimation = { duration: 0.3, ease: 'power4.in', stagger: 0.05 }
-	const crossInAnimation = { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
 	const hamTimeline = useRef<gsap.core.Timeline>()
 
 	useEffect(() => {
+		const hamOutAnimation = { duration: 0.3, ease: 'power4.in', stagger: 0.05 }
+		const crossInAnimation = { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
+
 		hamTimeline.current = gsap
 			.timeline()
 			.add(
