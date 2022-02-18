@@ -77,11 +77,3 @@ export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }
 
 /** Width of outer frame, in em unit */
 export const paddingHorizontal = 2
-
-/** Check system settings for preference for reduced motion */
-export const reducedMotion = (): boolean => {
-	if (typeof window === 'undefined' || typeof document === 'undefined') {
-		return false
-	}
-	return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}

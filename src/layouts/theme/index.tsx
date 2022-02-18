@@ -20,7 +20,7 @@ export type Appearance = 'light' | 'dark'
 export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
 		appearance: Appearance
-		reduceMotion: boolean
+		reducedMotion: boolean
 		/** Text */
 		text: {
 			system: TextScale
@@ -84,11 +84,11 @@ export const useColorPalette = (
 export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const appearance = useAppearance(settings.color)
 	const colorPalette = useColorPalette(settings.color)
-	const reduceMotion = useMatchMedia('(prefers-reduced-motion)')
+	const reducedMotion = useMatchMedia('(prefers-reduced-motion)')
 
 	const partialTheme: Omit<Theme, 'utils'> = {
 		appearance,
-		reduceMotion,
+		reducedMotion,
 		...colorPalettes[colorPalette].colors,
 		...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
 		shadows:

@@ -1,19 +1,14 @@
 import * as focusTrap from 'focus-trap'
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import Binder from './binder'
 import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
 import useWindowWidth from '@utils/hooks/useWindowWidth'
-import { numericBreakpoints, reducedMotion } from '@utils/style'
-
-const animations = {
-	exit: reducedMotion() ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
-	entry: reducedMotion() ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
-}
+import { numericBreakpoints } from '@utils/style'
 
 const Nav = (): JSX.Element => {
 	// Create & intialize refs
@@ -46,6 +41,12 @@ const Nav = (): JSX.Element => {
 	}, [menuOpen])
 
 	// Apply animations w/ gsap
+	const theme = useTheme()
+	const { reducedMotion } = theme
+	const animations = {
+		exit: reducedMotion ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
+		entry: reducedMotion ? { duration: 0 } : { duration: 0.75, ease: 'power3.inOut' },
+	}
 	const windowWidth = useWindowWidth()
 	const menuLinks = useMenuLinks()
 

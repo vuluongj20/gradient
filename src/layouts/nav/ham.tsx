@@ -3,29 +3,22 @@ import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import { paddingHorizontal, reducedMotion } from '@utils/style'
+import { paddingHorizontal } from '@utils/style'
 
 export type HamProps = {
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 	menuOpen: boolean
 }
 
-const userReducedMotion = reducedMotion()
-
-const hamOutAnimation = userReducedMotion
-	? { duration: 0 }
-	: { duration: 0.3, ease: 'power4.in', stagger: 0.05 }
-
-const crossInAnimation = userReducedMotion
-	? { duration: 0 }
-	: { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
-
 const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 	const ref = useRef()
 	const { buttonProps } = useButton({ onPress: () => toggleMenu(!menuOpen) }, ref)
 
 	/** Initialize hamburger animation */
+	const hamOutAnimation = { duration: 0.3, ease: 'power4.in', stagger: 0.05 }
+	const crossInAnimation = { duration: 0.3, ease: 'power4.out', stagger: 0.075 }
 	const hamTimeline = useRef<gsap.core.Timeline>()
+
 	useEffect(() => {
 		hamTimeline.current = gsap
 			.timeline()
