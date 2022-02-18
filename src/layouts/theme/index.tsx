@@ -15,8 +15,12 @@ import {
 	zIndices,
 } from '@utils/style'
 
+export type Appearance = 'light' | 'dark'
+
 export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
+		appearance: Appearance
+		reduceMotion: boolean
 		/** Text */
 		text: {
 			system: TextScale
@@ -39,8 +43,6 @@ export type Theme = ColorPalette['colors'] &
 		/** Utilities */
 		utils: Utils
 	}
-
-export type Appearance = 'light' | 'dark'
 
 export type ThemeSettings = {
 	color: {
@@ -82,10 +84,11 @@ export const useColorPalette = (
 export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const appearance = useAppearance(settings.color)
 	const colorPalette = useColorPalette(settings.color)
-
-	// const reduceMotion = useMatchMedia('(prefers-reduced-motion)')
+	const reduceMotion = useMatchMedia('(prefers-reduced-motion)')
 
 	const partialTheme: Omit<Theme, 'utils'> = {
+		appearance,
+		reduceMotion,
 		...colorPalettes[colorPalette].colors,
 		...getColorAliases(colorPalettes[colorPalette].colors, settings.color.elevation),
 		shadows:
