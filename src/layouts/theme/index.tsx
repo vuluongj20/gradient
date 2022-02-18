@@ -19,7 +19,6 @@ export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
 		/** Text */
 		text: {
-			rootSize: string
 			ui: TextScale
 			content: TextScale
 		}
@@ -90,7 +89,6 @@ export const useThemeObject = (settings: ThemeSettings): Theme => {
 				? { ...boxShadowsLight, text: textShadows.light }
 				: { ...boxShadowsDark, text: textShadows.dark },
 		text: {
-			rootSize: '100%',
 			ui: textScales[settings.text.ui],
 			content: textScales[settings.text.content],
 		},

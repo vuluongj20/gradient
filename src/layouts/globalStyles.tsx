@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   html {
-    font-size: ${(p) => p.theme.text.rootSize};
+    font-size: 100%;
     line-height: 1.2;
     box-sizing: border-box;
     margin: 0;
@@ -24,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
     direction: ltr;
     text-align: left;
     font-family: ${(p) => p.theme.text.ui.body.fontFamily};
-    font-size: ${(p) => p.theme.text.rootSize};
+    font-size: 1rem;
     color: ${(p) => p.theme.body};
     margin: 0;
     padding: 0;
@@ -86,7 +86,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   input {
-    font-size: ${(p) => p.theme.text.rootSize};
+    font-size: 1rem;
     transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
   }
   input:focus {
