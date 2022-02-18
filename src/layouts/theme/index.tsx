@@ -40,9 +40,11 @@ export type Theme = ColorPalette['colors'] &
 		utils: Utils
 	}
 
+export type Appearance = 'light' | 'dark'
+
 export type ThemeSettings = {
 	color: {
-		appearance: 'light' | 'dark' | 'auto'
+		appearance: Appearance | 'auto'
 		elevation?: number
 		lightPalette: keyof typeof colorPalettes
 		darkPalette: keyof typeof colorPalettes
@@ -55,7 +57,7 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
-export const useAppearance = (colorSettings: ThemeSettings['color']): string => {
+export const useAppearance = (colorSettings: ThemeSettings['color']): Appearance => {
 	const preferDark = useMatchMedia('(prefers-color-scheme: dark)')
 
 	if (colorSettings.appearance === 'auto') {
@@ -65,7 +67,9 @@ export const useAppearance = (colorSettings: ThemeSettings['color']): string => 
 	return colorSettings.appearance
 }
 
-export const useColorPalette = (colorSettings: ThemeSettings['color']): string => {
+export const useColorPalette = (
+	colorSettings: ThemeSettings['color'],
+): keyof typeof colorPalettes => {
 	const appearance = useAppearance(colorSettings)
 
 	if (appearance === 'dark') {
