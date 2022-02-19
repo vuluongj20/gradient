@@ -59,7 +59,7 @@ export const Wrap = styled.li`
 	}
 
 	&:last-of-type {
-		border-right: solid 1px ${(p) => p.theme.line};
+		box-shadow: 1px 0 0 0 ${(p) => p.theme.line};
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -70,12 +70,17 @@ export const Wrap = styled.li`
 		box-sizing: border-box;
 
 		&:last-of-type {
-			border-right: none;
+			box-shadow: none;
 		}
 
 		&& {
 			margin: 0 auto;
 		}
+	}
+
+	@media (prefers-reduced-motion) {
+		position: relative;
+		opacity: 100%;
 	}
 `
 

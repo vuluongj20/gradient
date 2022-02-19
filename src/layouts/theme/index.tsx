@@ -10,7 +10,6 @@ import {
 import { TextScale, textScales } from './text'
 import { Utils, generateUtils } from './utils'
 
-import useMatchMedia from '@utils/hooks/useMatchMedia'
 import {
 	Breakpoint,
 	boxShadowsDark,

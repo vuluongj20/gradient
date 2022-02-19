@@ -146,7 +146,7 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 			border-radius: ${(p) => p.theme.radii.m};
 			background: ${(p) => p.theme.activeBackground};
 			z-index: -1;
-			opacity: 0;
+			opacity: 0%;
 			transition: opacity ${(p) => p.theme.animation.mediumOut};
 		}
 	}
@@ -160,7 +160,7 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 
 		@media (prefers-reduced-motion) {
 			&::after {
-				opacity: 1;
+				opacity: 100%;
 			}
 		}
 	`}

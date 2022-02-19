@@ -20,6 +20,7 @@ type Props = {
 			ease?: string
 		}
 	>
+	reducedMotion: boolean
 	beforeSettingsDialogOpen?: () => void
 	afterSettingsDialogClose?: () => void
 }
@@ -27,6 +28,7 @@ type Props = {
 const Menu = ({
 	isOpen,
 	animations,
+	reducedMotion,
 	toggleMenu,
 	beforeSettingsDialogOpen,
 	afterSettingsDialogClose,
@@ -38,6 +40,10 @@ const Menu = ({
 	usePreventScroll({ isDisabled: !isOpen })
 
 	useEffect(() => {
+		if (reducedMotion) {
+			return
+		}
+
 		// On menu OPEN
 		if (isOpen) {
 			if (isXS) {
@@ -108,7 +114,7 @@ const Menu = ({
 	}, [isXS, isS])
 
 	return (
-		<MenuWrap aria-hidden={!isOpen}>
+		<MenuWrap aria-hidden={!isOpen} isOpen={isOpen}>
 			<LinksWrap>
 				{links.map((link) => (
 					<MenuLink
@@ -135,7 +141,7 @@ const Menu = ({
 
 export default Menu
 
-const MenuWrap = styled.div`
+const MenuWrap = styled.div<{ isOpen: boolean }>`
 	display: flex;
 	position: absolute;
 	top: 0;
@@ -157,11 +163,34 @@ const MenuWrap = styled.div`
 		padding-top: calc(2.5rem + ${(p) => p.theme.space[2]});
 		transform: translateY(-100%);
 	}
+
+	@media (prefers-reduced-motion) {
+		width: auto;
+		pointer-events: none;
+		opacity: 0%;
+		transition: opacity ${(p) => p.theme.animation.mediumOut};
+		box-shadow: ${(p) => p.theme.shadows.l};
+
+		${(p) => p.isOpen && `opacity: 100%; pointer-events: initial;`}
+
+		${(p) => p.theme.utils.media.xs} {
+			width: 100%;
+			transform: none;
+		}
+	}
 `
 
 const LinksWrap = styled.ul`
 	padding: 0;
 	margin: 0;
+
+	@media (prefers-reduced-motion) {
+		display: flex;
+	}
+
+	${(p) => p.theme.utils.media.xs} {
+		display: initial;
+	}
 `
 const UtilsWrap = styled.div`
 	display: none;
@@ -174,6 +203,10 @@ const UtilsWrap = styled.div`
 
 	${(p) => p.theme.utils.media.xs} {
 		display: block;
+
+		@media (prefers-reduced-motion) {
+			opacity: 100%;
+		}
 	}
 `
 

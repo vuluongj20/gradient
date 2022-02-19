@@ -54,12 +54,12 @@ const Nav = (): JSX.Element => {
 	useEffect(() => {
 		if (menuOpen) {
 			pageContentRef.current?.setAttribute('aria-hidden', 'true')
-			if (!isXS) {
+			if (!isXS && !reducedMotion) {
 				const animationDistance = isS
 					? `+${menuLinks.length * 5}rem`
 					: `+${menuLinks.length * 6}rem`
 
-				gsap.to([`${PageShadow}`, !reducedMotion && '#page-content'], {
+				gsap.to([`${PageShadow}`, '#page-content'], {
 					x: animationDistance,
 					...animations.entry,
 				})
@@ -109,6 +109,7 @@ const Nav = (): JSX.Element => {
 				toggleMenu={toggleMenu}
 				isOpen={menuOpen}
 				animations={animations}
+				reducedMotion={reducedMotion}
 				beforeSettingsDialogOpen={beforeSettingsDialogOpen}
 				afterSettingsDialogClose={afterSettingsDialogClose}
 			/>
@@ -155,7 +156,6 @@ const PageShadow = styled.div<{ active: boolean }>`
 		`
 		pointer-events: initial;
 		opacity: 20%;
-		z-index: 1;
 		`}
 
 	${(p) => p.theme.utils.media.l} {
@@ -164,5 +164,9 @@ const PageShadow = styled.div<{ active: boolean }>`
 
 	${(p) => p.theme.utils.media.xs} {
 		display: none;
+	}
+
+	@media (prefers-reduced-motion) {
+		transition: opacity ${(p) => p.theme.animation.mediumOut};
 	}
 `
