@@ -83,14 +83,22 @@ const InnerWrap = styled(TransitionLink)`
 	${(p) => p.theme.utils.spread};
 	cursor: pointer;
 	transition: transform ${(p) => p.theme.animation.fastOut};
+	border-radius: ${(p) => p.theme.radii.m};
 
 	&.focus-visible {
 		z-index: 1;
 		box-shadow: inset 0 0 0 4px ${(p) => p.theme.focus};
 	}
 
-	${/* sc-selector */ Wrap}:not(:first-of-type) > & {
+	${/* sc-selector */ Wrap}:not(:first-of-type) > &::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		border-left: solid 1px ${(p) => p.theme.line};
+		pointer-events: none;
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -98,16 +106,8 @@ const InnerWrap = styled(TransitionLink)`
 		position: relative;
 		padding: ${(p) => p.theme.space[1]} 0;
 
-		${/* sc-selector */ Wrap}:not(:first-of-type) > & {
-			border-left: none;
-		}
-
 		${/* sc-selector */ Wrap}:not(:first-of-type) > &::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
+			border-left: none;
 			border-top: solid 1px ${(p) => p.theme.line};
 		}
 
