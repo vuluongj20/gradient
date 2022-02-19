@@ -88,10 +88,12 @@ const Menu = ({
 			})
 			gsap.to(`${UtilsWrap}`, {
 				opacity: 0,
+				clearProps: 'opacity',
 				...animations.exit,
 			})
 			gsap.to(`${MenuLinkWrap}`, {
 				opacity: 0,
+				clearProps: 'opacity',
 				...animations.exit,
 			})
 			return
@@ -101,6 +103,7 @@ const Menu = ({
 			opacity: 0,
 			x: 0,
 			pointerEvents: 'none',
+			clearProps: 'opacity',
 			onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 			...animations.exit,
 		})
