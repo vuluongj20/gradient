@@ -66,7 +66,13 @@ const Dialog = () => {
 
 	return (
 		<InnerWrap>
-			<TabList orientation="vertical" insetPanel height="24rem" items={tabItems} />
+			<TabList
+				orientation="vertical"
+				insetPanel
+				height="24rem"
+				items={tabItems}
+				defaultSelectedKey="hello"
+			/>
 		</InnerWrap>
 	)
 }
