@@ -78,7 +78,7 @@ const OuterWrap = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	transition: opacity ${(p) => p.theme.animation.mediumOut};
+	transition: opacity ${(p) => p.theme.animation.fastOut};
 	transform: translateZ(0);
 	opacity: 0%;
 	will-change: opacity;
