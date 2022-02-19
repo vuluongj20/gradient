@@ -28,7 +28,6 @@ export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
 		elevation: number
 		appearance: Appearance
-		reducedMotion: boolean
 		/** Text */
 		text: {
 			system: TextScale
