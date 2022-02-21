@@ -20,6 +20,7 @@ export const defaultSettings: Settings = {
 		text: {
 			system: 'sohne',
 			content: 'domaine',
+			viz: 'sohne-mono',
 		},
 		alwaysShowVideoCaptions: false,
 	},

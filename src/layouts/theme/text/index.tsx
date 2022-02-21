@@ -1,0 +1,57 @@
+import { CSSObject } from 'styled-components'
+
+import domaine from './domaine'
+import sohne from './sohne'
+import sohneMono from './sohneMono'
+
+import { Breakpoint, breakpoints } from '@utils/style'
+
+type TextCategoryStyles = {
+	fontFamily: string
+	fontWeight: number
+	lineHeight: number
+	fontSize?: string
+	letterSpacing?: string
+	textTransform?: 'capitalize' | 'uppercase' | 'lowercase'
+}
+
+type TextCategoryDefinition = TextCategoryStyles & {
+	fontSizes: Record<Breakpoint, number>
+}
+
+type TextCategory = CSSObject
+
+type TextCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
+
+export type TextScaleDefinition = Record<TextCategoryName, TextCategoryDefinition>
+
+export type TextScale = Record<TextCategoryName, TextCategory>
+
+const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
+	const result = {}
+
+	Object.keys(scale).map((key) => {
+		const { fontFamily, fontWeight, lineHeight, letterSpacing, fontSizes } = scale[key]
+		result[key] = {
+			fontFamily,
+			fontWeight,
+			lineHeight,
+			letterSpacing,
+			fontSize: `${fontSizes.xl}rem`,
+		}
+
+		Object.keys(fontSizes).map((breakpoint) => {
+			result[key][`@media only screen and (max-width: ${breakpoints[breakpoint]})`] = {
+				fontSize: `${fontSizes[breakpoint]}rem`,
+			}
+		})
+	})
+
+	return result as TextScale
+}
+
+export const textScales = {
+	sohne: getCSSStyleObject(sohne),
+	'sohne-mono': getCSSStyleObject(sohneMono),
+	domaine: getCSSStyleObject(domaine),
+}

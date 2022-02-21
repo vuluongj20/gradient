@@ -7,6 +7,7 @@ import Section from './section'
 import Grid from '@components/grid'
 import Page from '@components/page'
 import SectionDivider from '@components/sectionDivider'
+import TypeArea from '@components/typeArea'
 
 import SettingsContext from '@utils/settingsContext'
 
@@ -100,27 +101,9 @@ const mainContent = {
 
 const Main = (): JSX.Element => {
   const [data, setData] = useState<Data>(null)
-  const [animationObserver, setAnimationObserver] = useState<IntersectionObserver>()
   const { dispatch } = useContext(SettingsContext)
 
   useEffect(() => {
-    const animationObserverInstance = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('on')
-          }
-        })
-      },
-      {
-        threshold: 0.5,
-      },
-    )
-    setAnimationObserver(animationObserverInstance)
-    document.querySelectorAll('.parent.animate').forEach((el) => {
-      animationObserverInstance.observe(el)
-    })
-
     csv(dataUrl).then((resData) => {
       resData.forEach(function (d) {
         d.date = timeParse('%Y-%m-%d')(d.date)
@@ -132,7 +115,7 @@ const Main = (): JSX.Element => {
 
   return (
     <Page>
-      <Wrap id="App">
+      <Wrap id="App" type="content" as="article">
         <HeroWrap as="header">
           <HeroInnerWrap>
             <HeroHeading>
@@ -144,16 +127,11 @@ const Main = (): JSX.Element => {
             })}
           </HeroInnerWrap>
         </HeroWrap>
-        {data && animationObserver && (
+        {data && (
           <Fragment>
             {vizs.map((viz, i) => {
               return [
-                <Section
-                  key={i}
-                  data={data}
-                  vizData={viz}
-                  animationObserver={animationObserver}
-                />,
+                <Section key={i} data={data} vizData={viz} />,
                 i !== vizs.length - 1 ? <SectionDivider key={i + '-divider'} /> : null,
               ]
             })}
@@ -177,46 +155,15 @@ const Main = (): JSX.Element => {
 }
 export default Main
 
-const Wrap = styled.article`
+const Wrap = styled(TypeArea)`
   --theme: ${(p) => p.theme.green1};
   --warm: ${(p) => p.theme.red1};
   --cool: ${(p) => p.theme.blue1};
   min-height: 100vh;
 
-  h1,
-  h2 {
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    font-weight: 700;
-  }
-
-  p,
-  a,
-  text {
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    font-weight: 400;
-  }
-
-  .animate {
-    backface-visibility: hidden;
-    will-change: transform, opacity, filter;
-    opacity: 0%;
-  }
-  .animate.on {
-    animation: opacity ${(p) => p.theme.animation.slowOut} forwards;
-  }
-
   svg {
     margin: 0 auto;
     overflow: visible;
-  }
-
-  @keyframes opacity {
-    from {
-      opacity: 0%;
-    }
-    to {
-      opacity: 100%;
-    }
   }
 `
 

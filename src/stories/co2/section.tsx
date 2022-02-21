@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
@@ -10,10 +10,9 @@ import Grid from '@components/grid'
 type Props = {
   data: Data
   vizData: VizData
-  animationObserver: IntersectionObserver
 }
 
-const Section = ({ data, vizData, animationObserver }: Props): JSX.Element => {
+const Section = ({ data, vizData }: Props): JSX.Element => {
   const wrapRef = useRef(null)
 
   const renderSwitch = (): JSX.Element => {
@@ -27,13 +26,6 @@ const Section = ({ data, vizData, animationObserver }: Props): JSX.Element => {
     }
   }
 
-  useEffect(() => {
-    wrapRef.current?.querySelectorAll('.animate').forEach((el) => {
-      animationObserver.observe(el)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <Grid
       as="section"
@@ -45,7 +37,7 @@ const Section = ({ data, vizData, animationObserver }: Props): JSX.Element => {
         <ContentWrap>
           {vizData.text?.des?.map((para, index) => {
             return (
-              <Para key={index} className="animate">
+              <Para key={index}>
                 {para.map((segment, index) => {
                   switch (segment.type) {
                     case 'span':

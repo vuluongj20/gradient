@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 import { VizData } from './index'
 
+import TypeArea from '@components/typeArea'
+
 type Props = {
 	content: VizData['vizContent']
 }
@@ -9,7 +11,7 @@ type Props = {
 const VizContent = ({ content }: Props) => (
 	<Wrap>
 		<VizWrap>
-			<VizSvgOuterWrap>
+			<VizSvgOuterWrap type="viz">
 				<VizSvgWrap />
 			</VizSvgOuterWrap>
 		</VizWrap>
@@ -43,7 +45,7 @@ export const VizWrap = styled.div`
 	top: -1px;
 `
 
-export const VizSvgOuterWrap = styled.div`
+export const VizSvgOuterWrap = styled(TypeArea)`
 	width: 100%;
 	height: 100%;
 	display: flex;

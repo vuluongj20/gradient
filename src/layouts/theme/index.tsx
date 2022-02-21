@@ -31,6 +31,7 @@ export type Theme = ColorPalette['colors'] &
 		text: {
 			system: TextScale
 			content: TextScale
+			viz: TextScale
 		}
 		/** Box shadow */
 		shadows: Partial<Record<Breakpoint, string>> & {
@@ -61,6 +62,7 @@ export type ThemeSettings = {
 	text: {
 		system: keyof typeof textScales
 		content: keyof typeof textScales
+		viz: keyof typeof textScales
 	}
 	alwaysShowVideoCaptions: boolean
 }
@@ -81,6 +83,7 @@ export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const text = {
 		system: textScales[settings.text.system],
 		content: textScales[settings.text.content],
+		viz: textScales[settings.text.viz],
 	}
 
 	const partialTheme: Omit<Theme, 'utils'> = {

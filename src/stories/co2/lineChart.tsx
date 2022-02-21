@@ -1216,7 +1216,7 @@ const Wrap = styled.div`
     display: none;
   }
   .axis text {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     color: ${(p) => p.theme.label};
   }
   ${(p) => p.theme.utils.media.xs} {
@@ -1276,7 +1276,7 @@ const Wrap = styled.div`
     fill: var(--warm);
   }
   .hover-text-group {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
   }
   ${(p) => p.theme.utils.media.s} {
@@ -1355,7 +1355,7 @@ const Wrap = styled.div`
 
   /* MSE */
   .mse-group {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
   }
   ${(p) => p.theme.utils.media.s} {
     .mse-group {
