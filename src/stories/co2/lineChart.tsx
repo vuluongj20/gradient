@@ -18,6 +18,9 @@ import styled from 'styled-components'
 import { Data, VizData } from './index'
 import VizContent, { VizDesText, VizSvgWrap } from './vizContent'
 
+import useWindowHeight from '@utils/hooks/useWindowHeight'
+import useWindowWidth from '@utils/hooks/useWindowWidth'
+
 const mse = [18.2, 5.06, 0.97]
 
 type Props = {
@@ -30,10 +33,12 @@ const LineChart = ({ data, content }: Props) => {
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
+  const windowWidth = useWindowWidth()
+  const windowHeight = useWindowHeight()
   const vizRef = useRef(null)
 
-  const width = Math.min(window.innerWidth * 0.85, 1184),
-    height = Math.min(window.innerHeight * 0.85, window.innerWidth * 1.2),
+  const width = Math.min(windowWidth * 0.85, 1184),
+    height = Math.min(windowHeight * 0.85, windowWidth * 1.2),
     margin = {
       top: 20,
       right: width > 700 ? 60 : 36,
@@ -1122,32 +1127,24 @@ const LineChart = ({ data, content }: Props) => {
   useEffect(() => {
     if (visible) {
       createViz()
-      let resizeTimer
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer)
-        resizeTimer = setTimeout(() => {
-          select('#line-chart .viz').remove()
-          createViz()
-          updateFunc(currentState, -1)
-        }, 400)
-      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   useEffect(() => {
+    if (!visible) {
+      return
+    }
+    select('#line-chart .viz').remove()
+    createViz()
+    updateFunc(currentState, -1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [windowWidth, windowHeight])
+
+  useEffect(() => {
     if (intersectionIndex > -1) {
       if (!vizCreated) {
         createViz()
-        let resizeTimer
-        window.addEventListener('resize', () => {
-          clearTimeout(resizeTimer)
-          resizeTimer = setTimeout(() => {
-            select('#line-chart .viz').remove()
-            createViz()
-            updateFunc(currentState, -1)
-          }, 400)
-        })
       }
       updateFunc(intersectionIndex, currentState)
     } else if (vizCreated) {
@@ -1219,9 +1216,9 @@ const Wrap = styled.div`
     font-size: 0.875rem;
     color: ${(p) => p.theme.label};
   }
-  ${(p) => p.theme.utils.media.xs} {
+  ${(p) => p.theme.utils.media.s} {
     .axis text {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
     }
   }
   .axis > .tick {
@@ -1279,15 +1276,10 @@ const Wrap = styled.div`
     font-size: 0.875rem;
     padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
   }
-  ${(p) => p.theme.utils.media.s} {
-    .hover-text-group {
-      font-size: 0.8125rem;
-      padding: 0.25rem 0.5rem;
-    }
-  }
-  ${(p) => p.theme.utils.media.s} {
+  ${(p) => p.theme.utils.media.xs} {
     .hover-text-group {
       font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
     }
   }
   .hover-rect {
@@ -1359,12 +1351,7 @@ const Wrap = styled.div`
   }
   ${(p) => p.theme.utils.media.s} {
     .mse-group {
-      font-size: 0.8125rem;
-    }
-  }
-  ${(p) => p.theme.utils.media.xs} {
-    .mse-group {
-      font-size: 0.75rem;
+      display: none;
     }
   }
   .mse-rect {
