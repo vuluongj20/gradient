@@ -6,13 +6,14 @@ import TypeArea from '@components/typeArea'
 
 type Props = {
 	content: VizData['vizContent']
+	isResizing: boolean
 }
 
-const VizContent = ({ content }: Props) => (
+const VizContent = ({ content, isResizing }: Props) => (
 	<Wrap>
 		<VizWrap>
 			<VizSvgOuterWrap type="viz">
-				<VizSvgWrap />
+				<VizSvgWrap isResizing={isResizing} />
 			</VizSvgOuterWrap>
 		</VizWrap>
 		<VizScrollBox>
@@ -53,13 +54,24 @@ export const VizSvgOuterWrap = styled(TypeArea)`
 	align-items: center;
 `
 
-export const VizSvgWrap = styled.div`
+export const VizSvgWrap = styled.div<{ isResizing: boolean }>`
+	position: relative;
 	width: 100%;
 
 	svg {
 		display: block;
 		margin: 0 auto;
+		transition: ${(p) => p.theme.animation.mediumOut};
 	}
+
+	${(p) =>
+		p.isResizing &&
+		`
+		svg {
+			opacity: 0.75;
+			filter: blur(2rem);
+		}
+	`}
 `
 
 export const VizScrollBox = styled.div`

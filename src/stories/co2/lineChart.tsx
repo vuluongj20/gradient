@@ -34,8 +34,8 @@ const LineChart = ({ data, content }: Props) => {
   const [vizCreated, setVizCreated] = useState(false)
   const [width, setWidth] = useState<number>()
   const [height, setHeight] = useState<number>()
-  const windowWidth = useWindowWidth()
-  const windowHeight = useWindowHeight()
+  const [windowWidth, isResizing] = useWindowWidth()
+  const [windowHeight] = useWindowHeight()
   const vizRef = useRef(null)
 
   const margin = {
@@ -1197,7 +1197,7 @@ const LineChart = ({ data, content }: Props) => {
 
   return (
     <Wrap id="line-chart" className="viz-outer-wrap" ref={vizRef}>
-      <VizContent content={content} />
+      <VizContent content={content} isResizing={isResizing} />
     </Wrap>
   )
 }

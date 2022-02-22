@@ -30,8 +30,8 @@ const PolarPlot = ({ data, content }: Props) => {
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
   const [radius, setRadius] = useState<number>()
-  const windowWidth = useWindowWidth()
-  const windowHeight = useWindowHeight()
+  const [windowWidth, isResizing] = useWindowWidth()
+  const [windowHeight] = useWindowHeight()
   const vizRef = useRef(null)
 
   const margin = radius > 280 ? 40 : 20,
@@ -732,7 +732,7 @@ const PolarPlot = ({ data, content }: Props) => {
 
   return (
     <Wrap id="polar-plot" className="viz-outer-wrap" ref={vizRef}>
-      <VizContent content={content} />
+      <VizContent content={content} isResizing={isResizing} />
     </Wrap>
   )
 }

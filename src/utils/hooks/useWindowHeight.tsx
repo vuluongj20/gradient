@@ -11,20 +11,25 @@ const getWindowInnerHeight = () => {
   return window.innerHeight
 }
 
-const useWindowHeight = (delay = 700): number => {
+const useWindowHeight = (delay = 700): [number, boolean] => {
   const [height, setHeight] = useState(getWindowInnerHeight())
+  const [isResizing, setIsResizing] = useState(false)
 
   useEffect(() => {
     const handleResize = () => setHeight(getWindowInnerHeight())
     const debouncedResizeHandler = debounce(handleResize, delay)
-
     window.addEventListener('resize', debouncedResizeHandler)
+
+    const handleResizeStart = () => setIsResizing(true)
+    window.addEventListener('resize', handleResizeStart, { once: true })
+
     return () => {
       window.removeEventListener('resize', debouncedResizeHandler)
+      window.removeEventListener('resize', handleResizeStart)
     }
   }, [delay])
 
-  return height
+  return [height, isResizing]
 }
 
 export default useWindowHeight
