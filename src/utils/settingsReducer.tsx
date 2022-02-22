@@ -26,13 +26,28 @@ export const defaultSettings: Settings = {
 	},
 }
 
-export const init = (initialSettings): Settings => {
+const reconcileSettings = (settings: Settings, defaultSettings: Settings): Settings => {
+	const returnObj = {}
+
+	Object.entries(defaultSettings).forEach(([key, val]) => {
+		if (typeof val === 'object' && !Array.isArray(val)) {
+			returnObj[key] = reconcileSettings(settings[key], defaultSettings[key])
+			return
+		}
+
+		returnObj[key] = settings[key] ?? defaultSettings[key]
+	})
+
+	return returnObj as Settings
+}
+
+export const init = (defaultSettings): Settings => {
 	if (typeof window === 'undefined' || typeof document === 'undefined') {
-		return initialSettings
+		return defaultSettings
 	}
 
 	const localSettings = JSON.parse(localStorage.getItem('UP')) as Settings
-	return { ...initialSettings, ...localSettings }
+	return reconcileSettings(localSettings, defaultSettings)
 }
 
 export const reducer = (state: Settings, action: Action): Settings => {
