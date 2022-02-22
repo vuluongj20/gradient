@@ -38,14 +38,14 @@ const domaine: TextScaleDefinition = {
 	h5: {
 		fontFamily: headingFontFamily,
 		fontSizes: { xl: 1.625, l: 1.625, m: 1.625, s: 1.5, xs: 1.5 },
-		fontWeight: 500,
+		fontWeight: 600,
 		lineHeight: 1.2,
 		letterSpacing: '-0.005em',
 	},
 	h6: {
 		fontFamily: headingFontFamily,
 		fontSizes: { xl: 1.25, l: 1.25, m: 1.25, s: 1.25, xs: 1.25 },
-		fontWeight: 500,
+		fontWeight: 600,
 		lineHeight: 1.2,
 		letterSpacing: '-0.005em',
 	},

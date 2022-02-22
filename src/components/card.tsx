@@ -196,7 +196,7 @@ const TitleWrap = styled.div<{ rowLayout: boolean }>`
 `
 
 const Title = styled.p`
-	${(p) => p.theme.text.content.h4};
+	${(p) => p.theme.text.content.h5};
 
 	position: relative;
 

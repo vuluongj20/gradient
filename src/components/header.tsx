@@ -24,7 +24,7 @@ const Wrap = styled.header`
 `
 
 const Title = styled.h1`
-	${(p) => p.theme.text.content.h1};
+	${(p) => p.theme.text.content.h2};
 	color: ${(p) => p.theme.heading};
 
 	${(p) => p.theme.utils.media.xs} {
