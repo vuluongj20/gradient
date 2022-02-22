@@ -29,6 +29,16 @@
 }
 
 @font-face {
+	font-family: 'Sohne Mono';
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	src: url('/fonts/sohne/SohneMono-Buch.woff2') format('woff2'),
+		url('/fonts/sohne/SohneMono-Buch.woff') format('woff'),
+		url('/fonts/sohne/SohneMono-Buch.otf') format('opentype');
+}
+
+@font-face {
 	font-family: 'Domaine Display Narrow';
 	font-weight: 500;
 	font-style: normal;
@@ -161,5 +171,3 @@
 		url('/fonts/domaine-text/DomaineText-BoldItalic.woff') format('woff'),
 		url('/fonts/domaine-text/DomaineText-BoldItalic.otf') format('opentype');
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
