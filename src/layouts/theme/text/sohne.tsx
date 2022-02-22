@@ -48,12 +48,12 @@ const sohne: TextScaleDefinition = {
 	body: {
 		fontFamily: sohneFontFamily,
 		fontWeight: 400,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 0.9375 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
 		lineHeight: 1.4,
 	},
 	label: {
 		fontFamily: sohneFontFamily,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 0.9375 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
 		fontWeight: 500,
 		textTransform: 'uppercase',
 		lineHeight: 1.2,

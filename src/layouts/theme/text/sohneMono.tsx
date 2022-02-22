@@ -49,12 +49,12 @@ const sohneMono: TextScaleDefinition = {
 	body: {
 		fontFamily: sohneMonoFontFamily,
 		fontWeight: 400,
-		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.9375, xs: 0.875 },
+		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
 		lineHeight: 1.4,
 	},
 	label: {
 		fontFamily: sohneMonoFontFamily,
-		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.9375, xs: 0.875 },
+		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
 		fontWeight: 500,
 		textTransform: 'uppercase',
 		lineHeight: 1.2,

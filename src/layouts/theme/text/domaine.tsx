@@ -51,14 +51,14 @@ const domaine: TextScaleDefinition = {
 	},
 	body: {
 		fontFamily: domaineBodyFontFamily,
-		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1 },
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1, xs: 1 },
 		fontWeight: 400,
 		lineHeight: 1.4,
 		letterSpacing: '-0.005em',
 	},
 	label: {
 		fontFamily: domaineBodyFontFamily,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 1, xs: 0.9375 },
+		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
