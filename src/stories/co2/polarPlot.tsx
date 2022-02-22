@@ -29,12 +29,12 @@ const PolarPlot = ({ data, content }: Props) => {
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
+  const [radius, setRadius] = useState<number>()
   const windowWidth = useWindowWidth()
   const windowHeight = useWindowHeight()
   const vizRef = useRef(null)
 
-  const radius = Math.min(Math.min(windowWidth * 0.8, windowHeight * 0.85) / 2, 1024),
-    margin = radius > 280 ? 40 : 20,
+  const margin = radius > 280 ? 40 : 20,
     innerRadius = radius - margin,
     a = scaleLinear()
       .domain([0, 365.25])
@@ -656,13 +656,23 @@ const PolarPlot = ({ data, content }: Props) => {
     setCurrentState(to)
   }
 
-  /** Initialize visualization once the section becomes visible */
+  // Initialize visualization once the section becomes visible
   useEffect(() => {
     if (visible) {
       createViz()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
+
+  // Watch for updates to the container's width. When this happens,
+  // re-render the entire viz.
+  useEffect(() => {
+    setTimeout(() => {
+      const newContainerWidth = vizRef.current?.offsetWidth
+      const newRadius = Math.min(newContainerWidth - 15, windowHeight * 0.85) / 2
+      newRadius && setRadius(newRadius)
+    })
+  }, [windowWidth, windowHeight])
 
   useEffect(() => {
     if (!visible) {
@@ -672,7 +682,7 @@ const PolarPlot = ({ data, content }: Props) => {
     createViz()
     updateFunc(currentState, -1)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [windowWidth, windowHeight])
+  }, [radius])
 
   useEffect(() => {
     if (intersectionIndex > -1) {
@@ -686,7 +696,7 @@ const PolarPlot = ({ data, content }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [intersectionIndex])
 
-  /** Add intersection observers once component mounts */
+  // Add intersection observers once component mounts
   useEffect(() => {
     const vizObserver = new IntersectionObserver(
       (entries) => {
@@ -743,16 +753,16 @@ const Wrap = styled.div`
   /* Axes */
   .axis .tick,
   .ticks .tick {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     position: relative;
     fill: ${(p) => p.theme.label};
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
 
-  ${(p) => p.theme.utils.media.xs} {
+  ${(p) => p.theme.utils.media.s} {
     .axis .tick,
     .ticks .tick {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
     }
   }
 

@@ -64,6 +64,7 @@ const InnerWrap = styled.div`
   display: flex;
   flex-direction: column;
   grid-column: 2 / -2;
+  width: 100%;
 
   ${(p) => p.theme.utils.media.m} {
     grid-column: 1 / -1;

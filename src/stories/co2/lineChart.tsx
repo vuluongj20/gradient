@@ -29,17 +29,16 @@ type Props = {
 }
 
 const LineChart = ({ data, content }: Props) => {
-  const [visible, setVisible] = useState(false)
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
+  const [width, setWidth] = useState<number>()
+  const [height, setHeight] = useState<number>()
   const windowWidth = useWindowWidth()
   const windowHeight = useWindowHeight()
   const vizRef = useRef(null)
 
-  const width = Math.min(windowWidth * 0.85, 1184),
-    height = Math.min(windowHeight * 0.85, windowWidth * 1.2),
-    margin = {
+  const margin = {
       top: 20,
       right: width > 700 ? 60 : 36,
       bottom: width > 700 ? 40 : 24,
@@ -1123,13 +1122,25 @@ const LineChart = ({ data, content }: Props) => {
     setCurrentState(to)
   }
 
-  /** Initialize visualization once the section becomes visible */
+  // Initialize visualization once the section becomes visible
+  const [visible, setVisible] = useState(false)
   useEffect(() => {
     if (visible) {
       createViz()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible])
+  }, [visible]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Watch for updates to the container's width. When this happens,
+  // re-render the entire viz.
+  useEffect(() => {
+    setTimeout(() => {
+      const newWidth = vizRef.current?.offsetWidth
+      newWidth && setWidth(newWidth)
+
+      const newHeight = Math.min(windowHeight * 0.85, windowWidth * 1.2)
+      setHeight(newHeight)
+    })
+  }, [windowWidth, windowHeight])
 
   useEffect(() => {
     if (!visible) {
@@ -1138,22 +1149,9 @@ const LineChart = ({ data, content }: Props) => {
     select('#line-chart .viz').remove()
     createViz()
     updateFunc(currentState, -1)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [windowWidth, windowHeight])
+  }, [width, height]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (intersectionIndex > -1) {
-      if (!vizCreated) {
-        createViz()
-      }
-      updateFunc(intersectionIndex, currentState)
-    } else if (vizCreated) {
-      updateFunc(intersectionIndex, currentState)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [intersectionIndex])
-
-  /** Add intersection observers once component mounts */
+  // Add intersection observers once component mounts
   useEffect(() => {
     const vizObserver = new IntersectionObserver(
       (entries) => {
@@ -1184,8 +1182,18 @@ const LineChart = ({ data, content }: Props) => {
     document.querySelectorAll(`#line-chart ${VizDesText}`).forEach((el) => {
       vizScrollObserver.observe(el)
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (intersectionIndex > -1) {
+      if (!vizCreated) {
+        createViz()
+      }
+      updateFunc(intersectionIndex, currentState)
+    } else if (vizCreated) {
+      updateFunc(intersectionIndex, currentState)
+    }
+  }, [intersectionIndex]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Wrap id="line-chart" className="viz-outer-wrap" ref={vizRef}>
@@ -1276,7 +1284,7 @@ const Wrap = styled.div`
     font-size: 0.875rem;
     padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
   }
-  ${(p) => p.theme.utils.media.xs} {
+  ${(p) => p.theme.utils.media.s} {
     .hover-text-group {
       font-size: 0.75rem;
       padding: 0.25rem 0.5rem;
