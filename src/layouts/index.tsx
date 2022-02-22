@@ -77,6 +77,6 @@ const PageContent = styled('main')`
 
 	${(p) => p.theme.utils.media.xs} {
 		padding-left: 0;
-		padding-top: 2.5rem;
+		padding-top: 3rem;
 	}
 `

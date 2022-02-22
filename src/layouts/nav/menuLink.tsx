@@ -161,6 +161,10 @@ const Title = styled.p`
 	color: ${(p) => p.theme.heading};
 	margin: 0;
 	transition: color ${(p) => p.theme.animation.fastOut};
+
+	${(p) => p.theme.utils.media.xs} {
+		${(p) => p.theme.text.system.h4[p.theme.utils.media.xs]};
+	}
 `
 
 const TypeWrap = styled.div`

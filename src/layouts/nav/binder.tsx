@@ -71,7 +71,7 @@ const LogoWrap = styled.li`
 	}
 `
 const Logo = styled(TransitionLink)`
-	${(p) => p.theme.text.content.h3};
+	${(p) => p.theme.text.content.h4};
 	font-weight: 700;
 `
 
