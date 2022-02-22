@@ -16,6 +16,9 @@ import styled from 'styled-components'
 import { Data, VizData } from './index'
 import VizContent, { VizDesText, VizScrollBox, VizSvgWrap } from './vizContent'
 
+import useWindowHeight from '@utils/hooks/useWindowHeight'
+import useWindowWidth from '@utils/hooks/useWindowWidth'
+
 type Props = {
   data: Data
   content: VizData['vizContent']
@@ -26,12 +29,11 @@ const PolarPlot = ({ data, content }: Props) => {
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
+  const windowWidth = useWindowWidth()
+  const windowHeight = useWindowHeight()
   const vizRef = useRef(null)
 
-  const radius = Math.min(
-      Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85) / 2,
-      1024,
-    ),
+  const radius = Math.min(Math.min(windowWidth * 0.8, windowHeight * 0.85) / 2, 1024),
     margin = radius > 280 ? 40 : 20,
     innerRadius = radius - margin,
     a = scaleLinear()
@@ -658,32 +660,24 @@ const PolarPlot = ({ data, content }: Props) => {
   useEffect(() => {
     if (visible) {
       createViz()
-      let resizeTimer
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer)
-        resizeTimer = setTimeout(() => {
-          select('#polar-plot .viz').remove()
-          createViz()
-          updateFunc(currentState, -1)
-        }, 400)
-      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   useEffect(() => {
+    if (!visible) {
+      return
+    }
+    select('#polar-plot .viz').remove()
+    createViz()
+    updateFunc(currentState, -1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [windowWidth, windowHeight])
+
+  useEffect(() => {
     if (intersectionIndex > -1) {
       if (!vizCreated) {
         createViz()
-        let resizeTimer
-        window.addEventListener('resize', () => {
-          clearTimeout(resizeTimer)
-          resizeTimer = setTimeout(() => {
-            select('#polar-plot .viz').remove()
-            createViz()
-            updateFunc(currentState, -1)
-          }, 400)
-        })
       }
       updateFunc(intersectionIndex, currentState)
     } else if (vizCreated) {
