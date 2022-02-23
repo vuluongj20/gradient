@@ -17,7 +17,7 @@ const Page = ({ children, footerProps }: Props): JSX.Element => {
 	return (
 		<PageContent>
 			{children}
-			<SectionDivider mb={0} />
+			<SectionDivider noMb />
 			<Footer {...footerProps} />
 		</PageContent>
 	)
