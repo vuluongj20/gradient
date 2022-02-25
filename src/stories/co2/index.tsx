@@ -184,7 +184,7 @@ const HeroInnerWrap = styled.div`
 `
 
 const HeroHeading = styled.h1`
-  margin-bottom: ${(p) => p.theme.space[2]};
+  margin-bottom: ${(p) => p.theme.space[4]};
 `
 
 const HeroHeadingSpan = styled.span`
