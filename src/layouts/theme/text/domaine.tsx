@@ -1,7 +1,7 @@
 import { TextScaleDefinition } from './index'
 
 const headingFontFamily =
-	'"Domaine Display Narrow", "Palatino Linotype", Palatino, Garamond, "Apple Garamond", Georgia, serif'
+	'"Domaine Display Condensed", "Palatino Linotype", Palatino, Garamond, "Apple Garamond", Georgia, serif'
 
 const bodyFontFamily =
 	'"Domaine Text", Palatino, Garamond, "Apple Garamond", Georgia, serif'

@@ -39,77 +39,69 @@
 }
 
 @font-face {
-	font-family: 'Domaine Display Narrow';
+	font-family: 'Domaine Display Condensed';
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
-	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Medium.woff2')
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Medium.woff2')
 			format('woff2'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Medium.woff') format('woff'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Medium.otf')
-			format('opentype');
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Medium.woff')
+			format('woff');
 }
 
 @font-face {
-	font-family: 'Domaine Display Narrow';
+	font-family: 'Domaine Display Condensed';
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
-	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-MediumItalic.woff2')
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-MediumItalic.woff2')
 			format('woff2'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-MediumItalic.woff')
-			format('woff'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-MediumItalic.otf')
-			format('opentype');
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-MediumItalic.woff')
+			format('woff');
 }
 
 @font-face {
-	font-family: 'Domaine Display Narrow';
+	font-family: 'Domaine Display Condensed';
 	font-weight: 600;
 	font-style: normal;
 	font-display: swap;
-	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Semibold.woff2')
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Semibold.woff2')
 			format('woff2'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Semibold.woff') format('woff'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Semibold.otf')
-			format('opentype');
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Semibold.woff')
+			format('woff');
 }
 
 @font-face {
-	font-family: 'Domaine Display Narrow';
+	font-family: 'Domaine Display Condensed';
 	font-weight: 600;
 	font-style: italic;
 	font-display: swap;
-	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-SemiboldItalic.woff2')
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-SemiboldItalic.woff2')
 			format('woff2'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-SemiboldItalic.woff')
-			format('woff'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-SemiboldItalic.otf')
-			format('opentype');
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-SemiboldItalic.woff')
+			format('woff');
 }
 
 @font-face {
-	font-family: 'Domaine Display Narrow';
+	font-family: 'Domaine Display Condensed';
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
-	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Bold.woff2')
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Bold.woff2')
 			format('woff2'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Bold.woff') format('woff'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-Bold.otf') format('opentype');
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Bold.woff')
+			format('woff');
 }
 
 @font-face {
-	font-family: 'Domaine Display Narrow';
+	font-family: 'Domaine Display Condensed';
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
-	src: url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-BoldItalic.woff2')
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-BoldItalic.woff2')
 			format('woff2'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-BoldItalic.woff')
-			format('woff'),
-		url('/fonts/domaine-display-narrow/DomaineDisplayNarrow-BoldItalic.otf')
-			format('opentype');
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-BoldItalic.woff')
+			format('woff');
 }
 
 @font-face {
