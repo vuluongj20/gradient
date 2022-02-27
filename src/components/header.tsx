@@ -38,6 +38,10 @@ const DescWrap = styled.p`
 	transform: translateX(-0.25rem);
 
 	${(p) => p.theme.utils.media.m} {
+		margin-bottom: 0.45rem;
+	}
+
+	${(p) => p.theme.utils.media.s} {
 		margin-bottom: 0.3rem;
 	}
 
@@ -52,7 +56,7 @@ const DescLine = styled.span`
 	color: ${(p) => p.theme.heading};
 
 	&& {
-		line-height: 1.2;
+		line-height: 1.1;
 	}
 `
 

@@ -19,14 +19,12 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    ${(p) => p.theme.text.system.body}; 
     font-feature-settings: 'kern', 'liga';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     direction: ltr;
     text-align: left;
-    font-family: ${(p) => p.theme.text.system.body.fontFamily};
-    font-size: 1rem;
-    color: ${(p) => p.theme.body};
     margin: 0;
     padding: 0;
   }
@@ -42,7 +40,7 @@ const GlobalStyles = createGlobalStyle`
   h5 {${(p) => p.theme.text.system.h5}}
   h6 {${(p) => p.theme.text.system.h6}}
 
-  p, a, li {
+  p, a, li, input, label {
     ${(p) => p.theme.text.system.body}; 
     margin: 0;
   }

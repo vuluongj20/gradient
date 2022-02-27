@@ -51,7 +51,7 @@ const domaine: TextScaleDefinition = {
 	},
 	body: {
 		fontFamily: bodyFontFamily,
-		fontSizes: { xl: 1.25, l: 1.25, m: 1.25, s: 1.125, xs: 1.125 },
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1, xs: 1 },
 		fontWeight: 400,
 		lineHeight: 1.4,
 		letterSpacing: '-0.005em',

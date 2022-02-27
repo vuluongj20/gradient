@@ -22,14 +22,14 @@ const sohne: TextScaleDefinition = {
 		fontSizes: { xl: 2.75, l: 2.75, m: 2.5, s: 2.125, xs: 2.125 },
 		fontWeight: 600,
 		lineHeight: 1.2,
-		letterSpacing: '-0.01em',
+		letterSpacing: '-0.02em',
 	},
 	h4: {
 		fontFamily,
 		fontSizes: { xl: 2.125, l: 2.125, m: 2, s: 1.75, xs: 1.75 },
 		fontWeight: 600,
 		lineHeight: 1.2,
-		letterSpacing: '-0.01em',
+		letterSpacing: '-0.02em',
 	},
 	h5: {
 		fontFamily,
@@ -48,12 +48,12 @@ const sohne: TextScaleDefinition = {
 	body: {
 		fontFamily,
 		fontWeight: 400,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
+		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
 		lineHeight: 1.4,
 	},
 	label: {
 		fontFamily,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
+		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
 		fontWeight: 500,
 		textTransform: 'uppercase',
 		lineHeight: 1.2,
