@@ -6,6 +6,7 @@ import Page from '@components/page'
 import SectionDivider from '@components/sectionDivider'
 import SEO from '@components/seo'
 import TOC from '@components/toc'
+import TypeArea from '@components/typeArea'
 
 type Props = {
   children: ReactNode
@@ -35,7 +36,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
       <SEO title={frontmatter.title} />
       <Header>
         <Grid>
-          <Wrap>
+          <Wrap type="content">
             <h1>{frontmatter.title}</h1>
             <p>
               <em>Last updated {lastEdited}</em>
@@ -47,7 +48,9 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
       <SectionDivider />
       <StyledGrid>
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
-        <ContentWrap as="main">{children}</ContentWrap>
+        <ContentWrap as="main" type="content">
+          {children}
+        </ContentWrap>
       </StyledGrid>
     </Page>
   )
@@ -55,9 +58,8 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
 
 export default PlainText
 
-const Wrap = styled.div`
+const Wrap = styled(TypeArea)`
   grid-column: 1 / -5;
-  font-size: 1.125rem;
 
   h1,
   h2,
@@ -69,6 +71,7 @@ const Wrap = styled.div`
       margin-top: ${(p) => p.theme.space[4]};
     }
     padding-top: ${(p) => p.theme.space[1]};
+    margin-bottom: ${(p) => p.theme.space[1]};
   }
   .autolinked-header.before {
     padding-top: ${(p) => p.theme.space[1]};
@@ -77,25 +80,29 @@ const Wrap = styled.div`
     margin-bottom: ${(p) => p.theme.space[2]};
   }
   h1 {
-    ${(p) => p.theme.text.system.h2}
+    ${(p) => p.theme.text.content.h2}
     margin-bottom: ${(p) => p.theme.space[4]};
   }
   h2 {
-    ${(p) => p.theme.text.system.h4}
+    ${(p) => p.theme.text.content.h3}
     margin-bottom: ${(p) => p.theme.space[2]};
   }
   h3,
   h4,
   h5,
   h6 {
-    ${(p) => p.theme.text.system.h6}
+    ${(p) => p.theme.text.content.h5}
     margin-bottom: ${(p) => p.theme.space[1]};
   }
   hr {
     ${(p) => p.theme.utils.space.marginTop[6]};
     ${(p) => p.theme.utils.space.marginBottom[5]};
   }
+  ul {
+    margin-left: ${(p) => p.theme.space[2]};
+  }
   li {
+    list-style-type: disc;
     margin-bottom: ${(p) => p.theme.space[1]};
   }
 
@@ -127,6 +134,7 @@ const Header = styled.header`
 
   h1 {
     padding-top: 0;
+    margin-bottom: ${(p) => p.theme.space[2]};
   }
   p:last-of-type {
     margin-bottom: 0;

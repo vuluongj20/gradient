@@ -49,7 +49,7 @@ const sohne: TextScaleDefinition = {
 		fontFamily,
 		fontWeight: 400,
 		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
-		lineHeight: 1.4,
+		lineHeight: 1.2,
 	},
 	label: {
 		fontFamily,

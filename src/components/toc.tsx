@@ -110,6 +110,10 @@ const TocContent = styled.div`
 		margin-top: 0;
 	}
 
+	li {
+		margin-bottom: ${(p) => p.theme.space[1]};
+	}
+
 	li,
 	li > a {
 		color: ${(p) => p.theme.label};
