@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
   *::before,
   *::after {
     box-sizing: inherit;
+    -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     transition: background-color ${(p) => p.theme.animation.mediumOut}, 
       border-color ${(p) => p.theme.animation.mediumOut},
