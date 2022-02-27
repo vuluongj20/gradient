@@ -53,7 +53,6 @@ export const init = (defaultSettings): Settings => {
 	}
 
 	const localSettings = JSON.parse(localStorage.getItem('UP')) as Settings
-	console.log(localSettings)
 	return reconcileSettings(localSettings, defaultSettings)
 }
 
