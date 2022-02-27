@@ -34,6 +34,7 @@ export default Tab
 const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   position: relative;
   display: flex;
+  align-items: center;
   gap: ${(p) => p.theme.space[1]};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   padding-right: ${(p) => p.theme.space[3]};
