@@ -1,5 +1,7 @@
 import { ThemeSettings } from '@theme'
 
+import { isObject } from '@utils/functions'
+
 export type Settings = {
 	theme: ThemeSettings
 }
@@ -29,13 +31,17 @@ export const defaultSettings: Settings = {
 const reconcileSettings = (settings: Settings, defaultSettings: Settings): Settings => {
 	const returnObj = {}
 
+	if (!isObject(settings)) {
+		return defaultSettings
+	}
+
 	Object.entries(defaultSettings).forEach(([key, val]) => {
-		if (typeof val === 'object' && !Array.isArray(val)) {
+		if (isObject(val)) {
 			returnObj[key] = reconcileSettings(settings[key], defaultSettings[key])
 			return
 		}
 
-		returnObj[key] = settings[key] ?? defaultSettings[key]
+		returnObj[key] = settings[key] ?? val
 	})
 
 	return returnObj as Settings
@@ -47,6 +53,7 @@ export const init = (defaultSettings): Settings => {
 	}
 
 	const localSettings = JSON.parse(localStorage.getItem('UP')) as Settings
+	console.log(localSettings)
 	return reconcileSettings(localSettings, defaultSettings)
 }
 
