@@ -115,6 +115,10 @@ const ColContent = styled.ul``
 
 const ColLink = styled.li`
 	margin-bottom: ${(p) => p.theme.space[0]};
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
 `
 
 const DisclosuresDivider = styled.hr`
@@ -125,7 +129,7 @@ const DisclosuresDivider = styled.hr`
 
 const Policies = styled(Grid)`
 	padding-top: ${(p) => p.theme.space[2]};
-	padding-bottom: ${(p) => p.theme.space[2]};
+	padding-bottom: calc(${(p) => p.theme.space[2]} + var(--sab, 0));
 	justify-items: start;
 `
 

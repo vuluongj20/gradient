@@ -3,8 +3,6 @@ import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import { paddingHorizontal } from '@utils/style'
-
 export type HamProps = {
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 	menuOpen: boolean
@@ -94,7 +92,8 @@ const Wrap = styled.li`
 	${(p) => p.theme.utils.media.xs} {
 		position: absolute;
 		top: 50%;
-		left: ${paddingHorizontal * 0.5}rem;
+		left: ${(p) =>
+			p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs].paddingLeft};
 		transform: translateY(-50%);
 		width: auto;
 	}

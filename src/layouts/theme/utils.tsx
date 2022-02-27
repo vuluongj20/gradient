@@ -102,15 +102,15 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
 		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
 		paddingHorizontal: {
-			paddingLeft: `${paddingHorizontal * 2}rem`,
-			paddingRight: `${paddingHorizontal * 2}rem`,
+			paddingLeft: `max(${paddingHorizontal * 2}rem, var(--sal, 0px))`,
+			paddingRight: `max(${paddingHorizontal * 2}rem, var(--sar, 0px))`,
 			[`@media only screen and (max-width: ${theme.breakpoints.s})`]: {
-				paddingLeft: `${paddingHorizontal}rem`,
-				paddingRight: `${paddingHorizontal}rem`,
+				paddingLeft: `max(${paddingHorizontal}rem, var(--sal, 0px))`,
+				paddingRight: `max(${paddingHorizontal}rem, var(--sar, 0px))`,
 			},
 			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
-				paddingLeft: `${paddingHorizontal * 0.5}rem`,
-				paddingRight: `${paddingHorizontal * 0.5}rem`,
+				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
 			},
 		},
 	},

@@ -30,6 +30,15 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
   }
 
+  @supports (padding-top: env(safe-area-inset-top)) {
+    body {
+      --sat: env(safe-area-inset-top);
+      --sar: env(safe-area-inset-right);
+      --sab: env(safe-area-inset-bottom);
+      --sal: env(safe-area-inset-left);
+    }
+  }
+
   h1, h2, h3, h4, h5, h6 {
     color: ${(p) => p.theme.heading};
     margin: 0;

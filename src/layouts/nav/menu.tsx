@@ -196,10 +196,10 @@ const LinksWrap = styled.ul`
 	}
 `
 const UtilsWrap = styled.div`
+	${(p) => p.theme.utils.space.paddingHorizontal};
 	display: none;
-	padding: 0 ${paddingHorizontal * 0.5}rem;
 	position: fixed;
-	bottom: 0;
+	bottom: var(--sab, 0);
 	left: 0;
 	width: 100%;
 	opacity: 0%;

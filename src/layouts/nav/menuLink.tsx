@@ -4,8 +4,6 @@ import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
 
-import { paddingHorizontal } from '@utils/style'
-
 type Props = {
 	path: string
 	title: string
@@ -63,10 +61,10 @@ export const Wrap = styled.li`
 	}
 
 	${(p) => p.theme.utils.media.xs} {
+		${(p) => p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs]}
 		position: relative;
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.space[1]});
-		padding: 0 ${paddingHorizontal * 0.5}rem;
 		box-sizing: border-box;
 
 		&:last-of-type {
