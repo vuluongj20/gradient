@@ -29,16 +29,16 @@ const Title = styled.h1`
 `
 
 const DescWrap = styled.p`
-	margin-bottom: 0.6rem;
+	margin-bottom: 0.45em;
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25rem);
 
-	@media ${(p) => p.theme.utils.media.m} {
-		margin-bottom: 0.45rem;
+	${(p) => p.theme.utils.media.m} {
+		margin-bottom: 0.35em;
 	}
 
-	@media ${(p) => p.theme.utils.media.s} {
-		margin-bottom: 0.3rem;
+	${(p) => p.theme.utils.media.s} {
+		margin-bottom: 0.3em;
 	}
 `
 

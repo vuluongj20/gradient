@@ -2,10 +2,10 @@ import { Fragment } from 'react'
 
 import CardGroup from '@components/cardGroup'
 import Divider from '@components/divider'
-import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
 
+import Header from '@pageComponents/home/header'
 import useFeaturedStories from '@pageComponents/home/useFeaturedStories'
 
 import { Section as ISection, Story } from '@types'
