@@ -5,7 +5,7 @@ type Link = {
 	slug: string
 	path: string
 	title: string
-	type?: string
+	isSection?: boolean
 }
 
 const useMenuLinks = () => {
@@ -18,7 +18,7 @@ const useMenuLinks = () => {
 			slug: section.slug,
 			path: section.path,
 			title: section.name,
-			type: 'section',
+			isSection: true,
 		})),
 	]
 

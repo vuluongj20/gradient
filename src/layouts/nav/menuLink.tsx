@@ -7,12 +7,12 @@ import TransitionLink from '@components/transitionLink'
 type Props = {
 	path: string
 	title: string
-	type?: string
+	isSection?: boolean
 	focusable: boolean
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 }
 
-const Link = ({ path, title, type, focusable, toggleMenu }: Props): JSX.Element => {
+const Link = ({ path, title, isSection, focusable, toggleMenu }: Props): JSX.Element => {
 	const location = useLocation()
 	const disabled = location.pathname.startsWith(path)
 
@@ -26,12 +26,7 @@ const Link = ({ path, title, type, focusable, toggleMenu }: Props): JSX.Element 
 			>
 				<ContentBox>
 					<Title>{title}</Title>
-					{type && (
-						<TypeWrap aria-hidden="true">
-							<TypeText>{type}</TypeText>
-							<TypeLine />
-						</TypeWrap>
-					)}
+					{isSection && <Line />}
 				</ContentBox>
 			</InnerWrap>
 		</Wrap>
@@ -154,7 +149,7 @@ const ContentBox = styled.div`
 `
 
 const Title = styled.p`
-	${(p) => p.theme.text.system.h3}
+	${(p) => p.theme.text.system.h4}
 	color: ${(p) => p.theme.heading};
 	margin: 0;
 	transition: color ${(p) => p.theme.animation.fastOut};
@@ -164,34 +159,21 @@ const Title = styled.p`
 	}
 `
 
-const TypeWrap = styled.div`
-	margin-bottom: 0.75rem;
+const Line = styled.div`
+	margin-bottom: 0.625em;
 	margin-right: ${(p) => p.theme.space[0]};
+	width: 3rem;
+	height: 4px;
+	background-color: ${(p) => p.theme.heading};
+	transform-origin: right;
+	transition: 0.375s ${(p) => p.theme.animation.outQuart};
 
-	${(p) => p.theme.utils.media.m} {
-		margin-bottom: 0.7rem;
+	${(p) => p.theme.utils.media.s} {
+		height: 3px;
+		width: 2rem;
 	}
 
 	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
-`
-
-const TypeText = styled.p`
-	font-weight: 500;
-	font-size: 0.875rem;
-	line-height: 1;
-	margin: 0;
-	text-align: right;
-	text-transform: uppercase;
-	color: ${(p) => p.theme.heading};
-	transition: color ${(p) => p.theme.animation.fastOut};
-`
-
-const TypeLine = styled.div`
-	width: 6rem;
-	height: 2px;
-	background-color: ${(p) => p.theme.heading};
-	transform-origin: right;
-	transition: 0.375s ${(p) => p.theme.animation.outQuart};
 `
