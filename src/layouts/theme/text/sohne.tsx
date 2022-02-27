@@ -7,7 +7,7 @@ const sohne: TextScaleDefinition = {
 		fontFamily,
 		fontSizes: { xl: 4.75, l: 4.75, m: 3.875, s: 3, xs: 3 },
 		fontWeight: 600,
-		lineHeight: 1.1,
+		lineHeight: 1.2,
 		letterSpacing: '-0.02em',
 	},
 	h2: {
