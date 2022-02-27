@@ -89,12 +89,7 @@ const Wrap = styled.li`
 	width: 100%;
 	position: relative;
 
-	${(p) => p.theme.utils.media.xs} {
-		position: absolute;
-		top: 50%;
-		left: ${(p) =>
-			p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs].paddingLeft};
-		transform: translateY(-50%);
+	${(p) => p.theme.utils.media.mobile} {
 		width: auto;
 	}
 `
@@ -105,7 +100,7 @@ const Button = styled.button`
 	width: calc(100% - ${(p) => p.theme.space[1]});
 	padding: ${(p) => p.theme.space[0]};
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		width: auto;
 		transform: translateX(-${(p) => p.theme.space[0]});
 	}
@@ -121,7 +116,7 @@ const InnerWrap = styled.div`
 		height: 1.625rem;
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		width: 1.75rem;
 		height: 1.75rem;
 	}

@@ -45,6 +45,9 @@ const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
 				fontSize: `${fontSizes[breakpoint]}rem`,
 			}
 		})
+		result[key][`@media only screen and (max-height: ${breakpoints.s})`] = {
+			fontSize: `${fontSizes.xs}rem`,
+		}
 	})
 
 	return result as TextScale

@@ -52,13 +52,16 @@ const Wrap = styled.ul`
 	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
 	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
+		${(p) => p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs]}
+		align-items: flex-start;
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 3rem;
-		padding-top: var(--sat, 0);
+		padding-top: 0;
+		padding-bottom: 0;
 		background: ${(p) => p.theme.background};
 		border-right: none;
 	}
@@ -68,7 +71,7 @@ const LogoWrap = styled.li`
 	${(p) => p.theme.utils.absCenter};
 	display: none;
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: initial;
 	}
 `
@@ -79,7 +82,7 @@ const Logo = styled(TransitionLink)`
 `
 
 const StyledSettings = styled(Settings)`
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
 `

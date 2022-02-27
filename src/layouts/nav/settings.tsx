@@ -56,6 +56,10 @@ const TriggerInnerWrap = styled.div`
 	&:hover {
 		color: ${(p) => p.theme.heading};
 	}
+
+	${(p) => p.theme.utils.media.mobile} {
+		padding-left: 0;
+	}
 `
 
 const TriggerLabel = styled.span``

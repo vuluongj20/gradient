@@ -60,8 +60,7 @@ export const Wrap = styled.li`
 		box-shadow: 1px 0 0 0 ${(p) => p.theme.line};
 	}
 
-	${(p) => p.theme.utils.media.xs} {
-		${(p) => p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs]}
+	${(p) => p.theme.utils.media.mobile} {
 		position: relative;
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.space[1]});
@@ -104,7 +103,7 @@ const InnerWrap = styled(TransitionLink)`
 		pointer-events: none;
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: block;
 		position: relative;
 		padding: ${(p) => p.theme.space[1]} 0;
@@ -137,7 +136,7 @@ const ContentBox = styled.div`
 		transform: rotate(-90deg) translate(-0.5rem, -50%);
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		position: initial;
 		top: auto;
 		right: auto;
@@ -160,7 +159,7 @@ const Title = styled.p`
 	margin: 0;
 	transition: color ${(p) => p.theme.animation.fastOut};
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		${(p) => p.theme.text.system.h4[p.theme.utils.media.xs]};
 	}
 `
@@ -173,7 +172,7 @@ const TypeWrap = styled.div`
 		margin-bottom: 0.7rem;
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
 `

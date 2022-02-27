@@ -18,18 +18,14 @@ const Wrap = styled.header`
 	padding: ${(p) => p.theme.space[3]} 0;
 	${(p) => p.theme.utils.space.paddingHorizontal};
 
-	${(p) => p.theme.utils.media.xs} {
-		padding: ${(p) => p.theme.space[1]} 0;
+	${(p) => p.theme.utils.media.mobile} {
+		display: none;
 	}
 `
 
 const Title = styled.h1`
 	${(p) => p.theme.text.content.h2};
 	color: ${(p) => p.theme.heading};
-
-	${(p) => p.theme.utils.media.xs} {
-		display: none;
-	}
 `
 
 const DescWrap = styled.p`
@@ -37,16 +33,12 @@ const DescWrap = styled.p`
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25rem);
 
-	${(p) => p.theme.utils.media.m} {
+	@media ${(p) => p.theme.utils.media.m} {
 		margin-bottom: 0.45rem;
 	}
 
-	${(p) => p.theme.utils.media.s} {
+	@media ${(p) => p.theme.utils.media.s} {
 		margin-bottom: 0.3rem;
-	}
-
-	${(p) => p.theme.utils.media.xs} {
-		display: none;
 	}
 `
 

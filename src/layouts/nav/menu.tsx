@@ -8,6 +8,7 @@ import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
 import useBreakpoint from '@utils/hooks/useBreakpoint'
+import useMobile from '@utils/hooks/useMobile'
 import { paddingHorizontal } from '@utils/style'
 
 type Props = {
@@ -33,7 +34,7 @@ const Menu = ({
 	beforeSettingsDialogOpen,
 	afterSettingsDialogClose,
 }: Props): JSX.Element => {
-	const isXS = useBreakpoint('xs')
+	const isMobile = useMobile()
 	const isS = useBreakpoint('s')
 	const links = useMenuLinks()
 
@@ -46,7 +47,7 @@ const Menu = ({
 
 		// On menu OPEN
 		if (isOpen) {
-			if (isXS) {
+			if (isMobile) {
 				gsap.set(`${MenuWrap}`, { x: 0 })
 				gsap.to(`${MenuWrap}`, {
 					y: 0,
@@ -80,7 +81,7 @@ const Menu = ({
 		}
 
 		// On menu CLOSE
-		if (isXS) {
+		if (isMobile) {
 			gsap.to(`${MenuWrap}`, {
 				y: '-100%',
 				clearProps: 'y',
@@ -114,30 +115,32 @@ const Menu = ({
 	useEffect(() => {
 		toggleMenu(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isXS, isS])
+	}, [isMobile, isS])
 
 	return (
 		<MenuWrap aria-hidden={!isOpen} isOpen={isOpen}>
-			<LinksWrap>
-				{links.map((link) => (
-					<MenuLink
-						key={link.slug}
-						focusable={isOpen}
-						toggleMenu={toggleMenu}
-						{...link}
-					/>
-				))}
-			</LinksWrap>
-			<UtilsWrap>
-				<UtilsInnerWrap>
-					<StyledSettings
-						withLabel
-						beforeDialogOpen={beforeSettingsDialogOpen}
-						afterDialogClose={afterSettingsDialogClose}
-						dialogTriggerDisabled={!isOpen}
-					/>
-				</UtilsInnerWrap>
-			</UtilsWrap>
+			<InnerWrap>
+				<LinksWrap>
+					{links.map((link) => (
+						<MenuLink
+							key={link.slug}
+							focusable={isOpen}
+							toggleMenu={toggleMenu}
+							{...link}
+						/>
+					))}
+				</LinksWrap>
+				<UtilsWrap>
+					<UtilsInnerWrap>
+						<StyledSettings
+							withLabel
+							beforeDialogOpen={beforeSettingsDialogOpen}
+							afterDialogClose={afterSettingsDialogClose}
+							dialogTriggerDisabled={!isOpen}
+						/>
+					</UtilsInnerWrap>
+				</UtilsWrap>
+			</InnerWrap>
 		</MenuWrap>
 	)
 }
@@ -157,11 +160,10 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 
 	z-index: -1;
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
+		${(p) => p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs]}
 		position: fixed;
 		width: 100%;
-		flex-direction: column;
-		justify-content: space-between;
 		border-right: none;
 		padding-top: calc(2.5rem + ${(p) => p.theme.space[2]});
 		transform: translateY(-100%);
@@ -176,10 +178,21 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 
 		${(p) => p.isOpen && `opacity: 100%; pointer-events: initial;`}
 
-		${(p) => p.theme.utils.media.xs} {
+		${(p) => p.theme.utils.media.mobile} {
 			width: 100%;
 			transform: none;
 		}
+	}
+`
+
+const InnerWrap = styled.div`
+	${(p) => p.theme.utils.media.mobile} {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		overflow: scroll;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 `
 
@@ -191,20 +204,17 @@ const LinksWrap = styled.ul`
 		display: flex;
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: initial;
 	}
 `
 const UtilsWrap = styled.div`
-	${(p) => p.theme.utils.space.paddingHorizontal};
 	display: none;
-	position: fixed;
-	bottom: var(--sab, 0);
-	left: 0;
 	width: 100%;
 	opacity: 0%;
+	padding-top: ${(p) => p.theme.space[2]};
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: block;
 
 		@media (prefers-reduced-motion) {

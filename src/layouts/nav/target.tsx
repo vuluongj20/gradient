@@ -21,7 +21,7 @@ const OuterWrap = styled.li`
 	height: 1.5rem;
 	flex-shrink: 0;
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
 `

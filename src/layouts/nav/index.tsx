@@ -8,6 +8,7 @@ import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
 import useBreakpoint from '@utils/hooks/useBreakpoint'
+import useMobile from '@utils/hooks/useMobile'
 import useReducedMotion from '@utils/hooks/useReducedMotion'
 
 const Nav = (): JSX.Element => {
@@ -48,13 +49,13 @@ const Nav = (): JSX.Element => {
 		entry: { duration: 0.75, ease: 'power3.inOut' },
 	}
 
-	const isXS = useBreakpoint('xs')
+	const isMobile = useMobile()
 	const isS = useBreakpoint('s')
 
 	useEffect(() => {
 		if (menuOpen) {
 			pageContentRef.current?.setAttribute('aria-hidden', 'true')
-			if (!isXS && !reducedMotion) {
+			if (!isMobile && !reducedMotion) {
 				const animationDistance = isS
 					? `+${menuLinks.length * 5}rem`
 					: `+${menuLinks.length * 6}rem`
@@ -133,7 +134,7 @@ const Wrap = styled.nav`
 		width: 2.5rem;
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		width: 100%;
 		height: 0;
 	}
@@ -162,7 +163,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 		left: 2.5rem;
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
 

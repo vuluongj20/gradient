@@ -56,7 +56,7 @@ const Section = styled.li`
 	width: 100%;
 	height: 100%;
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
 `

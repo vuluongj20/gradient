@@ -93,6 +93,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		m: `@media only screen and (max-width: ${theme.breakpoints.m})`,
 		l: `@media only screen and (max-width: ${theme.breakpoints.l})`,
 		xl: `@media only screen and (max-width: ${theme.breakpoints.xl})`,
+		mobile: `@media only screen and (max-width: ${theme.breakpoints.xs}), only screen and (max-height: ${theme.breakpoints.s})`,
 	},
 	space: {
 		paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),
@@ -109,6 +110,10 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 				paddingRight: `max(${paddingHorizontal}rem, var(--sar, 0px))`,
 			},
 			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
+				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
+			},
+			[`@media only screen and (max-height: ${theme.breakpoints.s})`]: {
 				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
 				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
 			},
