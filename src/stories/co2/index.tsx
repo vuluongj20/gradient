@@ -29,7 +29,6 @@ const dataUrl =
   'https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'
 
 const heroText = [
-  'Industrialization has led to astonishing economic growth in many countries in the world. At the same time, the ever rising demand in energy has led to more coal and fuel burning, animal farming, and artificial deforestation. All of these activities have resulted in significant increases in atmospheric carbon dioxide and other greenhouse gases. But just how quickly have CO₂ levels increased in the last few decades?',
   'The Mauna Loa Observatory in Hawaii has been recording atmospheric CO₂ levels since 1958. The dataset offers great insights into the state of the earth in the past, present, and where it could be in the future.',
 ]
 
