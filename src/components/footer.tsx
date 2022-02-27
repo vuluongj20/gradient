@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
 
+import Divider from '@components/divider'
 import Grid from '@components/grid'
 
 import { Page } from '@types'
@@ -44,6 +45,7 @@ const Footer = ({ inset = false, inverted = false }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider inverted={inverted} inset={inset}>
 			<Wrap>
+				<Divider noMb noMt />
 				<SiteMap as="nav">
 					<Column>
 						<ColLabel>Sections</ColLabel>
@@ -74,6 +76,7 @@ export default Footer
 
 const Wrap = styled.footer`
 	background: ${(p) => p.theme.background};
+	${(p) => p.theme.utils.space.marginTop[7]};
 `
 
 const Link = styled(TransitionLink)`

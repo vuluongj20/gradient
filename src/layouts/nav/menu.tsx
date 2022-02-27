@@ -9,7 +9,6 @@ import useMenuLinks from './useMenuLinks'
 
 import useBreakpoint from '@utils/hooks/useBreakpoint'
 import useMobile from '@utils/hooks/useMobile'
-import { paddingHorizontal } from '@utils/style'
 
 type Props = {
 	isOpen: boolean

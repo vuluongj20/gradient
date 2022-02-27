@@ -3,8 +3,6 @@ import styled from 'styled-components'
 
 import Footer from './footer'
 
-import SectionDivider from '@components/sectionDivider'
-
 type Props = {
 	children: ReactNode
 	footerProps?: {
@@ -17,7 +15,6 @@ const Page = ({ children, footerProps }: Props): JSX.Element => {
 	return (
 		<PageContent>
 			{children}
-			<SectionDivider noMb />
 			<Footer {...footerProps} />
 		</PageContent>
 	)

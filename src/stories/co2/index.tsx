@@ -4,9 +4,9 @@ import styled from 'styled-components'
 
 import Section from './section'
 
+import Divider from '@components/divider'
 import Grid from '@components/grid'
 import Page from '@components/page'
-import SectionDivider from '@components/sectionDivider'
 import TypeArea from '@components/typeArea'
 
 import SettingsContext from '@utils/settingsContext'
@@ -131,10 +131,10 @@ const Main = (): JSX.Element => {
             {vizs.map((viz, i) => {
               return [
                 <Section key={i} data={data} vizData={viz} />,
-                i !== vizs.length - 1 ? <SectionDivider key={i + '-divider'} /> : null,
+                i !== vizs.length - 1 ? <Divider key={i + '-divider'} /> : null,
               ]
             })}
-            <SectionDivider />
+            <Divider />
             <MetaWrap>
               <MetaInnerWrap>
                 {mainContent.meta.map((column, index) => {

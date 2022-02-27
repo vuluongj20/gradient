@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
 
 import CardGroup from '@components/cardGroup'
+import Divider from '@components/divider'
 import Header from '@components/header'
 import Page from '@components/page'
 import Section from '@components/section'
-import SectionDivider from '@components/sectionDivider'
 
 import useFeaturedStories from '@pageComponents/home/useFeaturedStories'
 
@@ -38,7 +38,7 @@ const IndexPage = (): JSX.Element => {
         if (s.stories.length === 0) return null
         return (
           <Fragment key={s.section.slug}>
-            <SectionDivider />
+            <Divider />
             <Section section={s.section} stories={s.stories} />
           </Fragment>
         )

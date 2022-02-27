@@ -12,16 +12,17 @@ type CSSStringUtilName = 'defaultTransitions' | 'lineHeight'
 
 type CSSStringUtil = Record<CSSStringUtilName, string>
 
-type MediaUtil = { media: Record<Breakpoint, string> }
+type MediaUtil = { media: Record<Breakpoint | 'mobile', string> }
 
 type SpacingName =
 	| 'paddingVertical'
 	| 'paddingTop'
 	| 'paddingBottom'
+	| 'paddingHorizontal'
 	| 'marginVertical'
 	| 'marginTop'
 	| 'marginBottom'
-	| 'paddingHorizontal'
+	| 'marginHorizontal'
 
 export type SpacingUtil = { space: Record<SpacingName, CSSObject | CSSObject[]> }
 
@@ -99,9 +100,6 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),
 		paddingTop: generateAdaptiveSpacing(theme, ['paddingTop']),
 		paddingBottom: generateAdaptiveSpacing(theme, ['paddingBottom']),
-		marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
-		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
-		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
 		paddingHorizontal: {
 			paddingLeft: `max(${paddingHorizontal * 2}rem, var(--sal, 0px))`,
 			paddingRight: `max(${paddingHorizontal * 2}rem, var(--sar, 0px))`,
@@ -116,6 +114,29 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 			[`@media only screen and (max-height: ${theme.breakpoints.s})`]: {
 				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
 				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
+			},
+		},
+		marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
+		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
+		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
+		marginHorizontal: {
+			marginLeft: `max(${paddingHorizontal * 2}rem, var(--sal, 0px))`,
+			marginRight: `max(${paddingHorizontal * 2}rem, var(--sar, 0px))`,
+			width: `calc(100% - max(${paddingHorizontal * 2}rem, var(--sal, 0px)) * 2)`,
+			[`@media only screen and (max-width: ${theme.breakpoints.s})`]: {
+				marginLeft: `max(${paddingHorizontal}rem, var(--sal, 0px))`,
+				marginRight: `max(${paddingHorizontal}rem, var(--sar, 0px))`,
+				width: `calc(100% - max(${paddingHorizontal}rem, var(--sal, 0px)) * 2)`,
+			},
+			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
+				marginLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+				marginRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
+				width: `calc(100% - max(${paddingHorizontal * 0.5}rem, var(--sal, 0px)) * 2)`,
+			},
+			[`@media only screen and (max-height: ${theme.breakpoints.s})`]: {
+				marginLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+				marginRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
+				width: `calc(100% - max(${paddingHorizontal * 0.5}rem, var(--sal, 0px)) * 2)`,
 			},
 		},
 	},
