@@ -198,7 +198,7 @@ const HeroHeadingSpan = styled.span`
 
 const HeroText = styled.p`
   margin-bottom: ${(p) => p.theme.space[2]};
-  max-width: 48rem;
+  max-width: 40em;
 `
 
 const MetaWrap = styled.section``
