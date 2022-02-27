@@ -98,11 +98,17 @@ const Wrap = styled(TypeArea)`
     ${(p) => p.theme.utils.space.marginTop[6]};
     ${(p) => p.theme.utils.space.marginBottom[5]};
   }
-  ul {
-    margin-left: ${(p) => p.theme.space[2]};
+  ul,
+  ol {
+    margin-left: ${(p) => p.theme.space[3]};
+  }
+  ul > li {
+    list-style-type: disc;
+  }
+  ol > li {
+    list-style-type: decimal;
   }
   li {
-    list-style-type: disc;
     margin-bottom: ${(p) => p.theme.space[1]};
   }
 
