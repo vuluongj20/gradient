@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     ${(p) => p.theme.text.system.body}; 
+    color: ${(p) => p.theme.body};
     font-feature-settings: 'kern', 'liga';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -42,6 +43,7 @@ const GlobalStyles = createGlobalStyle`
 
   p, a, li, input, label {
     ${(p) => p.theme.text.system.body}; 
+    color: ${(p) => p.theme.body};
     margin: 0;
   }
 
