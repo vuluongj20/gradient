@@ -41,7 +41,6 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 
 	useEffect(() => {
 		setHandleStyles(handleLookup[state.selectedValue])
-		console.log(state.selectedValue)
 	}, [handleLookup, state.selectedValue])
 
 	return (
