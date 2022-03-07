@@ -31,12 +31,9 @@ const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
 	const result = {}
 
 	Object.keys(scale).map((key) => {
-		const { fontFamily, fontWeight, lineHeight, letterSpacing, fontSizes } = scale[key]
+		const { fontSizes, ...rest } = scale[key]
 		result[key] = {
-			fontFamily,
-			fontWeight,
-			lineHeight,
-			letterSpacing,
+			...rest,
 			fontSize: `${fontSizes.xl}rem`,
 		}
 

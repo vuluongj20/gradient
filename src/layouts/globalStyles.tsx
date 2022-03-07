@@ -66,7 +66,7 @@ const GlobalStyles = createGlobalStyle`
     border-radius: ${(p) => p.theme.radii.s};
 
     color: ${(p) => p.theme.link};
-    text-decoration: underline;
+    text-decoration-line: underline;
     text-decoration-color: transparent;
     transition: color ${(p) => p.theme.animation.vFastOut}, 
       box-shadow ${(p) => p.theme.animation.vFastOut};

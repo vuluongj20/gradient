@@ -212,7 +212,7 @@ const DummyTitle = styled.span`
 	${(p) => p.theme.utils.spread};
 
 	color: transparent;
-	text-decoration: underline;
+	text-decoration-line: underline;
 	text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
 	z-index: 0;
 	opacity: 0%;
