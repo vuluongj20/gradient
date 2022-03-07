@@ -37,7 +37,12 @@ const Breadcrumbs = ({ pageTitle }: Props): JSX.Element => {
 		<Section aria-hidden={disabled ? true : false}>
 			<Wrap>
 				<EmDash role="presentation">–</EmDash>
-				<Link to="/" tabIndex={disabled ? -1 : 0} aria-label="Return to home page">
+				<Link
+					to="/"
+					disabled={disabled}
+					tabIndex={disabled ? -1 : 0}
+					aria-label="Return to home page"
+				>
 					Gradient
 				</Link>
 				<PageTitleWrap>
@@ -83,10 +88,12 @@ const EmDash = styled.span`
 	pointer-events: none;
 `
 
-const Link = styled(TransitionLink)`
+const Link = styled(TransitionLink)<{ disabled: boolean }>`
 	font-family: inherit;
 	font-size: inherit;
 	color: inherit;
+
+	${(p) => p.disabled && `&& {color: inherit}`}
 `
 
 const PageTitleWrap = styled.span``
