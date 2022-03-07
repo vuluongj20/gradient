@@ -47,7 +47,7 @@ const Menu = ({
 		// On menu OPEN
 		if (isOpen) {
 			if (isMobile) {
-				gsap.set(`${MenuWrap}`, { x: 0 })
+				gsap.set([`${MenuWrap}`, `${MenuLinkWrap}`], { x: 0 })
 				gsap.to(`${MenuWrap}`, {
 					y: 0,
 					...animations.entry,

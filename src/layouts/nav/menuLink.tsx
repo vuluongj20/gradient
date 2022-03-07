@@ -26,7 +26,7 @@ const Link = ({ path, title, isSection, focusable, toggleMenu }: Props): JSX.Ele
 			>
 				<ContentBox>
 					<Title>{title}</Title>
-					{isSection && <Line />}
+					{isSection && <Line>_</Line>}
 				</ContentBox>
 			</InnerWrap>
 		</Wrap>
@@ -114,7 +114,7 @@ const InnerWrap = styled(TransitionLink)`
 	}
 `
 
-const ContentBox = styled.div`
+const ContentBox = styled.p`
 	display: flex;
 	flex-direction: row-reverse;
 	justify-content: flex-end;
@@ -131,6 +131,9 @@ const ContentBox = styled.div`
 		transform: rotate(-90deg) translate(-0.5rem, -50%);
 	}
 
+	${(p) => p.theme.text.system.h3}
+	color: ${(p) => p.theme.heading};
+
 	${(p) => p.theme.utils.media.mobile} {
 		position: initial;
 		top: auto;
@@ -145,38 +148,18 @@ const ContentBox = styled.div`
 		${/* sc-selector */ InnerWrap}.focus-visible & {
 			transform: translate(0.25rem, 0);
 		}
+
+		${(p) => p.theme.text.system.h5[p.theme.utils.media.xs]};
 	}
 `
 
-const Title = styled.p`
-	${(p) => p.theme.text.system.h3}
-	color: ${(p) => p.theme.heading};
+const Title = styled.span`
 	margin: 0;
-	transition: color ${(p) => p.theme.animation.fastOut};
-
-	${(p) => p.theme.utils.media.mobile} {
-		${(p) => p.theme.text.system.h5[p.theme.utils.media.xs]};
-	}
 `
 
-const Line = styled.div`
-	${(p) => p.theme.text.system.h3}
-
-	${(p) => p.theme.utils.media.mobile} {
-		${(p) => p.theme.text.system.h5[p.theme.utils.media.xs]};
-	}
-	margin-bottom: 0.275em;
-	margin-right: ${(p) => p.theme.space[0]};
-	width: 3rem;
-	height: 4px;
-	background-color: ${(p) => p.theme.heading};
+const Line = styled.span`
 	transform-origin: right;
-	transition: 0.375s ${(p) => p.theme.animation.outQuart};
-
-	${(p) => p.theme.utils.media.s} {
-		height: 3px;
-		width: 2rem;
-	}
+	transform: scaleX(3) translate(0, -0.18em);
 
 	${(p) => p.theme.utils.media.mobile} {
 		display: none;
