@@ -112,8 +112,8 @@ const paper: ColorPalette = {
 		gray7: 'rgba(148, 153, 158, 0.7)',
 		gray8: 'rgba(148, 153, 158, 0.26)',
 		gray9: 'rgba(148, 153, 158, 0.20)',
-		red1: '#E33B12',
-		red2: '#EE542F',
+		red1: '#D53711',
+		red2: '#EE502A',
 		red3: '#F2775A',
 		red4: '#F69E89',
 		red5: '#F9C5B8',
@@ -267,7 +267,7 @@ export const getColorAliases = (
 		linkUnderline: colors.gray7,
 
 		primaryLink: colors.red1,
-		primaryLinkUnderline: colors.red4,
+		primaryLinkUnderline: colors.red5,
 
 		error: colors.red1,
 		success: colors.green1,
