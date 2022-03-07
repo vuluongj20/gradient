@@ -20,11 +20,11 @@ type Props = IconProps & {
 }
 
 const sizes: Record<IconSize, string> = {
-	xs: '0.875rem',
-	s: '1rem',
-	m: '1.125rem',
-	l: '1.25rem',
-	xl: '1.375rem',
+	xs: '14px',
+	s: '16px',
+	m: '18px',
+	l: '20px',
+	xl: '22px',
 }
 
 const SVG = ({
