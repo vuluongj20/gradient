@@ -4,7 +4,7 @@ import SettingsDialog from './settingsDialog'
 
 import Dialog from '@components/dialog'
 
-import IconSettings from '@icons/settings'
+import IconPalette from '@icons/palette'
 
 type Props = {
 	as?: string
@@ -25,13 +25,14 @@ const Settings = ({
 	return (
 		<Wrap className={className}>
 			<Dialog
-				title="Settings"
+				title="Reading Preferences"
 				content={SettingsDialog}
+				contentProps={{ size: 'xs' }}
 				beforeOpen={beforeDialogOpen}
 				afterClose={afterDialogClose}
 				triggerLabel={
 					<TriggerInnerWrap aria-hidden="true">
-						<IconSettings useAlt={!withLabel} />
+						<IconPalette size="xl" useAlt={!withLabel} />
 						{withLabel && <TriggerLabel>Settings</TriggerLabel>}
 					</TriggerInnerWrap>
 				}

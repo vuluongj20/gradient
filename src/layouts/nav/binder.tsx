@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import Breadcrumbs from './breadcrumbs'
 import Hamburger, { HamProps } from './ham'
+import Settings from './settings'
 
-// import Settings from './settings'
 import TransitionLink from '@components/transitionLink'
 
 type Props = HamProps & {
@@ -17,19 +17,19 @@ const Binder = ({
 	toggleMenu,
 	menuOpen,
 	pageTitle,
-}: // beforeSettingsDialogOpen,
-// afterSettingsDialogClose,
-Props): JSX.Element => {
+	beforeSettingsDialogOpen,
+	afterSettingsDialogClose,
+}: Props): JSX.Element => {
 	const location = useLocation()
 	const linkIsDisabled = location.pathname === '/'
 
 	return (
 		<Wrap>
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
-			{/*<StyledSettings
+			<StyledSettings
 				beforeDialogOpen={beforeSettingsDialogOpen}
 				afterDialogClose={afterSettingsDialogClose}
-			/>*/}
+			/>
 			<Breadcrumbs pageTitle={pageTitle} />
 			<LogoWrap aria-hidden={linkIsDisabled}>
 				<Logo to="/" tabIndex={linkIsDisabled ? -1 : 0}>
@@ -83,8 +83,8 @@ const Logo = styled(TransitionLink)`
 	font-weight: 700;
 `
 
-// const StyledSettings = styled(Settings)`
-// 	${(p) => p.theme.utils.media.mobile} {
-// 		display: none;
-// 	}
-// `
+const StyledSettings = styled(Settings)`
+	${(p) => p.theme.utils.media.mobile} {
+		display: none;
+	}
+`
