@@ -12,7 +12,9 @@ import useMobile from '@utils/hooks/useMobile'
 import useReducedMotion from '@utils/hooks/useReducedMotion'
 import { navSize } from '@utils/style'
 
-const Nav = (): JSX.Element => {
+type Props = { pageTitle: string }
+
+const Nav = ({ pageTitle }: Props): JSX.Element => {
 	// Create & intialize refs
 	const focusTrapRef = useRef(null)
 	const pageContentRef = useRef(null)
@@ -102,6 +104,7 @@ const Nav = (): JSX.Element => {
 				aria-hidden={true}
 			/>
 			<Binder
+				pageTitle={pageTitle}
 				toggleMenu={toggleMenu}
 				menuOpen={menuOpen}
 				beforeSettingsDialogOpen={beforeSettingsDialogOpen}

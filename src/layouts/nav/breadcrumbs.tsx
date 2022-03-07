@@ -1,11 +1,37 @@
 import { useLocation } from '@reach/router'
+import gsap from 'gsap'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
 
-const Breadcrumbs = (): JSX.Element => {
+type Props = { pageTitle: string }
+
+const Breadcrumbs = ({ pageTitle }: Props): JSX.Element => {
+	const [internalPageTitle, setInternalPageTitle] = useState(pageTitle)
 	const location = useLocation()
 	const disabled = location.pathname === '/'
+
+	// Animate PageTitle when navigating via TransitionLink
+	useEffect(() => {
+		const shouldTransition = document.body.dataset.transitioning === 'true'
+		const animations = {
+			exit: { duration: 0.75, ease: 'power3.inOut' },
+			entry: { duration: 0.75, ease: 'power3.inOut' },
+		}
+		if (shouldTransition) {
+			gsap.to(`${PageTitle}`, {
+				opacity: 0,
+				...animations.exit,
+				onComplete: () => {
+					setInternalPageTitle(pageTitle)
+					gsap.to(`${PageTitle}`, { opacity: 1, ...animations.entry })
+				},
+			})
+			return
+		}
+		setInternalPageTitle(pageTitle)
+	}, [pageTitle])
 
 	return (
 		<Section aria-hidden={disabled ? true : false}>
@@ -14,6 +40,9 @@ const Breadcrumbs = (): JSX.Element => {
 				<Link to="/" tabIndex={disabled ? -1 : 0} aria-label="Return to home page">
 					Gradient
 				</Link>
+				<PageTitleWrap>
+					<PageTitle>{internalPageTitle ? ` / ${internalPageTitle}` : ''}</PageTitle>
+				</PageTitleWrap>
 			</Wrap>
 		</Section>
 	)
@@ -59,3 +88,7 @@ const Link = styled(TransitionLink)`
 	font-size: inherit;
 	color: inherit;
 `
+
+const PageTitleWrap = styled.span``
+
+const PageTitle = styled.span``

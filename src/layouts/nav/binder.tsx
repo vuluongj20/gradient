@@ -8,6 +8,7 @@ import Hamburger, { HamProps } from './ham'
 import TransitionLink from '@components/transitionLink'
 
 type Props = HamProps & {
+	pageTitle: string
 	beforeSettingsDialogOpen?: () => void
 	afterSettingsDialogClose?: () => void
 }
@@ -15,6 +16,7 @@ type Props = HamProps & {
 const Binder = ({
 	toggleMenu,
 	menuOpen,
+	pageTitle,
 }: // beforeSettingsDialogOpen,
 // afterSettingsDialogClose,
 Props): JSX.Element => {
@@ -28,7 +30,7 @@ Props): JSX.Element => {
 				beforeDialogOpen={beforeSettingsDialogOpen}
 				afterDialogClose={afterSettingsDialogClose}
 			/>*/}
-			<Breadcrumbs />
+			<Breadcrumbs pageTitle={pageTitle} />
 			<LogoWrap aria-hidden={linkIsDisabled}>
 				<Logo to="/" tabIndex={linkIsDisabled ? -1 : 0}>
 					Gradient

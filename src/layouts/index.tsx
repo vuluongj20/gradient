@@ -42,7 +42,7 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 				<GlobalThemeProvider>
 					<OverlayProvider>
 						<GlobalStyles />
-						<Nav />
+						<Nav pageTitle={title} />
 						<PageContent id="page-content">{children}</PageContent>
 					</OverlayProvider>
 				</GlobalThemeProvider>

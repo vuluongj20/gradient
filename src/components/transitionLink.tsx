@@ -29,6 +29,7 @@ const Link = ({
 }: Props): JSX.Element => {
 	const exit = {
 		trigger: ({ node }) => {
+			document.body.dataset.transitioning = 'true'
 			onExit?.()
 			gsap.to(node, { opacity: 0, ...exitTransition })
 		},
@@ -40,7 +41,11 @@ const Link = ({
 		trigger: ({ node }) => {
 			gsap.set(node, { opacity: 0 })
 			document.fonts.ready.then(() => {
-				gsap.to(node, { opacity: 1, ...entryTransition })
+				delete document.body.dataset.transitioning
+				gsap.to(node, {
+					opacity: 1,
+					...entryTransition,
+				})
 			})
 		},
 		duration: 1,
