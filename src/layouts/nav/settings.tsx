@@ -49,7 +49,7 @@ const Wrap = styled.li``
 const TriggerInnerWrap = styled.div`
 	${(p) => p.theme.utils.flexCenter};
 	gap: ${(p) => p.theme.space[0]};
-	color: ${(p) => p.theme.label};
+	color: ${(p) => p.theme.heading};
 	padding: ${(p) => p.theme.space[0]};
 	transition: color ${(p) => p.theme.animation.fastOut};
 

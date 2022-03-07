@@ -149,18 +149,23 @@ const ContentBox = styled.div`
 `
 
 const Title = styled.p`
-	${(p) => p.theme.text.system.h4}
+	${(p) => p.theme.text.system.h3}
 	color: ${(p) => p.theme.heading};
 	margin: 0;
 	transition: color ${(p) => p.theme.animation.fastOut};
 
 	${(p) => p.theme.utils.media.mobile} {
-		${(p) => p.theme.text.system.h4[p.theme.utils.media.xs]};
+		${(p) => p.theme.text.system.h5[p.theme.utils.media.xs]};
 	}
 `
 
 const Line = styled.div`
-	margin-bottom: 0.625em;
+	${(p) => p.theme.text.system.h3}
+
+	${(p) => p.theme.utils.media.mobile} {
+		${(p) => p.theme.text.system.h5[p.theme.utils.media.xs]};
+	}
+	margin-bottom: 0.275em;
 	margin-right: ${(p) => p.theme.space[0]};
 	width: 3rem;
 	height: 4px;

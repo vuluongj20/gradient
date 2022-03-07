@@ -84,8 +84,8 @@ type ColorAliasName =
 	| 'buttonLabelHover'
 	| 'link'
 	| 'linkUnderline'
-	| 'linkHover'
-	| 'linkUnderlineHover'
+	| 'primaryLink'
+	| 'primaryLinkUnderline'
 	| 'success'
 	| 'error'
 
@@ -263,11 +263,11 @@ export const getColorAliases = (
 		activeBackground: colors.red2,
 		onActiveBackground: colors.white,
 
-		link: colors.red1,
-		linkUnderline: colors.red5,
+		link: colors.gray2,
+		linkUnderline: colors.gray7,
 
-		linkHover: colors.red1,
-		linkUnderlineHover: colors.red2,
+		primaryLink: colors.red1,
+		primaryLinkUnderline: colors.red4,
 
 		error: colors.red1,
 		success: colors.green1,

@@ -10,6 +10,7 @@ import useMenuLinks from './useMenuLinks'
 import useBreakpoint from '@utils/hooks/useBreakpoint'
 import useMobile from '@utils/hooks/useMobile'
 import useReducedMotion from '@utils/hooks/useReducedMotion'
+import { navSize } from '@utils/style'
 
 const Nav = (): JSX.Element => {
 	// Create & intialize refs
@@ -122,28 +123,24 @@ export default Nav
 
 const Wrap = styled.nav`
 	position: fixed;
-	width: 3rem;
+	width: ${navSize.width};
 	height: 100%;
 	z-index: ${(p) => p.theme.zIndices.nav};
 
-	@media print {
-		display: none;
-	}
-
-	${(p) => p.theme.utils.media.l} {
-		width: 2.5rem;
-	}
-
 	${(p) => p.theme.utils.media.mobile} {
 		width: 100%;
-		height: 0;
+		height: ${navSize.mobileHeight};
+	}
+
+	@media print {
+		display: none;
 	}
 `
 
 const PageShadow = styled.div<{ active: boolean }>`
 	position: absolute;
 	top: 0;
-	left: 3rem;
+	left: ${navSize.width};
 	width: 100vw;
 	height: 100vh;
 	background: ${(p) => p.theme.background};
@@ -158,10 +155,6 @@ const PageShadow = styled.div<{ active: boolean }>`
 		pointer-events: initial;
 		opacity: 20%;
 		`}
-
-	${(p) => p.theme.utils.media.l} {
-		left: 2.5rem;
-	}
 
 	${(p) => p.theme.utils.media.mobile} {
 		display: none;

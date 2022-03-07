@@ -53,7 +53,7 @@ const sohneMono: TextScaleDefinition = {
 	},
 	label: {
 		fontFamily,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
+		fontSizes: { xl: 0.875, l: 0.875, m: 0.875, s: 0.875, xs: 0.875 },
 		fontWeight: 500,
 		textTransform: 'uppercase',
 		lineHeight: 1.2,

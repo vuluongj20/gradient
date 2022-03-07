@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import { navSize } from '@utils/style'
+
 export type HamProps = {
 	toggleMenu: Dispatch<SetStateAction<boolean>>
 	menuOpen: boolean
@@ -97,7 +99,8 @@ const Wrap = styled.li`
 const Button = styled.button`
 	${(p) => p.theme.utils.flexCenter};
 	box-sizing: border-box;
-	width: calc(100% - ${(p) => p.theme.space[1]});
+	width: calc(${navSize.width} - ${(p) => p.theme.space[1]});
+	height: calc(${navSize.width} - ${(p) => p.theme.space[1]});
 	padding: ${(p) => p.theme.space[0]};
 
 	${(p) => p.theme.utils.media.mobile} {
@@ -108,17 +111,12 @@ const Button = styled.button`
 
 const InnerWrap = styled.div`
 	position: relative;
-	width: 1.75rem;
+	width: 2rem;
 	height: 1.75rem;
 
-	${(p) => p.theme.utils.media.l} {
-		width: 1.625rem;
-		height: 1.625rem;
-	}
-
 	${(p) => p.theme.utils.media.mobile} {
-		width: 1.75rem;
-		height: 1.75rem;
+		width: 1.5rem;
+		height: 1.5rem;
 	}
 `
 

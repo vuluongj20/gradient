@@ -123,13 +123,10 @@ const Wrap = styled(TypeArea)`
   }
 
   a {
-    color: ${(p) => p.theme.link};
-    text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.linkUnderline};
+    color: ${(p) => p.theme.primaryLink};
   }
   a:hover {
-    text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.linkUnderlineHover};
+    text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
   }
 `
 

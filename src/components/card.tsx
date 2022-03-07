@@ -204,7 +204,7 @@ const Title = styled.p`
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	${Wrap}:hover & {
-		color: ${(p) => p.theme.linkHover};
+		color: ${(p) => p.theme.primaryLink};
 	}
 `
 
@@ -213,7 +213,7 @@ const DummyTitle = styled.span`
 
 	color: transparent;
 	text-decoration: underline;
-	text-decoration-color: ${(p) => p.theme.linkUnderlineHover};
+	text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
 	z-index: 0;
 	opacity: 0%;
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
@@ -231,6 +231,6 @@ const Tags = styled.div`
 	text-transform: capitalize;
 
 	${Wrap}:hover & {
-		color: ${(p) => p.theme.linkHover};
+		color: ${(p) => p.theme.primaryLink};
 	}
 `

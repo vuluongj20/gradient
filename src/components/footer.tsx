@@ -79,15 +79,6 @@ const Wrap = styled.footer`
 	${(p) => p.theme.utils.space.marginTop[7]};
 `
 
-const Link = styled(TransitionLink)`
-	color: ${(p) => p.theme.heading};
-
-	&:hover {
-		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.label};
-	}
-`
-
 const SiteMap = styled(Grid)`
 	justify-items: start;
 	${(p) => p.theme.utils.space.paddingVertical[4]};
@@ -154,13 +145,7 @@ const PolicyLink = styled.li`
 	grid-column-end: span 2;
 `
 
-const StyledLink = styled(Link)`
-	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-	}
-
+const StyledLink = styled(TransitionLink)`
 	&:not(:last-child) {
 		margin-bottom: ${(p) => p.theme.space[1]};
 	}

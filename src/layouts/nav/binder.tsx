@@ -1,10 +1,10 @@
 import { useLocation } from '@reach/router'
 import styled from 'styled-components'
 
-import Decorations from './decorations'
+import Breadcrumbs from './breadcrumbs'
 import Hamburger, { HamProps } from './ham'
-import Settings from './settings'
 
+// import Settings from './settings'
 import TransitionLink from '@components/transitionLink'
 
 type Props = HamProps & {
@@ -15,25 +15,25 @@ type Props = HamProps & {
 const Binder = ({
 	toggleMenu,
 	menuOpen,
-	beforeSettingsDialogOpen,
-	afterSettingsDialogClose,
-}: Props): JSX.Element => {
+}: // beforeSettingsDialogOpen,
+// afterSettingsDialogClose,
+Props): JSX.Element => {
 	const location = useLocation()
 	const linkIsDisabled = location.pathname === '/'
 
 	return (
 		<Wrap>
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
-			<Decorations />
+			{/*<StyledSettings
+				beforeDialogOpen={beforeSettingsDialogOpen}
+				afterDialogClose={afterSettingsDialogClose}
+			/>*/}
+			<Breadcrumbs />
 			<LogoWrap aria-hidden={linkIsDisabled}>
 				<Logo to="/" tabIndex={linkIsDisabled ? -1 : 0}>
 					Gradient
 				</Logo>
 			</LogoWrap>
-			<StyledSettings
-				beforeDialogOpen={beforeSettingsDialogOpen}
-				afterDialogClose={afterSettingsDialogClose}
-			/>
 		</Wrap>
 	)
 }
@@ -47,8 +47,8 @@ const Wrap = styled.ul`
 	width: 100%;
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.line};
+	background: ${(p) => p.theme.background};
 	box-sizing: border-box;
-	background: ${(p) => p.theme.iBackground};
 	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
 	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));
 
@@ -81,8 +81,8 @@ const Logo = styled(TransitionLink)`
 	font-weight: 700;
 `
 
-const StyledSettings = styled(Settings)`
-	${(p) => p.theme.utils.media.mobile} {
-		display: none;
-	}
-`
+// const StyledSettings = styled(Settings)`
+// 	${(p) => p.theme.utils.media.mobile} {
+// 		display: none;
+// 	}
+// `

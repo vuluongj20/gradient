@@ -167,11 +167,11 @@ const Wrap = styled(TypeArea)`
 `
 
 const HeroWrap = styled(Grid)`
-  ${(p) => p.theme.utils.space.paddingVertical[8]}
+  ${(p) => p.theme.utils.space.paddingVertical[5]}
 `
 
 const HeroInnerWrap = styled.div`
-  grid-column: 2 / -2;
+  grid-column: 1 / -2;
 
   ${(p) => p.theme.utils.media.m} {
     grid-column: 1 / -2;

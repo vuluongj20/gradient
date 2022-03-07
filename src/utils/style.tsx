@@ -72,6 +72,11 @@ export const space = [
 	'128px',
 ]
 
+export const navSize = {
+	width: '2.5rem',
+	mobileHeight: '3rem',
+}
+
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }
 

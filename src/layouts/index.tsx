@@ -12,16 +12,17 @@ import SEO, { SEOProps } from '@components/seo'
 
 import GlobalThemeProvider from '@utils/globalThemeProvider'
 import { SettingsProvider } from '@utils/settingsContext'
+import { navSize } from '@utils/style'
 
 type Props = {
 	children: ReactNode
-	pageContext: SEOProps
+	pageContext: SEOProps & {
+		frontmatter?: SEOProps
+	}
 }
 
-const Layout = ({
-	children,
-	pageContext: { title, description, author, image },
-}: Props): JSX.Element => {
+const Layout = ({ children, pageContext }: Props): JSX.Element => {
+	const { title, description, author, image } = pageContext.frontmatter ?? pageContext
 	const seo = {
 		title,
 		description,
@@ -67,16 +68,11 @@ const PageContent = styled('main')`
 	position: relative;
 	margin: 0 auto;
 
-	@media not print {
-		padding-left: 3rem;
-	}
-
-	${(p) => p.theme.utils.media.l} {
-		padding-left: 2.5rem;
-	}
+	/* Leave space for nav bar */
+	padding-left: ${navSize.width};
 
 	${(p) => p.theme.utils.media.mobile} {
 		padding-left: 0;
-		padding-top: 3rem;
+		padding-top: ${navSize.mobileHeight};
 	}
 `

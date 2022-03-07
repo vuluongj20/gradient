@@ -62,14 +62,17 @@ const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${(p) => p.theme.body};
-    text-decoration: none;
     cursor: pointer;
     border-radius: ${(p) => p.theme.radii.s};
-    transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
+
+    color: ${(p) => p.theme.link};
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: color ${(p) => p.theme.animation.vFastOut}, 
+      box-shadow ${(p) => p.theme.animation.vFastOut};
   }
   a:hover {
-    text-decoration: none;
+    text-decoration-color: ${(p) => p.theme.linkUnderline};
   }
   a:focus {
     outline: none;

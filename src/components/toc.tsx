@@ -119,11 +119,6 @@ const TocContent = styled.div`
 		color: ${(p) => p.theme.label};
 		font-weight: 400;
 	}
-	li:hover,
-	li:hover > a {
-		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.label};
-	}
 	li.active,
 	li.active > a {
 		font-weight: 500;
