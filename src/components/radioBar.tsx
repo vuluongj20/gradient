@@ -1,15 +1,12 @@
 import { useRadio, useRadioGroup } from '@react-aria/radio'
 import { RadioGroupState, useRadioGroupState } from '@react-stately/radio'
 import { AriaRadioGroupProps, AriaRadioProps } from '@react-types/radio'
-import { ReactNode, RefObject, useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-
-import Tooltip from '@components/tooltip'
 
 type Option = {
 	value: string
 	label: string
-	tooltip?: ReactNode
 }
 type RadioBarProps = AriaRadioGroupProps & {
 	options: Option[]
@@ -80,19 +77,11 @@ const Radio = ({ lastValue, nextValue, state, ...props }: RadioProps) => {
 	const nextOptionIsSelected = state.selectedValue === nextValue
 
 	return (
-		<Tooltip content={props.tooltip} data-radio-value={props.value}>
-			{({ props: tProps, ref: tRef }) => (
-				<RadioWrap
-					isSelected={isSelected}
-					ref={tRef as RefObject<HTMLLabelElement>}
-					{...tProps}
-				>
-					<RadioInput {...inputProps} ref={ref} />
-					{props.children}
-					<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
-				</RadioWrap>
-			)}
-		</Tooltip>
+		<RadioWrap isSelected={isSelected}>
+			<RadioInput {...inputProps} ref={ref} />
+			{props.children}
+			<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
+		</RadioWrap>
 	)
 }
 

@@ -15,10 +15,9 @@ const Dialog = () => {
 		{
 			value: 'auto',
 			label: 'Sync with system',
-			tooltip: "Match your system's active appearance",
 		},
-		{ value: 'light', label: 'Light', tooltip: 'Use light appearance' },
-		{ value: 'dark', label: 'Dark', tooltip: 'Use dark appearance' },
+		{ value: 'light', label: 'Light' },
+		{ value: 'dark', label: 'Dark' },
 	]
 
 	const setAppearance = (option: string) => {

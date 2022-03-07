@@ -1,13 +1,10 @@
 import { ButtonAria, useButton } from '@react-aria/button'
 import { OverlayContainer } from '@react-aria/overlays'
-import { mergeProps } from '@react-aria/utils'
 import { useOverlayTriggerState } from '@react-stately/overlays'
 import { Fragment, ReactNode, RefObject, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 
 import DialogContent, { DialogContentProps } from './dialogContent'
-
-import Tooltip, { TooltipPlacement } from '@components/tooltip'
 
 type TriggerChildrenProps = {
 	props: ButtonAria<unknown>
@@ -31,14 +28,6 @@ type Props = {
 	 * will create and use its own internal ref.
 	 */
 	triggerRef?: RefObject<HTMLButtonElement>
-	/**
-	 * Optional tooltip on trigger element
-	 */
-	triggerTooltip?: string
-	/**
-	 * Placement of optional tooltip on trigger element
-	 */
-	triggerTooltipPlacement?: TooltipPlacement
 	/**
 	 * Whether the trigger is disabled
 	 */
@@ -89,8 +78,6 @@ const Dialog = ({
 	trigger,
 	triggerRef,
 	triggerLabel,
-	triggerTooltip,
-	triggerTooltipPlacement,
 	triggerDisabled,
 	triggerAriaLabel,
 	title,
@@ -145,21 +132,9 @@ const Dialog = ({
 		}
 
 		return (
-			<Tooltip
-				content={triggerTooltip}
-				placement={triggerTooltipPlacement}
-				ref={openButtonRef}
-			>
-				{({ props: tooltipTriggerProps }) => (
-					<button
-						ref={openButtonRef}
-						aria-label={triggerAriaLabel}
-						{...mergeProps(tooltipTriggerProps, openButtonProps)}
-					>
-						{triggerLabel}
-					</button>
-				)}
-			</Tooltip>
+			<button ref={openButtonRef} aria-label={triggerAriaLabel} {...openButtonProps}>
+				{triggerLabel}
+			</button>
 		)
 	}
 
