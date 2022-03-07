@@ -41,6 +41,7 @@ const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
 
 	useEffect(() => {
 		setHandleStyles(handleLookup[state.selectedValue])
+		console.log(state.selectedValue)
 	}, [handleLookup, state.selectedValue])
 
 	return (
@@ -77,7 +78,7 @@ const Radio = ({ lastValue, nextValue, state, ...props }: RadioProps) => {
 	const nextOptionIsSelected = state.selectedValue === nextValue
 
 	return (
-		<RadioWrap isSelected={isSelected}>
+		<RadioWrap isSelected={isSelected} data-radio-value={props.value}>
 			<RadioInput {...inputProps} ref={ref} />
 			{props.children}
 			<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
