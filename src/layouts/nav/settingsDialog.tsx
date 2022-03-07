@@ -3,10 +3,6 @@ import styled from 'styled-components'
 
 import RadioBar from '@components/radioBar'
 
-import IconAccount from '@icons/account'
-import IconPalette from '@icons/palette'
-import IconShield from '@icons/shield'
-
 import SettingsContext from '@utils/settingsContext'
 
 const Dialog = () => {
@@ -54,6 +50,6 @@ const Section = styled.section`
 `
 
 const SectionTitle = styled.h3`
-	${(p) => p.theme.text.system.h5};
+	${(p) => p.theme.text.system.h6};
 	margin-bottom: ${(p) => p.theme.space[1]};
 `

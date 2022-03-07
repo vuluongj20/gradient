@@ -178,5 +178,5 @@ const StyledIconClose = styled(IconClose)`
 `
 
 const Title = styled.h2<{ compact: boolean }>`
-	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h4)};
+	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h5)};
 `

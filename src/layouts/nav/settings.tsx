@@ -25,7 +25,7 @@ const Settings = ({
 	return (
 		<Wrap className={className}>
 			<Dialog
-				title="Reading Preferences"
+				title="Theme Settings"
 				content={SettingsDialog}
 				contentProps={{ size: 'xs' }}
 				beforeOpen={beforeDialogOpen}
