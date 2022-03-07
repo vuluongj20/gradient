@@ -5,7 +5,10 @@ import { ColorAliases, ColorPalette } from '@theme/colors'
 
 type ColorProp = ColorPalette['colors'] | ColorAliases | 'currentColor'
 
+type IconSize = 'xs' | 's' | 'm' | 'l' | 'xl'
+
 export type IconProps = {
+	size?: IconSize
 	color?: ColorProp
 	className?: string
 	useAlt?: boolean
@@ -16,7 +19,16 @@ type Props = IconProps & {
 	children: ReactNode
 }
 
+const sizes: Record<IconSize, string> = {
+	xs: '0.875rem',
+	s: '1rem',
+	m: '1.125rem',
+	l: '1.25rem',
+	xl: '1.375rem',
+}
+
 const SVG = ({
+	size = 'm',
 	color = 'currentColor',
 	className,
 	alt,
@@ -26,8 +38,8 @@ const SVG = ({
 	return (
 		<StyledSVG
 			xmlns="http://www.w3.org/2000/svg"
-			width="18px"
-			height="18px"
+			width={sizes[size]}
+			height={sizes[size]}
 			viewBox="0 0 24 24"
 			className={className}
 			$color={color}
