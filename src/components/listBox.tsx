@@ -70,7 +70,6 @@ const StyledListBox = styled.ul`
 `
 
 const StyledItem = styled.li<StyledItemProps>`
-  ${(p) => p.theme.text.system.label};
   cursor: pointer;
   outline: none;
   color: ${(p) => p.theme.body};

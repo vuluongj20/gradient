@@ -101,6 +101,7 @@ const Wrap = styled.div`
 `
 
 const Trigger = styled.button`
+	font-weight: 400;
 	padding: ${(p) => p.theme.space[1]} 0;
 `
 
