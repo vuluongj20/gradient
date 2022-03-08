@@ -9,6 +9,8 @@ import { Node } from '@react-types/shared'
 import { useRef } from 'react'
 import styled from 'styled-components'
 
+import IconDone from '@icons/done'
+
 type ListBoxProps = AriaListBoxOptions<unknown> & {
   state: SelectState<unknown>
 }
@@ -56,24 +58,30 @@ const Item = (props: ItemProps) => {
       isDisabled={isDisabled}
       ref={ref}
     >
-      {item.rendered}
+      <CheckIndent aria-hidden="true" visible={isSelected}>
+        <IconDone />
+      </CheckIndent>
+      <ItemLabel>{item.rendered}</ItemLabel>
     </StyledItem>
   )
 }
 
 const StyledListBox = styled.ul`
-  list-style-type: none;
   padding: 0;
   margin: 0;
   min-width: 8rem;
   border-radius: ${(p) => p.theme.radii.m};
+  list-style-type: none;
 `
 
 const StyledItem = styled.li<StyledItemProps>`
+  display: flex;
+  align-items: center;
   cursor: pointer;
   outline: none;
   color: ${(p) => p.theme.body};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
+  padding-left: ${(p) => p.theme.space[1]};
   border-radius: ${(p) => p.theme.radii.m};
   transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s;
   white-space: nowrap;
@@ -86,3 +94,16 @@ const StyledItem = styled.li<StyledItemProps>`
 
   ${(p) => p.isSelected && `color: ${p.theme.activeText};`}
 `
+
+const CheckIndent = styled.div<{ visible: boolean }>`
+  ${(p) => p.theme.utils.flexCenter};
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: ${(p) => p.theme.space[0]};
+  opacity: 0%;
+  transition: opacity ${(p) => p.theme.animation.mediumOut};
+
+  ${(p) => p.visible && `opacity:100%;`};
+`
+
+const ItemLabel = styled.span``

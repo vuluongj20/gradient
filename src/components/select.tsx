@@ -10,6 +10,8 @@ import Dialog from '@components/dialog'
 import ListBox from '@components/listBox'
 import Popover from '@components/popover'
 
+import IconExpandMore from '@icons/expandMore'
+
 import useBreakpoint from '@utils/hooks/useBreakpoint'
 
 type Props = SelectProps<object> & {
@@ -45,7 +47,7 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 				<span {...valueProps} aria-hidden="true">
 					{label}
 				</span>
-				<TriggerArrow aria-hidden="true">▼</TriggerArrow>
+				<IconExpandMore aria-hidden="true" />
 			</Trigger>
 		)
 	}
@@ -101,11 +103,7 @@ const Wrap = styled.div`
 `
 
 const Trigger = styled.button`
-	font-weight: 400;
+	display: flex;
+	align-items: center;
 	padding: ${(p) => p.theme.space[1]} 0;
-`
-
-const TriggerArrow = styled.span`
-	margin-left: ${(p) => p.theme.space[0]};
-	font-size: 0.75rem;
 `
