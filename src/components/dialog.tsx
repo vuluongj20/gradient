@@ -1,13 +1,13 @@
 import { ButtonAria, useButton } from '@react-aria/button'
 import { OverlayContainer } from '@react-aria/overlays'
 import { useOverlayTriggerState } from '@react-stately/overlays'
-import { Fragment, ReactNode, RefObject, useRef } from 'react'
+import { ButtonHTMLAttributes, Fragment, ReactNode, RefObject, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 
 import DialogContent, { DialogContentProps } from './dialogContent'
 
 type TriggerChildrenProps = {
-	props: ButtonAria<unknown>
+	props: ButtonHTMLAttributes<HTMLButtonElement>
 	ref: RefObject<HTMLElement>
 }
 

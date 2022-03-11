@@ -3,11 +3,10 @@ import gsap from 'gsap'
 import { HTMLAttributes, ReactNode } from 'react'
 import styled from 'styled-components'
 
-type Props = HTMLAttributes<HTMLAnchorElement> & {
+type Props = HTMLAttributes<HTMLElement> & {
 	to: string
 	children: ReactNode
 	onExit?: () => void
-	onClick?: () => void
 }
 
 const exitTransition = { duration: 0.75, ease: 'power3.inOut' }

@@ -12,7 +12,10 @@ export type HamProps = {
 
 const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 	const ref = useRef()
-	const { buttonProps } = useButton({ onPress: () => toggleMenu(!menuOpen) }, ref)
+	const { buttonProps } = useButton(
+		{ elementType: 'button', onPress: () => toggleMenu(!menuOpen) },
+		ref,
+	)
 
 	/** Initialize hamburger animation */
 	const hamTimeline = useRef<gsap.core.Timeline>()
