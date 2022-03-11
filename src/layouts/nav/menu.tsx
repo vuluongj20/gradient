@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import styled from 'styled-components'
 
 import MenuLink, { Wrap as MenuLinkWrap } from './menuLink'
-import Settings from './settings'
+// import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
 import useBreakpoint from '@utils/hooks/useBreakpoint'
@@ -30,9 +30,9 @@ const Menu = ({
 	animations,
 	reducedMotion,
 	toggleMenu,
-	beforeSettingsDialogOpen,
-	afterSettingsDialogClose,
-}: Props): JSX.Element => {
+}: // beforeSettingsDialogOpen,
+// afterSettingsDialogClose,
+Props): JSX.Element => {
 	const isMobile = useMobile()
 	const isS = useBreakpoint('s')
 	const links = useMenuLinks()
@@ -129,7 +129,7 @@ const Menu = ({
 						/>
 					))}
 				</LinksWrap>
-				<UtilsWrap>
+				{/*<UtilsWrap>
 					<UtilsInnerWrap>
 						<StyledSettings
 							withLabel
@@ -138,7 +138,7 @@ const Menu = ({
 							dialogTriggerDisabled={!isOpen}
 						/>
 					</UtilsInnerWrap>
-				</UtilsWrap>
+				</UtilsWrap>*/}
 			</InnerWrap>
 		</MenuWrap>
 	)
@@ -222,15 +222,15 @@ const UtilsWrap = styled.div`
 	}
 `
 
-const UtilsInnerWrap = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: stretch;
-	gap: ${(p) => p.theme.space[1]};
-	padding: ${(p) => p.theme.space[2]} 0;
-	border-top: solid 1px ${(p) => p.theme.line};
-`
+// const UtilsInnerWrap = styled.div`
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: stretch;
+// 	gap: ${(p) => p.theme.space[1]};
+// 	padding: ${(p) => p.theme.space[2]} 0;
+// 	border-top: solid 1px ${(p) => p.theme.line};
+// `
 
-const StyledSettings = styled(Settings)`
-	transform: translateX(-${(p) => p.theme.space[0]});
-`
+// const StyledSettings = styled(Settings)`
+// 	transform: translateX(-${(p) => p.theme.space[0]});
+// `
