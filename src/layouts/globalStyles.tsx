@@ -71,7 +71,7 @@ const GlobalStyles = createGlobalStyle`
     transition: color ${(p) => p.theme.animation.vFastOut}, 
       box-shadow ${(p) => p.theme.animation.vFastOut};
   }
-  a:hover {
+  a:hover:not([data-no-underline="true"]) {
     text-decoration-color: ${(p) => p.theme.linkUnderline};
   }
   a:focus {

@@ -20,9 +20,9 @@ const Link = ({ path, title, isSection, focusable, toggleMenu }: Props): JSX.Ele
 		<Wrap onClick={() => disabled && toggleMenu(false)}>
 			<InnerWrap
 				to={path}
-				className="nav-link-wrap"
 				tabIndex={focusable ? 0 : -1}
 				onExit={() => toggleMenu(false)}
+				data-no-underline
 			>
 				<ContentBox>
 					<Title>{title}</Title>

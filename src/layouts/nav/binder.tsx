@@ -32,7 +32,7 @@ Props): JSX.Element => {
 			/>*/}
 			<Breadcrumbs pageTitle={pageTitle} />
 			<LogoWrap aria-hidden={linkIsDisabled}>
-				<Logo to="/" tabIndex={linkIsDisabled ? -1 : 0}>
+				<Logo to="/" tabIndex={linkIsDisabled ? -1 : 0} data-no-underline>
 					Gradient
 				</Logo>
 			</LogoWrap>
