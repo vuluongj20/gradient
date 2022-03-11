@@ -100,7 +100,7 @@ const CheckIndent = styled.div<{ visible: boolean }>`
   width: 1.2rem;
   height: 1.2rem;
   margin-right: ${(p) => p.theme.space[0]};
-  opacity: 0%;
+  opacity: 0;
   transition: opacity ${(p) => p.theme.animation.mediumOut};
 
   ${(p) => p.visible && `opacity:100%;`};

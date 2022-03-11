@@ -149,7 +149,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 	background: ${(p) => p.theme.background};
 	z-index: -1;
 	pointer-events: none;
-	opacity: 0%;
+	opacity: 0;
 	transition: opacity ${(p) => p.theme.animation.slowInOut};
 
 	${(p) =>

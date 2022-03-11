@@ -45,7 +45,7 @@ export const Wrap = styled.li`
 	background: ${(p) => p.theme.background};
 	margin: 0;
 	text-decoration: none;
-	opacity: 0%;
+	opacity: 0;
 
 	${(p) => p.theme.utils.media.s} {
 		width: 5rem;
@@ -72,7 +72,7 @@ export const Wrap = styled.li`
 
 	@media (prefers-reduced-motion) {
 		position: relative;
-		opacity: 100%;
+		opacity: 1;
 	}
 `
 

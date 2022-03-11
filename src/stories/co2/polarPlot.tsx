@@ -778,7 +778,7 @@ const Wrap = styled.div`
   .grid-circle {
     fill: none;
     stroke: ${(p) => p.theme.line};
-    opacity: 80%;
+    opacity: 0.8;
     stroke-width: 1;
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
@@ -786,18 +786,18 @@ const Wrap = styled.div`
   .r.tick.secondary,
   .grid-circle.off,
   .r.tick.off {
-    opacity: 0%;
+    opacity: 0;
   }
   .grid-circle.secondary.on,
   .r.tick.secondary.on {
-    opacity: 100%;
+    opacity: 1;
   }
 
   .data-line {
     stroke-linejoin: round;
     fill: none;
     stroke: ${(p) => p.theme.label};
-    opacity: 80%;
+    opacity: 0.8;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
@@ -806,10 +806,10 @@ const Wrap = styled.div`
   }
   .winter.stretch {
     fill: var(--cool);
-    opacity: 40%;
+    opacity: 0.4;
   }
   .summer.stretch {
     fill: var(--warm);
-    opacity: 40%;
+    opacity: 0.4;
   }
 `

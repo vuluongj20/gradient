@@ -65,7 +65,7 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
   padding: ${(p) => p.theme.space[0]};
   box-shadow: 0 0 0 1px ${(p) => p.theme.oLine}, ${(p) => p.theme.shadows.l};
   transition: ${(p) => p.theme.animation.fastOut};
-  opacity: 0%;
+  opacity: 0;
   will-change: opacity, transform;
   z-index: ${(p) => p.theme.zIndices.popover};
 
@@ -78,7 +78,7 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
 
   &.entering,
   &.entered {
-    opacity: 100%;
+    opacity: 1;
     transform: translate(-${(p) => p.theme.space[2]}, 0);
 
     ${(p) => p.placement === 'top' && `transform: translate3d(0, 0, 0)`};
@@ -88,7 +88,7 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
   }
 
   &.exiting {
-    opacity: 0%;
+    opacity: 0;
 
     ${(p) => p.placement === 'top' && `transform: translate3d(0, 0, 0)`};
     ${(p) => p.placement === 'bottom' && `transform: translate3d(0, 0, 0)`};

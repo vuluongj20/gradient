@@ -171,11 +171,11 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 	@media (prefers-reduced-motion) {
 		width: auto;
 		pointer-events: none;
-		opacity: 0%;
+		opacity: 0;
 		transition: opacity ${(p) => p.theme.animation.mediumOut};
 		box-shadow: ${(p) => p.theme.shadows.l};
 
-		${(p) => p.isOpen && `opacity: 100%; pointer-events: initial;`}
+		${(p) => p.isOpen && `opacity: 1; pointer-events: initial;`}
 
 		${(p) => p.theme.utils.media.mobile} {
 			width: 100%;
@@ -210,14 +210,14 @@ const LinksWrap = styled.ul`
 const UtilsWrap = styled.div`
 	display: none;
 	width: 100%;
-	opacity: 0%;
+	opacity: 0;
 	padding-top: ${(p) => p.theme.space[2]};
 
 	${(p) => p.theme.utils.media.mobile} {
 		display: block;
 
 		@media (prefers-reduced-motion) {
-			opacity: 100%;
+			opacity: 1;
 		}
 	}
 `

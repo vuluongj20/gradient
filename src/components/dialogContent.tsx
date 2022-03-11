@@ -80,17 +80,17 @@ const OuterWrap = styled.div`
 	right: 0;
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 	transform: translateZ(0);
-	opacity: 0%;
+	opacity: 0;
 	will-change: opacity;
 	z-index: ${(p) => p.theme.zIndices.dialog};
 
 	&.entering,
 	&.entered {
-		opacity: 100%;
+		opacity: 1;
 	}
 
 	&.exiting {
-		opacity: 0%;
+		opacity: 0;
 	}
 `
 

@@ -212,10 +212,10 @@ const DummyTitle = styled.span<{ isHovered: boolean }>`
 	text-decoration-line: underline;
 	text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
 	z-index: 0;
-	opacity: 0%;
+	opacity: 0;
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
 
-	${(p) => p.isHovered && `opacity: 100%;`}
+	${(p) => p.isHovered && `opacity: 1;`}
 `
 
 const Tags = styled.div<{ isHovered: boolean }>`

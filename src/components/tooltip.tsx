@@ -133,7 +133,7 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   border-radius: ${(p) => p.theme.radii.s};
   box-shadow: ${(p) => p.theme.shadows.l};
   z-index: ${(p) => p.theme.zIndices.tooltip};
-  opacity: 0%;
+  opacity: 0;
   transition: ${(p) => p.theme.utils.defaultTransitions},
     opacity ${(p) => p.theme.animation.fastOut},
     transform ${(p) => p.theme.animation.fastOut};
@@ -154,12 +154,12 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
 
   &.enter-active,
   &.enter-done {
-    opacity: 100%;
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
   &.exit-active {
-    opacity: 0%;
+    opacity: 0;
   }
 `
 

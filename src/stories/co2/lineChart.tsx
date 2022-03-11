@@ -1249,7 +1249,7 @@ const Wrap = styled.div`
   }
   .grid line {
     stroke: ${(p) => p.theme.line};
-    opacity: 80%;
+    opacity: 0.8;
     stroke-width: 1;
   }
 
@@ -1261,7 +1261,7 @@ const Wrap = styled.div`
   }
   .data-line.faded {
     stroke: ${(p) => p.theme.label};
-    opacity: 20%;
+    opacity: 0.2;
   }
   .reg-line {
     stroke: var(--theme);
@@ -1274,7 +1274,7 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.label};
   }
   .hover-data-circle {
-    opacity: 0%;
+    opacity: 0;
     fill: var(--theme);
   }
   .hover-data-circle.out {

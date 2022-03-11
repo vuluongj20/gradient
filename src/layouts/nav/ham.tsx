@@ -161,7 +161,7 @@ const CrossLineNegWrap = styled(CrossLineWrap)`
 `
 
 const CrossLineInner = styled(Line)`
-	opacity: 100%;
+	opacity: 1;
 	transform-origin: left;
 	transform: scaleX(0);
 `

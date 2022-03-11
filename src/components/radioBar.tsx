@@ -105,14 +105,14 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 	background: ${(p) => p.theme.activeBackground};
 	border-radius: ${(p) => p.theme.radii.m};
 	box-shadow: ${(p) => p.theme.shadows.m};
-	opacity: 0%;
+	opacity: 0;
 	transition: transform ${(p) => p.theme.animation.fastOut},
 		width ${(p) => p.theme.animation.fastOut}, opacity ${(p) => p.theme.animation.fastOut};
 
 	${(p) =>
 		(p.left || p.width) &&
 		`
-		opacity: 100%;
+		opacity: 1;
 		transform: translateX(${p.left}px);
 		width: ${p.width}px;
 	`}
@@ -135,7 +135,7 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 			border-radius: ${(p) => p.theme.radii.m};
 			background: ${(p) => p.theme.activeBackground};
 			z-index: -1;
-			opacity: 0%;
+			opacity: 0;
 			transition: opacity ${(p) => p.theme.animation.mediumOut};
 		}
 	}
@@ -149,7 +149,7 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 
 		@media (prefers-reduced-motion) {
 			&::after {
-				opacity: 100%;
+				opacity: 1;
 			}
 		}
 	`}
@@ -165,7 +165,7 @@ const Divider = styled.div<{ visible: boolean }>`
 	border-right: solid 1px ${(p) => p.theme.line};
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
-	${(p) => !p.visible && `opacity: 0%;`}
+	${(p) => !p.visible && `opacity: 0;`}
 `
 
 const RadioInput = styled.input`

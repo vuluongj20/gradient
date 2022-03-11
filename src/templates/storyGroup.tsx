@@ -167,15 +167,15 @@ const Results = styled(Grid)`
 	grid-row-gap: ${(p) => p.theme.space[3]};
 
 	&.enter {
-		opacity: 0%;
+		opacity: 0;
 	}
 	&.enter-active,
 	&.enter-done {
 		transition: opacity ${(p) => p.theme.animation.fastOut};
-		opacity: 100%;
+		opacity: 1;
 	}
 	&.exit-active {
 		transition: opacity ${(p) => p.theme.animation.vFastIn};
-		opacity: 0%;
+		opacity: 0;
 	}
 `
