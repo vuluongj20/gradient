@@ -1,7 +1,8 @@
-import { useHover } from '@react-aria/interactions'
+import { useHover, usePress } from '@react-aria/interactions'
+import { mergeProps } from '@react-aria/utils'
 import { VisuallyHidden } from '@react-aria/visually-hidden'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
@@ -63,10 +64,21 @@ const Card = ({
 
 	const { hoverProps, isHovered } = useHover({})
 
+	const [pressed, setPressed] = useState(false)
+	const { pressProps } = usePress({ onPress: () => setPressed(true) })
+	const active = isHovered || pressed
+
 	const imageData = getImage(image.src)
 
 	return (
-		<Wrap to={path} $rowLayout={rowLayout} $gridCols={gridCols} {...hoverProps}>
+		<Wrap
+			to={path}
+			$rowLayout={rowLayout}
+			$gridCols={gridCols}
+			pressed={pressed}
+			onClick={() => setPressed(true)}
+			{...mergeProps(hoverProps, pressProps)}
+		>
 			<StyledInnerGrid rowLayout={rowLayout}>
 				<ImageWrap rowLayout={rowLayout} aria-hidden="true">
 					<StyledGatsbyImage
@@ -79,13 +91,13 @@ const Card = ({
 				</ImageWrap>
 
 				<TitleWrap rowLayout={rowLayout}>
-					<Title isHovered={isHovered}>
-						<DummyTitle isHovered={isHovered} aria-hidden="true">
+					<Title active={active}>
+						<DummyTitle active={active} aria-hidden="true">
 							{title}
 						</DummyTitle>
 						{title}
 					</Title>
-					<Tags isHovered={isHovered}>
+					<Tags active={active}>
 						<VisuallyHidden elementType="span">{`In:`}</VisuallyHidden>
 						{sectionNames}
 					</Tags>
@@ -100,6 +112,7 @@ export default memo(Card)
 const Wrap = styled(TransitionLink)<{
 	$gridCols: AdaptiveGridColumns
 	$rowLayout: boolean
+	pressed: boolean
 }>`
 	display: block;
 	position: relative;
@@ -194,7 +207,7 @@ const TitleWrap = styled.div<{ rowLayout: boolean }>`
 	}
 `
 
-const Title = styled.p<{ isHovered: boolean }>`
+const Title = styled.p<{ active: boolean }>`
 	${(p) => p.theme.text.content.h5};
 
 	position: relative;
@@ -202,10 +215,10 @@ const Title = styled.p<{ isHovered: boolean }>`
 	color: ${(p) => p.theme.heading};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
-	${(p) => p.isHovered && `color: ${p.theme.primaryLink};`}
+	${(p) => p.active && `color: ${p.theme.primaryLink};`}
 `
 
-const DummyTitle = styled.span<{ isHovered: boolean }>`
+const DummyTitle = styled.span<{ active: boolean }>`
 	${(p) => p.theme.utils.spread};
 
 	color: transparent;
@@ -215,15 +228,15 @@ const DummyTitle = styled.span<{ isHovered: boolean }>`
 	opacity: 0;
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
 
-	${(p) => p.isHovered && `opacity: 1;`}
+	${(p) => p.active && `opacity: 1;`}
 `
 
-const Tags = styled.div<{ isHovered: boolean }>`
+const Tags = styled.div<{ active: boolean }>`
 	${(p) => p.theme.text.system.label};
 	color: ${(p) => p.theme.label};
 	margin-top: ${(p) => p.theme.space[0]};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 	text-transform: capitalize;
 
-	${(p) => p.isHovered && `color: ${p.theme.primaryLink};`}
+	${(p) => p.active && `color: ${p.theme.primaryLink};`}
 `
