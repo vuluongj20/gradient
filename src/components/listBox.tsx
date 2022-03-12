@@ -82,7 +82,7 @@ const StyledItem = styled.li<StyledItemProps>`
   color: ${(p) => p.theme.body};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   padding-left: ${(p) => p.theme.space[1]};
-  border-radius: ${(p) => p.theme.radii.m};
+  border-radius: ${(p) => p.theme.radii.s};
   transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s;
   white-space: nowrap;
 
