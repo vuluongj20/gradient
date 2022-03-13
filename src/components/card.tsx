@@ -12,7 +12,7 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, Image, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
-import { gridColCounts, numericBreakpoints } from '@utils/style'
+import { fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
 
 type Props = Story & {
 	path: string
@@ -115,6 +115,8 @@ const Wrap = styled(TransitionLink)<{
 	position: relative;
 	width: 100%;
 	text-decoration: none;
+	opacity: 0;
+	animation: ${fadeIn} ${(p) => p.theme.animation.mediumOut} forwards;
 
 	align-self: start;
 	border-radius: ${(p) => p.theme.radii.m};
