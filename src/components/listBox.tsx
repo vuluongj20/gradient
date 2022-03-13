@@ -79,6 +79,7 @@ const StyledItem = styled.li<StyledItemProps>`
   align-items: center;
   cursor: pointer;
   outline: none;
+  font-weight: 500;
   color: ${(p) => p.theme.body};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   padding-left: ${(p) => p.theme.space[1]};
