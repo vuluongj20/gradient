@@ -171,19 +171,16 @@ const HeroWrap = styled(Grid)`
 `
 
 const HeroInnerWrap = styled.div`
-  grid-column: 1 / -2;
+  grid-column: 2 / -2;
 
   ${(p) => p.theme.utils.media.m} {
-    grid-column: 1 / -2;
-  }
-
-  ${(p) => p.theme.utils.media.s} {
     grid-column: 1 / -1;
   }
 `
 
 const HeroHeading = styled.h1`
   margin-bottom: ${(p) => p.theme.space[4]};
+  max-width: 10em;
 `
 
 const HeroHeadingSpan = styled.span`
