@@ -146,7 +146,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 	left: ${navSize.width};
 	width: 100vw;
 	height: 100vh;
-	background: ${(p) => p.theme.background};
+	background: ${(p) => p.theme.hoverBackground};
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0;
@@ -156,7 +156,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 		p.active &&
 		`
 		pointer-events: initial;
-		opacity: 20%;
+		opacity: 30%;
 		`}
 
 	${(p) => p.theme.utils.media.mobile} {
