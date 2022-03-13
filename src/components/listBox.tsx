@@ -80,11 +80,12 @@ const StyledItem = styled.li<StyledItemProps>`
   cursor: pointer;
   outline: none;
   font-weight: 500;
-  color: ${(p) => p.theme.body};
+  color: ${(p) => p.theme.heading};
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   padding-left: ${(p) => p.theme.space[1]};
   border-radius: ${(p) => p.theme.radii.s};
-  transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s;
+  transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s,
+    color ${(p) => p.theme.animation.mediumIn};
   white-space: nowrap;
 
   && {
