@@ -49,7 +49,7 @@ const Wrap = styled.ul`
 	width: 100%;
 	height: 100%;
 	border-right: solid 1px ${(p) => p.theme.line};
-	background: ${(p) => p.theme.background};
+	background: ${(p) => p.theme.iBackground};
 	box-sizing: border-box;
 	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
 	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));

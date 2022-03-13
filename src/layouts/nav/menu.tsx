@@ -52,10 +52,10 @@ Props): JSX.Element => {
 					y: 0,
 					...animations.entry,
 				})
-				gsap.to(`${UtilsWrap}`, {
-					opacity: 1,
-					...animations.entry,
-				})
+				// gsap.to(`${UtilsWrap}`, {
+				// 	opacity: 1,
+				// 	...animations.entry,
+				// })
 				gsap.fromTo(
 					`${MenuLinkWrap}`,
 					{ opacity: 0, scaleX: 0.75 },
@@ -86,11 +86,11 @@ Props): JSX.Element => {
 				clearProps: 'y',
 				...animations.exit,
 			})
-			gsap.to(`${UtilsWrap}`, {
-				opacity: 0,
-				clearProps: 'opacity',
-				...animations.exit,
-			})
+			// gsap.to(`${UtilsWrap}`, {
+			// 	opacity: 0,
+			// 	clearProps: 'opacity',
+			// 	...animations.exit,
+			// })
 			gsap.to(`${MenuLinkWrap}`, {
 				opacity: 0,
 				clearProps: 'opacity',
@@ -207,20 +207,20 @@ const LinksWrap = styled.ul`
 		display: initial;
 	}
 `
-const UtilsWrap = styled.div`
-	display: none;
-	width: 100%;
-	opacity: 0;
-	padding-top: ${(p) => p.theme.space[2]};
+// const UtilsWrap = styled.div`
+// 	display: none;
+// 	width: 100%;
+// 	opacity: 0;
+// 	padding-top: ${(p) => p.theme.space[2]};
 
-	${(p) => p.theme.utils.media.mobile} {
-		display: block;
+// 	${(p) => p.theme.utils.media.mobile} {
+// 		display: block;
 
-		@media (prefers-reduced-motion) {
-			opacity: 1;
-		}
-	}
-`
+// 		@media (prefers-reduced-motion) {
+// 			opacity: 1;
+// 		}
+// 	}
+// `
 
 // const UtilsInnerWrap = styled.div`
 // 	display: flex;
