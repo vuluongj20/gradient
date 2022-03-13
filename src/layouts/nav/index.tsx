@@ -126,6 +126,7 @@ export default Nav
 
 const Wrap = styled.nav`
 	position: fixed;
+	top: 0;
 	width: ${navSize.width};
 	height: 100%;
 	z-index: ${(p) => p.theme.zIndices.nav};
