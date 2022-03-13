@@ -75,8 +75,6 @@ const Card = ({
 			to={path}
 			$rowLayout={rowLayout}
 			$gridCols={gridCols}
-			pressed={pressed}
-			onClick={() => setPressed(true)}
 			{...mergeProps(hoverProps, pressProps)}
 		>
 			<StyledInnerGrid rowLayout={rowLayout}>
@@ -112,7 +110,6 @@ export default memo(Card)
 const Wrap = styled(TransitionLink)<{
 	$gridCols: AdaptiveGridColumns
 	$rowLayout: boolean
-	pressed: boolean
 }>`
 	display: block;
 	position: relative;
