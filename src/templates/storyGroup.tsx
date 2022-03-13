@@ -102,8 +102,8 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 				<SwitchTransition>
 					<CSSTransition
 						timeout={{
-							enter: 250,
-							exit: 125,
+							enter: 500,
+							exit: 250,
 						}}
 						key={`${selectedSection}-${selectedAuthor}`}
 					>
