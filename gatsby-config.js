@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     lang: 'en-US',
     dir: 'ltr',
-    siteUrl: 'https://www.gradient.ooo',
+    siteUrl: 'https://www.gradient.pub',
     title: 'Gradient – Ideas on Technology, Design, Philosophy, and the Law',
     description:
       'An online publication on the topics of technology, design, philosophy, and the law.',

@@ -1,6 +1,6 @@
 # Gradient
 
-Gradient is an online publication on the topics of technology, design, philosophy, and the law. It is live on [gradient.ooo](https://www.gradient.ooo). The front end is written in React, with page generation handled by Gatsby.
+Gradient is an online publication on the topics of technology, design, philosophy, and the law. It is live on [gradient.pub](https://www.gradient.pub). The front end is written in React, with page generation handled by Gatsby.
 
 ## Setup
 
