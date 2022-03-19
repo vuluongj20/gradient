@@ -171,7 +171,7 @@ const HeroWrap = styled(Grid)`
 `
 
 const HeroInnerWrap = styled.div`
-  grid-column: 2 / -2;
+  grid-column: 1 / -2;
 
   ${(p) => p.theme.utils.media.m} {
     grid-column: 1 / -1;
