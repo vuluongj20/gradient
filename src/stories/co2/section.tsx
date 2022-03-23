@@ -27,51 +27,27 @@ const Section = ({ data, vizData }: Props): JSX.Element => {
   }
 
   return (
-    <Grid
-      as="section"
-      className="section-wrap"
-      ref={wrapRef}
-      style={{ height: vizData.height }}
-    >
-      <InnerWrap>
-        <ContentWrap>
-          {vizData.text?.des?.map((para, index) => {
-            return (
-              <Para key={index}>
-                {para.map((segment, index) => {
-                  switch (segment.type) {
-                    case 'span':
-                      return <span key={index}>{segment.content}</span>
-                    case 'sub':
-                      return <sub key={index}>{segment.content}</sub>
-                    default:
-                      return null
-                  }
-                })}
-              </Para>
-            )
-          })}
-        </ContentWrap>
-        {renderSwitch()}
-      </InnerWrap>
+    <Grid as="section" className="section-wrap" ref={wrapRef}>
+      <ContentWrap>
+        {vizData.description?.map((para, index) => (
+          <Para key={index}>{para}</Para>
+        ))}
+      </ContentWrap>
+      <VizWrap style={{ height: vizData.height }}>{renderSwitch()}</VizWrap>
     </Grid>
   )
 }
 
 export default Section
 
-const InnerWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  grid-column: 1 / -2;
-  width: 100%;
-
-  ${(p) => p.theme.utils.media.m} {
-    grid-column: 1 / -1;
-  }
+const ContentWrap = styled.div`
+  ${(p) => p.theme.utils.gridColumn.text};
 `
 
-const ContentWrap = styled.div``
+const VizWrap = styled.div`
+  display: flex;
+  ${(p) => p.theme.utils.gridColumn.wide};
+`
 
 const Para = styled.p`
   grid-column: 2 / -2;

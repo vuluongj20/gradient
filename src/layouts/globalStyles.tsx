@@ -57,6 +57,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
+
   strong {
     color: ${(p) => p.theme.heading};
   }

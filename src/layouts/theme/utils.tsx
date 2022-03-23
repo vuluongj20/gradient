@@ -14,6 +14,8 @@ type CSSStringUtil = Record<CSSStringUtilName, string>
 
 type MediaUtil = { media: Record<Breakpoint | 'mobile', string> }
 
+type GridColumnUtil = { gridColumn: Record<'text' | 'wide', CSSObject> }
+
 type SpacingName =
 	| 'paddingVertical'
 	| 'paddingTop'
@@ -26,7 +28,7 @@ type SpacingName =
 
 export type SpacingUtil = { space: Record<SpacingName, CSSObject | CSSObject[]> }
 
-export type Utils = CSSUtil & CSSStringUtil & MediaUtil & SpacingUtil
+export type Utils = CSSUtil & CSSStringUtil & MediaUtil & GridColumnUtil & SpacingUtil
 
 const breakpointNames = Object.keys(breakpoints)
 
@@ -95,6 +97,28 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		l: `@media only screen and (max-width: ${theme.breakpoints.l})`,
 		xl: `@media only screen and (max-width: ${theme.breakpoints.xl})`,
 		mobile: `@media only screen and (max-width: ${theme.breakpoints.xs}), only screen and (max-height: ${theme.breakpoints.s})`,
+	},
+	gridColumn: {
+		text: {
+			maxWidth: '40rem',
+			margin: '0 auto',
+			gridColumn: '4 / -4',
+			[`@media only screen and (max-width: ${theme.breakpoints.xl})`]: {
+				gridColumn: '3 / -3',
+			},
+			[`@media only screen and (max-width: ${theme.breakpoints.m})`]: {
+				gridColumn: '2 / -2',
+			},
+			[`@media only screen and (max-width: ${theme.breakpoints.s})`]: {
+				gridColumn: '1 / -1',
+			},
+		},
+		wide: {
+			gridColumn: '2 / -2',
+			[`@media only screen and (max-width: ${theme.breakpoints.m})`]: {
+				gridColumn: '1 / -1',
+			},
+		},
 	},
 	space: {
 		paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),

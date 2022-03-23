@@ -40,6 +40,28 @@
 
 @font-face {
 	font-family: 'Domaine Display Condensed';
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Regular.woff2')
+			format('woff2'),
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-Regular.woff')
+			format('woff');
+}
+
+@font-face {
+	font-family: 'Domaine Display Condensed';
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+	src: url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-RegularItalic.woff2')
+			format('woff2'),
+		url('/fonts/domaine-display-condensed/DomaineDisplayCondensed-RegularItalic.woff')
+			format('woff');
+}
+
+@font-face {
+	font-family: 'Domaine Display Condensed';
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
