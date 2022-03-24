@@ -100,6 +100,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	},
 	gridColumn: {
 		text: {
+			width: '100%',
 			maxWidth: '40rem',
 			margin: '0 auto',
 			gridColumn: '4 / -4',
@@ -114,6 +115,9 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 			},
 		},
 		wide: {
+			width: '100%',
+			maxWidth: '74rem',
+			margin: '0 auto',
 			gridColumn: '2 / -2',
 			[`@media only screen and (max-width: ${theme.breakpoints.m})`]: {
 				gridColumn: '1 / -1',

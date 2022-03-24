@@ -152,16 +152,14 @@ const Main = (): JSX.Element => {
               ]
             })}
             <Divider />
-            <MetaWrap>
-              <MetaInnerWrap>
-                {mainContent.meta.map((column, index) => {
-                  return (
-                    <MetaColumn key={index} href={column.link}>
-                      {column.name}
-                    </MetaColumn>
-                  )
-                })}
-              </MetaInnerWrap>
+            <MetaWrap as="section">
+              {mainContent.meta.map((column, index) => {
+                return (
+                  <MetaColumn key={index} href={column.link}>
+                    {column.name}
+                  </MetaColumn>
+                )
+              })}
             </MetaWrap>
           </Fragment>
         )}
@@ -200,9 +198,7 @@ const StyledFigure = styled(Figure)`
   ${(p) => p.theme.utils.gridColumn.wide};
 `
 
-const HeroHeading = styled.h1`
-  max-width: 10em;
-`
+const HeroHeading = styled.h1``
 
 const HeroText = styled.p`
   && {
@@ -211,12 +207,9 @@ const HeroText = styled.p`
     font-weight: 400;
   }
   ${(p) => p.theme.utils.space.marginTop[2]}
-  max-width: 24em;
 `
 
-const MetaWrap = styled.section``
-
-const MetaInnerWrap = styled(Grid)``
+const MetaWrap = styled(Grid)``
 
 const MetaColumn = styled.a`
   grid-column-end: span 6;
