@@ -10,6 +10,7 @@ import Divider from '@components/divider'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
 import Page from '@components/page'
+import Spinner from '@components/spinner'
 import TypeArea from '@components/typeArea'
 
 import SettingsContext from '@utils/settingsContext'
@@ -143,6 +144,8 @@ const Main = (): JSX.Element => {
           </StyledFigure>
         </HeroWrap>
 
+        {!data && <StyledSpinner label="Loading CO₂ data…" showLabel />}
+
         {data && (
           <Fragment>
             {vizs.map((viz, i) => {
@@ -207,6 +210,10 @@ const HeroText = styled.p`
     font-weight: 400;
   }
   ${(p) => p.theme.utils.space.marginTop[2]}
+`
+
+const StyledSpinner = styled(Spinner)`
+  margin: ${(p) => p.theme.space[3]} auto 0;
 `
 
 const MetaWrap = styled(Grid)``
