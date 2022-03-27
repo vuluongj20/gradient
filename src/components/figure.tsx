@@ -9,12 +9,14 @@ type Props = Image & {
 	className?: string
 }
 
-const Figure = ({ src, alt, caption, from, className }: Props) => {
+const Figure = ({ src, alt, loading = 'lazy', caption, from, className }: Props) => {
 	const image = getImage(src)
 
 	return (
 		<Wrap className={className}>
-			<StyledImage image={image} alt={alt} />
+			<ImageWrap>
+				<StyledImage image={image} alt={alt} loading={loading} />
+			</ImageWrap>
 			<Caption>
 				{caption}
 				{from && <From>{` ${from}.`}</From>}
@@ -30,8 +32,29 @@ const Wrap = styled.figure`
 	padding: 0;
 `
 
-const StyledImage = styled(GatsbyImage)`
+const ImageWrap = styled('div')`
+	${(p) => p.theme.utils.flexCenter};
+	position: relative;
+	width: 100%;
+	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
+	mask-image: radial-gradient(white, black);
+	background: ${(p) => p.theme.iBackground};
+
+	::after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: ${(p) => p.theme.radii.m};
+		box-shadow: inset 0 0 0 1px ${(p) => p.theme.line};
+	}
+`
+
+const StyledImage = styled(GatsbyImage)`
+	width: 100%;
 `
 
 const Caption = styled.figcaption`
