@@ -12,6 +12,7 @@ export type AdaptiveGridColumns = Record<Breakpoint, GridColumns>
 export type Image = {
 	src: ImageDataLike
 	alt: string
+	sizes?: string
 	aspectRatio?: 'square' | 'rect' | 'wide'
 	loading?: 'eager' | 'lazy'
 }

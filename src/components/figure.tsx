@@ -1,20 +1,23 @@
-import { ReactNode } from 'react'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 
-type Props = {
-	children: ReactNode
+import { Image } from '@types'
+
+type Props = Image & {
 	caption: string
-	source?: string
+	from?: string
 	className?: string
 }
 
-const Figure = ({ caption, source, children, className }: Props) => {
+const Figure = ({ src, alt, caption, from, className }: Props) => {
+	const image = getImage(src)
+
 	return (
 		<Wrap className={className}>
-			{children}
+			<StyledImage image={image} alt={alt} />
 			<Caption>
 				{caption}
-				{source && <Source>{` ${source}.`}</Source>}
+				{from && <From>{` ${from}.`}</From>}
 			</Caption>
 		</Wrap>
 	)
@@ -27,6 +30,10 @@ const Wrap = styled.figure`
 	padding: 0;
 `
 
+const StyledImage = styled(GatsbyImage)`
+	border-radius: ${(p) => p.theme.radii.m};
+`
+
 const Caption = styled.figcaption`
 	${(p) => p.theme.text.viz.label};
 	line-height: 1.4;
@@ -34,6 +41,6 @@ const Caption = styled.figcaption`
 	max-width: 40rem;
 `
 
-const Source = styled.span`
+const From = styled.span`
 	color: ${(p) => p.theme.label};
 `

@@ -1,6 +1,5 @@
 import { csv, timeParse } from 'd3'
 import { graphql, useStaticQuery } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { Fragment, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -100,7 +99,9 @@ const mainContent = {
 const Main = (): JSX.Element => {
   const [data, setData] = useState<Data>(null)
   const { dispatch } = useContext(SettingsContext)
-  const imageQueryResults = useStaticQuery(
+  const {
+    file: { childImageSharp },
+  } = useStaticQuery(
     graphql`
       query {
         file(name: { eq: "mauna-loa-observatory" }) {
@@ -111,8 +112,6 @@ const Main = (): JSX.Element => {
       }
     `,
   )
-
-  const image = getImage(imageQueryResults?.file?.childImageSharp)
 
   useEffect(() => {
     csv(dataUrl).then((resData) => {
@@ -133,15 +132,13 @@ const Main = (): JSX.Element => {
             <HeroText>{heroText}</HeroText>
           </HeroInnerWrap>
           <StyledFigure
+            src={childImageSharp}
+            alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
+            loading="eager"
+            sizes="100vw"
             caption="The Mauna Loa Observatory in Hawaii, where atmotpheric carbon dioxide levels have been measured and recorded since 1958."
-            source="National Oceanic and Atmospheric Administration"
-          >
-            <HeroImage
-              sizes="100vw"
-              image={image}
-              alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
-            />
-          </StyledFigure>
+            from="National Oceanic and Atmospheric Administration"
+          />
         </HeroWrap>
 
         {!data && <StyledSpinner label="Loading CO₂ data…" showLabel />}
@@ -191,10 +188,6 @@ const HeroWrap = styled(Grid)`
 const HeroInnerWrap = styled.div`
   ${(p) => p.theme.utils.gridColumn.text};
   ${(p) => p.theme.utils.space.marginBottom[5]};
-`
-
-const HeroImage = styled(GatsbyImage)`
-  border-radius: ${(p) => p.theme.radii.m};
 `
 
 const StyledFigure = styled(Figure)`
