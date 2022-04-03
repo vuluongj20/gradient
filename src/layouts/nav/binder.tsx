@@ -53,6 +53,7 @@ const Wrap = styled.ul`
 	position: relative;
 	width: 100%;
 	height: 100%;
+	background: ${(p) => p.theme.background};
 	border-right: solid 1px ${(p) => p.theme.line};
 	box-sizing: border-box;
 	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
@@ -68,7 +69,6 @@ const Wrap = styled.ul`
 		height: 3rem;
 		padding-top: 0;
 		padding-bottom: 0;
-		background: ${(p) => p.theme.background};
 		border-right: none;
 	}
 `
