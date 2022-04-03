@@ -4,13 +4,21 @@ import styled from 'styled-components'
 import { Image } from '@types'
 
 type Props = Image & {
-	caption: string
+	caption?: string
 	from?: string
 	className?: string
 }
 
 const Figure = ({ src, alt, loading = 'lazy', caption, from, className }: Props) => {
 	const image = getImage(src)
+
+	if (!caption) {
+		return (
+			<ImageWrap>
+				<StyledImage image={image} alt={alt} loading={loading} />
+			</ImageWrap>
+		)
+	}
 
 	return (
 		<Wrap className={className}>
