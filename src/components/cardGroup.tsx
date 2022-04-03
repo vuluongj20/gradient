@@ -5,14 +5,14 @@ import Card from './card'
 
 import Grid from '@components/grid'
 
-import { AdaptiveGridColumns, GridColumns, Image, Story } from '@types'
+import { AdaptiveGridColumns, GridColumns, Story } from '@types'
 
 import { sum } from '@utils/functions'
 import { gridColCounts } from '@utils/style'
 
 type Props = {
 	stories: Story[]
-	imageLoading?: Image['loading']
+	imageLoading?: Story['cover']['loading']
 }
 
 type SpanRange = {

@@ -13,8 +13,8 @@ const useFeaturedStories = (): Story[] => {
 						sections
 						featuredIn
 						featuredSize
-						image {
-							src {
+						cover {
+							image {
 								childImageSharp {
 									gatsbyImageData(layout: FULL_WIDTH)
 								}

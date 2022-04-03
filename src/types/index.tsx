@@ -1,3 +1,5 @@
+import { GatsbyImageProps } from 'gatsby-plugin-image'
+
 import { Breakpoint } from '@utils/style'
 
 export type GridColumns = {
@@ -26,7 +28,7 @@ export type Story = {
 	featuredSize?: string
 	sections: string[]
 	authors: string[]
-	image: Image
+	cover: GatsbyImageProps
 	buildPage?: boolean
 	path: string
 }

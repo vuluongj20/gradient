@@ -1,7 +1,7 @@
 import { useHover, usePress } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { VisuallyHidden } from '@react-aria/visually-hidden'
-import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
 
@@ -18,7 +18,7 @@ type Props = Story & {
 	path: string
 	gridCols?: AdaptiveGridColumns
 	rowLayout?: boolean
-	imageLoading?: GatsbyImageProps['loading']
+	imageLoading?: Story['cover']['loading']
 }
 
 /**
@@ -53,7 +53,7 @@ const Card = ({
 	path,
 	title,
 	sections,
-	image,
+	cover,
 	imageLoading = 'lazy',
 	rowLayout = false,
 }: Props): JSX.Element => {
@@ -68,7 +68,7 @@ const Card = ({
 	const { pressProps } = usePress({ onPress: () => setPressed(true) })
 	const active = isHovered || pressed
 
-	const imageData = getImage(image.src)
+	const imageData = getImage(cover.image)
 
 	return (
 		<Wrap
@@ -81,7 +81,7 @@ const Card = ({
 				<ImageWrap rowLayout={rowLayout} aria-hidden="true">
 					<StyledGatsbyImage
 						image={imageData}
-						alt={image.alt}
+						alt={cover.alt}
 						sizes={getImageSizesProp(gridCols, rowLayout)}
 						backgroundColor={imageData.backgroundColor}
 						loading={imageLoading}

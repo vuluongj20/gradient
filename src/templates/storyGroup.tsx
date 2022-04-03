@@ -133,13 +133,13 @@ export const query = graphql`
 					title
 					sections
 					authors
-					image {
-						alt
-						src {
+					cover {
+						image {
 							childImageSharp {
 								gatsbyImageData(layout: FULL_WIDTH)
 							}
 						}
+						alt
 					}
 				}
 			}

@@ -7,10 +7,9 @@
 		"featuredSize": "l",
 		"sections": ["misc"],
 		"authors": ["vu-luong"],
-		"image": {
-			"src": "../images/co2/preview.png",
-			"alt": "Polar plot with red-blue data line",
-			"aspectRatio": "rect"
+		"cover": {
+			"image": "../images/co2/preview.png",
+			"alt": "Polar plot with red-blue data line"
 		},
 		"buildPage": true
 	},
@@ -22,10 +21,9 @@
 		"featuredSize": "l",
 		"sections": ["misc"],
 		"authors": ["vu-luong"],
-		"image": {
-			"src": "../images/1.jpg",
-			"alt": "...",
-			"aspectRatio": "wide"
+		"cover": {
+			"image": "../images/1.jpg",
+			"alt": "..."
 		}
 	},
 	{
@@ -36,10 +34,9 @@
 		"featuredSize": "s",
 		"sections": ["design"],
 		"authors": ["vu-luong"],
-		"image": {
-			"src": "../images/2.png",
-			"alt": "...",
-			"aspectRatio": "rect"
+		"cover": {
+			"image": "../images/2.png",
+			"alt": "..."
 		}
 	},
 	{
@@ -50,10 +47,9 @@
 		"featuredSize": "m",
 		"sections": ["language"],
 		"authors": ["vu-luong"],
-		"image": {
-			"src": "../images/3.png",
-			"alt": "...",
-			"aspectRatio": "wide"
+		"cover": {
+			"image": "../images/3.png",
+			"alt": "..."
 		}
 	}
 ]
