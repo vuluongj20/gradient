@@ -7,6 +7,8 @@ import Hamburger, { HamProps } from './ham'
 // import Settings from './settings'
 import TransitionLink from '@components/transitionLink'
 
+import IconSearch from '@icons/search'
+
 type Props = HamProps & {
 	pageTitle: string
 	beforeSettingsDialogOpen?: () => void
@@ -26,6 +28,9 @@ Props): JSX.Element => {
 	return (
 		<Wrap>
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
+			<SearchWrap>
+				<IconSearch size="xl" />
+			</SearchWrap>
 			{/*<StyledSettings
 				beforeDialogOpen={beforeSettingsDialogOpen}
 				afterDialogClose={afterSettingsDialogClose}
@@ -66,6 +71,12 @@ const Wrap = styled.ul`
 		background: ${(p) => p.theme.background};
 		border-right: none;
 	}
+`
+
+const SearchWrap = styled.li`
+	margin-top: ${(p) => p.theme.space[0]};
+	color: ${(p) => p.theme.heading};
+	cursor: pointer;
 `
 
 const LogoWrap = styled.li`
