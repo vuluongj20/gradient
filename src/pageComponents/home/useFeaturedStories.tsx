@@ -20,7 +20,6 @@ const useFeaturedStories = (): Story[] => {
 								}
 							}
 							alt
-							aspectRatio
 						}
 					}
 				}

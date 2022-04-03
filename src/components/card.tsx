@@ -1,7 +1,7 @@
 import { useHover, usePress } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { VisuallyHidden } from '@react-aria/visually-hidden'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
 
@@ -9,7 +9,7 @@ import TransitionLink from './transitionLink'
 
 import Grid from '@components/grid'
 
-import { AdaptiveGridColumns, Image, Story } from '@types'
+import { AdaptiveGridColumns, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
 import { fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
@@ -18,7 +18,7 @@ type Props = Story & {
 	path: string
 	gridCols?: AdaptiveGridColumns
 	rowLayout?: boolean
-	imageLoading?: Image['loading']
+	imageLoading?: GatsbyImageProps['loading']
 }
 
 /**

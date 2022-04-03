@@ -1,9 +1,7 @@
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 
-import { Image } from '@types'
-
-type Props = Image & {
+type Props = GatsbyImageProps & {
 	caption?: string
 	from?: string
 	className?: string
