@@ -9,13 +9,13 @@ type Props = Image & {
 	className?: string
 }
 
-const Figure = ({ src, alt, loading = 'lazy', caption, from, className }: Props) => {
-	const image = getImage(src)
+const Figure = ({ image, alt, loading = 'lazy', caption, from, className }: Props) => {
+	const imageData = getImage(image)
 
 	if (!caption) {
 		return (
 			<ImageWrap>
-				<StyledImage image={image} alt={alt} loading={loading} />
+				<StyledImage image={imageData} alt={alt} loading={loading} />
 			</ImageWrap>
 		)
 	}
@@ -23,7 +23,7 @@ const Figure = ({ src, alt, loading = 'lazy', caption, from, className }: Props)
 	return (
 		<Wrap className={className}>
 			<ImageWrap>
-				<StyledImage image={image} alt={alt} loading={loading} />
+				<StyledImage image={imageData} alt={alt} loading={loading} />
 			</ImageWrap>
 			<Caption>
 				{caption}

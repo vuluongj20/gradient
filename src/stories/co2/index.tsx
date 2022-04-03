@@ -132,8 +132,9 @@ const Main = (): JSX.Element => {
             <HeroText>{heroText}</HeroText>
           </HeroInnerWrap>
           <StyledFigure
-            src={childImageSharp}
+            image={childImageSharp}
             alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
+            backgroundColor="#fff"
             loading="eager"
             sizes="100vw"
             caption="The Mauna Loa Observatory in Hawaii, where atmotpheric carbon dioxide levels have been measured and recorded since 1958."

@@ -1,4 +1,4 @@
-import { ImageDataLike } from 'gatsby-plugin-image'
+import { GatsbyImageProps } from 'gatsby-plugin-image'
 
 import { Breakpoint } from '@utils/style'
 
@@ -9,9 +9,7 @@ export type GridColumns = {
 
 export type AdaptiveGridColumns = Record<Breakpoint, GridColumns>
 
-export type Image = {
-	src: ImageDataLike
-	alt: string
+export type Image = GatsbyImageProps & {
 	sizes?: string
 	aspectRatio?: 'square' | 'rect' | 'wide'
 	loading?: 'eager' | 'lazy'
