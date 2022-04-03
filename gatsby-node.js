@@ -21,15 +21,15 @@ exports.createPages = async function ({ actions, graphql }) {
               title
               description
               authors
-              image {
-                alt
-                src {
+              cover {
+                image {
                   childImageSharp {
                     gatsbyImageData(width: 1200, height: 630)
                   }
                 }
+                alt
               }
-              buildPage
+              isMock
             }
           }
         }
@@ -40,7 +40,7 @@ exports.createPages = async function ({ actions, graphql }) {
     const story = edge.node
     const component = path.resolve(`./src/stories/${story.slug}/index.tsx`)
 
-    story.buildPage &&
+    !story.isMock &&
       actions.createPage({
         path: `/story/${story.slug}`,
         component: component,

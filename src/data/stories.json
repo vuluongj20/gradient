@@ -10,8 +10,7 @@
 		"cover": {
 			"image": "../images/co2/preview.png",
 			"alt": "Polar plot with red-blue data line"
-		},
-		"buildPage": true
+		}
 	},
 	{
 		"slug": "bl-mahanoy",
@@ -24,7 +23,8 @@
 		"cover": {
 			"image": "../images/1.jpg",
 			"alt": "..."
-		}
+		},
+		"isMock": true
 	},
 	{
 		"slug": "group-unawareness",
@@ -37,7 +37,8 @@
 		"cover": {
 			"image": "../images/2.png",
 			"alt": "..."
-		}
+		},
+		"isMock": true
 	},
 	{
 		"slug": "generative-neural-nets",
@@ -50,6 +51,7 @@
 		"cover": {
 			"image": "../images/3.png",
 			"alt": "..."
-		}
+		},
+		"isMock": true
 	}
 ]
