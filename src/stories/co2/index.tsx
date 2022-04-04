@@ -128,7 +128,7 @@ const Main = (): JSX.Element => {
       <Wrap id="App" type="content" as="article">
         <HeroWrap as="header">
           <HeroInnerWrap>
-            <HeroHeading>Carbon Dioxide Trends Since 1958</HeroHeading>
+            <HeroHeading>Carbon&nbsp;Dioxide Trends Since&nbsp;1958</HeroHeading>
             <HeroText>{heroText}</HeroText>
           </HeroInnerWrap>
           <StyledFigure
