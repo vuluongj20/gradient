@@ -77,6 +77,10 @@ const SearchWrap = styled.li`
 	margin-top: ${(p) => p.theme.space[0]};
 	color: ${(p) => p.theme.heading};
 	cursor: pointer;
+
+	${(p) => p.theme.utils.media.mobile} {
+		display: none;
+	}
 `
 
 const LogoWrap = styled.li`
