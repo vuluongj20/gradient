@@ -1342,13 +1342,13 @@ const Wrap = styled.div`
   }
 
   .hover-diff-line {
-    stroke: ${(p) => p.theme.error};
+    stroke: ${(p) => p.theme.errorText};
   }
   .hover-diff-label {
     transform: translate(-17.7em, -3.4em);
   }
   .hover-diff-text {
-    fill: ${(p) => p.theme.error};
+    fill: ${(p) => p.theme.errorText};
     transform: translate(-8.8em, -3.4em);
     font-weight: 700;
   }
@@ -1405,7 +1405,7 @@ const Wrap = styled.div`
     transform: translateY(3.2em);
   }
   .mse-acc-text {
-    fill: ${(p) => p.theme.error};
+    fill: ${(p) => p.theme.errorText};
     transform: translate(3.2em, 3.2em);
     font-weight: 700;
   }

@@ -66,7 +66,7 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     border-radius: ${(p) => p.theme.radii.s};
 
-    color: ${(p) => p.theme.link};
+    color: ${(p) => p.theme.linkText};
     text-decoration-line: underline;
     text-decoration-color: transparent;
     transition: color ${(p) => p.theme.animation.vFastOut}, 

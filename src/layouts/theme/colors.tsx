@@ -80,14 +80,18 @@ type ColorAliasName =
 	| 'activeText'
 	| 'activeBackground'
 	| 'onActiveBackground'
+	| 'successText'
+	| 'successBackground'
+	| 'onSuccessBackground'
+	| 'errorText'
+	| 'errorBackground'
+	| 'onErrorBackground'
+	| 'linkText'
+	| 'linkUnderline'
+	| 'primaryLinkText'
+	| 'primaryLinkUnderline'
 	| 'buttonLabel'
 	| 'buttonLabelHover'
-	| 'link'
-	| 'linkUnderline'
-	| 'primaryLink'
-	| 'primaryLinkUnderline'
-	| 'success'
-	| 'error'
 
 export type ColorAliases = Record<ColorAliasName, string>
 
@@ -263,14 +267,19 @@ export const getColorAliases = (
 		activeBackground: colors.red2,
 		onActiveBackground: colors.white,
 
-		link: colors.gray2,
+		successText: colors.green1,
+		successBackground: colors.green2,
+		onSuccessBackground: colors.white,
+
+		errorText: colors.red1,
+		errorBackground: colors.red2,
+		onErrorBackground: colors.white,
+
+		linkText: colors.gray2,
 		linkUnderline: colors.gray7,
 
-		primaryLink: colors.red1,
+		primaryLinkText: colors.red1,
 		primaryLinkUnderline: colors.red4,
-
-		error: colors.red1,
-		success: colors.green1,
 	}
 }
 

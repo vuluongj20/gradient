@@ -123,7 +123,7 @@ const Wrap = styled(TypeArea)`
   }
 
   a {
-    color: ${(p) => p.theme.primaryLink};
+    color: ${(p) => p.theme.primaryLinkText};
   }
   a:hover {
     text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};

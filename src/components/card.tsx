@@ -214,7 +214,7 @@ const Title = styled.p<{ active: boolean }>`
 	color: ${(p) => p.theme.heading};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
-	${(p) => p.active && `color: ${p.theme.primaryLink};`}
+	${(p) => p.active && `color: ${p.theme.primaryLinkText};`}
 `
 
 const DummyTitle = styled.span<{ active: boolean }>`
@@ -237,5 +237,5 @@ const Tags = styled.div<{ active: boolean }>`
 	transition: color ${(p) => p.theme.animation.vFastOut};
 	text-transform: capitalize;
 
-	${(p) => p.active && `color: ${p.theme.primaryLink};`}
+	${(p) => p.active && `color: ${p.theme.primaryLinkText};`}
 `
