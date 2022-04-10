@@ -65,13 +65,10 @@ export type ColorPalette = {
 
 type ColorAliasName =
 	| 'background'
-	| 'hoverBackground'
 	| 'line'
 	| 'oBackground'
-	| 'oHoverBackground'
 	| 'oLine'
 	| 'iBackground'
-	| 'iHoverBackground'
 	| 'iLine'
 	| 'focus'
 	| 'heading'
@@ -224,13 +221,6 @@ export const getColorAliases = (
 		return colors[`surface${blockedElevation}`]
 	}
 
-	const getHoverBackground = (elevation: number) => {
-		if (elevation > 2) {
-			return colors.surface5
-		}
-		return colors.surface5
-	}
-
 	const getLine = (elevation: number) => {
 		if (elevation > 3) {
 			return colors.gray8
@@ -240,18 +230,15 @@ export const getColorAliases = (
 
 	return {
 		background: getBackground(elevation),
-		hoverBackground: getHoverBackground(elevation),
 		line: getLine(elevation),
 
 		// Overlay
 		oBackground: getBackground(elevation + 1),
-		oHoverBackground: getHoverBackground(elevation + 1),
 		oLine: getLine(elevation + 1),
 
 		// Inset
 		iBackground: getBackground(elevation - 1),
-		iHoverBackground: getHoverBackground(elevation - 1),
-		iLine: getHoverBackground(elevation - 1),
+		iLine: getLine(elevation - 1),
 
 		// Text
 		heading: colors.gray1,

@@ -41,10 +41,6 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   border-radius: ${(p) => p.theme.radii.m};
   cursor: pointer;
 
-  &:hover {
-    background: ${(p) => p.theme.hoverBackground};
-  }
-
   &:focus {
     outline: none;
   }
@@ -56,7 +52,6 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
     p.isSelected &&
     `
     color: ${p.theme.activeText};
-    background: ${p.theme.hoverBackground};
   `}
 `
 
