@@ -80,6 +80,7 @@ const StyledItem = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   border-radius: ${(p) => p.theme.radii.s};
   outline: none;
   overflow: hidden;
+  mask-image: radial-gradient(white, black);
 
   font-weight: 500;
   color: ${(p) => p.theme.heading};
