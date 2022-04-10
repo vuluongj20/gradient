@@ -9,6 +9,8 @@ import { Node } from '@react-types/shared'
 import { useRef } from 'react'
 import styled from 'styled-components'
 
+import StateLayer from '@components/stateLayer'
+
 import IconDone from '@icons/done'
 
 type ListBoxProps = AriaListBoxOptions<unknown> & {
@@ -35,12 +37,6 @@ type ItemProps = AriaOptionProps & {
   state: SelectState<unknown>
 }
 
-type StyledItemProps = {
-  isSelected: boolean
-  isFocused: boolean
-  isDisabled: boolean
-}
-
 const Item = (props: ItemProps) => {
   const ref = useRef()
   const { item, state } = props
@@ -54,10 +50,10 @@ const Item = (props: ItemProps) => {
     <StyledItem
       {...optionProps}
       isSelected={isSelected}
-      isFocused={isFocused}
       isDisabled={isDisabled}
       ref={ref}
     >
+      <StateLayer isHovered={isFocused} />
       <CheckIndent aria-hidden="true" visible={isSelected}>
         <IconDone />
       </CheckIndent>
@@ -74,25 +70,28 @@ const StyledListBox = styled.ul`
   list-style-type: none;
 `
 
-const StyledItem = styled.li<StyledItemProps>`
+const StyledItem = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
+  position: relative;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  outline: none;
-  font-weight: 500;
-  color: ${(p) => p.theme.heading};
+
   padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
   padding-left: ${(p) => p.theme.space[1]};
   border-radius: ${(p) => p.theme.radii.s};
+  outline: none;
+  overflow: hidden;
+
+  font-weight: 500;
+  color: ${(p) => p.theme.heading};
+  white-space: nowrap;
+
+  cursor: pointer;
   transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s,
     color ${(p) => p.theme.animation.mediumIn};
-  white-space: nowrap;
 
   && {
     margin: 0;
   }
-
-  ${(p) => p.isFocused && `background: ${p.theme.oHoverBackground};`}
 
   ${(p) => p.isSelected && `color: ${p.theme.activeText};`}
 `

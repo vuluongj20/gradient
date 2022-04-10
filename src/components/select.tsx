@@ -1,4 +1,3 @@
-import { useButton } from '@react-aria/button'
 import { HiddenSelect, useSelect } from '@react-aria/select'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
@@ -6,6 +5,7 @@ import { Fragment, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
+import Button from '@components/button'
 import Dialog from '@components/dialog'
 import ListBox from '@components/listBox'
 import Popover from '@components/popover'
@@ -24,16 +24,13 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 	const ref = useRef()
 	const state = useSelectState(props)
 	const { triggerProps, valueProps, menuProps } = useSelect(props, state, ref)
-	const { buttonProps } = useButton(
-		{
-			...triggerProps,
-			'aria-labelledby': null,
-			'aria-label': `${props.label} (Filter) – ${
-				state.selectedItem ? `selected ${state.selectedItem.rendered}` : 'none selected'
-			}`,
-		},
-		ref,
-	)
+	const buttonProps = {
+		...triggerProps,
+		'aria-labelledby': null,
+		'aria-label': `${props.label} (Filter) – ${
+			state.selectedItem ? `selected ${state.selectedItem.rendered}` : 'none selected'
+		}`,
+	}
 
 	const isXS = useBreakpoint('xs')
 
@@ -43,8 +40,8 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 		const label = state.selectedItem ? state.selectedItem.rendered : 'Select an option'
 
 		return (
-			<Trigger {...buttonProps} ref={ref}>
-				<span {...valueProps} aria-hidden="true">
+			<Trigger forwardRef={ref} {...buttonProps}>
+				<span aria-hidden="true" {...valueProps}>
 					{label}
 				</span>
 				<IconExpandMore aria-hidden="true" />
@@ -65,7 +62,7 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 						isOpen={state.isOpen}
 						triggerRef={ref}
 						onClose={state.close}
-						offset={0}
+						offset={4}
 						animationState={animationState}
 					>
 						{renderContent()}
@@ -100,10 +97,11 @@ export default Select
 
 const Wrap = styled.div`
 	position: relative;
+	transform: translateX(-${(p) => p.theme.space[1]});
 `
 
-const Trigger = styled.button`
+const Trigger = styled(Button)`
 	display: flex;
 	align-items: center;
-	padding: ${(p) => p.theme.space[1]} 0;
+	padding: ${(p) => p.theme.space[1]};
 `

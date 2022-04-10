@@ -37,7 +37,7 @@ export const zIndices: Record<string, number> = {
 
 /** Border radii */
 export const radii: Partial<Record<Breakpoint, string>> = {
-	s: '0.25rem',
+	s: '0.375rem',
 	m: '0.5rem',
 	l: '0.75rem',
 }
