@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Breadcrumbs from './breadcrumbs'
 import Hamburger, { HamProps } from './ham'
 
+import Button from '@components/button'
 // import Settings from './settings'
 import TransitionLink from '@components/transitionLink'
 
@@ -29,7 +30,9 @@ Props): JSX.Element => {
 		<Wrap>
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 			<SearchWrap>
-				<IconSearch size="xl" />
+				<Button>
+					<IconSearch size="xl" />
+				</Button>
 			</SearchWrap>
 			{/*<StyledSettings
 				beforeDialogOpen={beforeSettingsDialogOpen}
@@ -74,7 +77,6 @@ const Wrap = styled.ul`
 `
 
 const SearchWrap = styled.li`
-	margin-top: ${(p) => p.theme.space[0]};
 	color: ${(p) => p.theme.heading};
 	cursor: pointer;
 

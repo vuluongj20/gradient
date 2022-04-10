@@ -1,7 +1,8 @@
-import { useButton } from '@react-aria/button'
 import gsap from 'gsap'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+
+import Button from '@components/button'
 
 import { navSize } from '@utils/style'
 
@@ -11,12 +12,6 @@ export type HamProps = {
 }
 
 const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
-	const ref = useRef()
-	const { buttonProps } = useButton(
-		{ elementType: 'button', onPress: () => toggleMenu(!menuOpen) },
-		ref,
-	)
-
 	/** Initialize hamburger animation */
 	const hamTimeline = useRef<gsap.core.Timeline>()
 
@@ -66,10 +61,9 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 
 	return (
 		<Wrap>
-			<Button
-				ref={ref}
+			<StyledButton
 				aria-label={menuOpen ? 'Close menu' : 'Open nav menu'}
-				{...buttonProps}
+				onPress={() => toggleMenu(!menuOpen)}
 			>
 				<InnerWrap>
 					<LineTop />
@@ -82,7 +76,7 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 						<CrossLineInner />
 					</CrossLineNegWrap>
 				</InnerWrap>
-			</Button>
+			</StyledButton>
 		</Wrap>
 	)
 }
@@ -99,7 +93,7 @@ const Wrap = styled.li`
 	}
 `
 
-const Button = styled.button`
+const StyledButton = styled(Button)`
 	${(p) => p.theme.utils.flexCenter};
 	box-sizing: border-box;
 	width: calc(${navSize.width} - ${(p) => p.theme.space[1]});
