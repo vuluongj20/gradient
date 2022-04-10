@@ -142,7 +142,7 @@ const CrossLineWrap = styled.div`
 	position: absolute;
 	width: 90%;
 	height: 2px;
-	left: 7.5%;
+	left: 5%;
 	top: calc(50% - 1px);
 `
 
