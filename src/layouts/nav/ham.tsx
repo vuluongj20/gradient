@@ -119,7 +119,8 @@ const InnerWrap = styled.div`
 
 const Line = styled.div`
 	position: absolute;
-	width: 100%;
+	left: 2.5%;
+	width: 95%;
 	height: 2px;
 	border-radius: 4px;
 	background: ${(p) => p.theme.heading};
