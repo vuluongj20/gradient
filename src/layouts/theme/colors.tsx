@@ -9,7 +9,6 @@ type ColorKeys =
 	| 'surface2'
 	| 'surface3'
 	| 'surface4'
-	| 'surface5'
 	| 'gray1'
 	| 'gray2'
 	| 'gray3'
@@ -103,7 +102,6 @@ const paper: ColorPalette = {
 		surface2: '#FAFAFA',
 		surface3: '#FFFFFF',
 		surface4: '#FFFFFF',
-		surface5: '#EFEFEF',
 		gray1: '#212529',
 		gray2: '#33383D',
 		gray3: '#494F55',
@@ -163,7 +161,6 @@ const charcoal: ColorPalette = {
 		surface2: '#171717',
 		surface3: '#1A1A1A',
 		surface4: '#1F1F1F',
-		surface5: '#292929',
 		gray1: '#F1F2F4',
 		gray2: '#D5D9DC',
 		gray3: '#BDC2C7',
@@ -217,7 +214,7 @@ export const getColorAliases = (
 	elevation: number,
 ): ColorAliases => {
 	const getBackground = (elevation: number) => {
-		const blockedElevation = Math.min(Math.max(elevation, 0), 5)
+		const blockedElevation = Math.min(Math.max(elevation, 0), 4)
 		return colors[`surface${blockedElevation}`]
 	}
 
