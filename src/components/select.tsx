@@ -104,4 +104,5 @@ const Trigger = styled(Button)`
 	display: flex;
 	align-items: center;
 	padding: ${(p) => p.theme.space[1]};
+	padding-right: ${(p) => p.theme.space[0]};
 `
