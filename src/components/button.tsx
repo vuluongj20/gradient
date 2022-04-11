@@ -34,8 +34,6 @@ const Wrap = styled.button`
 	display: flex;
 	align-items: center;
 	position: relative;
-	overflow: hidden;
-	mask-image: radial-gradient(white, black);
 	border-radius: ${(p) => p.theme.radii.s};
 	padding: ${(p) => p.theme.space[0]};
 `
