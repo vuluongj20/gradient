@@ -31,7 +31,7 @@ Props): JSX.Element => {
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 			<SearchWrap>
 				<Button>
-					<IconSearch size="xl" />
+					<StyledIconSearch size="xl" />
 				</Button>
 			</SearchWrap>
 			{/*<StyledSettings
@@ -83,6 +83,10 @@ const SearchWrap = styled.li`
 	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
+`
+
+const StyledIconSearch = styled(IconSearch)`
+	transform: translateZ(0);
 `
 
 const LogoWrap = styled.li`
