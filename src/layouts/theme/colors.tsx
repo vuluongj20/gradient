@@ -98,9 +98,9 @@ const paper: ColorPalette = {
 	colors: {
 		white: '#F1F2F4',
 		black: '#212529',
-		surface1: '#F3E8EA',
-		surface2: '#F6EEF0',
-		surface3: '#FAF5F6',
+		surface1: '#F6E4E7',
+		surface2: '#F9ECEE',
+		surface3: '#FBF4F5',
 		surface4: '#FDFCFC',
 		gray1: '#161213',
 		gray2: '#2F2729',
