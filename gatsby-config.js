@@ -13,6 +13,7 @@ module.exports = {
     authorTwitter: '@vuluongj20',
   },
   plugins: [
+    'gatsby-plugin-webpack-bundle-analyser-v2',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
