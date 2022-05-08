@@ -239,7 +239,7 @@ export const getColorAliases = (
 
 		// Text
 		heading: colors.gray1,
-		body: colors.gray2,
+		body: colors.gray1,
 		label: colors.gray5,
 
 		buttonLabel: colors.gray1,
