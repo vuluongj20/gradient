@@ -136,7 +136,11 @@ const Wrap = styled(TransitionLink)<{
 			`
 			: `
 				padding-bottom: ${p.theme.space[1]};
-				grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
+				grid-column: ${p.$gridCols.xxl.start} / ${p.$gridCols.xxl.end};
+
+				${p.theme.utils.media.xl} {
+					grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
+				}
 
 				${p.theme.utils.media.l} {
 					grid-column: ${p.$gridCols.l.start} / ${p.$gridCols.l.end};

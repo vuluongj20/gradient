@@ -1,7 +1,5 @@
 import { keyframes } from 'styled-components'
 
-type ColCounts = Record<Breakpoint, number>
-
 export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
 /**
  * List of breakpoints. This should be in the utils folder
@@ -10,7 +8,7 @@ export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
  */
 export const breakpoints: Record<Breakpoint, string> = {
 	xl: '90rem', // 1440px
-	l: '74rem', // 1184px
+	l: '78rem', // 1248px
 	m: '64rem', // 1024px
 	s: '48rem', // 768px
 	xs: '30rem', // 480px
@@ -79,8 +77,10 @@ export const navSize = {
 	mobileHeight: '3rem',
 }
 
+export type ColCounts = Record<Breakpoint | 'xxl', number>
+
 /** Number of grid columns at different breakpoints */
-export const gridColCounts: ColCounts = { xl: 12, l: 10, m: 8, s: 6, xs: 4 }
+export const gridColCounts: ColCounts = { xxl: 14, xl: 12, l: 10, m: 8, s: 6, xs: 4 }
 
 /** Width of outer frame, in em unit */
 export const paddingHorizontal = 2

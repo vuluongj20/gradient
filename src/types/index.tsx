@@ -1,13 +1,13 @@
 import { GatsbyImageProps } from 'gatsby-plugin-image'
 
-import { Breakpoint } from '@utils/style'
+import { ColCounts } from '@utils/style'
 
 export type GridColumns = {
 	start: number
 	end: number
 }
 
-export type AdaptiveGridColumns = Record<Breakpoint, GridColumns>
+export type AdaptiveGridColumns = Record<keyof ColCounts, GridColumns>
 
 export type Page = {
 	slug: string

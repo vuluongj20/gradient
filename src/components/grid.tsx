@@ -4,10 +4,16 @@ import { gridColCounts } from '@utils/style'
 
 const Grid = styled.div`
 	display: grid;
-	grid-template-columns: [start] repeat(${gridColCounts.xl}, 1fr) [end];
+	grid-template-columns: [start] repeat(${gridColCounts.xxl}, 1fr) [end];
 	column-gap: ${(p) => p.theme.space[3]};
 
 	${(p) => p.theme.utils.space.paddingHorizontal};
+
+	${(p) => p.theme.utils.media.xl} {
+		grid-template-columns:
+			[start] repeat(${gridColCounts.xl}, 1fr)
+			[end];
+	}
 
 	${(p) => p.theme.utils.media.l} {
 		grid-template-columns:
