@@ -74,6 +74,11 @@ const ImageWrap = styled('div')<{ fullWidthOnMobile: boolean }>`
 				border-radius: 0;
 				border-left-width: 0;
 				border-right-width: 0;
+				::after {
+					border-radius: 0;
+					width: calc(100% + 2px);
+					transform: translateX(-1px);
+				}
 			}
 		`}
 `
@@ -88,18 +93,7 @@ const Caption = styled.figcaption<{ fullWidthOnMobile: boolean }>`
 	margin-top: ${(p) => p.theme.space[1]};
 	max-width: 40rem;
 
-	${(p) =>
-		p.fullWidthOnMobile &&
-		`
-			${p.theme.utils.media.s} {
-				padding-left: ${p.theme.utils.space.paddingHorizontalS};
-				padding-right: ${p.theme.utils.space.paddingHorizontalS};
-			}
-			${p.theme.utils.media.xs} {
-				padding-left: ${p.theme.utils.space.paddingHorizontalXS};
-				padding-right: ${p.theme.utils.space.paddingHorizontalXS};
-			}
-		`}
+	${(p) => p.fullWidthOnMobile && p.theme.utils.space.paddingHorizontalMobile}
 `
 
 const From = styled.span`
