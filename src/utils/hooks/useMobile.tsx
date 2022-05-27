@@ -5,9 +5,9 @@ import { breakpoints } from '@utils/style'
  * Returns whether the screen is mobile
  */
 const useMobile = (): boolean => {
-  const isXS = useMatchMedia(`(max-width: ${breakpoints.xs})`)
+  const isS = useMatchMedia(`(max-width: ${breakpoints.s})`)
   const isLandscape = useMatchMedia(`(max-height: ${breakpoints.s})`)
-  return isXS || isLandscape
+  return isS || isLandscape
 }
 
 export default useMobile

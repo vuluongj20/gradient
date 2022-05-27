@@ -63,7 +63,6 @@ const Wrap = styled.ul`
 	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));
 
 	${(p) => p.theme.utils.media.mobile} {
-		${(p) => p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs]}
 		align-items: flex-start;
 		position: fixed;
 		top: 0;
@@ -74,6 +73,8 @@ const Wrap = styled.ul`
 		padding-bottom: 0;
 		border-right-width: 0;
 	}
+
+	${(p) => p.theme.utils.space.paddingHorizontalMobile};
 `
 
 const SearchWrap = styled.li`

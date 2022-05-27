@@ -5,12 +5,12 @@ import styled from 'styled-components'
 
 import Section from './section'
 
-import { Abstract } from '@components/text'
 import Divider from '@components/divider'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
 import Page from '@components/page'
 import Spinner from '@components/spinner'
+import { Abstract } from '@components/text'
 import TypeArea from '@components/typeArea'
 
 import SettingsContext from '@utils/settingsContext'
@@ -132,7 +132,11 @@ const Main = (): JSX.Element => {
             <Title>Carbon&nbsp;Dioxide Trends Since&nbsp;1958</Title>
             <Abstract>{heroText}</Abstract>
           </HeroInnerWrap>
+        </HeroWrap>
+
+        <FigureWrap noPaddingOnMobile>
           <StyledFigure
+            fullWidthOnMobile
             image={childImageSharp}
             alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
             backgroundColor="#fff"
@@ -141,7 +145,7 @@ const Main = (): JSX.Element => {
             caption="The Mauna Loa Observatory in Hawaii, where atmotpheric carbon dioxide levels have been measured and recorded since 1958."
             from="National Oceanic and Atmospheric Administration"
           />
-        </HeroWrap>
+        </FigureWrap>
 
         {!data && <StyledSpinner label="Loading CO₂ data…" showLabel />}
 
@@ -189,6 +193,9 @@ const HeroWrap = styled(Grid)`
 
 const HeroInnerWrap = styled.div`
   ${(p) => p.theme.utils.gridColumn.text};
+`
+
+const FigureWrap = styled(Grid)`
   ${(p) => p.theme.utils.space.marginBottom[5]};
 `
 

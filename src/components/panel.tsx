@@ -64,12 +64,12 @@ const Wrap = styled.div<{ size: Size; fullWidthOnMobile: boolean }>`
 
 	${getPadding}
 
+	${(p) => p.fullWidthOnMobile && p.theme.utils.space.paddingHorizontalMobile}
+
 	${(p) =>
 		p.fullWidthOnMobile &&
 		`
-			${p.theme.utils.media.xs} {
-				padding-left: ${p.theme.utils.space.paddingHorizontalMobile};
-				padding-right: ${p.theme.utils.space.paddingHorizontalMobile};
+			${p.theme.utils.media.s} {
 				border-radius: 0;
 				border-left-width: 0;
 				border-right-width: 0;

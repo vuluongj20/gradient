@@ -160,13 +160,14 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 	z-index: -1;
 
 	${(p) => p.theme.utils.media.mobile} {
-		${(p) => p.theme.utils.space.paddingHorizontal[p.theme.utils.media.xs]}
 		position: fixed;
 		width: 100%;
 		border-right: none;
 		padding-top: calc(2.5rem + ${(p) => p.theme.space[2]});
 		transform: translateY(-100%);
 	}
+
+	${(p) => p.theme.utils.space.paddingHorizontalMobile};
 
 	@media (prefers-reduced-motion) {
 		width: auto;

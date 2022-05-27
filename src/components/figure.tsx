@@ -4,15 +4,24 @@ import styled from 'styled-components'
 type Props = GatsbyImageProps & {
 	caption?: string
 	from?: string
+	fullWidthOnMobile?: boolean
 	className?: string
 }
 
-const Figure = ({ image, alt, loading = 'lazy', caption, from, className }: Props) => {
+const Figure = ({
+	image,
+	alt,
+	loading = 'lazy',
+	caption,
+	from,
+	fullWidthOnMobile = false,
+	className,
+}: Props) => {
 	const imageData = getImage(image)
 
 	if (!caption) {
 		return (
-			<ImageWrap>
+			<ImageWrap fullWidthOnMobile={fullWidthOnMobile}>
 				<StyledImage image={imageData} alt={alt} loading={loading} />
 			</ImageWrap>
 		)
@@ -20,10 +29,10 @@ const Figure = ({ image, alt, loading = 'lazy', caption, from, className }: Prop
 
 	return (
 		<Wrap className={className}>
-			<ImageWrap>
+			<ImageWrap fullWidthOnMobile={fullWidthOnMobile}>
 				<StyledImage image={imageData} alt={alt} loading={loading} />
 			</ImageWrap>
-			<Caption>
+			<Caption fullWidthOnMobile={fullWidthOnMobile}>
 				{caption}
 				{from && <From>{` ${from}.`}</From>}
 			</Caption>
@@ -38,7 +47,7 @@ const Wrap = styled.figure`
 	padding: 0;
 `
 
-const ImageWrap = styled('div')`
+const ImageWrap = styled('div')<{ fullWidthOnMobile: boolean }>`
 	${(p) => p.theme.utils.flexCenter};
 	position: relative;
 	width: 100%;
@@ -57,17 +66,40 @@ const ImageWrap = styled('div')`
 		border-radius: ${(p) => p.theme.radii.m};
 		box-shadow: inset 0 0 0 1px ${(p) => p.theme.line};
 	}
+
+	${(p) =>
+		p.fullWidthOnMobile &&
+		`
+			${p.theme.utils.media.s} {
+				border-radius: 0;
+				border-left-width: 0;
+				border-right-width: 0;
+			}
+		`}
 `
 
 const StyledImage = styled(GatsbyImage)`
 	width: 100%;
 `
 
-const Caption = styled.figcaption`
+const Caption = styled.figcaption<{ fullWidthOnMobile: boolean }>`
 	${(p) => p.theme.text.viz.label};
 	line-height: 1.4;
 	margin-top: ${(p) => p.theme.space[1]};
 	max-width: 40rem;
+
+	${(p) =>
+		p.fullWidthOnMobile &&
+		`
+			${p.theme.utils.media.s} {
+				padding-left: ${p.theme.utils.space.paddingHorizontalS};
+				padding-right: ${p.theme.utils.space.paddingHorizontalS};
+			}
+			${p.theme.utils.media.xs} {
+				padding-left: ${p.theme.utils.space.paddingHorizontalXS};
+				padding-right: ${p.theme.utils.space.paddingHorizontalXS};
+			}
+		`}
 `
 
 const From = styled.span`

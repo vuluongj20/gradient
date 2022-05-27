@@ -5,7 +5,7 @@ import Panel from '@components/panel'
 
 const Grapher = () => {
 	return (
-		<Grid noMobilePadding>
+		<Grid noPaddingOnMobile>
 			<StyledPanel inset fullWidthOnMobile>
 				The Mauna Loa Observatory in Hawaii has been recording atmospheric CO₂ levels
 				since 1958. The dataset offers great insights into the state of the earth in the

@@ -98,12 +98,12 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		m: `@media only screen and (max-width: ${theme.breakpoints.m})`,
 		l: `@media only screen and (max-width: ${theme.breakpoints.l})`,
 		xl: `@media only screen and (max-width: ${theme.breakpoints.xl})`,
-		mobile: `@media only screen and (max-width: ${theme.breakpoints.xs}), only screen and (max-height: ${theme.breakpoints.s})`,
+		mobile: `@media only screen and (max-width: ${theme.breakpoints.s}), only screen and (max-height: ${theme.breakpoints.s})`,
 	},
 	gridColumn: {
 		text: {
 			width: '100%',
-			maxWidth: '40rem',
+			maxWidth: '44rem',
 			margin: '0 auto',
 			gridColumn: '4 / -4',
 			[`@media only screen and (max-width: ${theme.breakpoints.xl})`]: {
@@ -142,7 +142,16 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
 			},
 		},
-		paddingHorizontalMobile: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+		paddingHorizontalMobile: {
+			[`@media only screen and (max-width: ${theme.breakpoints.s})`]: {
+				paddingLeft: `max(${paddingHorizontal}rem, var(--sal, 0px))`,
+				paddingRight: `max(${paddingHorizontal}rem, var(--sar, 0px))`,
+			},
+			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
+				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
+			},
+		},
 		marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
 		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
 		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
@@ -161,6 +170,17 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 				width: `calc(100% - max(${paddingHorizontal * 0.5}rem, var(--sal, 0px)) * 2)`,
 			},
 		},
-		marginHorizontalMobile: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+		marginHorizontalMobile: {
+			[`@media only screen and (max-width: ${theme.breakpoints.s})`]: {
+				marginLeft: `max(${paddingHorizontal}rem, var(--sal, 0px))`,
+				marginRight: `max(${paddingHorizontal}rem, var(--sar, 0px))`,
+				width: `calc(100% - max(${paddingHorizontal}rem, var(--sal, 0px)) * 2)`,
+			},
+			[`@media only screen and (max-width: ${theme.breakpoints.xs})`]: {
+				marginLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
+				marginRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
+				width: `calc(100% - max(${paddingHorizontal * 0.5}rem, var(--sal, 0px)) * 2)`,
+			},
+		},
 	},
 })

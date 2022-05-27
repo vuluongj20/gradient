@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { gridColCounts } from '@utils/style'
 
-const Grid = styled.div<{ noMobilePadding?: boolean }>`
+const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xxl}, 1fr) [end];
 	column-gap: ${(p) => p.theme.space[3]};
@@ -32,6 +32,8 @@ const Grid = styled.div<{ noMobilePadding?: boolean }>`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
+
+		${(p) => p.noPaddingOnMobile && `padding-left: 0; padding-right: 0;`}
 	}
 
 	${(p) => p.theme.utils.media.xs} {
@@ -39,8 +41,6 @@ const Grid = styled.div<{ noMobilePadding?: boolean }>`
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
 		column-gap: ${(p) => p.theme.space[1]};
-
-		${(p) => p.noMobilePadding && `padding-left: 0; padding-right: 0;`}
 	}
 `
 
