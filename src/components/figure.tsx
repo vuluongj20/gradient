@@ -1,10 +1,12 @@
 import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 
+import { Theme } from '@theme'
+
 type Props = GatsbyImageProps & {
 	caption?: string
 	from?: string
-	fullWidthOnMobile?: boolean
+	gridColumn?: keyof Theme['utils']['gridColumn']
 	className?: string
 }
 
@@ -14,25 +16,25 @@ const Figure = ({
 	loading = 'lazy',
 	caption,
 	from,
-	fullWidthOnMobile = false,
+	gridColumn,
 	className,
 }: Props) => {
 	const imageData = getImage(image)
 
 	if (!caption) {
 		return (
-			<ImageWrap fullWidthOnMobile={fullWidthOnMobile}>
+			<ImageWrap gridColumn={gridColumn}>
 				<StyledImage image={imageData} alt={alt} loading={loading} />
 			</ImageWrap>
 		)
 	}
 
 	return (
-		<Wrap className={className}>
-			<ImageWrap fullWidthOnMobile={fullWidthOnMobile}>
+		<Wrap className={className} gridColumn={gridColumn}>
+			<ImageWrap gridColumn={gridColumn}>
 				<StyledImage image={imageData} alt={alt} loading={loading} />
 			</ImageWrap>
-			<Caption fullWidthOnMobile={fullWidthOnMobile}>
+			<Caption gridColumn={gridColumn}>
 				{caption}
 				{from && <From>{` ${from}.`}</From>}
 			</Caption>
@@ -42,12 +44,14 @@ const Figure = ({
 
 export default Figure
 
-const Wrap = styled.figure`
+const Wrap = styled.figure<{ gridColumn?: Props['gridColumn'] }>`
 	margin: 0;
 	padding: 0;
+
+	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
 `
 
-const ImageWrap = styled('div')<{ fullWidthOnMobile: boolean }>`
+const ImageWrap = styled('div')<{ gridColumn?: Props['gridColumn'] }>`
 	${(p) => p.theme.utils.flexCenter};
 	position: relative;
 	width: 100%;
@@ -68,7 +72,7 @@ const ImageWrap = styled('div')<{ fullWidthOnMobile: boolean }>`
 	}
 
 	${(p) =>
-		p.fullWidthOnMobile &&
+		p.gridColumn === 'wide' &&
 		`
 			${p.theme.utils.media.s} {
 				border-radius: 0;
@@ -87,13 +91,13 @@ const StyledImage = styled(GatsbyImage)`
 	width: 100%;
 `
 
-const Caption = styled.figcaption<{ fullWidthOnMobile: boolean }>`
+const Caption = styled.figcaption<{ gridColumn?: Props['gridColumn'] }>`
 	${(p) => p.theme.text.viz.label};
 	line-height: 1.4;
 	margin-top: ${(p) => p.theme.space[1]};
 	max-width: 40rem;
 
-	${(p) => p.fullWidthOnMobile && p.theme.utils.space.paddingHorizontalMobile}
+	${(p) => p.gridColumn === 'wide' && p.theme.utils.space.paddingHorizontalMobile}
 `
 
 const From = styled.span`

@@ -135,8 +135,8 @@ const Main = (): JSX.Element => {
         </HeroWrap>
 
         <FigureWrap noPaddingOnMobile>
-          <StyledFigure
-            fullWidthOnMobile
+          <Figure
+            gridColumn="wide"
             image={childImageSharp}
             alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
             backgroundColor="#fff"
@@ -197,10 +197,6 @@ const HeroInnerWrap = styled.div`
 
 const FigureWrap = styled(Grid)`
   ${(p) => p.theme.utils.space.marginBottom[5]};
-`
-
-const StyledFigure = styled(Figure)`
-  ${(p) => p.theme.utils.gridColumn.wide};
 `
 
 const Title = styled.h1``

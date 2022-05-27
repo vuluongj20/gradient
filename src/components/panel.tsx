@@ -1,25 +1,25 @@
 import { ComponentProps } from 'react'
 import styled from 'styled-components'
 
+import { Theme } from '@theme'
+
 import LocalThemeProvider from '@utils/localThemeProvider'
 
-type Size = 's' | 'm' | 'l'
-
 type Props = ComponentProps<typeof LocalThemeProvider> & {
-	size?: Size
-	fullWidthOnMobile?: boolean
+	size?: 's' | 'm' | 'l'
+	gridColumn?: keyof Theme['utils']['gridColumn']
 	className?: string
 }
 
 const Panel = ({
 	size = 'm',
-	fullWidthOnMobile = false,
+	gridColumn,
 	className,
 	children,
 	...themeProviderProps
 }: Props) => (
 	<LocalThemeProvider {...themeProviderProps}>
-		<Wrap className={className} size={size} fullWidthOnMobile={fullWidthOnMobile}>
+		<Wrap className={className} size={size} gridColumn={gridColumn}>
 			{children}
 		</Wrap>
 	</LocalThemeProvider>
@@ -57,17 +57,22 @@ const getPadding = (p) => {
 	}
 }
 
-const Wrap = styled.div<{ size: Size; fullWidthOnMobile: boolean }>`
+const Wrap = styled.div<{
+	size: Props['size']
+	gridColumn?: Props['gridColumn']
+}>`
 	background-color: ${(p) => p.theme.background};
 	border-radius: ${(p) => p.theme.radii.l};
 	border: solid 1px ${(p) => p.theme.line};
 
 	${getPadding}
 
-	${(p) => p.fullWidthOnMobile && p.theme.utils.space.paddingHorizontalMobile}
+	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+
+	${(p) => p.gridColumn === 'wide' && p.theme.utils.space.paddingHorizontalMobile}
 
 	${(p) =>
-		p.fullWidthOnMobile &&
+		p.gridColumn === 'wide' &&
 		`
 			${p.theme.utils.media.s} {
 				border-radius: 0;
