@@ -10,32 +10,23 @@ import { deepMerge } from './functions'
 import SettingsContext from './settingsContext'
 
 type Props = {
-	children: ReactNode
-	inverted?: boolean
+	children?: ReactNode
 	inset?: boolean
 	overlay?: boolean
 }
 
-const LocalThemeProvider = ({
-	children,
-	inverted,
-	inset,
-	overlay,
-}: Props): JSX.Element => {
+const LocalThemeProvider = ({ children, inset, overlay }: Props): JSX.Element => {
 	const {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
 	const { appearance, elevation } = useTheme()
-
-	const getInvertedAppearance = (appearance) => (appearance === 'light' ? 'dark' : 'dark')
-	const localAppearance = inverted ? getInvertedAppearance(appearance) : appearance
 	const localElevation = elevation + (overlay ? 1 : 0) + (inset ? -1 : 0)
 
 	/**
 	 * Falls back to current settings if
 	 * appearance is not defined
 	 */
-	const localColorSettings = { appearance: localAppearance, elevation: localElevation }
+	const localColorSettings = { appearance, elevation: localElevation }
 
 	const mergedThemeSettings = deepMerge(themeSettings, {
 		color: localColorSettings,

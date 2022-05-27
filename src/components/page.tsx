@@ -1,14 +1,11 @@
-import { ReactNode } from 'react'
+import { ComponentProps, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import Footer from './footer'
 
 type Props = {
 	children: ReactNode
-	footerProps?: {
-		inset?: boolean
-		inverted?: boolean
-	}
+	footerProps?: ComponentProps<typeof Footer>
 }
 
 const Page = ({ children, footerProps }: Props): JSX.Element => {

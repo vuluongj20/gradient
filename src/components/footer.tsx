@@ -15,10 +15,9 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
 	inset?: boolean
-	inverted?: boolean
 }
 
-const Footer = ({ inset = false, inverted = false }: Props): JSX.Element => {
+const Footer = ({ inset = false }: Props): JSX.Element => {
 	const sections = useSections()
 	const sectionPages = sections.map((section) => ({
 		slug: section.slug,
@@ -43,7 +42,7 @@ const Footer = ({ inset = false, inverted = false }: Props): JSX.Element => {
 	)
 
 	return (
-		<LocalThemeProvider inverted={inverted} inset={inset}>
+		<LocalThemeProvider inset={inset}>
 			<Wrap>
 				<Divider noMb noMt />
 				<SiteMap as="nav">

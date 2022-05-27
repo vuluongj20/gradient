@@ -1,14 +1,17 @@
 import styled from 'styled-components'
+
+import Grapher from './grapher'
+import Hero from './hero'
+
 import Page from '@components/page'
 import TypeArea from '@components/typeArea'
-
-import Hero from './hero'
 
 const Component = () => {
 	return (
 		<Page>
 			<Wrap id="App" type="content" as="article">
 				<Hero />
+				<Grapher />
 			</Wrap>
 		</Page>
 	)
