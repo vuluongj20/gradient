@@ -21,12 +21,14 @@ type SpacingName =
 	| 'paddingTop'
 	| 'paddingBottom'
 	| 'paddingHorizontal'
+	| 'paddingHorizontalMobile'
 	| 'marginVertical'
 	| 'marginTop'
 	| 'marginBottom'
 	| 'marginHorizontal'
+	| 'marginHorizontalMobile'
 
-export type SpacingUtil = { space: Record<SpacingName, CSSObject | CSSObject[]> }
+export type SpacingUtil = { space: Record<SpacingName, string | CSSObject | CSSObject[]> }
 
 export type Utils = CSSUtil & CSSStringUtil & MediaUtil & GridColumnUtil & SpacingUtil
 
@@ -139,11 +141,8 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
 				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
 			},
-			[`@media only screen and (max-height: ${theme.breakpoints.s})`]: {
-				paddingLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
-				paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
-			},
 		},
+		paddingHorizontalMobile: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
 		marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
 		marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
 		marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
@@ -161,11 +160,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 				marginRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
 				width: `calc(100% - max(${paddingHorizontal * 0.5}rem, var(--sal, 0px)) * 2)`,
 			},
-			[`@media only screen and (max-height: ${theme.breakpoints.s})`]: {
-				marginLeft: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
-				marginRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
-				width: `calc(100% - max(${paddingHorizontal * 0.5}rem, var(--sal, 0px)) * 2)`,
-			},
 		},
+		marginHorizontalMobile: `max(${paddingHorizontal * 0.5}rem, var(--sal, 0px))`,
 	},
 })

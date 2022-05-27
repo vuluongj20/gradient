@@ -72,7 +72,7 @@ const Wrap = styled.ul`
 		height: 3rem;
 		padding-top: 0;
 		padding-bottom: 0;
-		border-right: none;
+		border-right-width: 0;
 	}
 `
 
