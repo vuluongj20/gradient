@@ -1,10 +1,23 @@
 [
 	{
-		"slug": "co2",
-		"title": "Carbon Dioxide Trends Since 1958",
-		"description": "More than 10 percent of Florida’s estimated manatee population has died since the start of the year, already surpassing the total number of manatee deaths in 2020, according to state wildlife officials.",
+		"slug": "crf",
+		"title": "Learning with Conditional Random Fields",
+		"description": "An introduction to conditional random fields and other probabilistic graphical models.",
 		"featuredIn": ["top"],
 		"featuredSize": "l",
+		"sections": ["technology"],
+		"authors": ["vu-luong"],
+		"cover": {
+			"image": "../images/2.png",
+			"alt": "Abstract top-down shot of what looks like flowing liquid metal."
+		}
+	},
+	{
+		"slug": "co2",
+		"title": "Carbon Dioxide Trends Since 1958",
+		"description": "Atmospheric CO₂ data from the Mauna Loa Observatory offers great insights into the state of the earth in the past, present, and where it could be in the future.",
+		"featuredIn": ["top"],
+		"featuredSize": "m",
 		"sections": ["misc"],
 		"authors": ["vu-luong"],
 		"cover": {

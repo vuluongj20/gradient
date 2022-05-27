@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import Section from './section'
 
+import { Abstract } from '@components/text'
 import Divider from '@components/divider'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
@@ -128,8 +129,8 @@ const Main = (): JSX.Element => {
       <Wrap id="App" type="content" as="article">
         <HeroWrap as="header">
           <HeroInnerWrap>
-            <HeroHeading>Carbon&nbsp;Dioxide Trends Since&nbsp;1958</HeroHeading>
-            <HeroText>{heroText}</HeroText>
+            <Title>Carbon&nbsp;Dioxide Trends Since&nbsp;1958</Title>
+            <Abstract>{heroText}</Abstract>
           </HeroInnerWrap>
           <StyledFigure
             image={childImageSharp}
@@ -195,16 +196,7 @@ const StyledFigure = styled(Figure)`
   ${(p) => p.theme.utils.gridColumn.wide};
 `
 
-const HeroHeading = styled.h1``
-
-const HeroText = styled.p`
-  && {
-    ${(p) => p.theme.text.content.h5};
-    color: ${(p) => p.theme.heading};
-    font-weight: 400;
-  }
-  ${(p) => p.theme.utils.space.marginTop[2]}
-`
+const Title = styled.h1``
 
 const StyledSpinner = styled(Spinner)`
   margin: ${(p) => p.theme.space[3]} auto 0;
