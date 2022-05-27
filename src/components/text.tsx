@@ -6,5 +6,5 @@ export const Abstract = styled.p`
 		color: ${(p) => p.theme.heading};
 		font-weight: 400;
 	}
-	${(p) => p.theme.utils.space.marginTop[2]}
+	${(p) => p.theme.utils.space.marginTop[3]}
 `

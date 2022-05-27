@@ -1,13 +1,16 @@
 import styled from 'styled-components'
-import Grid from '@components/grid'
 
+import Grid from '@components/grid'
 import { Abstract } from '@components/text'
 
 const Hero = () => (
   <Wrap as="header">
     <InnerWrap>
       <Heading>Sequence Learning with Conditional Random Fields</Heading>
-      <Abstract>Hello</Abstract>
+      <Abstract>
+        Probabilistic graphical models like Conditional Random Fields are powerful
+        frameworks for solving sequence modeling problems.
+      </Abstract>
     </InnerWrap>
   </Wrap>
 )
