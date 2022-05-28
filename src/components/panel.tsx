@@ -12,7 +12,7 @@ type Props = ComponentProps<typeof LocalThemeProvider> & {
 }
 
 const Panel = ({
-	size = 'm',
+	size,
 	gridColumn,
 	className,
 	children,
@@ -37,6 +37,14 @@ const getPadding = (p) => {
 					padding: ${p.theme.space[1]} ${p.theme.space[2]};
 				}
 			`
+		case 'm':
+			return `
+					padding: ${p.theme.space[3]} ${p.theme.space[4]};
+
+					${p.theme.utils.media.s} {
+						padding: ${p.theme.space[2]} ${p.theme.space[3]};
+					}
+				`
 		case 'l':
 			return `
 				padding: ${p.theme.space[4]} ${p.theme.space[5]};
@@ -45,20 +53,13 @@ const getPadding = (p) => {
 					padding: ${p.theme.space[3]} ${p.theme.space[4]};
 				}
 			`
-		case 'm':
 		default:
-			return `
-				padding: ${p.theme.space[3]} ${p.theme.space[4]};
-
-				${p.theme.utils.media.s} {
-					padding: ${p.theme.space[2]} ${p.theme.space[3]};
-				}
-			`
+			return null
 	}
 }
 
 const Wrap = styled.div<{
-	size: Props['size']
+	size?: Props['size']
 	gridColumn?: Props['gridColumn']
 }>`
 	background-color: ${(p) => p.theme.background};
