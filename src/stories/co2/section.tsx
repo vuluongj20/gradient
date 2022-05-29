@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import styled from 'styled-components'
 
-import { Data, VizData } from './index'
+import { Data, VizData } from './content'
 import LineChart from './lineChart'
 import PolarPlot from './polarPlot'
 

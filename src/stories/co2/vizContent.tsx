@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { VizData } from './index'
+import { VizData } from './content'
 
 import TypeArea from '@components/typeArea'
 
