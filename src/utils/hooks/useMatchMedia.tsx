@@ -1,25 +1,22 @@
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 
-const useMatchMedia = (query: string, fallback?: boolean): boolean => {
-	const [matches, setMatches] = useState(fallback ?? false)
+const useMatchMedia = (query: string, defaultValue = false): boolean => {
+	if (typeof window === 'undefined') return defaultValue
 
-	/**
-	 * During the Gatsby build process, window and document are undefined
-	 * so return the fallback value instead
-	 */
-	if (typeof window === 'undefined' || typeof document === 'undefined') {
-		return matches
-	} else {
-		const mediaQueryList = window.matchMedia(query)
-		if (matches !== mediaQueryList.matches) {
-			setMatches(mediaQueryList.matches)
-		}
-		mediaQueryList.onchange = (e) => {
-			setMatches(e.matches)
-		}
-	}
+	const mediaQueryList = window.matchMedia(query)
 
-	return matches
+	// State and setter for matched value
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const [value, setValue] = useState(mediaQueryList.matches)
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	useLayoutEffect(() => {
+		const handler = (): void => setValue(mediaQueryList.matches)
+		mediaQueryList.addListener(handler)
+		return (): void => mediaQueryList.removeListener(handler)
+	}, [mediaQueryList])
+
+	return value
 }
 
 export default useMatchMedia
