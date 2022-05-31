@@ -2,7 +2,7 @@ import { TextScaleDefinition } from './index'
 
 const heading = {
 	fontFamily:
-		'"Domaine Display Condensed", "Palatino Linotype", Palatino, Garamond, "Apple Garamond", Georgia, serif',
+		'"Domaine Display Condensed", “Playfair Display”, "Palatino Linotype", Palatino, Garamond, "Apple Garamond", Georgia, serif',
 	textDecorationThickness: '0.04em',
 	textUnderlineOffset: '0.04em',
 }

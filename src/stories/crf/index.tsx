@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+import Grapher from './grapher'
 import Hero from './hero'
 
 import Page from '@components/page'
@@ -10,6 +11,7 @@ const Component = () => {
 		<Page>
 			<Wrap id="App" type="content" as="article">
 				<Hero />
+				<Grapher />
 			</Wrap>
 		</Page>
 	)

@@ -15,7 +15,7 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { Data, VizData } from './content'
+import { Data, VizData } from './index'
 import VizContent, { VizDesText, VizSvgWrap } from './vizContent'
 
 import useWindowHeight from '@utils/hooks/useWindowHeight'

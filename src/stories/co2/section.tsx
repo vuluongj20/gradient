@@ -1,19 +1,21 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import styled from 'styled-components'
 
-import { Data, VizData } from './content'
+import DataContext from './dataContext'
+import { Data, VizData } from './index'
 import LineChart from './lineChart'
 import PolarPlot from './polarPlot'
 
 import Grid from '@components/grid'
+import Spinner from '@components/spinner'
 
 type Props = {
-  data: Data
   vizData: VizData
 }
 
-const Section = ({ data, vizData }: Props): JSX.Element => {
+const Section = ({ vizData }: Props): JSX.Element => {
   const wrapRef = useRef(null)
+  const data = useContext<Data>(DataContext)
 
   const renderSwitch = (): JSX.Element => {
     switch (vizData.key) {
@@ -32,8 +34,9 @@ const Section = ({ data, vizData }: Props): JSX.Element => {
         {vizData.description?.map((para, index) => (
           <Para key={index}>{para}</Para>
         ))}
+        {!data && <StyledSpinner label="Loading CO₂ data…" showLabel />}
       </ContentWrap>
-      <VizWrap style={{ height: vizData.height }}>{renderSwitch()}</VizWrap>
+      {data && <VizWrap style={{ height: vizData.height }}>{renderSwitch()}</VizWrap>}
     </Grid>
   )
 }
@@ -47,6 +50,10 @@ const ContentWrap = styled.div`
 const VizWrap = styled.div`
   display: flex;
   ${(p) => p.theme.utils.gridColumn.wide};
+`
+
+const StyledSpinner = styled(Spinner)`
+  margin: ${(p) => p.theme.space[5]} auto 0;
 `
 
 const Para = styled.p`
