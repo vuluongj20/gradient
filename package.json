@@ -64,7 +64,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
-    "@loadable/babel-plugin": "^5.13.2",
     "@stylelint/postcss-css-in-js": "^0.37.2",
     "@trivago/prettier-plugin-sort-imports": "^3.0.0",
     "@types/styled-components": "^5.1.15",

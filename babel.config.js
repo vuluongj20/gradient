@@ -1,3 +1,3 @@
 module.exports = {
-  plugins: [['babel-plugin-styled-components'], '@loadable/babel-plugin'],
+  plugins: [['babel-plugin-styled-components']],
 }
