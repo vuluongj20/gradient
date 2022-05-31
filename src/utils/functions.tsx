@@ -63,3 +63,24 @@ export const debounce = (func, wait) => {
 		timeout = setTimeout(later, wait)
 	}
 }
+
+/**
+ * Creates a cancelable Promise. Useful for dealing with React memory leak
+ * warnings.
+ */
+export function makeCancelable(promise: Promise<unknown>) {
+	let isCanceled = false
+
+	const wrappedPromise = new Promise((resolve, reject) => {
+		promise
+			.then((val) => (isCanceled ? reject({ isCanceled }) : resolve(val)))
+			.catch((error) => (isCanceled ? reject({ isCanceled }) : reject(error)))
+	})
+
+	return {
+		promise: wrappedPromise,
+		cancel() {
+			isCanceled = true
+		},
+	}
+}
