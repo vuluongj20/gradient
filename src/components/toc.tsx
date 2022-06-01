@@ -47,9 +47,6 @@ const TOC = ({ label, contentSelector, className }: Props): JSX.Element => {
 			tocSelector: `${TocContent}`,
 			scrollSmooth: false,
 			headingSelector: 'h2',
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			activeListItemClass: 'active',
 		})
 
 		upperObserver.observe(upperTarget)
@@ -119,8 +116,7 @@ const TocContent = styled.div`
 		color: ${(p) => p.theme.label};
 		font-weight: 400;
 	}
-	li.active,
-	li.active > a {
+	li > a.is-active-link {
 		font-weight: 500;
 		color: ${(p) => p.theme.heading};
 		text-decoration: none;
