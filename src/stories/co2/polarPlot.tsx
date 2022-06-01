@@ -10,7 +10,7 @@ import {
   scaleLinear,
   select,
 } from 'd3'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
@@ -61,7 +61,7 @@ const PolarPlot = ({ data, content }: Props) => {
         y: centerY + radius * Math.sin(angleInRadians),
       }
     },
-    describeArc = function (x, y, radius, startAngle, endAngle) {
+    describeArc = useCallback((x, y, radius, startAngle, endAngle) => {
       const start = polarToCartesian(x, y, radius, endAngle)
       const end = polarToCartesian(x, y, radius, startAngle)
       const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
@@ -80,7 +80,7 @@ const PolarPlot = ({ data, content }: Props) => {
         'Z',
       ].join(' ')
       return d
-    },
+    }, []),
     strokeWidth = radius / 200
   const [totalLength, setTotalLength] = useState(0)
 
@@ -673,12 +673,10 @@ const PolarPlot = ({ data, content }: Props) => {
 
   // Watch for updates to the container's width. When this happens,
   // re-render the entire viz.
-  useEffect(() => {
-    setTimeout(() => {
-      const newContainerWidth = vizRef.current?.offsetWidth
-      const newRadius = Math.min(newContainerWidth - 15, windowHeight * 0.85) / 2
-      newRadius && setRadius(newRadius)
-    })
+  useLayoutEffect(() => {
+    const newContainerWidth = vizRef.current?.offsetWidth
+    const newRadius = Math.min(newContainerWidth - 15, windowHeight * 0.85) / 2
+    newRadius && setRadius(newRadius)
   }, [windowWidth, windowHeight])
 
   useEffect(() => {

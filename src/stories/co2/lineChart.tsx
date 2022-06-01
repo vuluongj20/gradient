@@ -12,7 +12,7 @@ import {
   scaleTime,
   select,
 } from 'd3'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
@@ -1171,7 +1171,7 @@ const LineChart = ({ data, content }: Props) => {
 
   // Watch for updates to the container's width. When this happens,
   // re-render the entire viz.
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTimeout(() => {
       const newWidth = vizRef.current?.offsetWidth
       newWidth && setWidth(newWidth)
