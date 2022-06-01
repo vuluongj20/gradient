@@ -10,12 +10,13 @@ import {
   scaleLinear,
   select,
 } from 'd3'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
 import VizContent, { VizDesText, VizScrollBox, VizSvgWrap } from './vizContent'
 
+import usePrevious from '@utils/hooks/usePrevious'
 import useWindowHeight from '@utils/hooks/useWindowHeight'
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 
@@ -33,6 +34,9 @@ const PolarPlot = ({ data, content }: Props) => {
   const [windowWidth, isResizing] = useWindowWidth()
   const [windowHeight] = useWindowHeight()
   const vizRef = useRef(null)
+
+  const prevRadius = usePrevious(radius)
+  const prevIntersectionIndex = usePrevious(intersectionIndex)
 
   const margin = radius > 280 ? 40 : 20,
     innerRadius = radius - margin,
@@ -78,13 +82,13 @@ const PolarPlot = ({ data, content }: Props) => {
       return d
     },
     strokeWidth = radius / 200
-  let totalLength = null
+  const [totalLength, setTotalLength] = useState(0)
 
   /**
    * Draw visualization, should be called
    * on init and resize
    */
-  const createViz = () => {
+  const createViz = useCallback(() => {
     const grandDaddy = select('#polar-plot'),
       svg = grandDaddy
         .select(`${VizSvgWrap}`)
@@ -255,414 +259,417 @@ const PolarPlot = ({ data, content }: Props) => {
       })
 
     setVizCreated(true)
-  }
+  }, [innerRadius, r, radius, strokeWidth])
 
   /**
    * Update visualization based on the current
    * and next step number
    */
-  const updateFunc = (to: number, from: number) => {
-    const grandDaddy = select('#polar-plot'),
-      svg = grandDaddy.select('svg')
+  const updateFunc = useCallback(
+    (to: number, from: number) => {
+      const grandDaddy = select('#polar-plot'),
+        svg = grandDaddy.select('svg')
 
-    const newText =
-      to !== -1
-        ? vizRef.current?.querySelector(`${VizDesText}:nth-child(${to + 1})`)
-        : null
-    if (to > from) {
-      if (newText) {
-        newText.classList.add('on')
-      }
-      const increment = (target) => {
-        switch (target) {
-          case 0: // One
-            // Main data line
-            svg
-              .append('path')
-              .attr('class', 'data-line')
-              .datum(data.slice(0, 37))
-              .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-              .attr('stroke-width', strokeWidth * 1.5)
-              .attr(
-                'd',
-                lineRadial()
-                  .angle(function (_, index) {
-                    return a(xDaysParsed[index])
-                  })
-                  .radius(function (d) {
-                    return r(d.level)
-                  })
-                  .curve(curveBasis),
-              )
-            totalLength = grandDaddy.select('.data-line').node().getTotalLength()
-            grandDaddy
-              .select('.data-line')
-              .attr('stroke-dasharray', totalLength + ' ' + totalLength)
-              .attr('stroke-dashoffset', totalLength)
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('stroke-dashoffset', 0)
-            break
-          case 1: // All
-            r.domain(
-              extent(data, (data) => {
-                return data.level
-              }),
-            ).nice()
-            // Remove unneeded circles and ticks
-            grandDaddy
-              .selectAll('.grid-circle')
-              .filter((_, i) => {
-                return i < 4
-              })
-              .attr('class', 'grid-circle off')
-              .transition()
-              .duration(1200)
-              .ease(easeCubicIn)
-              .attr('r', 0)
-            grandDaddy
-              .selectAll('.r.tick')
-              .filter((_, i) => {
-                return i < 3
-              })
-              .attr('class', 'r tick off')
-              .transition()
-              .duration(1200)
-              .ease(easeCubicIn)
-              .attr('transform', 'translate(0 0)')
-            // Move 400 circle and tick
-            grandDaddy
-              .selectAll('.grid-circle:nth-child(5)')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('r', r)
-            grandDaddy
-              .selectAll('.r.tick:nth-child(4)')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('transform', function (d) {
-                return (
-                  'translate(' +
-                  r(d) * Math.cos((-11 * Math.PI) / 12) +
-                  ' ' +
-                  r(d) * Math.sin((-11 * Math.PI) / 12) +
-                  ')'
-                )
-              })
-            // Add new circles and ticks
-            grandDaddy
-              .selectAll('.grid-circle.secondary')
-              .attr('class', 'grid-circle secondary on')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('r', r)
-            grandDaddy
-              .selectAll('.r.tick.secondary')
-              .attr('class', 'r tick secondary on')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('transform', function (d) {
-                return (
-                  'translate(' +
-                  r(d) * Math.cos((-11 * Math.PI) / 12) +
-                  ' ' +
-                  r(d) * Math.sin((-11 * Math.PI) / 12) +
-                  ')'
-                )
-              })
-
-            grandDaddy
-              .select('.data-line')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr(
-                'd',
-                lineRadial()
-                  .angle(function (_, index) {
-                    return a(xDaysParsed[index])
-                  })
-                  .radius(function (d) {
-                    return r(d.level)
-                  })
-                  .curve(curveBasis),
-              )
-              .on('end', () => {
-                const dataLine = grandDaddy
-                    .select('.data-line')
-                    .datum(data)
-                    .attr(
-                      'd',
-                      lineRadial()
-                        .angle(function (_, index) {
-                          return a(xDaysParsed[index])
-                        })
-                        .radius(function (d) {
-                          return r(d.level)
-                        })
-                        .curve(curveBasis),
-                    ),
-                  newTotalLength = dataLine.node().getTotalLength()
-                dataLine
-                  .attr('stroke-dasharray', newTotalLength + ' ' + newTotalLength)
-                  .attr('stroke-dashoffset', newTotalLength)
-                  .transition()
-                  .duration(800)
-                  .ease(easeCubicOut)
-                  .attr('stroke-dashoffset', 0)
-              })
-            break
-          case 2: // Stretches
-            r.domain(
-              extent(data, (data) => {
-                return data.level
-              }),
-            ).nice()
-            svg
-              .append('path')
-              .attr('class', 'winter stretch')
-              .attr('clip-path', 'url(#winter-polar-clip)')
-              .datum(data.slice(3112, 3126))
-              .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-              .attr('stroke-width', strokeWidth / 2)
-              .attr('d', (data) => {
-                const line = lineRadial()
-                    .angle((_, index) => {
-                      return a(xDaysParsed[index + 3112])
-                    })
-                    .radius((d) => {
-                      return r(d.level)
-                    })
-                    .curve(curveBasis),
-                  shell = describeArc(0, 0, innerRadius, 0, 90)
-                return line(data) + shell
-              })
-            svg
-              .append('path')
-              .attr('class', 'summer stretch')
-              .attr('clip-path', 'url(#summer-polar-clip)')
-              .datum(data.slice(3086, 3100))
-              .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-              .attr('stroke-width', strokeWidth / 2)
-              .attr('d', (data) => {
-                const line = lineRadial()
+      const newText =
+        to !== -1
+          ? vizRef.current?.querySelector(`${VizDesText}:nth-child(${to + 1})`)
+          : null
+      if (to > from) {
+        if (newText) {
+          newText.classList.add('on')
+        }
+        const increment = (target) => {
+          switch (target) {
+            case 0: // One
+              // Main data line
+              svg
+                .append('path')
+                .attr('class', 'data-line')
+                .datum(data.slice(0, 37))
+                .attr('transform', 'translate(' + radius + ' ' + radius + ')')
+                .attr('stroke-width', strokeWidth * 1.5)
+                .attr(
+                  'd',
+                  lineRadial()
                     .angle(function (_, index) {
-                      return a(xDaysParsed[index + 3086])
+                      return a(xDaysParsed[index])
                     })
                     .radius(function (d) {
                       return r(d.level)
                     })
                     .curve(curveBasis),
-                  shell = describeArc(0, 0, innerRadius, 180, 270)
-                return line(data) + shell
-              })
-
-            grandDaddy
-              .select('#winter-polar-clip rect')
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('transform', 'rotate(-90)')
-            grandDaddy
-              .select('#summer-polar-clip rect')
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('transform', 'rotate(90)')
-            break
-          default:
-        }
-      }
-      for (let i = from; i < to; i++) {
-        const prevText = vizRef.current?.querySelector(
-          `${VizDesText}:nth-child(${to + 1})`,
-        )
-        increment(i + 1)
-        if (prevText) {
-          prevText.classList.remove('on')
-          prevText.classList.remove('on-reverse')
-        }
-      }
-    } else if (to < from) {
-      if (newText) {
-        newText.classList.add('on-reverse')
-      }
-      const decrement = (target) => {
-        switch (target) {
-          case -1: // Init
-            const dataLine = grandDaddy.select('.data-line')
-            totalLength = dataLine.node().getTotalLength()
-
-            dataLine
-              .attr('stroke-dasharray', totalLength + ' ' + totalLength)
-              .attr('stroke-dashoffset', 0)
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('stroke-dashoffset', totalLength)
-              .remove()
-            break
-          case 0: // One
-            r.domain([
-              0,
-              max(data, (d) => {
-                return d.level
-              }),
-            ]).nice()
-            // Remove unneeded circles and ticks
-            grandDaddy
-              .selectAll('.grid-circle')
-              .filter((_, i) => {
-                return i < 4
-              })
-              .attr('class', 'grid-circle')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('r', r)
-            grandDaddy
-              .selectAll('.r.tick')
-              .filter((_, i) => {
-                return i < 3
-              })
-              .attr('class', 'r tick')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('transform', function (d) {
-                return (
-                  'translate(' +
-                  r(d) * Math.cos((-11 * Math.PI) / 12) +
-                  ' ' +
-                  r(d) * Math.sin((-11 * Math.PI) / 12) +
-                  ')'
                 )
-              })
-            // Move 400 circle and tick
-            grandDaddy
-              .selectAll('.grid-circle:nth-child(5)')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('r', r)
-            grandDaddy
-              .selectAll('.r.tick:nth-child(4)')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('transform', function (d) {
-                return (
-                  'translate(' +
-                  r(d) * Math.cos((-11 * Math.PI) / 12) +
-                  ' ' +
-                  r(d) * Math.sin((-11 * Math.PI) / 12) +
-                  ')'
+              setTotalLength(grandDaddy.select('.data-line').node().getTotalLength())
+              grandDaddy
+                .select('.data-line')
+                .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+                .attr('stroke-dashoffset', totalLength)
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('stroke-dashoffset', 0)
+              break
+            case 1: // All
+              r.domain(
+                extent(data, (data) => {
+                  return data.level
+                }),
+              ).nice()
+              // Remove unneeded circles and ticks
+              grandDaddy
+                .selectAll('.grid-circle')
+                .filter((_, i) => {
+                  return i < 4
+                })
+                .attr('class', 'grid-circle off')
+                .transition()
+                .duration(1200)
+                .ease(easeCubicIn)
+                .attr('r', 0)
+              grandDaddy
+                .selectAll('.r.tick')
+                .filter((_, i) => {
+                  return i < 3
+                })
+                .attr('class', 'r tick off')
+                .transition()
+                .duration(1200)
+                .ease(easeCubicIn)
+                .attr('transform', 'translate(0 0)')
+              // Move 400 circle and tick
+              grandDaddy
+                .selectAll('.grid-circle:nth-child(5)')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('r', r)
+              grandDaddy
+                .selectAll('.r.tick:nth-child(4)')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('transform', function (d) {
+                  return (
+                    'translate(' +
+                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    ' ' +
+                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    ')'
+                  )
+                })
+              // Add new circles and ticks
+              grandDaddy
+                .selectAll('.grid-circle.secondary')
+                .attr('class', 'grid-circle secondary on')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('r', r)
+              grandDaddy
+                .selectAll('.r.tick.secondary')
+                .attr('class', 'r tick secondary on')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('transform', function (d) {
+                  return (
+                    'translate(' +
+                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    ' ' +
+                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    ')'
+                  )
+                })
+
+              grandDaddy
+                .select('.data-line')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr(
+                  'd',
+                  lineRadial()
+                    .angle(function (_, index) {
+                      return a(xDaysParsed[index])
+                    })
+                    .radius(function (d) {
+                      return r(d.level)
+                    })
+                    .curve(curveBasis),
                 )
-              })
-            // Add new circles and ticks
-            grandDaddy
-              .selectAll('.grid-circle.secondary')
-              .attr('class', 'grid-circle secondary')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('r', r)
-            grandDaddy
-              .selectAll('.r.tick.secondary')
-              .attr('class', 'r tick secondary')
-              .transition()
-              .duration(800)
-              .ease(easeCubicIn)
-              .attr('transform', function (d) {
-                return (
-                  'translate(' +
-                  r(d) * Math.cos((-11 * Math.PI) / 12) +
-                  ' ' +
-                  r(d) * Math.sin((-11 * Math.PI) / 12) +
-                  ')'
-                )
-              })
+                .on('end', () => {
+                  const dataLine = grandDaddy
+                      .select('.data-line')
+                      .datum(data)
+                      .attr(
+                        'd',
+                        lineRadial()
+                          .angle(function (_, index) {
+                            return a(xDaysParsed[index])
+                          })
+                          .radius(function (d) {
+                            return r(d.level)
+                          })
+                          .curve(curveBasis),
+                      ),
+                    newTotalLength = dataLine.node().getTotalLength()
+                  dataLine
+                    .attr('stroke-dasharray', newTotalLength + ' ' + newTotalLength)
+                    .attr('stroke-dashoffset', newTotalLength)
+                    .transition()
+                    .duration(800)
+                    .ease(easeCubicOut)
+                    .attr('stroke-dashoffset', 0)
+                })
+              break
+            case 2: // Stretches
+              r.domain(
+                extent(data, (data) => {
+                  return data.level
+                }),
+              ).nice()
+              svg
+                .append('path')
+                .attr('class', 'winter stretch')
+                .attr('clip-path', 'url(#winter-polar-clip)')
+                .datum(data.slice(3112, 3126))
+                .attr('transform', 'translate(' + radius + ' ' + radius + ')')
+                .attr('stroke-width', strokeWidth / 2)
+                .attr('d', (data) => {
+                  const line = lineRadial()
+                      .angle((_, index) => {
+                        return a(xDaysParsed[index + 3112])
+                      })
+                      .radius((d) => {
+                        return r(d.level)
+                      })
+                      .curve(curveBasis),
+                    shell = describeArc(0, 0, innerRadius, 0, 90)
+                  return line(data) + shell
+                })
+              svg
+                .append('path')
+                .attr('class', 'summer stretch')
+                .attr('clip-path', 'url(#summer-polar-clip)')
+                .datum(data.slice(3086, 3100))
+                .attr('transform', 'translate(' + radius + ' ' + radius + ')')
+                .attr('stroke-width', strokeWidth / 2)
+                .attr('d', (data) => {
+                  const line = lineRadial()
+                      .angle(function (_, index) {
+                        return a(xDaysParsed[index + 3086])
+                      })
+                      .radius(function (d) {
+                        return r(d.level)
+                      })
+                      .curve(curveBasis),
+                    shell = describeArc(0, 0, innerRadius, 180, 270)
+                  return line(data) + shell
+                })
 
-            grandDaddy
-              .select('.data-line')
-              .datum(data.slice(0, 37))
-              .transition()
-              .duration(400)
-              .ease(easeCubicIn)
-              .style('opacity', 0)
-              .on('end', () => {
-                const dataLine = grandDaddy
-                    .select('.data-line')
-                    .datum(data.slice(0, 37))
-                    .style('opacity', 1)
-                    .attr(
-                      'd',
-                      lineRadial()
-                        .angle(function (_, index) {
-                          return a(xDaysParsed[index])
-                        })
-                        .radius(function (d) {
-                          return r(d.level)
-                        })
-                        .curve(curveBasis),
-                    ),
-                  newTotalLength = dataLine.node().getTotalLength()
+              grandDaddy
+                .select('#winter-polar-clip rect')
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('transform', 'rotate(-90)')
+              grandDaddy
+                .select('#summer-polar-clip rect')
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('transform', 'rotate(90)')
+              break
+            default:
+          }
+        }
+        for (let i = from; i < to; i++) {
+          const prevText = vizRef.current?.querySelector(
+            `${VizDesText}:nth-child(${to + 1})`,
+          )
+          increment(i + 1)
+          if (prevText) {
+            prevText.classList.remove('on')
+            prevText.classList.remove('on-reverse')
+          }
+        }
+      } else if (to < from) {
+        if (newText) {
+          newText.classList.add('on-reverse')
+        }
+        const decrement = (target) => {
+          switch (target) {
+            case -1: // Init
+              const dataLine = grandDaddy.select('.data-line')
+              setTotalLength(dataLine.node().getTotalLength())
 
-                dataLine
-                  .attr('stroke-dasharray', newTotalLength + ' ' + newTotalLength)
-                  .attr('stroke-dashoffset', newTotalLength)
-                  .transition()
-                  .duration(800)
-                  .ease(easeCubic)
-                  .attr('stroke-dashoffset', 0)
-              })
-            break
-          case 1: // All
-            grandDaddy
-              .select('#winter-polar-clip rect')
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('transform', 'rotate(-180)')
-            grandDaddy
-              .select('#summer-polar-clip rect')
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('transform', 'rotate(0)')
+              dataLine
+                .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+                .attr('stroke-dashoffset', 0)
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('stroke-dashoffset', totalLength)
+                .remove()
+              break
+            case 0: // One
+              r.domain([
+                0,
+                max(data, (d) => {
+                  return d.level
+                }),
+              ]).nice()
+              // Remove unneeded circles and ticks
+              grandDaddy
+                .selectAll('.grid-circle')
+                .filter((_, i) => {
+                  return i < 4
+                })
+                .attr('class', 'grid-circle')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('r', r)
+              grandDaddy
+                .selectAll('.r.tick')
+                .filter((_, i) => {
+                  return i < 3
+                })
+                .attr('class', 'r tick')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('transform', function (d) {
+                  return (
+                    'translate(' +
+                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    ' ' +
+                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    ')'
+                  )
+                })
+              // Move 400 circle and tick
+              grandDaddy
+                .selectAll('.grid-circle:nth-child(5)')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('r', r)
+              grandDaddy
+                .selectAll('.r.tick:nth-child(4)')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('transform', function (d) {
+                  return (
+                    'translate(' +
+                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    ' ' +
+                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    ')'
+                  )
+                })
+              // Add new circles and ticks
+              grandDaddy
+                .selectAll('.grid-circle.secondary')
+                .attr('class', 'grid-circle secondary')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('r', r)
+              grandDaddy
+                .selectAll('.r.tick.secondary')
+                .attr('class', 'r tick secondary')
+                .transition()
+                .duration(800)
+                .ease(easeCubicIn)
+                .attr('transform', function (d) {
+                  return (
+                    'translate(' +
+                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    ' ' +
+                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    ')'
+                  )
+                })
 
-            grandDaddy.select('.summer.stretch').transition().delay(800).remove()
-            grandDaddy.select('.winter.stretch').transition().delay(800).remove()
-            break
-          default:
+              grandDaddy
+                .select('.data-line')
+                .datum(data.slice(0, 37))
+                .transition()
+                .duration(400)
+                .ease(easeCubicIn)
+                .style('opacity', 0)
+                .on('end', () => {
+                  const dataLine = grandDaddy
+                      .select('.data-line')
+                      .datum(data.slice(0, 37))
+                      .style('opacity', 1)
+                      .attr(
+                        'd',
+                        lineRadial()
+                          .angle(function (_, index) {
+                            return a(xDaysParsed[index])
+                          })
+                          .radius(function (d) {
+                            return r(d.level)
+                          })
+                          .curve(curveBasis),
+                      ),
+                    newTotalLength = dataLine.node().getTotalLength()
+
+                  dataLine
+                    .attr('stroke-dasharray', newTotalLength + ' ' + newTotalLength)
+                    .attr('stroke-dashoffset', newTotalLength)
+                    .transition()
+                    .duration(800)
+                    .ease(easeCubic)
+                    .attr('stroke-dashoffset', 0)
+                })
+              break
+            case 1: // All
+              grandDaddy
+                .select('#winter-polar-clip rect')
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('transform', 'rotate(-180)')
+              grandDaddy
+                .select('#summer-polar-clip rect')
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('transform', 'rotate(0)')
+
+              grandDaddy.select('.summer.stretch').transition().delay(800).remove()
+              grandDaddy.select('.winter.stretch').transition().delay(800).remove()
+              break
+            default:
+          }
+        }
+        for (let i = from; i > to; i--) {
+          const prevText = vizRef.current?.querySelector(
+            `${VizDesText}:nth-child(${to + 1})`,
+          )
+          decrement(i - 1)
+          if (prevText) {
+            prevText.classList.remove('on')
+            prevText.classList.remove('on-reverse')
+          }
         }
       }
-      for (let i = from; i > to; i--) {
-        const prevText = vizRef.current?.querySelector(
-          `${VizDesText}:nth-child(${to + 1})`,
-        )
-        decrement(i - 1)
-        if (prevText) {
-          prevText.classList.remove('on')
-          prevText.classList.remove('on-reverse')
-        }
-      }
-    }
-    setCurrentState(to)
-  }
+      setCurrentState(to)
+    },
+    [innerRadius, radius, strokeWidth, a, r, data, describeArc, totalLength, xDaysParsed],
+  )
 
   // Initialize visualization once the section becomes visible
+  const prevVisible = usePrevious(visible)
   useEffect(() => {
-    if (visible) {
+    if (visible && visible !== prevVisible) {
       createViz()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible])
+  }, [visible, prevVisible, createViz])
 
   // Watch for updates to the container's width. When this happens,
   // re-render the entire viz.
@@ -675,16 +682,18 @@ const PolarPlot = ({ data, content }: Props) => {
   }, [windowWidth, windowHeight])
 
   useEffect(() => {
-    if (!visible) {
+    if (!visible || radius === prevRadius) {
       return
     }
     select('#polar-plot .viz').remove()
     createViz()
     updateFunc(currentState, -1)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [radius])
+  }, [radius, prevRadius, visible, currentState, createViz, updateFunc])
 
   useEffect(() => {
+    if (intersectionIndex === prevIntersectionIndex) {
+      return
+    }
     if (intersectionIndex > -1) {
       if (!vizCreated) {
         createViz()
@@ -693,11 +702,21 @@ const PolarPlot = ({ data, content }: Props) => {
     } else if (vizCreated) {
       updateFunc(intersectionIndex, currentState)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [intersectionIndex])
+  }, [
+    intersectionIndex,
+    prevIntersectionIndex,
+    createViz,
+    currentState,
+    updateFunc,
+    vizCreated,
+  ])
 
   // Add intersection observers once component mounts
   useEffect(() => {
+    if (visible) {
+      return
+    }
+
     const vizObserver = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !visible) {
@@ -727,8 +746,7 @@ const PolarPlot = ({ data, content }: Props) => {
     document.querySelectorAll(`#polar-plot ${VizDesText}`).forEach((el) => {
       vizScrollObserver.observe(el)
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [visible])
 
   return (
     <Wrap id="polar-plot" className="viz-outer-wrap" ref={vizRef}>
