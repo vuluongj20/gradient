@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react'
 
 const useMatchMedia = (query: string, defaultValue = false): boolean => {
@@ -6,10 +7,8 @@ const useMatchMedia = (query: string, defaultValue = false): boolean => {
 	const mediaQueryList = window.matchMedia(query)
 
 	// State and setter for matched value
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const [value, setValue] = useState(mediaQueryList.matches)
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
 		const handler = (): void => setValue(mediaQueryList.matches)
 		mediaQueryList.addListener(handler)
