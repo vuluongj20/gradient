@@ -152,8 +152,7 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 }
 
 const CardGroup = ({ stories, imageLoading }: Props): JSX.Element => {
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const gridColumns = useMemo(() => getGridColumns(stories), [])
+	const gridColumns = useMemo(() => getGridColumns(stories), [stories])
 
 	return (
 		<Wrap>

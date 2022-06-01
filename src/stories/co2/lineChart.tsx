@@ -12,12 +12,13 @@ import {
   scaleTime,
   select,
 } from 'd3'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Data, VizData } from './index'
 import VizContent, { VizDesText, VizSvgWrap } from './vizContent'
 
+import usePrevious from '@utils/hooks/usePrevious'
 import useWindowHeight from '@utils/hooks/useWindowHeight'
 import useWindowWidth from '@utils/hooks/useWindowWidth'
 
@@ -38,12 +39,19 @@ const LineChart = ({ data, content }: Props) => {
   const [windowHeight] = useWindowHeight()
   const vizRef = useRef(null)
 
-  const margin = {
-      top: 20,
-      right: width > 700 ? 60 : 36,
-      bottom: width > 700 ? 40 : 24,
-      left: 0,
-    },
+  const prevIntersectionIndex = usePrevious(intersectionIndex)
+  const prevWidth = usePrevious(width)
+  const prevHeight = usePrevious(height)
+
+  const margin = useMemo(
+      () => ({
+        top: 20,
+        right: width > 700 ? 60 : 36,
+        bottom: width > 700 ? 40 : 24,
+        left: 0,
+      }),
+      [width],
+    ),
     innerWidth = width - margin.left - margin.right,
     innerHeight = height - margin.top - margin.bottom,
     x = scaleTime()
@@ -69,13 +77,13 @@ const LineChart = ({ data, content }: Props) => {
       Math.ceil((d.date.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24)),
     ),
     strokeWidth = height / 400
-  let totalLength = null
+  const [totalLength, setTotalLength] = useState(0)
 
   /**
    * Draw visualization, should be called
    * on init and resize
    */
-  const createViz = () => {
+  const createViz = useCallback(() => {
     const grandDaddy = select('#line-chart'),
       svg = grandDaddy
         .select(`${VizSvgWrap}`)
@@ -189,189 +197,429 @@ const LineChart = ({ data, content }: Props) => {
       .style('opacity', 1)
 
     setVizCreated(true)
-  }
+  }, [height, innerHeight, width, innerWidth, x, y, margin, strokeWidth])
 
   /**
    * Update visualization based on the current
    * and next step number
    */
-  const updateFunc = (to: number, from: number) => {
-    const grandDaddy = select('#line-chart'),
-      svg = grandDaddy.select('svg')
-    let regLineLength = null,
-      yReg = null,
-      hoverDataFunction,
-      hoverRegFunction,
-      hoverOn = false,
-      lastMouseCoor
-    const newText =
-      to !== -1
-        ? vizRef.current?.querySelector(`${VizDesText}:nth-child(${to + 1})`)
-        : null
-    if (to > from) {
-      if (newText) {
-        newText.classList.add('on')
-      }
-      const increment = (target) => {
-        switch (target) {
-          case 0: // Initial
-            // Main data line
-            const dataLine = svg
-                .append('path')
-                .datum(data)
-                .attr('class', 'data-line')
-                .attr(
-                  'd',
-                  line()
-                    .x(function (d) {
-                      return x(d.date) + margin.left
-                    })
-                    .y(function (d) {
-                      return y(d.level) + margin.top
-                    }),
-                )
-                .attr('stroke-width', strokeWidth),
-              // Mouse hover line
-              hoverLine = svg
-                .insert('path', '.data-line')
-                .attr('class', 'hover-line')
-                .attr('stroke-width', strokeWidth)
-                .style('opacity', 0)
-                .attr('d', function () {
-                  return 'M' + 0 + ',' + 0 + ' ' + 0 + ',' + height
-                }),
-              // Mouse hover dot
-              hoverDataCircle = svg
-                .append('circle')
-                .attr('class', 'hover-data-circle')
-                .attr('r', strokeWidth * 2)
-                .attr('transform', 'translate(-5 -5)'),
-              hoverGroup = svg
-                .append('g')
-                .attr('class', 'hover-text-group')
-                .attr(
-                  'transform',
-                  'translate(' + (margin.left + 24) + ' ' + (margin.top + 24) + ')',
-                )
-                .style('opacity', 0)
-                .attr('aria-hidden', 'true')
+  const updateFunc = useCallback(
+    (to: number, from: number) => {
+      const grandDaddy = select('#line-chart'),
+        svg = grandDaddy.select('svg')
+      let regLineLength = null,
+        yReg = null,
+        hoverDataFunction,
+        hoverRegFunction,
+        hoverOn = false,
+        lastMouseCoor
+      const newText =
+        to !== -1
+          ? vizRef.current?.querySelector(`${VizDesText}:nth-child(${to + 1})`)
+          : null
+      if (to > from) {
+        if (newText) {
+          newText.classList.add('on')
+        }
+        const increment = (target) => {
+          switch (target) {
+            case 0: // Initial
+              // Main data line
+              const dataLine = svg
+                  .append('path')
+                  .datum(data)
+                  .attr('class', 'data-line')
+                  .attr(
+                    'd',
+                    line()
+                      .x(function (d) {
+                        return x(d.date) + margin.left
+                      })
+                      .y(function (d) {
+                        return y(d.level) + margin.top
+                      }),
+                  )
+                  .attr('stroke-width', strokeWidth),
+                // Mouse hover line
+                hoverLine = svg
+                  .insert('path', '.data-line')
+                  .attr('class', 'hover-line')
+                  .attr('stroke-width', strokeWidth)
+                  .style('opacity', 0)
+                  .attr('d', function () {
+                    return 'M' + 0 + ',' + 0 + ' ' + 0 + ',' + height
+                  }),
+                // Mouse hover dot
+                hoverDataCircle = svg
+                  .append('circle')
+                  .attr('class', 'hover-data-circle')
+                  .attr('r', strokeWidth * 2)
+                  .attr('transform', 'translate(-5 -5)'),
+                hoverGroup = svg
+                  .append('g')
+                  .attr('class', 'hover-text-group')
+                  .attr(
+                    'transform',
+                    'translate(' + (margin.left + 24) + ' ' + (margin.top + 24) + ')',
+                  )
+                  .style('opacity', 0)
+                  .attr('aria-hidden', 'true')
 
-            hoverGroup
-              .append('rect')
-              .attr('class', 'hover-rect')
-              .attr('rx', '8')
-              .attr('ry', '8')
-            hoverGroup.append('text').attr('class', 'hover-data-label').text('Record:')
-            hoverGroup.append('text').attr('class', 'hover-data-text')
-
-            // Animate data line
-            totalLength = dataLine.node().getTotalLength()
-            dataLine
-              .attr('stroke-dasharray', totalLength + ' ' + totalLength)
-              .attr('stroke-dashoffset', totalLength)
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .attr('stroke-dashoffset', 0)
-
-            hoverDataFunction = function (e) {
-              const coor =
-                  (pointer(e, this)[0] >= 0 && pointer(e, this)[1] >= 0) || !lastMouseCoor
-                    ? pointer(e, this)
-                    : lastMouseCoor,
-                hoverDate = x.invert(coor[0] - margin.left),
-                closestDatumIndex = data.findIndex((el) => el.date >= hoverDate),
-                hoverY =
-                  closestDatumIndex > 0
-                    ? y(data[closestDatumIndex].level) + margin.top
-                    : -10
-
-              lastMouseCoor = coor
-
-              this.coor = coor
-              this.closestDatumIndex = closestDatumIndex
-              this.dataHoverY = hoverY
-
-              hoverLine.attr('transform', 'translate(' + coor[0] + ' ' + 0 + ')')
-              hoverDataCircle.attr(
-                'transform',
-                'translate(' + coor[0] + ' ' + hoverY + ')',
-              )
               hoverGroup
-                .select('.hover-data-text')
-                .text(
-                  closestDatumIndex > 0
-                    ? data[closestDatumIndex].level.toFixed(2) + ' ppm'
-                    : closestDatumIndex === 0
-                    ? data[0].level.toFixed(2) + ' ppm'
-                    : data[data.length - 1].level.toFixed(2) + ' ppm',
-                )
+                .append('rect')
+                .attr('class', 'hover-rect')
+                .attr('rx', '8')
+                .attr('ry', '8')
+              hoverGroup.append('text').attr('class', 'hover-data-label').text('Record:')
+              hoverGroup.append('text').attr('class', 'hover-data-text')
 
-              if (closestDatumIndex >= 0) {
-                hoverGroup.attr(
+              // Animate data line
+              setTotalLength(dataLine.node().getTotalLength())
+              dataLine
+                .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+                .attr('stroke-dashoffset', totalLength)
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .attr('stroke-dashoffset', 0)
+
+              hoverDataFunction = function (e) {
+                const coor =
+                    (pointer(e, this)[0] >= 0 && pointer(e, this)[1] >= 0) ||
+                    !lastMouseCoor
+                      ? pointer(e, this)
+                      : lastMouseCoor,
+                  hoverDate = x.invert(coor[0] - margin.left),
+                  closestDatumIndex = data.findIndex((el) => el.date >= hoverDate),
+                  hoverY =
+                    closestDatumIndex > 0
+                      ? y(data[closestDatumIndex].level) + margin.top
+                      : -10
+
+                lastMouseCoor = coor
+
+                this.coor = coor
+                this.closestDatumIndex = closestDatumIndex
+                this.dataHoverY = hoverY
+
+                hoverLine.attr('transform', 'translate(' + coor[0] + ' ' + 0 + ')')
+                hoverDataCircle.attr(
+                  'transform',
+                  'translate(' + coor[0] + ' ' + hoverY + ')',
+                )
+                hoverGroup
+                  .select('.hover-data-text')
+                  .text(
+                    closestDatumIndex > 0
+                      ? data[closestDatumIndex].level.toFixed(2) + ' ppm'
+                      : closestDatumIndex === 0
+                      ? data[0].level.toFixed(2) + ' ppm'
+                      : data[data.length - 1].level.toFixed(2) + ' ppm',
+                  )
+
+                if (closestDatumIndex >= 0) {
+                  hoverGroup.attr(
+                    'transform',
+                    'translate(' +
+                      coor[0] +
+                      ' ' +
+                      y(
+                        314.574751 +
+                          0.00210065413 * xDays[closestDatumIndex] +
+                          0.0000000973625567 * xDays[closestDatumIndex] ** 2,
+                      ) +
+                      ')',
+                  )
+                }
+
+                if (closestDatumIndex <= 0 && hoverOn) {
+                  hoverOn = false
+                  hoverGroup.style('opacity', 0)
+                  hoverLine.style('opacity', 0)
+                  hoverDataCircle.style('opacity', 0)
+                } else if (closestDatumIndex > 0 && !hoverOn) {
+                  hoverOn = true
+                  hoverGroup.style('opacity', 1)
+                  hoverLine.style('opacity', 0.4)
+                  hoverDataCircle.style('opacity', 1)
+                  grandDaddy.select('.hover-reg-circle').style('opacity', 1)
+                  grandDaddy.select('.hover-diff-line').style('opacity', 1)
+                }
+              }
+
+              svg
+                .on('mouseleave', () => {
+                  if (hoverOn) {
+                    hoverOn = false
+                    hoverGroup
+                      .transition()
+                      .duration(200)
+                      .ease(easeCubic)
+                      .style('opacity', 0)
+                    hoverLine
+                      .transition()
+                      .duration(200)
+                      .ease(easeCubic)
+                      .style('opacity', 0)
+                    hoverDataCircle
+                      .transition()
+                      .duration(200)
+                      .ease(easeCubic)
+                      .style('opacity', 0)
+                    select('.hover-reg-circle')
+                      .transition()
+                      .duration(200)
+                      .ease(easeCubic)
+                      .style('opacity', 0)
+                    select('.hover-diff-line')
+                      .transition()
+                      .duration(200)
+                      .ease(easeCubic)
+                      .style('opacity', 0)
+                  }
+                })
+                .on('mousemove', hoverDataFunction)
+              break
+            case 1: // Linear
+              yReg = xDays.map((d) => content[1].params[0] + content[1].params[1] * d)
+              const regLine = svg
+                  .append('path')
+                  .datum(data)
+                  .attr('class', 'reg-line')
+                  .attr(
+                    'd',
+                    line()
+                      .x(function (d) {
+                        return x(d.date) + margin.left
+                      })
+                      .y(function (d, i) {
+                        return y(yReg[i]) + margin.top
+                      }),
+                  )
+                  .attr('stroke-width', strokeWidth * 1.5),
+                hoverRegCircle = svg
+                  .append('circle')
+                  .attr('class', 'hover-reg-circle')
+                  .attr('r', strokeWidth * 2)
+                  .attr('transform', 'translate(-5 -5)'),
+                hoverDiffLine = svg
+                  .insert('path', '.hover-data-circle')
+                  .attr('class', 'hover-diff-line')
+                  .attr('stroke-width', strokeWidth),
+                hoverGroupSelection = grandDaddy.select('.hover-text-group'),
+                hoverRegLabel = hoverGroupSelection
+                  .append('text')
+                  .attr('class', 'hover-reg-label')
+                  .text('Regression:'),
+                hoverRegText = hoverGroupSelection
+                  .append('text')
+                  .attr('class', 'hover-reg-text'),
+                hoverDiffLabel = hoverGroupSelection
+                  .append('text')
+                  .attr('class', 'hover-diff-label')
+                  .text('Squared error:'),
+                hoverDiffText = hoverGroupSelection
+                  .append('text')
+                  .attr('class', 'hover-diff-text'),
+                mseGroup = svg
+                  .append('g')
+                  .attr('class', 'mse-group')
+                  .attr(
+                    'transform',
+                    'translate(' +
+                      (width > 480
+                        ? innerWidth + margin.left - 360
+                        : innerWidth + margin.left - 200) +
+                      ', ' +
+                      (width > 768
+                        ? innerHeight + margin.top - 100
+                        : innerHeight + margin.top - 86) +
+                      ')',
+                  )
+
+              svg
+                .append('g')
+                .attr('class', 'reg-line-label')
+                .attr(
                   'transform',
                   'translate(' +
-                    coor[0] +
-                    ' ' +
-                    y(
-                      314.574751 +
-                        0.00210065413 * xDays[closestDatumIndex] +
-                        0.0000000973625567 * xDays[closestDatumIndex] ** 2,
-                    ) +
+                    (width > 540
+                      ? x(data[Math.ceil(data.length * 0.52)]['date']) + margin.left + 64
+                      : x(data[Math.ceil(data.length * 0.36)]['date']) +
+                        margin.left +
+                        20) +
+                    ', ' +
+                    (width > 540
+                      ? y(yReg[Math.ceil(yReg.length * 0.52)]) + margin.top + 20
+                      : y(yReg[Math.ceil(yReg.length * 0.36)]) + margin.top + 20) +
                     ')',
                 )
-              }
 
-              if (closestDatumIndex <= 0 && hoverOn) {
-                hoverOn = false
-                hoverGroup.style('opacity', 0)
-                hoverLine.style('opacity', 0)
-                hoverDataCircle.style('opacity', 0)
-              } else if (closestDatumIndex > 0 && !hoverOn) {
-                hoverOn = true
-                hoverGroup.style('opacity', 1)
-                hoverLine.style('opacity', 0.4)
-                hoverDataCircle.style('opacity', 1)
-                grandDaddy.select('.hover-reg-circle').style('opacity', 1)
-                grandDaddy.select('.hover-diff-line').style('opacity', 1)
-              }
-            }
+              hoverRegLabel
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              hoverRegText
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              hoverDiffLabel
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              hoverDiffText
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
 
-            svg
-              .on('mouseleave', () => {
-                if (hoverOn) {
-                  hoverOn = false
-                  hoverGroup
-                    .transition()
-                    .duration(200)
-                    .ease(easeCubic)
-                    .style('opacity', 0)
-                  hoverLine.transition().duration(200).ease(easeCubic).style('opacity', 0)
-                  hoverDataCircle
-                    .transition()
-                    .duration(200)
-                    .ease(easeCubic)
-                    .style('opacity', 0)
-                  select('.hover-reg-circle')
-                    .transition()
-                    .duration(200)
-                    .ease(easeCubic)
-                    .style('opacity', 0)
-                  select('.hover-diff-line')
-                    .transition()
-                    .duration(200)
-                    .ease(easeCubic)
-                    .style('opacity', 0)
+              hoverGroupSelection.attr('class', 'hover-text-group big')
+              hoverGroupSelection
+                .select('.hover-data-label')
+                .attr('class', 'hover-data-label big')
+                .clone(true)
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              hoverGroupSelection.select('.hover-data-label').remove()
+              hoverGroupSelection
+                .select('.hover-data-text')
+                .attr('class', 'hover-data-text big')
+                .clone(true)
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              hoverGroupSelection.select('.hover-data-text').remove()
+
+              grandDaddy.select('.bottom-axis').raise()
+              regLineLength = regLine.node().getTotalLength()
+              regLine
+                .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
+                .attr('stroke-dashoffset', regLineLength)
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .attr('stroke-dashoffset', 0)
+              grandDaddy.select('.data-line').attr('class', 'data-line faded')
+              grandDaddy.selectAll('.mse-equation>tspan:not(.linear)').each(function () {
+                const currentSpan = select(this)
+                if (!currentSpan.node().classList.contains('off')) {
+                  currentSpan.node().classList.add('off')
                 }
               })
-              .on('mousemove', hoverDataFunction)
-            break
-          case 1: // Linear
-            yReg = xDays.map((d) => content[1].params[0] + content[1].params[1] * d)
-            const regLine = svg
-                .append('path')
-                .datum(data)
-                .attr('class', 'reg-line')
+
+              mseGroup
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+
+              mseGroup
+                .append('rect')
+                .attr('class', 'mse-rect linear')
+                .attr('stroke-width', strokeWidth / 2)
+                .attr('rx', '4')
+                .attr('ry', '4')
+
+              mseGroup.append('text').attr('class', 'mse-title').text('Linear regression')
+
+              mseGroup.append('text').attr('class', 'mse-equation-label').text('Form:')
+
+              const regLineLabelText = mseGroup
+                .append('text')
+                .attr('class', 'mse-equation')
+              regLineLabelText.append('tspan').attr('class', 'linear span').text('y = αx')
+
+              mseGroup.append('text').attr('class', 'mse-acc-label').text('MSE:')
+
+              mseGroup
+                .append('text')
+                .attr('class', 'mse-acc-text')
+                .text(0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .tween('text', function () {
+                  const i = interpolate(0, mse[0])
+                  return function (t) {
+                    select(this).text(i(t).toFixed(2))
+                  }
+                })
+
+              hoverRegFunction = function () {
+                const hoverY =
+                    this.closestDatumIndex > 0
+                      ? y(yReg[this.closestDatumIndex]) + margin.top
+                      : -10,
+                  squaredError =
+                    this.closestDatumIndex > 0
+                      ? (data[this.closestDatumIndex].level -
+                          yReg[this.closestDatumIndex]) **
+                        2
+                      : this.closestDatumIndex === 0
+                      ? (data[0].level - yReg[0]) ** 2
+                      : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2
+
+                hoverRegCircle.attr(
+                  'transform',
+                  'translate(' + this.coor[0] + ' ' + hoverY + ')',
+                )
+                hoverRegText.text(
+                  this.closestDatumIndex > 0
+                    ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
+                    : this.closestDatumIndex === 0
+                    ? yReg[0].toFixed(2) + ' ppm'
+                    : yReg[yReg.length - 1].toFixed(2) + ' ppm',
+                )
+
+                if (hoverY === -10) {
+                  hoverRegCircle.style('opacity', 0)
+                } else {
+                  hoverRegCircle.style('opacity', 1)
+                }
+
+                hoverDiffLine.attr(
+                  'd',
+                  'M' +
+                    this.coor[0] +
+                    ',' +
+                    hoverY +
+                    ' ' +
+                    this.coor[0] +
+                    ',' +
+                    this.dataHoverY,
+                )
+                hoverDiffText.text(squaredError.toFixed(2))
+              }
+              grandDaddy.select('.hover-data-circle').node().classList.add('out')
+              grandDaddy.select('.hover-data-text').node().classList.add('out')
+              svg.node().addEventListener('mousemove', hoverRegFunction)
+              svg.node().dispatchEvent(new MouseEvent('mousemove'))
+              break
+            case 2: // Quadratic
+              yReg = xDays.map(
+                (d) =>
+                  content[2].params[0] +
+                  content[2].params[1] * d +
+                  content[2].params[2] * d ** 2,
+              )
+              grandDaddy
+                .select('.reg-line')
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
                 .attr(
                   'd',
                   line()
@@ -382,753 +630,544 @@ const LineChart = ({ data, content }: Props) => {
                       return y(yReg[i]) + margin.top
                     }),
                 )
-                .attr('stroke-width', strokeWidth * 1.5),
-              hoverRegCircle = svg
-                .append('circle')
-                .attr('class', 'hover-reg-circle')
-                .attr('r', strokeWidth * 2)
-                .attr('transform', 'translate(-5 -5)'),
-              hoverDiffLine = svg
-                .insert('path', '.hover-data-circle')
-                .attr('class', 'hover-diff-line')
-                .attr('stroke-width', strokeWidth),
-              hoverGroupSelection = grandDaddy.select('.hover-text-group'),
-              hoverRegLabel = hoverGroupSelection
-                .append('text')
-                .attr('class', 'hover-reg-label')
-                .text('Regression:'),
-              hoverRegText = hoverGroupSelection
-                .append('text')
-                .attr('class', 'hover-reg-text'),
-              hoverDiffLabel = hoverGroupSelection
-                .append('text')
-                .attr('class', 'hover-diff-label')
-                .text('Squared error:'),
-              hoverDiffText = hoverGroupSelection
-                .append('text')
-                .attr('class', 'hover-diff-text'),
-              mseGroup = svg
-                .append('g')
-                .attr('class', 'mse-group')
-                .attr(
+              regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
+              grandDaddy
+                .select('.reg-line')
+                .attr('stroke-dasharray', 0)
+                .attr('stroke-dashoffset', 0)
+
+              grandDaddy.select('.mse-title').text('Quadratic regression')
+              grandDaddy.select('.mse-rect').attr('class', 'mse-rect quadratic')
+              grandDaddy
+                .select('.mse-equation')
+                .append('tspan')
+                .attr('class', 'quadratic span')
+                .text(' + βx\u00b2')
+                .style('opacity', 0)
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .style('opacity', 1)
+              grandDaddy
+                .selectAll('.mse-equation>tspan:not(.quadratic)')
+                .each(function () {
+                  const currentSpan = select(this)
+                  if (!currentSpan.node().classList.contains('off')) {
+                    currentSpan.node().classList.add('off')
+                  }
+                })
+
+              grandDaddy
+                .select('.mse-acc-text')
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .tween('text', function () {
+                  const i = interpolate(mse[0], mse[1])
+                  return function (t) {
+                    select(this).text(i(t).toFixed(2))
+                  }
+                })
+
+              svg.node().removeEventListener('mousemove', hoverRegFunction)
+              hoverRegFunction = function () {
+                const hoverY =
+                    this.closestDatumIndex > 0
+                      ? y(yReg[this.closestDatumIndex]) + margin.top
+                      : -10,
+                  squaredError =
+                    this.closestDatumIndex > 0
+                      ? (data[this.closestDatumIndex].level -
+                          yReg[this.closestDatumIndex]) **
+                        2
+                      : this.closestDatumIndex === 0
+                      ? (data[0].level - yReg[0]) ** 2
+                      : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
+                  hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
+                  hoverRegText = grandDaddy.select('.hover-reg-text'),
+                  hoverDiffLine = grandDaddy.select('.hover-diff-line'),
+                  hoverDiffText = grandDaddy.select('.hover-diff-text')
+
+                hoverRegCircle.attr(
                   'transform',
-                  'translate(' +
-                    (width > 480
-                      ? innerWidth + margin.left - 360
-                      : innerWidth + margin.left - 200) +
-                    ', ' +
-                    (width > 768
-                      ? innerHeight + margin.top - 100
-                      : innerHeight + margin.top - 86) +
-                    ')',
+                  'translate(' + this.coor[0] + ' ' + hoverY + ')',
+                )
+                hoverRegText.text(
+                  this.closestDatumIndex > 0
+                    ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
+                    : this.closestDatumIndex === 0
+                    ? yReg[0].toFixed(2) + ' ppm'
+                    : yReg[yReg.length - 1].toFixed(2) + ' ppm',
                 )
 
-            svg
-              .append('g')
-              .attr('class', 'reg-line-label')
-              .attr(
-                'transform',
-                'translate(' +
-                  (width > 540
-                    ? x(data[Math.ceil(data.length * 0.52)]['date']) + margin.left + 64
-                    : x(data[Math.ceil(data.length * 0.36)]['date']) + margin.left + 20) +
-                  ', ' +
-                  (width > 540
-                    ? y(yReg[Math.ceil(yReg.length * 0.52)]) + margin.top + 20
-                    : y(yReg[Math.ceil(yReg.length * 0.36)]) + margin.top + 20) +
-                  ')',
-              )
-
-            hoverRegLabel
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            hoverRegText
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            hoverDiffLabel
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            hoverDiffText
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-
-            hoverGroupSelection.attr('class', 'hover-text-group big')
-            hoverGroupSelection
-              .select('.hover-data-label')
-              .attr('class', 'hover-data-label big')
-              .clone(true)
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            hoverGroupSelection.select('.hover-data-label').remove()
-            hoverGroupSelection
-              .select('.hover-data-text')
-              .attr('class', 'hover-data-text big')
-              .clone(true)
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            hoverGroupSelection.select('.hover-data-text').remove()
-
-            grandDaddy.select('.bottom-axis').raise()
-            regLineLength = regLine.node().getTotalLength()
-            regLine
-              .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
-              .attr('stroke-dashoffset', regLineLength)
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr('stroke-dashoffset', 0)
-            grandDaddy.select('.data-line').attr('class', 'data-line faded')
-            grandDaddy.selectAll('.mse-equation>tspan:not(.linear)').each(function () {
-              const currentSpan = select(this)
-              if (!currentSpan.node().classList.contains('off')) {
-                currentSpan.node().classList.add('off')
+                hoverDiffLine.attr(
+                  'd',
+                  'M' +
+                    this.coor[0] +
+                    ',' +
+                    hoverY +
+                    ' ' +
+                    this.coor[0] +
+                    ',' +
+                    this.dataHoverY,
+                )
+                hoverDiffText.text(squaredError.toFixed(2))
               }
-            })
+              svg.node().addEventListener('mousemove', hoverRegFunction)
+              svg.node().dispatchEvent(new MouseEvent('mousemove'))
+              break
+            case 3: // Cosine
+              yReg = xDays.map(
+                (d) =>
+                  content[3].params[0] +
+                  content[3].params[1] * d +
+                  content[3].params[2] * d ** 2 +
+                  content[3].params[3] *
+                    Math.cos((2 * Math.PI * d) / 365.25 + content[3].params[4]),
+              )
+              grandDaddy
+                .select('.reg-line')
+                .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .attr(
+                  'd',
+                  line()
+                    .x(function (d) {
+                      return x(d.date) + margin.left
+                    })
+                    .y(function (d, i) {
+                      return y(yReg[i]) + margin.top
+                    }),
+                )
+              regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
+              grandDaddy
+                .select('.reg-line')
+                .attr('stroke-dasharray', 0)
+                .attr('stroke-dashoffset', 0)
 
-            mseGroup
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-
-            mseGroup
-              .append('rect')
-              .attr('class', 'mse-rect linear')
-              .attr('stroke-width', strokeWidth / 2)
-              .attr('rx', '4')
-              .attr('ry', '4')
-
-            mseGroup.append('text').attr('class', 'mse-title').text('Linear regression')
-
-            mseGroup.append('text').attr('class', 'mse-equation-label').text('Form:')
-
-            const regLineLabelText = mseGroup.append('text').attr('class', 'mse-equation')
-            regLineLabelText.append('tspan').attr('class', 'linear span').text('y = αx')
-
-            mseGroup.append('text').attr('class', 'mse-acc-label').text('MSE:')
-
-            mseGroup
-              .append('text')
-              .attr('class', 'mse-acc-text')
-              .text(0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .tween('text', function () {
-                const i = interpolate(0, mse[0])
-                return function (t) {
-                  select(this).text(i(t).toFixed(2))
+              grandDaddy.select('.mse-title').text('Quadratic regression w/ cosine term')
+              grandDaddy.select('.mse-rect').attr('class', 'mse-rect cosine')
+              grandDaddy
+                .select('.mse-equation')
+                .append('tspan')
+                .attr('class', 'cosine span')
+                .text(' + cos(2πt + φ)')
+                .style('opacity', 0)
+                .transition()
+                .duration(800)
+                .ease(easeCubic)
+                .style('opacity', 1)
+              grandDaddy.selectAll('.mse-equation>tspan:not(.cosine)').each(function () {
+                const currentSpan = select(this)
+                if (!currentSpan.node().classList.contains('off')) {
+                  currentSpan.node().classList.add('off')
                 }
               })
 
-            hoverRegFunction = function () {
-              const hoverY =
+              grandDaddy
+                .select('.mse-acc-text')
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .tween('text', function () {
+                  const i = interpolate(mse[1], mse[2])
+                  return function (t) {
+                    select(this).text(i(t).toFixed(2))
+                  }
+                })
+
+              svg.node().removeEventListener('mousemove', hoverRegFunction)
+              hoverRegFunction = function () {
+                const hoverY =
+                    this.closestDatumIndex > 0
+                      ? y(yReg[this.closestDatumIndex]) + margin.top
+                      : -10,
+                  squaredError =
+                    this.closestDatumIndex > 0
+                      ? (data[this.closestDatumIndex].level -
+                          yReg[this.closestDatumIndex]) **
+                        2
+                      : this.closestDatumIndex === 0
+                      ? (data[0].level - yReg[0]) ** 2
+                      : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
+                  hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
+                  hoverRegText = grandDaddy.select('.hover-reg-text'),
+                  hoverDiffLine = grandDaddy.select('.hover-diff-line'),
+                  hoverDiffText = grandDaddy.select('.hover-diff-text')
+
+                hoverRegCircle.attr(
+                  'transform',
+                  'translate(' + this.coor[0] + ' ' + hoverY + ')',
+                )
+                hoverRegText.text(
                   this.closestDatumIndex > 0
-                    ? y(yReg[this.closestDatumIndex]) + margin.top
-                    : -10,
-                squaredError =
-                  this.closestDatumIndex > 0
-                    ? (data[this.closestDatumIndex].level -
-                        yReg[this.closestDatumIndex]) **
-                      2
+                    ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
                     : this.closestDatumIndex === 0
-                    ? (data[0].level - yReg[0]) ** 2
-                    : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2
+                    ? yReg[0].toFixed(2) + ' ppm'
+                    : yReg[yReg.length - 1].toFixed(2) + ' ppm',
+                )
 
-              hoverRegCircle.attr(
-                'transform',
-                'translate(' + this.coor[0] + ' ' + hoverY + ')',
-              )
-              hoverRegText.text(
-                this.closestDatumIndex > 0
-                  ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
-                  : this.closestDatumIndex === 0
-                  ? yReg[0].toFixed(2) + ' ppm'
-                  : yReg[yReg.length - 1].toFixed(2) + ' ppm',
-              )
-
-              if (hoverY === -10) {
-                hoverRegCircle.style('opacity', 0)
-              } else {
-                hoverRegCircle.style('opacity', 1)
+                hoverDiffLine.attr(
+                  'd',
+                  'M' +
+                    this.coor[0] +
+                    ',' +
+                    hoverY +
+                    ' ' +
+                    this.coor[0] +
+                    ',' +
+                    this.dataHoverY,
+                )
+                hoverDiffText.text(squaredError.toFixed(2))
               }
-
-              hoverDiffLine.attr(
-                'd',
-                'M' +
-                  this.coor[0] +
-                  ',' +
-                  hoverY +
-                  ' ' +
-                  this.coor[0] +
-                  ',' +
-                  this.dataHoverY,
-              )
-              hoverDiffText.text(squaredError.toFixed(2))
-            }
-            grandDaddy.select('.hover-data-circle').node().classList.add('out')
-            grandDaddy.select('.hover-data-text').node().classList.add('out')
-            svg.node().addEventListener('mousemove', hoverRegFunction)
-            svg.node().dispatchEvent(new MouseEvent('mousemove'))
-            break
-          case 2: // Quadratic
-            yReg = xDays.map(
-              (d) =>
-                content[2].params[0] +
-                content[2].params[1] * d +
-                content[2].params[2] * d ** 2,
-            )
-            grandDaddy
-              .select('.reg-line')
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr(
-                'd',
-                line()
-                  .x(function (d) {
-                    return x(d.date) + margin.left
-                  })
-                  .y(function (d, i) {
-                    return y(yReg[i]) + margin.top
-                  }),
-              )
-            regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
-            grandDaddy
-              .select('.reg-line')
-              .attr('stroke-dasharray', 0)
-              .attr('stroke-dashoffset', 0)
-
-            grandDaddy.select('.mse-title').text('Quadratic regression')
-            grandDaddy.select('.mse-rect').attr('class', 'mse-rect quadratic')
-            grandDaddy
-              .select('.mse-equation')
-              .append('tspan')
-              .attr('class', 'quadratic span')
-              .text(' + βx\u00b2')
-              .style('opacity', 0)
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .style('opacity', 1)
-            grandDaddy.selectAll('.mse-equation>tspan:not(.quadratic)').each(function () {
-              const currentSpan = select(this)
-              if (!currentSpan.node().classList.contains('off')) {
-                currentSpan.node().classList.add('off')
-              }
-            })
-
-            grandDaddy
-              .select('.mse-acc-text')
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .tween('text', function () {
-                const i = interpolate(mse[0], mse[1])
-                return function (t) {
-                  select(this).text(i(t).toFixed(2))
-                }
-              })
-
-            svg.node().removeEventListener('mousemove', hoverRegFunction)
-            hoverRegFunction = function () {
-              const hoverY =
-                  this.closestDatumIndex > 0
-                    ? y(yReg[this.closestDatumIndex]) + margin.top
-                    : -10,
-                squaredError =
-                  this.closestDatumIndex > 0
-                    ? (data[this.closestDatumIndex].level -
-                        yReg[this.closestDatumIndex]) **
-                      2
-                    : this.closestDatumIndex === 0
-                    ? (data[0].level - yReg[0]) ** 2
-                    : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
-                hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
-                hoverRegText = grandDaddy.select('.hover-reg-text'),
-                hoverDiffLine = grandDaddy.select('.hover-diff-line'),
-                hoverDiffText = grandDaddy.select('.hover-diff-text')
-
-              hoverRegCircle.attr(
-                'transform',
-                'translate(' + this.coor[0] + ' ' + hoverY + ')',
-              )
-              hoverRegText.text(
-                this.closestDatumIndex > 0
-                  ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
-                  : this.closestDatumIndex === 0
-                  ? yReg[0].toFixed(2) + ' ppm'
-                  : yReg[yReg.length - 1].toFixed(2) + ' ppm',
-              )
-
-              hoverDiffLine.attr(
-                'd',
-                'M' +
-                  this.coor[0] +
-                  ',' +
-                  hoverY +
-                  ' ' +
-                  this.coor[0] +
-                  ',' +
-                  this.dataHoverY,
-              )
-              hoverDiffText.text(squaredError.toFixed(2))
-            }
-            svg.node().addEventListener('mousemove', hoverRegFunction)
-            svg.node().dispatchEvent(new MouseEvent('mousemove'))
-            break
-          case 3: // Cosine
-            yReg = xDays.map(
-              (d) =>
-                content[3].params[0] +
-                content[3].params[1] * d +
-                content[3].params[2] * d ** 2 +
-                content[3].params[3] *
-                  Math.cos((2 * Math.PI * d) / 365.25 + content[3].params[4]),
-            )
-            grandDaddy
-              .select('.reg-line')
-              .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr(
-                'd',
-                line()
-                  .x(function (d) {
-                    return x(d.date) + margin.left
-                  })
-                  .y(function (d, i) {
-                    return y(yReg[i]) + margin.top
-                  }),
-              )
-            regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
-            grandDaddy
-              .select('.reg-line')
-              .attr('stroke-dasharray', 0)
-              .attr('stroke-dashoffset', 0)
-
-            grandDaddy.select('.mse-title').text('Quadratic regression w/ cosine term')
-            grandDaddy.select('.mse-rect').attr('class', 'mse-rect cosine')
-            grandDaddy
-              .select('.mse-equation')
-              .append('tspan')
-              .attr('class', 'cosine span')
-              .text(' + cos(2πt + φ)')
-              .style('opacity', 0)
-              .transition()
-              .duration(800)
-              .ease(easeCubic)
-              .style('opacity', 1)
-            grandDaddy.selectAll('.mse-equation>tspan:not(.cosine)').each(function () {
-              const currentSpan = select(this)
-              if (!currentSpan.node().classList.contains('off')) {
-                currentSpan.node().classList.add('off')
-              }
-            })
-
-            grandDaddy
-              .select('.mse-acc-text')
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .tween('text', function () {
-                const i = interpolate(mse[1], mse[2])
-                return function (t) {
-                  select(this).text(i(t).toFixed(2))
-                }
-              })
-
-            svg.node().removeEventListener('mousemove', hoverRegFunction)
-            hoverRegFunction = function () {
-              const hoverY =
-                  this.closestDatumIndex > 0
-                    ? y(yReg[this.closestDatumIndex]) + margin.top
-                    : -10,
-                squaredError =
-                  this.closestDatumIndex > 0
-                    ? (data[this.closestDatumIndex].level -
-                        yReg[this.closestDatumIndex]) **
-                      2
-                    : this.closestDatumIndex === 0
-                    ? (data[0].level - yReg[0]) ** 2
-                    : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
-                hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
-                hoverRegText = grandDaddy.select('.hover-reg-text'),
-                hoverDiffLine = grandDaddy.select('.hover-diff-line'),
-                hoverDiffText = grandDaddy.select('.hover-diff-text')
-
-              hoverRegCircle.attr(
-                'transform',
-                'translate(' + this.coor[0] + ' ' + hoverY + ')',
-              )
-              hoverRegText.text(
-                this.closestDatumIndex > 0
-                  ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
-                  : this.closestDatumIndex === 0
-                  ? yReg[0].toFixed(2) + ' ppm'
-                  : yReg[yReg.length - 1].toFixed(2) + ' ppm',
-              )
-
-              hoverDiffLine.attr(
-                'd',
-                'M' +
-                  this.coor[0] +
-                  ',' +
-                  hoverY +
-                  ' ' +
-                  this.coor[0] +
-                  ',' +
-                  this.dataHoverY,
-              )
-              hoverDiffText.text(squaredError.toFixed(2))
-            }
-            svg.node().addEventListener('mousemove', hoverRegFunction)
-            svg.node().dispatchEvent(new MouseEvent('mousemove'))
-            break
-          default:
+              svg.node().addEventListener('mousemove', hoverRegFunction)
+              svg.node().dispatchEvent(new MouseEvent('mousemove'))
+              break
+            default:
+          }
         }
-      }
-      for (let i = from; i < to; i++) {
-        const prevText = vizRef.current?.querySelector(
-          `${VizDesText}:nth-child(${to + 1})`,
-        )
-        increment(i + 1)
-        if (prevText) {
-          prevText.classList.remove('on')
-          prevText.classList.remove('on-reverse')
+        for (let i = from; i < to; i++) {
+          const prevText = vizRef.current?.querySelector(
+            `${VizDesText}:nth-child(${to + 1})`,
+          )
+          increment(i + 1)
+          if (prevText) {
+            prevText.classList.remove('on')
+            prevText.classList.remove('on-reverse')
+          }
         }
-      }
-    } else if (to < from) {
-      if (newText) {
-        newText.classList.add('on-reverse')
-      }
-      const decrement = (target) => {
-        switch (target) {
-          case -1:
-            const dataLineLength = grandDaddy.select('.data-line').node().getTotalLength()
-            grandDaddy
-              .select('.data-line')
-              .attr('stroke-dashoffset', 0)
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr('stroke-dashoffset', -dataLineLength)
-              .remove()
+      } else if (to < from) {
+        if (newText) {
+          newText.classList.add('on-reverse')
+        }
+        const decrement = (target) => {
+          switch (target) {
+            case -1:
+              const dataLineLength = grandDaddy
+                .select('.data-line')
+                .node()
+                .getTotalLength()
+              grandDaddy
+                .select('.data-line')
+                .attr('stroke-dashoffset', 0)
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .attr('stroke-dashoffset', -dataLineLength)
+                .remove()
 
-            grandDaddy.select('.hover-line').remove()
-            grandDaddy.select('.hover-data-circle').remove()
-            grandDaddy.select('.hover-text-group').remove()
-            svg.node().removeEventListener('mousemove', hoverRegFunction)
-            break
-          case 0: // Initial
-            regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
-            grandDaddy
-              .select('.reg-line')
-              .attr('stroke-dashoffset', 0)
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr('stroke-dashoffset', -regLineLength)
-              .remove()
-            grandDaddy.select('.data-line').attr('class', 'data-line')
-            grandDaddy
-              .select('.reg-line-label')
-              .style('opacity', 1)
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .style('opacity', 0)
-              .remove()
+              grandDaddy.select('.hover-line').remove()
+              grandDaddy.select('.hover-data-circle').remove()
+              grandDaddy.select('.hover-text-group').remove()
+              svg.node().removeEventListener('mousemove', hoverRegFunction)
+              break
+            case 0: // Initial
+              regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
+              grandDaddy
+                .select('.reg-line')
+                .attr('stroke-dashoffset', 0)
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .attr('stroke-dashoffset', -regLineLength)
+                .remove()
+              grandDaddy.select('.data-line').attr('class', 'data-line')
+              grandDaddy
+                .select('.reg-line-label')
+                .style('opacity', 1)
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .style('opacity', 0)
+                .remove()
 
-            grandDaddy.select('.hover-text-group').attr('class', 'hover-text-group')
-            grandDaddy
-              .select('.hover-text-group')
-              .select('.hover-data-label')
-              .attr('class', 'hover-data-label')
-              .clone(true)
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            grandDaddy.select('.hover-text-group').select('.hover-data-label').remove()
-            grandDaddy
-              .select('.hover-text-group')
-              .select('.hover-data-text')
-              .attr('class', 'hover-data-text')
-              .clone(true)
-              .style('opacity', 0)
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 1)
-            grandDaddy.select('.hover-text-group').select('.hover-data-text').remove()
+              grandDaddy.select('.hover-text-group').attr('class', 'hover-text-group')
+              grandDaddy
+                .select('.hover-text-group')
+                .select('.hover-data-label')
+                .attr('class', 'hover-data-label')
+                .clone(true)
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              grandDaddy.select('.hover-text-group').select('.hover-data-label').remove()
+              grandDaddy
+                .select('.hover-text-group')
+                .select('.hover-data-text')
+                .attr('class', 'hover-data-text')
+                .clone(true)
+                .style('opacity', 0)
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 1)
+              grandDaddy.select('.hover-text-group').select('.hover-data-text').remove()
 
-            grandDaddy
-              .select('.mse-group')
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .style('opacity', 0)
-              .remove()
+              grandDaddy
+                .select('.mse-group')
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .style('opacity', 0)
+                .remove()
 
-            grandDaddy.select('.hover-data-circle').node().classList.remove('out')
-            grandDaddy.select('.hover-data-text').node().classList.remove('out')
-            grandDaddy.select('.hover-reg-circle').remove()
-            grandDaddy.select('.hover-reg-label').remove()
-            grandDaddy.select('.hover-reg-text').remove()
-            grandDaddy.select('.hover-diff-line').remove()
-            grandDaddy.select('.hover-diff-label').remove()
-            grandDaddy.select('.hover-diff-text').remove()
-            svg.node().removeEventListener('mousemove', hoverRegFunction)
-            break
-          case 1: // Linear
-            yReg = xDays.map((d) => content[1].params[0] + content[1].params[1] * d)
-            grandDaddy
-              .select('.reg-line')
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr(
-                'd',
-                line()
-                  .x(function (d) {
-                    return x(d.date) + margin.left
-                  })
-                  .y(function (d, i) {
-                    return y(yReg[i]) + margin.top
-                  }),
-              )
-            regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
-            grandDaddy
-              .select('.reg-line')
-              .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
+              grandDaddy.select('.hover-data-circle').node().classList.remove('out')
+              grandDaddy.select('.hover-data-text').node().classList.remove('out')
+              grandDaddy.select('.hover-reg-circle').remove()
+              grandDaddy.select('.hover-reg-label').remove()
+              grandDaddy.select('.hover-reg-text').remove()
+              grandDaddy.select('.hover-diff-line').remove()
+              grandDaddy.select('.hover-diff-label').remove()
+              grandDaddy.select('.hover-diff-text').remove()
+              svg.node().removeEventListener('mousemove', hoverRegFunction)
+              break
+            case 1: // Linear
+              yReg = xDays.map((d) => content[1].params[0] + content[1].params[1] * d)
+              grandDaddy
+                .select('.reg-line')
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .attr(
+                  'd',
+                  line()
+                    .x(function (d) {
+                      return x(d.date) + margin.left
+                    })
+                    .y(function (d, i) {
+                      return y(yReg[i]) + margin.top
+                    }),
+                )
+              regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
+              grandDaddy
+                .select('.reg-line')
+                .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
 
-            grandDaddy.select('.mse-title').text('Linear regression')
-            grandDaddy
-              .select('.mse-equation>.quadratic.span')
-              .style('opacity', 1)
-              .transition()
-              .duration(320)
-              .ease(easeCubicOut)
-              .style('opacity', 0)
-              .remove()
-            grandDaddy.select('.mse-rect').attr('class', 'mse-rect linear')
-
-            setTimeout(() => {
+              grandDaddy.select('.mse-title').text('Linear regression')
+              grandDaddy
+                .select('.mse-equation>.quadratic.span')
+                .style('opacity', 1)
+                .transition()
+                .duration(320)
+                .ease(easeCubicOut)
+                .style('opacity', 0)
+                .remove()
               grandDaddy.select('.mse-rect').attr('class', 'mse-rect linear')
-            })
-            grandDaddy
-              .select('.mse-equation>.linear.span')
-              .attr('class', 'linear span on')
 
-            grandDaddy
-              .select('.mse-acc-text')
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .tween('text', function () {
-                const i = interpolate(mse[1], mse[0])
-                return function (t) {
-                  select(this).text(i(t).toFixed(2))
-                }
+              setTimeout(() => {
+                grandDaddy.select('.mse-rect').attr('class', 'mse-rect linear')
               })
+              grandDaddy
+                .select('.mse-equation>.linear.span')
+                .attr('class', 'linear span on')
 
-            svg.node().removeEventListener('mousemove', hoverRegFunction)
-            hoverRegFunction = function () {
-              const hoverY =
+              grandDaddy
+                .select('.mse-acc-text')
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .tween('text', function () {
+                  const i = interpolate(mse[1], mse[0])
+                  return function (t) {
+                    select(this).text(i(t).toFixed(2))
+                  }
+                })
+
+              svg.node().removeEventListener('mousemove', hoverRegFunction)
+              hoverRegFunction = function () {
+                const hoverY =
+                    this.closestDatumIndex > 0
+                      ? y(yReg[this.closestDatumIndex]) + margin.top
+                      : -10,
+                  squaredError =
+                    this.closestDatumIndex > 0
+                      ? (data[this.closestDatumIndex].level -
+                          yReg[this.closestDatumIndex]) **
+                        2
+                      : this.closestDatumIndex === 0
+                      ? (data[0].level - yReg[0]) ** 2
+                      : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
+                  hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
+                  hoverRegText = grandDaddy.select('.hover-reg-text'),
+                  hoverDiffLine = grandDaddy.select('.hover-diff-line'),
+                  hoverDiffText = grandDaddy.select('.hover-diff-text')
+
+                hoverRegCircle.attr(
+                  'transform',
+                  'translate(' + this.coor[0] + ' ' + hoverY + ')',
+                )
+                hoverRegText.text(
                   this.closestDatumIndex > 0
-                    ? y(yReg[this.closestDatumIndex]) + margin.top
-                    : -10,
-                squaredError =
-                  this.closestDatumIndex > 0
-                    ? (data[this.closestDatumIndex].level -
-                        yReg[this.closestDatumIndex]) **
-                      2
+                    ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
                     : this.closestDatumIndex === 0
-                    ? (data[0].level - yReg[0]) ** 2
-                    : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
-                hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
-                hoverRegText = grandDaddy.select('.hover-reg-text'),
-                hoverDiffLine = grandDaddy.select('.hover-diff-line'),
-                hoverDiffText = grandDaddy.select('.hover-diff-text')
+                    ? yReg[0].toFixed(2) + ' ppm'
+                    : yReg[yReg.length - 1].toFixed(2) + ' ppm',
+                )
 
-              hoverRegCircle.attr(
-                'transform',
-                'translate(' + this.coor[0] + ' ' + hoverY + ')',
+                hoverDiffLine.attr(
+                  'd',
+                  'M' +
+                    this.coor[0] +
+                    ',' +
+                    hoverY +
+                    ' ' +
+                    this.coor[0] +
+                    ',' +
+                    this.dataHoverY,
+                )
+                hoverDiffText.text(squaredError.toFixed(2))
+              }
+              svg.node().addEventListener('mousemove', hoverRegFunction)
+              svg.node().dispatchEvent(new MouseEvent('mousemove'))
+              break
+            case 2: // Quadratic
+              yReg = xDays.map(
+                (d) =>
+                  content[2].params[0] +
+                  content[2].params[1] * d +
+                  content[2].params[2] * d ** 2,
               )
-              hoverRegText.text(
-                this.closestDatumIndex > 0
-                  ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
-                  : this.closestDatumIndex === 0
-                  ? yReg[0].toFixed(2) + ' ppm'
-                  : yReg[yReg.length - 1].toFixed(2) + ' ppm',
-              )
+              grandDaddy
+                .select('.reg-line')
+                .transition()
+                .duration(800)
+                .ease(easeCubicOut)
+                .attr(
+                  'd',
+                  line()
+                    .x(function (d) {
+                      return x(d.date) + margin.left
+                    })
+                    .y(function (d, i) {
+                      return y(yReg[i]) + margin.top
+                    }),
+                )
+              regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
+              grandDaddy
+                .select('.reg-line')
+                .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
 
-              hoverDiffLine.attr(
-                'd',
-                'M' +
-                  this.coor[0] +
-                  ',' +
-                  hoverY +
-                  ' ' +
-                  this.coor[0] +
-                  ',' +
-                  this.dataHoverY,
-              )
-              hoverDiffText.text(squaredError.toFixed(2))
-            }
-            svg.node().addEventListener('mousemove', hoverRegFunction)
-            svg.node().dispatchEvent(new MouseEvent('mousemove'))
-            break
-          case 2: // Quadratic
-            yReg = xDays.map(
-              (d) =>
-                content[2].params[0] +
-                content[2].params[1] * d +
-                content[2].params[2] * d ** 2,
-            )
-            grandDaddy
-              .select('.reg-line')
-              .transition()
-              .duration(800)
-              .ease(easeCubicOut)
-              .attr(
-                'd',
-                line()
-                  .x(function (d) {
-                    return x(d.date) + margin.left
-                  })
-                  .y(function (d, i) {
-                    return y(yReg[i]) + margin.top
-                  }),
-              )
-            regLineLength = grandDaddy.select('.reg-line').node().getTotalLength()
-            grandDaddy
-              .select('.reg-line')
-              .attr('stroke-dasharray', regLineLength + ' ' + regLineLength)
-
-            grandDaddy.select('.mse-title').text('Quadratic regression')
-            grandDaddy
-              .select('.mse-equation>.cosine.span')
-              .style('opacity', 1)
-              .transition()
-              .duration(320)
-              .ease(easeCubicOut)
-              .style('opacity', 0)
-              .remove()
-            grandDaddy.select('.mse-rect').attr('class', 'mse-rect quadratic')
-
-            setTimeout(() => {
+              grandDaddy.select('.mse-title').text('Quadratic regression')
+              grandDaddy
+                .select('.mse-equation>.cosine.span')
+                .style('opacity', 1)
+                .transition()
+                .duration(320)
+                .ease(easeCubicOut)
+                .style('opacity', 0)
+                .remove()
               grandDaddy.select('.mse-rect').attr('class', 'mse-rect quadratic')
-            })
-            grandDaddy
-              .select('.mse-equation>.quadratic.span')
-              .attr('class', 'quadratic span on')
 
-            grandDaddy
-              .select('.mse-acc-text')
-              .transition()
-              .duration(600)
-              .ease(easeCubicOut)
-              .tween('text', function () {
-                const i = interpolate(mse[2], mse[1])
-                return function (t) {
-                  select(this).text(i(t).toFixed(2))
-                }
+              setTimeout(() => {
+                grandDaddy.select('.mse-rect').attr('class', 'mse-rect quadratic')
               })
+              grandDaddy
+                .select('.mse-equation>.quadratic.span')
+                .attr('class', 'quadratic span on')
 
-            svg.node().removeEventListener('mousemove', hoverRegFunction)
-            hoverRegFunction = function () {
-              const hoverY =
+              grandDaddy
+                .select('.mse-acc-text')
+                .transition()
+                .duration(600)
+                .ease(easeCubicOut)
+                .tween('text', function () {
+                  const i = interpolate(mse[2], mse[1])
+                  return function (t) {
+                    select(this).text(i(t).toFixed(2))
+                  }
+                })
+
+              svg.node().removeEventListener('mousemove', hoverRegFunction)
+              hoverRegFunction = function () {
+                const hoverY =
+                    this.closestDatumIndex > 0
+                      ? y(yReg[this.closestDatumIndex]) + margin.top
+                      : -10,
+                  squaredError =
+                    this.closestDatumIndex > 0
+                      ? (data[this.closestDatumIndex].level -
+                          yReg[this.closestDatumIndex]) **
+                        2
+                      : this.closestDatumIndex === 0
+                      ? (data[0].level - yReg[0]) ** 2
+                      : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
+                  hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
+                  hoverRegText = grandDaddy.select('.hover-reg-text'),
+                  hoverDiffLine = grandDaddy.select('.hover-diff-line'),
+                  hoverDiffText = grandDaddy.select('.hover-diff-text')
+
+                hoverRegCircle.attr(
+                  'transform',
+                  'translate(' + this.coor[0] + ' ' + hoverY + ')',
+                )
+                hoverRegText.text(
                   this.closestDatumIndex > 0
-                    ? y(yReg[this.closestDatumIndex]) + margin.top
-                    : -10,
-                squaredError =
-                  this.closestDatumIndex > 0
-                    ? (data[this.closestDatumIndex].level -
-                        yReg[this.closestDatumIndex]) **
-                      2
+                    ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
                     : this.closestDatumIndex === 0
-                    ? (data[0].level - yReg[0]) ** 2
-                    : (data[data.length - 1].level - yReg[yReg.length - 1]) ** 2,
-                hoverRegCircle = grandDaddy.select('.hover-reg-circle'),
-                hoverRegText = grandDaddy.select('.hover-reg-text'),
-                hoverDiffLine = grandDaddy.select('.hover-diff-line'),
-                hoverDiffText = grandDaddy.select('.hover-diff-text')
+                    ? yReg[0].toFixed(2) + ' ppm'
+                    : yReg[yReg.length - 1].toFixed(2) + ' ppm',
+                )
 
-              hoverRegCircle.attr(
-                'transform',
-                'translate(' + this.coor[0] + ' ' + hoverY + ')',
-              )
-              hoverRegText.text(
-                this.closestDatumIndex > 0
-                  ? yReg[this.closestDatumIndex].toFixed(2) + ' ppm'
-                  : this.closestDatumIndex === 0
-                  ? yReg[0].toFixed(2) + ' ppm'
-                  : yReg[yReg.length - 1].toFixed(2) + ' ppm',
-              )
-
-              hoverDiffLine.attr(
-                'd',
-                'M' +
-                  this.coor[0] +
-                  ',' +
-                  hoverY +
-                  ' ' +
-                  this.coor[0] +
-                  ',' +
-                  this.dataHoverY,
-              )
-              hoverDiffText.text(squaredError.toFixed(2))
-            }
-            svg.node().addEventListener('mousemove', hoverRegFunction)
-            svg.node().dispatchEvent(new MouseEvent('mousemove'))
-            break
-          default:
+                hoverDiffLine.attr(
+                  'd',
+                  'M' +
+                    this.coor[0] +
+                    ',' +
+                    hoverY +
+                    ' ' +
+                    this.coor[0] +
+                    ',' +
+                    this.dataHoverY,
+                )
+                hoverDiffText.text(squaredError.toFixed(2))
+              }
+              svg.node().addEventListener('mousemove', hoverRegFunction)
+              svg.node().dispatchEvent(new MouseEvent('mousemove'))
+              break
+            default:
+          }
+        }
+        for (let i = from; i > to; i--) {
+          const prevText = vizRef.current?.querySelector(
+            `${VizDesText}:nth-child(${to + 1})`,
+          )
+          decrement(i - 1)
+          if (prevText) {
+            prevText.classList.remove('on')
+            prevText.classList.remove('on-reverse')
+          }
         }
       }
-      for (let i = from; i > to; i--) {
-        const prevText = vizRef.current?.querySelector(
-          `${VizDesText}:nth-child(${to + 1})`,
-        )
-        decrement(i - 1)
-        if (prevText) {
-          prevText.classList.remove('on')
-          prevText.classList.remove('on-reverse')
-        }
-      }
-    }
-    setCurrentState(to)
-  }
+      setCurrentState(to)
+    },
+    [
+      height,
+      innerHeight,
+      width,
+      innerWidth,
+      x,
+      y,
+      margin,
+      strokeWidth,
+      totalLength,
+      content,
+      data,
+      xDays,
+    ],
+  )
 
   // Initialize visualization once the section becomes visible
   const [visible, setVisible] = useState(false)
+  const prevVisible = usePrevious(visible)
   useEffect(() => {
-    if (visible) {
+    if (visible && visible !== prevVisible) {
       createViz()
     }
-  }, [visible]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [visible, prevVisible, createViz])
 
   // Watch for updates to the container's width. When this happens,
   // re-render the entire viz.
@@ -1143,16 +1182,20 @@ const LineChart = ({ data, content }: Props) => {
   }, [windowWidth, windowHeight])
 
   useEffect(() => {
-    if (!visible) {
+    if ((width === prevWidth && height === prevHeight) || !visible) {
       return
     }
     select('#line-chart .viz').remove()
     createViz()
     updateFunc(currentState, -1)
-  }, [width, height]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [width, prevWidth, height, prevHeight, visible, createViz, currentState, updateFunc])
 
   // Add intersection observers once component mounts
   useEffect(() => {
+    if (visible) {
+      return
+    }
+
     const vizObserver = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !visible) {
@@ -1182,9 +1225,13 @@ const LineChart = ({ data, content }: Props) => {
     document.querySelectorAll(`#line-chart ${VizDesText}`).forEach((el) => {
       vizScrollObserver.observe(el)
     })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [visible])
 
   useEffect(() => {
+    if (intersectionIndex === prevIntersectionIndex) {
+      return
+    }
+
     if (intersectionIndex > -1) {
       if (!vizCreated) {
         createViz()
@@ -1193,7 +1240,14 @@ const LineChart = ({ data, content }: Props) => {
     } else if (vizCreated) {
       updateFunc(intersectionIndex, currentState)
     }
-  }, [intersectionIndex]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [
+    intersectionIndex,
+    prevIntersectionIndex,
+    vizCreated,
+    createViz,
+    currentState,
+    updateFunc,
+  ])
 
   return (
     <Wrap id="line-chart" className="viz-outer-wrap" ref={vizRef}>
