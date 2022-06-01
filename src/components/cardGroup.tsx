@@ -49,16 +49,11 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 		}
 
 		while (remainingSpanRanges.length > 0) {
-			/**
-			 * If there is more space in the row
-			 * --> add next card to current row
-			 */
+			// If there is more space in the row --> add next card to current row
 			if (!needToWrap(potentialNewRowConfig, nCols)) {
 				rows[currentRowIndex].push(remainingSpanRanges[0])
-				/**
-				 * If there is no more space
-				 * --> add next card to a new row
-				 */
+				// If there is no more space
+				// --> add next card to a new row
 			} else {
 				rows.push([])
 				currentRowIndex += 1
@@ -96,11 +91,9 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 				let difference = nCols - sum(spans)
 				let nextIndex = 0
 
-				/**
-				 * Progressively make cards wider/more narrow
-				 * until either the cards span the entire row or no more
-				 * card can be widened (usually the case in the last row)
-				 */
+				// Progressively make cards wider/more narrow
+				// until either the cards span the entire row or no more
+				// card can be widened (usually the case in the last row)
 				const isLastRow = rowIndex === rows.length - 1
 
 				while (difference !== 0 && !(isLastRow && sum(spans) > upperLimit)) {
@@ -111,7 +104,7 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 						spans[nextIndex] -= 1
 						difference += 1
 					}
-					/** Move to next card in the row */
+					// Move to next card in the row
 					if (nextIndex < row.length - 1) {
 						nextIndex += 1
 					} else {
@@ -119,10 +112,8 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 					}
 				}
 
-				/**
-				 * Translate card spans [number] to grid-column
-				 * positions [start: number, end: number]
-				 */
+				// Translate card spans [number] to grid-column
+				// positions [start: number, end: number]
 				let currentStartLocation = 1
 				const gridColsCollection: GridColumns[] = spans.map((span) => {
 					const gridCols: GridColumns = {
@@ -138,7 +129,7 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 			})
 			.flat(1)
 
-	/** Generate the final card sizes for each breakpoint */
+	/** The final card sizes for each breakpoint */
 	const results = [...Array(stories.length)].map(() => ({}))
 	Object.entries(gridColCounts).forEach(([key, val]) => {
 		const availableRows = val
