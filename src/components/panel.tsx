@@ -64,7 +64,7 @@ const Wrap = styled.div<{
 }>`
 	background-color: ${(p) => p.theme.background};
 	border-radius: ${(p) => p.theme.radii.l};
-	border: solid 1px ${(p) => p.theme.line};
+	border: solid 1px ${(p) => p.theme.iLine};
 
 	${getPadding}
 
