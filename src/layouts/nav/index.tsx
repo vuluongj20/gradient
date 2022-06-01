@@ -7,12 +7,17 @@ import Binder from './binder'
 import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
-import useBreakpoint from '@utils/hooks/useBreakpoint'
 import useMobile from '@utils/hooks/useMobile'
+import usePrevious from '@utils/hooks/usePrevious'
 import useReducedMotion from '@utils/hooks/useReducedMotion'
 import { navSize } from '@utils/style'
 
 type Props = { pageTitle: string }
+
+const animations = {
+	exit: { duration: 0.75, ease: 'power3.inOut' },
+	entry: { duration: 0.75, ease: 'power3.inOut' },
+}
 
 const Nav = ({ pageTitle }: Props): JSX.Element => {
 	// Create & intialize refs
@@ -26,11 +31,10 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 
 	// Initialize & manage open state
 	const [menuOpen, setMenuOpen] = useState<boolean>(false)
+	const prevMenuOpen = usePrevious(menuOpen)
 
 	const toggleMenu = (nextState: boolean) => {
-		if (nextState) {
-			setMenuOpen(nextState)
-		} else {
+		if (nextState !== menuOpen) {
 			setMenuOpen(nextState)
 		}
 	}
@@ -47,37 +51,32 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 	// Apply animations w/ gsap
 	const menuLinks = useMenuLinks()
 	const reducedMotion = useReducedMotion()
-	const animations = {
-		exit: { duration: 0.75, ease: 'power3.inOut' },
-		entry: { duration: 0.75, ease: 'power3.inOut' },
-	}
-
 	const isMobile = useMobile()
-	const isS = useBreakpoint('s')
 
 	useEffect(() => {
+		if (prevMenuOpen === menuOpen) {
+			return
+		}
+
+		// Open menu
 		if (menuOpen) {
 			pageContentRef.current?.setAttribute('aria-hidden', 'true')
 			if (!isMobile && !reducedMotion) {
-				const animationDistance = isS
-					? `+${menuLinks.length * 5}rem`
-					: `+${menuLinks.length * 6}rem`
-
 				gsap.to([`${PageShadow}`, '#page-content'], {
-					x: animationDistance,
+					x: `+${menuLinks.length * 6}rem`,
 					...animations.entry,
 				})
 			}
 			return
 		}
 
+		// Close menu
 		pageContentRef.current?.setAttribute('aria-hidden', 'false')
 		gsap.to([`${PageShadow}`, '#page-content'], {
 			x: 0,
 			...animations.exit,
 		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [menuOpen])
+	}, [menuOpen, prevMenuOpen, isMobile, menuLinks, reducedMotion])
 
 	// Handle escape key press
 	const onKeyDown = (e) => {

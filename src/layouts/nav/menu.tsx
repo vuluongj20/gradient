@@ -7,8 +7,8 @@ import MenuLink, { Wrap as MenuLinkWrap } from './menuLink'
 // import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
-import useBreakpoint from '@utils/hooks/useBreakpoint'
 import useMobile from '@utils/hooks/useMobile'
+import usePrevious from '@utils/hooks/usePrevious'
 
 type Props = {
 	isOpen: boolean
@@ -34,17 +34,20 @@ const Menu = ({
 // afterSettingsDialogClose,
 Props): JSX.Element => {
 	const isMobile = useMobile()
-	const isS = useBreakpoint('s')
 	const links = useMenuLinks()
+
+	const prevIsOpen = usePrevious(isOpen)
+	const prevIsMobile = usePrevious(isMobile)
 
 	usePreventScroll({ isDisabled: !isOpen })
 
 	useEffect(() => {
-		if (reducedMotion) {
+		// Only open the menu when the isOpen has just changed
+		if (prevIsOpen === isOpen || reducedMotion) {
 			return
 		}
 
-		// On menu OPEN
+		// Open menu
 		if (isOpen) {
 			if (isMobile) {
 				gsap.set([`${MenuWrap}`, `${MenuLinkWrap}`], { x: 0 })
@@ -71,7 +74,7 @@ Props): JSX.Element => {
 
 			gsap.to(`${MenuLinkWrap}`, {
 				opacity: 1,
-				x: (i) => `+${(i + 1) * (isS ? 5 : 6)}rem`,
+				x: (i) => `+${(i + 1) * 6}rem`,
 				pointerEvents: 'none',
 				onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 				...animations.entry,
@@ -79,7 +82,7 @@ Props): JSX.Element => {
 			return
 		}
 
-		// On menu CLOSE
+		// Close menu
 		if (isMobile) {
 			gsap.to(`${MenuWrap}`, {
 				y: '-100%',
@@ -99,6 +102,10 @@ Props): JSX.Element => {
 			return
 		}
 
+		gsap.to(`${MenuWrap}`, {
+			clearProps: 'y',
+			duration: 0,
+		})
 		gsap.to(`${MenuLinkWrap}`, {
 			opacity: 0,
 			x: 0,
@@ -107,14 +114,14 @@ Props): JSX.Element => {
 			onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
 			...animations.exit,
 		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen, animations])
+	}, [prevIsOpen, isOpen, animations, isMobile, reducedMotion])
 
 	// Close menu on resize
 	useEffect(() => {
-		toggleMenu(false)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isMobile, isS])
+		if (isMobile !== prevIsMobile && prevIsMobile !== undefined) {
+			toggleMenu(false)
+		}
+	}, [isMobile, prevIsMobile, toggleMenu])
 
 	return (
 		<MenuWrap aria-hidden={!isOpen} isOpen={isOpen}>

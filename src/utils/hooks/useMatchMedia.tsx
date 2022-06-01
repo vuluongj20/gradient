@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useMatchMedia = (query: string, defaultValue = false): boolean => {
 	if (typeof window === 'undefined') return defaultValue
@@ -10,7 +10,7 @@ const useMatchMedia = (query: string, defaultValue = false): boolean => {
 	const [value, setValue] = useState(mediaQueryList.matches)
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const handler = (): void => setValue(mediaQueryList.matches)
 		mediaQueryList.addListener(handler)
 		return (): void => mediaQueryList.removeListener(handler)
