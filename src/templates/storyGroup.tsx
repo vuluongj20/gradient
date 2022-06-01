@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
@@ -83,13 +83,14 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 				break
 		}
 	}
-	const [filteredStories, setFilteredStories] = useState(stories)
-	useEffect(() => {
-		const result = stories
-			.filter((s) => selectedSection === 'all' || s.sections.includes(selectedSection))
-			.filter((s) => selectedAuthor === 'all' || s.authors.includes(selectedAuthor))
-		setFilteredStories(result)
-	}, [stories, selectedSection, selectedAuthor])
+
+	const filteredStories = useMemo(
+		() =>
+			stories
+				.filter((s) => selectedSection === 'all' || s.sections.includes(selectedSection))
+				.filter((s) => selectedAuthor === 'all' || s.authors.includes(selectedAuthor)),
+		[stories, selectedSection, selectedAuthor],
+	)
 
 	return (
 		<Page>
