@@ -1,8 +1,6 @@
-import * as jsnx from 'jsnetworkx'
 import styled from 'styled-components'
 
 const Canvas = () => {
-	const G = new jsnx.balancedTree(2, 4)
 	return <Wrap />
 }
 
