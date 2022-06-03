@@ -1,7 +1,3 @@
-import { Appearance, ThemeSettings } from './index'
-
-import useMatchMedia from '@utils/hooks/useMatchMedia'
-
 type ColorKeys =
 	| 'white'
 	| 'black'
@@ -275,26 +271,4 @@ export const colorPalettes = {
 export const colorAliases = {
 	paper: getColorAliases(paper.colors, 3),
 	charcoal: getColorAliases(charcoal.colors, 3),
-}
-
-export const useAppearance = (colorSettings: ThemeSettings['color']): Appearance => {
-	const preferDark = useMatchMedia('(prefers-color-scheme: dark)')
-
-	if (colorSettings.appearance === 'auto') {
-		return preferDark ? 'dark' : 'light'
-	}
-
-	return colorSettings.appearance
-}
-
-export const useColorPalette = (
-	colorSettings: ThemeSettings['color'],
-): keyof typeof colorPalettes => {
-	const appearance = useAppearance(colorSettings)
-
-	if (appearance === 'dark') {
-		return colorSettings.darkPalette
-	} else {
-		return colorSettings.lightPalette
-	}
 }

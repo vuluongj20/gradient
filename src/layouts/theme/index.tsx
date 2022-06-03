@@ -1,12 +1,5 @@
 import { Animation, animation } from './animation'
-import {
-	ColorAliases,
-	ColorPalette,
-	colorPalettes,
-	getColorAliases,
-	useAppearance,
-	useColorPalette,
-} from './colors'
+import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './colors'
 import { TextScale, textScales } from './text'
 import { Utils, generateUtils } from './utils'
 
@@ -27,6 +20,7 @@ export type Theme = ColorPalette['colors'] &
 	ColorAliases & {
 		elevation: number
 		appearance: Appearance
+		colorPalette: keyof typeof colorPalettes
 		/** Text */
 		text: {
 			system: TextScale
@@ -67,10 +61,13 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
-export const useThemeObject = (settings: ThemeSettings): Theme => {
-	const appearance = useAppearance(settings.color)
-	const colorPalette = useColorPalette(settings.color)
+export const useThemeObject = (
+	settings: ThemeSettings,
+	appearance: Appearance,
+): Theme => {
 	const elevation = settings.color.elevation
+	const colorPalette =
+		appearance === 'dark' ? settings.color.darkPalette : settings.color.lightPalette
 
 	const colors = colorPalettes[colorPalette].colors
 	const colorAliases = getColorAliases(colorPalettes[colorPalette].colors, elevation)
@@ -89,6 +86,7 @@ export const useThemeObject = (settings: ThemeSettings): Theme => {
 	const partialTheme: Omit<Theme, 'utils'> = {
 		elevation,
 		appearance,
+		colorPalette,
 
 		...colors,
 		...colorAliases,

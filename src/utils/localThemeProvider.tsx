@@ -26,13 +26,13 @@ const LocalThemeProvider = ({ children, inset, overlay }: Props): JSX.Element =>
 	 * Falls back to current settings if
 	 * appearance is not defined
 	 */
-	const localColorSettings = { appearance, elevation: localElevation }
+	const localColorSettings = { elevation: localElevation }
 
 	const mergedThemeSettings = deepMerge(themeSettings, {
 		color: localColorSettings,
 	}) as ThemeSettings
 
-	const localTheme = useThemeObject(mergedThemeSettings)
+	const localTheme = useThemeObject(mergedThemeSettings, appearance)
 
 	return <ThemeProvider theme={localTheme}>{children}</ThemeProvider>
 }
