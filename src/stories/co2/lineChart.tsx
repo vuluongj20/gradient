@@ -75,8 +75,7 @@ const LineChart = ({ data, content }: Props) => {
     }),
     xDays = data.map((d) =>
       Math.ceil((d.date.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24)),
-    ),
-    strokeWidth = height / 400
+    )
   const [totalLength, setTotalLength] = useState(0)
 
   /**
@@ -108,7 +107,7 @@ const LineChart = ({ data, content }: Props) => {
       select(this)
         .attr('stroke-dasharray', height + ' ' + height)
         .attr('stroke-dashoffset', height)
-        .attr('stroke-width', strokeWidth / 2)
+        .attr('vector-effect', 'non-scaling-stroke')
         .transition()
         .duration(800)
         .ease(easeCubicOut)
@@ -130,7 +129,7 @@ const LineChart = ({ data, content }: Props) => {
       select(this)
         .attr('stroke-dasharray', width + ' ' + width)
         .attr('stroke-dashoffset', width)
-        .attr('stroke-width', strokeWidth / 2)
+        .attr('vector-effect', 'non-scaling-stroke')
         .transition()
         .duration(800)
         .ease(easeCubicOut)
@@ -190,14 +189,14 @@ const LineChart = ({ data, content }: Props) => {
       .attr('x2', width)
       .attr('y2', height - margin.bottom)
       .style('opacity', 0)
-      .attr('stroke-width', strokeWidth)
+      .attr('vector-effect', 'non-scaling-stroke')
       .transition()
       .duration(800)
       .ease(easeCubicOut)
       .style('opacity', 1)
 
     setVizCreated(true)
-  }, [height, innerHeight, width, innerWidth, x, y, margin, strokeWidth])
+  }, [height, innerHeight, width, innerWidth, x, y, margin])
 
   /**
    * Update visualization based on the current
@@ -239,12 +238,12 @@ const LineChart = ({ data, content }: Props) => {
                         return y(d.level) + margin.top
                       }),
                   )
-                  .attr('stroke-width', strokeWidth),
+                  .attr('vector-effect', 'non-scaling-stroke'),
                 // Mouse hover line
                 hoverLine = svg
                   .insert('path', '.data-line')
                   .attr('class', 'hover-line')
-                  .attr('stroke-width', strokeWidth)
+                  .attr('vector-effect', 'non-scaling-stroke')
                   .style('opacity', 0)
                   .attr('d', function () {
                     return 'M' + 0 + ',' + 0 + ' ' + 0 + ',' + height
@@ -253,7 +252,6 @@ const LineChart = ({ data, content }: Props) => {
                 hoverDataCircle = svg
                   .append('circle')
                   .attr('class', 'hover-data-circle')
-                  .attr('r', strokeWidth * 2)
                   .attr('transform', 'translate(-5 -5)'),
                 hoverGroup = svg
                   .append('g')
@@ -396,16 +394,15 @@ const LineChart = ({ data, content }: Props) => {
                         return y(yReg[i]) + margin.top
                       }),
                   )
-                  .attr('stroke-width', strokeWidth * 1.5),
+                  .attr('vector-effect', 'non-scaling-stroke'),
                 hoverRegCircle = svg
                   .append('circle')
                   .attr('class', 'hover-reg-circle')
-                  .attr('r', strokeWidth * 2)
                   .attr('transform', 'translate(-5 -5)'),
                 hoverDiffLine = svg
                   .insert('path', '.hover-data-circle')
                   .attr('class', 'hover-diff-line')
-                  .attr('stroke-width', strokeWidth),
+                  .attr('vector-effect', 'non-scaling-stroke'),
                 hoverGroupSelection = grandDaddy.select('.hover-text-group'),
                 hoverRegLabel = hoverGroupSelection
                   .append('text')
@@ -529,7 +526,7 @@ const LineChart = ({ data, content }: Props) => {
               mseGroup
                 .append('rect')
                 .attr('class', 'mse-rect linear')
-                .attr('stroke-width', strokeWidth / 2)
+                .attr('vector-effect', 'non-scaling-stroke')
                 .attr('rx', '4')
                 .attr('ry', '4')
 
@@ -1152,7 +1149,6 @@ const LineChart = ({ data, content }: Props) => {
       x,
       y,
       margin,
-      strokeWidth,
       totalLength,
       content,
       data,
@@ -1295,6 +1291,7 @@ const Wrap = styled.div`
   .bottom-axis {
     stroke: ${(p) => p.theme.label};
     stroke-linecap: round;
+    stroke-width: 2;
   }
 
   /* Grid lines */
@@ -1306,12 +1303,21 @@ const Wrap = styled.div`
     opacity: 0.8;
     stroke-width: 1;
   }
+  .grid .tick {
+    stroke-width: 1;
+  }
 
   .data-line {
     stroke: ${(p) => p.theme.body};
+    stroke-width: 2;
     stroke-linejoin: round;
     fill: none;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  ${(p) => p.theme.utils.media.xs} {
+    .data-line {
+      stroke-width: 1.5;
+    }
   }
   .data-line.faded {
     stroke: ${(p) => p.theme.label};
@@ -1319,13 +1325,20 @@ const Wrap = styled.div`
   }
   .reg-line {
     stroke: var(--theme);
+    stroke-width: 3;
     stroke-linejoin: round;
     fill: none;
+  }
+  ${(p) => p.theme.utils.media.xs} {
+    .reg-line {
+      stroke-width: 2;
+    }
   }
 
   /* Hover elements */
   .hover-line {
     stroke: ${(p) => p.theme.label};
+    stroke-width: 2;
   }
   .hover-data-circle {
     opacity: 0;
@@ -1397,6 +1410,7 @@ const Wrap = styled.div`
 
   .hover-diff-line {
     stroke: ${(p) => p.theme.errorText};
+    stroke-width: 2;
   }
   .hover-diff-label {
     transform: translate(-17.7em, -3.4em);
@@ -1419,6 +1433,7 @@ const Wrap = styled.div`
   .mse-rect {
     fill: ${(p) => p.theme.oBackground};
     stroke: ${(p) => p.theme.line};
+    stroke-width: 1;
     rx: 0.4rem;
     ry: 0.4rem;
     width: 12.6em;

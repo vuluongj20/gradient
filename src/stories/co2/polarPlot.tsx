@@ -80,8 +80,7 @@ const PolarPlot = ({ data, content }: Props) => {
         'Z',
       ].join(' ')
       return d
-    }, []),
-    strokeWidth = radius / 200
+    }, [])
   const [totalLength, setTotalLength] = useState(0)
 
   /**
@@ -144,7 +143,7 @@ const PolarPlot = ({ data, content }: Props) => {
       .attr('class', (d) => {
         return 'grid-circle' + (d > 300 && d < 400 ? ' secondary' : '')
       })
-      .attr('stroke-width', strokeWidth / 2)
+      .attr('vector-effect', 'non-scaling-stroke')
       .attr('transform', 'rotate(-90)')
       .attr('r', r)
       .attr('stroke-dasharray', (d) => {
@@ -160,7 +159,7 @@ const PolarPlot = ({ data, content }: Props) => {
     rAxis
       .append('circle')
       .attr('class', 'grid-circle')
-      .attr('stroke-width', strokeWidth / 2)
+      .attr('vector-effect', 'non-scaling-stroke')
       .attr('transform', 'rotate(-90)')
       .attr('r', innerRadius)
       .attr(
@@ -202,7 +201,7 @@ const PolarPlot = ({ data, content }: Props) => {
       .enter()
       .append('line')
       .attr('class', 'grid-line')
-      .attr('stroke-width', strokeWidth / 2)
+      .attr('vector-effect', 'non-scaling-stroke')
       .attr('x1', 0)
       .attr('x2', 0)
       .attr('y1', -innerRadius)
@@ -259,7 +258,7 @@ const PolarPlot = ({ data, content }: Props) => {
       })
 
     setVizCreated(true)
-  }, [innerRadius, r, radius, strokeWidth])
+  }, [innerRadius, r, radius])
 
   /**
    * Update visualization based on the current
@@ -287,7 +286,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('class', 'data-line')
                 .datum(data.slice(0, 37))
                 .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-                .attr('stroke-width', strokeWidth * 1.5)
+                .attr('vector-effect', 'non-scaling-stroke')
                 .attr(
                   'd',
                   lineRadial()
@@ -434,7 +433,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('clip-path', 'url(#winter-polar-clip)')
                 .datum(data.slice(3112, 3126))
                 .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-                .attr('stroke-width', strokeWidth / 2)
+                .attr('vector-effect', 'non-scaling-stroke')
                 .attr('d', (data) => {
                   const line = lineRadial()
                       .angle((_, index) => {
@@ -453,7 +452,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('clip-path', 'url(#summer-polar-clip)')
                 .datum(data.slice(3086, 3100))
                 .attr('transform', 'translate(' + radius + ' ' + radius + ')')
-                .attr('stroke-width', strokeWidth / 2)
+                .attr('vector-effect', 'non-scaling-stroke')
                 .attr('d', (data) => {
                   const line = lineRadial()
                       .angle(function (_, index) {
@@ -660,7 +659,7 @@ const PolarPlot = ({ data, content }: Props) => {
       }
       setCurrentState(to)
     },
-    [innerRadius, radius, strokeWidth, a, r, data, describeArc, totalLength, xDaysParsed],
+    [innerRadius, radius, a, r, data, describeArc, totalLength, xDaysParsed],
   )
 
   // Initialize visualization once the section becomes visible
@@ -794,6 +793,7 @@ const Wrap = styled.div`
   .grid-circle {
     fill: none;
     stroke: ${(p) => p.theme.line};
+    stroke-width: 1;
     opacity: 0.8;
     stroke-width: 1;
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
@@ -811,14 +811,16 @@ const Wrap = styled.div`
 
   .data-line {
     stroke-linejoin: round;
+    stroke-width: 2;
     fill: none;
-    stroke: ${(p) => p.theme.label};
-    opacity: 0.8;
+    stroke: ${(p) => p.theme.body};
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    stroke-width: 2;
   }
 
   .stretch {
     stroke: ${(p) => p.theme.label};
+    stroke-width: 1;
   }
   .winter.stretch {
     fill: var(--cool);
