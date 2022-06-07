@@ -52,6 +52,18 @@ export const deepMerge = (target: Record<string, unknown>, source: unknown): unk
 /** Simple array summation */
 export const sum = (arr: number[]): number => arr.reduce((acc, cur) => acc + cur, 0)
 
+export const arraysAreEqual = (a, b) => {
+	if (a === b) return true
+	if (a === null || b === null) return false
+	if (a.length !== b.length) return true
+
+	a.forEach((e, i) => {
+		if (e !== b[i]) return false
+	})
+
+	return true
+}
+
 export const debounce = (func, wait) => {
 	let timeout
 	return function (...args) {
