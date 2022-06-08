@@ -22,7 +22,7 @@ const useResizeObserver = <T extends Element>({ ref, onResize }: Props<T>) => {
 
     ResizeObserverInstance.observe(element)
 
-    return element && ResizeObserverInstance.unobserve(element)
+    return () => element && ResizeObserverInstance.unobserve(element)
   }, [ref, onResize])
 }
 
