@@ -795,7 +795,6 @@ const Wrap = styled.div`
     stroke: ${(p) => p.theme.line};
     stroke-width: 1;
     opacity: 0.8;
-    stroke-width: 1;
     transition: opacity ${(p) => p.theme.animation.outCubic} 800ms;
   }
   .grid-circle.secondary,
@@ -815,7 +814,6 @@ const Wrap = styled.div`
     fill: none;
     stroke: ${(p) => p.theme.body};
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    stroke-width: 2;
   }
 
   .stretch {

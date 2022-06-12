@@ -67,7 +67,7 @@ const Wrap = styled(TypeArea)`
   h4,
   h5,
   h6 {
-    :not(hr + *):not(:first-child) {
+    :not(hr + *, :first-child) {
       margin-top: ${(p) => p.theme.space[4]};
     }
     padding-top: ${(p) => p.theme.space[1]};

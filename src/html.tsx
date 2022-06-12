@@ -1,14 +1,14 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 
 import { colorAliases } from './layouts/theme/colors'
 
 type Props = {
   htmlAttributes: HTMLAttributes<HTMLHtmlElement>
-  headComponents: HTMLHeadElement | HTMLHeadElement[]
+  headComponents: ReactNode
   bodyAttributes: HTMLAttributes<HTMLBodyElement>
-  preBodyComponents: HTMLHeadElement | HTMLHeadElement[]
+  preBodyComponents: ReactNode
   body: string
-  postBodyComponents: HTMLHeadElement | HTMLHeadElement[]
+  postBodyComponents: ReactNode
 }
 
 const HTML = (props: Props) => {
