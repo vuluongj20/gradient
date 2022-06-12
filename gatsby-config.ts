@@ -33,7 +33,7 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         defaultLayouts: {
-          policies: require.resolve('./src/templates/policies.tsx'),
+          policies: path.resolve('./src/templates/policies.tsx'),
         },
         gatsbyRemarkPlugins: [
           {
@@ -99,7 +99,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-transition-link',
       options: {
-        layout: require.resolve(`./src/layouts/index.tsx`),
+        layout: path.resolve(`./src/layouts/index.tsx`),
         injectPageProps: false,
       },
     },
