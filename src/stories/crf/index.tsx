@@ -6,7 +6,38 @@ import Hero from './hero'
 import Page from '@components/page'
 import TypeArea from '@components/typeArea'
 
+import useMountEffect from '@utils/hooks/useMountEffect'
+
+const newGraph = () => {
+	const g = new Graph()
+	const nodeA = g.addNode({ label: 'Alpha' })
+	const nodeB = g.addNode({ label: 'Beta' })
+	const nodeC = g.addNode({ label: 'Gamma' })
+	g.addEdge({ nodes: [nodeA, nodeB], isDirected: true })
+	g.addEdge({ nodes: [nodeB, nodeC], isDirected: true })
+
+	return g
+}
+
 const Component = () => {
+	const graph = useRef(newGraph())
+	const [nodes, setNodes] = useState(graph.current.nodes)
+	const [edges, setEdges] = useState(graph.current.edges)
+
+	useMountEffect(() => {
+		setTimeout(() => {
+			const g = graph.current
+			g.addNode({ label: 'Delta' }, (nodes) => setNodes([...nodes]))
+		}, 1000)
+
+		setTimeout(() => {
+			const g = graph.current
+			g.addEdge({ nodes: [g.nodes[0], g.nodes[3]], isDirected: true }, (edges) =>
+				setEdges([...edges]),
+			)
+		}, 2000)
+	})
+
 	return (
 		<Page>
 			<Wrap id="App" type="content" as="article">
