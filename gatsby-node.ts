@@ -1,7 +1,6 @@
-const path = require('path')
-const StoryGroup = path.resolve(`./src/templates/storyGroup.tsx`)
+import path from 'path'
 
-exports.onCreateBabelConfig = ({ actions }) => {
+export const onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPlugin({
     name: '@babel/plugin-transform-react-jsx',
     options: {
@@ -10,7 +9,8 @@ exports.onCreateBabelConfig = ({ actions }) => {
   })
 }
 
-exports.createPages = async function ({ actions, graphql }) {
+export const createPages = async function ({ actions, graphql }) {
+  const StoryGroup = path.resolve('./src/templates/storyGroup.tsx')
   const storyResults = await graphql(
     `
       query {

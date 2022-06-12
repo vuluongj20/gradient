@@ -4,6 +4,7 @@
 node_modules/
 public/
 .cache/
+src/gatsby-types.d.ts
 
 # Sublime
 *.sublime-project

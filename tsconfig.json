@@ -2,9 +2,15 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"jsx": "react-jsx",
-		"target": "es6",
+		"target": "esnext",
+		"lib": ["dom", "esnext"],
 		"module": "esnext",
 		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"skipLibCheck": true,
 		"paths": {
 			"@utils": ["./src/utils"],
 			"@utils/*": ["./src/utils/*"],
@@ -24,5 +30,5 @@
 			"@images/*": ["./src/layouts/images/*"]
 		}
 	},
-	"exclude": ["node_modules", "public"]
+	"include": ["./src/**/*", "./gatsby-node.ts", "./gatsby-config.ts", "./plugins/**/*"]
 }

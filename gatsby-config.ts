@@ -1,6 +1,7 @@
-const path = require('path')
+import { GatsbyConfig } from 'gatsby'
+import path from 'path'
 
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
     lang: 'en-US',
     dir: 'ltr',
@@ -12,6 +13,7 @@ module.exports = {
     author: 'Vu Luong',
     authorTwitter: '@vuluongj20',
   },
+  graphqlTypegen: true,
   plugins: [
     'gatsby-plugin-webpack-bundle-analyser-v2',
     'gatsby-plugin-loadable-components-ssr',
@@ -115,3 +117,5 @@ module.exports = {
     },
   ],
 }
+
+export default config
