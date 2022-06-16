@@ -11,14 +11,18 @@ type Props = {
 	}
 }
 
-class Node { 
+class Node {
 	readonly id: string
-	label: Props['label']
-	edges: Props['edges']
+	label: string
+	edges: {
+		source: Edge[]
+		target: Edge[]
+		undirected: Edge[]
+	}
 
 	constructor(props: Props) {
 		this.id = nanoid()
-		this.label = props?.label
+		this.label = props?.label ?? ''
 		this.edges = { source: [], target: [], undirected: [] }
 	}
 

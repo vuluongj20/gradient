@@ -1,7 +1,7 @@
 import { useHover, usePress } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { VisuallyHidden } from '@react-aria/visually-hidden'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
 
@@ -12,27 +12,30 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
-import { fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
+import { Breakpoint, fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
 
 type Props = Story & {
 	path: string
-	gridCols?: AdaptiveGridColumns
+	imageLoading?: GatsbyImageProps['loading']
 	rowLayout?: boolean
-	imageLoading?: Story['cover']['loading']
+	gridCols?: AdaptiveGridColumns
 }
 
 /**
  * Returns custom value for the "sizes" image prop, based on width
  * information from gridCols
  */
-const getImageSizesProp = (gridCols: AdaptiveGridColumns, rowLayout: boolean): string => {
+const getImageSizesProp = (
+	gridCols: AdaptiveGridColumns | undefined,
+	rowLayout: boolean,
+): string => {
 	if (rowLayout) return `(max-width: ${numericBreakpoints.s}px) 100vw, 40vw`
 	if (!gridCols) return '90vw'
 
 	return (
 		// Using a raw array to ensure that the breakpoint values are
 		// organized from smallest to largest
-		['xs', 's', 'm', 'l', 'xl']
+		(['xs', 's', 'm', 'l', 'xl'] as Breakpoint[])
 			.map((breakpoint) => {
 				const gridColumns = gridCols[breakpoint]
 				const maxWidth = numericBreakpoints[breakpoint]
@@ -68,25 +71,28 @@ const Card = ({
 	const { pressProps } = usePress({ onPress: () => setPressed(true) })
 	const active = isHovered || pressed
 
-	const imageData = getImage(cover.image)
+	const imageData = getImage(cover?.image)
 
 	return (
 		<Wrap
 			to={path}
-			$rowLayout={rowLayout}
-			$gridCols={gridCols}
+			{...(rowLayout
+				? { $rowLayout: true, $gridCols: undefined }
+				: { $rowLayout: false, $gridCols: gridCols as AdaptiveGridColumns })}
 			{...mergeProps(hoverProps, pressProps)}
 		>
 			<StyledInnerGrid rowLayout={rowLayout}>
-				<ImageWrap rowLayout={rowLayout} aria-hidden="true">
-					<StyledGatsbyImage
-						image={imageData}
-						alt={cover.alt}
-						sizes={getImageSizesProp(gridCols, rowLayout)}
-						backgroundColor={imageData.backgroundColor}
-						loading={imageLoading}
-					/>
-				</ImageWrap>
+				{imageData && (
+					<ImageWrap rowLayout={rowLayout} aria-hidden="true">
+						<StyledGatsbyImage
+							image={imageData}
+							alt={cover.alt}
+							sizes={getImageSizesProp(gridCols, rowLayout)}
+							backgroundColor={imageData.backgroundColor}
+							loading={imageLoading}
+						/>
+					</ImageWrap>
+				)}
 
 				<TitleWrap rowLayout={rowLayout}>
 					<Title active={active}>
@@ -107,10 +113,10 @@ const Card = ({
 
 export default memo(Card)
 
-const Wrap = styled(TransitionLink)<{
-	$gridCols: AdaptiveGridColumns
-	$rowLayout: boolean
-}>`
+const Wrap = styled(TransitionLink)<
+	| { $rowLayout: true; $gridCols: undefined }
+	| { $rowLayout: false; $gridCols: AdaptiveGridColumns }
+>`
 	display: block;
 	position: relative;
 	width: 100%;

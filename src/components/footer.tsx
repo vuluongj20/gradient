@@ -1,3 +1,4 @@
+import { ElementType } from 'react'
 import styled from 'styled-components'
 
 import TransitionLink from './transitionLink'
@@ -8,7 +9,7 @@ import Grid from '@components/grid'
 import { Page } from '@types'
 
 import useArchivePage from '@utils/dataHooks/archive'
-import useAuthorPages from '@utils/dataHooks/authors'
+import useAuthors from '@utils/dataHooks/authors'
 import usePoliciesPages from '@utils/dataHooks/policies'
 import useSections from '@utils/dataHooks/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
@@ -25,11 +26,17 @@ const Footer = ({ inset = false }: Props): JSX.Element => {
 		title: section.name,
 		type: 'section',
 	}))
-	const authorPages = useAuthorPages()
+	const authors = useAuthors()
+	const authorPages = authors.map((author) => ({
+		slug: author.slug,
+		path: author.path,
+		title: author.name,
+		type: 'author',
+	}))
 	const archivePage = useArchivePage()
 	const policiesPages = usePoliciesPages()
 
-	const mapSiteLinks = (pages: Page[], OuterWrap, LinkWrap) => (
+	const mapSiteLinks = (pages: Page[], OuterWrap: ElementType, LinkWrap: ElementType) => (
 		<OuterWrap>
 			{pages.map((page) => {
 				return (

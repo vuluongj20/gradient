@@ -21,12 +21,12 @@ const animations = {
 
 const Nav = ({ pageTitle }: Props): JSX.Element => {
 	// Create & intialize refs
-	const focusTrapRef = useRef(null)
-	const pageContentRef = useRef(null)
+	const focusTrapRef = useRef<focusTrap.FocusTrap>()
+	const pageContentRef = useRef<HTMLDivElement | null>()
 
 	useEffect(() => {
 		focusTrapRef.current = focusTrap.createFocusTrap(`${Wrap}`)
-		pageContentRef.current = document.querySelector('#page-content')
+		pageContentRef.current = document.querySelector<HTMLDivElement>('#page-content')
 	}, [])
 
 	// Initialize & manage open state
@@ -42,9 +42,9 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 	// Trap focus on menu open
 	useEffect(() => {
 		if (menuOpen) {
-			focusTrapRef.current.activate()
+			focusTrapRef.current?.activate()
 		} else {
-			focusTrapRef.current.deactivate()
+			focusTrapRef.current?.deactivate()
 		}
 	}, [menuOpen])
 
@@ -79,7 +79,7 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 	}, [menuOpen, prevMenuOpen, isMobile, menuLinks, reducedMotion])
 
 	// Handle escape key press
-	const onKeyDown = (e) => {
+	const onKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
 			toggleMenu(false)
 		}
@@ -87,12 +87,12 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 
 	const beforeSettingsDialogOpen = () => {
 		if (!menuOpen) return
-		focusTrapRef.current.pause()
+		focusTrapRef.current?.pause()
 	}
 
 	const afterSettingsDialogClose = () => {
 		if (!menuOpen) return
-		focusTrapRef.current.unpause()
+		focusTrapRef.current?.unpause()
 	}
 
 	return (

@@ -1,15 +1,13 @@
 import { graphql, useStaticQuery } from 'gatsby'
+import { MetaHTMLAttributes } from 'react'
 import { Helmet } from 'react-helmet'
 
 import defaultOgImage from '@images/og.png'
 
-type Meta = {
-  name?: string
-  property?: string
-  content: string
-}
+type Meta = MetaHTMLAttributes<HTMLMetaElement>
 
 export type SEOProps = {
+  dir?: string
   lang?: string
   title?: string
   description?: string
@@ -25,7 +23,18 @@ export type SEOProps = {
   meta?: Meta[]
 }
 
+const defaultSEO: SEOProps = {
+  dir: 'ltr',
+  lang: 'en-US',
+  title: 'Gradient',
+  description: '',
+  type: '',
+  author: '',
+  authorTwitter: '',
+}
+
 const SEO = ({
+  dir,
   lang,
   title,
   description,
@@ -35,9 +44,9 @@ const SEO = ({
   image,
   meta,
 }: SEOProps): JSX.Element => {
-  const data = useStaticQuery(
+  const data = useStaticQuery<Queries.SiteMetadataQuery>(
     graphql`
-      query {
+      query SiteMetadata {
         site {
           siteMetadata {
             dir
@@ -54,9 +63,9 @@ const SEO = ({
     `,
   )
 
-  const { siteMetadata } = data.site
+  const siteMetadata = data.site?.siteMetadata ?? defaultSEO
 
-  const metaDir = siteMetadata.dir
+  const metaDir = dir ?? siteMetadata.dir
   const metaLang = lang ?? siteMetadata.lang
   const metaTitle = title
     ? `${title} - Gradient`
@@ -66,7 +75,7 @@ const SEO = ({
   const metaAuthor = author ?? siteMetadata.author
   const metaAuthorTwitter = authorTwitter ?? siteMetadata.authorTwitter
   const metaImage = image ?? {
-    src: defaultOgImage,
+    src: defaultOgImage as string,
     alt: 'Wordmark logo that says Gradient \\',
     width: 1200,
     height: 630,
@@ -150,8 +159,8 @@ const SEO = ({
             name: `twitter:image:alt`,
             content: metaImage.alt,
           },
-        ] as Meta[]
-      ).concat(meta)}
+        ] as NonNullable<SEOProps['meta']>
+      ).concat(meta ?? [])}
     />
   )
 }

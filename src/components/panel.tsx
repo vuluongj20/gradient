@@ -27,7 +27,7 @@ const Panel = ({
 
 export default Panel
 
-const getPadding = (p) => {
+const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 	switch (p.size) {
 		case 's':
 			return `

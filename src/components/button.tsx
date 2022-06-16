@@ -2,20 +2,23 @@ import { useButton } from '@react-aria/button'
 import { useHover } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { AriaButtonProps } from '@react-types/button'
-import { ReactNode, RefObject, useRef } from 'react'
+import { ForwardRefRenderFunction, ReactNode, RefObject, forwardRef, useRef } from 'react'
 import styled from 'styled-components'
 
 import StateLayer from '@components/stateLayer'
 
 type Props = AriaButtonProps & {
 	children: ReactNode
-	forwardRef?: RefObject<HTMLButtonElement>
 	className?: string
 }
 
-const Button = ({ children, forwardRef, className, ...props }: Props) => {
-	const innerRef = useRef()
-	const ref = forwardRef ?? innerRef
+const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+	{ children, className, ...props }: Props,
+	forwardedRef,
+) => {
+	const innerRef = useRef<HTMLButtonElement>(null)
+	const ref = (forwardedRef ?? innerRef) as RefObject<HTMLButtonElement>
+
 	const { buttonProps, isPressed } = useButton(props, ref)
 	const { hoverProps, isHovered } = useHover({})
 	const isExpanded = !!props['aria-expanded']
@@ -28,7 +31,7 @@ const Button = ({ children, forwardRef, className, ...props }: Props) => {
 	)
 }
 
-export default Button
+export default forwardRef(BaseButton)
 
 const Wrap = styled.button`
 	display: flex;

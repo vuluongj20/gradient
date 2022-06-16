@@ -1,6 +1,9 @@
+import { GatsbyNode } from 'gatsby'
 import path from 'path'
 
-export const onCreateBabelConfig = ({ actions }) => {
+import graphQLTypes from './src/types/graphql'
+
+export const onCreateBabelConfig: GatsbyNode['onCreateBabelConfig'] = ({ actions }) => {
   actions.setBabelPlugin({
     name: '@babel/plugin-transform-react-jsx',
     options: {
@@ -9,11 +12,20 @@ export const onCreateBabelConfig = ({ actions }) => {
   })
 }
 
-export const createPages = async function ({ actions, graphql }) {
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({
+  actions,
+}) => {
+  actions.createTypes(graphQLTypes)
+}
+
+export const createPages: GatsbyNode['createPages'] = async function ({
+  actions,
+  graphql,
+}) {
   const StoryGroup = path.resolve('./src/templates/storyGroup.tsx')
-  const storyResults = await graphql(
+  const storyResults = await graphql<Queries.CreatePagesAllStoriesQuery>(
     `
-      query {
+      query CreatePagesAllStories {
         allStoriesJson {
           edges {
             node {
@@ -36,7 +48,7 @@ export const createPages = async function ({ actions, graphql }) {
       }
     `,
   )
-  storyResults.data.allStoriesJson.edges.forEach((edge) => {
+  storyResults.data?.allStoriesJson.edges.forEach((edge) => {
     const story = edge.node
     const component = path.resolve(`./src/stories/${story.slug}/index.tsx`)
 
@@ -48,14 +60,14 @@ export const createPages = async function ({ actions, graphql }) {
           slug: story.slug,
           title: story.title,
           description: story.description,
-          image: { ...story.image, width: 1200, height: 630 },
+          image: { ...story.cover?.image, width: 1200, height: 630 },
         },
       })
   })
 
-  const indexResult = await graphql(
+  const indexResult = await graphql<Queries.CreatePagesAllArchiveQuery>(
     `
-      query {
+      query CreatePagesAllArchive {
         allArchiveJson {
           edges {
             node {
@@ -67,18 +79,18 @@ export const createPages = async function ({ actions, graphql }) {
       }
     `,
   )
-  indexResult.data.allArchiveJson.edges.forEach((edge) => {
+  indexResult.data?.allArchiveJson.edges.forEach((edge) => {
     const page = edge.node
     actions.createPage({
-      path: `/${page.slug}`,
+      path: `/${page.slug ?? ''}`,
       component: StoryGroup,
-      context: { slug: page.slug, title: page.title, description: page.description },
+      context: { slug: page.slug, title: page.title },
     })
   })
 
-  const sectionsResult = await graphql(
+  const sectionsResult = await graphql<Queries.CreatePagesAllSectionsQuery>(
     `
-      query {
+      query CreatePagesAllSections {
         allSectionsJson {
           edges {
             node {
@@ -90,22 +102,21 @@ export const createPages = async function ({ actions, graphql }) {
       }
     `,
   )
-  sectionsResult.data.allSectionsJson.edges.forEach((edge) => {
+  sectionsResult.data?.allSectionsJson.edges.forEach((edge) => {
     const section = edge.node
     actions.createPage({
-      path: `/section/${section.slug}`,
+      path: `/section/${section.slug ?? ''}`,
       component: StoryGroup,
       context: {
         filter: { sections: { in: [section.slug] } },
         title: section.name,
-        description: section.description,
       },
     })
   })
 
-  const authorsResult = await graphql(
+  const authorsResult = await graphql<Queries.CreatePagesAllAuthorsQuery>(
     `
-      query {
+      query CreatePagesAllAuthors {
         allAuthorsJson {
           edges {
             node {
@@ -117,15 +128,14 @@ export const createPages = async function ({ actions, graphql }) {
       }
     `,
   )
-  authorsResult.data.allAuthorsJson.edges.forEach((edge) => {
+  authorsResult.data?.allAuthorsJson.edges.forEach((edge) => {
     const author = edge.node
     actions.createPage({
-      path: `/author/${author.slug}`,
+      path: `/author/${author.slug ?? ''}`,
       component: StoryGroup,
       context: {
         filter: { authors: { in: [author.slug] } },
         title: author.name,
-        description: author.description,
       },
     })
   })

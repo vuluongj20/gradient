@@ -1,4 +1,4 @@
-import { GatsbyImageProps } from 'gatsby-plugin-image'
+import { ImageDataLike } from 'gatsby-plugin-image'
 
 import { ColCounts } from '@utils/style'
 
@@ -10,25 +10,31 @@ export type GridColumns = {
 export type AdaptiveGridColumns = Record<keyof ColCounts, GridColumns>
 
 export type Page = {
-	slug: string
-	title: string
-	path: string
+	readonly slug: string
+	readonly title: string
+	readonly path: string
 }
 
 export type Section = {
-	slug: string
-	name: string
-	path: string
+	readonly slug: string
+	readonly name: string
+	readonly path: string
+}
+
+export type Author = {
+	readonly slug: string
+	readonly name: string
+	readonly path: string
 }
 
 export type Story = {
-	slug: string
-	title: string
-	featuredIn?: string[]
-	featuredSize?: string
-	sections: string[]
-	authors: string[]
-	cover: GatsbyImageProps
-	buildPage?: boolean
-	path: string
+	readonly slug: string
+	readonly title: string
+	readonly featuredIn?: readonly string[]
+	readonly featuredSize: string
+	readonly sections: readonly string[]
+	readonly authors: readonly string[]
+	readonly cover: { image: ImageDataLike; alt: string }
+	readonly buildPage?: boolean
+	readonly path: string
 }

@@ -18,7 +18,7 @@ type ListBoxProps = AriaListBoxOptions<unknown> & {
 }
 
 const ListBox = ({ state, ...props }: ListBoxProps) => {
-  const ref = useRef()
+  const ref = useRef<HTMLUListElement>(null)
   const { listBoxProps } = useListBox(props, state, ref)
 
   return (
@@ -38,7 +38,7 @@ type ItemProps = AriaOptionProps & {
 }
 
 const Item = (props: ItemProps) => {
-  const ref = useRef()
+  const ref = useRef<HTMLLIElement>(null)
   const { item, state } = props
   const { optionProps, isSelected, isFocused, isDisabled } = useOption(
     { key: item.key },

@@ -90,9 +90,9 @@ const Dialog = ({
 	open,
 	close,
 }: Props) => {
-	const internalOpenButtonRef = useRef()
+	const internalOpenButtonRef = useRef<HTMLButtonElement>(null)
 	const openButtonRef = triggerRef ?? internalOpenButtonRef
-	const closeButtonRef = useRef()
+	const closeButtonRef = useRef<HTMLButtonElement>(null)
 	const isControlled = typeof isOpen !== 'undefined'
 	const state = useOverlayTriggerState(isControlled ? { isOpen } : {})
 
@@ -155,7 +155,7 @@ const Dialog = ({
 							{...contentProps}
 							title={title}
 							isOpen={state.isOpen}
-							onClose={state.close}
+							onClose={() => state.close()}
 							showCloseButton={showCloseButton}
 							closeButtonProps={closeButtonProps}
 							animationState={animationState}

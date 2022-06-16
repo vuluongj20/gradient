@@ -34,7 +34,7 @@ const FilterBar = ({
 				<StyledSelect
 					key={filter.name}
 					defaultSelectedKey={filter.defaultValue}
-					onSelectionChange={(key: string) => onChange(filter.name, key)}
+					onSelectionChange={(key) => onChange(filter.name, key as string)}
 					showDialogOnMobile={showDialogOnMobile}
 					{...filter}
 				>

@@ -10,8 +10,8 @@ type Props = {
 
 class Graph {
 	readonly id: string
-	nodes: Props['nodes']
-	edges: Props['edges'] 
+	nodes: Node[]
+	edges: Edge[]
 
 	constructor(props: Props = {}) {
 		this.id = nanoid()

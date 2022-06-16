@@ -14,33 +14,36 @@ type RadioBarProps = AriaRadioGroupProps & {
 }
 
 type HandleStyles = { left: number; width: number }
+type HandleLookup = Record<string, HandleStyles>
 
 const RadioBar = ({ moveLeft, ...props }: RadioBarProps) => {
-	const ref = useRef(null)
+	const ref = useRef<HTMLDivElement>(null)
 	const state = useRadioGroupState(props)
 	const { radioGroupProps } = useRadioGroup(props, state)
-	const [handleLookup, setHandleLookup] = useState<Record<string, HandleStyles>>({})
-	const [handleStyles, setHandleStyles] = useState<HandleStyles>(null)
+	const [handleStyles, setHandleStyles] = useState<HandleStyles>({ left: 0, width: 0 })
+	const [handleLookup, setHandleLookup] = useState<HandleLookup>({})
 
 	/**
 	 * Initialize lookup table (handleLookup) that describes the position
 	 * of each render radio element, useful for animating <Handle />
 	 */
 	useEffect(() => {
-		const handleLookupTable = {}
-		ref.current?.childNodes?.forEach((node) => {
-			const radioValue = node.dataset?.radioValue
-			if (!radioValue) return
-			handleLookupTable[radioValue] = {
-				left: node.offsetLeft,
-				width: node.offsetWidth,
-			}
-		})
+		const handleLookupTable: HandleLookup = {}
+		;(ref.current?.childNodes as NodeListOf<HTMLElement>)?.forEach(
+			(node: HTMLElement) => {
+				const radioValue = node.dataset?.radioValue
+				if (!radioValue) return
+				handleLookupTable[radioValue] = {
+					left: node.offsetLeft,
+					width: node.offsetWidth,
+				}
+			},
+		)
 		setHandleLookup(handleLookupTable)
 	}, [])
 
 	useEffect(() => {
-		setHandleStyles(handleLookup[state.selectedValue])
+		setHandleStyles(handleLookup[state.selectedValue as keyof HandleLookup])
 	}, [handleLookup, state.selectedValue])
 
 	return (
@@ -70,7 +73,7 @@ type RadioProps = AriaRadioProps &
 	}
 
 const Radio = ({ lastValue, nextValue, state, ...props }: RadioProps) => {
-	const ref = useRef(null)
+	const ref = useRef<HTMLInputElement>(null)
 	const { inputProps } = useRadio(props, state, ref)
 	const isSelected = state.selectedValue === props.value
 	const isLastOption = props.value === lastValue
@@ -110,7 +113,8 @@ const Handle = styled.div<{ left?: number; width?: number }>`
 		width ${(p) => p.theme.animation.fastOut}, opacity ${(p) => p.theme.animation.fastOut};
 
 	${(p) =>
-		(p.left || p.width) &&
+		p.left &&
+		p.width &&
 		`
 		opacity: 1;
 		transform: translateX(${p.left}px);

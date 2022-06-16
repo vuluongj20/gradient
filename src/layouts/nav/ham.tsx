@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Button from '@components/button'
@@ -7,7 +7,7 @@ import Button from '@components/button'
 import { navSize } from '@utils/style'
 
 export type HamProps = {
-	toggleMenu: Dispatch<SetStateAction<boolean>>
+	toggleMenu: (nextState: boolean) => void
 	menuOpen: boolean
 }
 
@@ -53,9 +53,9 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 
 	useEffect(() => {
 		if (menuOpen) {
-			hamTimeline.current.play()
+			hamTimeline.current?.play()
 		} else {
-			hamTimeline.current.reverse()
+			hamTimeline.current?.reverse()
 		}
 	}, [menuOpen])
 

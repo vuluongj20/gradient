@@ -2,11 +2,11 @@
 // This is useful for small, contained areas that need to have
 // a separate appearance from the rest of the UI. One example is
 // theme inversion in the footer of some pages.
+import deepMerge from 'deepmerge'
 import { ReactNode, useContext } from 'react'
 import { ThemeProvider, useTheme } from 'styled-components'
 
 import { ThemeSettings, useThemeObject } from '../layouts/theme'
-import { deepMerge } from './functions'
 import SettingsContext from './settingsContext'
 
 type Props = {

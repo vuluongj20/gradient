@@ -34,8 +34,8 @@ const generateFontDefinitions = ({
 	formats,
 	subfolder,
 }: FontFamily): FontDefinition[] =>
-	[].concat(
-		...weights.map((weight) =>
+	weights
+		.map((weight) =>
 			styles.map((style) => ({
 				fontFamily: family,
 				fontStyle: style,
@@ -47,8 +47,8 @@ const generateFontDefinitions = ({
 					format,
 				})),
 			})),
-		),
-	)
+		)
+		.flat()
 
 const generateFontFaceAtRule = (d: FontDefinition) => `
 @font-face {

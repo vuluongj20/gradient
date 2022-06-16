@@ -48,7 +48,6 @@ const vizs: VizData[] = [
       {
         state: 'initial',
         des: 'Here is the data in its entirety. CO₂ is measured in ppm (parts-per-million). Hover over the plot for more details.',
-        params: null,
       },
       {
         state: 'linear',
@@ -91,12 +90,10 @@ const vizs: VizData[] = [
   },
 ]
 
-const Main = (): JSX.Element => {
-  const {
-    file: { childImageSharp },
-  } = useStaticQuery(
+const Main = () => {
+  const imageQueryResult = useStaticQuery<Queries.CO2MaunaLoaObservatoryImageQuery>(
     graphql`
-      query {
+      query CO2MaunaLoaObservatoryImage {
         file(name: { eq: "mauna-loa-observatory" }) {
           childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH, quality: 90)
@@ -105,6 +102,7 @@ const Main = (): JSX.Element => {
       }
     `,
   )
+  const imageData = imageQueryResult.file?.childImageSharp
 
   return (
     <Page>
@@ -117,23 +115,25 @@ const Main = (): JSX.Element => {
         </HeroWrap>
 
         <FigureWrap noPaddingOnMobile>
-          <Figure
-            gridColumn="wide"
-            image={childImageSharp}
-            alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
-            backgroundColor="#fff"
-            loading="eager"
-            sizes="100vw"
-            caption="The Mauna Loa Observatory in Hawaii, where atmotpheric carbon dioxide levels have been measured and recorded since 1958."
-            from="National Oceanic and Atmospheric Administration"
-          />
+          {imageData && (
+            <Figure
+              gridColumn="wide"
+              image={imageData}
+              alt="White dome of the Mauna Loa Observatory, with the Mauna Kea mountain in the background"
+              backgroundColor="#fff"
+              loading="eager"
+              sizes="100vw"
+              caption="The Mauna Loa Observatory in Hawaii, where atmotpheric carbon dioxide levels have been measured and recorded since 1958."
+              from="National Oceanic and Atmospheric Administration"
+            />
+          )}
         </FigureWrap>
 
         <DataProvider>
           {vizs.map((viz, i) => {
             return [
               <Section key={i} vizData={viz} />,
-              i !== vizs.length - 1 ? <Divider key={i + '-divider'} /> : null,
+              i !== vizs.length - 1 ? <Divider key={`${i}-divider`} /> : null,
             ]
           })}
           <Divider />

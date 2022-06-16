@@ -23,7 +23,7 @@ const Popover = ({
   offset = 8,
   animationState,
 }: Props) => {
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const { overlayProps } = useOverlay(
     {
       isOpen,

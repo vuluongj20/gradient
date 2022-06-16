@@ -9,13 +9,13 @@ type Props = {
 	 * end node. Otherwise it the order does not matter.
 	 */
 	nodes: [Node, Node]
-	isDirected?: boolean 
+	isDirected?: boolean
 }
 
 class Edge {
 	readonly id: string
-	isDirected: Props['isDirected']
-	nodes: Props['nodes']
+	isDirected: boolean
+	nodes: [Node, Node]
 
 	constructor(props: Props) {
 		this.id = nanoid()

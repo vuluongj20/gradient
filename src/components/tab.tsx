@@ -7,10 +7,13 @@ import styled from 'styled-components'
 
 import { TabItem } from '@components/tabList'
 
-type TabProps = AriaTabProps & { item: Node<TabItem>; state: TabListState<TabItem> }
+type TabProps = AriaTabProps & {
+  item: Node<TabItem>
+  state: TabListState<TabItem>
+}
 
 const Tab = ({ item, state }: TabProps) => {
-  const ref = useRef()
+  const ref = useRef<HTMLLIElement>(null)
   const { key } = item
 
   const isDisabled = state.disabledKeys.has(key)
@@ -18,7 +21,7 @@ const Tab = ({ item, state }: TabProps) => {
 
   const { tabProps } = useTab({ key, isDisabled }, state, ref)
 
-  const { label, leadingItems, trailingItems } = item.props
+  const { label, leadingItems, trailingItems } = item.props as TabItem
 
   return (
     <Wrap isSelected={isSelected} isDisabled={isDisabled} {...tabProps} ref={ref}>

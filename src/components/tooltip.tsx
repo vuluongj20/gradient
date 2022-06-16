@@ -4,7 +4,7 @@ import { mergeProps } from '@react-aria/utils'
 import { TooltipTriggerState, useTooltipTriggerState } from '@react-stately/tooltip'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { AriaTooltipProps, TooltipTriggerProps } from '@react-types/tooltip'
-import { ReactNode, RefObject, forwardRef, useRef } from 'react'
+import { ForwardRefRenderFunction, ReactNode, RefObject, forwardRef, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
@@ -27,7 +27,7 @@ const Tooltip = ({
   state,
   ...props
 }: Props) => {
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const { tooltipProps } = useTooltip(props, state)
 
   const { overlayProps: positionProps, placement: calculatedPlacement } =
@@ -81,7 +81,7 @@ type TriggerProps = TooltipTriggerProps & {
   className?: string
 }
 
-const TooltipTrigger = (
+const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
   {
     spread = false,
     placement = 'bottom',
@@ -92,10 +92,10 @@ const TooltipTrigger = (
     content,
     ...props
   }: TriggerProps,
-  refProp,
+  forwardedRef,
 ) => {
-  const internalRef = useRef()
-  const ref = refProp ?? internalRef
+  const internalRef = useRef<HTMLElement>(null)
+  const ref = (forwardedRef ?? internalRef) as RefObject<HTMLElement>
   const state = useTooltipTriggerState({ delay, ...props })
   const { triggerProps, tooltipProps } = useTooltipTrigger(
     { delay, ...props },

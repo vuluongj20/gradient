@@ -1,4 +1,4 @@
-type ColorKeys =
+type ColorKey =
 	| 'white'
 	| 'black'
 	| 'surface1'
@@ -55,7 +55,7 @@ export type ColorPalette = {
 	id: string
 	name: string
 	appearance: 'light' | 'dark'
-	colors: Record<ColorKeys, string>
+	colors: Record<ColorKey, string>
 }
 
 type ColorAliasName =
@@ -211,7 +211,7 @@ export const getColorAliases = (
 ): ColorAliases => {
 	const getBackground = (elevation: number) => {
 		const blockedElevation = Math.min(Math.max(elevation, 0), 4)
-		return colors[`surface${blockedElevation}`]
+		return colors[`surface${blockedElevation}` as ColorKey]
 	}
 
 	const getLine = (elevation: number) => {

@@ -9,12 +9,14 @@ import { TabItem } from '@components/tabList'
 type TabPanelProps = AriaTabPanelProps & { state: TabListState<TabItem> }
 
 const TabPanel = ({ state, ...props }: TabPanelProps) => {
-  const ref = useRef()
+  const ref = useRef<HTMLDivElement>(null)
   const { tabPanelProps } = useTabPanel(props, state, ref)
+
+  console.log(state.selectedItem)
 
   return (
     <Wrap {...tabPanelProps} ref={ref}>
-      {state.selectedItem?.props.children}
+      {state.selectedItem?.rendered}
     </Wrap>
   )
 }

@@ -3,8 +3,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { Story } from '@types'
 
 const useFeaturedStories = (): Story[] => {
-	const data = useStaticQuery(graphql`
-		{
+	const data = useStaticQuery<Queries.AllFeaturedStoriesQuery>(graphql`
+		query AllFeaturedStories {
 			allStoriesJson(filter: { featuredIn: { ne: null } }) {
 				edges {
 					node {
@@ -13,6 +13,7 @@ const useFeaturedStories = (): Story[] => {
 						sections
 						featuredIn
 						featuredSize
+						authors
 						cover {
 							image {
 								childImageSharp {
@@ -28,7 +29,7 @@ const useFeaturedStories = (): Story[] => {
 	`)
 
 	return data.allStoriesJson.edges.map((edge) => {
-		const story = edge.node
+		const story = edge.node as Story
 		return { ...story, path: `/story/${story.slug}` }
 	})
 }

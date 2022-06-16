@@ -1,3 +1,4 @@
+import { GatsbyImageProps } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 
 import CardGroup from './cardGroup'
@@ -7,7 +8,7 @@ import { Section as ISection, Story } from '@types'
 type Props = {
 	section: ISection
 	stories: Story[]
-	imageLoading?: Story['cover']['loading']
+	imageLoading?: GatsbyImageProps['loading']
 }
 
 const Section = ({ section, stories, imageLoading }: Props): JSX.Element => {

@@ -1,10 +1,11 @@
 import * as d3 from 'd3'
-import { Simulation } from 'd3-force'
+import { ForceLink, Simulation } from 'd3-force'
 import { Selection } from 'd3-selection'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { Edge, Node } from '../graph'
+import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 import {
 	drag,
 	mapMutableEdges,
@@ -17,12 +18,12 @@ import {
 import useMountEffect from '@utils/hooks/useMountEffect'
 
 type Render = {
-	svg: SVGSVGElement
-	mutableNodes: ReturnType<typeof mapMutableNodes>[]
-	mutableEdges: ReturnType<typeof mapMutableEdges>[]
-	renderedNodes: Selection<SVGGElement, Render['mutableNodes'], SVGSVGElement, unknown>
-	renderedEdges: Selection<SVGGElement, Render['mutableEdges'], SVGSVGElement, unknown>
-	simulation: Simulation
+	svg: Selection<SVGSVGElement, undefined, null, undefined>
+	mutableNodes: MutableNode[]
+	mutableEdges: MutableEdge[]
+	renderedNodes: RenderedNodes
+	renderedEdges: RenderedEdges
+	simulation: Simulation<MutableNode, MutableEdge>
 }
 
 type Props = {
@@ -31,15 +32,15 @@ type Props = {
 }
 
 const ForceGraph = ({ nodes, edges }: Props) => {
-	const ref = useRef<HTMLDivElement>()
+	const ref = useRef<HTMLDivElement>(null)
 	const render = useRef<Render>()
 
 	useMountEffect(() => {
 		const width = 640
 		const height = 320
 
-		const mutableNodes = d3.map(nodes, mapMutableNodes)
-		const mutableEdges = d3.map(edges, mapMutableEdges)
+		const mutableNodes = nodes.map(mapMutableNodes)
+		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
 		const svg = d3
 			.create('svg')
@@ -63,22 +64,20 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			.attr('stroke-linejoin', 'round')
 			.attr('fill', 'none')
 
-		const renderedEdges = svg
-			.append('g')
+		const renderedEdges = (svg.append('g') as RenderedEdges)
 			.attr('stroke', '#CCCCCC')
 			.attr('stroke-width', 2)
 			.attr('stroke-linecap', 'round')
 			.call(renderSVGEdges, mutableEdges)
 
-		const renderedNodes = svg
-			.append('g')
+		const renderedNodes = (svg.append('g') as RenderedNodes)
 			.attr('fill', 'currentColor')
 			.call(renderSVGNodes, mutableNodes)
 
 		// Construct the forces.
-		const forceNode = d3.forceManyBody().strength(-800)
+		const forceNode = d3.forceManyBody<MutableNode>().strength(-800)
 		const forceLink = d3
-			.forceLink(mutableEdges)
+			.forceLink<MutableNode, MutableEdge>(mutableEdges)
 			.id((e) => e.id)
 			.strength(1)
 			.distance((e) => {
@@ -88,14 +87,14 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 				return minDistance + sourceCutoff + targetCutoff
 			})
 
-		const simulation = d3
-			.forceSimulation(mutableNodes)
+		const simulation: Simulation<MutableNode, MutableEdge> = d3
+			.forceSimulation<MutableNode>(mutableNodes)
 			.force('link', forceLink)
 			.force('charge', forceNode)
 			.force('center', d3.forceCenter(width / 2, height / 2).strength(0.1))
-			.on('tick', ticked({ edges: renderedEdges, nodes: renderedNodes }))
+			.on('tick', ticked(renderedNodes, renderedEdges))
 
-		renderedNodes.selectAll('text').call(drag(simulation))
+		renderedNodes.selectAll<SVGTextElement, MutableNode>('text').call(drag(simulation))
 
 		render.current = {
 			svg,
@@ -105,17 +104,17 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			mutableEdges,
 			simulation,
 		}
-		ref.current.appendChild(svg.node())
+		ref.current?.appendChild(svg.node() as SVGSVGElement)
 	})
 
 	useEffect(() => {
 		if (!render.current) return
-		const { renderedEdges, simulation } = render.current
+		const { renderedEdges, simulation, mutableNodes } = render.current
 
-		const mutableEdges = d3.map(edges, mapMutableEdges)
+		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
 		renderedEdges.call(renderSVGEdges, mutableEdges)
-		simulation.force('link').links(mutableEdges)
+		simulation.force<ForceLink<MutableNode, MutableEdge>>('link')?.links(mutableEdges)
 
 		render.current.mutableEdges = mutableEdges
 	}, [edges])
@@ -125,16 +124,16 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 		const { mutableNodes: oldMutableNodes, renderedNodes, simulation } = render.current
 
 		const oldMutableNodesMap = new Map(oldMutableNodes.map((d) => [d.id, d]))
-		const mutableNodes = nodes.map((d) =>
-			Object.assign(oldMutableNodesMap.get(d.id) || {}, mapMutableNodes(d)),
+		const mutableNodes = nodes.map((d, i) =>
+			Object.assign(oldMutableNodesMap.get(d.id) || {}, mapMutableNodes(d, i)),
 		)
 		renderedNodes.call(renderSVGNodes, mutableNodes)
-		renderedNodes.selectAll('text').call(drag(simulation))
+		renderedNodes.selectAll<SVGTextElement, MutableNode>('text').call(drag(simulation))
 
 		simulation.nodes(mutableNodes)
 
 		render.current.mutableNodes = mutableNodes
-	}, [nodes])
+	}, [edges, nodes])
 
 	return <SVG ref={ref} />
 }

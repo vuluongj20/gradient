@@ -39,7 +39,7 @@ const rotate = keyframes`
 	100% { transform: rotate(360deg) }
 `
 
-const dash = (diameter) => keyframes`
+const dash = (diameter: number) => keyframes`
 	0% {
     stroke-dasharray: 1, ${diameter * 3.75};
     stroke-dashoffset: 0;

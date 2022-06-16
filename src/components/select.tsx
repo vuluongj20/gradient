@@ -21,14 +21,16 @@ type Props = SelectProps<object> & {
 }
 
 const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props) => {
-	const ref = useRef()
+	const ref = useRef<HTMLButtonElement>(null)
 	const state = useSelectState(props)
 	const { triggerProps, valueProps, menuProps } = useSelect(props, state, ref)
 	const buttonProps = {
 		...triggerProps,
-		'aria-labelledby': null,
-		'aria-label': `${props.label} (Filter) – ${
-			state.selectedItem ? `selected ${state.selectedItem.rendered}` : 'none selected'
+		'aria-labelledby': undefined,
+		'aria-label': `${props.label ? String(props.label) : ''} (Filter) – ${
+			state.selectedItem
+				? `selected ${String(state.selectedItem.rendered)}`
+				: 'none selected'
 		}`,
 	}
 
@@ -40,7 +42,7 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 		const label = state.selectedItem ? state.selectedItem.rendered : 'Select an option'
 
 		return (
-			<Trigger forwardRef={ref} {...buttonProps}>
+			<Trigger ref={ref} {...buttonProps}>
 				<span aria-hidden="true" {...valueProps}>
 					{label}
 				</span>
@@ -61,7 +63,7 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 					<Popover
 						isOpen={state.isOpen}
 						triggerRef={ref}
-						onClose={state.close}
+						onClose={() => state.close()}
 						offset={4}
 						animationState={animationState}
 					>
@@ -75,13 +77,13 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 	const dialogForm = (
 		<Dialog
 			isOpen={state.isOpen}
-			open={state.open}
-			close={state.close}
+			open={() => state.open()}
+			close={() => state.close()}
 			trigger={renderTrigger}
 			triggerRef={ref}
 			title={props.label as string}
 			content={renderContent()}
-			contentProps={{ compact: true, onClose: state.close }}
+			contentProps={{ compact: true, onClose: () => state.close() }}
 		/>
 	)
 

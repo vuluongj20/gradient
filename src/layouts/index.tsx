@@ -28,7 +28,7 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 		description,
 		author,
 		image: image && {
-			src: typeof image.src === 'string' ? image.src : getSrc(image.src),
+			src: typeof image.src === 'string' ? image.src : getSrc(image.src) ?? image.src,
 			alt: image.alt,
 			width: image.width,
 			height: image.height,
@@ -42,7 +42,7 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 				<GlobalThemeProvider>
 					<OverlayProvider>
 						<GlobalStyles />
-						<Nav pageTitle={title} />
+						<Nav pageTitle={title ?? ''} />
 						<PageContent id="page-content">{children}</PageContent>
 					</OverlayProvider>
 				</GlobalThemeProvider>

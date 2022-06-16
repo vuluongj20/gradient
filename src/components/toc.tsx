@@ -1,4 +1,4 @@
-import * as Color from 'color'
+import Color from 'color'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as tocbot from 'tocbot'
@@ -10,9 +10,9 @@ type Props = {
 }
 
 const TOC = ({ label, contentSelector, className }: Props): JSX.Element => {
-	const [showUpperFade, setUpperFade] = useState<boolean>(false)
-	const [showLowerFade, setLowerFade] = useState<boolean>(false)
-	const upperCallback = (entries) => {
+	const [showUpperFade, setUpperFade] = useState(false)
+	const [showLowerFade, setLowerFade] = useState(false)
+	const upperCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
 				setUpperFade(false)
@@ -21,7 +21,7 @@ const TOC = ({ label, contentSelector, className }: Props): JSX.Element => {
 			}
 		})
 	}
-	const lowerCallback = (entries) => {
+	const lowerCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
 				setLowerFade(false)
@@ -49,13 +49,13 @@ const TOC = ({ label, contentSelector, className }: Props): JSX.Element => {
 			headingSelector: 'h2',
 		})
 
-		upperObserver.observe(upperTarget)
-		lowerObserver.observe(lowerTarget)
+		upperTarget && upperObserver.observe(upperTarget)
+		lowerTarget && lowerObserver.observe(lowerTarget)
 
 		return () => {
 			tocbot.destroy()
-			upperObserver.unobserve(upperTarget)
-			lowerObserver.unobserve(lowerTarget)
+			upperTarget && upperObserver.unobserve(upperTarget)
+			lowerTarget && lowerObserver.unobserve(lowerTarget)
 		}
 	}, [contentSelector])
 
@@ -147,12 +147,12 @@ const UpperScrollFade = styled(ScrollFade)`
 	background: linear-gradient(
 			180deg,
 			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1)} 100%
+			${(p) => Color(p.theme.background).fade(1).string()} 100%
 		),
 		linear-gradient(
 			180deg,
 			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1)} 100%
+			${(p) => Color(p.theme.background).fade(1).string()} 100%
 		);
 `
 const LowerScrollFade = styled(ScrollFade)`
@@ -160,11 +160,11 @@ const LowerScrollFade = styled(ScrollFade)`
 	background: linear-gradient(
 			0deg,
 			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1)} 100%
+			${(p) => Color(p.theme.background).fade(1).string()} 100%
 		),
 		linear-gradient(
 			0deg,
 			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1)} 100%
+			${(p) => Color(p.theme.background).fade(1).string()} 100%
 		);
 `

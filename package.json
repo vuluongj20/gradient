@@ -16,10 +16,8 @@
     "cbuild": "gatsby clean & gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "eslint": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix",
     "stylelint": "npx stylelint '*/**/*.{js,jsx,ts,tsx}'",
-    "tslint": "tsc --noemit --skipLibCheck",
-    "lint": "yarn eslint & yarn tslint & yarn stylelint"
+    "lint": "yarn eslint & yarn stylelint"
   },
   "dependencies": {
     "@loadable/component": "^5.15.2",

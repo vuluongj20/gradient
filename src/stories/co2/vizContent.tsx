@@ -13,7 +13,7 @@ const VizContent = ({ content, isResizing }: Props) => (
 	<Wrap>
 		<VizWrap>
 			<VizSvgOuterWrap type="viz">
-				<VizSvgWrap isResizing={isResizing} />
+				<VizSvgWrap isResizing={isResizing} className="svg-wrap" />
 			</VizSvgOuterWrap>
 		</VizWrap>
 		<VizScrollBox>

@@ -5,24 +5,25 @@ import { Data } from './index'
 
 import { makeCancelable } from '@utils/functions'
 
-const DataContext = createContext(null)
+const DataContext = createContext<Data | null>(null)
 
 type Props = { children?: ReactNode }
+type RawData = Record<keyof Data[0], string | undefined>[]
 
 const DataProvider = ({ children }: Props) => {
-	const [data, setData] = useState<Data>(null)
+	const [data, setData] = useState<Data | null>(null)
 
 	useEffect(() => {
-		const cancelable = makeCancelable(
+		const cancelable = makeCancelable<RawData>(
 			csv('https://storage.googleapis.com/vl-gradient/co2/weekly_in_situ_co2_mlo.csv'),
 		)
 
 		cancelable.promise
-			.then((resData: Data) => {
+			.then((resData: RawData) => {
 				setData(
 					resData.map((d) => ({
-						date: timeParse('%Y-%m-%d')(d.date),
-						level: +d.level,
+						date: timeParse('%Y-%m-%d')(d.date ?? '') as Date,
+						level: +(d.level ?? 0),
 					})),
 				)
 			})

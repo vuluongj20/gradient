@@ -28,31 +28,31 @@ export const defaultSettings: Settings = {
 	},
 }
 
-const reconcileSettings = (settings: Settings, defaultSettings: Settings): Settings => {
-	const returnObj = {}
-
+const reconcileSettings = <T,>(settings: T, defaultSettings: T): T => {
 	if (!isObject(settings)) {
 		return defaultSettings
 	}
 
-	Object.entries(defaultSettings).forEach(([key, val]) => {
-		if (isObject(val)) {
+	const returnObj = defaultSettings
+
+	;(Object.keys(returnObj) as (keyof T)[]).forEach((key) => {
+		if (isObject(defaultSettings[key])) {
 			returnObj[key] = reconcileSettings(settings[key], defaultSettings[key])
 			return
 		}
 
-		returnObj[key] = settings[key] ?? val
+		returnObj[key] = settings[key] ?? defaultSettings[key]
 	})
 
-	return returnObj as Settings
+	return returnObj 
 }
 
-export const init = (defaultSettings): Settings => {
+export const init = (defaultSettings: Settings): Settings => {
 	if (typeof window === 'undefined' || typeof document === 'undefined') {
 		return defaultSettings
 	}
 
-	const localSettings = JSON.parse(localStorage.getItem('UP')) as Settings
+	const localSettings = JSON.parse(localStorage.getItem('UP') ?? '{}') as Settings
 	return reconcileSettings(localSettings, defaultSettings)
 }
 

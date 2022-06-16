@@ -20,19 +20,23 @@ type SpacingName =
 	| 'paddingVertical'
 	| 'paddingTop'
 	| 'paddingBottom'
-	| 'paddingHorizontal'
-	| 'paddingHorizontalMobile'
 	| 'marginVertical'
 	| 'marginTop'
 	| 'marginBottom'
+
+type ComplexSpacingName =
+	| 'paddingHorizontal'
+	| 'paddingHorizontalMobile'
 	| 'marginHorizontal'
 	| 'marginHorizontalMobile'
 
-export type SpacingUtil = { space: Record<SpacingName, string | CSSObject | CSSObject[]> }
+export type SpacingUtil = {
+	space: Record<SpacingName, CSSObject[]> & Record<ComplexSpacingName, CSSObject>
+}
 
 export type Utils = CSSUtil & CSSStringUtil & MediaUtil & GridColumnUtil & SpacingUtil
 
-const breakpointNames = Object.keys(breakpoints)
+const breakpointNames = Object.keys(breakpoints) as Breakpoint[]
 
 const adaptiveSpacing: Record<Breakpoint, number>[] = [
 	{ xl: 0, l: 0, m: 0, s: 0, xs: 0 },
@@ -88,7 +92,7 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		boxShadow: `0 0 0 4px ${theme.focus}`,
 		zIndex: 1,
 	},
-	lineHeight: `calc(1rem * ${theme.text.system.body.lineHeight})`,
+	lineHeight: `calc(1rem * ${String(theme.text.system.body.lineHeight)})`,
 	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
       border-color 0.5s ${theme.animation.outQuart},
       box-shadow 0.5s ${theme.animation.outQuart}`,

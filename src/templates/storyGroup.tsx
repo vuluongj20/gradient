@@ -35,7 +35,10 @@ type Props = {
 }
 
 const StoryGroupPage = ({ pageContext, data }: Props) => {
-	const stories = data.allStoriesJson.edges.map((edge) => edge.node)
+	const stories = data.allStoriesJson.edges.map((edge) => {
+		const story = edge.node
+		return { ...story, path: `/story/${story.slug}` }
+	})
 
 	const sections = useSections()
 	const authors = useAuthors()
@@ -63,7 +66,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All authors', selected: true },
-							...authors.map((a) => ({ value: a.slug, label: a.title })),
+							...authors.map((a) => ({ value: a.slug, label: a.name })),
 						],
 					},
 			  ]
@@ -109,12 +112,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 					>
 						<Results>
 							{filteredStories.map((story) => (
-								<Card
-									key={story.slug}
-									path={`/story/${story.slug}`}
-									{...story}
-									rowLayout
-								/>
+								<Card key={story.slug} rowLayout {...story} />
 							))}
 						</Results>
 					</CSSTransition>

@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { ReactNode, useContext, useRef } from 'react'
 import styled from 'styled-components'
 
 import DataContext from './dataContext'
@@ -15,9 +15,11 @@ type Props = {
 
 const Section = ({ vizData }: Props): JSX.Element => {
   const wrapRef = useRef(null)
-  const data = useContext<Data>(DataContext)
+  const data = useContext<Data | null>(DataContext)
 
-  const renderSwitch = (): JSX.Element => {
+  const renderSwitch = (): ReactNode => {
+    if (!data) return null
+
     switch (vizData.key) {
       case 'line-chart':
         return <LineChart data={data} content={vizData.vizContent} />

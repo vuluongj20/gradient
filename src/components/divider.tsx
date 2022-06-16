@@ -20,7 +20,7 @@ const SectionDivider = ({
 
 export default SectionDivider
 
-const Divider = styled.hr<Props>`
+const Divider = styled.hr<Required<Props>>`
 	${(p) => !p.fullWidth && p.theme.utils.space.marginHorizontal};
 	${(p) => (p.noMt ? `margin-top: 0;` : p.theme.utils.space.marginTop[p.mt])};
 	${(p) => (p.noMb ? `margin-bottom: 0;` : p.theme.utils.space.marginBottom[p.mb])};

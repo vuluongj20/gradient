@@ -3,8 +3,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { Page } from '@types'
 
 const useHomePage = (): Page => {
-	const data = useStaticQuery(graphql`
-		query {
+	const data = useStaticQuery<Queries.AllHomeJsonQuery>(graphql`
+		query AllHomeJson {
 			allHomeJson {
 				edges {
 					node {
@@ -16,11 +16,11 @@ const useHomePage = (): Page => {
 		}
 	`)
 
-	const edge = data.allHomeJson.edges[0].node
+	const page = data.allHomeJson.edges[0].node as Page
 	return {
-		slug: edge.slug,
-		title: edge.title,
-		path: `/${edge.slug}`,
+		slug: page.slug,
+		title: page.title,
+		path: `/${page.slug}`,
 	}
 }
 

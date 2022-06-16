@@ -1,6 +1,6 @@
 import { usePreventScroll } from '@react-aria/overlays'
 import gsap from 'gsap'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
 import MenuLink, { Wrap as MenuLinkWrap } from './menuLink'
@@ -12,7 +12,7 @@ import usePrevious from '@utils/hooks/usePrevious'
 
 type Props = {
 	isOpen: boolean
-	toggleMenu: Dispatch<SetStateAction<boolean>>
+	toggleMenu: (nextState: boolean) => void
 	animations: Record<
 		'exit' | 'entry',
 		{
@@ -76,7 +76,9 @@ Props): JSX.Element => {
 				opacity: 1,
 				x: (i) => `+${(i + 1) * 6}rem`,
 				pointerEvents: 'none',
-				onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
+				onComplete: () => {
+					gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' })
+				},
 				...animations.entry,
 			})
 			return
@@ -111,7 +113,9 @@ Props): JSX.Element => {
 			x: 0,
 			pointerEvents: 'none',
 			clearProps: 'opacity',
-			onComplete: () => gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' }),
+			onComplete: () => {
+				gsap.set(`${MenuLinkWrap}`, { pointerEvents: 'initial' })
+			},
 			...animations.exit,
 		})
 	}, [prevIsOpen, isOpen, animations, isMobile, reducedMotion])

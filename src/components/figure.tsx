@@ -24,7 +24,7 @@ const Figure = ({
 	if (!caption) {
 		return (
 			<ImageWrap gridColumn={gridColumn}>
-				<StyledImage image={imageData} alt={alt} loading={loading} />
+				{imageData && <StyledImage image={imageData} alt={alt} loading={loading} />}
 			</ImageWrap>
 		)
 	}
@@ -32,7 +32,7 @@ const Figure = ({
 	return (
 		<Wrap className={className} gridColumn={gridColumn}>
 			<ImageWrap gridColumn={gridColumn}>
-				<StyledImage image={imageData} alt={alt} loading={loading} />
+				{imageData && <StyledImage image={imageData} alt={alt} loading={loading} />}
 			</ImageWrap>
 			<Caption gridColumn={gridColumn}>
 				{caption}

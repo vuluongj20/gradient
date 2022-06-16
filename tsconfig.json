@@ -10,6 +10,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true,
+		"strict": true,
+		"noImplicitThis": false,
 		"paths": {
 			"@utils": ["./src/utils"],
 			"@utils/*": ["./src/utils/*"],
@@ -30,10 +32,10 @@
 		}
 	},
 	"include": [
-		"./src/**/*",
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"./gatsby-node.ts",
 		"./gatsby-config.ts",
-		"./plugins/**/*",
 		"./modules.d.ts"
 	]
 }

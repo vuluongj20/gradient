@@ -3,8 +3,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { Section } from '@types'
 
 const useSections = (): Section[] => {
-	const data = useStaticQuery(graphql`
-		query {
+	const data = useStaticQuery<Queries.AllSectionsJsonQuery>(graphql`
+		query AllSectionsJson {
 			allSectionsJson {
 				edges {
 					node {
@@ -17,11 +17,11 @@ const useSections = (): Section[] => {
 	`)
 
 	return data.allSectionsJson.edges.map((edge) => {
-		const page = edge.node
+		const section = edge.node as Section
 
 		return {
-			...page,
-			path: `/section/${page.slug}`,
+			...section,
+			path: `/section/${section.slug}`,
 		}
 	})
 }

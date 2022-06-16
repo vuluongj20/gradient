@@ -1,41 +1,33 @@
 import * as d3 from 'd3'
+import { D3DragEvent } from 'd3-drag'
+import { Simulation } from 'd3-force'
+import { Selection } from 'd3-selection'
 import intersect from 'path-intersection'
 
 import { Edge, Node } from '../graph'
+import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 
-type MutableNode = {
-	id: Node['id']
-	label: Node['label']
-	index?: number
-	x?: number
-	y?: number
-	vx?: number
-	vy?: number
+export function mapMutableNodes(node: Node, index: number): MutableNode {
+	return { index, id: node.id, label: node.label }
 }
 
-export function mapMutableNodes(node: Node): MutableNode {
-	return { id: node.id, label: node.label }
-}
-
-type MutableEdge = {
-	id: Edge['id']
-	source: string | Node
-	target: string | Node
-	index?: number
-}
-
-export function mapMutableEdges(edge: Edge): MutableEdge {
+export function mapMutableEdges(
+	edge: Edge,
+	index: number,
+	mutableNodes: MutableNode[],
+): MutableEdge {
 	return {
+		index,
 		id: edge.id,
-		source: edge.nodes[0].id,
-		target: edge.nodes[1].id,
+		source: mutableNodes.find((n) => n.id === edge.nodes[0].id) as MutableNode,
+		target: mutableNodes.find((n) => n.id === edge.nodes[1].id) as MutableNode,
 	}
 }
 
-export function renderSVGNodes(renderedNodes, data) {
+export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]) {
 	renderedNodes
 		.selectAll('text')
-		.data(data, (n) => n.id)
+		.data<MutableNode>(data, (n) => (n as MutableNode).id)
 		.join((enter) =>
 			enter
 				.append('text')
@@ -45,17 +37,19 @@ export function renderSVGNodes(renderedNodes, data) {
 		)
 }
 
-export function renderSVGEdges(renderedEdges, data) {
+export function renderSVGEdges(renderedEdges: RenderedEdges, data: MutableEdge[]) {
 	renderedEdges
 		.selectAll('g')
-		.data(data, (e) => e.id)
+		.data<MutableEdge>(data, (e) => (e as MutableEdge).id)
 		.join((enter) => enter.append('g').append('line').attr('marker-end', 'url(#arrow)'))
 }
 
-export function getNodeBoundary(node) {
+export function getNodeBoundary(node: MutableNode) {
 	const { x, y, label } = node
 	const w = label.length * 4.5 + 10
 	const h = 14
+
+	if (!x || !y) return null
 
 	return [
 		`M ${x},${y - h}`,
@@ -69,60 +63,71 @@ export function getNodeBoundary(node) {
 	].join(' ')
 }
 
-export function getEdgePath(d) {
-	const { source, target } = d
+function getUpdatedMutableEdge(edge: MutableEdge) {
+	const { source, target } = edge
+
+	if (!source.x || !source.y || !target.x || !target.y) return edge
 
 	const edgePath = `M ${source.x}, ${source.y} L ${target.x} ${target.y}`
 
 	const sourceNodeBoundary = getNodeBoundary(source)
 	const targetNodeBoundary = getNodeBoundary(target)
 
+	if (!sourceNodeBoundary || !targetNodeBoundary) return edge
+
 	const sourceIntersect = intersect(sourceNodeBoundary, edgePath)[0]
 	const targetIntersect = intersect(targetNodeBoundary, edgePath)[0]
 
-	if (!sourceIntersect || !targetIntersect) {
-		return {}
-	}
+	if (!sourceIntersect || !targetIntersect) return edge
+
 	return {
-		x1: sourceIntersect?.x,
-		y1: sourceIntersect?.y,
-		x2: targetIntersect?.x,
-		y2: targetIntersect?.y,
+		...edge,
+		x1: sourceIntersect.x,
+		y1: sourceIntersect.y,
+		x2: targetIntersect.x,
+		y2: targetIntersect.y,
 	}
 }
 
-export function ticked({ edges, nodes }) {
+export function ticked(renderedNodes: RenderedNodes, renderedEdges: RenderedEdges) {
 	return () => {
-		edges
+		renderedEdges
 			.selectAll('g')
-			.datum((d) => ({ ...d, ...getEdgePath(d) }))
+			.datum<MutableEdge>((edge) => getUpdatedMutableEdge(edge as MutableEdge))
 			.select('line')
-			.attr('x1', (d) => d.x1)
-			.attr('y1', (d) => d.y1)
-			.attr('x2', (d) => d.x2)
-			.attr('y2', (d) => d.y2)
+			.attr('x1', (d) => d.x1 ?? null)
+			.attr('y1', (d) => d.y1 ?? null)
+			.attr('x2', (d) => d.x2 ?? null)
+			.attr('y2', (d) => d.y2 ?? null)
 
-		nodes.selectAll('text').attr('transform', (d) => `translate(${d.x} ${d.y})`)
+		renderedNodes.selectAll('text').attr('transform', (d) => {
+			const { x, y } = d as MutableNode
+			return x && y ? `translate(${x} ${y})` : null
+		})
 	}
 }
 
-export function drag(simulation) {
-	function dragstarted(event) {
+export function drag(simulation: Simulation<MutableNode, MutableEdge>) {
+	function dragstarted(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
 		if (!event.active) simulation.alphaTarget(0.3).restart()
 		event.subject.fx = event.subject.x
 		event.subject.fy = event.subject.y
 	}
 
-	function dragged(event) {
+	function dragged(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
 		event.subject.fx = event.x
 		event.subject.fy = event.y
 	}
 
-	function dragended(event) {
+	function dragended(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
 		if (!event.active) simulation.alphaTarget(0)
 		event.subject.fx = null
 		event.subject.fy = null
 	}
 
-	return d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended)
+	return d3
+		.drag<SVGTextElement, MutableNode>()
+		.on('start', dragstarted)
+		.on('drag', dragged)
+		.on('end', dragended)
 }

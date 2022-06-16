@@ -28,23 +28,25 @@ export type TextScaleDefinition = Record<TextCategoryName, TextCategoryDefinitio
 export type TextScale = Record<TextCategoryName, TextCategory>
 
 const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
-	const result = {}
+	const result: Partial<TextScale> = {}
 
-	Object.keys(scale).map((key) => {
+	;(Object.keys(scale) as TextCategoryName[]).map((key) => {
 		const { fontSizes, ...rest } = scale[key]
 		result[key] = {
 			...rest,
 			fontSize: `${fontSizes.xl}rem`,
 		}
-
-		Object.keys(fontSizes).map((breakpoint) => {
-			result[key][`@media only screen and (max-width: ${breakpoints[breakpoint]})`] = {
+		;(Object.keys(fontSizes) as Breakpoint[]).map((breakpoint) => {
+			;(result[key] as CSSObject)[
+				`@media only screen and (max-width: ${breakpoints[breakpoint]})`
+			] = {
 				fontSize: `${fontSizes[breakpoint]}rem`,
 			}
 		})
-		result[key][`@media only screen and (max-height: ${breakpoints.s})`] = {
-			fontSize: `${fontSizes.xs}rem`,
-		}
+		;(result[key] as CSSObject)[`@media only screen and (max-height: ${breakpoints.s})`] =
+			{
+				fontSize: `${fontSizes.xs}rem`,
+			}
 	})
 
 	return result as TextScale

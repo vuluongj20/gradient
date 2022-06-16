@@ -1,10 +1,10 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { Page } from '@types'
+import { Author } from '@types'
 
-const useAuthorPages = (): Page[] => {
-	const data = useStaticQuery(graphql`
-		query {
+const useAuthorPages = (): Author[] => {
+	const data = useStaticQuery<Queries.AllAuthorsJsonQuery>(graphql`
+		query AllAuthorsJson {
 			allAuthorsJson {
 				edges {
 					node {
@@ -17,12 +17,11 @@ const useAuthorPages = (): Page[] => {
 	`)
 
 	return data.allAuthorsJson.edges.map((edge) => {
-		const page = edge.node
+		const author = edge.node as Author
 
 		return {
-			slug: page.slug,
-			title: page.name,
-			path: `/author/${page.slug}`,
+			...author,
+			path: `/author/${author.slug}`,
 		}
 	})
 }

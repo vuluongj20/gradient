@@ -2,9 +2,8 @@ import { useDialog } from '@react-aria/dialog'
 import { FocusScope } from '@react-aria/focus'
 import { useModal, useOverlay, usePreventScroll } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
-import { ButtonProps } from '@react-types/button'
 import { AriaDialogProps } from '@react-types/dialog'
-import { ReactNode, useRef } from 'react'
+import { ButtonHTMLAttributes, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
 import IconClose from '@icons/close'
@@ -19,7 +18,7 @@ export type DialogContentProps = AriaDialogProps & {
 	renderContent?: () => ReactNode
 	isDismissable?: boolean
 	showCloseButton: boolean
-	closeButtonProps: ButtonProps
+	closeButtonProps: ButtonHTMLAttributes<HTMLButtonElement>
 	compact?: boolean
 	size?: Breakpoint
 }
@@ -62,7 +61,7 @@ const DialogContent = ({
 								</CloseButton>
 							)}
 						</TitleWrap>
-						{renderContent()}
+						{renderContent?.()}
 					</Wrap>
 				</FocusScope>
 			</Backdrop>

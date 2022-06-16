@@ -32,9 +32,8 @@ const TabList = (props: TabListProps) => {
   return (
     <TabListInner {...props}>
       {props.items.map((item) => (
-        <Item key={item.key} {...item}>
-          {item.content}
-        </Item>
+        // eslint-disable-next-line react/jsx-key
+        <Item {...item}>{item.content}</Item>
       ))}
     </TabListInner>
   )
@@ -53,7 +52,7 @@ const TabListInner = ({
   height,
   ...props
 }: TabListInnerProps) => {
-  const ref = useRef()
+  const ref = useRef<HTMLUListElement>(null)
   const state = useTabListState(props)
   const { tabListProps } = useTabList({ orientation, ...props }, state, ref)
 
@@ -87,7 +86,7 @@ const TabListInner = ({
   )
 }
 
-const Wrap = styled.div<{ orientation: TabListProps['orientation']; height: string }>`
+const Wrap = styled.div<{ orientation: TabListProps['orientation']; height?: string }>`
   display: flex;
   gap: ${(p) => p.theme.space[2]};
 

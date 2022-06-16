@@ -27,7 +27,7 @@ const HTML = (props: Props) => {
             body {
               background-color: ${colorAliases.paper.background};
             }
-            ${Object.keys(colorAliases)
+            ${(Object.keys(colorAliases) as (keyof typeof colorAliases)[])
               .map(
                 (key) => `
               body.palette-${key} {

@@ -30,10 +30,10 @@ const PolarPlot = ({ data, content }: Props) => {
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
-  const [radius, setRadius] = useState<number>()
+  const [radius, setRadius] = useState<number>(0)
   const [windowWidth, isResizing] = useWindowWidth()
   const [windowHeight] = useWindowHeight()
-  const vizRef = useRef(null)
+  const vizRef = useRef<HTMLDivElement>(null)
 
   const prevRadius = usePrevious(radius)
   const prevIntersectionIndex = usePrevious(intersectionIndex)
@@ -44,43 +44,51 @@ const PolarPlot = ({ data, content }: Props) => {
       .domain([0, 365.25])
       .range([0, 2 * Math.PI]),
     r = scaleLinear()
-      .domain([0, max(data, (d) => d.level)])
+      .domain([0, max(data, (d) => d.level) ?? 0])
       .range([0, innerRadius])
       .nice(),
-    minDate = min(data, (d) => d.date),
+    minDate = min(data, (d) => d.date) as Date,
     xDays = data.map(
       (d) => (d.date.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24),
     ),
     xDaysParsed = xDays.map((d) => Math.floor(d % 365.25)),
     // polarToCartesian & describeArc from wdebeaum,
     // @stackoverflow: https://stackoverflow.com/a/5737245
-    polarToCartesian = function (centerX, centerY, radius, angleInDegrees) {
+    polarToCartesian = function (
+      centerX: number,
+      centerY: number,
+      radius: number,
+      angleInDegrees: number,
+    ) {
       const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0
       return {
         x: centerX + radius * Math.cos(angleInRadians),
         y: centerY + radius * Math.sin(angleInRadians),
       }
     },
-    describeArc = useCallback((x, y, radius, startAngle, endAngle) => {
-      const start = polarToCartesian(x, y, radius, endAngle)
-      const end = polarToCartesian(x, y, radius, startAngle)
-      const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
-      const d = [
-        'L',
-        start.x,
-        start.y,
-        'A',
-        radius,
-        radius,
-        0,
-        largeArcFlag,
-        0,
-        end.x,
-        end.y,
-        'Z',
-      ].join(' ')
-      return d
-    }, [])
+    describeArc = useCallback(
+      (x: number, y: number, radius: number, startAngle: number, endAngle: number) => {
+        const start = polarToCartesian(x, y, radius, endAngle)
+        const end = polarToCartesian(x, y, radius, startAngle)
+        const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
+        const d = [
+          'L',
+          start.x,
+          start.y,
+          'A',
+          radius,
+          radius,
+          0,
+          largeArcFlag,
+          0,
+          end.x,
+          end.y,
+          'Z',
+        ].join(' ')
+        return d
+      },
+      [],
+    )
   const [totalLength, setTotalLength] = useState(0)
 
   /**
@@ -277,7 +285,7 @@ const PolarPlot = ({ data, content }: Props) => {
         if (newText) {
           newText.classList.add('on')
         }
-        const increment = (target) => {
+        const increment = (target: number) => {
           switch (target) {
             case 0: // One
               // Main data line
@@ -289,16 +297,21 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('vector-effect', 'non-scaling-stroke')
                 .attr(
                   'd',
-                  lineRadial()
+                  lineRadial<Data[0]>()
                     .angle(function (_, index) {
                       return a(xDaysParsed[index])
                     })
                     .radius(function (d) {
                       return r(d.level)
                     })
-                    .curve(curveBasis),
+                    .curve(curveBasis)(data.slice(0, 37)),
                 )
-              setTotalLength(grandDaddy.select('.data-line').node().getTotalLength())
+              setTotalLength(
+                grandDaddy
+                  .select<SVGPathElement>('.data-line')
+                  .node()
+                  ?.getTotalLength() ?? 0,
+              )
               grandDaddy
                 .select('.data-line')
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
@@ -312,7 +325,7 @@ const PolarPlot = ({ data, content }: Props) => {
               r.domain(
                 extent(data, (data) => {
                   return data.level
-                }),
+                }) as [number, number],
               ).nice()
               // Remove unneeded circles and ticks
               grandDaddy
@@ -341,7 +354,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .transition()
                 .duration(800)
                 .ease(easeCubicIn)
-                .attr('r', r)
+                .attr('r', r(400))
               grandDaddy
                 .selectAll('.r.tick:nth-child(4)')
                 .transition()
@@ -350,9 +363,9 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('transform', function (d) {
                   return (
                     'translate(' +
-                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.cos((-11 * Math.PI) / 12) +
                     ' ' +
-                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.sin((-11 * Math.PI) / 12) +
                     ')'
                   )
                 })
@@ -363,7 +376,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .transition()
                 .duration(800)
                 .ease(easeCubicIn)
-                .attr('r', r)
+                .attr('r', (d) => r(d as number))
               grandDaddy
                 .selectAll('.r.tick.secondary')
                 .attr('class', 'r tick secondary on')
@@ -373,9 +386,9 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('transform', function (d) {
                   return (
                     'translate(' +
-                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.cos((-11 * Math.PI) / 12) +
                     ' ' +
-                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.sin((-11 * Math.PI) / 12) +
                     ')'
                   )
                 })
@@ -387,31 +400,31 @@ const PolarPlot = ({ data, content }: Props) => {
                 .ease(easeCubicIn)
                 .attr(
                   'd',
-                  lineRadial()
+                  lineRadial<Data[0]>()
                     .angle(function (_, index) {
                       return a(xDaysParsed[index])
                     })
                     .radius(function (d) {
                       return r(d.level)
                     })
-                    .curve(curveBasis),
+                    .curve(curveBasis)(data.slice(0, 37)),
                 )
                 .on('end', () => {
                   const dataLine = grandDaddy
-                      .select('.data-line')
+                      .select<SVGPathElement>('.data-line')
                       .datum(data)
                       .attr(
                         'd',
-                        lineRadial()
+                        lineRadial<Data[0]>()
                           .angle(function (_, index) {
                             return a(xDaysParsed[index])
                           })
                           .radius(function (d) {
                             return r(d.level)
                           })
-                          .curve(curveBasis),
+                          .curve(curveBasis)(data),
                       ),
-                    newTotalLength = dataLine.node().getTotalLength()
+                    newTotalLength = dataLine.node()?.getTotalLength() ?? 0
                   dataLine
                     .attr('stroke-dasharray', newTotalLength + ' ' + newTotalLength)
                     .attr('stroke-dashoffset', newTotalLength)
@@ -425,7 +438,7 @@ const PolarPlot = ({ data, content }: Props) => {
               r.domain(
                 extent(data, (data) => {
                   return data.level
-                }),
+                }) as [number, number],
               ).nice()
               svg
                 .append('path')
@@ -435,7 +448,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('transform', 'translate(' + radius + ' ' + radius + ')')
                 .attr('vector-effect', 'non-scaling-stroke')
                 .attr('d', (data) => {
-                  const line = lineRadial()
+                  const line = lineRadial<Data[0]>()
                       .angle((_, index) => {
                         return a(xDaysParsed[index + 3112])
                       })
@@ -454,7 +467,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('transform', 'translate(' + radius + ' ' + radius + ')')
                 .attr('vector-effect', 'non-scaling-stroke')
                 .attr('d', (data) => {
-                  const line = lineRadial()
+                  const line = lineRadial<Data[0]>()
                       .angle(function (_, index) {
                         return a(xDaysParsed[index + 3086])
                       })
@@ -496,11 +509,11 @@ const PolarPlot = ({ data, content }: Props) => {
         if (newText) {
           newText.classList.add('on-reverse')
         }
-        const decrement = (target) => {
+        const decrement = (target: number) => {
           switch (target) {
             case -1: // Init
-              const dataLine = grandDaddy.select('.data-line')
-              setTotalLength(dataLine.node().getTotalLength())
+              const dataLine = grandDaddy.select<SVGPathElement>('.data-line')
+              setTotalLength(dataLine.node()?.getTotalLength() ?? 0)
 
               dataLine
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
@@ -516,7 +529,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 0,
                 max(data, (d) => {
                   return d.level
-                }),
+                }) as number,
               ]).nice()
               // Remove unneeded circles and ticks
               grandDaddy
@@ -528,7 +541,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .transition()
                 .duration(800)
                 .ease(easeCubicIn)
-                .attr('r', r)
+                .attr('r', r(0))
               grandDaddy
                 .selectAll('.r.tick')
                 .filter((_, i) => {
@@ -553,7 +566,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .transition()
                 .duration(800)
                 .ease(easeCubicIn)
-                .attr('r', r)
+                .attr('r', r(400))
               grandDaddy
                 .selectAll('.r.tick:nth-child(4)')
                 .transition()
@@ -562,9 +575,9 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('transform', function (d) {
                   return (
                     'translate(' +
-                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.cos((-11 * Math.PI) / 12) +
                     ' ' +
-                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.sin((-11 * Math.PI) / 12) +
                     ')'
                   )
                 })
@@ -575,7 +588,7 @@ const PolarPlot = ({ data, content }: Props) => {
                 .transition()
                 .duration(800)
                 .ease(easeCubicIn)
-                .attr('r', r)
+                .attr('r', (d) => r(d as number))
               grandDaddy
                 .selectAll('.r.tick.secondary')
                 .attr('class', 'r tick secondary')
@@ -585,9 +598,9 @@ const PolarPlot = ({ data, content }: Props) => {
                 .attr('transform', function (d) {
                   return (
                     'translate(' +
-                    r(d) * Math.cos((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.cos((-11 * Math.PI) / 12) +
                     ' ' +
-                    r(d) * Math.sin((-11 * Math.PI) / 12) +
+                    r(d as number) * Math.sin((-11 * Math.PI) / 12) +
                     ')'
                   )
                 })
@@ -601,21 +614,21 @@ const PolarPlot = ({ data, content }: Props) => {
                 .style('opacity', 0)
                 .on('end', () => {
                   const dataLine = grandDaddy
-                      .select('.data-line')
+                      .select<SVGPathElement>('.data-line')
                       .datum(data.slice(0, 37))
                       .style('opacity', 1)
                       .attr(
                         'd',
-                        lineRadial()
+                        lineRadial<Data[0]>()
                           .angle(function (_, index) {
                             return a(xDaysParsed[index])
                           })
                           .radius(function (d) {
                             return r(d.level)
                           })
-                          .curve(curveBasis),
+                          .curve(curveBasis)(data.slice(0, 37)),
                       ),
-                    newTotalLength = dataLine.node().getTotalLength()
+                    newTotalLength = dataLine.node()?.getTotalLength() ?? 0
 
                   dataLine
                     .attr('stroke-dasharray', newTotalLength + ' ' + newTotalLength)
@@ -673,7 +686,7 @@ const PolarPlot = ({ data, content }: Props) => {
   // Watch for updates to the container's width. When this happens,
   // re-render the entire viz.
   useLayoutEffect(() => {
-    const newContainerWidth = vizRef.current?.offsetWidth
+    const newContainerWidth = vizRef.current?.offsetWidth ?? 0
     const newRadius = Math.min(newContainerWidth - 15, windowHeight * 0.85) / 2
     newRadius && setRadius(newRadius)
   }, [windowWidth, windowHeight])
@@ -725,7 +738,7 @@ const PolarPlot = ({ data, content }: Props) => {
         threshold: 0,
       },
     )
-    vizObserver.observe(vizRef.current)
+    vizRef.current && vizObserver.observe(vizRef.current)
 
     const vizScrollObserver = new IntersectionObserver(
       (entries) => {

@@ -1,3 +1,4 @@
+import { GatsbyImageProps } from 'gatsby-plugin-image'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -8,11 +9,11 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, GridColumns, Story } from '@types'
 
 import { sum } from '@utils/functions'
-import { gridColCounts } from '@utils/style'
+import { ColCounts, gridColCounts } from '@utils/style'
 
 type Props = {
 	stories: Story[]
-	imageLoading?: Story['cover']['loading']
+	imageLoading?: GatsbyImageProps['loading']
 }
 
 type SpanRange = {
@@ -21,7 +22,7 @@ type SpanRange = {
 	upperLimit: number
 }
 
-type SizeMap = Record<'s' | 'm' | 'l' | 'xl', SpanRange>
+type SizeMap = Record<Story['featuredSize'], SpanRange>
 
 /** Maps a size shortname (s/m/l/xl) to a full size range object */
 const sizeMap: SizeMap = {
@@ -130,9 +131,11 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 			.flat(1)
 
 	/** The final card sizes for each breakpoint */
-	const results = [...Array(stories.length)].map(() => ({}))
-	Object.entries(gridColCounts).forEach(([key, val]) => {
-		const availableRows = val
+	const results: Partial<AdaptiveGridColumns>[] = Array.from(Array(stories.length)).map(
+		() => ({}),
+	)
+	;(Object.keys(gridColCounts) as (keyof ColCounts)[]).forEach((key) => {
+		const availableRows = gridColCounts[key]
 		const uncalibratedRows = getRows(spanRanges, availableRows)
 		const calibratedRows = calibrateRows(uncalibratedRows, availableRows)
 
@@ -150,9 +153,9 @@ const CardGroup = ({ stories, imageLoading }: Props): JSX.Element => {
 			{stories.map((story, i) => (
 				<Card
 					key={story.slug}
-					{...story}
 					gridCols={gridColumns[i]}
 					imageLoading={imageLoading}
+					{...story}
 				/>
 			))}
 		</Wrap>

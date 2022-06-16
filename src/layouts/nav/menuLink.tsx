@@ -1,5 +1,4 @@
 import { useLocation } from '@reach/router'
-import { Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
@@ -9,7 +8,7 @@ type Props = {
 	title: string
 	isSection?: boolean
 	focusable: boolean
-	toggleMenu: Dispatch<SetStateAction<boolean>>
+	toggleMenu: (nextState: boolean) => void
 }
 
 const Link = ({ path, title, isSection, focusable, toggleMenu }: Props): JSX.Element => {
