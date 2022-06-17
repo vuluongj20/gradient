@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import { D3DragEvent } from 'd3-drag'
 import { Simulation } from 'd3-force'
-import { Selection } from 'd3-selection'
 import intersect from 'path-intersection'
 
 import { Edge, Node } from '../graph'

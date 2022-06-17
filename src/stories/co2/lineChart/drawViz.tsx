@@ -1,5 +1,8 @@
-import { axisBottom, axisRight, easeCubic, easeCubicOut, select } from 'd3'
+import { axisBottom, axisRight, easeCubicOut, select } from 'd3'
 import { ScaleLinear, ScaleTime } from 'd3-scale'
+import { Selection } from 'd3-selection'
+
+import { Data } from '../index'
 
 type Props = {
 	height: number
@@ -23,12 +26,10 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 			.append('svg')
 			.attr('preserveAspectRatio', 'xMidYMid meet')
 			.attr('viewBox', [0, 0, width, height])
-			.attr('class', 'viz')
 			.attr(
 				'aria-label',
 				'Time series showing the steady increase in atmospheric carbon dioxide levels from 1958 to 2020',
 			)
-	grandDaddy.select('.viz-divider').attr('class', 'viz-divider on')
 
 	//
 	// Grid lines
@@ -44,13 +45,13 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 				.tickSize(-height)
 				.tickFormat(() => ''),
 		)
-	grandDaddy.selectAll('.y.grid>.tick').each(function (d, i) {
+	grandDaddy.selectAll('.y.grid > .tick').each(function (d, i) {
 		select(this)
 			.attr('stroke-dasharray', `${height} ${height}`)
 			.attr('stroke-dashoffset', height)
 			.attr('vector-effect', 'non-scaling-stroke')
 			.transition()
-			.duration(800)
+			.duration(750)
 			.ease(easeCubicOut)
 			.attr('stroke-dashoffset', function () {
 				if (i % 2 === 0) {
@@ -77,7 +78,7 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 			.attr('stroke-dashoffset', width)
 			.attr('vector-effect', 'non-scaling-stroke')
 			.transition()
-			.duration(800)
+			.duration(750)
 			.ease(easeCubicOut)
 			.attr('stroke-dashoffset', function () {
 				if (i % 2 === 0) {
@@ -98,8 +99,8 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 		.attr('transform', `translate(${margin.left} ${innerHeight + margin.top})`)
 		.style('opacity', 0)
 		.transition()
-		.duration(800)
-		.ease(easeCubic)
+		.duration(750)
+		.ease(easeCubicOut)
 		.style('opacity', 1)
 		.call(
 			axisBottom(x)
@@ -114,8 +115,8 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 		.attr('transform', `translate(${innerWidth + margin.left} ${margin.top})`)
 		.style('opacity', 0)
 		.transition()
-		.duration(800)
-		.ease(easeCubic)
+		.duration(750)
+		.ease(easeCubicOut)
 		.style('opacity', 1)
 		.call(
 			axisRight(y)
@@ -133,7 +134,7 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 		.style('opacity', 0)
 		.attr('vector-effect', 'non-scaling-stroke')
 		.transition()
-		.duration(800)
+		.duration(750)
 		.ease(easeCubicOut)
 		.style('opacity', 1)
 
@@ -236,14 +237,14 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 
 	return {
 		svg,
-		dataLine,
+		dataLine: dataLine as Selection<SVGPathElement, Data, HTMLElement, unknown>,
+		regLine: regLine as Selection<SVGPathElement, Data, HTMLElement, unknown>,
 		hoverLine,
 		hoverDataCircle,
 		hoverGroup,
 		hoverRect,
 		hoverDataLabel,
 		hoverDataText,
-		regLine,
 		hoverRegCircle,
 		hoverDiffLine,
 		hoverRegLabel,

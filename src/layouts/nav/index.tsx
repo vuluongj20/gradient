@@ -1,6 +1,6 @@
 import * as focusTrap from 'focus-trap'
 import gsap from 'gsap'
-import { useEffect, useRef, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import Binder from './binder'
@@ -79,7 +79,7 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 	}, [menuOpen, prevMenuOpen, isMobile, menuLinks, reducedMotion])
 
 	// Handle escape key press
-	const onKeyDown = (e: KeyboardEvent) => {
+	const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
 		if (e.key === 'Escape') {
 			toggleMenu(false)
 		}

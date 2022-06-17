@@ -102,7 +102,7 @@ const Main = () => {
       }
     `,
   )
-  const imageData = imageQueryResult.file?.childImageSharp
+  const imageData = imageQueryResult.file?.childImageSharp?.gatsbyImageData
 
   return (
     <Page>

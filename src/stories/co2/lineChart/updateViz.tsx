@@ -21,7 +21,10 @@ type Props = {
 
 const mse = [18.2, 5.06, 0.97]
 
-const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props) => {
+const updateViz = (
+  to: number,
+  { selections, content, data, x, y, xDays, margin }: Props,
+) => {
   const {
     svg,
     dataLine,
@@ -128,7 +131,7 @@ const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props
         .attr('stroke-dasharray', `${regLineLength} ${regLineLength}`)
         .attr('stroke-dashoffset', 0)
         .transition()
-        .duration(800)
+        .duration(750)
         .ease(easeCubicOut)
         .attr('stroke-dashoffset', regLineLength)
 
@@ -139,7 +142,7 @@ const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props
         .attr('stroke-dasharray', `${dataLineLength} ${dataLineLength}`)
         .attr('stroke-dashoffset', dataLineLength)
         .transition()
-        .duration(800)
+        .duration(750)
         .ease(easeCubic)
         .attr('stroke-dashoffset', 0)
     }
@@ -171,7 +174,7 @@ const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props
     if (dataLine.classed('faded')) {
       regLine
         .transition()
-        .duration(800)
+        .duration(750)
         .ease(easeCubicOut)
         .attr('d', (data) =>
           line<Data[0]>()
@@ -200,7 +203,7 @@ const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props
         .attr('stroke-dasharray', `${regLineLength} ${regLineLength}`)
         .attr('stroke-dashoffset', regLineLength)
         .transition()
-        .duration(800)
+        .duration(750)
         .ease(easeCubicOut)
         .attr('stroke-dashoffset', 0)
         .attr('opacity', 1)
@@ -241,7 +244,7 @@ const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props
       .attr('stroke-dasharray', 0)
       .attr('stroke-dashoffset', 0)
       .transition()
-      .duration(800)
+      .duration(750)
       .ease(easeCubicOut)
       .attr(
         'd',
@@ -279,7 +282,7 @@ const updateViz = (to, { selections, content, data, x, y, xDays, margin }: Props
   if (to === 3) {
     regLine
       .transition()
-      .duration(800)
+      .duration(750)
       .ease(easeCubicOut)
       .attr(
         'd',
