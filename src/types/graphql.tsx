@@ -14,6 +14,11 @@ export default `
 	  siteUrl: String!
   }
 
+	type Page {
+	  slug: String!
+	  title: String!
+	}
+
   type StoriesJson implements Node {
   	featuredIn: [String!]!
   	slug: String!
@@ -23,5 +28,15 @@ export default `
   	sections: [String!]!
   	authors: [String!]!
   	buildPage: Boolean
+  }
+
+  type SectionsJson implements Node {
+    slug: String!
+    name: String!
+  }
+
+  type AuthorsJson implements Node {
+    slug: String!
+    name: String!
   }
 `

@@ -9,11 +9,9 @@
   ],
   "scripts": {
     "start": "gatsby develop",
-    "develop": "gatsby develop",
-    "dev": "gatsby develop -H 0.0.0.0",
-    "cdev": "gatsby clean & gatsby develop",
+    "develop": "GATSBY_GRAPHQL_IDE=playground gatsby develop",
+    "dev": "GATSBY_GRAPHQL_IDE=playground gatsby develop -H 0.0.0.0",
     "build": "gatsby build",
-    "cbuild": "gatsby clean & gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "stylelint": "npx stylelint '*/**/*.{js,jsx,ts,tsx}'",
