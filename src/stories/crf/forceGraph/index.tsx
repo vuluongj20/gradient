@@ -18,7 +18,7 @@ import {
 import useMountEffect from '@utils/hooks/useMountEffect'
 
 type Render = {
-	svg: Selection<SVGSVGElement, undefined, null, undefined>
+	svg: Selection<SVGSVGElement, unknown, null, unknown>
 	mutableNodes: MutableNode[]
 	mutableEdges: MutableEdge[]
 	renderedNodes: RenderedNodes
@@ -32,10 +32,15 @@ type Props = {
 }
 
 const ForceGraph = ({ nodes, edges }: Props) => {
-	const ref = useRef<HTMLDivElement>(null)
+	const ref = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 
+	//
+	// Draw initial graph
+	//
 	useMountEffect(() => {
+		if (!ref.current) return
+
 		const width = 640
 		const height = 320
 
@@ -43,7 +48,7 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
 		const svg = d3
-			.create('svg')
+			.select(ref.current)
 			.attr('viewBox', [0, 0, width, height])
 			.attr('preserveAspectRatio', 'xMidYMid meet')
 
@@ -104,9 +109,11 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			mutableEdges,
 			simulation,
 		}
-		ref.current?.appendChild(svg.node() as SVGSVGElement)
 	})
 
+	//
+	// Update graph when edges list changes
+	//
 	useEffect(() => {
 		if (!render.current) return
 		const { renderedEdges, simulation, mutableNodes } = render.current
@@ -119,8 +126,12 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 		render.current.mutableEdges = mutableEdges
 	}, [edges])
 
+	//
+	// Update graph when nodes list changes
+	//
 	useEffect(() => {
 		if (!render.current) return
+
 		const { mutableNodes: oldMutableNodes, renderedNodes, simulation } = render.current
 
 		const oldMutableNodesMap = new Map(oldMutableNodes.map((d) => [d.id, d]))
@@ -133,19 +144,16 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 		simulation.nodes(mutableNodes)
 
 		render.current.mutableNodes = mutableNodes
-	}, [edges, nodes])
+	}, [nodes])
 
 	return <SVG ref={ref} />
 }
 
 export default ForceGraph
 
-const SVG = styled.div`
+const SVG = styled.svg`
 	width: 100%;
 	height: 24rem;
-	svg {
-		width: 100%;
-		height: 100%;
-		${(p) => p.theme.text.viz.body};
-	}
+
+	${(p) => p.theme.text.viz.body};
 `
