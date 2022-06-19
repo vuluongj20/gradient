@@ -28,7 +28,6 @@
     "d3-force": "^3.0.0",
     "deepmerge": "^4.2.2",
     "focus-trap": "^6.9.4",
-    "fuse": "^0.4.0",
     "gatsby": "^4.16.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-gatsby-cloud": "^4.16.0",
