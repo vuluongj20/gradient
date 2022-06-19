@@ -3,7 +3,7 @@
 // globally to all pages and components vis useContext().
 import { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'react'
 
-import { Action, Settings, defaultSettings, init, reducer } from './settingsReducer'
+import { Action, Settings, defaultSettings, init, reducer } from '@utils/settingsReducer'
 
 type Props = {
 	children: ReactNode

@@ -21,11 +21,13 @@ module.exports = {
       alias: {
         map: [
           ['@utils', './src/utils'],
+          ['@theme', './src/layouts/theme'],
           ['@components', './src/components'],
           ['@pageComponents', './src/pageComponents'],
           ['@icons', './src/icons'],
           ['@data', './src/data'],
           ['@types', './src/types'],
+          ['@images', './src/images'],
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },

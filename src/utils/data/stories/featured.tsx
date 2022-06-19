@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { mapStoryData } from './index'
+import { mapStoryData } from '@utils/data/stories'
 
 const useFeaturedStories = () =>
   mapStoryData(

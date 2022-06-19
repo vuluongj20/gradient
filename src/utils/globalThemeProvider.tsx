@@ -3,9 +3,9 @@
 import { ReactNode, useContext, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { Appearance, ThemeSettings, useThemeObject } from '../layouts/theme'
-import SettingsContext from './settingsContext'
+import { Appearance, ThemeSettings, useThemeObject } from '@theme'
 
+import SettingsContext from '@utils/settingsContext'
 import useMatchMedia from '@utils/useMatchMedia'
 
 type Props = {

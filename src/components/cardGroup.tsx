@@ -2,8 +2,7 @@ import { GatsbyImageProps } from 'gatsby-plugin-image'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 
-import Card from './card'
-
+import Card from '@components/card'
 import Grid from '@components/grid'
 
 import { AdaptiveGridColumns, GridColumns, Story } from '@types'

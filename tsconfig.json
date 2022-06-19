@@ -27,8 +27,8 @@
 			"@types/*": ["./src/types/*"],
 			"@theme": ["./src/layouts/theme"],
 			"@theme/*": ["./src/layouts/theme/*"],
-			"@images": ["./src/layouts/images"],
-			"@images/*": ["./src/layouts/images/*"]
+			"@images": ["./src/images"],
+			"@images/*": ["./src/images/*"]
 		}
 	},
 	"include": [

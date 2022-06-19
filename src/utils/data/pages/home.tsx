@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { mapPageData } from './index'
+import { mapPageData } from '@utils/data/pages'
 
 const useHomePage = () =>
   mapPageData(

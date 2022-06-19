@@ -6,8 +6,9 @@ import deepMerge from 'deepmerge'
 import { ReactNode, useContext } from 'react'
 import { ThemeProvider, useTheme } from 'styled-components'
 
-import { ThemeSettings, useThemeObject } from '../layouts/theme'
-import SettingsContext from './settingsContext'
+import { ThemeSettings, useThemeObject } from '@theme'
+
+import SettingsContext from '@utils/settingsContext'
 
 type Props = {
 	children?: ReactNode

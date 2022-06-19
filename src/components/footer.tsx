@@ -1,10 +1,9 @@
 import { ElementType } from 'react'
 import styled from 'styled-components'
 
-import TransitionLink from './transitionLink'
-
 import Divider from '@components/divider'
 import Grid from '@components/grid'
+import TransitionLink from '@components/transitionLink'
 
 import { Page } from '@types'
 

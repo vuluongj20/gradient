@@ -5,9 +5,8 @@ import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
 
-import TransitionLink from './transitionLink'
-
 import Grid from '@components/grid'
+import TransitionLink from '@components/transitionLink'
 
 import { AdaptiveGridColumns, Story } from '@types'
 

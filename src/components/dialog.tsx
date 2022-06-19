@@ -4,7 +4,7 @@ import { useOverlayTriggerState } from '@react-stately/overlays'
 import { ButtonHTMLAttributes, Fragment, ReactNode, RefObject, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 
-import DialogContent, { DialogContentProps } from './dialogContent'
+import DialogContent, { DialogContentProps } from '@components/dialogContent'
 
 type TriggerChildrenProps = {
 	props: ButtonHTMLAttributes<HTMLButtonElement>

@@ -1,7 +1,7 @@
 import { GatsbyImageProps } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 
-import CardGroup from './cardGroup'
+import CardGroup from '@components/cardGroup'
 
 import { Section as ISection, Story } from '@types'
 

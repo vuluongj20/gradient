@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react'
 
-import { colorAliases } from './layouts/theme/colors'
+import { colorAliases } from '@theme/colors'
 
 type Props = {
   htmlAttributes: HTMLAttributes<HTMLHtmlElement>
