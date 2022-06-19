@@ -108,7 +108,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 							enter: 500,
 							exit: 250,
 						}}
-						key={`${selectedSection}-${selectedAuthor}`}
+						key={filteredStories.map((s) => s.slug).join('')}
 					>
 						<Results>
 							{filteredStories.map((story) => (
