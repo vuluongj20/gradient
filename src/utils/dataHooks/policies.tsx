@@ -2,26 +2,35 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { Page } from '@types'
 
+type PolicyMDX = {
+	slug: string
+	frontmatter: {
+		title: string
+	}
+}
+
 const usePoliciesPages = (): Page[] => {
-	const data = useStaticQuery<Queries.AllPoliciesJsonQuery>(graphql`
-		query AllPoliciesJson {
-			allPoliciesJson {
+	const data = useStaticQuery<Queries.AllMdxPoliciesQuery>(graphql`
+		query AllMdxPolicies {
+			allMdx(filter: { fileAbsolutePath: { regex: "/pages/policies/" } }) {
 				edges {
 					node {
 						slug
-						title
+						frontmatter {
+							title
+						}
 					}
 				}
 			}
 		}
 	`)
 
-	return data.allPoliciesJson.edges.map((edge) => {
-		const page = edge.node as Page
+	return data.allMdx.edges.map((edge) => {
+		const page = edge.node as PolicyMDX
 
 		return {
 			slug: page.slug,
-			title: page.title,
+			title: page.frontmatter.title,
 			path: `/policies/${page.slug}`,
 		}
 	})

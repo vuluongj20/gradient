@@ -65,10 +65,10 @@ export const createPages: GatsbyNode['createPages'] = async function ({
       })
   })
 
-  const indexResult = await graphql<Queries.CreatePagesAllArchiveQuery>(
+  const indexResult = await graphql<Queries.CreatePagesArchiveQuery>(
     `
-      query CreatePagesAllArchive {
-        allArchiveJson {
+      query CreatePagesArchive {
+        allPagesJson(filter: { slug: { eq: "archive" } }) {
           edges {
             node {
               slug
@@ -79,12 +79,12 @@ export const createPages: GatsbyNode['createPages'] = async function ({
       }
     `,
   )
-  indexResult.data?.allArchiveJson.edges.forEach((edge) => {
+  indexResult.data?.allPagesJson.edges.forEach((edge) => {
     const page = edge.node
     actions.createPage({
       path: `/${page.slug ?? ''}`,
       component: StoryGroup,
-      context: { slug: page.slug, title: page.title },
+      context: page,
     })
   })
 

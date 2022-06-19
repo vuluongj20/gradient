@@ -1,4 +1,4 @@
-import useHomePage from '@utils/dataHooks/home'
+import useHomePage from '@utils/dataHooks/pages/home'
 import useSections from '@utils/dataHooks/sections'
 
 type Link = {

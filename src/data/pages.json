@@ -1,5 +1,9 @@
 [
 	{
+		"slug": "home",
+		"title": "Home"
+	},
+	{
 		"slug": "archive",
 		"title": "Archive"
 	}

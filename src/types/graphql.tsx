@@ -23,6 +23,7 @@ export default `
   	featuredIn: [String!]!
   	slug: String!
   	title: String!
+  	description: String!
   	featuredIn: [String!]
   	featuredSize: String!
   	sections: [String!]!

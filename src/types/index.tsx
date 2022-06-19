@@ -1,4 +1,4 @@
-import { ImageDataLike } from 'gatsby-plugin-image'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 import { ColCounts } from '@utils/style'
 
@@ -34,7 +34,10 @@ export type Story = {
 	readonly featuredSize: string
 	readonly sections: readonly string[]
 	readonly authors: readonly string[]
-	readonly cover: { image: ImageDataLike; alt: string }
+	readonly cover: {
+		image: IGatsbyImageData
+		alt: string
+	}
 	readonly buildPage?: boolean
 	readonly path: string
 }

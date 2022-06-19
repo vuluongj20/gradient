@@ -8,8 +8,8 @@ import Grid from '@components/grid'
 
 import { Page } from '@types'
 
-import useArchivePage from '@utils/dataHooks/archive'
 import useAuthors from '@utils/dataHooks/authors'
+import useArchivePage from '@utils/dataHooks/pages/archive'
 import usePoliciesPages from '@utils/dataHooks/policies'
 import useSections from '@utils/dataHooks/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'

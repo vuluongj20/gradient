@@ -6,11 +6,11 @@ import Page from '@components/page'
 import Section from '@components/section'
 
 import Header from '@pageComponents/home/header'
-import useFeaturedStories from '@pageComponents/home/useFeaturedStories'
 
 import { Section as ISection, Story } from '@types'
 
 import useSections from '@utils/dataHooks/sections'
+import useFeaturedStories from '@utils/dataHooks/stories/featured'
 
 const IndexPage = (): JSX.Element => {
   const sections: ISection[] = useSections()
