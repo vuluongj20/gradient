@@ -1,6 +1,6 @@
 import { CSSObject } from 'styled-components'
 
-import { Theme } from './index'
+import { Theme } from '@theme'
 
 import { Breakpoint, breakpoints, paddingHorizontal } from '@utils/style'
 

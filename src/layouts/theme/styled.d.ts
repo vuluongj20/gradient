@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import 'styled-components'
 
-import { Theme } from './index'
+import { Theme } from '@theme'
 
 /** Add type checking to theme prop */
 declare module 'styled-components' {

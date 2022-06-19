@@ -1,4 +1,4 @@
-import { TextScaleDefinition } from './index'
+import { TextScaleDefinition } from '@theme/text'
 
 const heading = {
 	fontFamily:

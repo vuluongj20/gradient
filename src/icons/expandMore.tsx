@@ -1,4 +1,4 @@
-import SVG, { IconProps } from './svg'
+import SVG, { IconProps } from '@icons/svg'
 
 const IconExpandMore = (props: IconProps) => (
 	<SVG alt="Arrow down" {...props}>

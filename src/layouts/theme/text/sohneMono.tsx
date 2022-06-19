@@ -1,4 +1,4 @@
-import { TextScaleDefinition } from './index'
+import { TextScaleDefinition } from '@theme/text'
 
 const styles = {
 	fontFamily: '"Sohne Mono", Courier, "Andale Mono", "Courier New", monospace',

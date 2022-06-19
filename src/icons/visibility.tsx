@@ -1,4 +1,4 @@
-import SVG, { IconProps } from './svg'
+import SVG, { IconProps } from '@icons/svg'
 
 const IconVisibility = (props: IconProps) => (
 	<SVG alt="Eye" {...props}>

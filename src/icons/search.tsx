@@ -1,4 +1,4 @@
-import SVG, { IconProps } from './svg'
+import SVG, { IconProps } from '@icons/svg'
 
 const IconSearch = (props: IconProps) => (
 	<SVG alt="Search" {...props}>

@@ -1,7 +1,7 @@
-import { Animation, animation } from './animation'
-import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from './colors'
-import { TextScale, textScales } from './text'
-import { Utils, generateUtils } from './utils'
+import { Animation, animation } from '@theme/animation'
+import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from '@theme/colors'
+import { TextScale, textScales } from '@theme/text'
+import { Utils, generateUtils } from '@theme/utils'
 
 import {
 	Breakpoint,

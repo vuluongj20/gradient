@@ -1,8 +1,8 @@
 import { CSSObject } from 'styled-components'
 
-import domaine from './domaine'
-import sohne from './sohne'
-import sohneMono from './sohneMono'
+import domaine from '@theme/text/domaine'
+import sohne from '@theme/text/sohne'
+import sohneMono from '@theme/text/sohneMono'
 
 import { Breakpoint, breakpoints } from '@utils/style'
 

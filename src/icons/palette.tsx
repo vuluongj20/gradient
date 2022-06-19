@@ -1,4 +1,4 @@
-import SVG, { IconProps } from './svg'
+import SVG, { IconProps } from '@icons/svg'
 
 const IconPalette = (props: IconProps) => (
 	<SVG alt="Color palette" {...props}>
