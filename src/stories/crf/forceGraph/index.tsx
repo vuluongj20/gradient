@@ -15,7 +15,9 @@ import {
 	ticked,
 } from './utils'
 
-import useMountEffect from '@utils/hooks/useMountEffect'
+import { isDefined } from '@utils/functions'
+import useEffectOnceDefined from '@utils/hooks/useEffectOnceDefined'
+import useSize from '@utils/hooks/useSize'
 
 type Render = {
 	svg: Selection<SVGSVGElement, unknown, null, unknown>
@@ -32,26 +34,24 @@ type Props = {
 }
 
 const ForceGraph = ({ nodes, edges }: Props) => {
-	const ref = useRef<SVGSVGElement>(null)
+	const wrapRef = useRef<HTMLDivElement>(null)
+	const svgRef = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
+
+	const { width, height } = useSize(wrapRef)
 
 	//
 	// Draw initial graph
 	//
-	useMountEffect(() => {
-		if (!ref.current) return
-
-		const width = 640
-		const height = 320
+	useEffectOnceDefined(() => {
+		if (!svgRef.current || !isDefined(width) || !isDefined(height)) return
 
 		const mutableNodes = nodes.map(mapMutableNodes)
 		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
 		const svg = d3
-			.select(ref.current)
-			.attr('viewBox', [0, 0, width, height])
-			.attr('preserveAspectRatio', 'xMidYMid meet')
-
+			.select(svgRef.current)
+			.attr('viewBox', [-width / 2, -height / 2, width, height])
 		svg
 			.append('def')
 			.append('marker')
@@ -96,7 +96,7 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			.forceSimulation<MutableNode>(mutableNodes)
 			.force('link', forceLink)
 			.force('charge', forceNode)
-			.force('center', d3.forceCenter(width / 2, height / 2).strength(0.1))
+			.force('center', d3.forceCenter().strength(0.1))
 			.on('tick', ticked(renderedNodes, renderedEdges))
 
 		renderedNodes.selectAll<SVGTextElement, MutableNode>('text').call(drag(simulation))
@@ -109,7 +109,7 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			mutableEdges,
 			simulation,
 		}
-	})
+	}, [width, height])
 
 	//
 	// Update graph when edges list changes
@@ -146,14 +146,34 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 		render.current.mutableNodes = mutableNodes
 	}, [nodes])
 
-	return <SVG ref={ref} />
+	//
+	// Update SVG dimensions when width or height changes
+	//
+	useEffect(() => {
+		if (!render.current || !isDefined(width) || !isDefined(height)) return
+
+		const { svg } = render.current
+		svg.attr('viewBox', [-width / 2, -height / 2, width, height])
+	}, [width, height])
+
+	return (
+		<Wrap ref={wrapRef}>
+			<SVG ref={svgRef} />
+		</Wrap>
+	)
 }
 
 export default ForceGraph
 
-const SVG = styled.svg`
+const Wrap = styled.div`
+	display: flex;
+	justify-content: center;
 	width: 100%;
 	height: 24rem;
-
 	${(p) => p.theme.text.viz.body};
+`
+
+const SVG = styled.svg`
+	height: 100%;
+	width: auto;
 `

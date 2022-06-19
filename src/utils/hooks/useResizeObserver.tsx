@@ -6,7 +6,7 @@ type Props<T> = {
   onResize: () => void
 }
 
-const useResizeObserver = <T extends Element>({ ref, onResize }: Props<T>) => {
+const useResizeObserver = <T extends HTMLElement>({ ref, onResize }: Props<T>) => {
   useEffect(() => {
     const element = ref.current
     if (!element) {

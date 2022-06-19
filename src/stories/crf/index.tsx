@@ -23,6 +23,7 @@ const newGraph = () => {
 
 const Component = () => {
 	const graph = useRef(newGraph())
+	const ref = useRef(null)
 	const [nodes, setNodes] = useState(graph.current.nodes)
 	const [edges, setEdges] = useState(graph.current.edges)
 
@@ -42,7 +43,7 @@ const Component = () => {
 
 	return (
 		<Page>
-			<Wrap id="App" type="content" as="article">
+			<Wrap id="App" type="content" as="article" ref={ref}>
 				<Hero />
 				<ForceGraph nodes={nodes} edges={edges} />
 			</Wrap>

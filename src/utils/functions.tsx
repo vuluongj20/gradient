@@ -1,25 +1,24 @@
 /** Check if current environment is development */
 export const isDev = process.env.NODE_ENV === 'development'
 
+export const isDefined = <T,>(item: T): item is NonNullable<T> =>
+	typeof item !== 'undefined' && item !== null
+
 /** Check if an item is an object */
-export const isObject = (item: unknown): boolean =>
+export const isObject = (item: unknown) =>
 	!!item && typeof item === 'object' && !Array.isArray(item)
 
 /** Simple array summation */
-export const sum = (arr: number[]): number => arr.reduce((acc, cur) => acc + cur, 0)
+export const sum = (arr: number[]) => arr.reduce((acc, cur) => acc + cur, 0)
 
 export const debounce = <FunctionArguments extends []>(
 	func: (...args: FunctionArguments) => void,
 	wait: number,
 ) => {
 	let timeout: NodeJS.Timeout | undefined
-	return function (...args: FunctionArguments) {
-		const later = function () {
-			timeout = undefined
-			func.apply(this, args)
-		}
-		timeout && clearTimeout(timeout)
-		timeout = setTimeout(later, wait)
+	return (...args: FunctionArguments) => {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => func.apply(this, args), wait)
 	}
 }
 
