@@ -1,5 +1,5 @@
-import useHomePage from '@utils/dataHooks/pages/home'
-import useSections from '@utils/dataHooks/sections'
+import useHomePage from '@utils/data/pages/home'
+import useSections from '@utils/data/sections'
 
 type Link = {
 	slug: string

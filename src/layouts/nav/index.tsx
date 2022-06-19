@@ -7,10 +7,10 @@ import Binder from './binder'
 import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
-import useMobile from '@utils/hooks/useMobile'
-import usePrevious from '@utils/hooks/usePrevious'
-import useReducedMotion from '@utils/hooks/useReducedMotion'
 import { navSize } from '@utils/style'
+import useMobile from '@utils/useMobile'
+import usePrevious from '@utils/usePrevious'
+import useReducedMotion from '@utils/useReducedMotion'
 
 type Props = { pageTitle: string }
 

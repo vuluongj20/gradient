@@ -12,7 +12,7 @@ import Popover from '@components/popover'
 
 import IconExpandMore from '@icons/expandMore'
 
-import useBreakpoint from '@utils/hooks/useBreakpoint'
+import useBreakpoint from '@utils/useBreakpoint'
 
 type Props = SelectProps<object> & {
 	name: string

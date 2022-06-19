@@ -16,8 +16,8 @@ import {
 } from './utils'
 
 import { isDefined } from '@utils/functions'
-import useEffectOnceDefined from '@utils/hooks/useEffectOnceDefined'
-import useSize from '@utils/hooks/useSize'
+import useEffectOnceDefined from '@utils/useEffectOnceDefined'
+import useSize from '@utils/useSize'
 
 type Render = {
 	svg: Selection<SVGSVGElement, unknown, null, unknown>

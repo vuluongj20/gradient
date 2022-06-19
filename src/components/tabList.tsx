@@ -9,8 +9,8 @@ import styled from 'styled-components'
 import Tab from '@components/tab'
 import TabPanel from '@components/tabPanel'
 
-import useBreakpoint from '@utils/hooks/useBreakpoint'
 import LocalThemeProvider from '@utils/localThemeProvider'
+import useBreakpoint from '@utils/useBreakpoint'
 
 export type TabItem = {
   key: string

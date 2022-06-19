@@ -10,8 +10,8 @@ import Page from '@components/page'
 
 import { Story } from '@types'
 
-import useAuthors from '@utils/dataHooks/authors'
-import useSections from '@utils/dataHooks/sections'
+import useAuthors from '@utils/data/authors'
+import useSections from '@utils/data/sections'
 
 type Props = {
 	pageContext: {

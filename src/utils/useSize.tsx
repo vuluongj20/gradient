@@ -1,8 +1,7 @@
 import { RefObject, useMemo, useState } from 'react'
 
-import useResizeObserver from './useResizeObserver'
-
 import { debounce } from '@utils/functions'
+import useResizeObserver from '@utils/useResizeObserver'
 
 type State = { width?: number; height?: number }
 

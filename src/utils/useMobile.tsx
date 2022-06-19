@@ -1,5 +1,5 @@
-import useMatchMedia from '@utils/hooks/useMatchMedia'
 import { breakpoints } from '@utils/style'
+import useMatchMedia from '@utils/useMatchMedia'
 
 /**
  * Returns whether the screen is mobile

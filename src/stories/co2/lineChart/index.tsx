@@ -7,9 +7,9 @@ import drawViz from './drawViz'
 import updateViz from './updateViz'
 import Wrap from './wrap'
 
-import usePrevious from '@utils/hooks/usePrevious'
-import useWindowHeight from '@utils/hooks/useWindowHeight'
-import useWindowWidth from '@utils/hooks/useWindowWidth'
+import usePrevious from '@utils/usePrevious'
+import useWindowHeight from '@utils/useWindowHeight'
+import useWindowWidth from '@utils/useWindowWidth'
 
 type Props = {
   data: Data

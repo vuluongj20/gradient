@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components'
 import { Appearance, ThemeSettings, useThemeObject } from '../layouts/theme'
 import SettingsContext from './settingsContext'
 
-import useMatchMedia from '@utils/hooks/useMatchMedia'
+import useMatchMedia from '@utils/useMatchMedia'
 
 type Props = {
 	children: ReactNode

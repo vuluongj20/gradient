@@ -1,5 +1,5 @@
-import useMatchMedia from '@utils/hooks/useMatchMedia'
 import { Breakpoint, breakpoints } from '@utils/style'
+import useMatchMedia from '@utils/useMatchMedia'
 
 /**
  * Returns whether each breakpoint is matches

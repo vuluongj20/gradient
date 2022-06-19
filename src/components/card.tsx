@@ -11,7 +11,7 @@ import Grid from '@components/grid'
 
 import { AdaptiveGridColumns, Story } from '@types'
 
-import useSections from '@utils/dataHooks/sections'
+import useSections from '@utils/data/sections'
 import { Breakpoint, fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
 
 type Props = Story & {

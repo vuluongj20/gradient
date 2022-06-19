@@ -7,8 +7,8 @@ import MenuLink, { Wrap as MenuLinkWrap } from './menuLink'
 // import Settings from './settings'
 import useMenuLinks from './useMenuLinks'
 
-import useMobile from '@utils/hooks/useMobile'
-import usePrevious from '@utils/hooks/usePrevious'
+import useMobile from '@utils/useMobile'
+import usePrevious from '@utils/usePrevious'
 
 type Props = {
 	isOpen: boolean

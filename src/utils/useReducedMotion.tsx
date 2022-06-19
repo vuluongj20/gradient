@@ -1,4 +1,4 @@
-import useMatchMedia from '@utils/hooks/useMatchMedia'
+import useMatchMedia from '@utils/useMatchMedia'
 
 /**
  * Returns whether the user prefers reduced motion

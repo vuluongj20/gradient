@@ -8,10 +8,10 @@ import Grid from '@components/grid'
 
 import { Page } from '@types'
 
-import useAuthors from '@utils/dataHooks/authors'
-import useArchivePage from '@utils/dataHooks/pages/archive'
-import usePoliciesPages from '@utils/dataHooks/policies'
-import useSections from '@utils/dataHooks/sections'
+import useAuthors from '@utils/data/authors'
+import useArchivePage from '@utils/data/pages/archive'
+import usePoliciesPages from '@utils/data/policies'
+import useSections from '@utils/data/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {

@@ -8,7 +8,7 @@ import Hero from './hero'
 import Page from '@components/page'
 import TypeArea from '@components/typeArea'
 
-import useMountEffect from '@utils/hooks/useMountEffect'
+import useMountEffect from '@utils/useMountEffect'
 
 const newGraph = () => {
 	const g = new Graph()
