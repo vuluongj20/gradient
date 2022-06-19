@@ -7,10 +7,8 @@ const useArchivePage = () =>
     useStaticQuery(graphql`
       query ArchivePage {
         allPagesJson(filter: { slug: { eq: "archive" } }) {
-          edges {
-            node {
-              ...Page
-            }
+          nodes {
+            ...Page
           }
         }
       }

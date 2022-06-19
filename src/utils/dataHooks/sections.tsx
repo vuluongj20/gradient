@@ -13,18 +13,15 @@ const useSections = (): Section[] => {
 	const data = useStaticQuery<Queries.AllSectionsJsonQuery>(graphql`
 		query AllSectionsJson {
 			allSectionsJson {
-				edges {
-					node {
-						...Section
-					}
+				nodes {
+					...Section
 				}
 			}
 		}
 	`)
 
-	return data.allSectionsJson.edges.map((edge) => {
-		const section = edge.node as Omit<Section, 'path'>
-
+	return data.allSectionsJson.nodes.map((node) => {
+		const section = node as Omit<Section, 'path'>
 		return {
 			...section,
 			path: `/section/${section.slug}`,

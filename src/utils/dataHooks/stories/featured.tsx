@@ -7,10 +7,8 @@ const useFeaturedStories = () =>
     useStaticQuery(graphql`
       query FeaturedStories {
         allStoriesJson(filter: { featuredIn: { ne: null } }) {
-          edges {
-            node {
-              ...Story
-            }
+          nodes {
+            ...Story
           }
         }
       }

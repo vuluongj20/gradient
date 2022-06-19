@@ -10,9 +10,8 @@ export const pageFragment = graphql`
 `
 
 export const mapPageData = (data: Queries.AllPagesQuery): Page[] =>
-  data.allPagesJson.edges.map((edge) => {
-    const page = edge.node as Omit<Page, 'path'>
-
+  data.allPagesJson.nodes.map((node) => {
+    const page = node as Omit<Page, 'path'>
     return {
       ...page,
       path: `/${page.slug}`,
@@ -24,10 +23,8 @@ const usePages = () =>
     useStaticQuery(graphql`
       query AllPages {
         allPagesJson {
-          edges {
-            node {
-              ...Page
-            }
+          nodes {
+            ...Page
           }
         }
       }

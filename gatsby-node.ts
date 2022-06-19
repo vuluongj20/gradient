@@ -27,29 +27,27 @@ export const createPages: GatsbyNode['createPages'] = async function ({
     `
       query CreatePagesAllStories {
         allStoriesJson {
-          edges {
-            node {
-              slug
-              title
-              description
-              authors
-              cover {
-                image {
-                  childImageSharp {
-                    gatsbyImageData(width: 1200, height: 630)
-                  }
+          nodes {
+            slug
+            title
+            description
+            authors
+            cover {
+              image {
+                childImageSharp {
+                  gatsbyImageData(width: 1200, height: 630)
                 }
-                alt
               }
-              isMock
+              alt
             }
+            isMock
           }
         }
       }
     `,
   )
-  storyResults.data?.allStoriesJson.edges.forEach((edge) => {
-    const story = edge.node
+  storyResults.data?.allStoriesJson.nodes.forEach((node) => {
+    const story = node
     const component = path.resolve(`./src/stories/${story.slug}/index.tsx`)
 
     !story.isMock &&
@@ -69,18 +67,16 @@ export const createPages: GatsbyNode['createPages'] = async function ({
     `
       query CreatePagesArchive {
         allPagesJson(filter: { slug: { eq: "archive" } }) {
-          edges {
-            node {
-              slug
-              title
-            }
+          nodes {
+            slug
+            title
           }
         }
       }
     `,
   )
-  indexResult.data?.allPagesJson.edges.forEach((edge) => {
-    const page = edge.node
+  indexResult.data?.allPagesJson.nodes.forEach((node) => {
+    const page = node
     actions.createPage({
       path: `/${page.slug ?? ''}`,
       component: StoryGroup,
@@ -92,18 +88,16 @@ export const createPages: GatsbyNode['createPages'] = async function ({
     `
       query CreatePagesAllSections {
         allSectionsJson {
-          edges {
-            node {
-              slug
-              name
-            }
+          nodes {
+            slug
+            name
           }
         }
       }
     `,
   )
-  sectionsResult.data?.allSectionsJson.edges.forEach((edge) => {
-    const section = edge.node
+  sectionsResult.data?.allSectionsJson.nodes.forEach((node) => {
+    const section = node
     actions.createPage({
       path: `/section/${section.slug ?? ''}`,
       component: StoryGroup,
@@ -118,18 +112,16 @@ export const createPages: GatsbyNode['createPages'] = async function ({
     `
       query CreatePagesAllAuthors {
         allAuthorsJson {
-          edges {
-            node {
-              slug
-              name
-            }
+          nodes {
+            slug
+            name
           }
         }
       }
     `,
   )
-  authorsResult.data?.allAuthorsJson.edges.forEach((edge) => {
-    const author = edge.node
+  authorsResult.data?.allAuthorsJson.nodes.forEach((node) => {
+    const author = node
     actions.createPage({
       path: `/author/${author.slug ?? ''}`,
       component: StoryGroup,

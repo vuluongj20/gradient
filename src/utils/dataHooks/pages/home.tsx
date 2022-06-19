@@ -7,10 +7,8 @@ const useHomePage = () =>
     useStaticQuery(graphql`
       query HomePage {
         allPagesJson(filter: { slug: { eq: "home" } }) {
-          edges {
-            node {
-              ...Page
-            }
+          nodes {
+            ...Page
           }
         }
       }

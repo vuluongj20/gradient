@@ -23,10 +23,10 @@ export const storyFragment = graphql`
 `
 
 export const mapStoryData = (data: Queries.AllStoriesQuery): Story[] =>
-  data.allStoriesJson.edges.map((edge) => {
+  data.allStoriesJson.nodes.map((node) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const story = edge.node as Omit<Story, 'path'>
+    const story = node as Omit<Story, 'path'>
     return { ...story, path: `/story/${story.slug}` }
   })
 
@@ -35,10 +35,8 @@ const useStories = () =>
     useStaticQuery(graphql`
       query AllStories {
         allStoriesJson {
-          edges {
-            node {
-              ...Story
-            }
+          nodes {
+            ...Story
           }
         }
       }

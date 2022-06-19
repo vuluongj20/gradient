@@ -13,18 +13,15 @@ const useAuthorPages = (): Author[] => {
 	const data = useStaticQuery<Queries.AllAuthorsJsonQuery>(graphql`
 		query AllAuthorsJson {
 			allAuthorsJson {
-				edges {
-					node {
-						...Author
-					}
+				nodes {
+					...Author
 				}
 			}
 		}
 	`)
 
-	return data.allAuthorsJson.edges.map((edge) => {
-		const author = edge.node as Omit<Author, 'path'>
-
+	return data.allAuthorsJson.nodes.map((node) => {
+		const author = node as Omit<Author, 'path'>
 		return {
 			...author,
 			path: `/author/${author.slug}`,
