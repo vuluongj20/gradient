@@ -4,6 +4,8 @@ import { Placement, PlacementAxis } from '@react-types/overlays'
 import { ReactNode, RefObject, useRef } from 'react'
 import styled from 'styled-components'
 
+import PopoverArrow from '@components/popoverArrow'
+
 type Props = {
   isOpen: boolean
   onClose: () => void
@@ -11,6 +13,7 @@ type Props = {
   triggerRef: RefObject<HTMLElement>
   placement?: Placement
   offset?: number
+  showArrow?: boolean
   animationState: string
 }
 
@@ -19,8 +22,9 @@ const Popover = ({
   onClose,
   children,
   triggerRef,
+  offset,
   placement = 'bottom',
-  offset = 8,
+  showArrow = false,
   animationState,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -33,23 +37,28 @@ const Popover = ({
     },
     ref,
   )
-  const { overlayProps: positionProps, placement: calculatedPlacement } =
-    useOverlayPosition({
-      targetRef: triggerRef,
-      overlayRef: ref,
-      placement,
-      isOpen,
-      offset,
-      containerPadding: 0,
-    })
+  const defaultOffset = showArrow ? 8 : 4
+  const {
+    arrowProps,
+    overlayProps: positionProps,
+    placement: calculatedPlacement,
+  } = useOverlayPosition({
+    targetRef: triggerRef,
+    overlayRef: ref,
+    placement,
+    isOpen,
+    offset: offset ?? defaultOffset,
+    containerPadding: 0,
+  })
 
   return (
     <Wrap
       {...mergeProps(overlayProps, positionProps)}
-      placement={calculatedPlacement || placement}
+      placement={calculatedPlacement}
       className={animationState}
       ref={ref}
     >
+      {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
       {children}
       <DismissButton onDismiss={onClose} />
     </Wrap>

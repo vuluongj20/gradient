@@ -64,7 +64,6 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 						isOpen={state.isOpen}
 						triggerRef={ref}
 						onClose={() => state.close()}
-						offset={4}
 						animationState={animationState}
 					>
 						{renderContent()}
