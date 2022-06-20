@@ -1,10 +1,18 @@
 import { DismissButton, useOverlay, useOverlayPosition } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
-import { ReactNode, RefObject, useRef } from 'react'
+import { CSSProperties, ReactNode, RefObject, useRef } from 'react'
 import styled from 'styled-components'
 
+import { Theme } from '@theme'
+
 import PopoverArrow from '@components/popoverArrow'
+
+type WrapProps = {
+  placement: Placement | PlacementAxis
+  showArrow: boolean
+  arrowStyles?: CSSProperties
+}
 
 type Props = {
   isOpen: boolean
@@ -55,6 +63,8 @@ const Popover = ({
     <Wrap
       {...mergeProps(overlayProps, positionProps)}
       placement={calculatedPlacement ?? placement}
+      showArrow={showArrow}
+      arrowStyles={arrowProps.style}
       className={animationState}
       ref={ref}
     >
@@ -67,7 +77,40 @@ const Popover = ({
 
 export default Popover
 
-const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
+const getTransform = ({
+  placement,
+  theme,
+  showArrow,
+  arrowStyles = {},
+}: WrapProps & { theme: Theme }) => {
+  const scaleTerm = showArrow ? 'scale(0.8)' : ''
+  switch (placement) {
+    case 'top':
+      return `
+        transform-origin: ${arrowStyles.left ?? 0}px 100%;
+        transform: translate3d(0, ${theme.space[2]}, 0) ${scaleTerm};
+      `
+    case 'bottom':
+      return `
+        transform-origin: ${arrowStyles.left ?? 0}px 0%;
+        transform: translate3d(0, -${theme.space[2]}, 0) ${scaleTerm};
+      `
+    case 'left':
+      return `
+        transform-origin: 100% ${arrowStyles.top ?? 0}px;
+        transform: translate3d(${theme.space[2]}, 0, 0) ${scaleTerm};
+      `
+    case 'right':
+      return `
+        transform-origin: 0% ${arrowStyles.top ?? 0}px;
+        transform: translate3d(-${theme.space[2]}, 0, 0) ${scaleTerm};
+      `
+    default:
+      return ''
+  }
+}
+
+const Wrap = styled.div<WrapProps>`
   position: absolute;
   background: ${(p) => p.theme.oBackground};
   border-radius: ${(p) => p.theme.radii.m};
@@ -78,31 +121,17 @@ const Wrap = styled.div<{ placement: Placement | PlacementAxis }>`
   will-change: opacity, transform;
   z-index: ${(p) => p.theme.zIndices.popover};
 
-  ${(p) => p.placement === 'top' && `transform: translate3d(0, ${p.theme.space[2]}, 0)`};
-  ${(p) =>
-    p.placement === 'bottom' && `transform: translate3d(0, -${p.theme.space[2]}, 0)`};
-  ${(p) => p.placement === 'left' && `transform: translate3d(${p.theme.space[2]}, 0, 0)`};
-  ${(p) =>
-    p.placement === 'right' && `transform: translate3d(-${p.theme.space[2]}, 0, 0)`};
+  ${getTransform}
 
   &.entering,
   &.entered {
     opacity: 1;
-    transform: translate(-${(p) => p.theme.space[2]}, 0);
-
-    ${(p) => p.placement === 'top' && `transform: translate3d(0, 0, 0)`};
-    ${(p) => p.placement === 'bottom' && `transform: translate3d(0, 0, 0)`};
-    ${(p) => p.placement === 'left' && `transform: translate3d(0, 0, 0)`};
-    ${(p) => p.placement === 'right' && `transform: translate3d(0, 0, 0)`};
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   &.exiting {
     opacity: 0;
-
-    ${(p) => p.placement === 'top' && `transform: translate3d(0, 0, 0)`};
-    ${(p) => p.placement === 'bottom' && `transform: translate3d(0, 0, 0)`};
-    ${(p) => p.placement === 'left' && `transform: translate3d(0, 0, 0)`};
-    ${(p) => p.placement === 'right' && `transform: translate3d(0, 0, 0)`};
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   @media (prefers-reduced-motion) {
