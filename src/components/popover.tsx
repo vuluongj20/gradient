@@ -54,7 +54,7 @@ const Popover = ({
   return (
     <Wrap
       {...mergeProps(overlayProps, positionProps)}
-      placement={calculatedPlacement}
+      placement={calculatedPlacement ?? placement}
       className={animationState}
       ref={ref}
     >

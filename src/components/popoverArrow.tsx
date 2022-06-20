@@ -77,7 +77,7 @@ const SVG = styled.svg`
   stroke: none;
 
   path.stroke {
-    stroke: ${(p) => p.theme.line};
+    stroke: ${(p) => p.theme.oLine};
   }
   path.fill {
     fill: ${(p) => p.theme.oBackground};
