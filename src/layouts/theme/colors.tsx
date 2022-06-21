@@ -84,6 +84,7 @@ type ColorAliasName =
 	| 'primaryLinkUnderline'
 	| 'buttonLabel'
 	| 'buttonLabelHover'
+	| 'bar'
 
 export type ColorAliases = Record<ColorAliasName, string>
 
@@ -103,8 +104,8 @@ const paper: ColorPalette = {
 		gray3: '#4A3F41',
 		gray4: '#65585A',
 		gray5: '#7C6E71',
-		gray6: '#94898B',
-		gray7: 'rgba(148, 137, 139, 0.7)',
+		gray6: '#A19798',
+		gray7: '#C5BFC0',
 		gray8: 'rgba(148, 137, 139, 0.26)',
 		gray9: 'rgba(148, 137, 139, 0.16)',
 		red1: '#E33B12',
@@ -162,8 +163,8 @@ const charcoal: ColorPalette = {
 		gray3: '#BDC2C7',
 		gray4: '#A2A8AE',
 		gray5: '#858C93',
-		gray6: '#6D7378',
-		gray7: 'rgba(102, 107, 112, 0.7)',
+		gray6: '#686E73',
+		gray7: '#494D50',
 		gray8: 'rgba(102, 107, 112, 0.24)',
 		gray9: 'rgba(102, 107, 112, 0.12)',
 		red1: 'rgba(255, 115, 82, 1)',
@@ -260,6 +261,9 @@ export const getColorAliases = (
 
 		primaryLinkText: colors.red1,
 		primaryLinkUnderline: colors.red4,
+
+		// For handle bars, line connectors,…
+		bar: colors.gray7,
 	}
 }
 
