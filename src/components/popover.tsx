@@ -2,6 +2,7 @@ import { DismissButton, useOverlay, useOverlayPosition } from '@react-aria/overl
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { CSSProperties, ReactNode, RefObject, useRef } from 'react'
+import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import { Theme } from '@theme'
@@ -22,7 +23,6 @@ type Props = {
   placement?: Placement
   offset?: number
   showArrow?: boolean
-  animationState: string
 }
 
 const Popover = ({
@@ -33,7 +33,6 @@ const Popover = ({
   offset,
   placement = 'bottom',
   showArrow = false,
-  animationState,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null)
   const { overlayProps } = useOverlay(
@@ -60,18 +59,22 @@ const Popover = ({
   })
 
   return (
-    <Wrap
-      {...mergeProps(overlayProps, positionProps)}
-      placement={calculatedPlacement ?? placement}
-      showArrow={showArrow}
-      arrowStyles={arrowProps.style}
-      className={animationState}
-      ref={ref}
-    >
-      {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
-      {children}
-      <DismissButton onDismiss={onClose} />
-    </Wrap>
+    <Transition in={isOpen} timeout={200} unmountOnExit mountOnEnter>
+      {(animationState) => (
+        <Wrap
+          {...mergeProps(overlayProps, positionProps)}
+          placement={calculatedPlacement ?? placement}
+          showArrow={showArrow}
+          arrowStyles={arrowProps.style}
+          className={animationState}
+          ref={ref}
+        >
+          {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
+          {children}
+          <DismissButton onDismiss={onClose} />
+        </Wrap>
+      )}
+    </Transition>
   )
 }
 

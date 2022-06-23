@@ -4,7 +4,12 @@ import { Theme } from '@theme'
 
 import { Breakpoint, breakpoints, paddingHorizontal } from '@utils/style'
 
-type CSSUtilName = 'spread' | 'flexCenter' | 'absCenter' | 'focusVisible'
+type CSSUtilName =
+	| 'spread'
+	| 'flexCenter'
+	| 'absCenter'
+	| 'focusVisible'
+	| 'svgFocusVisible'
 
 type CSSUtil = Record<CSSUtilName, CSSObject>
 
@@ -90,6 +95,11 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	focusVisible: {
 		outline: 'none',
 		boxShadow: `0 0 0 4px ${theme.focus}`,
+		zIndex: 1,
+	},
+	svgFocusVisible: {
+		strokeWidth: 4,
+		stroke: theme.focus,
 		zIndex: 1,
 	},
 	lineHeight: `calc(1rem * ${String(theme.text.system.body.lineHeight)})`,

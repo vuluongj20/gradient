@@ -1,10 +1,12 @@
+import { useOverlayTriggerState } from '@react-stately/overlays'
 import * as d3 from 'd3'
 import { ForceLink, Simulation } from 'd3-force'
 import { Selection } from 'd3-selection'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import { Edge, Node } from '../graph'
+import Edge from '../../model/edge'
+import Node from '../../model/node'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 import {
 	drag,
@@ -17,7 +19,6 @@ import {
 
 import { isDefined } from '@utils/functions'
 import useEffectOnceDefined from '@utils/useEffectOnceDefined'
-import useSize from '@utils/useSize'
 
 type Render = {
 	svg: Selection<SVGSVGElement, unknown, null, unknown>
@@ -31,30 +32,31 @@ type Render = {
 type Props = {
 	nodes: Node[]
 	edges: Edge[]
+	width?: number
+	height?: number
+	simulationPlayState: boolean
 }
 
-const ForceGraph = ({ nodes, edges }: Props) => {
-	const wrapRef = useRef<HTMLDivElement>(null)
-	const svgRef = useRef<SVGSVGElement>(null)
+const ForceGraph = ({ nodes, edges, width, height, simulationPlayState }: Props) => {
+	const ref = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
-
-	const { width, height } = useSize(wrapRef)
 
 	//
 	// Draw initial graph
 	//
 	useEffectOnceDefined(() => {
-		if (!svgRef.current || !isDefined(width) || !isDefined(height)) return
+		if (!ref.current || !isDefined(width) || !isDefined(height)) return
 
 		const mutableNodes = nodes.map(mapMutableNodes)
 		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
 		const svg = d3
-			.select(svgRef.current)
+			.select(ref.current)
 			.attr('viewBox', [-width / 2, -height / 2, width, height])
 		svg
 			.append('def')
 			.append('marker')
+			.classed('arrow', true)
 			.attr('id', 'arrow')
 			.attr('viewBox', [0, 0, 5, 5])
 			.attr('markerWidth', 5)
@@ -64,19 +66,13 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			.attr('orient', 'auto-start-reverse')
 			.append('path')
 			.attr('d', 'M 1,1 L 4,2.5 L 1,4')
-			.attr('stroke', '#CCCCCC')
-			.attr('stroke-linecap', 'round')
-			.attr('stroke-linejoin', 'round')
-			.attr('fill', 'none')
 
 		const renderedEdges = (svg.append('g') as RenderedEdges)
-			.attr('stroke', '#CCCCCC')
-			.attr('stroke-width', 2)
-			.attr('stroke-linecap', 'round')
+			.classed('edges-group', true)
 			.call(renderSVGEdges, mutableEdges)
 
 		const renderedNodes = (svg.append('g') as RenderedNodes)
-			.attr('fill', 'currentColor')
+			.classed('nodes-group', true)
 			.call(renderSVGNodes, mutableNodes)
 
 		// Construct the forces.
@@ -99,7 +95,7 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			.force('center', d3.forceCenter().strength(0.1))
 			.on('tick', ticked(renderedNodes, renderedEdges))
 
-		renderedNodes.selectAll<SVGTextElement, MutableNode>('text').call(drag(simulation))
+		renderedNodes.selectAll<SVGTextElement, MutableNode>('g').call(drag(simulation))
 
 		render.current = {
 			svg,
@@ -139,7 +135,7 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 			Object.assign(oldMutableNodesMap.get(d.id) || {}, mapMutableNodes(d, i)),
 		)
 		renderedNodes.call(renderSVGNodes, mutableNodes)
-		renderedNodes.selectAll<SVGTextElement, MutableNode>('text').call(drag(simulation))
+		renderedNodes.selectAll<SVGTextElement, MutableNode>('g').call(drag(simulation))
 
 		simulation.nodes(mutableNodes)
 
@@ -156,24 +152,72 @@ const ForceGraph = ({ nodes, edges }: Props) => {
 		svg.attr('viewBox', [-width / 2, -height / 2, width, height])
 	}, [width, height])
 
-	return (
-		<Wrap ref={wrapRef}>
-			<SVG ref={svgRef} />
-		</Wrap>
-	)
+	//
+	// Sync simulation's play state with simulationPlayState
+	//
+	useEffect(() => {
+		if (!render.current) return
+
+		const { simulation } = render.current
+		if (simulationPlayState) {
+			simulation.restart()
+			return
+		}
+		simulation.stop()
+	}, [simulationPlayState])
+
+	return <SVG ref={ref} />
 }
 
 export default ForceGraph
 
-const Wrap = styled.div`
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	height: 24rem;
-	${(p) => p.theme.text.viz.body};
-`
-
 const SVG = styled.svg`
 	height: 100%;
 	width: auto;
+
+	/* 
+	  Node styles
+	*/
+	g.nodes-group {
+		fill: currentColor;
+	}
+	rect.node-box {
+		stroke: ${(p) => p.theme.bar};
+		stroke-opacity: 0;
+		fill: currentColor;
+		fill-opacity: 0;
+		cursor: pointer;
+		transition: ${(p) => p.theme.animation.fastOut};
+		&:hover {
+			stroke-opacity: 0.5;
+			fill-opacity: 0.05;
+		}
+		& + text {
+			pointer-events: none;
+		}
+	}
+	g.node-wrap {
+		&.pressed > rect.node-box {
+			stroke-opacity: 1;
+			fill-opacity: 0.1;
+		}
+		&.focused > rect.node-box {
+			stroke-opacity: 1;
+			${(p) => p.theme.utils.svgFocusVisible};
+		}
+	}
+
+	/* 
+	  Edge styles
+	*/
+	g.edges-group,
+	marker.arrow {
+		fill: none;
+		stroke: ${(p) => p.theme.bar};
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	g.edges-group {
+		stroke-width: 2;
+	}
 `

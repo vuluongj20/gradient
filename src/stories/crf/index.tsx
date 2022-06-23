@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import ForceGraph from './forceGraph'
-import { Graph } from './graph'
+import Graph from './graph/model/graph'
+import GraphView from './graph/view'
 import Hero from './hero'
 
 import Page from '@components/page'
@@ -45,7 +45,7 @@ const Component = () => {
 		<Page>
 			<Wrap id="App" type="content" as="article" ref={ref}>
 				<Hero />
-				<ForceGraph nodes={nodes} edges={edges} />
+				<GraphView nodes={nodes} edges={edges} />
 			</Wrap>
 		</Page>
 	)

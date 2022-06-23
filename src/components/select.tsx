@@ -2,7 +2,6 @@ import { HiddenSelect, useSelect } from '@react-aria/select'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
 import { Fragment, useRef } from 'react'
-import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import Button from '@components/button'
@@ -58,18 +57,9 @@ const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props
 	const overlayForm = (
 		<Fragment>
 			{renderTrigger()}
-			<Transition in={state.isOpen} timeout={200} unmountOnExit mountOnEnter>
-				{(animationState) => (
-					<Popover
-						isOpen={state.isOpen}
-						triggerRef={ref}
-						onClose={() => state.close()}
-						animationState={animationState}
-					>
-						{renderContent()}
-					</Popover>
-				)}
-			</Transition>
+			<Popover isOpen={state.isOpen} triggerRef={ref} onClose={() => state.close()}>
+				{renderContent()}
+			</Popover>
 		</Fragment>
 	)
 

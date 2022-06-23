@@ -3,7 +3,8 @@ import { D3DragEvent } from 'd3-drag'
 import { Simulation } from 'd3-force'
 import intersect from 'path-intersection'
 
-import { Edge, Node } from '../graph'
+import Edge from '../../model/edge'
+import Node from '../../model/node'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 
 export function mapMutableNodes(node: Node, index: number): MutableNode {
@@ -23,17 +24,45 @@ export function mapMutableEdges(
 	}
 }
 
+function getNodeBoxWidth(node: MutableNode) {
+	return node.label.length * 9 + 16
+}
+function getNodeBoxHeight() {
+	return 24
+}
+
 export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]) {
 	renderedNodes
-		.selectAll('text')
+		.selectAll('g')
 		.data<MutableNode>(data, (n) => (n as MutableNode).id)
-		.join((enter) =>
-			enter
-				.append('text')
+		.join((enter) => {
+			const g = enter
+				.append('g')
+				.classed('node-wrap', true)
+				.attr('id', (d) => `node-${d.id}`)
+				.on('click', (_, d) => {
+					document
+						.querySelector<HTMLButtonElement>(`#node-panel-trigger-${d.id}`)
+						?.click()
+				})
+
+			g.append('rect')
+				.classed('node-box', true)
+				.attr('width', getNodeBoxWidth)
+				.attr('height', getNodeBoxHeight)
+				.attr('x', (d) => -getNodeBoxWidth(d) / 2)
+				.attr('y', -getNodeBoxHeight() / 2)
+				.attr('rx', getNodeBoxHeight() / 2)
+
+			g.append('text')
 				.text((d) => d.label)
 				.attr('text-anchor', 'middle')
-				.attr('dominant-baseline', 'central'),
-		)
+				.attr('dominant-baseline', 'central')
+				.attr('aria-haspopup', true)
+				.attr('aria-expanded', false)
+
+			return g
+		})
 }
 
 export function renderSVGEdges(renderedEdges: RenderedEdges, data: MutableEdge[]) {
@@ -44,9 +73,9 @@ export function renderSVGEdges(renderedEdges: RenderedEdges, data: MutableEdge[]
 }
 
 export function getNodeBoundary(node: MutableNode) {
-	const { x, y, label } = node
-	const w = label.length * 4.5 + 10
-	const h = 14
+	const { x, y } = node
+	const w = getNodeBoxWidth(node) / 2 + 1
+	const h = getNodeBoxHeight() / 2 + 1
 
 	if (!x || !y) return null
 
@@ -100,6 +129,10 @@ export function ticked(renderedNodes: RenderedNodes, renderedEdges: RenderedEdge
 			.attr('y2', (d) => d.y2 ?? null)
 
 		renderedNodes.selectAll('text').attr('transform', (d) => {
+			const { x, y } = d as MutableNode
+			return x && y ? `translate(${x} ${y})` : null
+		})
+		renderedNodes.selectAll('rect').attr('transform', (d) => {
 			const { x, y } = d as MutableNode
 			return x && y ? `translate(${x} ${y})` : null
 		})

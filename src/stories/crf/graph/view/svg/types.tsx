@@ -1,6 +1,7 @@
 import { Selection } from 'd3-selection'
 
-import { Edge, Node } from '../graph'
+import Edge from '../../model/edge'
+import Node from '../../model/node'
 
 export type MutableNode = {
 	id: Node['id']

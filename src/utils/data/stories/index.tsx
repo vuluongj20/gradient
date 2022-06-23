@@ -24,7 +24,6 @@ export const storyFragment = graphql`
 
 export const mapStoryData = (data: Queries.AllStoriesQuery): Story[] =>
   data.allStoriesJson.nodes.map((node) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const story = node as Omit<Story, 'path'>
     return { ...story, path: `/story/${story.slug}` }
