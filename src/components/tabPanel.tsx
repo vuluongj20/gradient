@@ -12,8 +12,6 @@ const TabPanel = ({ state, ...props }: TabPanelProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const { tabPanelProps } = useTabPanel(props, state, ref)
 
-  console.log(state.selectedItem)
-
   return (
     <Wrap {...tabPanelProps} ref={ref}>
       {state.selectedItem?.rendered}

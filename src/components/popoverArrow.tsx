@@ -10,8 +10,8 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 }
 
 const Arrow = ({
-  width = 14,
-  height = 6,
+  width = 24,
+  height = 8,
   strokeWidth = 1,
   placement,
   ...props
@@ -21,8 +21,8 @@ const Arrow = ({
   const s = strokeWidth
   const arrowPath = [
     `M 0 ${h - s / 2}`,
-    `C ${w * 0.2} ${h - s / 2} ${w * 0.45} 0 ${w / 2} 0`,
-    `C ${w * 0.55} 0 ${w * 0.8} ${h - s / 2} ${w} ${h - s / 2}`,
+    `C ${w * 0.4} ${h - s / 2} ${w * 0.45} 0 ${w / 2} 0`,
+    `C ${w * 0.55} 0 ${w * 0.6} ${h - s / 2} ${w} ${h - s / 2}`,
   ].join('')
 
   return (

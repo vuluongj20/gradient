@@ -1,38 +1,35 @@
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import Edge from '../model/edge'
-import Node from '../model/node'
+import Graph from '../model/graph'
 import GraphOverlay from './overlay'
 import ForceGraph from './svg'
 
 import useSize from '@utils/useSize'
 
 type Props = {
-	nodes: Node[]
-	edges: Edge[]
+	graph: Graph
 }
 
-const GraphView = ({ nodes, edges }: Props) => {
+const GraphView = ({ graph }: Props) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(ref)
 
 	const [simulationPlayState, setSimulationPlayState] = useState(true)
+	const [svgReady, setSvgReady] = useState(false)
 
 	return (
 		<Wrap ref={ref}>
 			<ForceGraph
-				nodes={nodes}
-				edges={edges}
+				graph={graph}
 				width={width}
 				height={height}
 				simulationPlayState={simulationPlayState}
+				setSvgReady={setSvgReady}
 			/>
-			<GraphOverlay
-				nodes={nodes}
-				edges={edges}
-				setSimulationPlayState={setSimulationPlayState}
-			/>
+			{svgReady && (
+				<GraphOverlay graph={graph} setSimulationPlayState={setSimulationPlayState} />
+			)}
 		</Wrap>
 	)
 }
@@ -45,5 +42,4 @@ const Wrap = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 24rem;
-	${(p) => p.theme.text.viz.body};
 `

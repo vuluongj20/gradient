@@ -1,3 +1,4 @@
+import { makeAutoObservable } from 'mobx'
 import { nanoid } from 'nanoid'
 
 import Node from './node'
@@ -18,6 +19,7 @@ class Edge {
 	nodes: [Node, Node]
 
 	constructor(props: Props) {
+		makeAutoObservable(this)
 		this.id = nanoid()
 		this.isDirected = props.isDirected ?? true
 		this.nodes = props.nodes

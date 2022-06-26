@@ -1,12 +1,12 @@
-import { useOverlayTriggerState } from '@react-stately/overlays'
 import * as d3 from 'd3'
 import { ForceLink, Simulation } from 'd3-force'
 import { Selection } from 'd3-selection'
-import { useEffect, useRef } from 'react'
+import { autorun } from 'mobx'
+import { observer } from 'mobx-react-lite'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import Edge from '../../model/edge'
-import Node from '../../model/node'
+import Graph from '../../model/graph'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 import {
 	drag,
@@ -30,14 +30,20 @@ type Render = {
 }
 
 type Props = {
-	nodes: Node[]
-	edges: Edge[]
+	graph: Graph
 	width?: number
 	height?: number
 	simulationPlayState: boolean
+	setSvgReady: Dispatch<SetStateAction<boolean>>
 }
 
-const ForceGraph = ({ nodes, edges, width, height, simulationPlayState }: Props) => {
+const ForceGraph = ({
+	graph,
+	width,
+	height,
+	simulationPlayState,
+	setSvgReady,
+}: Props) => {
 	const ref = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 
@@ -47,8 +53,8 @@ const ForceGraph = ({ nodes, edges, width, height, simulationPlayState }: Props)
 	useEffectOnceDefined(() => {
 		if (!ref.current || !isDefined(width) || !isDefined(height)) return
 
-		const mutableNodes = nodes.map(mapMutableNodes)
-		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
+		const mutableNodes = graph.nodes.map(mapMutableNodes)
+		const mutableEdges = graph.edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
 		const svg = d3
 			.select(ref.current)
@@ -105,42 +111,44 @@ const ForceGraph = ({ nodes, edges, width, height, simulationPlayState }: Props)
 			mutableEdges,
 			simulation,
 		}
+		setSvgReady(true)
 	}, [width, height])
 
 	//
-	// Update graph when edges list changes
+	// Update graph when nodes or edges have been updated
 	//
-	useEffect(() => {
-		if (!render.current) return
-		const { renderedEdges, simulation, mutableNodes } = render.current
+	useEffect(
+		() =>
+			autorun(() => {
+				const newMutableNodes = graph.nodes.map(mapMutableNodes)
+				const oldMutableNodesMap = new Map(
+					(render.current?.mutableNodes ?? newMutableNodes).map((d) => [d.id, d]),
+				)
+				const combinedMutableNodes = graph.nodes.map((d, i) =>
+					Object.assign(oldMutableNodesMap.get(d.id) || {}, newMutableNodes[i]),
+				)
+				const newMutableEdges = graph.edges.map((e, i) =>
+					mapMutableEdges(e, i, combinedMutableNodes),
+				)
 
-		const mutableEdges = edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
+				if (!render.current) return
 
-		renderedEdges.call(renderSVGEdges, mutableEdges)
-		simulation.force<ForceLink<MutableNode, MutableEdge>>('link')?.links(mutableEdges)
+				const { renderedNodes, renderedEdges, simulation } = render.current
 
-		render.current.mutableEdges = mutableEdges
-	}, [edges])
+				renderedNodes.call(renderSVGNodes, combinedMutableNodes)
+				renderedNodes.selectAll<SVGTextElement, MutableNode>('g').call(drag(simulation))
+				renderedEdges.call(renderSVGEdges, newMutableEdges)
 
-	//
-	// Update graph when nodes list changes
-	//
-	useEffect(() => {
-		if (!render.current) return
+				simulation.nodes(combinedMutableNodes)
+				simulation
+					.force<ForceLink<MutableNode, MutableEdge>>('link')
+					?.links(newMutableEdges)
 
-		const { mutableNodes: oldMutableNodes, renderedNodes, simulation } = render.current
-
-		const oldMutableNodesMap = new Map(oldMutableNodes.map((d) => [d.id, d]))
-		const mutableNodes = nodes.map((d, i) =>
-			Object.assign(oldMutableNodesMap.get(d.id) || {}, mapMutableNodes(d, i)),
-		)
-		renderedNodes.call(renderSVGNodes, mutableNodes)
-		renderedNodes.selectAll<SVGTextElement, MutableNode>('g').call(drag(simulation))
-
-		simulation.nodes(mutableNodes)
-
-		render.current.mutableNodes = mutableNodes
-	}, [nodes])
+				render.current.mutableNodes = combinedMutableNodes
+				render.current.mutableEdges = newMutableEdges
+			}),
+		[graph.nodes, graph.edges],
+	)
 
 	//
 	// Update SVG dimensions when width or height changes
@@ -169,9 +177,11 @@ const ForceGraph = ({ nodes, edges, width, height, simulationPlayState }: Props)
 	return <SVG ref={ref} />
 }
 
-export default ForceGraph
+export default observer(ForceGraph)
 
 const SVG = styled.svg`
+	${(p) => p.theme.text.viz.body};
+
 	height: 100%;
 	width: auto;
 
@@ -179,12 +189,12 @@ const SVG = styled.svg`
 	  Node styles
 	*/
 	g.nodes-group {
-		fill: currentColor;
+		fill: currentcolor;
 	}
 	rect.node-box {
 		stroke: ${(p) => p.theme.bar};
 		stroke-opacity: 0;
-		fill: currentColor;
+		fill: currentcolor;
 		fill-opacity: 0;
 		cursor: pointer;
 		transition: ${(p) => p.theme.animation.fastOut};

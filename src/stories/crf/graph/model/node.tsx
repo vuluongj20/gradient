@@ -1,3 +1,4 @@
+import { makeAutoObservable } from 'mobx'
 import { nanoid } from 'nanoid'
 
 import Edge from './edge'
@@ -21,6 +22,7 @@ class Node {
 	}
 
 	constructor(props: Props) {
+		makeAutoObservable(this)
 		this.id = nanoid()
 		this.label = props?.label ?? ''
 		this.edges = { source: [], target: [], undirected: [] }
@@ -36,6 +38,10 @@ class Node {
 
 	addUndirectedEdge(edge: Edge) {
 		this.edges.undirected.push(edge)
+	}
+
+	get isRoot() {
+		return this.edges.source.length === 0
 	}
 }
 

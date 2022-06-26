@@ -1,3 +1,4 @@
+import { remove, runInAction } from 'mobx'
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -22,22 +23,19 @@ const newGraph = () => {
 }
 
 const Component = () => {
-	const graph = useRef(newGraph())
+	const [graph] = useState(() => newGraph())
 	const ref = useRef(null)
-	const [nodes, setNodes] = useState(graph.current.nodes)
-	const [edges, setEdges] = useState(graph.current.edges)
 
 	useMountEffect(() => {
 		setTimeout(() => {
-			const g = graph.current
-			g.addNode({ label: 'Delta' }, (nodes) => setNodes([...nodes]))
+			graph.addNode({ label: 'Delta' })
 		}, 1000)
 
 		setTimeout(() => {
-			const g = graph.current
-			g.addEdge({ nodes: [g.nodes[0], g.nodes[3]], isDirected: true }, (edges) =>
-				setEdges([...edges]),
-			)
+			graph.addEdge({ nodes: [graph.nodes[0], graph.nodes[3]], isDirected: true })
+			runInAction(() => {
+				graph.nodes[0].label = 'hello'
+			})
 		}, 2000)
 	})
 
@@ -45,7 +43,7 @@ const Component = () => {
 		<Page>
 			<Wrap id="App" type="content" as="article" ref={ref}>
 				<Hero />
-				<GraphView nodes={nodes} edges={edges} />
+				<GraphView graph={graph} />
 			</Wrap>
 		</Page>
 	)

@@ -2,7 +2,7 @@ import { DismissButton, useOverlay, useOverlayPosition } from '@react-aria/overl
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { CSSProperties, ReactNode, RefObject, useRef } from 'react'
-import { Transition } from 'react-transition-group'
+import { Transition, TransitionStatus } from 'react-transition-group'
 import styled from 'styled-components'
 
 import { Theme } from '@theme'
@@ -30,10 +30,11 @@ const Popover = ({
   onClose,
   children,
   triggerRef,
-  offset,
+  offset = 4,
   placement = 'bottom',
   showArrow = false,
-}: Props) => {
+  animationState,
+}: Props & { animationState: TransitionStatus }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { overlayProps } = useOverlay(
     {
@@ -44,7 +45,6 @@ const Popover = ({
     },
     ref,
   )
-  const defaultOffset = showArrow ? 8 : 4
   const {
     arrowProps,
     overlayProps: positionProps,
@@ -54,31 +54,36 @@ const Popover = ({
     overlayRef: ref,
     placement,
     isOpen,
-    offset: offset ?? defaultOffset,
+    offset: showArrow ? offset + 8 : offset,
     containerPadding: 0,
   })
 
   return (
-    <Transition in={isOpen} timeout={200} unmountOnExit mountOnEnter>
-      {(animationState) => (
-        <Wrap
-          {...mergeProps(overlayProps, positionProps)}
-          placement={calculatedPlacement ?? placement}
-          showArrow={showArrow}
-          arrowStyles={arrowProps.style}
-          className={animationState}
-          ref={ref}
-        >
-          {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
-          {children}
-          <DismissButton onDismiss={onClose} />
-        </Wrap>
-      )}
-    </Transition>
+    <Wrap
+      {...mergeProps(overlayProps, positionProps)}
+      placement={calculatedPlacement ?? placement}
+      showArrow={showArrow}
+      arrowStyles={arrowProps.style}
+      className={animationState}
+      ref={ref}
+    >
+      {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
+      {children}
+      <DismissButton onDismiss={onClose} />
+    </Wrap>
   )
 }
 
-export default Popover
+// Only render Popover when it becomes visible (props.isOpen is true and Transition is
+// in `in` state). Otherwise Popover could position itself against a stale trigger ref,
+// resulting in flickery entry animation.
+const PopoverWithTransition = (props: Props) => (
+  <Transition in={props.isOpen} timeout={200} unmountOnExit mountOnEnter>
+    {(animationState) => <Popover {...props} animationState={animationState} />}
+  </Transition>
+)
+
+export default PopoverWithTransition
 
 const getTransform = ({
   placement,

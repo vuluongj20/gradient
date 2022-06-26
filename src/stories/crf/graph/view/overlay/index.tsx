@@ -1,20 +1,17 @@
 import { Dispatch, Fragment, SetStateAction } from 'react'
-import styled from 'styled-components'
 
-import Edge from '../../model/edge'
-import Node from '../../model/node'
+import Graph from '../../model/graph'
 import NodePanel from './nodePanel'
 
 type Props = {
-	nodes: Node[]
-	edges: Edge[]
+	graph: Graph
 	setSimulationPlayState: Dispatch<SetStateAction<boolean>>
 }
 
-const GraphOverlay = ({ nodes, edges, setSimulationPlayState }: Props) => {
+const GraphOverlay = ({ graph, setSimulationPlayState }: Props) => {
 	return (
 		<Fragment>
-			{nodes.map((node) => (
+			{graph.nodes.map((node) => (
 				<NodePanel
 					key={node.id}
 					node={node}
@@ -26,8 +23,3 @@ const GraphOverlay = ({ nodes, edges, setSimulationPlayState }: Props) => {
 }
 
 export default GraphOverlay
-
-// const Wrap = styled.div`
-// 	pointer-events: none;
-// 	${(p) => p.theme.utils.spread}
-// `

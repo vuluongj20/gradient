@@ -1,3 +1,4 @@
+import { makeAutoObservable } from 'mobx'
 import { nanoid } from 'nanoid'
 
 import Edge from './edge'
@@ -14,27 +15,20 @@ class Graph {
 	edges: Edge[]
 
 	constructor(props: Props = {}) {
+		makeAutoObservable(this)
 		this.id = nanoid()
 		this.nodes = props.nodes ?? []
 		this.edges = props.edges ?? []
 	}
 
-	addNode(
-		nodeParams: ConstructorParameters<typeof Node>[0],
-		callback?: (nodes: Graph['nodes']) => void,
-	) {
+	addNode(nodeParams: ConstructorParameters<typeof Node>[0]) {
 		const node = new Node(nodeParams)
 		this.nodes.push(node)
-
-		callback?.(this.nodes)
 
 		return node
 	}
 
-	addEdge(
-		edgeParams: ConstructorParameters<typeof Edge>[0],
-		callback?: (edges: Graph['edges']) => void,
-	) {
+	addEdge(edgeParams: ConstructorParameters<typeof Edge>[0]) {
 		const edge = new Edge(edgeParams)
 		this.edges.push(edge)
 
@@ -45,8 +39,6 @@ class Graph {
 			edge.nodes[0].addUndirectedEdge(edge)
 			edge.nodes[1].addUndirectedEdge(edge)
 		}
-
-		callback?.(this.edges)
 
 		return edge
 	}

@@ -3,6 +3,7 @@ import { useOverlayTrigger } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { VisuallyHidden } from '@react-aria/visually-hidden'
 import { useOverlayTriggerState } from '@react-stately/overlays'
+import { observer } from 'mobx-react-lite'
 import { Dispatch, Fragment, SetStateAction, useEffect, useRef } from 'react'
 
 import Node from '../../model/node'
@@ -16,7 +17,7 @@ type Props = {
 }
 
 const NodePanel = ({ node, setSimulationPlayState }: Props) => {
-	const svgNodeRef = useRef<SVGGElement>(null)
+	const svgNodeRef = useRef(document.querySelector<SVGGElement>(`#node-${node.id}`))
 	const triggerRef = useRef<HTMLButtonElement>(null)
 
 	const state = useOverlayTriggerState({
@@ -45,7 +46,6 @@ const NodePanel = ({ node, setSimulationPlayState }: Props) => {
 	)
 
 	const { isFocusVisible, focusProps } = useFocusRing({})
-
 	useEffect(() => {
 		if (!svgNodeRef.current) return
 
@@ -55,13 +55,6 @@ const NodePanel = ({ node, setSimulationPlayState }: Props) => {
 		}
 		svgNodeRef.current.classList.remove('focused')
 	}, [isFocusVisible])
-
-	useEffect(() => {
-		setTimeout(() => {
-			// @ts-ignore: RebObject.current is readonly
-			svgNodeRef.current = document.querySelector<SVGGElement>(`#node-${node.id}`)
-		}, 1000)
-	}, [node])
 
 	return (
 		<Fragment>
@@ -75,6 +68,8 @@ const NodePanel = ({ node, setSimulationPlayState }: Props) => {
 				</Button>
 			</VisuallyHidden>
 			<Popover
+				// @ts-ignore: triggerRef should refer to an HTMLElement, but it
+				// also works fine with an SVGGElement
 				triggerRef={svgNodeRef}
 				isOpen={state.isOpen}
 				onClose={() => state.close()}
@@ -86,4 +81,4 @@ const NodePanel = ({ node, setSimulationPlayState }: Props) => {
 	)
 }
 
-export default NodePanel
+export default observer(NodePanel)

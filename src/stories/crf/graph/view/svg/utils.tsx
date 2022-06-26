@@ -25,7 +25,7 @@ export function mapMutableEdges(
 }
 
 function getNodeBoxWidth(node: MutableNode) {
-	return node.label.length * 9 + 16
+	return node.label.length * 9 + 20
 }
 function getNodeBoxHeight() {
 	return 24
@@ -35,34 +35,48 @@ export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]
 	renderedNodes
 		.selectAll('g')
 		.data<MutableNode>(data, (n) => (n as MutableNode).id)
-		.join((enter) => {
-			const g = enter
-				.append('g')
-				.classed('node-wrap', true)
-				.attr('id', (d) => `node-${d.id}`)
-				.on('click', (_, d) => {
-					document
-						.querySelector<HTMLButtonElement>(`#node-panel-trigger-${d.id}`)
-						?.click()
-				})
+		.join(
+			(enter) => {
+				const g = enter
+					.append('g')
+					.classed('node-wrap', true)
+					.attr('id', (d) => `node-${d.id}`)
+					.on('click', (_, d) => {
+						document
+							.querySelector<HTMLButtonElement>(`#node-panel-trigger-${d.id}`)
+							?.click()
+					})
 
-			g.append('rect')
-				.classed('node-box', true)
-				.attr('width', getNodeBoxWidth)
-				.attr('height', getNodeBoxHeight)
-				.attr('x', (d) => -getNodeBoxWidth(d) / 2)
-				.attr('y', -getNodeBoxHeight() / 2)
-				.attr('rx', getNodeBoxHeight() / 2)
+				g.append('rect')
+					.classed('node-box', true)
+					.attr('width', getNodeBoxWidth)
+					.attr('height', getNodeBoxHeight)
+					.attr('x', (d) => -getNodeBoxWidth(d) / 2)
+					.attr('y', -getNodeBoxHeight() / 2)
+					.attr('rx', getNodeBoxHeight() / 2)
 
-			g.append('text')
-				.text((d) => d.label)
-				.attr('text-anchor', 'middle')
-				.attr('dominant-baseline', 'central')
-				.attr('aria-haspopup', true)
-				.attr('aria-expanded', false)
+				g.append('text')
+					.text((d) => d.label)
+					.attr('text-anchor', 'middle')
+					.attr('dominant-baseline', 'central')
+					.attr('aria-haspopup', true)
+					.attr('aria-expanded', false)
 
-			return g
-		})
+				return g
+			},
+			(update) => {
+				update
+					.select('rect')
+					.attr('width', getNodeBoxWidth)
+					.attr('height', getNodeBoxHeight)
+					.attr('x', (d) => -getNodeBoxWidth(d) / 2)
+					.attr('y', -getNodeBoxHeight() / 2)
+					.attr('rx', getNodeBoxHeight() / 2)
+				update.select('text').text((d) => d.label)
+
+				return update
+			},
+		)
 }
 
 export function renderSVGEdges(renderedEdges: RenderedEdges, data: MutableEdge[]) {
