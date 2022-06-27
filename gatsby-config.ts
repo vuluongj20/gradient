@@ -16,7 +16,6 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     'gatsby-plugin-webpack-bundle-analyser-v2',
-    'gatsby-plugin-loadable-components-ssr',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',

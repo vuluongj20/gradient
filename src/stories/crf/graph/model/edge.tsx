@@ -10,19 +10,22 @@ type Props = {
 	 * end node. Otherwise it the order does not matter.
 	 */
 	nodes: [Node, Node]
+	coefficient?: number
 	isDirected?: boolean
 }
 
 class Edge {
 	readonly id: string
-	isDirected: boolean
 	nodes: [Node, Node]
+	coefficient: number | undefined
+	isDirected: boolean
 
 	constructor(props: Props) {
 		makeAutoObservable(this)
 		this.id = nanoid()
-		this.isDirected = props.isDirected ?? true
 		this.nodes = props.nodes
+		this.coefficient = props.coefficient
+		this.isDirected = props.isDirected ?? true
 	}
 }
 

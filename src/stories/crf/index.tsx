@@ -1,4 +1,3 @@
-import { remove, runInAction } from 'mobx'
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -33,9 +32,6 @@ const Component = () => {
 
 		setTimeout(() => {
 			graph.addEdge({ nodes: [graph.nodes[0], graph.nodes[3]], isDirected: true })
-			runInAction(() => {
-				graph.nodes[0].label = 'hello'
-			})
 		}, 2000)
 	})
 
