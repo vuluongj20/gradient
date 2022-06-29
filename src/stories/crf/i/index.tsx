@@ -5,6 +5,7 @@ import Graph from '../graph/model/graph'
 import Node from '../graph/model/node'
 import GraphView from '../graph/view'
 
+import useMountEffect from '@utils/useMountEffect'
 
 const newGraph = () => {
 	const g = new Graph<Node, Edge>()
