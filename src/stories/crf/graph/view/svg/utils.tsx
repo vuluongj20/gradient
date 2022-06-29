@@ -83,7 +83,9 @@ export function renderSVGEdges(renderedEdges: RenderedEdges, data: MutableEdge[]
 	renderedEdges
 		.selectAll('g')
 		.data<MutableEdge>(data, (e) => (e as MutableEdge).id)
-		.join((enter) => enter.append('g').append('line').attr('marker-end', 'url(#arrow)'))
+		.join((enter) =>
+			enter.append('g').append('line').attr('marker-end', 'url(#edge-arrow)'),
+		)
 }
 
 export function getNodeBoundary(node: MutableNode) {

@@ -6,7 +6,9 @@ import { observer } from 'mobx-react-lite'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import Edge from '../../model/edge'
 import Graph from '../../model/graph'
+import Node from '../../model/node'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 import {
 	drag,
@@ -30,7 +32,7 @@ type Render = {
 }
 
 type Props = {
-	graph: Graph
+	graph: Graph<Node, Edge>
 	width?: number
 	height?: number
 	simulationPlayState: boolean
@@ -60,13 +62,13 @@ const ForceGraph = ({
 			.select(ref.current)
 			.attr('viewBox', [-width / 2, -height / 2, width, height])
 		svg
-			.append('def')
+			.append('defs')
 			.append('marker')
-			.classed('arrow', true)
-			.attr('id', 'arrow')
+			.attr('id', 'edge-arrow')
 			.attr('viewBox', [0, 0, 5, 5])
 			.attr('markerWidth', 5)
 			.attr('markerHeight', 5)
+			.attr('markerUnits', 'strokeWidth')
 			.attr('refX', 4)
 			.attr('refY', 2.5)
 			.attr('orient', 'auto-start-reverse')
@@ -74,11 +76,11 @@ const ForceGraph = ({
 			.attr('d', 'M 1,1 L 4,2.5 L 1,4')
 
 		const renderedEdges = (svg.append('g') as RenderedEdges)
-			.classed('edges-group', true)
+			.classed('edges', true)
 			.call(renderSVGEdges, mutableEdges)
 
 		const renderedNodes = (svg.append('g') as RenderedNodes)
-			.classed('nodes-group', true)
+			.classed('nodes', true)
 			.call(renderSVGNodes, mutableNodes)
 
 		// Construct the forces.
@@ -188,7 +190,7 @@ const SVG = styled.svg`
 	/* 
 	  Node styles
 	*/
-	g.nodes-group {
+	g.nodes {
 		fill: currentcolor;
 	}
 	rect.node-box {
@@ -220,14 +222,14 @@ const SVG = styled.svg`
 	/* 
 	  Edge styles
 	*/
-	g.edges-group,
-	marker.arrow {
+	g.edges,
+	marker#edge-arrow {
 		fill: none;
 		stroke: ${(p) => p.theme.bar};
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}
-	g.edges-group {
+	g.edges {
 		stroke-width: 2;
 	}
 `

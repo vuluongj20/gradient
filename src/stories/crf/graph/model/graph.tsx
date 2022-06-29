@@ -4,32 +4,28 @@ import { nanoid } from 'nanoid'
 import Edge from './edge'
 import Node from './node'
 
-type Props = {
-	nodes?: Node[]
-	edges?: Edge[]
+type Props<N, E> = {
+	nodes?: N[]
+	edges?: E[]
 }
 
-class Graph {
+class Graph<N extends Node, E extends Edge> {
 	readonly id: string
-	nodes: Node[]
-	edges: Edge[]
+	nodes: N[]
+	edges: E[]
 
-	constructor(props: Props = {}) {
+	constructor(props: Props<N, E> = {}) {
 		makeAutoObservable(this)
 		this.id = nanoid()
 		this.nodes = props.nodes ?? []
 		this.edges = props.edges ?? []
 	}
 
-	addNode(nodeParams: ConstructorParameters<typeof Node>[0]) {
-		const node = new Node(nodeParams)
+	addNode(node: N) {
 		this.nodes.push(node)
-
-		return node
 	}
 
-	addEdge(edgeParams: ConstructorParameters<typeof Edge>[0]) {
-		const edge = new Edge(edgeParams)
+	addEdge(edge: E) {
 		this.edges.push(edge)
 
 		if (edge.isDirected) {
