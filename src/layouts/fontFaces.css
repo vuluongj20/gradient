@@ -39,6 +39,26 @@
 }
 
 @font-face {
+	font-family: 'Sohne Mono';
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+	src: url('/fonts/sohne/SohneMono-Kraftig.woff2') format('woff2'),
+		url('/fonts/sohne/SohneMono-Kraftig.woff') format('woff'),
+		url('/fonts/sohne/SohneMono-Kraftig.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'Sohne Mono';
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+	src: url('/fonts/sohne/SohneMono-Fett.woff2') format('woff2'),
+		url('/fonts/sohne/SohneMono-Fett.woff') format('woff'),
+		url('/fonts/sohne/SohneMono-Fett.otf') format('opentype');
+}
+
+@font-face {
 	font-family: 'Domaine Display Condensed';
 	font-weight: 400;
 	font-style: normal;

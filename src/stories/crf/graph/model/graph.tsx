@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
 
 import Edge from './edge'
@@ -9,13 +9,19 @@ type Props<N, E> = {
 	edges?: E[]
 }
 
-class Graph<N extends Node, E extends Edge> {
+class Graph<N extends Node = Node, E extends Edge = Edge> {
 	readonly id: string
 	nodes: N[]
 	edges: E[]
 
 	constructor(props: Props<N, E> = {}) {
-		makeAutoObservable(this)
+		makeObservable(this, {
+			id: observable,
+			nodes: observable,
+			edges: observable,
+			addNode: action,
+			addEdge: action,
+		})
 		this.id = nanoid()
 		this.nodes = props.nodes ?? []
 		this.edges = props.edges ?? []
@@ -29,8 +35,8 @@ class Graph<N extends Node, E extends Edge> {
 		this.edges.push(edge)
 
 		if (edge.isDirected) {
-			edge.nodes[0].addSourceEdge(edge)
-			edge.nodes[1].addTargetEdge(edge)
+			edge.nodes[0].addOutgoingEdge(edge)
+			edge.nodes[1].addIncomingEdge(edge)
 		} else {
 			edge.nodes[0].addUndirectedEdge(edge)
 			edge.nodes[1].addUndirectedEdge(edge)

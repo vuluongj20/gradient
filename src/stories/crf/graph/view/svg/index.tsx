@@ -6,9 +6,7 @@ import { observer } from 'mobx-react-lite'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import Edge from '../../model/edge'
 import Graph from '../../model/graph'
-import Node from '../../model/node'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 import {
 	drag,
@@ -32,7 +30,7 @@ type Render = {
 }
 
 type Props = {
-	graph: Graph<Node, Edge>
+	graph: Graph
 	width?: number
 	height?: number
 	simulationPlayState: boolean
@@ -183,6 +181,7 @@ export default observer(ForceGraph)
 
 const SVG = styled.svg`
 	${(p) => p.theme.text.viz.body};
+	font-weight: 500;
 
 	height: 100%;
 	width: auto;

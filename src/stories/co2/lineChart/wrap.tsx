@@ -141,7 +141,7 @@ const Wrap = styled.div`
   .hover-data-text {
     fill: ${(p) => p.theme.heading};
     transform: translate(-8.8em, -3em);
-    font-weight: 700;
+    font-weight: 500;
   }
   .hover-data-label.big {
     transform: translate(-13.46em, -7em);
@@ -162,7 +162,7 @@ const Wrap = styled.div`
   .hover-reg-text {
     fill: var(--theme);
     transform: translate(-8.8em, -5.2em);
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .hover-diff-line {
@@ -175,7 +175,7 @@ const Wrap = styled.div`
   .hover-diff-text {
     fill: ${(p) => p.theme.errorText};
     transform: translate(-8.8em, -3.4em);
-    font-weight: 700;
+    font-weight: 500;
   }
 
   /* MSE */
@@ -224,7 +224,7 @@ const Wrap = styled.div`
   }
   .mse-equation > tspan {
     fill: ${(p) => p.theme.body};
-    font-weight: 700;
+    font-weight: 500;
     visibility: hidden;
     &.linear,
     &.visible {
@@ -241,7 +241,7 @@ const Wrap = styled.div`
   .mse-acc-text {
     fill: ${(p) => p.theme.errorText};
     transform: translate(3.2em, 3.2em);
-    font-weight: 700;
+    font-weight: 500;
   }
 `
 

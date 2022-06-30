@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
 
 import Node from './node'
@@ -10,21 +10,22 @@ type Props = {
 	 * end node. Otherwise it the order does not matter.
 	 */
 	nodes: [Node, Node]
-	coefficient?: number
 	isDirected?: boolean
 }
 
 class Edge {
 	readonly id: string
 	nodes: [Node, Node]
-	coefficient: number | undefined
 	isDirected: boolean
 
 	constructor(props: Props) {
-		makeAutoObservable(this)
+		makeObservable(this, {
+			id: observable,
+			nodes: observable,
+			isDirected: observable,
+		})
 		this.id = nanoid()
 		this.nodes = props.nodes
-		this.coefficient = props.coefficient
 		this.isDirected = props.isDirected ?? true
 	}
 }

@@ -1,22 +1,21 @@
 import { useState } from 'react'
 
-import Edge from '../graph/model/edge'
 import Graph from '../graph/model/graph'
-import Node from '../graph/model/node'
 import GraphView from '../graph/view'
+import { SamplingEdge, SamplingNode } from './model'
 
 import useMountEffect from '@utils/useMountEffect'
 
 const newGraph = () => {
-	const g = new Graph<Node, Edge>()
-	const nodeA = new Node({ label: 'Alpha' })
-	const nodeB = new Node({ label: 'Beta' })
-	const nodeC = new Node({ label: 'Gamma' })
+	const g = new Graph<SamplingNode, SamplingEdge>()
+	const nodeA = new SamplingNode({ label: 'Alpha' })
+	const nodeB = new SamplingNode({ label: 'Beta' })
+	const nodeC = new SamplingNode({ label: 'Gamma' })
 	g.addNode(nodeA)
 	g.addNode(nodeB)
 	g.addNode(nodeC)
-	const edgeA = new Edge({ nodes: [nodeA, nodeB], isDirected: true })
-	const edgeB = new Edge({ nodes: [nodeB, nodeC], isDirected: true })
+	const edgeA = new SamplingEdge({ nodes: [nodeA, nodeB], isDirected: true })
+	const edgeB = new SamplingEdge({ nodes: [nodeB, nodeC], isDirected: true })
 	g.addEdge(edgeA)
 	g.addEdge(edgeB)
 
@@ -27,13 +26,13 @@ const Section = () => {
 
 	useMountEffect(() => {
 		setTimeout(() => {
-			const nodeD = new Node({ label: 'Delpha' })
+			const nodeD = new SamplingNode({ label: 'Delpha' })
 			graph.addNode(nodeD)
 		}, 1000)
 
 		setTimeout(() => {
 			graph.addEdge(
-				new Edge({ nodes: [graph.nodes[0], graph.nodes[3]], isDirected: true }),
+				new SamplingEdge({ nodes: [graph.nodes[0], graph.nodes[3]], isDirected: true }),
 			)
 		}, 2000)
 	})
