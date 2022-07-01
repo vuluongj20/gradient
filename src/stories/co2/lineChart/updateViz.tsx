@@ -162,6 +162,10 @@ const updateViz = (
     hoverGroup.classed('big', false)
     hoverDataLabel.classed('big', false)
     hoverDataText.classed('big', false)
+    // Safari doesn't do CSS transformations correctly, so we have
+    // to do SVG transformations ourselvs
+    hoverDataLabel.attr('transform', 'translate(-13.46em -3em)')
+    hoverDataText.attr('transform', 'translate(-8.8em -3em)')
     mseGroup.classed('visible', false)
 
     svg.on('mousemove', hover(0))
@@ -218,6 +222,10 @@ const updateViz = (
     hoverGroup.classed('big', true)
     hoverDataLabel.classed('big', true)
     hoverDataText.classed('big', true)
+    // Safari doesn't do CSS transformations correctly, so we have
+    // to do SVG transformations ourselvs
+    hoverDataLabel.attr('transform', 'translate(-13.46em -7em)')
+    hoverDataText.attr('transform', 'translate(-8.8em -7em)')
 
     mseGroup.classed('visible', true)
     mseRect.classed('quadratic', false)

@@ -137,6 +137,7 @@ const Wrap = styled.div`
 
   .hover-data-label {
     transform: translate(-13.46em, -3em);
+    transition: none;
   }
   .hover-data-text {
     fill: ${(p) => p.theme.heading};
