@@ -58,6 +58,29 @@
 		url('/fonts/sohne/SohneMono-Fett.otf') format('opentype');
 }
 
+/* Monospace fill-ins for greek characters */
+@font-face {
+	font-family: 'Roboto Mono';
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	src: url('/fonts/roboto-mono/RobotoMono-Regular-Greek.woff2') format('woff2'),
+		url('/fonts/roboto-mono/RobotoMono-Regular-Greek.woff') format('woff'),
+		url('/fonts/roboto-mono/RobotoMono-Regular-Greek.otf') format('opentype');
+	unicode-range: U+0391-03a9, U+03b1-03c9;
+}
+
+@font-face {
+	font-family: 'Roboto Mono';
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+	src: url('/fonts/roboto-mono/RobotoMono-Medium-Greek.woff2') format('woff2'),
+		url('/fonts/roboto-mono/RobotoMono-Medium-Greek.woff') format('woff'),
+		url('/fonts/roboto-mono/RobotoMono-Medium-Greek.otf') format('opentype');
+	unicode-range: U+0391-03a9, U+03b1-03c9;
+}
+
 @font-face {
 	font-family: 'Domaine Display Condensed';
 	font-weight: 400;

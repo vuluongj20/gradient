@@ -1,7 +1,8 @@
 import { TextScaleDefinition } from '@theme/text'
 
 const styles = {
-	fontFamily: '"Sohne Mono", Courier, "Andale Mono", "Courier New", monospace',
+	fontFamily:
+		'"Sohne Mono", "Roboto Mono", Courier, "Andale Mono", "Courier New", monospace',
 	textDecorationThickness: '0.08em',
 	textUnderlineOffset: '0.08em',
 }
