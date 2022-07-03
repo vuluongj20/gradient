@@ -1,24 +1,22 @@
 import { action, computed, makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
 
-import Edge from './edge'
-
 type Props = {
 	label?: string
 	edges?: {
-		incoming: Edge[]
-		outgoing: Edge[]
-		undirected: Edge[]
+		incoming: string[]
+		outgoing: string[]
+		undirected: string[]
 	}
 }
 
 class Node {
-	readonly id: string
+	readonly id = nanoid()
 	label: string
 	edges: {
-		incoming: Edge[]
-		outgoing: Edge[]
-		undirected: Edge[]
+		incoming: string[]
+		outgoing: string[]
+		undirected: string[]
 	}
 
 	constructor(props: Props) {
@@ -31,20 +29,19 @@ class Node {
 			addUndirectedEdge: observable,
 			isRoot: computed,
 		})
-		this.id = nanoid()
 		this.label = props?.label ?? ''
 		this.edges = { incoming: [], outgoing: [], undirected: [] }
 	}
 
-	addIncomingEdge(edge: Edge) {
+	addIncomingEdge(edge: string) {
 		this.edges.incoming.push(edge)
 	}
 
-	addOutgoingEdge(edge: Edge) {
+	addOutgoingEdge(edge: string) {
 		this.edges.outgoing.push(edge)
 	}
 
-	addUndirectedEdge(edge: Edge) {
+	addUndirectedEdge(edge: string) {
 		this.edges.undirected.push(edge)
 	}
 

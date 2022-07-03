@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import Hero from './hero'
-import I from './i'
+import PartI from './partI'
 
 import Page from '@components/page'
 import TypeArea from '@components/typeArea'
@@ -11,7 +11,7 @@ const Component = () => {
 		<Page>
 			<Wrap id="App" type="content" as="article">
 				<Hero />
-				<I />
+				<PartI />
 			</Wrap>
 		</Page>
 	)

@@ -19,8 +19,8 @@ export function mapMutableEdges(
 	return {
 		index,
 		id: edge.id,
-		source: mutableNodes.find((n) => n.id === edge.nodes[0].id) as MutableNode,
-		target: mutableNodes.find((n) => n.id === edge.nodes[1].id) as MutableNode,
+		source: mutableNodes.find((n) => n.id === edge.nodes[0]) as MutableNode,
+		target: mutableNodes.find((n) => n.id === edge.nodes[1]) as MutableNode,
 	}
 }
 
@@ -156,10 +156,15 @@ export function ticked(renderedNodes: RenderedNodes, renderedEdges: RenderedEdge
 }
 
 export function drag(simulation: Simulation<MutableNode, MutableEdge>) {
+	// Debounce dragStarted, to prevent the graph from jiggling when the user clicks but
+	// doesn't drag
+	let timeout: NodeJS.Timeout
 	function dragstarted(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
-		if (!event.active) simulation.alphaTarget(0.3).restart()
-		event.subject.fx = event.subject.x
-		event.subject.fy = event.subject.y
+		timeout = setTimeout(() => {
+			if (!event.active) simulation.alphaTarget(0.3).restart()
+			event.subject.fx = event.subject.x
+			event.subject.fy = event.subject.y
+		}, 100)
 	}
 
 	function dragged(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
@@ -168,6 +173,7 @@ export function drag(simulation: Simulation<MutableNode, MutableEdge>) {
 	}
 
 	function dragended(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
+		clearTimeout(timeout)
 		if (!event.active) simulation.alphaTarget(0)
 		event.subject.fx = null
 		event.subject.fy = null

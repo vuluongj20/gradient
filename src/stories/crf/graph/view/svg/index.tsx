@@ -168,7 +168,7 @@ const ForceGraph = ({
 
 		const { simulation } = render.current
 		if (simulationPlayState) {
-			simulation.restart()
+			simulation.alpha(0).restart()
 			return
 		}
 		simulation.stop()
@@ -181,7 +181,6 @@ export default observer(ForceGraph)
 
 const SVG = styled.svg`
 	${(p) => p.theme.text.viz.body};
-	font-weight: 500;
 
 	height: 100%;
 	width: auto;
