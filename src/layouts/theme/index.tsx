@@ -21,6 +21,7 @@ export type Theme = ColorPalette['colors'] &
 		elevation: number
 		appearance: Appearance
 		colorPalette: keyof typeof colorPalettes
+		opacityFactor: number
 		/** Text */
 		text: {
 			system: TextScale
@@ -72,6 +73,8 @@ export const useThemeObject = (
 	const colors = colorPalettes[colorPalette].colors
 	const colorAliases = getColorAliases(colorPalettes[colorPalette].colors, elevation)
 
+	const opacityFactor = appearance === 'dark' ? 1.2 : 1
+
 	const shadows =
 		appearance === 'light'
 			? { ...boxShadowsLight, text: textShadows.light }
@@ -87,6 +90,7 @@ export const useThemeObject = (
 		elevation,
 		appearance,
 		colorPalette,
+		opacityFactor,
 
 		...colors,
 		...colorAliases,

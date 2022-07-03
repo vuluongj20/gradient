@@ -56,7 +56,7 @@ const Item = (props: ItemProps) => {
       small={small}
       ref={ref}
     >
-      <StateLayer isHovered={isFocused} />
+      <StateLayer isHovered={isFocused} opacityFactor={isSelected ? 1.4 : 1} />
       <CheckIndent aria-hidden="true" visible={isSelected}>
         <IconDone />
       </CheckIndent>
@@ -71,6 +71,13 @@ const StyledListBox = styled.ul`
   min-width: 8rem;
   border-radius: ${(p) => p.theme.radii.m};
   list-style-type: none;
+
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: none;
+  }
 `
 
 const StyledItem = styled.li<{
