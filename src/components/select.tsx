@@ -1,4 +1,5 @@
 import { HiddenSelect, useSelect } from '@react-aria/select'
+import { mergeProps } from '@react-aria/utils'
 import { Item } from '@react-stately/collections'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
@@ -10,8 +11,6 @@ import Dialog from '@components/dialog'
 import ListBox from '@components/listBox'
 import Popover from '@components/popover'
 
-import IconExpandMore from '@icons/expandMore'
-
 import useBreakpoint from '@utils/useBreakpoint'
 
 type BaseProps = SelectProps<object> & {
@@ -19,6 +18,7 @@ type BaseProps = SelectProps<object> & {
 	className?: string
 	showDialogOnMobile?: boolean
 	popoverProps?: Partial<ComponentProps<typeof Popover>>
+	small?: boolean
 }
 
 type Props = Omit<
@@ -37,6 +37,7 @@ const BaseSelect = ({
 	label,
 	popoverProps,
 	className,
+	small = false,
 	...props
 }: BaseProps) => {
 	const ref = useRef<HTMLButtonElement>(null)
@@ -47,18 +48,22 @@ const BaseSelect = ({
 		const label = state.selectedItem ? state.selectedItem.rendered : 'Select an option'
 
 		return (
-			<Trigger ref={ref} {...triggerProps}>
-				<span aria-hidden="true" {...valueProps}>
-					{label}
-				</span>
-				<IconExpandMore aria-hidden="true" />
+			<Trigger
+				ref={ref}
+				small={small}
+				showExpandIcon
+				{...mergeProps(triggerProps, valueProps)}
+			>
+				{label}
 			</Trigger>
 		)
-	}, [triggerProps, valueProps, state.selectedItem])
+	}, [triggerProps, small, valueProps, state.selectedItem])
 
 	const renderContent = useCallback(
-		() => <ListBox state={state} label={label} shouldFocusWrap {...menuProps} />,
-		[label, menuProps, state],
+		() => (
+			<ListBox state={state} label={label} small={small} shouldFocusWrap {...menuProps} />
+		),
+		[label, menuProps, small, state],
 	)
 
 	const isXS = useBreakpoint('xs')
@@ -115,6 +120,4 @@ const Wrap = styled.div``
 const Trigger = styled(Button)`
 	display: flex;
 	align-items: center;
-	padding: ${(p) => p.theme.space[1]};
-	padding-right: ${(p) => p.theme.space[0]};
 `

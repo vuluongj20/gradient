@@ -15,16 +15,17 @@ import IconDone from '@icons/done'
 
 type ListBoxProps = AriaListBoxOptions<unknown> & {
   state: SelectState<unknown>
+  small?: boolean
 }
 
-const ListBox = ({ state, ...props }: ListBoxProps) => {
+const ListBox = ({ state, small = false, ...props }: ListBoxProps) => {
   const ref = useRef<HTMLUListElement>(null)
   const { listBoxProps } = useListBox(props, state, ref)
 
   return (
     <StyledListBox ref={ref} {...listBoxProps}>
       {[...state.collection].map((item) => (
-        <Item key={item.key} item={item} state={state} />
+        <Item key={item.key} item={item} state={state} small={small} />
       ))}
     </StyledListBox>
   )
@@ -35,11 +36,12 @@ export default ListBox
 type ItemProps = AriaOptionProps & {
   item: Node<unknown>
   state: SelectState<unknown>
+  small: boolean
 }
 
 const Item = (props: ItemProps) => {
   const ref = useRef<HTMLLIElement>(null)
-  const { item, state } = props
+  const { item, state, small } = props
   const { optionProps, isSelected, isFocused, isDisabled } = useOption(
     { key: item.key },
     state,
@@ -51,6 +53,7 @@ const Item = (props: ItemProps) => {
       {...optionProps}
       isSelected={isSelected}
       isDisabled={isDisabled}
+      small={small}
       ref={ref}
     >
       <StateLayer isHovered={isFocused} />
@@ -70,20 +73,23 @@ const StyledListBox = styled.ul`
   list-style-type: none;
 `
 
-const StyledItem = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
+const StyledItem = styled.li<{
+  isSelected: boolean
+  isDisabled: boolean
+  small: boolean
+}>`
   position: relative;
   display: flex;
   align-items: center;
 
-  padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
-  padding-left: ${(p) => p.theme.space[1]};
+  padding: ${(p) =>
+    p.small
+      ? `${p.theme.space[0]} ${p.theme.space[1]}`
+      : `${p.theme.space[1]} ${p.theme.space[2]}`};
+  padding-left: ${(p) => (p.small ? p.theme.space[0] : p.theme.space[1])};
   border-radius: ${(p) => p.theme.radii.s};
   outline: none;
-
-  font-weight: 500;
-  color: ${(p) => p.theme.heading};
   white-space: nowrap;
-
   cursor: pointer;
   transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s,
     color ${(p) => p.theme.animation.mediumIn};

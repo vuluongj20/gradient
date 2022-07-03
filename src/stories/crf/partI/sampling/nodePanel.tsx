@@ -28,6 +28,7 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 				<Field>
 					<FieldLabel>Distribution</FieldLabel>
 					<Select
+						small
 						name="distribution"
 						label="Distribution"
 						popoverProps={{ placement: 'bottom right' }}
