@@ -1,4 +1,3 @@
-import { Item } from '@react-stately/collections'
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
@@ -33,15 +32,10 @@ const FilterBar = ({
 			{filters.map((filter) => (
 				<StyledSelect
 					key={filter.name}
-					defaultSelectedKey={filter.defaultValue}
-					onSelectionChange={(key) => onChange(filter.name, key as string)}
+					onChange={(key) => onChange(filter.name, key as string)}
 					showDialogOnMobile={showDialogOnMobile}
 					{...filter}
-				>
-					{filter.options.map((o) => (
-						<Item key={o.value}>{o.label}</Item>
-					))}
-				</StyledSelect>
+				/>
 			))}
 		</Wrap>
 	)
@@ -55,6 +49,7 @@ const Wrap = styled(Grid)`
 	padding-top: ${(p) => p.theme.space[0]};
 	padding-bottom: ${(p) => p.theme.space[0]};
 	background: ${(p) => p.theme.background};
+	transform: translateX(-${(p) => p.theme.space[1]});
 	z-index: 9;
 `
 

@@ -1,17 +1,26 @@
-import { useRef, useState } from 'react'
+import { HTMLAtrributes, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import BaseEdge from '../model/edge'
 import Graph from '../model/graph'
-import GraphOverlay from './overlay'
+import BaseNode from '../model/node'
+import NodePanels from './nodePanels'
 import ForceGraph from './svg'
 
 import useSize from '@utils/useSize'
 
-type Props = {
-	graph: Graph
+type Props<Node extends BaseNode, Edge extends BaseEdge> = {
+	graph: Graph<Node, Edge>
+	renderNodePanel?: (
+		node: Node,
+		overlayProps: HTMLAtrributes<HTMLDivElement>,
+	) => ReactNode
 }
 
-const GraphView = ({ graph }: Props) => {
+const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge>({
+	graph,
+	renderNodePanel,
+}: Props<Node, Edge>) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(ref)
 
@@ -27,8 +36,12 @@ const GraphView = ({ graph }: Props) => {
 				simulationPlayState={simulationPlayState}
 				setSvgReady={setSvgReady}
 			/>
-			{svgReady && (
-				<GraphOverlay graph={graph} setSimulationPlayState={setSimulationPlayState} />
+			{svgReady && renderNodePanel && (
+				<NodePanels
+					graph={graph}
+					setSimulationPlayState={setSimulationPlayState}
+					renderNodePanel={renderNodePanel}
+				/>
 			)}
 		</Wrap>
 	)

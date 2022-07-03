@@ -44,7 +44,7 @@ class Graph<Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge> 
 		const incomingEdgeIds = this.getNode(nodeId).edges.incoming
 		return incomingEdgeIds.map((incomingEdgeId) => {
 			const incomingEdge = this.getEdge(incomingEdgeId)
-			const parentNode = this.getNode(incomingEdge.nodes[0])
+			const parentNode = this.getNode(incomingEdge.nodes.source)
 			return parentNode
 		})
 	}
@@ -53,7 +53,7 @@ class Graph<Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge> 
 		const outgoingEdgeIds = this.getNode(nodeId).edges.outgoing
 		return outgoingEdgeIds.map((outgoingEdgeId) => {
 			const outgoingEdge = this.getEdge(outgoingEdgeId)
-			const childNode = this.getNode(outgoingEdge.nodes[1])
+			const childNode = this.getNode(outgoingEdge.nodes.target)
 			return childNode
 		})
 	}
@@ -81,10 +81,13 @@ class Graph<Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge> 
 	}
 
 	addEdge(edge: Edge) {
-		this.edgesMap[edge.id] = edge
+		const sourceNode = this.getNode(edge.nodes.source)
+		const targetNode = this.getNode(edge.nodes.target)
 
-		const sourceNode = this.getNode(edge.nodes[0])
-		const targetNode = this.getNode(edge.nodes[1])
+		if (!sourceNode) throw 'Source node not found in graph'
+		if (!targetNode) throw 'Target node not found in graph'
+
+		this.edgesMap[edge.id] = edge
 
 		if (edge.isDirected) {
 			sourceNode.addOutgoingEdge(edge.id)
@@ -115,7 +118,7 @@ class Graph<Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge> 
 			// Handle each of rootNode's outgoing edge
 			currentRoot.edges.outgoing.forEach((edgeId) => {
 				const outgoingEdge = this.getEdge(edgeId)
-				const childNode = this.getNode(outgoingEdge.nodes[1])
+				const childNode = this.getNode(outgoingEdge.nodes.target)
 				const edgeIndex = allEdges.findIndex((e) => e.id === outgoingEdge.id)
 
 				// Remove edge from running list

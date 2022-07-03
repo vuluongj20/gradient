@@ -1,3 +1,4 @@
+import { FocusScope } from '@react-aria/focus'
 import { DismissButton, useOverlay, useOverlayPosition } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
@@ -23,6 +24,7 @@ type Props = {
   placement?: Placement
   offset?: number
   showArrow?: boolean
+  className?: string
 }
 
 const Popover = ({
@@ -31,9 +33,10 @@ const Popover = ({
   children,
   triggerRef,
   offset = 4,
-  placement = 'bottom',
+  placement = 'bottom left',
   showArrow = false,
   animationState,
+  className,
 }: Props & { animationState: TransitionStatus }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { overlayProps } = useOverlay(
@@ -64,11 +67,13 @@ const Popover = ({
       placement={calculatedPlacement ?? placement}
       showArrow={showArrow}
       arrowStyles={arrowProps.style}
-      className={animationState}
+      className={`${animationState} ${className ?? ''}`}
       ref={ref}
     >
       {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
-      {children}
+      <FocusScope autoFocus restoreFocus>
+        {children}
+      </FocusScope>
       <DismissButton onDismiss={onClose} />
     </Wrap>
   )
@@ -92,7 +97,7 @@ const getTransform = ({
   arrowStyles = {},
 }: WrapProps & { theme: Theme }) => {
   const scaleTerm = showArrow ? 'scale(0.8)' : ''
-  switch (placement) {
+  switch (placement.split(' ')[0]) {
     case 'top':
       return `
         transform-origin: ${arrowStyles.left ?? 0}px 100%;

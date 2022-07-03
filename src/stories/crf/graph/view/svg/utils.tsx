@@ -19,8 +19,8 @@ export function mapMutableEdges(
 	return {
 		index,
 		id: edge.id,
-		source: mutableNodes.find((n) => n.id === edge.nodes[0]) as MutableNode,
-		target: mutableNodes.find((n) => n.id === edge.nodes[1]) as MutableNode,
+		source: mutableNodes.find((n) => n.id === edge.nodes.source) as MutableNode,
+		target: mutableNodes.find((n) => n.id === edge.nodes.target) as MutableNode,
 	}
 }
 
@@ -157,7 +157,7 @@ export function ticked(renderedNodes: RenderedNodes, renderedEdges: RenderedEdge
 
 export function drag(simulation: Simulation<MutableNode, MutableEdge>) {
 	// Debounce dragStarted, to prevent the graph from jiggling when the user clicks but
-	// doesn't drag
+	// doesn't drag.
 	let timeout: NodeJS.Timeout
 	function dragstarted(event: D3DragEvent<SVGTextElement, MutableNode, MutableNode>) {
 		timeout = setTimeout(() => {

@@ -7,13 +7,19 @@ type Props = {
 	 * matters: the first listed node is the starting node, and the second the
 	 * end node. Otherwise it the order does not matter.
 	 */
-	nodes: [string, string]
+	nodes: {
+		source: string
+		target: string
+	}
 	isDirected?: boolean
 }
 
 class Edge {
 	readonly id = nanoid()
-	nodes: [string, string]
+	nodes: {
+		source: string
+		target: string
+	}
 	isDirected: boolean
 
 	constructor(props: Props) {

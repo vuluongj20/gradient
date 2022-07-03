@@ -2,24 +2,31 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
 import GraphView from '../graph/view'
-import SamplingEdge from './samplingModel/edge'
-import SamplingGraph from './samplingModel/graph'
-import SamplingNode from './samplingModel/node'
+import SamplingEdge from './sampling/edge'
+import SamplingGraph from './sampling/graph'
+import SamplingNode from './sampling/node'
+import SamplingNodePanel from './sampling/nodePanel'
 
 import useMountEffect from '@utils/useMountEffect'
 
 const newGraph = () => {
 	const g = new SamplingGraph()
 	const nodeA = new SamplingNode({ label: 'Alpha' })
-	const nodeB = new SamplingNode({ label: 'Beta' })
-	const nodeC = new SamplingNode({ label: 'Gamma' })
+	// const nodeB = new SamplingNode({ label: 'Beta' })
+	// const nodeC = new SamplingNode({ label: 'Gamma' })
 	g.addNode(nodeA)
-	g.addNode(nodeB)
-	g.addNode(nodeC)
-	const edgeA = new SamplingEdge({ nodes: [nodeA.id, nodeB.id], isDirected: true })
-	const edgeB = new SamplingEdge({ nodes: [nodeC.id, nodeB.id], isDirected: true })
-	g.addEdge(edgeA)
-	g.addEdge(edgeB)
+	// g.addNode(nodeB)
+	// g.addNode(nodeC)
+	// const edgeA = new SamplingEdge({
+	// 	nodes: { source: nodeA.id, target: nodeB.id },
+	// 	isDirected: true,
+	// })
+	// const edgeB = new SamplingEdge({
+	// 	nodes: { source: nodeC.id, target: nodeB.id },
+	// 	isDirected: true,
+	// })
+	// g.addEdge(edgeA)
+	// g.addEdge(edgeB)
 
 	return g
 }
@@ -27,29 +34,35 @@ const newGraph = () => {
 const Section = () => {
 	const [graph] = useState(() => newGraph())
 
-	useMountEffect(() => {
-		setTimeout(() => {
-			const nodeD = new SamplingNode({ label: 'Delta' })
-			graph.addNode(nodeD)
-		}, 1000)
+	// useMountEffect(() => {
+	// 	setTimeout(() => {
+	// 		const nodeD = new SamplingNode({ label: 'Delta' })
+	// 		graph.addNode(nodeD)
+	// 	}, 1000)
 
-		setTimeout(() => {
-			graph.addEdge(
-				new SamplingEdge({
-					nodes: [graph.nodes[1].id, graph.nodes[3].id],
-					isDirected: true,
-				}),
-			)
+	// 	setTimeout(() => {
+	// 		graph.addEdge(
+	// 			new SamplingEdge({
+	// 				nodes: { source: graph.nodes[1].id, target: graph.nodes[3].id },
+	// 				isDirected: true,
+	// 			}),
+	// 		)
 
-			// const samples = graph.sample()
+	// 		// const samples = graph.sample()
+	// 		// console.log(
+	// 		// 	Object.entries(samples).map(([id, value]) => [graph.getNode(id).label, value[0]]),
+	// 		// )
+	// 	}, 2000)
+	// })
 
-			// console.log(
-			// 	Object.entries(samples).map(([id, value]) => [graph.getNode(id).label, value[0]]),
-			// )
-		}, 2000)
-	})
-
-	return <GraphView graph={graph} />
+	return (
+		<GraphView
+			graph={graph}
+			renderNodePanel={(node, overlayProps) => (
+				<SamplingNodePanel node={node} overlayProps={overlayProps} />
+			)}
+		/>
+	)
 }
 
 export default observer(Section)

@@ -1,7 +1,8 @@
 import { HiddenSelect, useSelect } from '@react-aria/select'
+import { Item } from '@react-stately/collections'
 import { useSelectState } from '@react-stately/select'
 import { SelectProps } from '@react-types/select'
-import { Fragment, useRef } from 'react'
+import { ComponentProps, Fragment, Key, useCallback, useRef } from 'react'
 import styled from 'styled-components'
 
 import Button from '@components/button'
@@ -13,83 +14,103 @@ import IconExpandMore from '@icons/expandMore'
 
 import useBreakpoint from '@utils/useBreakpoint'
 
-type Props = SelectProps<object> & {
+type BaseProps = SelectProps<object> & {
 	name: string
 	className?: string
 	showDialogOnMobile?: boolean
+	popoverProps?: Partial<ComponentProps<typeof Popover>>
 }
 
-const Select = ({ showDialogOnMobile = false, name, className, ...props }: Props) => {
+type Props = Omit<
+	BaseProps,
+	'children' | 'selectedKey' | 'defaultSelectedKey' | 'onSelectionChange'
+> & {
+	options: { value: Key; label: string }[]
+	value?: BaseProps['selectedKey']
+	defaultValue?: BaseProps['defaultSelectedKey']
+	onChange?: BaseProps['onSelectionChange']
+}
+
+const BaseSelect = ({
+	showDialogOnMobile = false,
+	name,
+	label,
+	popoverProps,
+	className,
+	...props
+}: BaseProps) => {
 	const ref = useRef<HTMLButtonElement>(null)
 	const state = useSelectState(props)
 	const { triggerProps, valueProps, menuProps } = useSelect(props, state, ref)
-	const buttonProps = {
-		...triggerProps,
-		'aria-labelledby': undefined,
-		'aria-label': `${props.label ? String(props.label) : ''} (Filter) – ${
-			state.selectedItem
-				? `selected ${String(state.selectedItem.rendered)}`
-				: 'none selected'
-		}`,
-	}
 
-	const isXS = useBreakpoint('xs')
-
-	const shouldRenderAsDialog = showDialogOnMobile && isXS
-
-	const renderTrigger = () => {
+	const renderTrigger = useCallback(() => {
 		const label = state.selectedItem ? state.selectedItem.rendered : 'Select an option'
 
 		return (
-			<Trigger ref={ref} {...buttonProps}>
+			<Trigger ref={ref} {...triggerProps}>
 				<span aria-hidden="true" {...valueProps}>
 					{label}
 				</span>
 				<IconExpandMore aria-hidden="true" />
 			</Trigger>
 		)
-	}
+	}, [triggerProps, valueProps, state.selectedItem])
 
-	const renderContent = () => (
-		<ListBox state={state} label={props.label} shouldFocusWrap {...menuProps} />
+	const renderContent = useCallback(
+		() => <ListBox state={state} label={label} shouldFocusWrap {...menuProps} />,
+		[label, menuProps, state],
 	)
 
-	const overlayForm = (
-		<Fragment>
-			{renderTrigger()}
-			<Popover isOpen={state.isOpen} triggerRef={ref} onClose={() => state.close()}>
-				{renderContent()}
-			</Popover>
-		</Fragment>
-	)
-
-	const dialogForm = (
-		<Dialog
-			isOpen={state.isOpen}
-			open={() => state.open()}
-			close={() => state.close()}
-			trigger={renderTrigger}
-			triggerRef={ref}
-			title={props.label as string}
-			content={renderContent()}
-			contentProps={{ compact: true, onClose: () => state.close() }}
-		/>
-	)
+	const isXS = useBreakpoint('xs')
 
 	return (
-		<Wrap className={className}>
-			<HiddenSelect state={state} triggerRef={ref} label={props.label} name={name} />
-			{shouldRenderAsDialog ? dialogForm : overlayForm}
+		<Wrap className={className} aria-label="hello">
+			<HiddenSelect state={state} triggerRef={ref} label={label} name={name} />
+			{showDialogOnMobile && isXS ? (
+				<Dialog
+					isOpen={state.isOpen}
+					open={() => state.open()}
+					close={() => state.close()}
+					trigger={renderTrigger}
+					triggerRef={ref}
+					title={label as string}
+					content={renderContent()}
+					contentProps={{ compact: true, onClose: () => state.close() }}
+				/>
+			) : (
+				<Fragment>
+					{renderTrigger()}
+					<Popover
+						isOpen={state.isOpen}
+						triggerRef={ref}
+						onClose={() => state.close()}
+						{...popoverProps}
+					>
+						{renderContent()}
+					</Popover>
+				</Fragment>
+			)}
 		</Wrap>
 	)
 }
 
+const Select = ({ options, value, defaultValue, onChange, label, ...props }: Props) => (
+	<BaseSelect
+		selectedKey={value}
+		defaultSelectedKey={defaultValue}
+		onSelectionChange={onChange}
+		aria-label={label}
+		{...props}
+	>
+		{options.map((o) => (
+			<Item key={o.value}>{o.label}</Item>
+		))}
+	</BaseSelect>
+)
+
 export default Select
 
-const Wrap = styled.div`
-	position: relative;
-	transform: translateX(-${(p) => p.theme.space[1]});
-`
+const Wrap = styled.div``
 
 const Trigger = styled(Button)`
 	display: flex;
