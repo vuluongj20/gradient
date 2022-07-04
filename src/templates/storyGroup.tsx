@@ -49,7 +49,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			? [
 					{
 						name: 'section',
-						label: 'Section',
+						'aria-label': 'Section',
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All sections', selected: true },
@@ -62,7 +62,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 			? [
 					{
 						name: 'author',
-						label: 'Author',
+						'aria-label': 'Author',
 						defaultValue: 'all',
 						options: [
 							{ value: 'all', label: 'All authors', selected: true },

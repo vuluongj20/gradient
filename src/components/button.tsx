@@ -12,12 +12,20 @@ import IconExpandMore from '@icons/expandMore'
 type Props = AriaButtonProps & {
 	children: ReactNode
 	small?: boolean
+	showBorder?: boolean
 	showExpandIcon?: boolean
 	className?: string
 }
 
 const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-	{ children, className, small = false, showExpandIcon = false, ...props }: Props,
+	{
+		children,
+		className,
+		small = false,
+		showBorder = false,
+		showExpandIcon = false,
+		...props
+	}: Props,
 	forwardedRef,
 ) => {
 	const innerRef = useRef<HTMLButtonElement>(null)
@@ -31,6 +39,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 		<Wrap
 			ref={ref}
 			small={small}
+			showBorder={showBorder}
 			showExpandIcon={showExpandIcon}
 			className={className}
 			{...mergeProps(buttonProps, hoverProps)}
@@ -44,12 +53,18 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 
 export default forwardRef(BaseButton)
 
-const Wrap = styled.button<{ small: boolean; showExpandIcon: boolean }>`
+const Wrap = styled.button<{
+	small: boolean
+	showBorder: boolean
+	showExpandIcon: boolean
+}>`
 	display: flex;
 	align-items: center;
 	position: relative;
 	border-radius: ${(p) => p.theme.radii.s};
 	padding: ${(p) =>
 		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
+
 	${(p) => p.showExpandIcon && `padding-right: ${p.theme.space[0]};`}
+	${(p) => p.showBorder && `border: solid 1px ${p.theme.line};`}
 `

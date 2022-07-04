@@ -4,13 +4,30 @@ import styled from 'styled-components'
 import { ContinuousDistribution, DiscreteDistribution } from './distributions/types'
 import SamplingNode from './node'
 
-import Select from '@components/select'
+import Select from '@components/fields/select'
 import TypeArea from '@components/typeArea'
 
 type Props = {
 	node: SamplingNode
 	overlayProps: HTMLAttributes<HTMLDivElement>
 }
+
+const distributionOptions = [
+	{
+		title: 'Continuous',
+		options: Object.entries(ContinuousDistribution).map(([name, value]) => ({
+			value,
+			label: name,
+		})),
+	},
+	{
+		title: 'Discrete',
+		options: Object.entries(DiscreteDistribution).map(([name, value]) => ({
+			value,
+			label: name,
+		})),
+	},
+]
 
 const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 	function onDistributionChange(dist) {
@@ -25,20 +42,13 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 				didtribution.
 			</NodeDesciption>
 			<Fields>
-				<Field>
-					<FieldLabel>Distribution</FieldLabel>
-					<Select
-						small
-						name="distribution"
-						label="Distribution"
-						popoverProps={{ placement: 'bottom right' }}
-						onChange={onDistributionChange}
-						options={Object.entries(ContinuousDistribution).map(([name, value]) => ({
-							value,
-							label: name,
-						}))}
-					/>
-				</Field>
+				<Select
+					small
+					rowLayout
+					label="Distribution"
+					onChange={onDistributionChange}
+					options={distributionOptions}
+				/>
 			</Fields>
 		</Wrap>
 	)
@@ -66,14 +76,3 @@ const NodeDesciption = styled.p`
 const Fields = styled.div`
 	margin-top: ${(p) => p.theme.space[2]};
 `
-
-const Field = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	:not(:last-child) {
-		border-bottom: solid 1px ${(p) => p.theme.line};
-	}
-`
-
-const FieldLabel = styled.label``

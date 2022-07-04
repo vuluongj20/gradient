@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
+import Select from '@components/fields/select'
 import Grid from '@components/grid'
-import Select from '@components/select'
 
 export type FilterProps = {
 	name: string
-	label: string
+	'aria-label': string
 	defaultValue: string
 	options: [
 		{

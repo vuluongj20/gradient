@@ -1,9 +1,4 @@
-import {
-  AriaListBoxOptions,
-  AriaOptionProps,
-  useListBox,
-  useOption,
-} from '@react-aria/listbox'
+import { AriaOptionProps, useOption } from '@react-aria/listbox'
 import { SelectState } from '@react-stately/select'
 import { Node } from '@react-types/shared'
 import { useRef } from 'react'
@@ -13,33 +8,13 @@ import StateLayer from '@components/stateLayer'
 
 import IconDone from '@icons/done'
 
-type ListBoxProps = AriaListBoxOptions<unknown> & {
-  state: SelectState<unknown>
-  small?: boolean
-}
-
-const ListBox = ({ state, small = false, ...props }: ListBoxProps) => {
-  const ref = useRef<HTMLUListElement>(null)
-  const { listBoxProps } = useListBox(props, state, ref)
-
-  return (
-    <StyledListBox ref={ref} {...listBoxProps}>
-      {[...state.collection].map((item) => (
-        <Item key={item.key} item={item} state={state} small={small} />
-      ))}
-    </StyledListBox>
-  )
-}
-
-export default ListBox
-
-type ItemProps = AriaOptionProps & {
+type Props = AriaOptionProps & {
   item: Node<unknown>
   state: SelectState<unknown>
   small: boolean
 }
 
-const Item = (props: ItemProps) => {
+const Option = (props: Props) => {
   const ref = useRef<HTMLLIElement>(null)
   const { item, state, small } = props
   const { optionProps, isSelected, isFocused, isDisabled } = useOption(
@@ -49,7 +24,7 @@ const Item = (props: ItemProps) => {
   )
 
   return (
-    <StyledItem
+    <Wrap
       {...optionProps}
       isSelected={isSelected}
       isDisabled={isDisabled}
@@ -60,27 +35,14 @@ const Item = (props: ItemProps) => {
       <CheckIndent aria-hidden="true" visible={isSelected}>
         <IconDone />
       </CheckIndent>
-      <ItemLabel>{item.rendered}</ItemLabel>
-    </StyledItem>
+      <Label>{item.rendered}</Label>
+    </Wrap>
   )
 }
 
-const StyledListBox = styled.ul`
-  padding: 0;
-  margin: 0;
-  min-width: 8rem;
-  border-radius: ${(p) => p.theme.radii.m};
-  list-style-type: none;
+export default Option
 
-  :focus {
-    outline: none;
-  }
-  :focus-visible {
-    outline: none;
-  }
-`
-
-const StyledItem = styled.li<{
+const Wrap = styled.li<{
   isSelected: boolean
   isDisabled: boolean
   small: boolean
@@ -93,7 +55,7 @@ const StyledItem = styled.li<{
     p.small
       ? `${p.theme.space[0]} ${p.theme.space[1]}`
       : `${p.theme.space[1]} ${p.theme.space[2]}`};
-  padding-left: ${(p) => (p.small ? p.theme.space[0] : p.theme.space[1])};
+  padding-left: ${(p) => p.theme.space[1]};
   border-radius: ${(p) => p.theme.radii.s};
   outline: none;
   white-space: nowrap;
@@ -119,4 +81,4 @@ const CheckIndent = styled.div<{ visible: boolean }>`
   ${(p) => p.visible && `opacity:100%;`};
 `
 
-const ItemLabel = styled.span``
+const Label = styled.span``
