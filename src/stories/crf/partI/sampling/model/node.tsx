@@ -9,7 +9,7 @@ type DistributionInstance = NormalDistribution | BinomialDistribution
 type Distribution = ContinuousDistribution | DiscreteDistribution
 
 type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
-	distribution: DistributionInstance
+	distribution?: DistributionInstance
 }
 
 class SamplingNode extends Node {

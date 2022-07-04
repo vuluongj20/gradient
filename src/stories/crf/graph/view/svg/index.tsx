@@ -1,6 +1,12 @@
-import * as d3 from 'd3'
-import { ForceLink, Simulation } from 'd3-force'
-import { Selection } from 'd3-selection'
+import {
+	ForceLink,
+	Simulation,
+	forceCenter,
+	forceLink,
+	forceManyBody,
+	forceSimulation,
+} from 'd3-force'
+import { Selection, select } from 'd3-selection'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
@@ -9,7 +15,7 @@ import styled from 'styled-components'
 import Graph from '../../model/graph'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 import {
-	drag,
+	dragCallback,
 	mapMutableEdges,
 	mapMutableNodes,
 	renderSVGEdges,
@@ -56,9 +62,12 @@ const ForceGraph = ({
 		const mutableNodes = graph.nodes.map(mapMutableNodes)
 		const mutableEdges = graph.edges.map((e, i) => mapMutableEdges(e, i, mutableNodes))
 
-		const svg = d3
-			.select(ref.current)
-			.attr('viewBox', [-width / 2, -height / 2, width, height])
+		const svg = select(ref.current).attr('viewBox', [
+			-width / 2,
+			-height / 2,
+			width,
+			height,
+		])
 		svg
 			.append('defs')
 			.append('marker')
@@ -82,9 +91,8 @@ const ForceGraph = ({
 			.call(renderSVGNodes, mutableNodes)
 
 		// Construct the forces.
-		const forceNode = d3.forceManyBody<MutableNode>().strength(-800)
-		const forceLink = d3
-			.forceLink<MutableNode, MutableEdge>(mutableEdges)
+		const forceNode = forceManyBody<MutableNode>().strength(-800)
+		const forceEdge = forceLink<MutableNode, MutableEdge>(mutableEdges)
 			.id((e) => e.id)
 			.strength(1)
 			.distance((e) => {
@@ -94,14 +102,17 @@ const ForceGraph = ({
 				return minDistance + sourceCutoff + targetCutoff
 			})
 
-		const simulation: Simulation<MutableNode, MutableEdge> = d3
-			.forceSimulation<MutableNode>(mutableNodes)
-			.force('link', forceLink)
+		const simulation: Simulation<MutableNode, MutableEdge> = forceSimulation<MutableNode>(
+			mutableNodes,
+		)
+			.force('link', forceEdge)
 			.force('charge', forceNode)
-			.force('center', d3.forceCenter().strength(0.1))
+			.force('center', forceCenter().strength(0.1))
 			.on('tick', ticked(renderedNodes, renderedEdges))
 
-		renderedNodes.selectAll<SVGTextElement, MutableNode>('g').call(drag(simulation))
+		renderedNodes
+			.selectAll<SVGTextElement, MutableNode>('g')
+			.call(dragCallback(simulation))
 
 		render.current = {
 			svg,
@@ -136,7 +147,9 @@ const ForceGraph = ({
 				const { renderedNodes, renderedEdges, simulation } = render.current
 
 				renderedNodes.call(renderSVGNodes, combinedMutableNodes)
-				renderedNodes.selectAll<SVGTextElement, MutableNode>('g').call(drag(simulation))
+				renderedNodes
+					.selectAll<SVGTextElement, MutableNode>('g')
+					.call(dragCallback(simulation))
 				renderedEdges.call(renderSVGEdges, newMutableEdges)
 
 				simulation.nodes(combinedMutableNodes)

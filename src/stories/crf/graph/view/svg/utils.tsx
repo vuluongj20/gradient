@@ -1,5 +1,4 @@
-import * as d3 from 'd3'
-import { D3DragEvent } from 'd3-drag'
+import { D3DragEvent, drag } from 'd3-drag'
 import { Simulation } from 'd3-force'
 import intersect from 'path-intersection'
 
@@ -155,7 +154,7 @@ export function ticked(renderedNodes: RenderedNodes, renderedEdges: RenderedEdge
 	}
 }
 
-export function drag(simulation: Simulation<MutableNode, MutableEdge>) {
+export function dragCallback(simulation: Simulation<MutableNode, MutableEdge>) {
 	// Debounce dragStarted, to prevent the graph from jiggling when the user clicks but
 	// doesn't drag.
 	let timeout: NodeJS.Timeout
@@ -179,8 +178,7 @@ export function drag(simulation: Simulation<MutableNode, MutableEdge>) {
 		event.subject.fy = null
 	}
 
-	return d3
-		.drag<SVGTextElement, MutableNode>()
+	return drag<SVGTextElement, MutableNode>()
 		.on('start', dragstarted)
 		.on('drag', dragged)
 		.on('end', dragended)
