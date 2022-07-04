@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import { ContinuousDistribution, DiscreteDistribution } from './distributions/types'
 import SamplingNode from './node'
 
-import Select from '@components/fields/select'
+import NumberField from '@components/fields/number'
+import SelectField from '@components/fields/select'
+import TextField from '@components/fields/text'
 import TypeArea from '@components/typeArea'
 
 type Props = {
@@ -42,13 +44,15 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 				didtribution.
 			</NodeDesciption>
 			<Fields>
-				<Select
+				<SelectField
 					small
 					rowLayout
 					label="Distribution"
 					onChange={onDistributionChange}
 					options={distributionOptions}
 				/>
+				<TextField small rowLayout placeholder="Text field…" label="Name" name="name" />
+				<NumberField small rowLayout placeholder="0" label="Name" />
 			</Fields>
 		</Wrap>
 	)

@@ -166,7 +166,7 @@ const charcoal: ColorPalette = {
 		gray6: '#686E73',
 		gray7: '#494D50',
 		gray8: 'rgba(102, 107, 112, 0.24)',
-		gray9: 'rgba(102, 107, 112, 0.12)',
+		gray9: 'rgba(102, 107, 112, 0.14)',
 		red1: 'rgba(255, 115, 82, 1)',
 		red2: 'rgba(255, 115, 82, 0.9)',
 		red3: 'rgba(255, 115, 82, 0.8)',

@@ -31,7 +31,11 @@ const Option = (props: Props) => {
       small={small}
       ref={ref}
     >
-      <StateLayer isHovered={isFocused} opacityFactor={isSelected ? 1.4 : 1} />
+      <StateLayer
+        borderRadius="s"
+        isHovered={isFocused}
+        opacityFactor={isSelected ? 1.4 : 1}
+      />
       <CheckIndent aria-hidden="true" visible={isSelected}>
         <IconDone />
       </CheckIndent>

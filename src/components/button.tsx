@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import StateLayer from '@components/stateLayer'
 
-import IconExpandMore from '@icons/expandMore'
+import IconChevronDown from '@icons/chevronDown'
 
 type Props = AriaButtonProps & {
 	children: ReactNode
@@ -41,12 +41,18 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 			small={small}
 			showBorder={showBorder}
 			showExpandIcon={showExpandIcon}
+			isExpanded={isExpanded}
 			className={className}
 			{...mergeProps(buttonProps, hoverProps)}
 		>
-			<StateLayer isPressed={isPressed} isHovered={isHovered} isExpanded={isExpanded} />
+			<StateLayer
+				borderRadius="s"
+				isPressed={isPressed}
+				isHovered={isHovered}
+				isExpanded={isExpanded}
+			/>
 			{children}
-			{showExpandIcon && <IconExpandMore aria-hidden="true" />}
+			{showExpandIcon && <IconChevronDown aria-hidden="true" />}
 		</Wrap>
 	)
 }
@@ -57,7 +63,9 @@ const Wrap = styled.button<{
 	small: boolean
 	showBorder: boolean
 	showExpandIcon: boolean
+	isExpanded: boolean
 }>`
+	--border-radius: ${(p) => p.theme.radii.s};
 	display: flex;
 	align-items: center;
 	position: relative;
@@ -66,5 +74,6 @@ const Wrap = styled.button<{
 		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
 
 	${(p) => p.showExpandIcon && `padding-right: ${p.theme.space[0]};`}
-	${(p) => p.showBorder && `border: solid 1px ${p.theme.line};`}
+	${(p) =>
+		p.showBorder && `border: solid 1px ${p.isExpanded ? p.theme.oLine : p.theme.line};`}
 `

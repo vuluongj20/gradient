@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import {
 	Dispatch,
 	Fragment,
-	HTMLAtrributes,
+	HTMLAttributes,
 	ReactNode,
 	SetStateAction,
 	useEffect,
@@ -24,7 +24,7 @@ import Popover from '@components/popover'
 type NodePanelProps<Node extends BaseNode> = {
 	node: Node
 	setSimulationPlayState: Dispatch<SetStateAction<boolean>>
-	renderNodePanel: (node: Node, overlayProps: HTMLAtrributes<HTMLDivElement>) => ReactNode
+	renderNodePanel: (node: Node, overlayProps: HTMLAttributes<HTMLDivElement>) => ReactNode
 }
 
 type Props<Node extends BaseNode> = Omit<NodePanelProps<Node>, 'node'> & {

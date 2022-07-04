@@ -94,11 +94,12 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 	},
 	focusVisible: {
 		outline: 'none',
-		boxShadow: `0 0 0 4px ${theme.focus}`,
+		boxShadow: `0 0 0 3px ${theme.focus}`,
+		borderColor: 'transparent',
 		zIndex: 1,
 	},
 	svgFocusVisible: {
-		strokeWidth: 4,
+		strokeWidth: 3,
 		stroke: theme.focus,
 		zIndex: 1,
 	},

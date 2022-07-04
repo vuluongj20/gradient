@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
+import { Theme } from '@theme'
+
 export default styled.div<{
+	borderRadius: keyof Theme['radii']
 	isHovered?: boolean
 	isPressed?: boolean
 	isExpanded?: boolean
@@ -9,9 +12,9 @@ export default styled.div<{
 	${(p) => p.theme.utils.spread};
 	z-index: 0;
 	opacity: 0;
-	border-radius: inherit;
 	background-color: currentcolor;
 	filter: saturate(10%);
+	border-radius: calc(${(p) => p.theme.radii[p.borderRadius]} - 1px);
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
 
 	${(p) =>

@@ -49,6 +49,8 @@ const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
 					}
 			`
 			: `display: inline-block;`}
+
+	padding: ${(p) => p.theme.space[1]} 0;
 `
 
 const Label = styled.label<{ rowLayout: boolean }>`

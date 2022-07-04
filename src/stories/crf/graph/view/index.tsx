@@ -1,4 +1,4 @@
-import { HTMLAtrributes, ReactNode, useRef, useState } from 'react'
+import { HTMLAttributes, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import BaseEdge from '../model/edge'
@@ -13,7 +13,7 @@ type Props<Node extends BaseNode, Edge extends BaseEdge> = {
 	graph: Graph<Node, Edge>
 	renderNodePanel?: (
 		node: Node,
-		overlayProps: HTMLAtrributes<HTMLDivElement>,
+		overlayProps: HTMLAttributes<HTMLDivElement>,
 	) => ReactNode
 }
 
