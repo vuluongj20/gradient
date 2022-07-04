@@ -7,8 +7,8 @@ import {
 	DiscreteDistribution,
 	Distribution,
 	ParameterInfo,
-} from './distributions/types'
-import SamplingNode from './node'
+} from './model/distributions/types'
+import SamplingNode from './model/node'
 
 import NumberField from '@components/fields/number'
 import SelectField from '@components/fields/select'

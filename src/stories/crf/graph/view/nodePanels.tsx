@@ -94,6 +94,7 @@ const NodePanel = observer(
 					triggerRef={svgNodeRef}
 					isOpen={state.isOpen}
 					onClose={() => state.close()}
+					placement="bottom"
 					showArrow
 				>
 					{renderNodePanel(node, overlayProps)}

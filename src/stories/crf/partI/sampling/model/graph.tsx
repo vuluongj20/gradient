@@ -1,4 +1,4 @@
-import Graph from '../../graph/model/graph'
+import Graph from '../../../graph/model/graph'
 import SamplingEdge from './edge'
 import SamplingNode from './node'
 

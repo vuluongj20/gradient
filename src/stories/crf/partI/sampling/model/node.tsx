@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx'
 
-import Node from '../../graph/model/node'
+import Node from '../../../graph/model/node'
 import BinomialDistribution from './distributions/binomial'
 import NormalDistribution from './distributions/normal'
 import { ContinuousDistribution, DiscreteDistribution } from './distributions/types'

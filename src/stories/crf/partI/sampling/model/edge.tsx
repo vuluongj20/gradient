@@ -1,6 +1,6 @@
 import { makeObservable, observable } from 'mobx'
 
-import Edge from '../../graph/model/edge'
+import Edge from '../../../graph/model/edge'
 
 type ConstructorProps = ConstructorParameters<typeof Edge>[0] & {
 	coefficient?: number
