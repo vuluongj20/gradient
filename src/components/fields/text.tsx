@@ -7,35 +7,46 @@ import Field, { FieldProps } from '@components/fields/field'
 type Props = FieldProps &
 	AriaTextFieldOptions<'input'> & {
 		small?: boolean
+		inputWidth?: string
 		className?: string
 	}
 
-const TextInput = ({ className, rowLayout, small = false, ...props }: Props) => {
-	const { label } = props
+const TextInput = ({
+	className,
+	rowLayout,
+	inputWidth,
+	small = false,
+	...props
+}: Props) => {
+	const { label, description } = props
 	const ref = useRef<HTMLInputElement>(null)
 
-	const { labelProps, inputProps } = useTextField(props, ref)
+	const { labelProps, descriptionProps, inputProps } = useTextField(props, ref)
 
 	return (
 		<Field
 			label={label}
 			labelProps={labelProps}
+			description={description}
+			descriptionProps={descriptionProps}
 			rowLayout={rowLayout}
 			small={small}
 			className={className}
 		>
-			<Input ref={ref} small={small} {...inputProps} />
+			<Input ref={ref} small={small} displayWidth={inputWidth} {...inputProps} />
 		</Field>
 	)
 }
 
 export default TextInput
 
-const Input = styled.input<{ small: boolean }>`
+const Input = styled.input<{ small: boolean; displayWidth?: string }>`
 	appearance: none;
 	background: ${(p) => p.theme.iBackground};
 	border-radius: ${(p) => p.theme.radii.s};
 	border: solid 1px ${(p) => p.theme.line};
 	padding: ${(p) =>
 		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
+
+	${(p) => p.displayWidth && `width: ${p.displayWidth}`}
 `

@@ -1,7 +1,8 @@
 export type ParameterInfo = {
 	displayName: string
 	description: string
-	validator?: (value: number) => boolean
+	minValue?: number
+	maxValue?: number
 }
 
 export enum ContinuousDistribution {
@@ -15,3 +16,5 @@ export enum DiscreteDistribution {
 	Binomial = 'binomial',
 	Bernoulli = 'bernoulli',
 }
+
+export type Distribution = ContinuousDistribution | DiscreteDistribution

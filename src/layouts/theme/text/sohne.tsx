@@ -61,6 +61,13 @@ const sohne: TextScaleDefinition = {
 		fontWeight: 500,
 		lineHeight: 1.2,
 	},
+	small: {
+		...styles,
+		fontSizes: { xl: 0.75, l: 0.75, m: 0.75, s: 0.75, xs: 0.75 },
+		fontWeight: 400,
+		lineHeight: 1.4,
+		letterSpacing: '+0.01em',
+	},
 }
 
 export default sohne

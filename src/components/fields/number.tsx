@@ -14,12 +14,19 @@ import IconChevronUp from '@icons/chevronUp'
 type Props = FieldProps &
 	AriaNumberFieldProps &
 	Omit<NumberFieldStateProps, 'locale'> & {
+		inputWidth?: string
 		small?: boolean
 		className?: string
 	}
 
-const TextInput = ({ className, rowLayout, small = false, ...props }: Props) => {
-	const { label } = props
+const TextInput = ({
+	className,
+	rowLayout,
+	inputWidth,
+	small = false,
+	...props
+}: Props) => {
+	const { label, description } = props
 	const { locale } = useLocale()
 	const inputRef = useRef<HTMLInputElement>(null)
 	const incrRef = useRef<HTMLButtonElement>(null)
@@ -28,6 +35,7 @@ const TextInput = ({ className, rowLayout, small = false, ...props }: Props) => 
 	const state = useNumberFieldState({ ...props, locale })
 	const {
 		labelProps,
+		descriptionProps,
 		groupProps,
 		inputProps,
 		incrementButtonProps,
@@ -38,12 +46,14 @@ const TextInput = ({ className, rowLayout, small = false, ...props }: Props) => 
 		<Field
 			label={label}
 			labelProps={labelProps}
+			description={description}
+			descriptionProps={descriptionProps}
 			rowLayout={rowLayout}
 			small={small}
 			className={className}
 		>
 			<Group {...groupProps}>
-				<Input ref={inputRef} small={small} {...inputProps} />
+				<Input ref={inputRef} small={small} displayWidth={inputWidth} {...inputProps} />
 				<IncDecWrap>
 					<IncDecButton ref={incrRef} {...incrementButtonProps}>
 						<IconChevronUp size="xs" />
@@ -65,34 +75,40 @@ const Group = styled.div`
 
 const IncDecWrap = styled.div`
 	position: absolute;
-	right: ${(p) => p.theme.space[0]};
+	right: 1px;
 	top: 50%;
 	transform: translateY(-50%);
 	height: calc(100% - 2px);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	border-left: solid 1px ${(p) => p.theme.oLine};
 `
 
 const IncDecButton = styled(Button)`
-	height: 40%;
+	height: 50%;
 	padding: 0;
+	background: ${(p) => p.theme.background};
+	border-radius: 0;
 	:not(:first-child) {
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
+		border-top: solid 1px ${(p) => p.theme.oLine};
 	}
-	:not(:last-child) {
-		border-bottom-width: 0;
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
+	:first-child {
+		border-top-right-radius: calc(${(p) => p.theme.radii.s} - 1px);
+	}
+	:last-child {
+		border-bottom-right-radius: calc(${(p) => p.theme.radii.s} - 1px);
 	}
 `
 
-const Input = styled.input<{ small: boolean }>`
+const Input = styled.input<{ small: boolean; displayWidth?: string }>`
 	appearance: none;
 	background: ${(p) => p.theme.iBackground};
 	border-radius: ${(p) => p.theme.radii.s};
 	border: solid 1px ${(p) => p.theme.line};
 	padding: ${(p) =>
 		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
+	padding-right: ${(p) => p.theme.space[3]};
+
+	${(p) => p.displayWidth && `width: ${p.displayWidth}`}
 `

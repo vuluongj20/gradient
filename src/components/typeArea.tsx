@@ -31,6 +31,10 @@ const TypeArea = styled.div<{ type: keyof ThemeSettings['text'] }>`
 	input {
 		${(p) => p.theme.text[p.type].body};
 	}
+
+	small {
+		${(p) => p.theme.text.system.small};
+	}
 `
 
 export default TypeArea

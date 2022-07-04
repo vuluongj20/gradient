@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
 import GraphView from '../graph/view'
@@ -65,4 +64,4 @@ const Section = () => {
 	)
 }
 
-export default observer(Section)
+export default Section

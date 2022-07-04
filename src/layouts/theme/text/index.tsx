@@ -21,7 +21,16 @@ type TextCategoryDefinition = TextCategoryStyles & {
 
 type TextCategory = CSSObject
 
-type TextCategoryName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label'
+type TextCategoryName =
+	| 'h1'
+	| 'h2'
+	| 'h3'
+	| 'h4'
+	| 'h5'
+	| 'h6'
+	| 'body'
+	| 'label'
+	| 'small'
 
 export type TextScaleDefinition = Record<TextCategoryName, TextCategoryDefinition>
 

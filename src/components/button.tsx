@@ -46,7 +46,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 			{...mergeProps(buttonProps, hoverProps)}
 		>
 			<StateLayer
-				borderRadius="s"
+				borderWidth={showBorder ? 1 : 0}
 				isPressed={isPressed}
 				isHovered={isHovered}
 				isExpanded={isExpanded}
@@ -65,7 +65,6 @@ const Wrap = styled.button<{
 	showExpandIcon: boolean
 	isExpanded: boolean
 }>`
-	--border-radius: ${(p) => p.theme.radii.s};
 	display: flex;
 	align-items: center;
 	position: relative;

@@ -1,6 +1,7 @@
 import { randomNormal } from 'd3-random'
+import { makeAutoObservable, set } from 'mobx'
 
-import { ParameterInfo } from './types'
+import { ContinuousDistribution, ParameterInfo } from './types'
 
 enum NormalParameter {
 	Mu = 'mu',
@@ -8,22 +9,27 @@ enum NormalParameter {
 }
 
 class NormalDistribution {
-	static parameters: Record<NormalParameter, ParameterInfo> = {
-		mu: { displayName: '\u03bc', description: 'Location param' },
-		sigma: { displayName: '\u03c3', description: 'Scale param' },
+	type = ContinuousDistribution.Normal
+	parameters: Record<NormalParameter, ParameterInfo> = {
+		mu: {
+			displayName: '\u03bc – mu',
+			description: "Location parameter, determines the distribution's mean.",
+		},
+		sigma: {
+			displayName: '\u03c3 – sigma',
+			description: "Scale parameter, determines the distribution's spread.",
+			minValue: 0,
+		},
 	}
-	parameterValues: Record<NormalParameter, number> = {
-		mu: 5,
-		sigma: 10,
-	}
+	parameterValues: Record<NormalParameter, number>
 
 	constructor(mu = 5, sigma = 10) {
-		this.parameterValues.mu = mu
-		this.parameterValues.sigma = sigma
+		makeAutoObservable(this)
+		this.parameterValues = { mu, sigma }
 	}
 
 	setParameterValue(name: NormalParameter, value: number) {
-		this.parameterValues[name] = value
+		set(this.parameterValues, name, value)
 	}
 
 	/**

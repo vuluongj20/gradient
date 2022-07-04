@@ -1,15 +1,15 @@
+import { action, makeObservable, observable } from 'mobx'
+
 import Node from '../../graph/model/node'
 import BinomialDistribution from './distributions/binomial'
 import NormalDistribution from './distributions/normal'
 import { ContinuousDistribution, DiscreteDistribution } from './distributions/types'
 
-// import SamplingEdge from './edge'
-
 type DistributionInstance = NormalDistribution | BinomialDistribution
 type Distribution = ContinuousDistribution | DiscreteDistribution
 
 type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
-	distribution?: DistributionInstance
+	distribution: DistributionInstance
 }
 
 class SamplingNode extends Node {
@@ -18,6 +18,7 @@ class SamplingNode extends Node {
 
 	constructor(props: ConstructorProps) {
 		super(props)
+		makeObservable(this, { distribution: observable, setDistribution: action })
 		this.distribution = props.distribution ?? new NormalDistribution()
 	}
 

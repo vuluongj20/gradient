@@ -1,12 +1,17 @@
+import { observer } from 'mobx-react-lite'
 import { HTMLAttributes } from 'react'
 import styled from 'styled-components'
 
-import { ContinuousDistribution, DiscreteDistribution } from './distributions/types'
+import {
+	ContinuousDistribution,
+	DiscreteDistribution,
+	Distribution,
+	ParameterInfo,
+} from './distributions/types'
 import SamplingNode from './node'
 
 import NumberField from '@components/fields/number'
 import SelectField from '@components/fields/select'
-import TextField from '@components/fields/text'
 import TypeArea from '@components/typeArea'
 
 type Props = {
@@ -32,9 +37,7 @@ const distributionOptions = [
 ]
 
 const SamplingNodePanel = ({ node, overlayProps }: Props) => {
-	function onDistributionChange(dist) {
-		console.log(dist)
-	}
+	const { parameters, parameterValues, type: distributionType } = node.distribution
 
 	return (
 		<Wrap type="system" {...overlayProps}>
@@ -48,20 +51,36 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 					small
 					rowLayout
 					label="Distribution"
-					onChange={onDistributionChange}
+					value={distributionType}
+					onChange={(dist) => node.setDistribution(dist as Distribution)}
 					options={distributionOptions}
 				/>
-				<TextField small rowLayout placeholder="Text field…" label="Name" name="name" />
-				<NumberField small rowLayout placeholder="0" label="Name" />
+				{(Object.entries(parameters) as [keyof typeof parameters, ParameterInfo][]).map(
+					([param, paramInfo]) => (
+						<NumberField
+							key={param}
+							small
+							rowLayout
+							value={parameterValues[param]}
+							onChange={(val) => node.distribution.setParameterValue(param, val)}
+							label={paramInfo.displayName}
+							description={paramInfo.description}
+							minValue={paramInfo.minValue}
+							maxValue={paramInfo.maxValue}
+							step={paramInfo.maxValue && paramInfo.maxValue <= 1 ? 0.1 : 1}
+							inputWidth="4rem"
+						/>
+					),
+				)}
 			</Fields>
 		</Wrap>
 	)
 }
 
-export default SamplingNodePanel
+export default observer(SamplingNodePanel)
 
 const Wrap = styled(TypeArea)`
-	width: 16rem;
+	width: 20rem;
 `
 
 const NodeLabel = styled.h2`

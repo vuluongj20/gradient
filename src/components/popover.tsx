@@ -1,5 +1,11 @@
 import { FocusScope } from '@react-aria/focus'
-import { DismissButton, useOverlay, useOverlayPosition } from '@react-aria/overlays'
+import {
+  AriaPositionProps,
+  DismissButton,
+  OverlayProps,
+  useOverlay,
+  useOverlayPosition,
+} from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
 import { CSSProperties, ReactNode, RefObject, useRef } from 'react'
@@ -10,22 +16,21 @@ import { Theme } from '@theme'
 
 import PopoverArrow from '@components/popoverArrow'
 
+import LocalThemeProvider from '@utils/localThemeProvider'
+
 type WrapProps = {
   placement: Placement | PlacementAxis
   showArrow: boolean
   arrowStyles?: CSSProperties
 }
 
-type Props = {
-  isOpen: boolean
-  onClose: () => void
-  children: ReactNode
-  triggerRef: RefObject<HTMLElement>
-  placement?: Placement
-  offset?: number
-  showArrow?: boolean
-  className?: string
-}
+type Props = OverlayProps &
+  AriaPositionProps & {
+    children: ReactNode
+    triggerRef: RefObject<HTMLElement>
+    showArrow?: boolean
+    className?: string
+  }
 
 const Popover = ({
   isOpen,
@@ -34,6 +39,7 @@ const Popover = ({
   triggerRef,
   offset = 4,
   placement = 'bottom left',
+  containerPadding = 16,
   showArrow = false,
   animationState,
   className,
@@ -58,24 +64,26 @@ const Popover = ({
     placement,
     isOpen,
     offset: showArrow ? offset + 8 : offset,
-    containerPadding: 0,
+    containerPadding,
   })
 
   return (
-    <Wrap
-      {...mergeProps(overlayProps, positionProps)}
-      placement={calculatedPlacement ?? placement}
-      showArrow={showArrow}
-      arrowStyles={arrowProps.style}
-      className={`${animationState} ${className ?? ''}`}
-      ref={ref}
-    >
-      {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
-      <FocusScope autoFocus restoreFocus>
-        {children}
-      </FocusScope>
-      <DismissButton onDismiss={onClose} />
-    </Wrap>
+    <LocalThemeProvider overlay>
+      <Wrap
+        {...mergeProps(overlayProps, positionProps)}
+        placement={calculatedPlacement ?? placement}
+        showArrow={showArrow}
+        arrowStyles={arrowProps.style}
+        className={`${animationState} ${className ?? ''}`}
+        ref={ref}
+      >
+        {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
+        <FocusScope autoFocus restoreFocus>
+          {children}
+        </FocusScope>
+        <DismissButton onDismiss={onClose} />
+      </Wrap>
+    </LocalThemeProvider>
   )
 }
 

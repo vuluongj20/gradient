@@ -1,6 +1,7 @@
 import { randomBinomial } from 'd3-random'
+import { makeAutoObservable } from 'mobx'
 
-import { ParameterInfo } from './types'
+import { DiscreteDistribution, ParameterInfo } from './types'
 
 enum BinomialParameter {
 	n = 'n',
@@ -26,26 +27,25 @@ function factorial(n: number) {
 }
 
 class BinomialDistribution {
-	static parameters: Record<BinomialParameter, ParameterInfo> = {
+	type = DiscreteDistribution.Binomial
+	parameters: Record<BinomialParameter, ParameterInfo> = {
 		n: {
-			displayName: '\u03bc',
-			description: 'Number of trials',
-			validator: (n) => n > 0,
+			displayName: 'n',
+			description: 'Number of trials.',
+			minValue: 0,
 		},
 		p: {
-			displayName: '\u03c3',
-			description: 'Probability of success in each trial',
-			validator: (p) => p >= 0 && p <= 1,
+			displayName: 'p',
+			description: 'Probability of success in each trial.',
+			minValue: 0,
+			maxValue: 1,
 		},
 	}
-	parameterValues: Record<BinomialParameter, number> = {
-		n: 5,
-		p: 10,
-	}
+	parameterValues: Record<BinomialParameter, number>
 
 	constructor(n = 10, p = 0.5) {
-		this.parameterValues.n = n
-		this.parameterValues.p = p
+		makeAutoObservable(this)
+		this.parameterValues = { n, p }
 	}
 
 	setParameterValue(name: BinomialParameter, value: number) {
