@@ -14,7 +14,8 @@ class NormalDistribution implements ContinuousDistribution {
 			displayName: '\u03c3 – sigma',
 			description:
 				"Scale parameter, corresponds to the distribution's standard deviation.",
-			minValue: 0,
+			minValue: 0.1,
+			step: 0.1,
 		},
 	}
 	parameterValues
@@ -54,7 +55,7 @@ class NormalDistribution implements ContinuousDistribution {
 	 */
 	pdf(x: number) {
 		const { mu, sigma } = this.parameterValues
-		return Math.E ** (-(((x - mu) / sigma) ** 2) / 2) / Math.sqrt(2 * Math.PI) / sigma
+		return Math.E ** (-(((x - mu) / sigma) ** 2) / 2) / (sigma * Math.sqrt(2 * Math.PI))
 	}
 
 	/**

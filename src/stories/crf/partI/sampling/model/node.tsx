@@ -1,7 +1,11 @@
 import { action, makeObservable, observable } from 'mobx'
 
 import Node from '../../../graph/model/node'
+import BernoulliDistribution from './distributions/bernoulli'
+import BetaDistribution from './distributions/beta'
 import BinomialDistribution from './distributions/binomial'
+import ExponentialDistribution from './distributions/exponential'
+import GammaDistribution from './distributions/gamma'
 import NormalDistribution from './distributions/normal'
 import {
 	ContinuousDistributionType,
@@ -28,6 +32,18 @@ class SamplingNode extends Node {
 		switch (dist) {
 			case ContinuousDistributionType.Normal:
 				this.distribution = new NormalDistribution()
+				break
+			case ContinuousDistributionType.Exponential:
+				this.distribution = new ExponentialDistribution()
+				break
+			case ContinuousDistributionType.Beta:
+				this.distribution = new BetaDistribution()
+				break
+			case ContinuousDistributionType.Gamma:
+				this.distribution = new GammaDistribution()
+				break
+			case DiscreteDistributionType.Bernoulli:
+				this.distribution = new BernoulliDistribution()
 				break
 			case DiscreteDistributionType.Binomial:
 				this.distribution = new BinomialDistribution()

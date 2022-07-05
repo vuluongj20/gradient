@@ -1,31 +1,24 @@
-import { randomBinomial } from 'd3-random'
+import { randomBernoulli } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
 import { DiscreteDistribution, DiscreteDistributionType } from './types'
 
-import { factorial } from '@utils/math'
-
-class BinomialDistribution implements DiscreteDistribution {
-	type = DiscreteDistributionType.Binomial
+class BernoulliDistribution implements DiscreteDistribution {
+	type = DiscreteDistributionType.Bernoulli
 	parameters = {
-		n: {
-			displayName: 'n',
-			description: 'Number of trials.',
-			minValue: 0,
-		},
 		p: {
 			displayName: 'p',
-			description: 'Probability of success in each trial.',
+			description: 'Probability of success.',
 			minValue: 0,
 			maxValue: 1,
-			step: 0.1,
+			step: 0.01,
 		},
 	}
 	parameterValues
 
-	constructor(n = 10, p = 0.5) {
+	constructor(p = 0.75) {
 		makeAutoObservable(this)
-		this.parameterValues = { n, p }
+		this.parameterValues = { p }
 	}
 
 	setParameterValue(name: string, value: number) {
@@ -33,23 +26,23 @@ class BinomialDistribution implements DiscreteDistribution {
 	}
 
 	get support(): [number, number] {
-		const { n } = this.parameterValues
-		return [0, n]
+		return [0, 1]
 	}
 
 	get mean() {
-		const { n, p } = this.parameterValues
-		return n * p
+		const { p } = this.parameterValues
+		return p
 	}
 
 	get mode() {
-		const { n, p } = this.parameterValues
-		return Math.floor((n + 1) * p)
+		const { p } = this.parameterValues
+		if (p <= 0.5) return 0
+		return 1
 	}
 
 	get variance() {
-		const { n, p } = this.parameterValues
-		return n * p * (1 - p)
+		const { p } = this.parameterValues
+		return p * (1 - p)
 	}
 
 	/**
@@ -58,9 +51,9 @@ class BinomialDistribution implements DiscreteDistribution {
 	 * setParameterValue().
 	 */
 	pmf(x: number) {
-		const { n, p } = this.parameterValues
-		const nPickX = factorial(n) / (factorial(x) * factorial(n - x))
-		return nPickX * p ** x * (1 - p) ** (n - x)
+		const { p } = this.parameterValues
+		if (x === 1) return p
+		return 1 - p
 	}
 
 	/**
@@ -69,7 +62,7 @@ class BinomialDistribution implements DiscreteDistribution {
 	 */
 	sample(numSamples = 1) {
 		const { p } = this.parameterValues
-		const generateSample = randomBinomial(p)
+		const generateSample = randomBernoulli(p)
 
 		const samples = []
 		for (let x = 0; x < numSamples; x++) {
@@ -79,4 +72,4 @@ class BinomialDistribution implements DiscreteDistribution {
 	}
 }
 
-export default BinomialDistribution
+export default BernoulliDistribution

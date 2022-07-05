@@ -3,6 +3,7 @@ export type ParameterInfo = {
 	description: string
 	minValue?: number
 	maxValue?: number
+	step?: number
 }
 
 export enum VariableType {
@@ -13,13 +14,13 @@ export enum VariableType {
 export enum ContinuousDistributionType {
 	Normal = 'normal',
 	Exponential = 'exponential',
-	Beta = 'beta',
 	Gamma = 'gamma',
+	Beta = 'beta',
 }
 
 export enum DiscreteDistributionType {
-	Binomial = 'binomial',
 	Bernoulli = 'bernoulli',
+	Binomial = 'binomial',
 }
 
 export type DistributionType = ContinuousDistributionType | DiscreteDistributionType

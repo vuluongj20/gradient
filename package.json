@@ -26,6 +26,7 @@
     "d3": "^7.4.4",
     "deepmerge": "^4.2.2",
     "focus-trap": "^6.9.4",
+    "gamma": "^1.0.0",
     "gatsby": "^4.16.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-gatsby-cloud": "^4.16.0",

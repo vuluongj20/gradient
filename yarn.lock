@@ -7672,6 +7672,11 @@ functions-have-names@^1.2.2:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
+gamma@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gamma/-/gamma-1.0.0.tgz#983c1c939fe23d932701585711e1d9a430cb74cb"
+  integrity sha512-bPI4QJKNe/PfuO6PZU7ckMkBk0wEe3iQWx3DadEp5ceiAkJwc8CRukwncOZ5Hk5rc6nNTbIfByZKGz7Vv+xXdw==
+
 gatsby-cli@^4.16.0:
   version "4.16.0"
   resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-4.16.0.tgz#2342b1a791831f4111bad1c4c893d24e3d8ee3d3"

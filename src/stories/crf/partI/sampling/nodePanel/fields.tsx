@@ -47,21 +47,25 @@ const NodeDistributionFields = ({ node }: Props) => {
 				options={distributionOptions}
 			/>
 			{(Object.entries(parameters) as [keyof typeof parameters, ParameterInfo][]).map(
-				([param, paramInfo]) => (
-					<NumberField
-						key={param}
-						small
-						rowLayout
-						value={parameterValues[param]}
-						onChange={(val) => node.distribution.setParameterValue(param, val)}
-						label={paramInfo.displayName}
-						description={paramInfo.description}
-						minValue={paramInfo.minValue}
-						maxValue={paramInfo.maxValue}
-						step={paramInfo.maxValue && paramInfo.maxValue <= 1 ? 0.1 : 1}
-						inputWidth="4rem"
-					/>
-				),
+				([param, paramInfo]) => {
+					const { displayName, description, minValue, maxValue, step } = paramInfo
+
+					return (
+						<NumberField
+							key={param}
+							small
+							rowLayout
+							value={parameterValues[param]}
+							onChange={(val) => node.distribution.setParameterValue(param, val)}
+							label={displayName}
+							description={description}
+							minValue={minValue}
+							maxValue={maxValue}
+							step={step ?? 1}
+							inputWidth="4rem"
+						/>
+					)
+				},
 			)}
 		</Wrap>
 	)

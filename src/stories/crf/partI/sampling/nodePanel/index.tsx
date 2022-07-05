@@ -17,8 +17,7 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 		<Wrap type="system" {...overlayProps}>
 			<NodeLabel>{node.label}</NodeLabel>
 			<NodeDesciption>
-				This is a root node. When sampled, it&apos;s value comes from a probability
-				didtribution.
+				This is a root node. Its value will be sampled from the distribution below.
 			</NodeDesciption>
 			<Viz node={node} />
 			<Fields node={node} />
@@ -38,6 +37,7 @@ const NodeLabel = styled.h2`
 	}
 	border-bottom: solid 1px ${(p) => p.theme.line};
 	padding-bottom: ${(p) => p.theme.space[0]};
+	margin-top: ${(p) => p.theme.space[0]};
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
