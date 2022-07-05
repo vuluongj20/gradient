@@ -27,7 +27,7 @@ type WrapProps = {
 type Props = OverlayProps &
   AriaPositionProps & {
     children: ReactNode
-    triggerRef: RefObject<HTMLElement>
+    triggerRef: RefObject<HTMLButtonElement>
     showArrow?: boolean
     className?: string
   }

@@ -3,17 +3,19 @@ import { action, makeObservable, observable } from 'mobx'
 import Node from '../../../graph/model/node'
 import BinomialDistribution from './distributions/binomial'
 import NormalDistribution from './distributions/normal'
-import { ContinuousDistribution, DiscreteDistribution } from './distributions/types'
-
-type DistributionInstance = NormalDistribution | BinomialDistribution
-type Distribution = ContinuousDistribution | DiscreteDistribution
+import {
+	ContinuousDistributionType,
+	DiscreteDistributionType,
+	Distribution,
+	DistributionType,
+} from './distributions/types'
 
 type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
-	distribution?: DistributionInstance
+	distribution?: Distribution
 }
 
 class SamplingNode extends Node {
-	distribution: DistributionInstance
+	distribution: Distribution
 	sampleValue?: number
 
 	constructor(props: ConstructorProps) {
@@ -22,12 +24,12 @@ class SamplingNode extends Node {
 		this.distribution = props.distribution ?? new NormalDistribution()
 	}
 
-	setDistribution(dist: Distribution) {
+	setDistribution(dist: DistributionType) {
 		switch (dist) {
-			case ContinuousDistribution.Normal:
+			case ContinuousDistributionType.Normal:
 				this.distribution = new NormalDistribution()
 				break
-			case DiscreteDistribution.Binomial:
+			case DiscreteDistributionType.Binomial:
 				this.distribution = new BinomialDistribution()
 				break
 		}

@@ -43,4 +43,5 @@ const NodeLabel = styled.h2`
 
 const NodeDesciption = styled.p`
 	color: ${(p) => p.theme.label};
+	margin-bottom: ${(p) => p.theme.space[4]};
 `

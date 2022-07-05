@@ -1,12 +1,7 @@
 import { randomBinomial } from 'd3-random'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, set } from 'mobx'
 
-import { DiscreteDistribution, ParameterInfo } from './types'
-
-enum BinomialParameter {
-	n = 'n',
-	p = 'p',
-}
+import { DiscreteDistribution, DiscreteDistributionType } from './types'
 
 const first20Factorials = [
 	1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800,
@@ -26,9 +21,9 @@ function factorial(n: number) {
 	return result
 }
 
-class BinomialDistribution {
-	type = DiscreteDistribution.Binomial
-	parameters: Record<BinomialParameter, ParameterInfo> = {
+class BinomialDistribution implements DiscreteDistribution {
+	type = DiscreteDistributionType.Binomial
+	parameters = {
 		n: {
 			displayName: 'n',
 			description: 'Number of trials.',
@@ -41,15 +36,35 @@ class BinomialDistribution {
 			maxValue: 1,
 		},
 	}
-	parameterValues: Record<BinomialParameter, number>
+	parameterValues
 
 	constructor(n = 10, p = 0.5) {
 		makeAutoObservable(this)
 		this.parameterValues = { n, p }
 	}
 
-	setParameterValue(name: BinomialParameter, value: number) {
-		this.parameterValues[name] = value
+	setParameterValue(name: string, value: number) {
+		set(this.parameterValues, name, value)
+	}
+
+	get support(): [number, number] {
+		const { n } = this.parameterValues
+		return [0, n]
+	}
+
+	get mean() {
+		const { n, p } = this.parameterValues
+		return n * p
+	}
+
+	get mode() {
+		const { n, p } = this.parameterValues
+		return Math.floor((n + 1) * p)
+	}
+
+	get variance() {
+		const { n, p } = this.parameterValues
+		return n * p * (1 - p)
 	}
 
 	/**
@@ -60,7 +75,6 @@ class BinomialDistribution {
 	pmf(x: number) {
 		const { n, p } = this.parameterValues
 		const nPickX = factorial(n) / (factorial(x) * factorial(n - x))
-		console.log(nPickX)
 		return nPickX * p ** x * (1 - p) ** (n - x)
 	}
 

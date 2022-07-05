@@ -1,35 +1,50 @@
 import { randomNormal } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ParameterInfo } from './types'
+import { ContinuousDistribution, ContinuousDistributionType } from './types'
 
-enum NormalParameter {
-	Mu = 'mu',
-	Sigma = 'sigma',
-}
-
-class NormalDistribution {
-	type = ContinuousDistribution.Normal
-	parameters: Record<NormalParameter, ParameterInfo> = {
+class NormalDistribution implements ContinuousDistribution {
+	type = ContinuousDistributionType.Normal
+	parameters = {
 		mu: {
 			displayName: '\u03bc – mu',
-			description: "Location parameter, determines the distribution's mean.",
+			description: "Location parameter, corresponds to the distribution's mean.",
 		},
 		sigma: {
 			displayName: '\u03c3 – sigma',
-			description: "Scale parameter, determines the distribution's spread.",
+			description:
+				"Scale parameter, corresponds to the distribution's standard deviation.",
 			minValue: 0,
 		},
 	}
-	parameterValues: Record<NormalParameter, number>
+	parameterValues
 
-	constructor(mu = 5, sigma = 10) {
+	constructor(mu = 0, sigma = 1) {
 		makeAutoObservable(this)
 		this.parameterValues = { mu, sigma }
 	}
 
-	setParameterValue(name: NormalParameter, value: number) {
+	setParameterValue(name: string, value: number) {
 		set(this.parameterValues, name, value)
+	}
+
+	get support(): [number, number] {
+		return [-Infinity, Infinity]
+	}
+
+	get mean() {
+		const { mu } = this.parameterValues
+		return mu
+	}
+
+	get mode() {
+		const { mu } = this.parameterValues
+		return mu
+	}
+
+	get variance() {
+		const { sigma } = this.parameterValues
+		return sigma ** 2
 	}
 
 	/**

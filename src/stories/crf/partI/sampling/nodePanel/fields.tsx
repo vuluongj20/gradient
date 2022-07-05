@@ -2,9 +2,9 @@ import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
 
 import {
-	ContinuousDistribution,
-	DiscreteDistribution,
-	Distribution,
+	ContinuousDistributionType,
+	DiscreteDistributionType,
+	DistributionType,
 	ParameterInfo,
 } from '../model/distributions/types'
 import SamplingNode from '../model/node'
@@ -19,14 +19,14 @@ type Props = {
 const distributionOptions = [
 	{
 		title: 'Continuous',
-		options: Object.entries(ContinuousDistribution).map(([name, value]) => ({
+		options: Object.entries(ContinuousDistributionType).map(([name, value]) => ({
 			value,
 			label: name,
 		})),
 	},
 	{
 		title: 'Discrete',
-		options: Object.entries(DiscreteDistribution).map(([name, value]) => ({
+		options: Object.entries(DiscreteDistributionType).map(([name, value]) => ({
 			value,
 			label: name,
 		})),
@@ -43,7 +43,7 @@ const NodeDistributionFields = ({ node }: Props) => {
 				rowLayout
 				label="Distribution"
 				value={distributionType}
-				onChange={(dist) => node.setDistribution(dist as Distribution)}
+				onChange={(dist) => node.setDistribution(dist as DistributionType)}
 				options={distributionOptions}
 			/>
 			{(Object.entries(parameters) as [keyof typeof parameters, ParameterInfo][]).map(
