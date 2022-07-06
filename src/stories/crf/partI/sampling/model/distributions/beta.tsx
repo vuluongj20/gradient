@@ -33,8 +33,8 @@ class BetaDistribution implements ContinuousDistribution {
 
 	get support(): [number, number] {
 		// The support is actually [0, 1], but at the extremities the pdf can approach
-		// Infinity, so we'll return [0.01, 0.99].
-		return [0.01, 0.99]
+		// Infinity, so we'll return [0.001, 0.999].
+		return [0.001, 0.999]
 	}
 
 	get mean() {
@@ -48,10 +48,10 @@ class BetaDistribution implements ContinuousDistribution {
 		if (alpha > 1 && beta > 1) return (alpha - 1) / (alpha + beta - 2)
 
 		// If either alpha or beta is <= 1, then the mode can be either 0 or 1, but
-		// at 0 or 1 the pdf can approach Infinity, so we'll return 0.01 or 0.99.
-		if (alpha > 1) return 0.99
-		if (beta > 1) return 0.01
-		return alpha >= beta ? 0.99 : 0.01
+		// at 0 or 1 the pdf can approach Infinity, so we'll return 0.001 or 0.999.
+		if (alpha > 1) return 0.999
+		if (beta > 1) return 0.001
+		return alpha >= beta ? 0.999 : 0.001
 	}
 
 	get variance() {

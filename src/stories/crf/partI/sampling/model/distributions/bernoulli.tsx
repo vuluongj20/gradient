@@ -16,7 +16,7 @@ class BernoulliDistribution implements DiscreteDistribution {
 	}
 	parameterValues
 
-	constructor(p = 0.75) {
+	constructor(p = 0.8) {
 		makeAutoObservable(this)
 		this.parameterValues = { p }
 	}

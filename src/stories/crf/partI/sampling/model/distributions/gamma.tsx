@@ -33,8 +33,8 @@ class GammaDistribution implements ContinuousDistribution {
 
 	get support(): [number, number] {
 		// The support is actually [0, Infinity), but at 0 the pdf can approach
-		// Infinity, so we'll return [0.01, Infinity].
-		return [0.01, Infinity]
+		// Infinity, so we'll return [0.001, Infinity].
+		return [0.001, Infinity]
 	}
 
 	get mean() {
@@ -48,8 +48,8 @@ class GammaDistribution implements ContinuousDistribution {
 		if (k >= 1) return (k - 1) * theta
 
 		// The mode is 0, but at 0 the pdf can approach Infinity, so we'll return
-		// 0.01.
-		return 0.01
+		// 0.001.
+		return 0.001
 	}
 
 	get variance() {

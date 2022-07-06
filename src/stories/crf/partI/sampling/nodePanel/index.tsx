@@ -28,7 +28,7 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 export default SamplingNodePanel
 
 const Wrap = styled(TypeArea)`
-	width: 20rem;
+	width: 18rem;
 `
 
 const NodeLabel = styled.h2`
@@ -43,5 +43,5 @@ const NodeLabel = styled.h2`
 
 const NodeDesciption = styled.p`
 	color: ${(p) => p.theme.label};
-	margin-bottom: ${(p) => p.theme.space[4]};
+	margin-bottom: ${(p) => p.theme.space[2]};
 `

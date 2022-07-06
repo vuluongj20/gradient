@@ -175,10 +175,31 @@ const NodeDistributionCurve = ({ node }: Props) => {
 		dataLine.datum(values).call(renderDataLine, { isContinuous, probabilityFn, x, y })
 	}, [distribution, x, y, probabilityFn, values])
 
-	return <Wrap ref={svgRef} />
+	return (
+		<Wrapper>
+			<Label>
+				{isContinuousDistribution(distribution)
+					? 'Probability Density'
+					: 'Probability Mass'}
+			</Label>
+			<Wrap ref={svgRef} />
+		</Wrapper>
+	)
 }
 
 export default observer(NodeDistributionCurve)
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const Label = styled.small`
+	display: block;
+	color: ${(p) => p.theme.label};
+	margin-left: auto;
+	margin-bottom: ${(p) => p.theme.space[1]};
+`
 
 const Wrap = styled.svg`
 	width: 100%;
@@ -198,7 +219,7 @@ const Wrap = styled.svg`
 			stroke: none;
 		}
 		line {
-			stroke: ${(p) => p.theme.line};
+			stroke: ${(p) => p.theme.iLine};
 		}
 		.tick:first-of-type {
 			display: none;
