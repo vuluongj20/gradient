@@ -5,7 +5,6 @@ import {
 	ContinuousDistributionType,
 	DiscreteDistributionType,
 	DistributionType,
-	ParameterInfo,
 } from '../model/distributions/types'
 import SamplingNode from '../model/node'
 
@@ -46,27 +45,24 @@ const NodeDistributionFields = ({ node }: Props) => {
 				onChange={(dist) => node.setDistribution(dist as DistributionType)}
 				options={distributionOptions}
 			/>
-			{(Object.entries(parameters) as [keyof typeof parameters, ParameterInfo][]).map(
-				([param, paramInfo]) => {
-					const { displayName, description, minValue, maxValue, step } = paramInfo
-
-					return (
-						<NumberField
-							key={param}
-							small
-							rowLayout
-							value={parameterValues[param]}
-							onChange={(val) => node.distribution.setParameterValue(param, val)}
-							label={displayName}
-							description={description}
-							minValue={minValue}
-							maxValue={maxValue}
-							step={step ?? 1}
-							inputWidth="4rem"
-						/>
-					)
-				},
-			)}
+			{Object.entries(parameters).map(([param, paramInfo]) => {
+				const { displayName, description, minValue, maxValue, step } = paramInfo
+				return (
+					<NumberField
+						key={param}
+						small
+						rowLayout
+						value={parameterValues[param]}
+						onChange={(val) => node.distribution.setParameterValue(param, val)}
+						label={displayName}
+						description={description}
+						minValue={minValue}
+						maxValue={maxValue}
+						step={step ?? 1}
+						inputWidth="4rem"
+					/>
+				)
+			})}
 		</Wrap>
 	)
 }

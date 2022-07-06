@@ -3,6 +3,7 @@ import { mergeProps } from '@react-aria/utils'
 import { Item, Section } from '@react-stately/collections'
 import { useSelectState } from '@react-stately/select'
 import { ComponentProps, Fragment, Key, useCallback, useRef } from 'react'
+import styled from 'styled-components'
 
 import Button from '@components/button'
 import Dialog from '@components/dialog'
@@ -39,7 +40,7 @@ const BaseSelect = ({
 
 	const renderTrigger = useCallback(() => {
 		return (
-			<Button
+			<StyledButton
 				ref={triggerRef}
 				small={small}
 				showBorder={isDefined(label)}
@@ -47,7 +48,7 @@ const BaseSelect = ({
 				{...mergeProps(triggerProps, valueProps)}
 			>
 				{state.selectedItem ? state.selectedItem.rendered : 'Select an option'}
-			</Button>
+			</StyledButton>
 		)
 	}, [triggerProps, small, valueProps, label, state.selectedItem])
 
@@ -140,3 +141,7 @@ const Select = ({ options, value, defaultValue, onChange, ...props }: Props) => 
 )
 
 export default Select
+
+const StyledButton = styled(Button)`
+	font-weight: 400;
+`

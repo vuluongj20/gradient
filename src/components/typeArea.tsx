@@ -3,25 +3,25 @@ import styled from 'styled-components'
 import { ThemeSettings } from '@theme'
 
 const TypeArea = styled.div<{ type: keyof ThemeSettings['text'] }>`
-	${(p) => p.theme.text[p.type].body};
+	font-family: ${(p) => p.theme.text[p.type].body.fontFamily};
 
 	h1 {
-		${(p) => p.theme.text[p.type].h1}
+		font-family: ${(p) => p.theme.text[p.type].h1.fontFamily};
 	}
 	h2 {
-		${(p) => p.theme.text[p.type].h2}
+		font-family: ${(p) => p.theme.text[p.type].h2.fontFamily};
 	}
 	h3 {
-		${(p) => p.theme.text[p.type].h3}
+		font-family: ${(p) => p.theme.text[p.type].h3.fontFamily};
 	}
 	h4 {
-		${(p) => p.theme.text[p.type].h4}
+		font-family: ${(p) => p.theme.text[p.type].h4.fontFamily};
 	}
 	h5 {
-		${(p) => p.theme.text[p.type].h5}
+		font-family: ${(p) => p.theme.text[p.type].h5.fontFamily};
 	}
 	h6 {
-		${(p) => p.theme.text[p.type].h6}
+		font-family: ${(p) => p.theme.text[p.type].h6.fontFamily};
 	}
 
 	p,
@@ -29,11 +29,11 @@ const TypeArea = styled.div<{ type: keyof ThemeSettings['text'] }>`
 	li,
 	button,
 	input {
-		${(p) => p.theme.text[p.type].body};
+		font-family: ${(p) => p.theme.text[p.type].body.fontFamily};
 	}
 
 	small {
-		${(p) => p.theme.text.system.small};
+		font-family: ${(p) => p.theme.text.system.small.fontFamily};
 	}
 `
 

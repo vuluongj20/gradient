@@ -41,7 +41,6 @@ const NodePanel = observer(
 		const triggerRef = useRef<HTMLButtonElement>(null)
 
 		const state = useOverlayTriggerState({
-			isOpen: true,
 			onOpenChange: (isOpen) => {
 				if (isOpen) {
 					setSimulationPlayState(false)

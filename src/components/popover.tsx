@@ -1,4 +1,4 @@
-import { FocusScope } from '@react-aria/focus'
+import { FocusScope, FocusScopeProps } from '@react-aria/focus'
 import {
   AriaPositionProps,
   DismissButton,
@@ -24,8 +24,9 @@ type WrapProps = {
   arrowStyles?: CSSProperties
 }
 
-type Props = OverlayProps &
-  AriaPositionProps & {
+type Props = Partial<OverlayProps> &
+  Partial<AriaPositionProps> &
+  FocusScopeProps & {
     children: ReactNode
     triggerRef: RefObject<HTMLButtonElement>
     showArrow?: boolean
@@ -40,7 +41,13 @@ const Popover = ({
   offset = 4,
   placement = 'bottom left',
   containerPadding = 16,
+  shouldCloseOnBlur = false,
+  isDismissable = true,
+  isKeyboardDismissDisabled = false,
   showArrow = false,
+  autoFocus = true,
+  restoreFocus = true,
+  contain = true,
   animationState,
   className,
 }: Props & { animationState: TransitionStatus }) => {
@@ -49,8 +56,9 @@ const Popover = ({
     {
       isOpen,
       onClose,
-      shouldCloseOnBlur: true,
-      isDismissable: true,
+      shouldCloseOnBlur,
+      isDismissable,
+      isKeyboardDismissDisabled,
     },
     ref,
   )
@@ -68,22 +76,23 @@ const Popover = ({
   })
 
   return (
-    <LocalThemeProvider overlay>
-      <Wrap
-        {...mergeProps(overlayProps, positionProps)}
-        placement={calculatedPlacement ?? placement}
-        showArrow={showArrow}
-        arrowStyles={arrowProps.style}
-        className={`${animationState} ${className ?? ''}`}
-        ref={ref}
-      >
-        {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
-        <FocusScope autoFocus restoreFocus>
+    <FocusScope autoFocus={autoFocus} restoreFocus={restoreFocus} contain={contain}>
+      <LocalThemeProvider overlay>
+        <Wrap
+          {...mergeProps(overlayProps, positionProps)}
+          placement={calculatedPlacement ?? placement}
+          showArrow={showArrow}
+          arrowStyles={arrowProps.style}
+          className={`${animationState} ${className ?? ''}`}
+          ref={ref}
+        >
+          {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
+
           {children}
-        </FocusScope>
-        <DismissButton onDismiss={onClose} />
-      </Wrap>
-    </LocalThemeProvider>
+          <DismissButton onDismiss={onClose} />
+        </Wrap>
+      </LocalThemeProvider>
+    </FocusScope>
   )
 }
 
