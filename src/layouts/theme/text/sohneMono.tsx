@@ -45,7 +45,7 @@ const sohneMono: TextScaleDefinition = {
 	},
 	h6: {
 		...styles,
-		fontSizes: { xl: 1.25, l: 1.25, m: 1.25, s: 1.25, xs: 1.25 },
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1.125 },
 		fontWeight: 500,
 		lineHeight: 1.2,
 		letterSpacing: '-0.01em',
@@ -53,19 +53,19 @@ const sohneMono: TextScaleDefinition = {
 	body: {
 		...styles,
 		fontWeight: 400,
-		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
+		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
 		lineHeight: 1.4,
 	},
 	label: {
 		...styles,
-		fontSizes: { xl: 0.8125, l: 0.8125, m: 0.8125, s: 0.75, xs: 0.75 },
+		fontSizes: { xl: 0.9375, l: 0.9375, m: 0.9375, s: 0.875, xs: 0.875 },
 		fontWeight: 400,
 		textTransform: 'uppercase',
 		lineHeight: 1.2,
 	},
 	small: {
 		...styles,
-		fontSizes: { xl: 0.75, l: 0.75, m: 0.75, s: 0.75, xs: 0.75 },
+		fontSizes: { xl: 0.8125, l: 0.8125, m: 0.8125, s: 0.75, xs: 0.75 },
 		fontWeight: 400,
 		lineHeight: 1.4,
 		letterSpacing: '+0.01em',

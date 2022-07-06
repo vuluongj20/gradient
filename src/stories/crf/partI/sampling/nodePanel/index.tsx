@@ -30,13 +30,11 @@ const Wrap = styled.div`
 `
 
 const NodeLabel = styled.h2`
-	&& {
-		${(p) => p.theme.text.system.h6};
-	}
+	${(p) => p.theme.text.system.h5};
 	border-bottom: solid 1px ${(p) => p.theme.line};
 	padding-bottom: ${(p) => p.theme.space[0]};
 	margin-top: ${(p) => p.theme.space[0]};
-	margin-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: ${(p) => p.theme.space[2]};
 `
 
 const NodeDesciption = styled.p`

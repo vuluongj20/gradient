@@ -57,6 +57,10 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
+small {
+  ${(p) => p.theme.text.system.small}; 
+  color: ${(p) => p.theme.label};
+}
 
   strong {
     color: ${(p) => p.theme.heading};

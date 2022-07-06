@@ -44,7 +44,7 @@ const sohne: TextScaleDefinition = {
 	},
 	h6: {
 		...styles,
-		fontSizes: { xl: 1.25, l: 1.25, m: 1.25, s: 1.25, xs: 1.25 },
+		fontSizes: { xl: 1.125, l: 1.125, m: 1.125, s: 1.125, xs: 1.125 },
 		fontWeight: 600,
 		lineHeight: 1.2,
 		letterSpacing: '-0.01em',
@@ -63,7 +63,7 @@ const sohne: TextScaleDefinition = {
 	},
 	small: {
 		...styles,
-		fontSizes: { xl: 0.75, l: 0.75, m: 0.75, s: 0.75, xs: 0.75 },
+		fontSizes: { xl: 0.8125, l: 0.8125, m: 0.8125, s: 0.75, xs: 0.75 },
 		fontWeight: 400,
 		lineHeight: 1.4,
 		letterSpacing: '+0.01em',
