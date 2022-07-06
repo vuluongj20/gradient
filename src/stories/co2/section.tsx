@@ -8,6 +8,7 @@ import PolarPlot from './polarPlot'
 
 import Grid from '@components/grid'
 import Spinner from '@components/spinner'
+import { Body } from '@components/text'
 
 type Props = {
   vizData: VizData
@@ -58,7 +59,7 @@ const StyledSpinner = styled(Spinner)`
   margin: ${(p) => p.theme.space[5]} auto 0;
 `
 
-const Para = styled.p`
+const Para = styled(Body)`
   grid-column: 2 / -2;
   margin-bottom: ${(p) => p.theme.space[2]};
   max-width: 40em;

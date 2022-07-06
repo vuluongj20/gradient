@@ -5,8 +5,6 @@ import SamplingNode from '../model/node'
 import Fields from './fields'
 import Viz from './viz'
 
-import TypeArea from '@components/typeArea'
-
 type Props = {
 	node: SamplingNode
 	overlayProps: HTMLAttributes<HTMLDivElement>
@@ -14,7 +12,7 @@ type Props = {
 
 const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 	return (
-		<Wrap type="system" {...overlayProps}>
+		<Wrap {...overlayProps}>
 			<NodeLabel>{node.label}</NodeLabel>
 			<NodeDesciption>
 				This is a root node. Its value will be sampled from the distribution below.
@@ -27,7 +25,7 @@ const SamplingNodePanel = ({ node, overlayProps }: Props) => {
 
 export default SamplingNodePanel
 
-const Wrap = styled(TypeArea)`
+const Wrap = styled.div`
 	width: 18rem;
 `
 

@@ -8,8 +8,7 @@ import Divider from '@components/divider'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
 import Page from '@components/page'
-import { Abstract } from '@components/text'
-import TypeArea from '@components/typeArea'
+import { Abstract, Title } from '@components/text'
 
 export type Data = {
   date: Date
@@ -106,7 +105,7 @@ const Main = () => {
 
   return (
     <Page>
-      <Wrap id="App" type="content" as="article">
+      <Wrap>
         <HeroWrap as="header">
           <HeroInnerWrap>
             <Title>Carbon&nbsp;Dioxide Trends Since&nbsp;1958</Title>
@@ -153,7 +152,7 @@ const Main = () => {
 }
 export default Main
 
-const Wrap = styled(TypeArea)`
+const Wrap = styled.article`
   --theme: ${(p) => p.theme.green1};
   --warm: ${(p) => p.theme.red1};
   --cool: ${(p) => p.theme.blue1};
@@ -177,11 +176,10 @@ const FigureWrap = styled(Grid)`
   ${(p) => p.theme.utils.space.marginBottom[5]};
 `
 
-const Title = styled.h1``
-
 const MetaWrap = styled(Grid)``
 
 const MetaColumn = styled.a`
+  ${(p) => p.theme.text.content.body};
   grid-column-end: span 6;
   &:hover {
     text-decoration: underline;

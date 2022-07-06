@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
-import { Abstract } from '@components/text'
+import { Abstract, Title } from '@components/text'
 
 const Hero = () => (
   <Wrap as="header">
     <InnerWrap>
-      <Heading>Sequence Learning with Conditional Random Fields</Heading>
+      <Title>Sequence Learning with Conditional Random Fields</Title>
       <Abstract>
         Probabilistic graphical models like Conditional Random Fields are powerful
         frameworks for solving sequence modeling problems.
@@ -24,5 +24,3 @@ const Wrap = styled(Grid)`
 const InnerWrap = styled.div`
   ${(p) => p.theme.utils.gridColumn.text};
 `
-
-const Heading = styled.h1``

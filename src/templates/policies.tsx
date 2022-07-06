@@ -6,7 +6,6 @@ import Grid from '@components/grid'
 import Page from '@components/page'
 import SEO from '@components/seo'
 import TOC from '@components/toc'
-import TypeArea from '@components/typeArea'
 
 type Props = {
   children: ReactNode
@@ -36,7 +35,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
       <SEO title={frontmatter.title} />
       <Header>
         <Grid>
-          <Wrap type="content">
+          <Wrap>
             <h1>{frontmatter.title}</h1>
             <p>
               <em>Last updated {lastEdited}</em>
@@ -48,9 +47,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
       <Divider />
       <StyledGrid>
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
-        <ContentWrap as="main" type="content">
-          {children}
-        </ContentWrap>
+        <ContentWrap as="main">{children}</ContentWrap>
       </StyledGrid>
     </Page>
   )
@@ -58,8 +55,10 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
 
 export default PlainText
 
-const Wrap = styled(TypeArea)`
+const Wrap = styled.div`
   grid-column: 1 / -5;
+
+  ${(p) => p.theme.text.content.body};
 
   h1,
   h2,
@@ -97,6 +96,16 @@ const Wrap = styled(TypeArea)`
   hr {
     ${(p) => p.theme.utils.space.marginTop[6]};
     ${(p) => p.theme.utils.space.marginBottom[5]};
+  }
+  p,
+  a,
+  li,
+  button,
+  input {
+    ${(p) => p.theme.text.content.body};
+  }
+  small {
+    ${(p) => p.theme.text.system.small};
   }
   ul,
   ol {

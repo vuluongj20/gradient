@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { VizData } from './index'
 
-import TypeArea from '@components/typeArea'
+import { Body } from '@components/text'
 
 type Props = {
 	content: VizData['vizContent']
@@ -12,9 +12,7 @@ type Props = {
 const VizContent = ({ content, isResizing }: Props) => (
 	<Wrap>
 		<VizWrap>
-			<VizSvgOuterWrap type="viz">
-				<VizSvgWrap isResizing={isResizing} className="svg-wrap" />
-			</VizSvgOuterWrap>
+			<VizSvgWrap isResizing={isResizing} className="svg-wrap" />
 		</VizWrap>
 		<VizScrollBox>
 			<VizDesText className="dummy" data-index="-1" aria-hidden="true"></VizDesText>
@@ -44,14 +42,6 @@ export const VizWrap = styled.div`
 	align-items: center;
 	position: sticky;
 	top: -1px;
-`
-
-export const VizSvgOuterWrap = styled(TypeArea)`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 `
 
 export const VizSvgWrap = styled.div<{ isResizing: boolean }>`
@@ -111,7 +101,7 @@ export const VizScrollAnchorBottom = styled.div`
 	flex-shrink: 0;
 `
 
-export const VizDesText = styled.p`
+export const VizDesText = styled(Body)`
 	display: block;
 	width: 24rem;
 	max-width: 100%;

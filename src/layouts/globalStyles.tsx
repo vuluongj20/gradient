@@ -133,6 +133,10 @@ const GlobalStyles = createGlobalStyle`
     list-style-type: none;
   }
 
+  svg {
+    ${(p) => p.theme.text.viz.body};
+  }
+
   .tl-edges {
     overflow: initial;
   }
