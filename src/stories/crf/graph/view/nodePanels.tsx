@@ -95,6 +95,7 @@ const NodePanel = observer(
 					onClose={() => state.close()}
 					placement="bottom"
 					showArrow
+					arrowSize="l"
 				>
 					{renderNodePanel(node, overlayProps)}
 				</StyledPopover>

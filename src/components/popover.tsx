@@ -8,13 +8,13 @@ import {
 } from '@react-aria/overlays'
 import { mergeProps } from '@react-aria/utils'
 import { Placement, PlacementAxis } from '@react-types/overlays'
-import { CSSProperties, ReactNode, RefObject, useRef } from 'react'
+import { CSSProperties, ComponentProps, ReactNode, RefObject, useRef } from 'react'
 import { Transition, TransitionStatus } from 'react-transition-group'
 import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
-import PopoverArrow from '@components/popoverArrow'
+import PopoverArrow, { getArrowHeight } from '@components/popoverArrow'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
 
@@ -30,6 +30,7 @@ type Props = Partial<OverlayProps> &
     children: ReactNode
     triggerRef: RefObject<HTMLButtonElement>
     showArrow?: boolean
+    arrowSize?: ComponentProps<typeof PopoverArrow>['size']
     className?: string
   }
 
@@ -45,6 +46,7 @@ const Popover = ({
   isDismissable = true,
   isKeyboardDismissDisabled = false,
   showArrow = false,
+  arrowSize = 'm',
   autoFocus = true,
   restoreFocus = true,
   contain = true,
@@ -71,7 +73,7 @@ const Popover = ({
     overlayRef: ref,
     placement,
     isOpen,
-    offset: showArrow ? offset + 8 : offset,
+    offset: showArrow ? offset + getArrowHeight(arrowSize) : offset,
     containerPadding,
   })
 
@@ -86,7 +88,13 @@ const Popover = ({
           className={`${animationState} ${className ?? ''}`}
           ref={ref}
         >
-          {showArrow && <PopoverArrow placement={calculatedPlacement} {...arrowProps} />}
+          {showArrow && (
+            <PopoverArrow
+              placement={calculatedPlacement}
+              size={arrowSize}
+              {...arrowProps}
+            />
+          )}
 
           {children}
           <DismissButton onDismiss={onClose} />

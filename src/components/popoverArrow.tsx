@@ -3,21 +3,40 @@ import { HTMLAttributes } from 'react'
 import styled from 'styled-components'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-  width?: number
-  height?: number
+  size?: 's' | 'm' | 'l'
   strokeWidth?: number
   placement: PlacementAxis
 }
 
-const Arrow = ({
-  width = 24,
-  height = 8,
-  strokeWidth = 1,
-  placement,
-  ...props
-}: Props) => {
-  const h = height
-  const w = width
+function getArrowWidth(size: Props['size']) {
+  switch (size) {
+    case 's':
+      return 16
+    case 'l':
+      return 32
+    case 'm':
+    default:
+      return 24
+  }
+}
+
+export function getArrowHeight(size: Props['size']) {
+  return Math.round(getArrowWidth(size) / 3)
+}
+
+const Arrow = ({ size = 'm', strokeWidth = 1, placement, ...props }: Props) => {
+  /**
+   * Width
+   */
+  const w = getArrowWidth(size)
+  /**
+   * Height
+   */
+  const h = getArrowHeight(size)
+
+  /**
+   * Stroke width
+   */
   const s = strokeWidth
   const arrowPath = [
     `M 0 ${h - s / 2}`,
@@ -27,12 +46,7 @@ const Arrow = ({
 
   return (
     <Wrap placement={placement} {...props}>
-      <SVG
-        overflow="visible"
-        width={width}
-        height={height}
-        viewBox={`0 0 ${width} ${height}`}
-      >
+      <SVG overflow="visible" width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
         <defs>
           <mask id="stroke-mask">
             <rect x="0" y={-strokeWidth} width="100%" height="100%" fill="white" />
@@ -43,11 +57,7 @@ const Arrow = ({
           </mask>
         </defs>
 
-        <path
-          d={`${arrowPath} V ${height} H 0 Z`}
-          mask="url(#fill-mask)"
-          className="fill"
-        />
+        <path d={`${arrowPath} V ${h} H 0 Z`} mask="url(#fill-mask)" className="fill" />
         <path d={arrowPath} mask="url(#stroke-mask)" className="stroke" />
       </SVG>
     </Wrap>
