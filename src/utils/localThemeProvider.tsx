@@ -22,12 +22,13 @@ const LocalThemeProvider = ({ children, inset, overlay }: Props): JSX.Element =>
 	} = useContext(SettingsContext)
 	const { appearance, elevation } = useTheme()
 	const localElevation = elevation + (overlay ? 1 : 0) + (inset ? -1 : 0)
+	const boundedLocalElevation = Math.min(4, Math.max(0, localElevation))
 
 	/**
 	 * Falls back to current settings if
 	 * appearance is not defined
 	 */
-	const localColorSettings = { elevation: localElevation }
+	const localColorSettings = { elevation: boundedLocalElevation }
 
 	const mergedThemeSettings = deepMerge(themeSettings, {
 		color: localColorSettings,

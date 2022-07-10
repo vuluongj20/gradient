@@ -12,7 +12,7 @@ import {
 	DiscreteDistributionType,
 	Distribution,
 	DistributionType,
-} from './distributions/types'
+} from './distributions/utils'
 
 type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
 	distribution?: Distribution

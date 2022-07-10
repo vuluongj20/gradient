@@ -59,3 +59,11 @@ export const isDiscreteDistribution = (
 	dist: ContinuousDistribution | DiscreteDistribution,
 ): dist is DiscreteDistribution =>
 	Object.values(DiscreteDistributionType).includes(dist.type as DiscreteDistributionType)
+
+export const getValueDomain = (dist: Distribution) => {
+	const { support, mean, variance } = dist
+	const std = Math.sqrt(variance)
+	const valueDomainLower = support[0] !== -Infinity ? support[0] : mean - 4 * std
+	const valueDomainUpper = support[1] !== Infinity ? support[1] : mean + 4 * std
+	return [valueDomainLower, valueDomainUpper]
+}

@@ -5,8 +5,9 @@ import {
 	ContinuousDistributionType,
 	DiscreteDistributionType,
 	DistributionType,
-} from '../model/distributions/types'
+} from '../model/distributions/utils'
 import SamplingNode from '../model/node'
+import RootNodeDistributionViz from './rootViz'
 
 import NumberField from '@components/fields/number'
 import SelectField from '@components/fields/select'
@@ -32,11 +33,15 @@ const distributionOptions = [
 	},
 ]
 
-const NodeDistributionFields = ({ node }: Props) => {
+const RootNodePanel = ({ node }: Props) => {
 	const { parameters, parameterValues, type: distributionType } = node.distribution
 
 	return (
 		<Wrap>
+			<NodeDescription>
+				This is a root node. Its value will be sampled from the distribution below.
+			</NodeDescription>
+			<RootNodeDistributionViz node={node} />
 			<SelectField
 				small
 				rowLayout
@@ -67,8 +72,11 @@ const NodeDistributionFields = ({ node }: Props) => {
 	)
 }
 
-export default observer(NodeDistributionFields)
+export default observer(RootNodePanel)
 
-const Wrap = styled.div`
-	margin-top: ${(p) => p.theme.space[2]};
+const Wrap = styled.div``
+
+const NodeDescription = styled.p`
+	color: ${(p) => p.theme.label};
+	margin-bottom: ${(p) => p.theme.space[1]};
 `

@@ -1,7 +1,7 @@
 import { randomBernoulli } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { DiscreteDistribution, DiscreteDistributionType } from './types'
+import { DiscreteDistribution, DiscreteDistributionType } from './utils'
 
 class BernoulliDistribution implements DiscreteDistribution {
 	type = DiscreteDistributionType.Bernoulli

@@ -1,7 +1,7 @@
 import { randomNormal } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './types'
+import { ContinuousDistribution, ContinuousDistributionType } from './utils'
 
 class NormalDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Normal

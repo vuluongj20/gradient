@@ -2,7 +2,7 @@ import { randomBeta } from 'd3-random'
 import gamma from 'gamma'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './types'
+import { ContinuousDistribution, ContinuousDistributionType } from './utils'
 
 class BetaDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Beta

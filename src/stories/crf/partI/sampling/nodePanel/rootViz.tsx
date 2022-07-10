@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
-import { isContinuousDistribution } from '../model/distributions/types'
+import { getValueDomain, isContinuousDistribution } from '../model/distributions/utils'
 import SamplingNode from '../model/node'
 
 import useMountEffect from '@utils/useMountEffect'
@@ -21,14 +21,6 @@ type Render = {
 	yAxis: Selection<SVGGElement, unknown, null, undefined>
 	dataLine: Selection<SVGPathElement, number[], null, undefined>
 }
-
-const width = 320
-const height = 80
-const paddingBottom = 16
-const paddingLeft = 12
-const paddingRight = 32
-const innerHeight = height - paddingBottom
-const innerWidth = width - paddingLeft - paddingRight
 
 type YAxisProps = { isContinuous: boolean; y: ScaleLinear<number, number> }
 const renderYAxis = (yAxis: Render['yAxis'], { y }: YAxisProps) => {
@@ -63,6 +55,7 @@ type DataLineProps = {
 	x: ScaleLinear<number, number>
 	y: ScaleLinear<number, number>
 }
+
 const renderDataLine = (
 	dataLine: Render['dataLine'],
 	{ isContinuous, probabilityFn, x, y }: DataLineProps,
@@ -83,7 +76,15 @@ const renderDataLine = (
 	return dataLine
 }
 
-const NodeDistributionCurve = ({ node }: Props) => {
+const width = 320
+const height = 80
+const paddingBottom = 16
+const paddingLeft = 12
+const paddingRight = 32
+const innerHeight = height - paddingBottom
+const innerWidth = width - paddingLeft - paddingRight
+
+const RootNodeDistributionViz = ({ node }: Props) => {
 	const svgRef = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 
@@ -92,26 +93,19 @@ const NodeDistributionCurve = ({ node }: Props) => {
 	const { x, y, probabilityFn, values } = useMemo(
 		() =>
 			computed(() => {
-				const { support, mean, variance } = distribution
-
-				const std = Math.sqrt(variance)
-				const valueDomainLower = support[0] !== -Infinity ? support[0] : mean - 4 * std
-				const valueDomainUpper = support[1] !== Infinity ? support[1] : mean + 4 * std
-				const valueDomain = [valueDomainLower, valueDomainUpper]
+				const valueDomain = getValueDomain(distribution)
 
 				const isContinuous = isContinuousDistribution(distribution)
 				const probabilityFn = (x: number) =>
 					isContinuous ? distribution.pdf(x) : distribution.pmf(x)
 				const probabilityDomain = [0, probabilityFn(distribution.mode)]
 
-				const valueIncrements = isContinuous
-					? (valueDomainUpper - valueDomainLower) / 100
-					: 1
+				const valueIncrements = isContinuous ? (valueDomain[1] - valueDomain[0]) / 100 : 1
 				const values = new Array(
-					isContinuous ? 100 : Math.round(valueDomainUpper - valueDomainLower + 1),
+					isContinuous ? 100 : Math.round(valueDomain[1] - valueDomain[0] + 1),
 				)
 					.fill(0)
-					.map((_, i) => valueDomainLower + i * valueIncrements)
+					.map((_, i) => valueDomain[0] + i * valueIncrements)
 
 				const x = scaleLinear().domain(valueDomain).range([0, innerWidth])
 				const y = scaleLinear()
@@ -187,11 +181,12 @@ const NodeDistributionCurve = ({ node }: Props) => {
 	)
 }
 
-export default observer(NodeDistributionCurve)
+export default observer(RootNodeDistributionViz)
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	margin: ${(p) => p.theme.space[2]} 0;
 `
 
 const Label = styled.small`
@@ -233,7 +228,7 @@ const Wrap = styled.svg`
 		stroke-linecap: round;
 
 		&.continuous {
-			stroke-opacity: 0.5;
+			stroke-opacity: 0.75;
 		}
 		&.discrete {
 			stroke-opacity: 0;

@@ -1,7 +1,7 @@
 import { randomExponential } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './types'
+import { ContinuousDistribution, ContinuousDistributionType } from './utils'
 
 class ExponentialDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Exponential

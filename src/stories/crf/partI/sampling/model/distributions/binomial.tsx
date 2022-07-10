@@ -1,7 +1,7 @@
 import { randomBinomial } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { DiscreteDistribution, DiscreteDistributionType } from './types'
+import { DiscreteDistribution, DiscreteDistributionType } from './utils'
 
 import { factorial } from '@utils/math'
 

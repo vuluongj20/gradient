@@ -2,7 +2,7 @@ import { randomGamma } from 'd3-random'
 import gamma from 'gamma'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './types'
+import { ContinuousDistribution, ContinuousDistributionType } from './utils'
 
 class GammaDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Gamma

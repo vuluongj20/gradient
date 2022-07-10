@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 
 import Edge from '../../../graph/model/edge'
 
@@ -11,8 +11,12 @@ class SamplingEdge extends Edge {
 
 	constructor(props: ConstructorProps) {
 		super(props)
-		makeObservable(this, { coefficient: observable })
+		makeObservable(this, { coefficient: observable, setCoefficient: action })
 		this.coefficient = props.coefficient ?? 2
+	}
+
+	setCoefficient(value: number) {
+		this.coefficient = value
 	}
 }
 

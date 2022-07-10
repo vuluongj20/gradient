@@ -54,5 +54,5 @@ const Wrap = styled.div`
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	height: 24rem;
+	height: 20rem;
 `
