@@ -27,7 +27,10 @@ class SamplingGraph extends Graph<SamplingNode, SamplingEdge> {
 					const weightedParentSamples = parentNodeSamples.map(
 						(sample) => sample * incomingEdge.coefficient,
 					)
-					return acc.map((value: number, i) => value + weightedParentSamples[i])
+					return acc.map(
+						(value: number, i) =>
+							value + weightedParentSamples[i] + node.errorDistribution.sample()[0],
+					)
 				}, new Array<number>(n).fill(0))
 			}
 		})

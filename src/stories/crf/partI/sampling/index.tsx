@@ -25,7 +25,7 @@ const newGraph = () => {
 		isDirected: true,
 	})
 	const edgeB = new SamplingEdge({
-		nodes: { source: nodeC.id, target: nodeB.id },
+		nodes: { source: nodeB.id, target: nodeC.id },
 		isDirected: true,
 	})
 	g.addEdge(edgeA)

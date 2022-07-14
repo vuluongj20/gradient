@@ -67,11 +67,13 @@ export default observer(PairGrid)
 const Wrap = styled.div`
 	width: 100%;
 	height: 28rem;
-	border-top: solid 1px ${(p) => p.theme.line};
+	overflow: hidden;
 	padding-top: ${(p) => p.theme.space[2]};
 `
 
 const SVG = styled.svg`
+	height: 100%;
+	width: auto;
 	${(p) => p.theme.text.viz.body};
 
 	g.axis {

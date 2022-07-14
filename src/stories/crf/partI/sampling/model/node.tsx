@@ -20,12 +20,13 @@ type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
 
 class SamplingNode extends Node {
 	distribution: Distribution
-	sampleValue?: number
+	errorDistribution: NormalDistribution
 
 	constructor(props: ConstructorProps) {
 		super(props)
 		makeObservable(this, { distribution: observable, setDistribution: action })
 		this.distribution = props.distribution ?? new NormalDistribution()
+		this.errorDistribution = new NormalDistribution()
 	}
 
 	setDistribution(dist: DistributionType) {

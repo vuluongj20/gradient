@@ -5,14 +5,17 @@ import { Selection } from 'd3-selection'
 
 import SamplingNode from '../model/node'
 
-const gridGap = 24
-const marginLeft = 60
-const marginBottom = 56
 /**
  * Inner padding for subplots, counted as distance between the origin and the
  * x-coordinate of the lowest value.
  */
 const subPlotPadding = 12
+/**
+ * Gap between subplots in the grid
+ */
+const gridGap = 24
+const marginLeft = 60
+const marginBottom = 48
 
 type SubplotSizeProps = {
 	width: number
