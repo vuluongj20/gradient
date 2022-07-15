@@ -1,12 +1,15 @@
 import { extent } from 'd3-array'
 import { select } from 'd3-selection'
-import { autorun } from 'mobx'
+import { autorun, reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import SamplingGraph from '../model/graph'
 import { renderSVG } from './utils'
+
+import Button from '@components/button'
 
 import useSize from '@utils/useSize'
 
@@ -55,9 +58,39 @@ const PairGrid = ({ graph }: Props) => {
 		[width, height, domains, graph.nodes, samples, subplotSizeProps],
 	)
 
+	const [isStale, setIsStale] = useState(false)
+	useEffect(
+		() =>
+			reaction(
+				() => [
+					...graph.nodes.map((n) => Object.entries(n.distribution.parameterValues)),
+					...graph.edges.map((e) => e.coefficient),
+				],
+				() => setIsStale(true),
+			),
+		[graph],
+	)
+	const resample = () => {
+		setSamples(graph.sample(50))
+		setIsStale(false)
+	}
+
 	return (
 		<Wrap ref={wrapRef}>
-			<SVG ref={svgRef} />
+			<CSSTransition in={!isStale} timeout={500} unmountOnExit mountOnEnter appear>
+				<SVG ref={svgRef} />
+			</CSSTransition>
+			<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter>
+				<StaleWrap>
+					<ResampleText>
+						The parameters in your graph has changed. Click the button below to draw new
+						samples.
+					</ResampleText>
+					<Button onPress={resample} showBorder>
+						Resample
+					</Button>
+				</StaleWrap>
+			</CSSTransition>
 		</Wrap>
 	)
 }
@@ -65,10 +98,38 @@ const PairGrid = ({ graph }: Props) => {
 export default observer(PairGrid)
 
 const Wrap = styled.div`
+	position: relative;
 	width: 100%;
 	height: 28rem;
 	overflow: hidden;
 	padding-top: ${(p) => p.theme.space[2]};
+`
+
+const StaleWrap = styled.div`
+	${(p) => p.theme.utils.spread}
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: ${(p) => p.theme.background};
+	will-change: opacity;
+	opacity: 0;
+
+	&.enter-active,
+	&.enter-done {
+		transition: opacity ${(p) => p.theme.animation.mediumOut};
+		opacity: 1;
+	}
+	&.exit-active {
+		transition: opacity ${(p) => p.theme.animation.mediumIn};
+		opacity: 0;
+	}
+`
+
+const ResampleText = styled.p`
+	margin-bottom: ${(p) => p.theme.space[1]};
+	max-width: 20rem;
+	text-align: center;
 `
 
 const SVG = styled.svg`
@@ -114,5 +175,46 @@ const SVG = styled.svg`
 		fill: ${(p) => p.theme.label};
 		transform-box: fill-box;
 		transform-origin: center;
+	}
+
+	/* 
+	Animations 
+	*/
+	opacity: 0;
+	transition: opacity ${(p) => p.theme.animation.mediumOut};
+	g.x-axis path.domain {
+		transform: scaleX(0);
+		transform-box: fill-box;
+		transform-origin: left;
+		transition: transform ${(p) => p.theme.animation.mediumOut},
+			opacity ${(p) => p.theme.animation.mediumOut};
+	}
+	g.y-axis path.domain {
+		transform: scaleY(0);
+		transform-box: fill-box;
+		transform-origin: bottom;
+		transition: transform ${(p) => p.theme.animation.mediumOut},
+			opacity ${(p) => p.theme.animation.mediumOut};
+	}
+
+	&.enter-active,
+	&.enter-done {
+		opacity: 1;
+		g.x-axis path.domain {
+			transform: scaleX(1);
+		}
+		g.y-axis path.domain {
+			transform: scaleY(1);
+		}
+	}
+	&.exit-active {
+		opacity: 0;
+		transition: opacity ${(p) => p.theme.animation.mediumIn};
+		g.x-axis path.domain {
+			transform: scaleX(1);
+		}
+		g.y-axis path.domain {
+			transform: scaleY(1);
+		}
 	}
 `
