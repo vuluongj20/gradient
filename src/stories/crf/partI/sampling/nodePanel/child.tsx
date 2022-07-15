@@ -18,7 +18,7 @@ const letters = ['\u03B1', '\u03B2', '\u03B3', '\u03B4', '\u03B5']
 
 const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	const nodeDescription = tl(
-		'This node has {1,one,two,#} {1,parent,parents}: $1. Its value is a {1,multiple,weighted sum} of that of its {1,parent,parents}.',
+		`${node.label}'s value depends on that of its {1,parent,parents} – $1. We assume a linear relationship betwen {1,the two,${node.label} and its parents}.`,
 		parentNodes.map((n) => n.label),
 	)
 	const valueFn = `${node.label} = ${incomingEdges
@@ -46,7 +46,6 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 				<ValueFn>{valueFn}</ValueFn>
 				<ValueFnDetails>{valueFnDetails}</ValueFnDetails>
 			</ValueFnWrap>
-			<FieldsDescription>{fieldsDescription}</FieldsDescription>
 			{incomingEdges.map((edge, i) => {
 				const { id, coefficient } = edge
 				const parentNode = parentNodes.find((n) => n.id === edge.nodes.source)
@@ -89,10 +88,8 @@ const NodeDescription = styled.p`
 
 const ValueFnWrap = styled.div`
 	margin: ${(p) => p.theme.space[2]} 0;
-	padding: ${(p) => p.theme.space[1]};
-	border-top: solid 1px ${(p) => p.theme.line};
-	border-bottom: solid 1px ${(p) => p.theme.line};
-	text-align: center;
+	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[2]};
+	border-left: solid 2px ${(p) => p.theme.line};
 `
 
 const ValueFn = styled.p`
@@ -106,8 +103,4 @@ const ValueFnDetails = styled.p`
 
 const NodeLabelSpan = styled.span`
 	${(p) => p.theme.text.viz.body};
-`
-
-const FieldsDescription = styled(NodeDescription)`
-	margin-bottom: 0;
 `
