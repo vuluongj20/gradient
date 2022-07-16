@@ -21,7 +21,7 @@ const PairGrid = ({ graph }: Props) => {
 	const wrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
 	const { width, height } = useSize(wrapRef)
-	const [samples, setSamples] = useState(() => graph.sample(50))
+	const [samples, setSamples] = useState(() => graph.sample(70))
 	const domains = useMemo(
 		() =>
 			Object.fromEntries(
@@ -71,7 +71,7 @@ const PairGrid = ({ graph }: Props) => {
 		[graph],
 	)
 	const resample = () => {
-		setSamples(graph.sample(50))
+		setSamples(graph.sample(70))
 		setIsStale(false)
 	}
 
@@ -83,7 +83,7 @@ const PairGrid = ({ graph }: Props) => {
 			<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter>
 				<StaleWrap>
 					<ResampleText>
-						The parameters in your graph has changed. Click the button below to draw new
+						Some parameters in your graph have changed. Click the button below to draw new
 						samples.
 					</ResampleText>
 					<Button onPress={resample} showBorder>
@@ -101,7 +101,6 @@ const Wrap = styled.div`
 	position: relative;
 	width: 100%;
 	height: 28rem;
-	overflow: hidden;
 	padding-top: ${(p) => p.theme.space[2]};
 `
 
@@ -168,6 +167,10 @@ const SVG = styled.svg`
 
 	g.data circle {
 		fill: ${(p) => p.theme.body};
+	}
+	g.data rect {
+		fill: ${(p) => p.theme.label};
+		fill-opacity: 0.25;
 	}
 
 	text.row-label,

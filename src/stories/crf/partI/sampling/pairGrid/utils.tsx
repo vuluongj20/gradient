@@ -1,3 +1,4 @@
+import { Bin, bin, max } from 'd3-array'
 import { axisBottom, axisLeft } from 'd3-axis'
 import { format } from 'd3-format'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
@@ -14,7 +15,7 @@ const subPlotPadding = 12
  * Gap between subplots in the grid
  */
 const gridGap = 24
-const marginLeft = 60
+const marginLeft = 48
 const marginBottom = 48
 
 type SubplotSizeProps = {
@@ -140,7 +141,7 @@ const renderColumnLabel = (
 		.attr('transform', `translate(${translateX} ${height - 12}) `)
 }
 
-const renderData = (
+const renderScatterPlot = (
 	dataSelection: Selection<SVGGElement, null, SVGSVGElement, undefined>,
 	{
 		data,
@@ -176,6 +177,56 @@ const renderData = (
 		)
 }
 
+const renderHistogram = (
+	dataSelection: Selection<SVGGElement, null, SVGSVGElement, undefined>,
+	{
+		bins,
+		xScale,
+		yScale,
+		nodeIndex,
+		...subplotSizeProps
+	}: SubplotSizeProps & {
+		xScale: ScaleLinear<number, number>
+		yScale: ScaleLinear<number, number>
+		bins: Bin<number, number>[]
+		nodeIndex: number
+		crossNodeIndex: number
+	},
+) => {
+	const { width: subplotWidth, height: subplotHeight } = getSubplotSize(subplotSizeProps)
+	const translateX = marginLeft + nodeIndex * subplotWidth + nodeIndex * gridGap
+	const translateY = nodeIndex * subplotHeight + nodeIndex * gridGap
+
+	dataSelection
+		.attr('transform', `translate(${translateX} ${translateY})`)
+		.selectAll('rect')
+		.data(bins)
+		.join(
+			(enter) =>
+				enter
+					.append('rect')
+					.attr('x', 0)
+					.attr('y', 1)
+					.attr('transform', (d) => `translate(${xScale(d.x0 ?? 0)} ${yScale(d.length)})`)
+					.attr('width', function (d) {
+						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
+					})
+					.attr('height', function (d) {
+						return subplotHeight - yScale(d.length)
+					}),
+			(update) =>
+				update
+					.attr('transform', (d) => `translate(${xScale(d.x0 ?? 0)} ${yScale(d.length)})`)
+					.attr('width', function (d) {
+						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
+					})
+					.attr('height', function (d) {
+						return subplotHeight - yScale(d.length)
+					}),
+		)
+	return
+}
+
 export const renderSVG = (
 	svg: Selection<SVGSVGElement, unknown, null, undefined>,
 	{
@@ -191,7 +242,6 @@ export const renderSVG = (
 ) => {
 	const { width, height } = subplotSizeProps
 	const { width: subplotWidth, height: subplotHeight } = getSubplotSize(subplotSizeProps)
-
 	svg.attr('viewBox', [0, 0, width, height])
 
 	nodes.forEach((node, nodeIndex) => {
@@ -259,13 +309,16 @@ export const renderSVG = (
 					})
 			}
 
+			// We'll render histogram for diagonal subplots below
+			if (nodeIndex === crossNodeIndex) return
+
 			// Data
 			const data = samples[node.id].map((x, i) => ({ x, y: samples[crossNode.id][i] }))
 			svg
 				.selectAll<SVGGElement, null>(`.data.${posClass}`)
 				.data([null])
 				.join((enter) => enter.append('g').classed(`data ${posClass}`, true))
-				.call(renderData, {
+				.call(renderScatterPlot, {
 					data,
 					nodeIndex,
 					crossNodeIndex,
@@ -274,5 +327,43 @@ export const renderSVG = (
 					...subplotSizeProps,
 				})
 		})
+	})
+
+	// Draw histograms for subplots on the diagonal line
+	const nBins = Math.max(5, Math.round(subplotWidth / 12))
+	const allBins = Object.fromEntries(
+		nodes.map((node) => {
+			const domain = domains[node.id]
+			const step = (domain[1] - domain[0]) / nBins
+			const thresholds = new Array(nBins + 1).fill(0).map((_, i) => domain[0] + i * step)
+			const bins = bin().thresholds(thresholds)(samples[node.id])
+
+			return [node.id, bins]
+		}),
+	)
+	// Normalize all histograms by using the same yScale for all of them
+	const maxHistCount =
+		max(Object.values(allBins).map((bins) => max(bins.map((b) => b.length ?? 0)) ?? 0)) ??
+		0
+	const histYScale = scaleLinear()
+		.range([subplotHeight - subPlotPadding, subPlotPadding])
+		.domain([0, maxHistCount])
+	nodes.forEach((node, nodeIndex) => {
+		const posClass = `pos-${nodeIndex}-${nodeIndex}`
+		const xScale = scaleLinear()
+			.domain(domains[node.id])
+			.range([subPlotPadding, subplotWidth - subPlotPadding])
+
+		svg
+			.selectAll<SVGGElement, null>(`.data.${posClass}`)
+			.data([null])
+			.join((enter) => enter.append('g').classed(`data ${posClass}`, true))
+			.call(renderHistogram, {
+				bins: allBins[node.id],
+				nodeIndex,
+				xScale,
+				yScale: histYScale,
+				...subplotSizeProps,
+			})
 	})
 }
