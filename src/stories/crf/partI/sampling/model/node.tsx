@@ -20,14 +20,17 @@ type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
 
 class SamplingNode extends Node {
 	distribution: Distribution
-	errorDistribution: NormalDistribution
 
 	constructor(props: ConstructorProps) {
 		super(props)
 		makeObservable(this, { distribution: observable, setDistribution: action })
 		this.distribution = props.distribution ?? new NormalDistribution()
-		this.errorDistribution = new NormalDistribution()
 	}
+
+	// removeIncomingEdge(edge: string) {
+	// 	super.removeIncomingEdge(edge)
+	// 	this.setDistribution(ContinuousDistributionType.Normal)
+	// }
 
 	setDistribution(dist: DistributionType) {
 		switch (dist) {
@@ -53,13 +56,7 @@ class SamplingNode extends Node {
 	}
 
 	sample(n = 1) {
-		const { isRoot } = this
-
-		if (isRoot) {
-			return this.distribution.sample(n)
-		} else {
-			throw 'Cannot sample non-root nodes'
-		}
+		return this.distribution.sample(n)
 	}
 }
 

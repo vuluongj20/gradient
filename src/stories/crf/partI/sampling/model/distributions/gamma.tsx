@@ -2,7 +2,11 @@ import { randomGamma } from 'd3-random'
 import gamma from 'gamma'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './utils'
+import {
+	ContinuousDistribution,
+	ContinuousDistributionType,
+	ParameterType,
+} from './utils'
 
 class GammaDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Gamma
@@ -12,12 +16,14 @@ class GammaDistribution implements ContinuousDistribution {
 			description: 'Shape parameter.',
 			minValue: 0.1,
 			step: 0.1,
+			type: ParameterType.Shape,
 		},
 		theta: {
 			displayName: '\u03b8 – theta',
 			description: 'Scale parameter.',
 			minValue: 0.1,
 			step: 0.1,
+			type: ParameterType.Scale,
 		},
 	}
 	parameterValues

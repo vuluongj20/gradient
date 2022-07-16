@@ -18,34 +18,24 @@ const letters = ['\u03B1', '\u03B2', '\u03B3', '\u03B4', '\u03B5']
 
 const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	const nodeDescription = tl(
-		`${node.label}'s value depends on that of its {1,parent,parents} – $1. We assume a linear relationship betwen {1,the two,${node.label} and its parents}.`,
+		`${node.label} is a child of $1. Its value comes from normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's,parents'} {1,value,values}.`,
 		parentNodes.map((n) => n.label),
 	)
-	const valueFn = `${node.label} = ${incomingEdges
+	const valueFn = `${node.label} = Normal(${incomingEdges
 		.map((edge, i) => {
 			const parentNode = parentNodes.find((n) => n.id === edge.nodes.source)
 			if (!parentNode) return ''
 			return `${letters[i]}\u00b7${parentNode.label}`
 		})
-		.join(' + ')} + \u03b5`
-	const valueFnDetails = tl(
-		'where $1 {1,is a,are} {1,coefficient,coefficients} and \u03b5 is an error term.',
-		letters
-			.slice(0, incomingEdges.length)
-			.map((letter) => <NodeLabelSpan key={letter}>{letter}</NodeLabelSpan>),
-	)
-	const fieldsDescription = tl(
-		'Mutable values:',
-		parentNodes.map((n) => n.label),
-	)
+		.join(' + ')}, \u03c3)`
 
 	return (
 		<Wrap>
 			<NodeDescription>{nodeDescription}</NodeDescription>
 			<ValueFnWrap>
 				<ValueFn>{valueFn}</ValueFn>
-				<ValueFnDetails>{valueFnDetails}</ValueFnDetails>
 			</ValueFnWrap>
+
 			{incomingEdges.map((edge, i) => {
 				const { id, coefficient } = edge
 				const parentNode = parentNodes.find((n) => n.id === edge.nodes.source)
@@ -58,6 +48,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 						value={coefficient}
 						onChange={(val) => edge.setCoefficient(val)}
 						label={letters[i]}
+						description={`Coefficient of ${parentNode.label}.`}
 						step={0.1}
 						inputWidth="4rem"
 					/>
@@ -66,10 +57,10 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 			<NumberField
 				small
 				rowLayout
-				value={node.errorDistribution.parameterValues.sigma}
-				onChange={(val) => node.errorDistribution.setParameterValue('sigma', val)}
-				label={'\u03b5 scale parameter'}
-				description="Scale parameter in normal distribution used to model error term."
+				value={node.distribution.parameterValues.sigma}
+				onChange={(val) => node.distribution.setParameterValue('sigma', val)}
+				label={'\u03c3'}
+				description="Scale parameter (standard deviation) for normal distribution."
 				step={0.1}
 				inputWidth="4rem"
 			/>
@@ -95,12 +86,4 @@ const ValueFnWrap = styled.div`
 const ValueFn = styled.p`
 	${(p) => p.theme.text.viz.body};
 	font-weight: 500;
-`
-
-const ValueFnDetails = styled.p`
-	color: ${(p) => p.theme.label};
-`
-
-const NodeLabelSpan = styled.span`
-	${(p) => p.theme.text.viz.body};
 `

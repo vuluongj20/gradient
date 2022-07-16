@@ -1,7 +1,11 @@
 import { randomExponential } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './utils'
+import {
+	ContinuousDistribution,
+	ContinuousDistributionType,
+	ParameterType,
+} from './utils'
 
 class ExponentialDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Exponential
@@ -12,6 +16,7 @@ class ExponentialDistribution implements ContinuousDistribution {
 				'Rate parameter, corresponds to the rate (frequency) of Poisson events.',
 			minValue: 0.01,
 			step: 0.01,
+			type: ParameterType.Scale,
 		},
 	}
 	parameterValues

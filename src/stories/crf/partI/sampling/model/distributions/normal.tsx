@@ -1,7 +1,11 @@
 import { randomNormal } from 'd3-random'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './utils'
+import {
+	ContinuousDistribution,
+	ContinuousDistributionType,
+	ParameterType,
+} from './utils'
 
 class NormalDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Normal
@@ -9,6 +13,7 @@ class NormalDistribution implements ContinuousDistribution {
 		mu: {
 			displayName: '\u03bc – mu',
 			description: "Location parameter, corresponds to the distribution's mean.",
+			type: ParameterType.Location,
 		},
 		sigma: {
 			displayName: '\u03c3 – sigma',
@@ -16,6 +21,7 @@ class NormalDistribution implements ContinuousDistribution {
 				"Scale parameter, corresponds to the distribution's standard deviation.",
 			minValue: 0.1,
 			step: 0.1,
+			type: ParameterType.Scale,
 		},
 	}
 	parameterValues

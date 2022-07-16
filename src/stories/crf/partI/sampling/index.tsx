@@ -10,8 +10,6 @@ import PairGrid from './pairGrid'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
 
-// import useMountEffect from '@utils/useMountEffect'
-
 const newGraph = () => {
 	const g = new SamplingGraph()
 	const nodeA = new SamplingNode({ label: 'Alpha' })
@@ -25,7 +23,7 @@ const newGraph = () => {
 		isDirected: true,
 	})
 	const edgeB = new SamplingEdge({
-		nodes: { source: nodeC.id, target: nodeB.id },
+		nodes: { source: nodeB.id, target: nodeC.id },
 		isDirected: true,
 	})
 	g.addEdge(edgeA)
@@ -36,28 +34,6 @@ const newGraph = () => {
 
 const Section = () => {
 	const [graph] = useState(() => newGraph())
-
-	// useMountEffect(() => {
-	// 	setTimeout(() => {
-	// console.log(graph.sample(2))
-	// const nodeD = new SamplingNode({ label: 'Delta' })
-	// graph.addNode(nodeD)
-	// }, 1000)
-
-	// setTimeout(() => {
-	// 	graph.addEdge(
-	// 		new SamplingEdge({
-	// 			nodes: { source: graph.nodes[1].id, target: graph.nodes[3].id },
-	// 			isDirected: true,
-	// 		}),
-	// 	)
-
-	// const samples = graph.sample()
-	// console.log(
-	// 	Object.entries(samples).map(([id, value]) => [graph.getNode(id).label, value[0]]),
-	// )
-	// }, 2000)
-	// })
 
 	return (
 		<Grid noPaddingOnMobile>

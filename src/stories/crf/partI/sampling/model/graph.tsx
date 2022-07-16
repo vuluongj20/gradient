@@ -1,4 +1,5 @@
 import Graph from '../../../graph/model/graph'
+import { ContinuousDistributionType } from './distributions/utils'
 import SamplingEdge from './edge'
 import SamplingNode from './node'
 
@@ -21,17 +22,20 @@ class SamplingGraph extends Graph<SamplingNode, SamplingEdge> {
 				const incomingEdges = this.getIncomingEdges(nodeId)
 				const parentNodes = this.getParentNodes(nodeId)
 
-				samples[nodeId] = incomingEdges.reduce((acc, incomingEdge, i) => {
-					const parentNode = parentNodes[i]
-					const parentNodeSamples = samples[parentNode.id]
-					const weightedParentSamples = parentNodeSamples.map(
-						(sample) => sample * incomingEdge.coefficient,
+				samples[nodeId] = new Array<number>(n).fill(0).map((_, sampleIndex) => {
+					const weightedParentSum = incomingEdges.reduce(
+						(sum, incomingEdge, edgeIndex) => {
+							const parentNode = parentNodes[edgeIndex]
+							const parentNodeSample = samples[parentNode.id][sampleIndex]
+
+							return sum + parentNodeSample * incomingEdge.coefficient
+						},
+						0,
 					)
-					return acc.map(
-						(value: number, i) =>
-							value + weightedParentSamples[i] + node.errorDistribution.sample()[0],
-					)
-				}, new Array<number>(n).fill(0))
+
+					node.distribution.setParameterValue('mu', weightedParentSum)
+					return node.sample()[0]
+				})
 			}
 		})
 

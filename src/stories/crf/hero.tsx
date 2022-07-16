@@ -6,7 +6,7 @@ import { Abstract, Title } from '@components/text'
 const Hero = () => (
   <Wrap as="header">
     <InnerWrap>
-      <Title>Sequence Learning with Conditional Random Fields</Title>
+      <Title>Relational Learning with Conditional Random Fields</Title>
       <Abstract>
         Probabilistic graphical models like Conditional Random Fields are powerful
         frameworks for solving sequence modeling problems.

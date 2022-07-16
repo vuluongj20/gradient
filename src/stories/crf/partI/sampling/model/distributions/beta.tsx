@@ -2,7 +2,11 @@ import { randomBeta } from 'd3-random'
 import gamma from 'gamma'
 import { makeAutoObservable, set } from 'mobx'
 
-import { ContinuousDistribution, ContinuousDistributionType } from './utils'
+import {
+	ContinuousDistribution,
+	ContinuousDistributionType,
+	ParameterType,
+} from './utils'
 
 class BetaDistribution implements ContinuousDistribution {
 	type = ContinuousDistributionType.Beta
@@ -12,12 +16,14 @@ class BetaDistribution implements ContinuousDistribution {
 			description: 'Shape parameter.',
 			minValue: 0.1,
 			step: 0.1,
+			type: ParameterType.Shape,
 		},
 		beta: {
 			displayName: '\u03b2 – beta',
 			description: 'Shape parameter.',
 			minValue: 0.1,
 			step: 0.1,
+			type: ParameterType.Shape,
 		},
 	}
 	parameterValues

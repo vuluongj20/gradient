@@ -1,11 +1,3 @@
-export type ParameterInfo = {
-	displayName: string
-	description: string
-	minValue?: number
-	maxValue?: number
-	step?: number
-}
-
 export enum VariableType {
 	Continuous = 'continuous',
 	Discrete = 'discrete',
@@ -24,6 +16,21 @@ export enum DiscreteDistributionType {
 }
 
 export type DistributionType = ContinuousDistributionType | DiscreteDistributionType
+
+export enum ParameterType {
+	Shape = 'shape',
+	Location = 'location',
+	Scale = 'scale',
+}
+
+export type ParameterInfo = {
+	displayName: string
+	description: string
+	minValue?: number
+	maxValue?: number
+	step?: number
+	type?: ParameterType
+}
 
 type BaseDistribution = {
 	parameters: Record<string, ParameterInfo>
