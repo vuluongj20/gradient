@@ -3,6 +3,7 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import { format } from 'd3-format'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
 import { Selection } from 'd3-selection'
+import { runInAction } from 'mobx'
 
 import SamplingNode from '../model/node'
 
@@ -28,6 +29,42 @@ const getSubplotSize = ({ width, height, numNodes }: SubplotSizeProps) => ({
 	width: (width - marginLeft - (numNodes - 1) * gridGap) / numNodes,
 	height: (height - marginBottom - (numNodes - 1) * gridGap) / numNodes,
 })
+
+const renderBackground = (
+	backgroundSelection: Selection<SVGRectElement, null, SVGGElement, null>,
+	{
+		nodeIndex,
+		crossNodeIndex,
+		...subplotSizeProps
+	}: SubplotSizeProps & {
+		svg: Selection<SVGSVGElement, null, SVGGElement, null>
+		nodeIndex: number
+		crossNodeIndex: number
+	},
+) => {
+	const isFirstColumn = nodeIndex === 0
+	const isFirstRow = crossNodeIndex === 0
+	const { width: subplotWidth, height: subplotHeight } = getSubplotSize(subplotSizeProps)
+	const translateX =
+		(isFirstColumn ? 0 : marginLeft) +
+		nodeIndex * subplotWidth +
+		nodeIndex * gridGap -
+		(isFirstColumn ? 0 : gridGap / 2)
+	const translateY =
+		crossNodeIndex * subplotHeight +
+		crossNodeIndex * gridGap -
+		(isFirstRow ? 0 : gridGap / 2)
+	const width =
+		subplotWidth +
+		(isFirstColumn ? marginLeft : 0) +
+		(isFirstColumn ? gridGap / 2 : gridGap)
+	const height = subplotHeight + subPlotPadding + (isFirstRow ? gridGap / 2 : gridGap)
+
+	return backgroundSelection
+		.attr('transform', `translate(${translateX} ${translateY})`)
+		.attr('width', width)
+		.attr('height', height)
+}
 
 const renderXAxis = (
 	axisSelection: Selection<SVGGElement, null, SVGGElement, null>,
@@ -100,7 +137,7 @@ const renderYAxis = (
 }
 
 const renderRowLabel = (
-	labelSelection: Selection<SVGTextElement, null, SVGGElement, null>,
+	labelSelection: Selection<SVGGElement, null, SVGGElement, null>,
 	{
 		label,
 		crossNodeIndex,
@@ -115,8 +152,20 @@ const renderRowLabel = (
 		crossNodeIndex * subplotHeight + crossNodeIndex * gridGap + subplotHeight / 2
 
 	return labelSelection
-		.text(label)
-		.attr('transform', `translate(${-subPlotPadding} ${translateY}) rotate(-90)`)
+		.attr('transform', `translate(${subPlotPadding} ${translateY}) rotate(-90)`)
+		.selectAll<SVGTextElement, null>('text')
+		.data([null])
+		.join((enter) => {
+			const textEl = enter.append('text').attr('text-anchor', 'middle').text(label)
+			const textElWidth = Math.ceil(textEl.node()?.getBoundingClientRect().height ?? 0)
+
+			enter
+				.append('path')
+				.classed('underline', true)
+				.attr('d', `M${-textElWidth / 2} 2 h${textElWidth}`)
+
+			return enter
+		})
 }
 
 const renderColumnLabel = (
@@ -136,9 +185,20 @@ const renderColumnLabel = (
 		marginLeft + nodeIndex * subPlotWidth + nodeIndex * gridGap + subPlotWidth / 2
 
 	return labelSelection
-		.text(label)
-		.attr('text-anchor', 'middle')
 		.attr('transform', `translate(${translateX} ${height - 12}) `)
+		.selectAll<SVGTextElement, null>('text')
+		.data([null])
+		.join((enter) => {
+			const textEl = enter.append('text').attr('text-anchor', 'middle').text(label)
+			const textElWidth = Math.ceil(textEl.node()?.getBoundingClientRect().width ?? 0)
+
+			enter
+				.append('path')
+				.classed('underline', true)
+				.attr('d', `M${-textElWidth / 2} 2 h${textElWidth}`)
+
+			return enter
+		})
 }
 
 const renderScatterPlot = (
@@ -206,7 +266,7 @@ const renderHistogram = (
 				enter
 					.append('rect')
 					.attr('x', (d) => xScale(d.x0 ?? 0))
-					.attr('y', (d) => yScale(d.length) + 1)
+					.attr('y', (d) => yScale(d.length) - 1)
 					.attr('width', function (d) {
 						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
 					})
@@ -260,6 +320,44 @@ export const renderSVG = (
 				.join((enter) =>
 					enter.append('g').classed(`subplot-${nodeIndex}-${crossNodeIndex}`, true),
 				)
+				.on('mouseenter', function () {
+					runInAction(() => {
+						node.isHighlighted = true
+						crossNode.isHighlighted = true
+					})
+
+					svg
+						.select(`.subplot-0-${crossNodeIndex} .row-label`)
+						.classed('highlighted', true)
+					svg
+						.select(`.subplot-${nodeIndex}-${nodes.length - 1} .column-label`)
+						.classed('highlighted', true)
+				})
+				.on('mouseleave', function () {
+					runInAction(() => {
+						node.isHighlighted = false
+						crossNode.isHighlighted = false
+					})
+
+					svg
+						.select(`.subplot-0-${crossNodeIndex} .row-label`)
+						.classed('highlighted', false)
+					svg
+						.select(`.subplot-${nodeIndex}-${nodes.length - 1} .column-label`)
+						.classed('highlighted', false)
+				})
+
+			// Subplot background, used to supplement subplot's hoverable area.
+			subplot
+				.selectAll<SVGRectElement, null>('.subplot-hover-background')
+				.data([null])
+				.join((enter) => enter.append('rect').classed('subplot-hover-background', true))
+				.call(renderBackground, {
+					svg,
+					nodeIndex,
+					crossNodeIndex,
+					...subplotSizeProps,
+				})
 
 			// X-axes
 			subplot
@@ -288,9 +386,9 @@ export const renderSVG = (
 			// Row labels
 			if (nodeIndex === 0) {
 				subplot
-					.selectAll<SVGTextElement, null>('.row-label')
+					.selectAll<SVGGElement, null>('.row-label')
 					.data([null])
-					.join((enter) => enter.append('text').classed('row-label', true))
+					.join((enter) => enter.append('g').classed('row-label', true))
 					.call(renderRowLabel, {
 						label: crossNode.label,
 						crossNodeIndex,
@@ -301,9 +399,9 @@ export const renderSVG = (
 			// Column labels
 			if (crossNodeIndex === nodes.length - 1) {
 				subplot
-					.selectAll<SVGTextElement, null>('.column-label')
+					.selectAll<SVGGElement, null>('.column-label')
 					.data([null])
-					.join((enter) => enter.append('text').classed('column-label', true))
+					.join((enter) => enter.append('g').classed('column-label', true))
 					.call(renderColumnLabel, {
 						label: node.label,
 						nodeIndex,
@@ -311,23 +409,22 @@ export const renderSVG = (
 					})
 			}
 
-			// We'll render histogram for diagonal subplots below
-			if (nodeIndex === crossNodeIndex) return
-
-			// Draw scatter plots
-			const data = samples[node.id].map((x, i) => ({ x, y: samples[crossNode.id][i] }))
-			subplot
-				.selectAll<SVGGElement, null>('.data')
-				.data([null])
-				.join((enter) => enter.append('g').classed('data', true))
-				.call(renderScatterPlot, {
-					data,
-					nodeIndex,
-					crossNodeIndex,
-					xScale,
-					yScale,
-					...subplotSizeProps,
-				})
+			// Draw scatter plots. We'll draw histograms for diagonal subplots below
+			if (nodeIndex !== crossNodeIndex) {
+				const data = samples[node.id].map((x, i) => ({ x, y: samples[crossNode.id][i] }))
+				subplot
+					.selectAll<SVGGElement, null>('.data')
+					.data([null])
+					.join((enter) => enter.append('g').classed('data', true))
+					.call(renderScatterPlot, {
+						data,
+						nodeIndex,
+						crossNodeIndex,
+						xScale,
+						yScale,
+						...subplotSizeProps,
+					})
+			}
 		})
 	})
 

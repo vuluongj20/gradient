@@ -164,6 +164,25 @@ const ForceGraph = ({
 	)
 
 	//
+	// Update graph when nodes or edges have been updated
+	//
+	useEffect(
+		() =>
+			autorun(() => {
+				const highlightedNodes = new Set(
+					graph.nodes.filter((n) => n.isHighlighted).map((n) => n.id),
+				)
+
+				if (!render.current) return
+				const { renderedNodes } = render.current
+				renderedNodes
+					.selectAll('g.node-wrap')
+					.classed('highlighted', (n) => highlightedNodes.has((n as MutableNode).id))
+			}),
+		[graph.nodes],
+	)
+
+	//
 	// Update SVG dimensions when width or height changes
 	//
 	useEffect(() => {
@@ -204,22 +223,26 @@ const SVG = styled.svg`
 	g.nodes {
 		fill: currentcolor;
 	}
-	rect.node-box {
-		stroke: ${(p) => p.theme.bar};
-		stroke-opacity: 0;
-		fill: currentcolor;
-		fill-opacity: 0;
-		cursor: pointer;
-		transition: ${(p) => p.theme.animation.fastOut};
-		&:hover {
-			stroke-opacity: 0.5;
-			fill-opacity: 0.05;
+	g.node-wrap {
+		rect.node-box {
+			stroke: ${(p) => p.theme.bar};
+			stroke-opacity: 0;
+			stroke-linecap: round;
+
+			fill: currentcolor;
+			fill-opacity: 0;
+
+			cursor: pointer;
+			transition: ${(p) => p.theme.animation.fastOut};
+			&:hover {
+				stroke-opacity: 0.5;
+				fill-opacity: 0.05;
+			}
 		}
-		& + text {
+		text {
 			pointer-events: none;
 		}
-	}
-	g.node-wrap {
+
 		&.pressed > rect.node-box {
 			stroke-opacity: 1;
 			fill-opacity: 0.1;
@@ -227,6 +250,10 @@ const SVG = styled.svg`
 		&.focused > rect.node-box {
 			stroke-opacity: 1;
 			${(p) => p.theme.utils.svgFocusVisible};
+		}
+		&.highlighted > rect.node-box {
+			stroke-dasharray: 4 3;
+			stroke-opacity: 1;
 		}
 	}
 

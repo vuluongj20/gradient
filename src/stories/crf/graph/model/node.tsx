@@ -18,6 +18,7 @@ class Node {
 		outgoing: string[]
 		undirected: string[]
 	}
+	isHighlighted: boolean
 
 	constructor(props: Props) {
 		makeObservable(this, {
@@ -28,9 +29,11 @@ class Node {
 			addOutgoingEdge: action,
 			addUndirectedEdge: observable,
 			isRoot: computed,
+			isHighlighted: observable,
 		})
 		this.label = props?.label ?? ''
 		this.edges = { incoming: [], outgoing: [], undirected: [] }
+		this.isHighlighted = false
 	}
 
 	addIncomingEdge(edge: string) {

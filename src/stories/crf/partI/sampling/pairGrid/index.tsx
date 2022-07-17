@@ -136,6 +136,9 @@ const SVG = styled.svg`
 	width: auto;
 	${(p) => p.theme.text.viz.body};
 
+	/*
+	Axes
+	*/
 	g.axis {
 		path.domain {
 			stroke: ${(p) => p.theme.label};
@@ -165,6 +168,16 @@ const SVG = styled.svg`
 		}
 	}
 
+	/*
+	Background
+	*/
+	rect.subplot-hover-background {
+		fill-opacity: 0;
+	}
+
+	/*
+	Data plots
+	*/
 	g.data circle {
 		fill: ${(p) => p.theme.body};
 	}
@@ -173,11 +186,26 @@ const SVG = styled.svg`
 		fill-opacity: 0.25;
 	}
 
-	text.row-label,
-	text.column-label {
-		fill: ${(p) => p.theme.label};
-		transform-box: fill-box;
-		transform-origin: center;
+	g.row-label,
+	g.column-label {
+		text {
+			fill: ${(p) => p.theme.label};
+			transition: fill ${(p) => p.theme.animation.fastOut};
+		}
+		&.highlighted text {
+			fill: currentcolor;
+		}
+
+		path.underline {
+			stroke: ${(p) => p.theme.bar};
+			stroke-opacity: 0;
+			stroke-dasharray: 4 3;
+			stroke-linecap: round;
+			transition: stroke-opacity ${(p) => p.theme.animation.fastOut};
+		}
+		&.highlighted path.underline {
+			stroke-opacity: 1;
+		}
 	}
 
 	/* 
