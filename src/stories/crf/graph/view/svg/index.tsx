@@ -5,6 +5,8 @@ import {
 	forceLink,
 	forceManyBody,
 	forceSimulation,
+	forceX,
+	forceY,
 } from 'd3-force'
 import { Selection, select } from 'd3-selection'
 import { autorun } from 'mobx'
@@ -108,6 +110,18 @@ const ForceGraph = ({
 			.force('link', forceEdge)
 			.force('charge', forceNode)
 			.force('center', forceCenter().strength(0.1))
+			.force(
+				'y',
+				forceY<MutableNode>((n) => n.forceY ?? 0).strength((n) =>
+					isDefined(n.forceY) ? 1 : 0,
+				),
+			)
+			.force(
+				'x',
+				forceX<MutableNode>((n) => n.forceX ?? 0).strength((n) =>
+					isDefined(n.forceY) ? 1 : 0,
+				),
+			)
 			.on('tick', ticked(renderedNodes, renderedEdges))
 
 		renderedNodes
@@ -131,7 +145,10 @@ const ForceGraph = ({
 	useEffect(
 		() =>
 			autorun(() => {
-				const newMutableNodes = graph.nodes.map(mapMutableNodes)
+				const newMutableNodes = graph.nodes
+					.map(mapMutableNodes)
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					.map(({ x, y, ...node }) => node)
 				const oldMutableNodesMap = new Map(
 					(render.current?.mutableNodes ?? newMutableNodes).map((d) => [d.id, d]),
 				)
@@ -156,6 +173,7 @@ const ForceGraph = ({
 				simulation
 					.force<ForceLink<MutableNode, MutableEdge>>('link')
 					?.links(newMutableEdges)
+				simulation.alpha(0.1).restart()
 
 				render.current.mutableNodes = combinedMutableNodes
 				render.current.mutableEdges = newMutableEdges
@@ -164,7 +182,7 @@ const ForceGraph = ({
 	)
 
 	//
-	// Update graph when nodes or edges have been updated
+	// Update graph when list of highlighted nodes has been updated
 	//
 	useEffect(
 		() =>
@@ -253,6 +271,7 @@ const SVG = styled.svg`
 		}
 		&.highlighted > rect.node-box {
 			stroke-dasharray: 4 3;
+			stroke-dashoffset: -4;
 			stroke-opacity: 1;
 		}
 	}

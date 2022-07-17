@@ -7,6 +7,8 @@ export type MutableNode = {
 	id: Node['id']
 	label: Node['label']
 	index: number
+	forceX?: number
+	forceY?: number
 	x?: number
 	y?: number
 	vx?: number

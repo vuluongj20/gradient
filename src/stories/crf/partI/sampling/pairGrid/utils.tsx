@@ -3,7 +3,6 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import { format } from 'd3-format'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
 import { Selection } from 'd3-selection'
-import { runInAction } from 'mobx'
 
 import SamplingNode from '../model/node'
 
@@ -321,10 +320,8 @@ export const renderSVG = (
 					enter.append('g').classed(`subplot-${nodeIndex}-${crossNodeIndex}`, true),
 				)
 				.on('mouseenter', function () {
-					runInAction(() => {
-						node.isHighlighted = true
-						crossNode.isHighlighted = true
-					})
+					node.setIsHighlighted(true)
+					crossNode.setIsHighlighted(true)
 
 					svg
 						.select(`.subplot-0-${crossNodeIndex} .row-label`)
@@ -334,10 +331,8 @@ export const renderSVG = (
 						.classed('highlighted', true)
 				})
 				.on('mouseleave', function () {
-					runInAction(() => {
-						node.isHighlighted = false
-						crossNode.isHighlighted = false
-					})
+					node.setIsHighlighted(false)
+					crossNode.setIsHighlighted(false)
 
 					svg
 						.select(`.subplot-0-${crossNodeIndex} .row-label`)

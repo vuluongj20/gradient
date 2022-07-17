@@ -8,6 +8,8 @@ type Props = {
 		outgoing: string[]
 		undirected: string[]
 	}
+	forceX?: number
+	forceY?: number
 }
 
 class Node {
@@ -19,6 +21,8 @@ class Node {
 		undirected: string[]
 	}
 	isHighlighted: boolean
+	forceX?: number
+	forceY?: number
 
 	constructor(props: Props) {
 		makeObservable(this, {
@@ -30,10 +34,17 @@ class Node {
 			addUndirectedEdge: observable,
 			isRoot: computed,
 			isHighlighted: observable,
+			setIsHighlighted: action,
+			forceX: observable,
+			forceY: observable,
+			setForceX: action,
+			setForceY: action,
 		})
-		this.label = props?.label ?? ''
+		this.label = props.label ?? ''
 		this.edges = { incoming: [], outgoing: [], undirected: [] }
 		this.isHighlighted = false
+		this.forceX = props.forceX
+		this.forceY = props.forceY
 	}
 
 	addIncomingEdge(edge: string) {
@@ -50,6 +61,18 @@ class Node {
 
 	get isRoot() {
 		return this.edges.incoming.length === 0
+	}
+
+	setIsHighlighted(to: boolean) {
+		this.isHighlighted = to
+	}
+
+	setForceX(to: number) {
+		this.forceX = to
+	}
+
+	setForceY(to: number) {
+		this.forceY = to
 	}
 }
 

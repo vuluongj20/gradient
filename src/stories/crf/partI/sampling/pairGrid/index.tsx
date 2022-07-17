@@ -201,10 +201,11 @@ const SVG = styled.svg`
 			stroke-opacity: 0;
 			stroke-dasharray: 4 3;
 			stroke-linecap: round;
-			transition: stroke-opacity ${(p) => p.theme.animation.fastOut};
+			transition: ${(p) => p.theme.animation.fastOut};
 		}
 		&.highlighted path.underline {
 			stroke-opacity: 1;
+			stroke-dashoffset: -4;
 		}
 	}
 

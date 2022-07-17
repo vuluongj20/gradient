@@ -7,7 +7,15 @@ import Node from '../../model/node'
 import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
 
 export function mapMutableNodes(node: Node, index: number): MutableNode {
-	return { index, id: node.id, label: node.label }
+	return {
+		index,
+		id: node.id,
+		label: node.label,
+		x: node.forceX,
+		y: node.forceY,
+		forceX: node.forceX,
+		forceY: node.forceY,
+	}
 }
 
 export function mapMutableEdges(
