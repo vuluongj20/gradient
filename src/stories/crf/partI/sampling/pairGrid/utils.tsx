@@ -30,7 +30,7 @@ const getSubplotSize = ({ width, height, numNodes }: SubplotSizeProps) => ({
 })
 
 const renderXAxis = (
-	axisSelection: Selection<SVGGElement, null, SVGSVGElement, undefined>,
+	axisSelection: Selection<SVGGElement, null, SVGGElement, null>,
 	{
 		xScale,
 		nodeIndex,
@@ -66,7 +66,7 @@ const renderXAxis = (
 }
 
 const renderYAxis = (
-	axisSelection: Selection<SVGGElement, null, SVGSVGElement, undefined>,
+	axisSelection: Selection<SVGGElement, null, SVGGElement, null>,
 	{
 		yScale,
 		nodeIndex,
@@ -100,7 +100,7 @@ const renderYAxis = (
 }
 
 const renderRowLabel = (
-	labelSelection: Selection<SVGTextElement, null, SVGSVGElement, undefined>,
+	labelSelection: Selection<SVGTextElement, null, SVGGElement, null>,
 	{
 		label,
 		crossNodeIndex,
@@ -120,7 +120,7 @@ const renderRowLabel = (
 }
 
 const renderColumnLabel = (
-	labelSelection: Selection<SVGTextElement, null, SVGSVGElement, undefined>,
+	labelSelection: Selection<SVGTextElement, null, SVGGElement, null>,
 	{
 		label,
 		nodeIndex,
@@ -142,7 +142,7 @@ const renderColumnLabel = (
 }
 
 const renderScatterPlot = (
-	dataSelection: Selection<SVGGElement, null, SVGSVGElement, undefined>,
+	dataSelection: Selection<SVGGElement, null, SVGGElement, null>,
 	{
 		data,
 		xScale,
@@ -178,7 +178,7 @@ const renderScatterPlot = (
 }
 
 const renderHistogram = (
-	dataSelection: Selection<SVGGElement, null, SVGSVGElement, undefined>,
+	dataSelection: Selection<SVGGElement, null, SVGGElement, null>,
 	{
 		bins,
 		xScale,
@@ -250,16 +250,22 @@ export const renderSVG = (
 			.range([subPlotPadding, subplotWidth - subPlotPadding])
 
 		nodes.forEach((crossNode, crossNodeIndex) => {
-			const posClass = `pos-${nodeIndex}-${crossNodeIndex}`
 			const yScale = scaleLinear()
 				.domain(domains[crossNode.id])
 				.range([subplotHeight - subPlotPadding, subPlotPadding])
 
-			// X-axes
-			svg
-				.selectAll<SVGGElement, null>(`.x-axis.${posClass}`)
+			const subplot = svg
+				.selectAll<SVGGElement, null>(`.subplot-${nodeIndex}-${crossNodeIndex}`)
 				.data([null])
-				.join((enter) => enter.append('g').classed(`axis x-axis ${posClass}`, true))
+				.join((enter) =>
+					enter.append('g').classed(`subplot-${nodeIndex}-${crossNodeIndex}`, true),
+				)
+
+			// X-axes
+			subplot
+				.selectAll<SVGGElement, null>('.x-axis')
+				.data([null])
+				.join((enter) => enter.append('g').classed('axis x-axis', true))
 				.call(renderXAxis, {
 					xScale,
 					nodeIndex,
@@ -268,14 +274,10 @@ export const renderSVG = (
 				})
 
 			// Y-axes
-			svg
-				.selectAll<SVGGElement, null>(`.y-axis.${posClass}`)
+			subplot
+				.selectAll<SVGGElement, null>('.y-axis')
 				.data([null])
-				.join((enter) =>
-					enter
-						.append('g')
-						.classed(`axis y-axis pos-${nodeIndex}-${crossNodeIndex}`, true),
-				)
+				.join((enter) => enter.append('g').classed('axis y-axis', true))
 				.call(renderYAxis, {
 					yScale,
 					nodeIndex,
@@ -285,10 +287,10 @@ export const renderSVG = (
 
 			// Row labels
 			if (nodeIndex === 0) {
-				svg
-					.selectAll<SVGTextElement, null>(`.row-label.${posClass}`)
+				subplot
+					.selectAll<SVGTextElement, null>('.row-label')
 					.data([null])
-					.join((enter) => enter.append('text').classed(`row-label ${posClass}`, true))
+					.join((enter) => enter.append('text').classed('row-label', true))
 					.call(renderRowLabel, {
 						label: crossNode.label,
 						crossNodeIndex,
@@ -298,10 +300,10 @@ export const renderSVG = (
 
 			// Column labels
 			if (crossNodeIndex === nodes.length - 1) {
-				svg
-					.selectAll<SVGTextElement, null>(`.column-label.${posClass}`)
+				subplot
+					.selectAll<SVGTextElement, null>('.column-label')
 					.data([null])
-					.join((enter) => enter.append('text').classed(`column-label ${posClass}`, true))
+					.join((enter) => enter.append('text').classed('column-label', true))
 					.call(renderColumnLabel, {
 						label: node.label,
 						nodeIndex,
@@ -312,12 +314,12 @@ export const renderSVG = (
 			// We'll render histogram for diagonal subplots below
 			if (nodeIndex === crossNodeIndex) return
 
-			// Data
+			// Draw scatter plots
 			const data = samples[node.id].map((x, i) => ({ x, y: samples[crossNode.id][i] }))
-			svg
-				.selectAll<SVGGElement, null>(`.data.${posClass}`)
+			subplot
+				.selectAll<SVGGElement, null>('.data')
 				.data([null])
-				.join((enter) => enter.append('g').classed(`data ${posClass}`, true))
+				.join((enter) => enter.append('g').classed('data', true))
 				.call(renderScatterPlot, {
 					data,
 					nodeIndex,
@@ -341,23 +343,24 @@ export const renderSVG = (
 			return [node.id, bins]
 		}),
 	)
+
 	// Normalize all histograms by using the same yScale for all of them
 	const maxHistCount =
-		max(Object.values(allBins).map((bins) => max(bins.map((b) => b.length ?? 0)) ?? 0)) ??
-		0
+		max(Object.values(allBins).map((bins) => max(bins.map((b) => b.length)) ?? 0)) ?? 0
 	const histYScale = scaleLinear()
 		.range([subplotHeight - subPlotPadding, subPlotPadding])
 		.domain([0, maxHistCount])
+
 	nodes.forEach((node, nodeIndex) => {
-		const posClass = `pos-${nodeIndex}-${nodeIndex}`
 		const xScale = scaleLinear()
 			.domain(domains[node.id])
 			.range([subPlotPadding, subplotWidth - subPlotPadding])
 
 		svg
-			.selectAll<SVGGElement, null>(`.data.${posClass}`)
+			.select<SVGGElement>(`.subplot-${nodeIndex}-${nodeIndex}`)
+			.selectAll<SVGGElement, null>('.data')
 			.data([null])
-			.join((enter) => enter.append('g').classed(`data ${posClass}`, true))
+			.join((enter) => enter.append('g').classed('data', true))
 			.call(renderHistogram, {
 				bins: allBins[node.id],
 				nodeIndex,

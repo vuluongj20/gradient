@@ -85,5 +85,4 @@ const ValueFnWrap = styled.div`
 
 const ValueFn = styled.p`
 	${(p) => p.theme.text.viz.body};
-	font-weight: 500;
 `
