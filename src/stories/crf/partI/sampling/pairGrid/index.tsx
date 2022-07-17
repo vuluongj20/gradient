@@ -192,7 +192,8 @@ const SVG = styled.svg`
 		transition: transform ${(p) => p.theme.animation.mediumOut},
 			opacity ${(p) => p.theme.animation.mediumOut};
 	}
-	g.y-axis path.domain {
+	g.y-axis path.domain,
+	g.data rect {
 		transform: scaleY(0);
 		transform-box: fill-box;
 		transform-origin: bottom;
@@ -206,7 +207,8 @@ const SVG = styled.svg`
 		g.x-axis path.domain {
 			transform: scaleX(1);
 		}
-		g.y-axis path.domain {
+		g.y-axis path.domain,
+		g.data rect {
 			transform: scaleY(1);
 		}
 	}
@@ -216,7 +218,8 @@ const SVG = styled.svg`
 		g.x-axis path.domain {
 			transform: scaleX(1);
 		}
-		g.y-axis path.domain {
+		g.y-axis path.domain,
+		g.data rect {
 			transform: scaleY(1);
 		}
 	}

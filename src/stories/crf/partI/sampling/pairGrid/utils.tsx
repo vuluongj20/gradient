@@ -205,9 +205,8 @@ const renderHistogram = (
 			(enter) =>
 				enter
 					.append('rect')
-					.attr('x', 0)
-					.attr('y', 1)
-					.attr('transform', (d) => `translate(${xScale(d.x0 ?? 0)} ${yScale(d.length)})`)
+					.attr('x', (d) => xScale(d.x0 ?? 0))
+					.attr('y', (d) => yScale(d.length) + 1)
 					.attr('width', function (d) {
 						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
 					})
@@ -216,7 +215,8 @@ const renderHistogram = (
 					}),
 			(update) =>
 				update
-					.attr('transform', (d) => `translate(${xScale(d.x0 ?? 0)} ${yScale(d.length)})`)
+					.attr('x', (d) => xScale(d.x0 ?? 0))
+					.attr('y', (d) => yScale(d.length) + 1)
 					.attr('width', function (d) {
 						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
 					})
