@@ -2,6 +2,8 @@ import { MDXProvider } from '@mdx-js/react'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
+import Divider from '@components/divider'
+import Figure from '@components/figure'
 import Grid from '@components/grid'
 import * as Text from '@components/text'
 
@@ -20,7 +22,16 @@ const Body = ({ children }: Props) => (
 	</Grid>
 )
 
-const components = { Header, h1: Title, Abstract: Abstract, p: Body }
+const components = {
+	h1: Title,
+	p: Body,
+	a: Text.Link,
+	hr: Divider,
+	Header,
+	Abstract,
+	Figure,
+	Grid,
+}
 
 const MDXStoryProvider = ({ children }: Props) => (
 	<MDXProvider components={components}>{children}</MDXProvider>

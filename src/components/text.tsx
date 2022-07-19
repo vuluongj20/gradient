@@ -22,3 +22,8 @@ export const Body = styled.p<Props>`
 	${(p) => p.theme.text.content.body};
 	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
 `
+
+export const Link = styled.a<Props>`
+	${(p) => p.theme.text.content.body};
+	text-decoration-color: ${(p) => p.theme.linkUnderline};
+`

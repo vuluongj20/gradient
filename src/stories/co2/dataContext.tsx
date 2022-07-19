@@ -1,7 +1,10 @@
 import { csv, timeParse } from 'd3'
-import { ReactNode, createContext, useEffect, useState } from 'react'
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 import { Data } from './index'
+
+import Spinner from '@components/spinner'
 
 import { makeCancelable } from '@utils/functions'
 
@@ -35,4 +38,16 @@ const DataProvider = ({ children }: Props) => {
 	return <DataContext.Provider value={data}>{children}</DataContext.Provider>
 }
 
-export { DataContext as default, DataProvider }
+const DataConsumer = ({ render }: { render: (data) => ReactNode }) => {
+	const data = useContext(DataContext)
+
+	if (!data) return <StyledSpinner label="Loading CO₂ data…" showLabel />
+
+	return render(data)
+}
+
+export { DataContext as default, DataProvider, DataConsumer }
+
+const StyledSpinner = styled(Spinner)`
+	margin: ${(p) => p.theme.space[5]} auto 0;
+`

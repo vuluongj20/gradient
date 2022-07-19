@@ -21,7 +21,7 @@
 		"sections": ["misc"],
 		"authors": ["vu-luong"],
 		"cover": {
-			"image": "../images/co2/preview.png",
+			"image": "../stories/co2/images/preview.png",
 			"alt": "Polar plot with red-blue data line"
 		}
 	},

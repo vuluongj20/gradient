@@ -1,7 +1,7 @@
 import { max, min, scaleLinear, select } from 'd3'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import { Data, VizData } from '../index'
+import { Data } from '../index'
 import VizContent, { VizDesText } from '../vizContent'
 import drawViz from './drawViz'
 import updateViz from './updateViz'
@@ -13,10 +13,25 @@ import useWindowWidth from '@utils/useWindowWidth'
 
 type Props = {
   data: Data
-  content: VizData['vizContent']
 }
 
-const PolarPlot = ({ data, content }: Props) => {
+const trackHeight = '440vh'
+const content = [
+  {
+    state: 'one',
+    des: "Each circle corresponds to a full year. Here's what the data for 1958 looks like.",
+  },
+  {
+    state: 'all',
+    des: 'And here is the whole dataset. Notice the gradual trend outward, indicating a yearly increase in CO₂ levels.',
+  },
+  {
+    state: 'stretches',
+    des: 'The circles stretch outward in winter months (blue) and inward in summer months (red), due to the yearly cycles we saw above.',
+  },
+]
+
+const PolarPlot = ({ data }: Props) => {
   const [visible, setVisible] = useState(false)
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
@@ -216,8 +231,13 @@ const PolarPlot = ({ data, content }: Props) => {
   }, [visible])
 
   return (
-    <Wrap id="polar-plot" className="viz-outer-wrap" ref={vizRef}>
-      <VizContent content={content} isResizing={isResizing} />
+    <Wrap id="polar-plot">
+      <VizContent
+        height={trackHeight}
+        content={content}
+        isResizing={isResizing}
+        ref={vizRef}
+      />
     </Wrap>
   )
 }

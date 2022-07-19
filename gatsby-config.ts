@@ -59,6 +59,14 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
+        name: 'stories',
+        path: './src/stories/',
+      },
+      __key: 'stories',
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
         name: 'policies',
         path: './src/pages/policies',
       },

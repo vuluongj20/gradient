@@ -1,43 +1,52 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react'
 import styled from 'styled-components'
 
-import { VizData } from './index'
-
+import Grid from '@components/grid'
 import { Body } from '@components/text'
 
 type Props = {
-	content: VizData['vizContent']
+	height: string
+	content: { state: string; des: string; params?: number[] }[]
 	isResizing: boolean
 }
 
-const VizContent = ({ content, isResizing }: Props) => (
-	<Wrap>
-		<VizWrap>
-			<VizSvgWrap isResizing={isResizing} className="svg-wrap" />
-		</VizWrap>
-		<VizScrollBox>
-			<VizDesText className="dummy" data-index="-1" aria-hidden="true"></VizDesText>
-			<VizScrollAnchorTop aria-hidden="true" />
-			<VizDesWrap>
-				{content.map((chunk, index) => {
-					return (
-						<VizDesText data-index={index} key={index}>
-							{chunk.des}
-						</VizDesText>
-					)
-				})}
-			</VizDesWrap>
-			<VizScrollAnchorBottom aria-hidden="true" />
-		</VizScrollBox>
-	</Wrap>
+const VizContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+	{ height, content, isResizing }: Props,
+	ref,
+) => (
+	<Grid>
+		<Wrap style={{ height }} ref={ref}>
+			<VizWrap>
+				<VizSvgWrap isResizing={isResizing} className="svg-wrap" />
+			</VizWrap>
+			<VizScrollBox>
+				<VizDesText className="dummy" data-index="-1" aria-hidden="true"></VizDesText>
+				<VizScrollAnchorTop aria-hidden="true" />
+				<VizDesWrap>
+					{content.map((chunk, index) => {
+						return (
+							<VizDesText data-index={index} key={index}>
+								{chunk.des}
+							</VizDesText>
+						)
+					})}
+				</VizDesWrap>
+				<VizScrollAnchorBottom aria-hidden="true" />
+			</VizScrollBox>
+		</Wrap>
+	</Grid>
 )
-export default VizContent
+
+export default forwardRef(VizContent)
 
 const Wrap = styled.div`
-	display: contents;
+	display: flex;
+	${(p) => p.theme.utils.gridColumn.wide}
 `
 
 export const VizWrap = styled.div`
 	height: 100vh;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	position: sticky;

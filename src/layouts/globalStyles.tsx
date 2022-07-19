@@ -57,10 +57,10 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
-small {
-  ${(p) => p.theme.text.system.small}; 
-  color: ${(p) => p.theme.label};
-}
+  small {
+    ${(p) => p.theme.text.system.small}; 
+    color: ${(p) => p.theme.label};
+  }
 
   strong {
     color: ${(p) => p.theme.heading};
@@ -70,7 +70,6 @@ small {
     cursor: pointer;
     border-radius: ${(p) => p.theme.radii.s};
 
-    color: ${(p) => p.theme.linkText};
     text-decoration-line: underline;
     text-decoration-color: transparent;
     transition: color ${(p) => p.theme.animation.vFastOut}, 

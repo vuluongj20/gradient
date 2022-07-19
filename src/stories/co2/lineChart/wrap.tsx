@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 const Wrap = styled.div`
   position: relative;
-  height: 100%;
   width: 100%;
   max-width: ${(p) => p.theme.breakpoints.l};
   margin: 0 auto;

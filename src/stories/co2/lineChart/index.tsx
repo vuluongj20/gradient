@@ -1,7 +1,7 @@
 import { extent, line, min, scaleLinear, scaleTime, select } from 'd3'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
-import { Data, VizData } from '../index'
+import { Data } from '../index'
 import VizContent, { VizDesText } from '../vizContent'
 import drawViz from './drawViz'
 import updateViz from './updateViz'
@@ -13,10 +13,32 @@ import useWindowWidth from '@utils/useWindowWidth'
 
 type Props = {
   data: Data
-  content: VizData['vizContent']
 }
 
-const LineChart = ({ data, content }: Props) => {
+const trackHeight = '600vh'
+const content = [
+  {
+    state: 'initial',
+    des: 'Here is the data in its entirety. CO₂ is measured in ppm (parts-per-million). Hover over the plot for more details.',
+  },
+  {
+    state: 'linear',
+    des: 'There is a clear and consistent upward trend through the years. The average increase is +0.4% each year.',
+    params: [306.06644452, 0.00430901514],
+  },
+  {
+    state: 'quadratic',
+    des: 'In fact, the regression line curves upward. This means that CO₂ levels are not only increasing but also accelerating at an alarming rate.',
+    params: [314.574751, 0.00210065413, 0.0000000973625567],
+  },
+  {
+    state: 'cosine',
+    des: 'There are yearly peaks during winter months, when we burn more coal for energy, and plants naturally release more CO₂ when there is less sunlight.',
+    params: [314.569048, 0.00210632696, 0.0000000970576557, 2.86111474, -0.554076698],
+  },
+]
+
+const LineChart = ({ data }: Props) => {
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
@@ -142,7 +164,7 @@ const LineChart = ({ data, content }: Props) => {
       }
       setCurrentState(to)
     },
-    [content, data, x, y, xDays, margin],
+    [data, x, y, xDays, margin],
   )
 
   // Initialize visualization once the section becomes visible
@@ -235,8 +257,13 @@ const LineChart = ({ data, content }: Props) => {
   ])
 
   return (
-    <Wrap id="line-chart" className="viz-outer-wrap" ref={vizRef}>
-      <VizContent content={content} isResizing={isResizing} />
+    <Wrap id="line-chart">
+      <VizContent
+        ref={vizRef}
+        height={trackHeight}
+        content={content}
+        isResizing={isResizing}
+      />
     </Wrap>
   )
 }
