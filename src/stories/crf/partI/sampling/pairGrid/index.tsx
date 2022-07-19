@@ -198,13 +198,13 @@ const SVG = styled.svg`
 
 		path.underline {
 			stroke: ${(p) => p.theme.bar};
-			stroke-opacity: 0;
 			stroke-dasharray: 4 3;
 			stroke-linecap: round;
+			opacity: 0;
 			transition: ${(p) => p.theme.animation.fastOut};
 		}
 		&.highlighted path.underline {
-			stroke-opacity: 1;
+			opacity: 1;
 			stroke-dashoffset: -4;
 		}
 	}

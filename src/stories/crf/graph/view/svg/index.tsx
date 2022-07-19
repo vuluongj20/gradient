@@ -244,17 +244,18 @@ const SVG = styled.svg`
 	g.node-wrap {
 		rect.node-box {
 			stroke: ${(p) => p.theme.bar};
-			stroke-opacity: 0;
 			stroke-linecap: round;
-
 			fill: currentcolor;
 			fill-opacity: 0;
+			opacity: 0;
 
 			cursor: pointer;
-			transition: ${(p) => p.theme.animation.fastOut};
+			transition: all ${(p) => p.theme.animation.fastOut},
+				stroke-dasharray ${(p) => p.theme.animation.mediumOut},
+				stroke-dashoffset ${(p) => p.theme.animation.mediumOut};
 			&:hover {
-				stroke-opacity: 0.5;
-				fill-opacity: 0.05;
+				opacity: 0.5;
+				fill-opacity: 0.1;
 			}
 		}
 		text {
@@ -262,17 +263,17 @@ const SVG = styled.svg`
 		}
 
 		&.pressed > rect.node-box {
-			stroke-opacity: 1;
 			fill-opacity: 0.1;
+			opacity: 1;
 		}
 		&.focused > rect.node-box {
-			stroke-opacity: 1;
+			opacity: 1;
 			${(p) => p.theme.utils.svgFocusVisible};
 		}
 		&.highlighted > rect.node-box {
+			opacity: 1;
 			stroke-dasharray: 4 3;
 			stroke-dashoffset: -4;
-			stroke-opacity: 1;
 		}
 	}
 
