@@ -11,10 +11,14 @@ type Props = { children: ReactNode }
 
 const Header = ({ children }: Props) => <HeaderWrap as="header">{children}</HeaderWrap>
 const Title = ({ children }: Props) => (
-	<Text.Title gridColumn="text">{children}</Text.Title>
+	<Grid>
+		<Text.Title gridColumn="text">{children}</Text.Title>
+	</Grid>
 )
 const Abstract = ({ children }: Props) => (
-	<Text.Abstract gridColumn="text">{children}</Text.Abstract>
+	<Grid>
+		<Text.Abstract gridColumn="text">{children}</Text.Abstract>
+	</Grid>
 )
 const SectionHeading = ({ children }: Props) => (
 	<Grid>
@@ -45,6 +49,6 @@ const MDXStoryProvider = ({ children }: Props) => (
 
 export default MDXStoryProvider
 
-const HeaderWrap = styled(Grid)`
+const HeaderWrap = styled.header`
 	${(p) => p.theme.utils.space.paddingVertical[5]}
 `
