@@ -1,0 +1,79 @@
+<svg width="1728" height="1117" viewBox="0 0 1728 1117" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-size: 20px;
+      font-family: Sohne Mono, Roboto Mono, monospace;
+      font-weight: 400;
+      fill: rgba(241, 242, 244, 0.8);
+    }
+    </style>
+  <rect width="1728" height="1117" fill="#1A1A1A"/>
+  <defs>
+    <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"></feTurbulence>
+        <feSpecularLighting surfaceScale="11" specularConstant="0.7" specularExponent="20" lighting-color="#242424" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting">
+              <feDistantLight azimuth="3" elevation="70"></feDistantLight>
+          </feSpecularLighting>
+    </filter>
+  </defs>
+
+  <path id="curve-1" d="M141.5 172C436.333 136.167 1096.1 88.2 1376.5 183C1727 301.5 1593.5 824 1194 786.5C874.4 756.5 914.167 526.667 974 415.5" stroke="transparent"/>
+  <text fill="#F1F2F4">
+    <textPath href="#curve-1">
+      So, for instance, The Object of Knowledge grew from the 91 pages of the first edition to the 460 pages of the sixth edition in 1928. This style of writing makes the development of his thought particularly perspicuous.
+    </textPath>
+  </text>
+
+  <path id="curve-2" d="M274 963C494.826 810.061 942.782 409.146 968 29" stroke="transparent"/>
+  <text>
+    <textPath href="#curve-2">
+      In what follows, the Critique of Pure Reason is cited by the usual A/B method.
+    </textPath>
+  </text>
+
+  <path id="curve-3" d="M233.5 467C317.167 689.333 619.5 1111.9 1159.5 1023.5" stroke="transparent"/>
+  <text>
+    <textPath href="#curve-3">
+      Vervet monkeys give alarm calls to warn fellow monkeys of the presence of predators.
+    </textPath>
+  </text>
+
+  <path id="curve-4" d="M503 431C913.4 514.6 1423.67 221.5 1627.5 64.5" stroke="transparent"/>
+  <text>
+    <textPath href="#curve-4">
+      This entry proceeds mostly chronologically, to indicate the historical development of the topic.
+    </textPath>
+  </text>
+
+  <path id="curve-5" d="M509.5 1078C744.5 1106.67 1258.1 1058.9 1432.5 638.5" stroke="transparent"/>
+  <text>
+    <textPath href="#curve-5">
+      Current work on Latinx philosophy tends to cluster into several subject matters.
+    </textPath>
+  </text>
+
+  <path id="curve-6" d="M391 541.5C616.833 518.167 1166.5 527 1558.5 749" stroke="transparent"/>
+  <text>
+    <textPath href="#curve-6">
+      In its most important role in bioethics, informed consent is a legitimacy requirement.
+    </textPath>
+  </text>
+
+  <path id="curve-7" d="M297.5 94.5C494.333 199 890.4 511.7 900 926.5" stroke="transparent"/>
+  <text>
+    <textPath href="#curve-7">
+      He also wrote numerous works on other philosophical topics, especially psychology.
+    </textPath>
+  </text>
+
+
+  <path id="curve-8" d="M43 507C143.924 729.146 508.618 1151.36 1160 1063.03" stroke="transparent"/>
+    <text>
+      <textPath href="#curve-8">
+        In the more exuberantly speculative days of the 19th century, the authenticity of the Laws was rejected.
+      </textPath>
+    </text>
+
+  <rect width="100%" height="100%" fill="#1f1f1f"></rect>
+  <rect width="100%" height="100%" fill="#242424" filter="url(#nnnoise-filter)"></rect>
+</svg>

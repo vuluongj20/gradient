@@ -19,7 +19,7 @@ type CSSStringUtil = Record<CSSStringUtilName, string>
 
 type MediaUtil = { media: Record<Breakpoint | 'mobile', string> }
 
-type GridColumnUtil = { gridColumn: Record<'text' | 'wide', CSSObject> }
+type GridColumnUtil = { gridColumn: Record<'text' | 'wide' | 'fullWidth', CSSObject> }
 
 type SpacingName =
 	| 'paddingVertical'
@@ -139,6 +139,10 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 			[`@media only screen and (max-width: ${theme.breakpoints.m})`]: {
 				gridColumn: '1 / -1',
 			},
+		},
+		fullWidth: {
+			width: '100%',
+			gridColumn: '1 / -1',
 		},
 	},
 	space: {

@@ -16,6 +16,11 @@ const Title = ({ children }: Props) => (
 const Abstract = ({ children }: Props) => (
 	<Text.Abstract gridColumn="text">{children}</Text.Abstract>
 )
+const SectionHeading = ({ children }: Props) => (
+	<Grid>
+		<Text.SectionHeading gridColumn="text">{children}</Text.SectionHeading>
+	</Grid>
+)
 const Body = ({ children }: Props) => (
 	<Grid>
 		<Text.Body gridColumn="text">{children}</Text.Body>
@@ -24,6 +29,7 @@ const Body = ({ children }: Props) => (
 
 const components = {
 	h1: Title,
+	h2: SectionHeading,
 	p: Body,
 	a: Text.Link,
 	hr: Divider,
