@@ -61,6 +61,17 @@ const generateAdaptiveSpacing = (
 ): CSSObject[] => {
 	const generateCSSProperties = (props: string[], value: string): CSSObject =>
 		Object.fromEntries(props.map((p) => [p, value]))
+	console.log(
+		theme.space.map((s, i) => ({
+			...generateCSSProperties(properties, s),
+			...Object.fromEntries(
+				breakpointNames.map((b) => [
+					`@media only screen and (max-width: ${theme.breakpoints[b]})`,
+					generateCSSProperties(properties, theme.space[adaptiveSpacing[i][b]]),
+				]),
+			),
+		})),
+	)
 
 	return theme.space.map((s, i) => ({
 		...generateCSSProperties(properties, s),
@@ -119,7 +130,8 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		text: {
 			width: '100%',
 			maxWidth: '44rem',
-			margin: '0 auto',
+			marginLeft: 'auto',
+			marginRight: 'auto',
 			gridColumn: '4 / -4',
 			[`@media only screen and (max-width: ${theme.breakpoints.xl})`]: {
 				gridColumn: '3 / -3',
@@ -134,7 +146,8 @@ export const generateUtils = (theme: Omit<Theme, 'utils'>): Utils => ({
 		wide: {
 			width: '100%',
 			maxWidth: '74rem',
-			margin: '0 auto',
+			marginLeft: 'auto',
+			marginRight: 'auto',
 			gridColumn: '2 / -2',
 			[`@media only screen and (max-width: ${theme.breakpoints.m})`]: {
 				gridColumn: '1 / -1',

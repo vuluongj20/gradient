@@ -133,7 +133,7 @@ const ResampleText = styled.p`
 
 const SVG = styled.svg`
 	height: 100%;
-	width: auto;
+	width: 100%;
 	${(p) => p.theme.text.viz.body};
 
 	/*
