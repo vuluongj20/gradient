@@ -61,17 +61,6 @@ const generateAdaptiveSpacing = (
 ): CSSObject[] => {
 	const generateCSSProperties = (props: string[], value: string): CSSObject =>
 		Object.fromEntries(props.map((p) => [p, value]))
-	console.log(
-		theme.space.map((s, i) => ({
-			...generateCSSProperties(properties, s),
-			...Object.fromEntries(
-				breakpointNames.map((b) => [
-					`@media only screen and (max-width: ${theme.breakpoints[b]})`,
-					generateCSSProperties(properties, theme.space[adaptiveSpacing[i][b]]),
-				]),
-			),
-		})),
-	)
 
 	return theme.space.map((s, i) => ({
 		...generateCSSProperties(properties, s),
