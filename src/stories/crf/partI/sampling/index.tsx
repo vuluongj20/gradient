@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styled from 'styled-components'
 
 import GraphView from '../../graph/view'
 import SamplingEdge from './model/edge'
@@ -37,7 +38,7 @@ const Section = () => {
 
 	return (
 		<Grid noPaddingOnMobile>
-			<Panel overlay size="m" gridColumn="wide">
+			<StyledPanel overlay size="m" gridColumn="wide">
 				<GraphView
 					graph={graph}
 					renderNodePanel={(node, overlayProps) => (
@@ -50,9 +51,13 @@ const Section = () => {
 					)}
 				/>
 				<PairGrid graph={graph} />
-			</Panel>
+			</StyledPanel>
 		</Grid>
 	)
 }
 
 export default Section
+
+const StyledPanel = styled(Panel)`
+	${(p) => p.theme.utils.space.marginVertical[3]}
+`
