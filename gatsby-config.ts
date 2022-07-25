@@ -1,6 +1,8 @@
 import dotenv from 'dotenv'
 import { GatsbyConfig } from 'gatsby'
 import path from 'path'
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 
 dotenv.config({
   path: `.env.${process.env.NODE_ENV ?? ''}`,
@@ -40,6 +42,8 @@ const config: GatsbyConfig = {
         defaultLayouts: {
           policies: path.resolve('./src/templates/policies.tsx'),
         },
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
         gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-autolink-headers',
