@@ -28,7 +28,7 @@ export const SectionHeading = styled.h2<Props>`
 
 export const Body = styled.p<Props>`
 	${(p) => p.theme.text.content.body};
-	${(p) => p.theme.utils.space.marginBottom[2]}
+	${(p) => p.theme.utils.space.marginBottom[3]}
 	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
 `
 

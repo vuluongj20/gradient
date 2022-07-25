@@ -15,10 +15,18 @@ import HeroImage from './heroImage'
 
 <HeroImage />
 
-Natural language is sequential by nature, characterized by complex syntactic structures that create meaning out of otherwise independent components. Consider the following sentence:$X^2 = Y$
+Natural languages are sequential but non-linear, comprising of interdependent parts. Consider the clever use of the word _"point"_ in the following example:
 
-> _The Williamses live in a beautiful apartment building._
+> “They seemed to think the opportunity lost, if they failed to _point_ the conversation to me, every now and then, and stick the _point_ into me.”
+>
+> – <cite>Charles Dickens, Great Expectations</cite>
 
-Here, the word apartment acts as an adjective that modifies building. However, if we remove building from the sentence, apartment would assume its normal role as a noun and the whole phrase would still make sense. This sort of location-specific role-switching and interdependency between words is incredibly common within the English language, as well as many other languages.
+_"Point"_ appears twice: first as a verb, and then as a noun. Its meaning changes based on the words around it. In the first instance, "point" means "to direct". In the second, it means "an idea, a detail of discussion". Such elastic role-switching is indicative of the interdependent nature of words: the role and meaning of a word depends on other words around it, and in some cases the context within which it is used.
 
-That fact presents a unique challenge to natural language models. How can a probabilistic model account for the non-linear, interdependent nature of words? Consider the problem of part-of-speech tagging: given a sequence of words in a sentence, we want to assign a part-of-speech label (noun, pronoun, verb, adjective,…) to each of the words.
+This simple fact presents a distinct challenge to natural language models. How can a model that is governed by consistent, tidy rules account for the non-linear, interdependent nature of words?
+
+Consider the problem of part-of-speech tagging: given a sequence of words in a sentence, we want to assign part-of-speech labels like "noun", "verb", and "adjective" to each of the words.
+
+A naive model would make independent predictions based solely on the identity of the current word and possibly features derived from it, like capitalization and word length. However, as the example above demonstrates, the very same word can take on different roles based on other words around it, so this approach is prone to errors. What we need is a modeling structure that accounts for the sequential and interdependent nature of natural languages.
+
+In this article, we’ll explore Conditional Random Fields (CRFs) – a pathbreaking approach to modeling languages. It’s an evolution upon the Markov models that came before it, namely Hidden Markov Models (HMMs) and Maximum-Entropy Markov Models (MEMMs).

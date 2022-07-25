@@ -4,4 +4,8 @@ import Sampling from './sampling'
 
 ## I. Probabilistic Graphical Model
 
+Graphical modeling is a robust framework for representing probabilistic models. Complex, multivariate probability distributions can be factored into compact graphical representations that are vastly easier to understand and interpret.
+
+Assume we have two random variables, $X$ and $Y$. Assume further that Y’s probability distribution depends on $X$’s observed value, so we can write it as $p(y|x)$. By a simple rearrangement of the definition of conditional probabilities, we know that the joint distribution for both $X$ and $Y$ is $p(x, y) = p(x)p(y|x)$. We can represent the two terms on the right hand side — $p(x)$ and $p(y|x)$ — using a directed graph with two nodes:
+
 <Sampling />
