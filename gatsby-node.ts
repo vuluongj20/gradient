@@ -12,7 +12,7 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
     actions.setWebpackConfig({
       plugins: [
         new RelativeCiAgentWebpackPlugin({
-          enabled: process.env.NODE_ENV === 'production' && process.env.RELATIVE_CI_KEY,
+          enabled: process.env.NODE_ENV === 'production' && process.env.RELATIVE_CI,
         }),
       ],
     })

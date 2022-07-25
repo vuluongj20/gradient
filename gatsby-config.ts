@@ -1,5 +1,10 @@
+import dotenv from 'dotenv'
 import { GatsbyConfig } from 'gatsby'
 import path from 'path'
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV ?? ''}`,
+})
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -15,14 +20,6 @@ const config: GatsbyConfig = {
   },
   graphqlTypegen: true,
   plugins: [
-    {
-      resolve: 'gatsby-plugin-bundle-stats',
-      options: {
-        compare: true,
-        outDir: '../artifacts',
-        stats: { context: './src' },
-      },
-    },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
