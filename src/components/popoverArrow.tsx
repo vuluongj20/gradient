@@ -46,7 +46,7 @@ const Arrow = ({ size = 'm', strokeWidth = 1, placement, ...props }: Props) => {
 
   return (
     <Wrap placement={placement} {...props}>
-      <SVG overflow="visible" width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <SVG overflow="visible" width={w} viewBox={`0 0 ${w} ${h}`}>
         <defs>
           <mask id="stroke-mask">
             <rect x="0" y={-strokeWidth} width="100%" height="100%" fill="white" />
@@ -85,6 +85,9 @@ const SVG = styled.svg`
   flex-shrink: 0;
   fill: none;
   stroke: none;
+
+  /* Fix SVG rendering issue in Safari */
+  transform: translate3d(0, 0, 0);
 
   path.stroke {
     stroke: ${(p) => p.theme.oLine};
