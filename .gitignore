@@ -13,3 +13,6 @@ src/gatsby-types.d.ts
 # Logs
 yarn-debug.log
 yarn-error.log
+
+# Relative-CI
+artifacts/

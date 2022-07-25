@@ -15,7 +15,14 @@ const config: GatsbyConfig = {
   },
   graphqlTypegen: true,
   plugins: [
-    'gatsby-plugin-webpack-bundle-analyser-v2',
+    {
+      resolve: 'gatsby-plugin-bundle-stats',
+      options: {
+        compare: true,
+        outDir: '../artifacts',
+        stats: { context: './src' },
+      },
+    },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',

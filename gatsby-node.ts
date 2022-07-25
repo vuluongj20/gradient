@@ -1,7 +1,23 @@
+import { RelativeCiAgentWebpackPlugin } from '@relative-ci/agent'
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
 
 import graphQLTypes from './src/types/graphql'
+
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+  stage,
+  actions,
+}) => {
+  if (stage === 'build-javascript') {
+    actions.setWebpackConfig({
+      plugins: [
+        new RelativeCiAgentWebpackPlugin({
+          enabled: process.env.NODE_ENV === 'production' && process.env.RELATIVE_CI_KEY,
+        }),
+      ],
+    })
+  }
+}
 
 export const onCreateBabelConfig: GatsbyNode['onCreateBabelConfig'] = ({ actions }) => {
   actions.setBabelPlugin({
