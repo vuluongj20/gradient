@@ -61,6 +61,7 @@ export const VizSvgWrap = styled.div<{ isResizing: boolean }>`
 		display: block;
 		margin: 0 auto;
 		transition: ${(p) => p.theme.animation.mediumOut};
+		${(p) => p.theme.text.viz.body};
 	}
 
 	${(p) =>

@@ -26,6 +26,8 @@
 			"@data/*": ["./src/data/*"],
 			"@types": ["./src/types"],
 			"@types/*": ["./src/types/*"],
+			"@layouts": ["./src/layouts"],
+			"@layouts/*": ["./src/layouts/*"],
 			"@theme": ["./src/layouts/theme"],
 			"@theme/*": ["./src/layouts/theme/*"],
 			"@images": ["./src/images"],

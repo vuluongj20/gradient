@@ -138,7 +138,6 @@ const GlobalStyles = createGlobalStyle`
 
   svg {
     overflow: visible;
-    ${(p) => p.theme.text.viz.body};
   }
 
   .tl-edges {
@@ -151,6 +150,10 @@ const GlobalStyles = createGlobalStyle`
   }
   .autolinked-header svg {
     fill: ${(p) => p.theme.label};
+  }
+
+  .math-display {
+    ${(p) => p.theme.text.content.body}; 
   }
 `
 

@@ -107,6 +107,7 @@ const config: GatsbyConfig = {
           '@icons': path.resolve(__dirname, 'src/icons'),
           '@data': path.resolve(__dirname, 'src/data'),
           '@types': path.resolve(__dirname, 'src/types'),
+          '@layouts': path.resolve(__dirname, 'src/layouts'),
           '@theme': path.resolve(__dirname, 'src/layouts/theme'),
           '@images': path.resolve(__dirname, 'src/images'),
         },
