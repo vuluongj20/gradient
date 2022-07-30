@@ -137,6 +137,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   svg {
+    overflow: visible;
     ${(p) => p.theme.text.viz.body};
   }
 
