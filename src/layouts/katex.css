@@ -1,8 +1,8 @@
 .katex {
   --base-font: 'EB Garamond', 'Garamond', serif;
   font-family: var(--base-font);
-  font-size: 1.125em;
-  line-height: 1.2;
+  font-size: 1.21em;
+  line-height: 1;
   letter-spacing: 0.01em;
 }
 .katex * {
