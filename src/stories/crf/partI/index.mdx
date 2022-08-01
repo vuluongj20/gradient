@@ -4,8 +4,38 @@ import Sampling from './sampling'
 
 ## I. Probabilistic Graphical Models
 
-Graphical modeling is a powerful and robust framework for representing probabilistic models. Complex, multivariate distributions can be factored into compact graphical representations that are much easier to understand and interpret.
+Probabilistic models can easily ballon in complexity as we add more and more variables to the system. This makes complex models with more than a few variables difficult to interpret, if not inscrutable.
 
-Assume that we have two random variables, $X$ and $Y$. Assume further that $Y$’s probability distribution depends on $X$’s sampled value, so we can write it as $p(y|x)$. The joint distribution for $X$ and $Y$ is $p(x, y) = p(x)p(y|x)$ (derived from a quick rearrangement of the definition of conditional probabilities). The two terms on the right hand side — $p(x)$ and $p(y|x)$ — can be represented by a directed graph with two nodes:
+Let’s start with a simple example with just two random variables, $A$ and $B$. Assume that $B$ is conditionally dependent on $A$, so we can write its distribution as $p(b|a)$. By the definition of conditional probabilities, we have:
+
+$$
+p(b|a) = \frac{p(a, b)}{p(a)}
+$$
+
+Now, we want to model the joint distribution of $A$ and $B$ – $p(a, b)$. This appears in the equation above, so we just need to rearrange the terms to get:
+
+$$
+p(a, b) = p(a) \cdot p(b|a)
+$$
+
+If we know the values of $p(a)$ and $p(b|a)$, we can now derive $p(a, b)$. This is a simple enough example.
+
+Add more variables, however, and the resulting factorization can get messy, fast. Assume we have two more variables: $C$ and $D$. $C$ is conditionally dependent on $A$ and $B$, and $D$ on $A$ and $C$. The factorization becomes:
+
+$$
+p(a, b, c, d) = p(a) \cdot p(b|a) \cdot p(c|a, b) \cdot p(d|a, c)
+$$
+
+The relationship between variables is noticeably more opaque, hidden behind second and third-order dependencies. This will only get worse as we add more variables. What we need is a compact way to represent this large network of conditional dependencies.
+
+Graphs offer a natural solution to this problem. Complex, multivariate distributions can be factorized into compact graphical representations that are easier to understand and interpret.
+
+Let's return to the first example with two variables. The joint probability distribution is, again:
+
+$$
+p(a, b) = p(a) \cdot p(b|a)
+$$
+
+In a graph, each term on the right hand side can be represented by a single node. An arrow indicates conditional dependence. To express the conditional dependence in $p(b|a)$, we add an arrow pointing from $A$ to $B$:
 
 <Sampling />

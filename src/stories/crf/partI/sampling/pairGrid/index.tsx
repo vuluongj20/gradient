@@ -100,7 +100,7 @@ export default observer(PairGrid)
 const Wrap = styled.div`
 	position: relative;
 	width: 100%;
-	height: 28rem;
+	height: 36rem;
 	padding-top: ${(p) => p.theme.space[2]};
 `
 

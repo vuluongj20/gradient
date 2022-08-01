@@ -13,22 +13,39 @@ import Panel from '@components/panel'
 
 const newGraph = () => {
 	const g = new SamplingGraph()
-	const nodeA = new SamplingNode({ label: 'Alpha' })
-	const nodeB = new SamplingNode({ label: 'Beta' })
-	const nodeC = new SamplingNode({ label: 'Gamma' })
+	const nodeA = new SamplingNode({ label: 'A' })
+	const nodeB = new SamplingNode({ label: 'B' })
+	// const nodeC = new SamplingNode({ label: 'C' })
+	// const nodeD = new SamplingNode({ label: 'D' })
 	g.addNode(nodeA)
 	g.addNode(nodeB)
-	g.addNode(nodeC)
-	const edgeA = new SamplingEdge({
-		nodes: { source: nodeA.id, target: nodeB.id },
-		isDirected: true,
-	})
-	const edgeB = new SamplingEdge({
-		nodes: { source: nodeB.id, target: nodeC.id },
-		isDirected: true,
-	})
-	g.addEdge(edgeA)
-	g.addEdge(edgeB)
+	// g.addNode(nodeC)
+	// g.addNode(nodeD)
+
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeA.id, target: nodeB.id },
+			isDirected: true,
+		}),
+	)
+	// g.addEdge(
+	// 	new SamplingEdge({
+	// 		nodes: { source: nodeA.id, target: nodeD.id },
+	// 		isDirected: true,
+	// 	}),
+	// )
+	// g.addEdge(
+	// 	new SamplingEdge({
+	// 		nodes: { source: nodeB.id, target: nodeD.id },
+	// 		isDirected: true,
+	// 	}),
+	// )
+	// g.addEdge(
+	// 	new SamplingEdge({
+	// 		nodes: { source: nodeC.id, target: nodeD.id },
+	// 		isDirected: true,
+	// 	}),
+	// )
 
 	return g
 }

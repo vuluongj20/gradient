@@ -153,7 +153,11 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .math-display {
-    ${(p) => p.theme.text.content.body}; 
+    ${(p) => p.theme.text.content.body}
+  }
+
+  .katex-display {
+    ${(p) => p.theme.utils.space.marginBottom[3]}
   }
 `
 
