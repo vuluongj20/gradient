@@ -50,7 +50,6 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 export default GraphView
 
 const Wrap = styled.div`
-	position: relative;
 	display: flex;
 	justify-content: center;
 	width: 100%;

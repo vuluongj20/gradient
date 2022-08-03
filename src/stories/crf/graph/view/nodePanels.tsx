@@ -19,7 +19,10 @@ import Graph from '../model/graph'
 import BaseNode from '../model/node'
 
 import Button from '@components/button'
-import Popover from '@components/popover'
+import Popover, { usePopover } from '@components/popover'
+import PopoverArrow, { getArrowHeight } from '@components/popoverArrow'
+
+import useMountEffect from '@utils/useMountEffect'
 
 type NodePanelProps<Node extends BaseNode> = {
 	node: Node
@@ -37,8 +40,13 @@ const NodePanel = observer(
 		setSimulationPlayState,
 		renderNodePanel,
 	}: NodePanelProps<Node>) => {
-		const svgNodeRef = useRef(document.querySelector<SVGGElement>(`#node-${node.id}`))
-		const triggerRef = useRef<HTMLButtonElement>(null)
+		const svgNodeRef = useRef<HTMLButtonElement>(
+			document.querySelector(`#node-${node.id}`),
+		)
+
+		useMountEffect(() => {
+			triggerProps.ref(svgNodeRef.current)
+		})
 
 		const state = useOverlayTriggerState({
 			onOpenChange: (isOpen) => {
@@ -59,10 +67,18 @@ const NodePanel = observer(
 			},
 		})
 
-		const { triggerProps, overlayProps } = useOverlayTrigger(
+		const { refs, triggerProps, popoverProps, arrowProps } =
+			usePopover<HTMLButtonElement>({
+				isOpen: state.isOpen,
+				onClose: () => state.close(),
+				placement: 'bottom',
+				offset: getArrowHeight('l') + 4,
+			})
+
+		const { triggerProps: overlayTriggerProps, overlayProps } = useOverlayTrigger(
 			{ type: 'menu' },
 			state,
-			triggerRef,
+			refs.trigger,
 		)
 
 		const { isFocusVisible, focusProps } = useFocusRing({})
@@ -80,7 +96,7 @@ const NodePanel = observer(
 			<Fragment>
 				<VisuallyHidden>
 					<Button
-						{...mergeProps(triggerProps, focusProps)}
+						{...mergeProps(overlayTriggerProps, focusProps)}
 						onPress={() => state.open()}
 						id={`node-panel-trigger-${node.id}`}
 					>
@@ -88,15 +104,11 @@ const NodePanel = observer(
 					</Button>
 				</VisuallyHidden>
 				<StyledPopover
-					// @ts-ignore: triggerRef should refer to an HTMLElement, but it
-					// also works fine with an SVGGElement
-					triggerRef={svgNodeRef}
 					isOpen={state.isOpen}
 					onClose={() => state.close()}
-					placement="bottom"
-					showArrow
-					arrowSize="l"
+					{...popoverProps}
 				>
+					<PopoverArrow size="l" {...arrowProps} />
 					{renderNodePanel(node, overlayProps)}
 				</StyledPopover>
 			</Fragment>

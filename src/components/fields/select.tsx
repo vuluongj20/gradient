@@ -2,14 +2,14 @@ import { AriaSelectOptions, HiddenSelect, useSelect } from '@react-aria/select'
 import { mergeProps } from '@react-aria/utils'
 import { Item, Section } from '@react-stately/collections'
 import { useSelectState } from '@react-stately/select'
-import { ComponentProps, Fragment, Key, useCallback, useRef } from 'react'
+import { ComponentProps, Fragment, Key, useCallback } from 'react'
 import styled from 'styled-components'
 
 import Button from '@components/button'
 import Dialog from '@components/dialog'
 import Field, { FieldProps } from '@components/fields/field'
 import ListBox from '@components/listBox'
-import Popover from '@components/popover'
+import Popover, { usePopover } from '@components/popover'
 
 import { isDefined } from '@utils/functions'
 import useBreakpoint from '@utils/useBreakpoint'
@@ -22,7 +22,6 @@ type BaseProps = AriaSelectOptions<object> &
 	}
 
 const BaseSelect = ({
-	popoverProps,
 	className,
 	rowLayout,
 	small = false,
@@ -30,27 +29,34 @@ const BaseSelect = ({
 	...props
 }: BaseProps) => {
 	const { label, name } = props
-	const triggerRef = useRef<HTMLButtonElement>(null)
+
 	const state = useSelectState(props)
-	const { triggerProps, valueProps, menuProps, labelProps } = useSelect(
-		props,
-		state,
-		triggerRef,
-	)
+
+	const { refs, triggerProps, popoverProps } = usePopover<HTMLButtonElement>({
+		placement: rowLayout ? 'bottom-end' : 'bottom-start',
+		isOpen: state.isOpen,
+		onClose: () => state.close(),
+	})
+
+	const {
+		triggerProps: selectTriggerProps,
+		valueProps,
+		menuProps,
+		labelProps,
+	} = useSelect(props, state, refs.trigger)
 
 	const renderTrigger = useCallback(() => {
 		return (
 			<StyledButton
-				ref={triggerRef}
 				small={small}
 				showBorder={isDefined(label)}
 				showExpandIcon
-				{...mergeProps(triggerProps, valueProps)}
+				{...mergeProps(triggerProps, selectTriggerProps, valueProps)}
 			>
 				{state.selectedItem ? state.selectedItem.rendered : 'Select an option'}
 			</StyledButton>
 		)
-	}, [triggerProps, small, valueProps, label, state.selectedItem])
+	}, [triggerProps, selectTriggerProps, small, valueProps, label, state.selectedItem])
 
 	const renderContent = useCallback(
 		() => (
@@ -68,14 +74,14 @@ const BaseSelect = ({
 			small={small}
 			className={className}
 		>
-			<HiddenSelect state={state} triggerRef={triggerRef} label={label} name={name} />
+			<HiddenSelect state={state} triggerRef={refs.trigger} label={label} name={name} />
 			{showDialogOnMobile && isXS ? (
 				<Dialog
 					isOpen={state.isOpen}
 					open={() => state.open()}
 					close={() => state.close()}
 					trigger={renderTrigger}
-					triggerRef={triggerRef}
+					triggerRef={refs.trigger}
 					title={label as string}
 					content={renderContent()}
 					contentProps={{ compact: true, onClose: () => state.close() }}
@@ -83,13 +89,7 @@ const BaseSelect = ({
 			) : (
 				<Fragment>
 					{renderTrigger()}
-					<Popover
-						isOpen={state.isOpen}
-						triggerRef={triggerRef}
-						onClose={() => state.close()}
-						placement={rowLayout ? 'bottom right' : 'bottom left'}
-						{...popoverProps}
-					>
+					<Popover isOpen={state.isOpen} onClose={() => state.close()} {...popoverProps}>
 						{renderContent()}
 					</Popover>
 				</Fragment>

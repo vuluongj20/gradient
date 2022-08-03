@@ -30,7 +30,8 @@ const SamplingNodePanel = ({ node, incomingEdges, parentNodes, overlayProps }: P
 export default observer(SamplingNodePanel)
 
 const Wrap = styled.div`
-	width: 18rem;
+	width: 100%;
+	max-width: 18rem;
 `
 
 const NodeLabel = styled.h2`

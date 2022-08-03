@@ -21,6 +21,7 @@ export const SectionHeading = styled.h2<Props>`
 	${(p) => p.theme.text.content.h2}
 	${(p) => p.theme.utils.space.marginBottom[5]}
 	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	
 	/* Force line breaks after each word */
 	word-spacing: 100em;
 	text-align: center;

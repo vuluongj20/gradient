@@ -1,146 +1,176 @@
-import { FocusScope, FocusScopeProps } from '@react-aria/focus'
 import {
-  AriaPositionProps,
-  DismissButton,
-  OverlayProps,
-  useOverlay,
-  useOverlayPosition,
-} from '@react-aria/overlays'
-import { mergeProps } from '@react-aria/utils'
-import { Placement, PlacementAxis } from '@react-types/overlays'
-import { CSSProperties, ComponentProps, ReactNode, RefObject, useRef } from 'react'
-import { Transition, TransitionStatus } from 'react-transition-group'
+  Placement,
+  UseFloatingProps,
+  arrow,
+  flip,
+  offset,
+  shift,
+  useFloating,
+} from '@floating-ui/react-dom'
+import { FocusScope, FocusScopeProps } from '@react-aria/focus'
+import { DismissButton, OverlayProps, useOverlay } from '@react-aria/overlays'
+import { ForwardRefRenderFunction, ReactNode, forwardRef, useMemo, useState } from 'react'
+import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
-import PopoverArrow, { getArrowHeight } from '@components/popoverArrow'
-
 import LocalThemeProvider from '@utils/localThemeProvider'
 
-type WrapProps = {
-  placement: Placement | PlacementAxis
-  showArrow: boolean
-  arrowStyles?: CSSProperties
-}
-
-type Props = Partial<OverlayProps> &
-  Partial<AriaPositionProps> &
-  FocusScopeProps & {
-    children: ReactNode
-    triggerRef: RefObject<HTMLButtonElement>
-    showArrow?: boolean
-    arrowSize?: ComponentProps<typeof PopoverArrow>['size']
-    className?: string
+type UsePopoverProps = OverlayProps &
+  UseFloatingProps & {
+    placement?: Placement
+    offset?: number
   }
 
-const Popover = ({
+export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
   isOpen,
   onClose,
-  children,
-  triggerRef,
-  offset = 4,
-  placement = 'bottom left',
-  containerPadding = 16,
-  shouldCloseOnBlur = false,
   isDismissable = true,
+  shouldCloseOnBlur = false,
   isKeyboardDismissDisabled = false,
-  showArrow = false,
-  arrowSize = 'm',
-  autoFocus = true,
-  restoreFocus = true,
-  contain = true,
-  animationState,
-  className,
-}: Props & { animationState: TransitionStatus }) => {
-  const ref = useRef<HTMLDivElement>(null)
+  placement = 'left',
+  strategy = 'absolute',
+  offset: mainOffset = 4,
+  ...props
+}: UsePopoverProps) => {
+  const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null)
+
+  const middleware = useMemo(
+    () => [
+      flip(),
+      offset(mainOffset),
+      shift({ padding: 16 }),
+      ...(arrowElement ? [arrow({ element: arrowElement })] : []),
+    ],
+    [mainOffset, arrowElement],
+  )
+
+  const {
+    x,
+    y,
+    refs,
+    reference,
+    floating,
+    placement: calculatedPlacement,
+    middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
+  } = useFloating<TriggerType>({
+    placement,
+    strategy,
+    middleware,
+    ...props,
+  })
+
   const { overlayProps } = useOverlay(
     {
       isOpen,
       onClose,
-      shouldCloseOnBlur,
       isDismissable,
+      shouldCloseOnBlur,
       isKeyboardDismissDisabled,
     },
-    ref,
+    refs.floating,
   )
-  const {
-    arrowProps,
-    overlayProps: positionProps,
-    placement: calculatedPlacement,
-  } = useOverlayPosition({
-    targetRef: triggerRef,
-    overlayRef: ref,
-    placement,
+
+  return {
+    refs: { trigger: refs.reference, popover: refs.floating },
+    triggerProps: {
+      ref: reference,
+    },
+    popoverProps: {
+      ref: floating,
+      refObject: refs.floating,
+      style: { position: strategy, top: y, left: x },
+      placement: calculatedPlacement,
+      ...overlayProps,
+    },
+    arrowProps: {
+      ref: setArrowElement,
+      style: { top: arrowY, left: arrowX },
+      placement: calculatedPlacement,
+    },
+  }
+}
+
+type Props = FocusScopeProps & {
+  isOpen: boolean
+  onClose: () => void
+  placement?: Placement
+  animateScale?: boolean
+  className?: string
+  children?: ReactNode
+}
+
+const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  {
     isOpen,
-    offset: showArrow ? offset + getArrowHeight(arrowSize) : offset,
-    containerPadding,
-  })
-
+    onClose,
+    children,
+    placement,
+    autoFocus = true,
+    restoreFocus = true,
+    contain = true,
+    animateScale = false,
+    className,
+    ...props
+  },
+  ref,
+) => {
   return (
-    <FocusScope autoFocus={autoFocus} restoreFocus={restoreFocus} contain={contain}>
-      <LocalThemeProvider overlay>
-        <Wrap
-          {...mergeProps(overlayProps, positionProps)}
-          placement={calculatedPlacement ?? placement}
-          showArrow={showArrow}
-          arrowStyles={arrowProps.style}
-          className={`${animationState} ${className ?? ''}`}
-          ref={ref}
-        >
-          {showArrow && (
-            <PopoverArrow
-              placement={calculatedPlacement}
-              size={arrowSize}
-              {...arrowProps}
-            />
-          )}
-
-          {children}
-          <DismissButton onDismiss={onClose} />
-        </Wrap>
-      </LocalThemeProvider>
-    </FocusScope>
+    <Transition in={isOpen} timeout={200} unmountOnExit mountOnEnter>
+      {(animationState) => (
+        <FocusScope autoFocus={autoFocus} restoreFocus={restoreFocus} contain={contain}>
+          <LocalThemeProvider overlay>
+            <Wrap
+              {...props}
+              placement={placement}
+              className={`${animationState} ${className ?? ''}`}
+              animateScale={animateScale}
+              ref={ref}
+            >
+              {children}
+              <DismissButton onDismiss={onClose} />
+            </Wrap>
+          </LocalThemeProvider>
+        </FocusScope>
+      )}
+    </Transition>
   )
 }
 
-// Only render Popover when it becomes visible (props.isOpen is true and Transition is
-// in `in` state). Otherwise Popover could position itself against a stale trigger ref,
-// resulting in flickery entry animation.
-const PopoverWithTransition = (props: Props) => (
-  <Transition in={props.isOpen} timeout={200} unmountOnExit mountOnEnter>
-    {(animationState) => <Popover {...props} animationState={animationState} />}
-  </Transition>
-)
+export default forwardRef(Popover)
 
-export default PopoverWithTransition
+type WrapProps = {
+  placement?: Placement
+  animateScale?: boolean
+}
 
 const getTransform = ({
+  animateScale,
   placement,
   theme,
-  showArrow,
-  arrowStyles = {},
 }: WrapProps & { theme: Theme }) => {
-  const scaleTerm = showArrow ? 'scale(0.8)' : ''
-  switch (placement.split(' ')[0]) {
+  const scaleTerm = animateScale ? 'scale(0.8)' : ''
+
+  switch (placement?.split('-')[0]) {
     case 'top':
       return `
-        transform-origin: ${arrowStyles.left ?? 0}px 100%;
+        transform-origin: 0% 100%;
         transform: translate3d(0, ${theme.space[2]}, 0) ${scaleTerm};
       `
     case 'bottom':
       return `
-        transform-origin: ${arrowStyles.left ?? 0}px 0%;
+        transform-origin: 0% 0%;
         transform: translate3d(0, -${theme.space[2]}, 0) ${scaleTerm};
       `
     case 'left':
       return `
-        transform-origin: 100% ${arrowStyles.top ?? 0}px;
+        transform-origin: 100% 0%;
         transform: translate3d(${theme.space[2]}, 0, 0) ${scaleTerm};
       `
     case 'right':
       return `
-        transform-origin: 0% ${arrowStyles.top ?? 0}px;
+        transform-origin: 0% 0%;
         transform: translate3d(-${theme.space[2]}, 0, 0) ${scaleTerm};
       `
     default:
@@ -150,11 +180,13 @@ const getTransform = ({
 
 const Wrap = styled.div<WrapProps>`
   position: absolute;
+  max-width: calc(100vw - 32px);
   background: ${(p) => p.theme.oBackground};
   border-radius: ${(p) => p.theme.radii.m};
   padding: ${(p) => p.theme.space[0]};
   box-shadow: 0 0 0 1px ${(p) => p.theme.oLine}, ${(p) => p.theme.shadows.l};
-  transition: ${(p) => p.theme.animation.fastOut};
+  transition: transform ${(p) => p.theme.animation.fastOut},
+    opacity ${(p) => p.theme.animation.fastOut};
   opacity: 0;
   will-change: opacity, transform;
   z-index: ${(p) => p.theme.zIndices.popover};

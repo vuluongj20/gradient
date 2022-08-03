@@ -1,11 +1,11 @@
-import { PlacementAxis } from '@react-types/overlays'
-import { HTMLAttributes } from 'react'
+import { Placement } from '@floating-ui/react-dom'
+import { ForwardRefRenderFunction, HTMLAttributes, forwardRef } from 'react'
 import styled from 'styled-components'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   size?: 's' | 'm' | 'l'
   strokeWidth?: number
-  placement: PlacementAxis
+  placement?: Placement
 }
 
 function getArrowWidth(size: Props['size']) {
@@ -24,7 +24,10 @@ export function getArrowHeight(size: Props['size']) {
   return Math.round(getArrowWidth(size) / 3)
 }
 
-const Arrow = ({ size = 'm', strokeWidth = 1, placement, ...props }: Props) => {
+const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { size = 'm', strokeWidth = 1, placement, ...props },
+  ref,
+) => {
   /**
    * Width
    */
@@ -45,7 +48,7 @@ const Arrow = ({ size = 'm', strokeWidth = 1, placement, ...props }: Props) => {
   ].join('')
 
   return (
-    <Wrap placement={placement} {...props}>
+    <Wrap ref={ref} placement={placement} {...props}>
       <SVG overflow="visible" width={w} viewBox={`0 0 ${w} ${h}`}>
         <defs>
           <mask id="stroke-mask">
@@ -64,9 +67,9 @@ const Arrow = ({ size = 'm', strokeWidth = 1, placement, ...props }: Props) => {
   )
 }
 
-export default Arrow
+export default forwardRef(Arrow)
 
-const Wrap = styled.div<{ placement: PlacementAxis }>`
+const Wrap = styled.div<{ placement?: Placement }>`
   width: 0;
   height: 0;
   position: absolute;
@@ -75,10 +78,10 @@ const Wrap = styled.div<{ placement: PlacementAxis }>`
   justify-content: center;
   transform-origin: center bottom;
 
-  ${(p) => p.placement === 'top' && `bottom: 0; transform: rotate(180deg);`}
-  ${(p) => p.placement === 'bottom' && `top: 0;`}
-  ${(p) => p.placement === 'left' && `right: 0; transform: rotate(90deg);`}
-  ${(p) => p.placement === 'right' && `left: 0; transform: rotate(-90deg);`}
+  ${(p) => p.placement?.startsWith('top') && `bottom: 0; transform: rotate(180deg);`}
+  ${(p) => p.placement?.startsWith('bottom') && `top: 0;`}
+  ${(p) => p.placement?.startsWith('left') && `right: 0; transform: rotate(90deg);`}
+  ${(p) => p.placement?.startsWith('right') && `left: 0; transform: rotate(-90deg);`}
 `
 
 const SVG = styled.svg`
