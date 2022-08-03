@@ -9,13 +9,13 @@ import {
 	Fragment,
 	HTMLAttributes,
 	ReactNode,
+	RefObject,
 	SetStateAction,
 	useEffect,
 	useRef,
 } from 'react'
 import styled from 'styled-components'
 
-import Graph from '../model/graph'
 import BaseNode from '../model/node'
 
 import Button from '@components/button'
@@ -23,15 +23,14 @@ import Popover, { usePopover } from '@components/popover'
 import PopoverArrow, { getArrowHeight } from '@components/popoverArrow'
 
 import useMountEffect from '@utils/useMountEffect'
+import usePrevious from '@utils/usePrevious'
+import useSize from '@utils/useSize'
 
-type NodePanelProps<Node extends BaseNode> = {
+type Props<Node extends BaseNode> = {
 	node: Node
 	setSimulationPlayState: Dispatch<SetStateAction<boolean>>
 	renderNodePanel: (node: Node, overlayProps: HTMLAttributes<HTMLDivElement>) => ReactNode
-}
-
-type Props<Node extends BaseNode> = Omit<NodePanelProps<Node>, 'node'> & {
-	graph: Graph<Node>
+	wrapRef: RefObject<HTMLDivElement>
 }
 
 const NodePanel = observer(
@@ -39,14 +38,11 @@ const NodePanel = observer(
 		node,
 		setSimulationPlayState,
 		renderNodePanel,
-	}: NodePanelProps<Node>) => {
+		wrapRef,
+	}: Props<Node>) => {
 		const svgNodeRef = useRef<HTMLButtonElement>(
 			document.querySelector(`#node-${node.id}`),
 		)
-
-		useMountEffect(() => {
-			triggerProps.ref(svgNodeRef.current)
-		})
 
 		const state = useOverlayTriggerState({
 			onOpenChange: (isOpen) => {
@@ -80,6 +76,18 @@ const NodePanel = observer(
 			state,
 			refs.trigger,
 		)
+
+		useMountEffect(() => {
+			triggerProps.ref(svgNodeRef.current)
+		})
+
+		// Close node panel on resize
+		const { width: wrapWidth } = useSize(wrapRef)
+		const prevWrapWidth = usePrevious(wrapWidth)
+		useEffect(() => {
+			if (wrapWidth === prevWrapWidth || !state.isOpen) return
+			state.close()
+		}, [wrapWidth, prevWrapWidth, state.isOpen])
 
 		const { isFocusVisible, focusProps } = useFocusRing({})
 		useEffect(() => {
@@ -120,23 +128,4 @@ const StyledPopover = styled(Popover)`
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
 `
 
-const NodePanels = <Node extends BaseNode>({
-	graph,
-	setSimulationPlayState,
-	renderNodePanel,
-}: Props<Node>) => {
-	return (
-		<Fragment>
-			{graph.nodes.map((node) => (
-				<NodePanel
-					key={node.id}
-					node={node}
-					setSimulationPlayState={setSimulationPlayState}
-					renderNodePanel={renderNodePanel}
-				/>
-			))}
-		</Fragment>
-	)
-}
-
-export default NodePanels
+export default NodePanel

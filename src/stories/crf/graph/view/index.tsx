@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import BaseEdge from '../model/edge'
 import Graph from '../model/graph'
 import BaseNode from '../model/node'
-import NodePanels from './nodePanels'
+import NodePanel from './nodePanel'
 import ForceGraph from './svg'
 
 import useSize from '@utils/useSize'
@@ -36,13 +36,17 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 				simulationPlayState={simulationPlayState}
 				setSvgReady={setSvgReady}
 			/>
-			{svgReady && renderNodePanel && (
-				<NodePanels
-					graph={graph}
-					setSimulationPlayState={setSimulationPlayState}
-					renderNodePanel={renderNodePanel}
-				/>
-			)}
+			{svgReady &&
+				renderNodePanel &&
+				graph.nodes.map((node) => (
+					<NodePanel
+						key={node.id}
+						node={node}
+						setSimulationPlayState={setSimulationPlayState}
+						renderNodePanel={renderNodePanel}
+						wrapRef={ref}
+					/>
+				))}
 		</Wrap>
 	)
 }
@@ -50,6 +54,7 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 export default GraphView
 
 const Wrap = styled.div`
+	position: relative;
 	display: flex;
 	justify-content: center;
 	width: 100%;

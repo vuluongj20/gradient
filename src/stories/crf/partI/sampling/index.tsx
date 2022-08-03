@@ -15,12 +15,12 @@ const newGraph = () => {
 	const g = new SamplingGraph()
 	const nodeA = new SamplingNode({ label: 'A' })
 	const nodeB = new SamplingNode({ label: 'B' })
-	// const nodeC = new SamplingNode({ label: 'C' })
-	// const nodeD = new SamplingNode({ label: 'D' })
+	const nodeC = new SamplingNode({ label: 'C' })
+	const nodeD = new SamplingNode({ label: 'D' })
 	g.addNode(nodeA)
 	g.addNode(nodeB)
-	// g.addNode(nodeC)
-	// g.addNode(nodeD)
+	g.addNode(nodeC)
+	g.addNode(nodeD)
 
 	g.addEdge(
 		new SamplingEdge({
@@ -28,24 +28,24 @@ const newGraph = () => {
 			isDirected: true,
 		}),
 	)
-	// g.addEdge(
-	// 	new SamplingEdge({
-	// 		nodes: { source: nodeA.id, target: nodeD.id },
-	// 		isDirected: true,
-	// 	}),
-	// )
-	// g.addEdge(
-	// 	new SamplingEdge({
-	// 		nodes: { source: nodeB.id, target: nodeD.id },
-	// 		isDirected: true,
-	// 	}),
-	// )
-	// g.addEdge(
-	// 	new SamplingEdge({
-	// 		nodes: { source: nodeC.id, target: nodeD.id },
-	// 		isDirected: true,
-	// 	}),
-	// )
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeA.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeB.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeC.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
 
 	return g
 }
