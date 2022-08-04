@@ -18,7 +18,7 @@ const letters = ['\u03B1', '\u03B2', '\u03B3', '\u03B4', '\u03B5']
 
 const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	const nodeDescription = tl(
-		`${node.label} is a child of $1. Its value comes from normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's,parents'} {1,value,values}.`,
+		`${node.label} is a child of $1. It's sampled from a normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's,parents'} sampled {1,value,values}.`,
 		parentNodes.map((n) => n.label),
 	)
 	const valueFn = `${node.label} = Normal(${incomingEdges
@@ -48,7 +48,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 						value={coefficient}
 						onChange={(val) => edge.setCoefficient(val)}
 						label={letters[i]}
-						description={`Coefficient of ${parentNode.label}.`}
+						description={`${parentNode.label}'s coefficient.`}
 						step={0.1}
 						inputWidth="4rem"
 					/>

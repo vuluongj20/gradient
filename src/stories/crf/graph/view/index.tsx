@@ -15,11 +15,13 @@ type Props<Node extends BaseNode, Edge extends BaseEdge> = {
 		node: Node,
 		overlayProps: HTMLAttributes<HTMLDivElement>,
 	) => ReactNode
+	className?: string
 }
 
 const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge>({
 	graph,
 	renderNodePanel,
+	className,
 }: Props<Node, Edge>) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(ref)
@@ -28,7 +30,7 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 	const [svgReady, setSvgReady] = useState(false)
 
 	return (
-		<Wrap ref={ref}>
+		<Wrap ref={ref} className={className}>
 			<ForceGraph
 				graph={graph}
 				width={width}

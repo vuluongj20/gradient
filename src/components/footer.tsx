@@ -50,7 +50,9 @@ const Footer = ({ inset = false }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider inset={inset}>
 			<Wrap>
-				<Divider noMb noMt />
+				<Grid>
+					<StyledDivider />
+				</Grid>
 				<SiteMap as="nav">
 					<Column>
 						<ColLabel>Sections</ColLabel>
@@ -66,7 +68,7 @@ const Footer = ({ inset = false }: Props): JSX.Element => {
 					</Column>
 				</SiteMap>
 				<Grid>
-					<DisclosuresDivider />
+					<StyledDivider />
 				</Grid>
 				<Policies>
 					<PolicyText aria-hidden="true">Gradient</PolicyText>
@@ -120,10 +122,8 @@ const ColLink = styled.li`
 	}
 `
 
-const DisclosuresDivider = styled.hr`
+const StyledDivider = styled(Divider)`
 	grid-column: 1 / -1;
-	border-bottom-width: 1px;
-	margin: 0;
 `
 
 const Policies = styled(Grid)`

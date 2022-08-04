@@ -118,15 +118,6 @@ const GlobalStyles = createGlobalStyle`
     ${(p) => p.theme.utils.focusVisible}; 
   }
 
-  hr {
-    width: 100%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: solid 1px ${(p) => p.theme.line};
-    grid-column: 1 / -1;
-  }
-
   ol, ul {
     padding: 0;
     margin: 0;
