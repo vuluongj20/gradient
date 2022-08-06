@@ -39,7 +39,7 @@ const Field = ({
 					{description}
 				</Description>
 			)}
-			{children}
+			<InputWrap>{children}</InputWrap>
 		</Wrap>
 	)
 }
@@ -47,16 +47,17 @@ const Field = ({
 export default Field
 
 const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
-	padding: ${(p) => p.theme.space[1]} 0;
-
 	${(p) =>
 		p.rowLayout
 			? `
 					display: grid;
 					grid-column-gap: ${p.theme.space[2]};
+					grid-row-gap: ${p.theme.space[0]};
 					grid-template-columns: 1fr max-content;
 					align-items: center;
 					justify-items: end;
+					padding: ${p.theme.space[2]} 0;
+
 					:not(:last-child) {
 						border-bottom: solid 1px ${p.theme.line};
 					}
@@ -64,7 +65,8 @@ const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
 			: `
 					display: flex;
 					flex-direction: column;
-					align-items:flex-start;
+					align-items: flex-start;
+					padding: ${p.theme.space[1]} 0;
 				`}
 `
 
@@ -92,4 +94,10 @@ const Description = styled.small<{ rowLayout: boolean }>`
 		display: block; 
 		margin-bottom: ${p.theme.space[0]};
 	`}
+`
+
+const InputWrap = styled.div`
+	height: 0;
+	display: flex;
+	align-items: center;
 `
