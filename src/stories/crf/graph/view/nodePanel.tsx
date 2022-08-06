@@ -67,7 +67,7 @@ const NodePanel = observer(
 			usePopover<HTMLButtonElement>({
 				isOpen: state.isOpen,
 				onClose: () => state.close(),
-				placement: 'bottom',
+				placement: 'top',
 				offset: getArrowHeight('l') + 4,
 			})
 

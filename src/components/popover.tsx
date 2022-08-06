@@ -47,8 +47,11 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
     () => [
       flip(),
       offset(mainOffset),
-      shift({ padding: 16 }),
-      ...(arrowElement ? [arrow({ element: arrowElement })] : []),
+      shift({
+        padding: 16,
+        boundary: document.querySelector('#page-content .tl-wrapper') ?? undefined,
+      }),
+      ...(arrowElement ? [arrow({ element: arrowElement, padding: 20 })] : []),
     ],
     [mainOffset, arrowElement],
   )
