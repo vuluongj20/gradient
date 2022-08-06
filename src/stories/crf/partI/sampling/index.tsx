@@ -8,6 +8,7 @@ import SamplingNode from './model/node'
 import SamplingNodePanel from './nodePanel'
 import PairGrid from './pairGrid'
 
+import Divider from '@components/divider'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
 
@@ -67,6 +68,7 @@ const Section = () => {
 						/>
 					)}
 				/>
+				<StyledDivider orientation="vertical" />
 				<PairGrid graph={graph} />
 			</StyledPanel>
 		</Grid>
@@ -75,12 +77,18 @@ const Section = () => {
 
 export default Section
 
+const StyledDivider = styled(Divider)`
+	margin: 0 ${(p) => p.theme.space[3]};
+`
+
 const StyledGraphView = styled(GraphView)`
+	height: 100%;
 	width: 30%;
 	flex-shrink: 0;
 `
 
 const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginVertical[3]}
+	height: 28rem;
 	display: flex;
 `

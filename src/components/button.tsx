@@ -11,6 +11,8 @@ import IconChevronDown from '@icons/chevronDown'
 
 type Props = AriaButtonProps & {
 	children: ReactNode
+	primary?: boolean
+	filled?: boolean
 	small?: boolean
 	showBorder?: boolean
 	showExpandIcon?: boolean
@@ -21,6 +23,8 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 	{
 		children,
 		className,
+		primary = false,
+		filled = false,
 		small = false,
 		showBorder = false,
 		showExpandIcon = false,
@@ -38,6 +42,8 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 	return (
 		<Wrap
 			ref={ref}
+			primary={primary}
+			filled={filled}
 			small={small}
 			showBorder={showBorder}
 			showExpandIcon={showExpandIcon}
@@ -60,6 +66,8 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 export default forwardRef(BaseButton)
 
 const Wrap = styled.button<{
+	primary: boolean
+	filled: boolean
 	small: boolean
 	showBorder: boolean
 	showExpandIcon: boolean
@@ -71,6 +79,31 @@ const Wrap = styled.button<{
 	border-radius: ${(p) => p.theme.radii.s};
 	padding: ${(p) =>
 		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
+
+	${(p) => p.theme.text.system.label};
+	color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.buttonLabel)};
+	background-color: ${(p) =>
+		p.filled
+			? p.primary
+				? p.theme.primaryOpaqueBackground
+				: p.theme.iLine
+			: 'transparent'};
+	appearance: none;
+	border: none;
+	border-radius: ${(p) => p.theme.radii.s};
+	cursor: pointer;
+	transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
+
+	&:hover {
+		color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.heading)};
+	}
+
+	&:focus {
+		outline: none;
+	}
+	&.focus-visible {
+		${(p) => p.theme.utils.focusVisible};
+	}
 
 	${(p) => p.showExpandIcon && `padding-right: ${p.theme.space[0]};`}
 	${(p) =>

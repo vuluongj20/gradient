@@ -69,6 +69,10 @@ type ColorAliasName =
 	| 'heading'
 	| 'body'
 	| 'label'
+	| 'primaryText'
+	| 'primaryBackground'
+	| 'primaryOpaqueBackground'
+	| 'onPrimaryBackground'
 	| 'activeText'
 	| 'activeBackground'
 	| 'onActiveBackground'
@@ -108,10 +112,10 @@ const paper: ColorPalette = {
 		gray7: '#C5BFC0',
 		gray8: 'rgba(148, 137, 139, 0.22)',
 		gray9: 'rgba(148, 137, 139, 0.16)',
-		red1: '#E33B12',
-		red2: '#EE542F',
-		red3: '#F2775A',
-		red4: '#F69E89',
+		red1: '#CB3510',
+		red2: '#ED4921',
+		red3: '#F17456',
+		red4: '#F59A84',
 		red5: '#F9C5B8',
 		red6: '#FDECE7',
 		yellow1: '#84A10D',
@@ -172,37 +176,37 @@ const charcoal: ColorPalette = {
 		red3: 'rgba(255, 115, 82, 0.8)',
 		red4: 'rgba(255, 115, 82, 0.6)',
 		red5: 'rgba(255, 115, 82, 0.4)',
-		red6: 'rgba(255, 115, 82, 0.2)',
+		red6: 'rgba(255, 115, 82, 0.12)',
 		yellow1: 'rgba(184, 229, 0, 1)',
 		yellow2: 'rgba(184, 229, 0, 0.9)',
 		yellow3: 'rgba(184, 229, 0, 0.8)',
 		yellow4: 'rgba(184, 229, 0, 0.6)',
 		yellow5: 'rgba(184, 229, 0, 0.4)',
-		yellow6: 'rgba(184, 229, 0, 0.2)',
-		green1: 'rgba(0, 224, 65, 1)',
-		green2: 'rgba(0, 224, 65, 0.9)',
-		green3: 'rgba(0, 224, 65, 0.8)',
-		green4: 'rgba(0, 224, 65, 0.6)',
-		green5: 'rgba(0, 224, 65, 0.4)',
-		green6: 'rgba(0, 224, 65, 0.15)',
+		yellow6: 'rgba(184, 229, 0, 0.08)',
+		green1: 'rgba(0, 204, 59, 1)',
+		green2: 'rgba(0, 204, 59, 0.9)',
+		green3: 'rgba(0, 204, 59, 0.8)',
+		green4: 'rgba(0, 204, 59, 0.6)',
+		green5: 'rgba(0, 204, 59, 0.4)',
+		green6: 'rgba(0, 204, 59, 0.14)',
 		teal1: 'rgba(15, 209, 255, 1)',
 		teal2: 'rgba(15, 209, 255, 0.9)',
 		teal3: 'rgba(15, 209, 255, 0.8)',
 		teal4: 'rgba(15, 209, 255, 0.6)',
 		teal5: 'rgba(15, 209, 255, 0.4)',
-		teal6: 'rgba(15, 209, 255, 0.2)',
+		teal6: 'rgba(15, 209, 255, 0.12)',
 		blue1: 'rgba(153, 128, 255, 1)',
 		blue2: 'rgba(153, 128, 255, 0.9)',
 		blue3: 'rgba(153, 128, 255, 0.8)',
 		blue4: 'rgba(153, 128, 255, 0.6)',
 		blue5: 'rgba(153, 128, 255, 0.4)',
-		blue6: 'rgba(153, 128, 255, 0.2)',
+		blue6: 'rgba(153, 128, 255, 0.12)',
 		purple1: 'rgba(255, 92, 223, 1)',
 		purple2: 'rgba(255, 92, 223, 0.9)',
 		purple3: 'rgba(255, 92, 223, 0.8)',
 		purple4: 'rgba(255, 92, 223, 0.6)',
 		purple5: 'rgba(255, 92, 223, 0.4)',
-		purple6: 'rgba(255, 92, 223, 0.25)',
+		purple6: 'rgba(255, 92, 223, 0.14)',
 	},
 }
 
@@ -244,12 +248,17 @@ export const getColorAliases = (
 
 		focus: colors.red3,
 
+		primaryText: colors.red1,
+		primaryBackground: colors.red2,
+		primaryOpaqueBackground: colors.red6,
+		onPrimaryBackground: colors.white,
+
 		activeText: colors.red1,
 		activeBackground: colors.red2,
 		onActiveBackground: colors.white,
 
-		successText: colors.green1,
-		successBackground: colors.green2,
+		successText: colors.red1,
+		successBackground: colors.red2,
 		onSuccessBackground: colors.white,
 
 		errorText: colors.red1,

@@ -18,9 +18,9 @@ type Props = {
 }
 
 const PairGrid = ({ graph }: Props) => {
-	const wrapRef = useRef<HTMLDivElement>(null)
+	const gridWrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
-	const { width, height } = useSize(wrapRef)
+	const { width, height } = useSize(gridWrapRef)
 	const [samples, setSamples] = useState(() => graph.sample(70))
 	const domains = useMemo(
 		() =>
@@ -76,21 +76,36 @@ const PairGrid = ({ graph }: Props) => {
 	}
 
 	return (
-		<Wrap ref={wrapRef}>
-			<CSSTransition in={!isStale} timeout={500} unmountOnExit mountOnEnter appear>
-				<SVG ref={svgRef} />
-			</CSSTransition>
-			<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter>
-				<StaleWrap>
-					<ResampleText>
-						Some parameters in your graph have changed. Click the button below to draw new
-						samples.
-					</ResampleText>
-					<Button onPress={resample} showBorder>
+		<Wrap>
+			<Header>
+				<Title>Sampling</Title>
+				<Description>
+					The entire graph is sampled 750 times. Each time, samples are drawn in order,
+					starting with the root node.
+				</Description>
+				<TrailingWrap>
+					<ResampleButton filled primary small>
 						Resample
-					</Button>
-				</StaleWrap>
-			</CSSTransition>
+					</ResampleButton>
+				</TrailingWrap>
+			</Header>
+
+			<GridWrap ref={gridWrapRef}>
+				<CSSTransition in={!isStale} timeout={500} unmountOnExit mountOnEnter appear>
+					<SVG ref={svgRef} />
+				</CSSTransition>
+				<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter>
+					<StaleWrap>
+						<ResampleText>
+							Some parameters in your graph have changed. Click the button below to draw
+							new samples.
+						</ResampleText>
+						<Button onPress={resample} showBorder>
+							Resample
+						</Button>
+					</StaleWrap>
+				</CSSTransition>
+			</GridWrap>
 		</Wrap>
 	)
 }
@@ -98,10 +113,43 @@ const PairGrid = ({ graph }: Props) => {
 export default observer(PairGrid)
 
 const Wrap = styled.div`
-	position: relative;
-	width: 100%;
-	height: 36rem;
-	padding-top: ${(p) => p.theme.space[2]};
+	display: grid;
+	grid-template-rows: max-content 1fr;
+	gap: ${(p) => p.theme.space[2]};
+`
+
+const Header = styled.div`
+	flex-shrink: 0;
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	align-items: center;
+	gap: ${(p) => p.theme.space[0]};
+`
+
+const Title = styled.h3`
+	${(p) => p.theme.text.system.h6}
+	grid-column: 1;
+`
+
+const Description = styled.p`
+	${(p) => p.theme.text.system.small};
+	color: ${(p) => p.theme.label};
+	grid-column: 1;
+	grid-row: 2;
+`
+
+const TrailingWrap = styled.div`
+	display: flex;
+	align-items: center;
+	height: 0;
+`
+
+const ResampleButton = styled(Button)`
+	grid-column: 2;
+`
+
+const GridWrap = styled.div`
+	overflow: hidden;
 `
 
 const StaleWrap = styled.div`
@@ -132,8 +180,6 @@ const ResampleText = styled.p`
 `
 
 const SVG = styled.svg`
-	height: 100%;
-	width: 100%;
 	${(p) => p.theme.text.viz.body};
 
 	/*

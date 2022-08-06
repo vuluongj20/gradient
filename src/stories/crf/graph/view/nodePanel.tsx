@@ -87,7 +87,7 @@ const NodePanel = observer(
 		useEffect(() => {
 			if (wrapWidth === prevWrapWidth || !state.isOpen) return
 			state.close()
-		}, [wrapWidth, prevWrapWidth, state.isOpen])
+		}, [wrapWidth, prevWrapWidth, state])
 
 		const { isFocusVisible, focusProps } = useFocusRing({})
 		useEffect(() => {
@@ -112,6 +112,7 @@ const NodePanel = observer(
 					</Button>
 				</VisuallyHidden>
 				<StyledPopover
+					animateScale
 					isOpen={state.isOpen}
 					onClose={() => state.close()}
 					{...popoverProps}

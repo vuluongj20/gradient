@@ -16,7 +16,7 @@ const subPlotPadding = 12
  */
 const gridGap = 24
 const marginLeft = 48
-const marginBottom = 48
+const marginBottom = 40
 
 type SubplotSizeProps = {
 	width: number
@@ -184,7 +184,7 @@ const renderColumnLabel = (
 		marginLeft + nodeIndex * subPlotWidth + nodeIndex * gridGap + subPlotWidth / 2
 
 	return labelSelection
-		.attr('transform', `translate(${translateX} ${height - 12}) `)
+		.attr('transform', `translate(${translateX} ${height}) `)
 		.selectAll<SVGTextElement, null>('text')
 		.data([null])
 		.join((enter) => {

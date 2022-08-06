@@ -41,6 +41,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
+    position: relative;
     color: ${(p) => p.theme.heading};
     margin: 0;
   }
@@ -85,27 +86,6 @@ const GlobalStyles = createGlobalStyle`
     ${(p) => p.theme.utils.focusVisible}; 
   }
 
-  button {
-    ${(p) => p.theme.text.system.label};
-    color: ${(p) => p.theme.buttonLabel};
-
-    appearance: none;
-    background: transparent;
-    border: none;
-    border-radius: ${(p) => p.theme.radii.s};
-    cursor: pointer;
-    transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
-
-    &:hover {
-      color: ${(p) => p.theme.body};
-    }
-  }
-  button:focus {
-    outline: none;
-  }
-  button.focus-visible {
-    ${(p) => p.theme.utils.focusVisible}; 
-  }
 
   input {
     font-size: 1rem;
@@ -137,7 +117,7 @@ const GlobalStyles = createGlobalStyle`
 
   .autolinked-header.before {
     ${(p) => p.theme.utils.flexCenter};
-     height: 100%;
+    height: 100%;
   }
   .autolinked-header svg {
     fill: ${(p) => p.theme.label};

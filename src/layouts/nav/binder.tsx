@@ -30,9 +30,9 @@ Props): JSX.Element => {
 		<Wrap>
 			<Hamburger toggleMenu={toggleMenu} menuOpen={menuOpen} />
 			<SearchWrap>
-				<Button>
+				<SearchButton>
 					<StyledIconSearch size="xl" />
-				</Button>
+				</SearchButton>
 			</SearchWrap>
 			{/*<StyledSettings
 				beforeDialogOpen={beforeSettingsDialogOpen}
@@ -84,6 +84,10 @@ const SearchWrap = styled.li`
 	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
+`
+
+const SearchButton = styled(Button)`
+	padding: ${(p) => p.theme.space[0]};
 `
 
 const StyledIconSearch = styled(IconSearch)`

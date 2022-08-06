@@ -9,7 +9,14 @@ import {
 } from '@floating-ui/react-dom'
 import { FocusScope, FocusScopeProps } from '@react-aria/focus'
 import { DismissButton, OverlayProps, useOverlay } from '@react-aria/overlays'
-import { ForwardRefRenderFunction, ReactNode, forwardRef, useMemo, useState } from 'react'
+import {
+  CSSProperties,
+  ForwardRefRenderFunction,
+  ReactNode,
+  forwardRef,
+  useMemo,
+  useState,
+} from 'react'
 import { Transition } from 'react-transition-group'
 import styled from 'styled-components'
 
@@ -81,6 +88,7 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
       ref: floating,
       refObject: refs.floating,
       style: { position: strategy, top: y, left: x },
+      arrowStyles: { top: arrowY, left: arrowX },
       placement: calculatedPlacement,
       ...overlayProps,
     },
@@ -95,6 +103,7 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
 type Props = FocusScopeProps & {
   isOpen: boolean
   onClose: () => void
+  arrowStyles?: CSSProperties
   placement?: Placement
   animateScale?: boolean
   className?: string
@@ -105,12 +114,13 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
     isOpen,
     onClose,
-    children,
     placement,
     autoFocus = true,
     restoreFocus = true,
     contain = true,
     animateScale = false,
+    arrowStyles = {},
+    children,
     className,
     ...props
   },
@@ -126,6 +136,7 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               placement={placement}
               className={`${animationState} ${className ?? ''}`}
               animateScale={animateScale}
+              arrowStyles={arrowStyles}
               ref={ref}
             >
               {children}
@@ -142,12 +153,14 @@ export default forwardRef(Popover)
 
 type WrapProps = {
   placement?: Placement
-  animateScale?: boolean
+  animateScale: boolean
+  arrowStyles: CSSProperties
 }
 
 const getTransform = ({
   animateScale,
   placement,
+  arrowStyles,
   theme,
 }: WrapProps & { theme: Theme }) => {
   const scaleTerm = animateScale ? 'scale(0.8)' : ''
@@ -155,22 +168,22 @@ const getTransform = ({
   switch (placement?.split('-')[0]) {
     case 'top':
       return `
-        transform-origin: 0% 100%;
+        transform-origin: ${arrowStyles.left ?? 0}px 100%;
         transform: translate3d(0, ${theme.space[2]}, 0) ${scaleTerm};
       `
     case 'bottom':
       return `
-        transform-origin: 0% 0%;
+        transform-origin: ${arrowStyles.left ?? 0}px 0%;
         transform: translate3d(0, -${theme.space[2]}, 0) ${scaleTerm};
       `
     case 'left':
       return `
-        transform-origin: 100% 0%;
+        transform-origin: 100% ${arrowStyles.top ?? 0}px;
         transform: translate3d(${theme.space[2]}, 0, 0) ${scaleTerm};
       `
     case 'right':
       return `
-        transform-origin: 0% 0%;
+        transform-origin: 0% ${arrowStyles.top ?? 0}px;
         transform: translate3d(-${theme.space[2]}, 0, 0) ${scaleTerm};
       `
     default:

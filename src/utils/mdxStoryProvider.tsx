@@ -2,9 +2,9 @@ import { MDXProvider } from '@mdx-js/react'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import Divider from '@components/divider'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
+import SectionDivider from '@components/sectionDivider'
 import * as Text from '@components/text'
 
 type Props = { children: ReactNode }
@@ -36,7 +36,7 @@ const components = {
 	h2: SectionHeading,
 	p: Body,
 	a: Text.Link,
-	hr: Divider,
+	hr: SectionDivider,
 	Header,
 	Abstract,
 	Figure,

@@ -67,7 +67,7 @@ const sohneMono: TextScaleDefinition = {
 		...styles,
 		fontSizes: { xl: 0.8125, l: 0.8125, m: 0.8125, s: 0.75, xs: 0.75 },
 		fontWeight: 400,
-		lineHeight: 1.4,
+		lineHeight: 1.2,
 		letterSpacing: '+0.01em',
 	},
 }
