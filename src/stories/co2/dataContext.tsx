@@ -9,11 +9,12 @@ import Spinner from '@components/spinner'
 import { makeCancelable } from '@utils/functions'
 
 const DataContext = createContext<Data | null>(null)
+export default DataContext
 
-type Props = { children?: ReactNode }
 type RawData = Record<keyof Data[0], string | undefined>[]
+type Props = { children?: ReactNode }
 
-const DataProvider = ({ children }: Props) => {
+export const DataProvider = ({ children }: Props) => {
 	const [data, setData] = useState<Data | null>(null)
 
 	useEffect(() => {
@@ -38,15 +39,15 @@ const DataProvider = ({ children }: Props) => {
 	return <DataContext.Provider value={data}>{children}</DataContext.Provider>
 }
 
-const DataConsumer = ({ render }: { render: (data) => ReactNode }) => {
+type DataConsumerProps = { render: (data: Data) => ReactNode }
+
+export const DataConsumer = ({ render }: DataConsumerProps) => {
 	const data = useContext(DataContext)
 
 	if (!data) return <StyledSpinner label="Loading CO₂ data…" showLabel />
 
 	return render(data)
 }
-
-export { DataContext as default, DataProvider, DataConsumer }
 
 const StyledSpinner = styled(Spinner)`
 	margin: ${(p) => p.theme.space[5]} auto 0;

@@ -23,6 +23,7 @@ import styled from 'styled-components'
 import { Theme } from '@theme'
 
 import LocalThemeProvider from '@utils/localThemeProvider'
+import useMobile from '@utils/useMobile'
 
 type UsePopoverProps = OverlayProps &
   UseFloatingProps & {
@@ -42,18 +43,24 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
   ...props
 }: UsePopoverProps) => {
   const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null)
+  const isMobile = useMobile()
 
   const middleware = useMemo(
     () => [
+      shift({
+        padding: {
+          // Account for the nav bar's width
+          left: isMobile ? 16 : (document.querySelector('nav')?.offsetWidth ?? 0) + 16,
+          right: 16,
+          top: 16,
+          bottom: 16,
+        },
+      }),
       flip(),
       offset(mainOffset),
-      shift({
-        padding: 16,
-        boundary: document.querySelector('#page-content .tl-wrapper') ?? undefined,
-      }),
       ...(arrowElement ? [arrow({ element: arrowElement, padding: 20 })] : []),
     ],
-    [mainOffset, arrowElement],
+    [mainOffset, arrowElement, isMobile],
   )
 
   const {
@@ -204,7 +211,6 @@ const Wrap = styled.div<WrapProps>`
   transition: transform ${(p) => p.theme.animation.fastOut},
     opacity ${(p) => p.theme.animation.fastOut};
   opacity: 0;
-  will-change: opacity, transform;
   z-index: ${(p) => p.theme.zIndices.popover};
 
   ${getTransform}

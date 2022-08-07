@@ -12,16 +12,17 @@ import Divider from '@components/divider'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
 
-const newGraph = () => {
+const createGraph = () => {
 	const g = new SamplingGraph()
+
 	const nodeA = new SamplingNode({ label: 'A' })
 	const nodeB = new SamplingNode({ label: 'B' })
-	// const nodeC = new SamplingNode({ label: 'C' })
-	// const nodeD = new SamplingNode({ label: 'D' })
+	const nodeC = new SamplingNode({ label: 'C' })
+	const nodeD = new SamplingNode({ label: 'D' })
 	g.addNode(nodeA)
 	g.addNode(nodeB)
-	// g.addNode(nodeC)
-	// g.addNode(nodeD)
+	g.addNode(nodeC)
+	g.addNode(nodeD)
 
 	g.addEdge(
 		new SamplingEdge({
@@ -29,30 +30,30 @@ const newGraph = () => {
 			isDirected: true,
 		}),
 	)
-	// g.addEdge(
-	// 	new SamplingEdge({
-	// 		nodes: { source: nodeA.id, target: nodeD.id },
-	// 		isDirected: true,
-	// 	}),
-	// )
-	// g.addEdge(
-	// 	new SamplingEdge({
-	// 		nodes: { source: nodeB.id, target: nodeD.id },
-	// 		isDirected: true,
-	// 	}),
-	// )
-	// g.addEdge(
-	// 	new SamplingEdge({
-	// 		nodes: { source: nodeC.id, target: nodeD.id },
-	// 		isDirected: true,
-	// 	}),
-	// )
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeA.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeB.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
+	g.addEdge(
+		new SamplingEdge({
+			nodes: { source: nodeC.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
 
 	return g
 }
 
-const Section = () => {
-	const [graph] = useState(() => newGraph())
+const ABCDGraph = () => {
+	const [graph] = useState(() => createGraph())
 
 	return (
 		<Grid noPaddingOnMobile>
@@ -61,7 +62,9 @@ const Section = () => {
 					graph={graph}
 					renderNodePanel={(node, overlayProps) => (
 						<SamplingNodePanel
-							node={node}
+							// styled-components doesn't preserve generic props
+							// https://github.com/styled-components/styled-components/issues/1803
+							node={node as SamplingNode}
 							incomingEdges={graph.getIncomingEdges(node.id)}
 							parentNodes={graph.getParentNodes(node.id)}
 							overlayProps={overlayProps}
@@ -75,7 +78,7 @@ const Section = () => {
 	)
 }
 
-export default Section
+export default ABCDGraph
 
 const StyledDivider = styled(Divider)`
 	margin: 0 ${(p) => p.theme.space[3]};

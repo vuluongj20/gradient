@@ -9,8 +9,10 @@ import styled from 'styled-components'
 import SamplingGraph from '../model/graph'
 import { renderSVG } from './utils'
 
+import BalancedText from '@components/balancedText'
 import Button from '@components/button'
 
+import { tl } from '@utils/text'
 import useSize from '@utils/useSize'
 
 type Props = {
@@ -21,18 +23,19 @@ const PairGrid = ({ graph }: Props) => {
 	const gridWrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
 	const { width, height } = useSize(gridWrapRef)
-	const [samples, setSamples] = useState(() => graph.sample(70))
-	const domains = useMemo(
-		() =>
-			Object.fromEntries(
-				graph.nodes.map((node) => {
-					const nodeExtent = extent(samples[node.id])
-					if (!nodeExtent[0]) return [node.id, [0, 0]]
-					return [node.id, nodeExtent]
-				}),
-			),
-		[graph.nodes, samples],
-	)
+	const [samples, setSamples] = useState<ReturnType<typeof graph.sample>>()
+	const [showOnboarding, setShowOnboarding] = useState(true)
+	const domains = useMemo(() => {
+		if (!samples) return
+
+		return Object.fromEntries(
+			graph.nodes.map((node) => {
+				const nodeExtent = extent(samples[node.id])
+				if (!nodeExtent[0]) return [node.id, [0, 0]]
+				return [node.id, nodeExtent]
+			}),
+		)
+	}, [graph.nodes, samples])
 	const subplotSizeProps = useMemo(
 		() => ({
 			width: width ?? 0,
@@ -45,7 +48,7 @@ const PairGrid = ({ graph }: Props) => {
 	useEffect(
 		() =>
 			autorun(() => {
-				if (!width || !height || !svgRef.current) return
+				if (!width || !height || !svgRef.current || !samples) return
 
 				const svg = select(svgRef.current)
 				svg.call(renderSVG, {
@@ -72,38 +75,54 @@ const PairGrid = ({ graph }: Props) => {
 	)
 	const resample = () => {
 		setSamples(graph.sample(70))
+		setShowOnboarding(false)
 		setIsStale(false)
 	}
+
+	const onboardingHint = useMemo(
+		() =>
+			tl(
+				`Click "Draw Samples" to generate new random samples from $1.`,
+				graph.nodes.map((n) => n.label),
+			).join(''),
+		[graph.nodes],
+	)
 
 	return (
 		<Wrap>
 			<Header>
 				<Title>Sampling</Title>
-				<Description>
-					The entire graph is sampled 750 times. Each time, samples are drawn in order,
-					starting with the root node.
-				</Description>
-				<TrailingWrap>
-					<ResampleButton filled primary small>
-						Resample
-					</ResampleButton>
-				</TrailingWrap>
+				<SampleButton filled primary small onPress={resample}>
+					{showOnboarding ? 'Draw Samples' : 'Resample'}
+				</SampleButton>
 			</Header>
 
 			<GridWrap ref={gridWrapRef}>
-				<CSSTransition in={!isStale} timeout={500} unmountOnExit mountOnEnter appear>
+				<CSSTransition
+					in={!(showOnboarding || isStale)}
+					timeout={500}
+					unmountOnExit
+					mountOnEnter
+					appear
+				>
 					<SVG ref={svgRef} />
 				</CSSTransition>
-				<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter>
-					<StaleWrap>
-						<ResampleText>
-							Some parameters in your graph have changed. Click the button below to draw
-							new samples.
-						</ResampleText>
-						<Button onPress={resample} showBorder>
-							Resample
-						</Button>
-					</StaleWrap>
+				<CSSTransition
+					in={showOnboarding || isStale}
+					timeout={500}
+					unmountOnExit
+					mountOnEnter
+					appear
+				>
+					<EmptyWrap>
+						<EmptyText>
+							<BalancedText>
+								{showOnboarding
+									? onboardingHint
+									: "Some parameters in your graph have changed. Click 'Resample' to generate fresh samples."}
+							</BalancedText>
+						</EmptyText>
+					</EmptyWrap>
 				</CSSTransition>
 			</GridWrap>
 		</Wrap>
@@ -113,6 +132,7 @@ const PairGrid = ({ graph }: Props) => {
 export default observer(PairGrid)
 
 const Wrap = styled.div`
+	width: 100%;
 	display: grid;
 	grid-template-rows: max-content 1fr;
 	gap: ${(p) => p.theme.space[2]};
@@ -120,45 +140,35 @@ const Wrap = styled.div`
 
 const Header = styled.div`
 	flex-shrink: 0;
-	display: grid;
-	grid-template-columns: 1fr max-content;
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	gap: ${(p) => p.theme.space[0]};
 `
 
 const Title = styled.h3`
 	${(p) => p.theme.text.system.h6}
+	margin-right: ${(p) => p.theme.space[1]};
 	grid-column: 1;
 `
 
-const Description = styled.p`
-	${(p) => p.theme.text.system.small};
-	color: ${(p) => p.theme.label};
-	grid-column: 1;
-	grid-row: 2;
-`
-
-const TrailingWrap = styled.div`
-	display: flex;
-	align-items: center;
-	height: 0;
-`
-
-const ResampleButton = styled(Button)`
+const SampleButton = styled(Button)`
 	grid-column: 2;
 `
 
 const GridWrap = styled.div`
+	position: relative;
 	overflow: hidden;
 `
 
-const StaleWrap = styled.div`
+const EmptyWrap = styled.div`
 	${(p) => p.theme.utils.spread}
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	border-radius: ${(p) => p.theme.radii.m};
 	background: ${(p) => p.theme.background};
+	border: dashed 1px ${(p) => p.theme.line};
 	will-change: opacity;
 	opacity: 0;
 
@@ -173,8 +183,10 @@ const StaleWrap = styled.div`
 	}
 `
 
-const ResampleText = styled.p`
-	margin-bottom: ${(p) => p.theme.space[1]};
+const EmptyText = styled.p`
+	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.utils.space.marginHorizontal};
+	color: ${(p) => p.theme.label};
 	max-width: 20rem;
 	text-align: center;
 `

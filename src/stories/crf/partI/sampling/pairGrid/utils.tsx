@@ -168,7 +168,7 @@ const renderRowLabel = (
 }
 
 const renderColumnLabel = (
-	labelSelection: Selection<SVGTextElement, null, SVGGElement, null>,
+	labelSelection: Selection<SVGGElement, null, SVGGElement, null>,
 	{
 		label,
 		nodeIndex,
@@ -184,7 +184,7 @@ const renderColumnLabel = (
 		marginLeft + nodeIndex * subPlotWidth + nodeIndex * gridGap + subPlotWidth / 2
 
 	return labelSelection
-		.attr('transform', `translate(${translateX} ${height}) `)
+		.attr('transform', `translate(${translateX} ${height - 4}) `)
 		.selectAll<SVGTextElement, null>('text')
 		.data([null])
 		.join((enter) => {

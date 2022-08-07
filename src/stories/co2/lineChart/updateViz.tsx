@@ -1,13 +1,13 @@
 import { easeCubic, easeCubicOut, interpolate, line, pointer, select } from 'd3'
 import { ScaleLinear, ScaleTime } from 'd3-scale'
 
-import { Data, VizData } from '../index'
+import { Data, VizData, VizSection } from '../index'
 import drawViz from './drawViz'
 
 type Props = {
   selections: ReturnType<typeof drawViz>
   data: Data
-  content: VizData['vizContent']
+  content: VizSection[]
   xDays: number[]
   x: ScaleTime<number, number>
   y: ScaleLinear<number, number>

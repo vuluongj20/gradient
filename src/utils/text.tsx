@@ -15,7 +15,7 @@ export const tl = (string: string, ...args: ReactNode[][]) => {
 	let returnArray: ReactNode[] = [string]
 
 	args.forEach((list, i) => {
-		// Replace $1, $2,… with human-readable, comma-separated lists ("a, b, and c").
+		// Replace "$1", "$2",… with human-readable, comma-separated lists ("a, b, and c").
 		const readableList = getReadableList(list)
 		returnArray = returnArray
 			.map<ReactNode | ReactNode[]>((item) => {
@@ -35,7 +35,7 @@ export const tl = (string: string, ...args: ReactNode[][]) => {
 			.flat()
 
 		// Replace plurality groups ("{x, is, are}") with the appropriate version (e.g. if
-		// list x has more than one item, we'll use "are", otherwise we'll use "is").
+		// list x has more than one item, use "are", otherwise use "is").
 		returnArray = returnArray.map((item) => {
 			if (typeof item === 'string') {
 				let returnString = item

@@ -8,8 +8,28 @@ type Props = {
 		outgoing: string[]
 		undirected: string[]
 	}
+	/**
+	 * Adds a forceX to the simulation. When paired with forceY, will force the
+	 * node to stay in the specified position even after dragging.
+	 */
 	forceX?: number
+	/**
+	 * Adds a forceY to the simulation. When paired with forceX, will force the
+	 * node to stay in the specified position even after dragging.
+	 */
 	forceY?: number
+	/**
+	 * Useful for defining starting positions. This will be overridden once the
+	 * force simulation starts. To force the node to stay in the same place
+	 * throughout the simulation, use forceX and forceY instead.
+	 */
+	x?: number
+	/**
+	 * Useful for defining starting positions. This will be overridden once the
+	 * force simulation starts. To force the node to stay in the same place
+	 * throughout the simulation, use forceX and forceY instead.
+	 */
+	y?: number
 }
 
 class Node {
@@ -23,6 +43,8 @@ class Node {
 	isHighlighted: boolean
 	forceX?: number
 	forceY?: number
+	x?: number
+	y?: number
 
 	constructor(props: Props) {
 		makeObservable(this, {
@@ -45,6 +67,8 @@ class Node {
 		this.isHighlighted = false
 		this.forceX = props.forceX
 		this.forceY = props.forceY
+		this.x = props.x
+		this.y = props.y
 	}
 
 	addIncomingEdge(edge: string) {

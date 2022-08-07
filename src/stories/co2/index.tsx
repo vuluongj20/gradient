@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import Content from './content'
+import ContentMDX from './content.mdx'
 import { DataProvider } from './dataContext'
 
 import Page from '@components/page'
@@ -18,13 +18,19 @@ export type VizData = {
   description?: string[]
 }
 
+export type VizSection = {
+  state: string
+  des: string
+  params?: number[]
+}
+
 const Main = () => {
   return (
     <Page>
       <MDXStoryProvider>
         <DataProvider>
           <Wrap>
-            <Content />
+            <ContentMDX />
           </Wrap>
         </DataProvider>
       </MDXStoryProvider>

@@ -27,6 +27,7 @@ const Image = (props: ComponentProps<typeof Figure>) => {
 		`,
 	)
 	const imageData = imageQueryResult.file?.childImageSharp?.gatsbyImageData
+	if (!imageData) return null
 
 	return (
 		<Wrap noPaddingOnMobile>

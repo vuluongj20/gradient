@@ -76,23 +76,23 @@ const Wrap = styled.button<{
 	display: flex;
 	align-items: center;
 	position: relative;
+
+	appearance: none;
+	border: none;
+	cursor: pointer;
 	border-radius: ${(p) => p.theme.radii.s};
 	padding: ${(p) =>
 		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
-
-	${(p) => p.theme.text.system.label};
-	color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.buttonLabel)};
 	background-color: ${(p) =>
 		p.filled
 			? p.primary
 				? p.theme.primaryOpaqueBackground
 				: p.theme.iLine
 			: 'transparent'};
-	appearance: none;
-	border: none;
-	border-radius: ${(p) => p.theme.radii.s};
-	cursor: pointer;
 	transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
+
+	${(p) => p.theme.text.system.label};
+	color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.buttonLabel)};
 
 	&:hover {
 		color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.heading)};

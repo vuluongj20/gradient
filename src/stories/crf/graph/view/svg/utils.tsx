@@ -11,8 +11,8 @@ export function mapMutableNodes(node: Node, index: number): MutableNode {
 		index,
 		id: node.id,
 		label: node.label,
-		x: node.forceX,
-		y: node.forceY,
+		x: node.x,
+		y: node.y,
 		forceX: node.forceX,
 		forceY: node.forceY,
 	}

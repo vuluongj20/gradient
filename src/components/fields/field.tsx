@@ -39,7 +39,7 @@ const Field = ({
 					{description}
 				</Description>
 			)}
-			<InputWrap>{children}</InputWrap>
+			<InputWrap rowLayout={rowLayout}>{children}</InputWrap>
 		</Wrap>
 	)
 }
@@ -96,8 +96,12 @@ const Description = styled.small<{ rowLayout: boolean }>`
 	`}
 `
 
-const InputWrap = styled.div`
-	height: 0;
-	display: flex;
-	align-items: center;
+const InputWrap = styled.div<{ rowLayout: boolean }>`
+	${(p) =>
+		p.rowLayout &&
+		`
+			height: 0;
+			display: flex;
+			align-items: center;
+		`};
 `
