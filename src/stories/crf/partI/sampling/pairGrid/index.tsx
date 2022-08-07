@@ -79,15 +79,6 @@ const PairGrid = ({ graph }: Props) => {
 		setIsStale(false)
 	}
 
-	const onboardingHint = useMemo(
-		() =>
-			tl(
-				`Click "Draw Samples" to generate new random samples from $1.`,
-				graph.nodes.map((n) => n.label),
-			).join(''),
-		[graph.nodes],
-	)
-
 	return (
 		<Wrap>
 			<Header>
@@ -118,7 +109,10 @@ const PairGrid = ({ graph }: Props) => {
 						<EmptyText>
 							<BalancedText>
 								{showOnboarding
-									? onboardingHint
+									? tl(
+											`Click "Draw Samples" to generate new random samples from $1.`,
+											graph.nodes.map((n) => n.label),
+									  )
 									: "Some parameters in your graph have changed. Click 'Resample' to generate fresh samples."}
 							</BalancedText>
 						</EmptyText>
