@@ -1,7 +1,7 @@
 import balanceText from 'balance-text'
-import { ReactNode, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
-type Props = { children: ReactNode; className?: string }
+type Props = { children: string; className?: string }
 
 const BalancedText = ({ children, className }: Props) => {
 	const ref = useRef<HTMLSpanElement>(null)
