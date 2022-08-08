@@ -18,22 +18,29 @@ const letters = ['\u03B1', '\u03B2', '\u03B3', '\u03B4', '\u03B5']
 
 const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	const nodeDescription = tl(
-		`${node.label} is a child of $1. It's sampled from a normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's,parents'} sampled {1,value,values}.`,
+		`${node.label} is conditionally depdendent on $1. It will be sampled from a normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's, parents'} sampled {1,value,values}:`,
 		parentNodes.map((n) => n.label),
 	)
-	const valueFn = `${node.label} = Normal(${incomingEdges
+
+	const valueFn = `${node.label} ~ Normal(${incomingEdges
 		.map((edge, i) => {
 			const parentNode = parentNodes.find((n) => n.id === edge.nodes.source)
 			if (!parentNode) return ''
-			return `${letters[i]}\u00b7${parentNode.label}`
+			return `${letters[i]}\u00b7${parentNode.label.toLowerCase()}`
 		})
 		.join(' + ')}, \u03c3)`
+
+	const valueFnDescription = tl(
+		`where $1`,
+		parentNodes.map((n) => `${n.label.toLowerCase()} is a sample from ${n.label}`),
+	)
 
 	return (
 		<Wrap>
 			<NodeDescription>{nodeDescription}</NodeDescription>
 			<ValueFnWrap>
 				<ValueFn>{valueFn}</ValueFn>
+				<ValueFnDescription>{valueFnDescription}.</ValueFnDescription>
 			</ValueFnWrap>
 
 			{incomingEdges.map((edge, i) => {
@@ -85,4 +92,8 @@ const ValueFnWrap = styled.div`
 
 const ValueFn = styled.p`
 	${(p) => p.theme.text.viz.body};
+`
+
+const ValueFnDescription = styled.small`
+	${(p) => p.theme.text.system.small};
 `

@@ -39,7 +39,7 @@ const RootNodePanel = ({ node }: Props) => {
 	return (
 		<Wrap>
 			<NodeDescription>
-				{`${node.label} is a root node. Its value will be sampled from the distribution below.`}
+				{`${node.label} is not conditionally dependent on any variable. It will be sampled directly from the distribution below.`}
 			</NodeDescription>
 			<RootNodeDistributionViz node={node} />
 			<SelectField

@@ -31,7 +31,7 @@ export default observer(SamplingNodePanel)
 
 const Wrap = styled.div`
 	width: 100vw;
-	max-width: 18rem;
+	max-width: 20rem;
 `
 
 const NodeLabel = styled.h2`
