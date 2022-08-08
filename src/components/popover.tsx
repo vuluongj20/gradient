@@ -50,7 +50,10 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
       shift({
         padding: {
           // Account for the nav bar's width
-          left: isMobile ? 16 : (document.querySelector('nav')?.offsetWidth ?? 0) + 16,
+          left:
+            !isMobile && typeof document !== 'undefined'
+              ? (document.querySelector('nav')?.offsetWidth ?? 0) + 16
+              : 16,
           right: 16,
           top: 16,
           bottom: 16,

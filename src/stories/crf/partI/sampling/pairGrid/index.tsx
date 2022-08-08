@@ -112,7 +112,7 @@ const PairGrid = ({ graph }: Props) => {
 									? tl(
 											`Click "Draw Samples" to generate new random samples from $1.`,
 											graph.nodes.map((n) => n.label),
-									  )
+									  ).join('')
 									: "Some parameters in your graph have changed. Click 'Resample' to generate fresh samples."}
 							</BalancedText>
 						</EmptyText>

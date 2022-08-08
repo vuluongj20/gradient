@@ -77,6 +77,7 @@ export default observer(RootNodePanel)
 const Wrap = styled.div``
 
 const NodeDescription = styled.p`
+	${(p) => p.theme.text.system.small}
 	color: ${(p) => p.theme.label};
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
