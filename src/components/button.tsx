@@ -82,7 +82,9 @@ const Wrap = styled.button<{
 	cursor: pointer;
 	border-radius: ${(p) => p.theme.radii.s};
 	padding: ${(p) =>
-		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
+		p.small
+			? `${p.theme.space[0.5]} ${p.theme.space[1]}`
+			: `${p.theme.space[1]} ${p.theme.space[1.5]}`};
 	background-color: ${(p) =>
 		p.filled
 			? p.primary

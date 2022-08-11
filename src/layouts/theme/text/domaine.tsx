@@ -67,7 +67,7 @@ const domaine: TextScaleDefinition = {
 		...body,
 		fontSizes: { xl: 1, l: 1, m: 1, s: 0.9375, xs: 0.9375 },
 		fontWeight: 500,
-		lineHeight: 1.2,
+		lineHeight: 1,
 	},
 	small: {
 		...body,

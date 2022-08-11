@@ -59,18 +59,24 @@ export const textShadows = {
 	dark: '0 1px 12px rgba(25, 25, 25, 0.32)',
 }
 
-/** Spacing */
-export const space = [
-	'4px',
-	'8px',
-	'16px',
-	'24px',
-	'32px',
-	'48px',
-	'64px',
-	'96px',
-	'128px',
-]
+/**
+ * Spacing values. Most of the times, whole-number keys (0, 1, 2) are enough.
+ * Decimal keys (0.5, 1.5) are only useful for small elements that need
+ * balanced vertical & horizontal paddings, like buttons.
+ */
+export const space = {
+	0: '4px',
+	0.5: '6px',
+	1: '8px',
+	1.5: '12px',
+	2: '16px',
+	3: '24px',
+	4: '32px',
+	5: '48px',
+	6: '64px',
+	7: '96px',
+	8: '128px',
+}
 
 export const navSize = {
 	width: '2.5rem',

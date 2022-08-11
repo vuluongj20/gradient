@@ -41,7 +41,7 @@ export type Theme = ColorPalette['colors'] &
 		/** z-indices */
 		zIndices: Record<string, number>
 		/** Spacing */
-		space: string[]
+		space: Record<number, string>
 		/** Utilities */
 		utils: Utils
 	}
