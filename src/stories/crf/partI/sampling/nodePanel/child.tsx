@@ -27,7 +27,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 
 			return `${edge.coefficient}${parentNode.label.toLowerCase()}`
 		})
-		.join(' + ')}, \u03c3)`
+		.join(' + ')}, \u03c3\u00B2)`
 
 	const valueFnDescription = tl(
 		`where $1`,
