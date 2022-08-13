@@ -11,10 +11,14 @@ import Grid from '@components/grid'
 const createGraph = () => {
 	const graph = new Graph()
 
-	const nodeA = new Node({ label: 'A', forceX: -40, forceY: -10 })
-	const nodeB = new Node({ label: 'B', forceX: 40, forceY: 10 })
+	const nodeA = new Node({ label: 'A', forceX: -40, forceY: -20 })
+	const nodeB = new Node({ label: 'B', forceX: 40, forceY: -20 })
+	const nodeC = new Node({ label: 'C', forceX: -40, forceY: 20 })
+	const nodeD = new Node({ label: 'D', forceX: 40, forceY: 20 })
 	graph.addNode(nodeA)
 	graph.addNode(nodeB)
+	graph.addNode(nodeC)
+	graph.addNode(nodeD)
 
 	graph.addEdge(
 		new Edge({
@@ -22,11 +26,29 @@ const createGraph = () => {
 			isDirected: true,
 		}),
 	)
+	graph.addEdge(
+		new Edge({
+			nodes: { source: nodeA.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
+	graph.addEdge(
+		new Edge({
+			nodes: { source: nodeB.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
+	graph.addEdge(
+		new Edge({
+			nodes: { source: nodeC.id, target: nodeD.id },
+			isDirected: true,
+		}),
+	)
 
 	return graph
 }
 
-const StaticABGraph = () => {
+const StaticABCDGraph = () => {
 	const [graph] = useState(createGraph())
 
 	return (
@@ -39,7 +61,7 @@ const StaticABGraph = () => {
 	)
 }
 
-export default StaticABGraph
+export default StaticABCDGraph
 
 const Wrap = styled.div`
 	position: relative;
@@ -48,7 +70,7 @@ const Wrap = styled.div`
 `
 
 const StyledGraphView = styled(GraphView)`
-	height: 4rem;
+	height: 8rem;
 `
 
 const Overlay = styled.div`

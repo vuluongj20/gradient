@@ -48,7 +48,7 @@ const PairGrid = ({ graph }: Props) => {
 	useEffect(
 		() =>
 			autorun(() => {
-				if (!width || !height || !svgRef.current || !samples) return
+				if (!svgRef.current || !samples) return
 
 				const svg = select(svgRef.current)
 				svg.call(renderSVG, {
@@ -58,7 +58,7 @@ const PairGrid = ({ graph }: Props) => {
 					...subplotSizeProps,
 				})
 			}),
-		[width, height, domains, graph.nodes, samples, subplotSizeProps],
+		[domains, graph.nodes, samples, subplotSizeProps],
 	)
 
 	const [isStale, setIsStale] = useState(false)
@@ -74,7 +74,7 @@ const PairGrid = ({ graph }: Props) => {
 		[graph],
 	)
 	const resample = () => {
-		setSamples(graph.sample(70))
+		setSamples(graph.sample(50))
 		setShowOnboarding(false)
 		setIsStale(false)
 	}
@@ -96,7 +96,7 @@ const PairGrid = ({ graph }: Props) => {
 					mountOnEnter
 					appear
 				>
-					<SVG ref={svgRef} />
+					<SVG ref={svgRef} width={width} height={height} />
 				</CSSTransition>
 				<CSSTransition
 					in={showOnboarding || isStale}
@@ -151,7 +151,9 @@ const SampleButton = styled(Button)`
 
 const GridWrap = styled.div`
 	position: relative;
-	overflow: hidden;
+	display: flex;
+	width: 100%;
+	height: 100%;
 `
 
 const EmptyWrap = styled.div`

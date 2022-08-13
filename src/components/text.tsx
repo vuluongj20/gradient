@@ -27,6 +27,12 @@ export const SectionHeading = styled.h2<Props>`
 	text-align: center;
 `
 
+export const SectionSubHeading = styled.h3<Props>`
+	${(p) => p.theme.text.content.h5}
+	${(p) => p.theme.utils.space.marginBottom[3]}
+	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+`
+
 export const Body = styled.p<Props>`
 	${(p) => p.theme.text.content.body};
 	${(p) => p.theme.utils.space.marginBottom[3]}

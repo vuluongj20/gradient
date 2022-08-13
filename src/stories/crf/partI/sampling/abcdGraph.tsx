@@ -15,10 +15,10 @@ import Panel from '@components/panel'
 const createGraph = () => {
 	const g = new SamplingGraph()
 
-	const nodeA = new SamplingNode({ label: 'A' })
-	const nodeB = new SamplingNode({ label: 'B' })
-	const nodeC = new SamplingNode({ label: 'C' })
-	const nodeD = new SamplingNode({ label: 'D' })
+	const nodeA = new SamplingNode({ label: 'A', x: -40, y: -20 })
+	const nodeB = new SamplingNode({ label: 'B', x: 40, y: -20 })
+	const nodeC = new SamplingNode({ label: 'C', x: -40, y: 20 })
+	const nodeD = new SamplingNode({ label: 'D', x: 40, y: 20 })
 	g.addNode(nodeA)
 	g.addNode(nodeB)
 	g.addNode(nodeC)
@@ -30,6 +30,7 @@ const createGraph = () => {
 			isDirected: true,
 		}),
 	)
+
 	g.addEdge(
 		new SamplingEdge({
 			nodes: { source: nodeA.id, target: nodeD.id },
@@ -92,6 +93,6 @@ const StyledGraphView = styled(GraphView)`
 
 const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginVertical[3]}
-	height: 28rem;
+	height: 36rem;
 	display: flex;
 `

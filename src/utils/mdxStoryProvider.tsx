@@ -25,6 +25,11 @@ const SectionHeading = ({ children }: Props) => (
 		<Text.SectionHeading gridColumn="text">{children}</Text.SectionHeading>
 	</Grid>
 )
+const SectionSubHeading = ({ children }: Props) => (
+	<Grid>
+		<Text.SectionSubHeading gridColumn="text">{children}</Text.SectionSubHeading>
+	</Grid>
+)
 const Body = ({ children }: Props) => (
 	<Grid>
 		<Text.Body gridColumn="text">{children}</Text.Body>
@@ -34,6 +39,7 @@ const Body = ({ children }: Props) => (
 const components = {
 	h1: Title,
 	h2: SectionHeading,
+	h3: SectionSubHeading,
 	p: Body,
 	a: Text.Link,
 	hr: SectionDivider,

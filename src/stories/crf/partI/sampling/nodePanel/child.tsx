@@ -14,8 +14,6 @@ type Props = {
 	parentNodes: SamplingNode[]
 }
 
-const letters = ['\u03B1', '\u03B2', '\u03B3', '\u03B4', '\u03B5']
-
 const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	const nodeDescription = tl(
 		`${node.label} is conditionally depdendent on $1. It will be sampled from a normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's, parents'} sampled {1,value,values}:`,
@@ -23,10 +21,11 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	)
 
 	const valueFn = `${node.label} ~ Normal(${incomingEdges
-		.map((edge, i) => {
+		.map((edge) => {
 			const parentNode = parentNodes.find((n) => n.id === edge.nodes.source)
 			if (!parentNode) return ''
-			return `${letters[i]}\u00b7${parentNode.label.toLowerCase()}`
+
+			return `${edge.coefficient}${parentNode.label.toLowerCase()}`
 		})
 		.join(' + ')}, \u03c3)`
 
@@ -43,7 +42,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 				<ValueFnDescription>{valueFnDescription}.</ValueFnDescription>
 			</ValueFnWrap>
 
-			{incomingEdges.map((edge, i) => {
+			{incomingEdges.map((edge) => {
 				const { id, coefficient } = edge
 				const parentNode = parentNodes.find((n) => n.id === edge.nodes.source)
 				if (!parentNode) return null
@@ -54,8 +53,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 						rowLayout
 						value={coefficient}
 						onChange={(val) => edge.setCoefficient(val)}
-						label={letters[i]}
-						description={`${parentNode.label}'s coefficient.`}
+						label={`Coefficient of ${parentNode.label.toLowerCase()}`}
 						step={0.1}
 						inputWidth="4rem"
 					/>

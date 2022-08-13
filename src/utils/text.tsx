@@ -5,9 +5,9 @@ const getReadableList = (list: ReactNode[]) => {
 	if (list.length === 1) return [list[0]]
 	if (list.length === 2) return [list[0], ' and ', list[1]]
 	return [
-		[...list.slice(0, -1).map((item) => [item, ', '])].flat(),
+		...[...list.slice(0, -1).map((item) => [item, ', '])].flat(),
 		'and ',
-		list[list.length - 1],
+		list.slice(-1),
 	]
 }
 

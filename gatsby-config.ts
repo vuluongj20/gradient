@@ -49,7 +49,7 @@ const config: GatsbyConfig = {
             resolve: 'gatsby-remark-autolink-headers',
             options: {
               className: 'autolinked-header',
-              elements: ['h2'],
+              elements: ['h2', 'h3'],
             },
           },
         ],
