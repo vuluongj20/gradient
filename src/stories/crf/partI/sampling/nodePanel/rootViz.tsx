@@ -4,6 +4,7 @@ import { Selection, select } from 'd3-selection'
 import { curveBasis, line } from 'd3-shape'
 import { computed } from 'mobx'
 import { observer } from 'mobx-react-lite'
+import { nanoid } from 'nanoid'
 import { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -54,11 +55,12 @@ type DataLineProps = {
 	probabilityFn: (value: number) => number
 	x: ScaleLinear<number, number>
 	y: ScaleLinear<number, number>
+	markerId: string
 }
 
 const renderDataLine = (
 	dataLine: Render['dataLine'],
-	{ isContinuous, probabilityFn, x, y }: DataLineProps,
+	{ isContinuous, probabilityFn, x, y, markerId }: DataLineProps,
 ) => {
 	const lined = line<number>()
 		.x((d) => x(d))
@@ -69,9 +71,9 @@ const renderDataLine = (
 		.attr('d', lined)
 		.classed('continuous', isContinuous)
 		.classed('discrete', !isContinuous)
-		.attr('marker-start', isContinuous ? 'none' : 'url(#dot)')
-		.attr('marker-mid', isContinuous ? 'none' : 'url(#dot)')
-		.attr('marker-end', isContinuous ? 'none' : 'url(#dot)')
+		.attr('marker-start', isContinuous ? 'none' : `url(#dot-marker-${markerId})`)
+		.attr('marker-mid', isContinuous ? 'none' : `url(#dot-marker-${markerId})`)
+		.attr('marker-end', isContinuous ? 'none' : `url(#dot-marker-${markerId})`)
 
 	return dataLine
 }
@@ -89,6 +91,8 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 	const render = useRef<Render>()
 
 	const { distribution } = node
+
+	const markerId = useMemo(() => nanoid(), [])
 
 	const { x, y, probabilityFn, values } = useMemo(
 		() =>
@@ -130,7 +134,7 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 			.attr('refY', 2.5)
 			.attr('markerWidth', 5)
 			.attr('markerHeight', 5)
-			.attr('id', 'dot')
+			.attr('id', `dot-marker-${markerId}`)
 		marker
 			.append('circle')
 			.classed('outer-dot', true)
@@ -161,7 +165,7 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 			.datum(values)
 			.classed('data-line', true)
 			.attr('transform', `translate(${paddingLeft} ${innerHeight})`)
-			.call(renderDataLine, { isContinuous, probabilityFn, x, y })
+			.call(renderDataLine, { isContinuous, probabilityFn, x, y, markerId })
 
 		render.current = { xAxis, yAxis, dataLine }
 	})
@@ -174,8 +178,10 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 
 		xAxis.call(renderXAxis, { x, isContinuous })
 		yAxis.call(renderYAxis, { y })
-		dataLine.datum(values).call(renderDataLine, { isContinuous, probabilityFn, x, y })
-	}, [distribution, x, y, probabilityFn, values])
+		dataLine
+			.datum(values)
+			.call(renderDataLine, { isContinuous, probabilityFn, x, y, markerId })
+	}, [distribution, x, y, probabilityFn, values, markerId])
 
 	return (
 		<Wrapper>
@@ -243,7 +249,7 @@ const Wrap = styled.svg`
 		}
 	}
 
-	marker#dot {
+	marker {
 		.inner-dot {
 			fill: ${(p) => p.theme.body};
 		}

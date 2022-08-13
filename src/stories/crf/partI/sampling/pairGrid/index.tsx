@@ -87,7 +87,6 @@ const PairGrid = ({ graph }: Props) => {
 					{showOnboarding ? 'Draw Samples' : 'Resample'}
 				</SampleButton>
 			</Header>
-
 			<GridWrap ref={gridWrapRef}>
 				<CSSTransition
 					in={!(showOnboarding || isStale)}
@@ -234,6 +233,7 @@ const SVG = styled.svg`
 	*/
 	g.data circle {
 		fill: ${(p) => p.theme.body};
+		fill-opacity: 0.75;
 	}
 	g.data rect {
 		fill: ${(p) => p.theme.label};

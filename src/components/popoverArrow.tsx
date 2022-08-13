@@ -1,5 +1,6 @@
 import { Placement } from '@floating-ui/react-dom'
-import { ForwardRefRenderFunction, HTMLAttributes, forwardRef } from 'react'
+import { nanoid } from 'nanoid'
+import { ForwardRefRenderFunction, HTMLAttributes, forwardRef, useMemo } from 'react'
 import styled from 'styled-components'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
@@ -47,21 +48,32 @@ const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     `C ${w * 0.55} 0 ${w * 0.6} ${h - s / 2} ${w} ${h - s / 2}`,
   ].join('')
 
+  const strokeMaskId = useMemo(() => nanoid(), [])
+  const fillMaskId = useMemo(() => nanoid(), [])
+
   return (
     <Wrap ref={ref} placement={placement} {...props}>
       <SVG overflow="visible" width={w} viewBox={`0 0 ${w} ${h}`}>
         <defs>
-          <mask id="stroke-mask">
-            <rect x="0" y={-strokeWidth} width="100%" height="100%" fill="white" />
-          </mask>
-          <mask id="fill-mask">
+          <mask id={`fill-mask-${fillMaskId}`}>
             <rect x="0" y="0" width="100%" height="100%" fill="white" />
             <path d={arrowPath} vectorEffect="non-scaling-stroke" stroke="black" />
           </mask>
+          <mask id={`stroke-mask-${strokeMaskId}`}>
+            <rect x="0" y={-strokeWidth} width="100%" height="100%" fill="white" />
+          </mask>
         </defs>
 
-        <path d={`${arrowPath} V ${h} H 0 Z`} mask="url(#fill-mask)" className="fill" />
-        <path d={arrowPath} mask="url(#stroke-mask)" className="stroke" />
+        <path
+          d={`${arrowPath} V ${h} H 0 Z`}
+          mask={`url(#fill-mask-${fillMaskId})`}
+          className="fill"
+        />
+        <path
+          d={arrowPath}
+          mask={`url(#stroke-mask-${strokeMaskId})`}
+          className="stroke"
+        />
       </SVG>
     </Wrap>
   )

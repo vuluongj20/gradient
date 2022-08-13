@@ -26,8 +26,8 @@ export const tl = (string: string, ...args: ReactNode[][]) => {
 							// Add the readable list in between each split item
 							.map((substr) => (substr ? [substr, ...readableList] : substr))
 							.flat()
-							// Remove extraneous list at the end
-							.slice(0, -readableList.length)
+							// Remove extraneous list at the end, unless the item ends with a $ marker.
+							.slice(0, item.endsWith(`$${i + 1}`) ? -1 : -readableList.length)
 					)
 				}
 				return item

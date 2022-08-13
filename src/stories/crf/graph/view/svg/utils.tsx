@@ -86,12 +86,19 @@ export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]
 		)
 }
 
-export function renderSVGEdges(renderedEdges: RenderedEdges, data: MutableEdge[]) {
+export function renderSVGEdges(
+	renderedEdges: RenderedEdges,
+	data: MutableEdge[],
+	arrowMarkerId: string,
+) {
 	renderedEdges
 		.selectAll('g')
 		.data<MutableEdge>(data, (e) => (e as MutableEdge).id)
 		.join((enter) =>
-			enter.append('g').append('line').attr('marker-end', 'url(#edge-arrow)'),
+			enter
+				.append('g')
+				.append('line')
+				.attr('marker-end', `url(#arrow-marker-${arrowMarkerId})`),
 		)
 }
 

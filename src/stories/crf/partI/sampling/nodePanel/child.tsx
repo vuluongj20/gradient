@@ -30,8 +30,9 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 		.join(' + ')}, \u03c3\u00B2)`
 
 	const valueFnDescription = tl(
-		`where $1`,
-		parentNodes.map((n) => `${n.label.toLowerCase()} is a sample of ${n.label}`),
+		`where $1 {1,is a sample from,are samples from} $2.`,
+		parentNodes.map((n) => n.label.toLowerCase()),
+		parentNodes.map((n) => n.label),
 	)
 
 	return (
@@ -39,7 +40,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 			<NodeDescription>{nodeDescription}</NodeDescription>
 			<ValueFnWrap>
 				<ValueFn>{valueFn}</ValueFn>
-				<ValueFnDescription>{valueFnDescription}.</ValueFnDescription>
+				<ValueFnDescription>{valueFnDescription}</ValueFnDescription>
 			</ValueFnWrap>
 
 			{incomingEdges.map((edge) => {

@@ -11,7 +11,8 @@ import {
 import { Selection, select } from 'd3-selection'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import { nanoid } from 'nanoid'
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
 import Graph from '../../model/graph'
@@ -55,6 +56,8 @@ const ForceGraph = ({
 	const ref = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 
+	const arrowMarkerId = useMemo(() => nanoid(), [])
+
 	//
 	// Draw initial graph
 	//
@@ -73,7 +76,7 @@ const ForceGraph = ({
 		svg
 			.append('defs')
 			.append('marker')
-			.attr('id', 'edge-arrow')
+			.attr('id', `arrow-marker-${arrowMarkerId}`)
 			.attr('viewBox', [0, 0, 5, 5])
 			.attr('markerWidth', 5)
 			.attr('markerHeight', 5)
@@ -86,7 +89,7 @@ const ForceGraph = ({
 
 		const renderedEdges = (svg.append('g') as RenderedEdges)
 			.classed('edges', true)
-			.call(renderSVGEdges, mutableEdges)
+			.call(renderSVGEdges, mutableEdges, arrowMarkerId)
 
 		const renderedNodes = (svg.append('g') as RenderedNodes)
 			.classed('nodes', true)
@@ -167,7 +170,7 @@ const ForceGraph = ({
 				renderedNodes
 					.selectAll<SVGTextElement, MutableNode>('g')
 					.call(dragCallback(simulation))
-				renderedEdges.call(renderSVGEdges, newMutableEdges)
+				renderedEdges.call(renderSVGEdges, newMutableEdges, arrowMarkerId)
 
 				simulation.nodes(combinedMutableNodes)
 				simulation
@@ -178,7 +181,7 @@ const ForceGraph = ({
 				render.current.mutableNodes = combinedMutableNodes
 				render.current.mutableEdges = newMutableEdges
 			}),
-		[graph.nodes, graph.edges],
+		[graph.nodes, graph.edges, arrowMarkerId],
 	)
 
 	//
@@ -281,7 +284,7 @@ const SVG = styled.svg`
 	  Edge styles
 	*/
 	g.edges,
-	marker#edge-arrow {
+	marker {
 		fill: none;
 		stroke: ${(p) => p.theme.bar};
 		stroke-linecap: round;
