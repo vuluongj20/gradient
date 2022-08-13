@@ -1,9 +1,10 @@
+import { MDXProvider } from '@mdx-js/react'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import Divider from '@components/divider'
 import Grid from '@components/grid'
 import Page from '@components/page'
+import SectionDivider from '@components/sectionDivider'
 import SEO from '@components/seo'
 import TOC from '@components/toc'
 
@@ -44,10 +45,12 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
           </Wrap>
         </Grid>
       </Header>
-      <Divider />
+      <SectionDivider />
       <StyledGrid>
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
-        <ContentWrap as="main">{children}</ContentWrap>
+        <MDXProvider components={{ hr: () => <SectionDivider fullWidth /> }}>
+          <ContentWrap as="main">{children}</ContentWrap>
+        </MDXProvider>
       </StyledGrid>
     </Page>
   )
