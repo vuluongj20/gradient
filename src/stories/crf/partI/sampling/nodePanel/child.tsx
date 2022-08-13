@@ -31,7 +31,7 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 
 	const valueFnDescription = tl(
 		`where $1`,
-		parentNodes.map((n) => `${n.label.toLowerCase()} is a sample from ${n.label}`),
+		parentNodes.map((n) => `${n.label.toLowerCase()} is a sample of ${n.label}`),
 	)
 
 	return (
@@ -64,8 +64,8 @@ const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 				rowLayout
 				value={node.distribution.parameterValues.sigma}
 				onChange={(val) => node.distribution.setParameterValue('sigma', val)}
-				label={'\u03c3'}
-				description="Scale parameter (standard deviation) for normal distribution."
+				label={'\u03c3 – scale parameter'}
+				description="Determines the normal distribution's standard deviation."
 				step={0.1}
 				inputWidth="4rem"
 			/>

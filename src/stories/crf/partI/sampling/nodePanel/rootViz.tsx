@@ -122,7 +122,7 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 		const isContinuous = isContinuousDistribution(distribution)
 
 		const svg = select(svgRef.current).attr('viewBox', [0, 0, width, height])
-		svg
+		const marker = svg
 			.append('defs')
 			.append('marker')
 			.attr('viewBox', [0, 0, 5, 5])
@@ -131,10 +131,18 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 			.attr('markerWidth', 5)
 			.attr('markerHeight', 5)
 			.attr('id', 'dot')
+		marker
 			.append('circle')
+			.classed('outer-dot', true)
 			.attr('cx', 2.5)
 			.attr('cy', 2.5)
 			.attr('r', 2.5)
+		marker
+			.append('circle')
+			.classed('inner-dot', true)
+			.attr('cx', 2.5)
+			.attr('cy', 2.5)
+			.attr('r', 1.5)
 
 		const xAxis = svg
 			.append('g')
@@ -236,9 +244,11 @@ const Wrap = styled.svg`
 	}
 
 	marker#dot {
-		fill: ${(p) => p.theme.body};
-		fill-opacity: 0.5;
-		stroke: ${(p) => p.theme.background};
-		stroke-width: 2;
+		.inner-dot {
+			fill: ${(p) => p.theme.body};
+		}
+		.outer-dot {
+			fill: ${(p) => p.theme.background};
+		}
 	}
 `
