@@ -9,30 +9,44 @@ import * as Text from '@components/text'
 
 type Props = { children: ReactNode }
 
-const Header = ({ children }: Props) => <HeaderWrap as="header">{children}</HeaderWrap>
-const Title = ({ children }: Props) => (
+const Header = ({ children, ...props }: Props) => (
+	<HeaderWrap as="header" {...props}>
+		{children}
+	</HeaderWrap>
+)
+const Title = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.Title gridColumn="text">{children}</Text.Title>
+		<Text.Title gridColumn="text" {...props}>
+			{children}
+		</Text.Title>
 	</Grid>
 )
-const Abstract = ({ children }: Props) => (
+const Abstract = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.Abstract gridColumn="text">{children}</Text.Abstract>
+		<Text.Abstract gridColumn="text" {...props}>
+			{children}
+		</Text.Abstract>
 	</Grid>
 )
-const SectionHeading = ({ children }: Props) => (
+const SectionHeading = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.SectionHeading gridColumn="text">{children}</Text.SectionHeading>
+		<Text.SectionHeading gridColumn="text" {...props}>
+			{children}
+		</Text.SectionHeading>
 	</Grid>
 )
-const SectionSubHeading = ({ children }: Props) => (
+const SectionSubHeading = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.SectionSubHeading gridColumn="text">{children}</Text.SectionSubHeading>
+		<Text.SectionSubHeading gridColumn="text" {...props}>
+			{children}
+		</Text.SectionSubHeading>
 	</Grid>
 )
-const Body = ({ children }: Props) => (
+const Body = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.Body gridColumn="text">{children}</Text.Body>
+		<Text.Body gridColumn="text" {...props}>
+			{children}
+		</Text.Body>
 	</Grid>
 )
 
