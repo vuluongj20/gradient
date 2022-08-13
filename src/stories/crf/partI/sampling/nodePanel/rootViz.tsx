@@ -55,12 +55,12 @@ type DataLineProps = {
 	probabilityFn: (value: number) => number
 	x: ScaleLinear<number, number>
 	y: ScaleLinear<number, number>
-	markerId: string
+	dotMarkerId: string
 }
 
 const renderDataLine = (
 	dataLine: Render['dataLine'],
-	{ isContinuous, probabilityFn, x, y, markerId }: DataLineProps,
+	{ isContinuous, probabilityFn, x, y, dotMarkerId }: DataLineProps,
 ) => {
 	const lined = line<number>()
 		.x((d) => x(d))
@@ -71,9 +71,9 @@ const renderDataLine = (
 		.attr('d', lined)
 		.classed('continuous', isContinuous)
 		.classed('discrete', !isContinuous)
-		.attr('marker-start', isContinuous ? 'none' : `url(#dot-marker-${markerId})`)
-		.attr('marker-mid', isContinuous ? 'none' : `url(#dot-marker-${markerId})`)
-		.attr('marker-end', isContinuous ? 'none' : `url(#dot-marker-${markerId})`)
+		.attr('marker-start', isContinuous ? 'none' : `url(#dot-marker-${dotMarkerId})`)
+		.attr('marker-mid', isContinuous ? 'none' : `url(#dot-marker-${dotMarkerId})`)
+		.attr('marker-end', isContinuous ? 'none' : `url(#dot-marker-${dotMarkerId})`)
 
 	return dataLine
 }
@@ -92,7 +92,7 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 
 	const { distribution } = node
 
-	const markerId = useMemo(() => nanoid(), [])
+	const dotMarkerId = useMemo(() => nanoid(), [])
 
 	const { x, y, probabilityFn, values } = useMemo(
 		() =>
@@ -134,7 +134,7 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 			.attr('refY', 2.5)
 			.attr('markerWidth', 5)
 			.attr('markerHeight', 5)
-			.attr('id', `dot-marker-${markerId}`)
+			.attr('id', `dot-marker-${dotMarkerId}`)
 		marker
 			.append('circle')
 			.classed('outer-dot', true)
@@ -165,7 +165,7 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 			.datum(values)
 			.classed('data-line', true)
 			.attr('transform', `translate(${paddingLeft} ${innerHeight})`)
-			.call(renderDataLine, { isContinuous, probabilityFn, x, y, markerId })
+			.call(renderDataLine, { isContinuous, probabilityFn, x, y, dotMarkerId })
 
 		render.current = { xAxis, yAxis, dataLine }
 	})
@@ -180,8 +180,8 @@ const RootNodeDistributionViz = ({ node }: Props) => {
 		yAxis.call(renderYAxis, { y })
 		dataLine
 			.datum(values)
-			.call(renderDataLine, { isContinuous, probabilityFn, x, y, markerId })
-	}, [distribution, x, y, probabilityFn, values, markerId])
+			.call(renderDataLine, { isContinuous, probabilityFn, x, y, dotMarkerId })
+	}, [distribution, x, y, probabilityFn, values, dotMarkerId])
 
 	return (
 		<Wrapper>

@@ -15,7 +15,7 @@ const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, Props> = (
   { from, to, ...props },
   ref,
 ) => {
-  const markerId = useMemo(() => nanoid(), [])
+  const arrowMarkerId = useMemo(() => nanoid(), [])
   const linePath = useMemo(() => {
     let fromPath
     let toPath
@@ -63,7 +63,7 @@ const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, Props> = (
     >
       <defs>
         <marker
-          id={`marker-${markerId}`}
+          id={`arrow-marker-${arrowMarkerId}`}
           viewBox="0 0 20 20"
           markerWidth="20"
           markerHeight="20"
@@ -78,7 +78,7 @@ const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, Props> = (
 
       <path
         d={linePath}
-        markerEnd={`url(#marker-${markerId})`}
+        markerEnd={`url(#arrow-marker-${arrowMarkerId})`}
         vectorEffect="non-scaling-stroke"
       />
     </SVG>
