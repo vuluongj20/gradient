@@ -98,7 +98,7 @@ const ABCDGraph = () => {
 					},
 				],
 			])
-		}, 2000)
+		}, 3000)
 	})
 
 	const pointerAction = usePointerAction(true)
@@ -121,7 +121,7 @@ const ABCDGraph = () => {
 							/>
 						)}
 					/>
-					<CSSTransition in={showGuide} timeout={250} unmountOnExit mountOnEnter appear>
+					<CSSTransition in={showGuide} timeout={500} unmountOnExit mountOnEnter appear>
 						<GuideWrap x={guidePosition.x} y={guidePosition.y}>
 							<GuideArrow from="right" to="bottom" width={48} height={120} />
 							<GuideText>
@@ -165,7 +165,7 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 	pointer-events: none;
 
 	opacity: 0;
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
 	&.enter-active,
 	&.enter-done {
