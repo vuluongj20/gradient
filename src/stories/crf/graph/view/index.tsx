@@ -81,6 +81,4 @@ const Wrap = styled.div`
 	position: relative;
 	display: flex;
 	justify-content: center;
-	width: 100%;
-	height: 20rem;
 `

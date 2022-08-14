@@ -12,20 +12,21 @@ import { renderSVG } from './utils'
 import BalancedText from '@components/balancedText'
 import Button from '@components/button'
 
-import { usePointerAction } from '@utils/text'
-import { tl } from '@utils/text'
+import { tl, usePointerAction } from '@utils/text'
 import useSize from '@utils/useSize'
 
 type Props = {
 	graph: SamplingGraph
+	className?: string
 }
 
-const PairGrid = ({ graph }: Props) => {
+const PairGrid = ({ graph, className }: Props) => {
 	const gridWrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
 	const { width, height } = useSize(gridWrapRef)
 	const [samples, setSamples] = useState<ReturnType<typeof graph.sample>>()
 	const [showOnboarding, setShowOnboarding] = useState(true)
+
 	const domains = useMemo(() => {
 		if (!samples) return
 
@@ -49,6 +50,7 @@ const PairGrid = ({ graph }: Props) => {
 	useEffect(
 		() =>
 			autorun(() => {
+				console.log(width, height)
 				if (!svgRef.current || !samples) return
 
 				const svg = select(svgRef.current)
@@ -59,7 +61,7 @@ const PairGrid = ({ graph }: Props) => {
 					...subplotSizeProps,
 				})
 			}),
-		[domains, graph.nodes, samples, subplotSizeProps],
+		[width, height, domains, graph.nodes, samples, subplotSizeProps],
 	)
 
 	const [isStale, setIsStale] = useState(false)
@@ -83,12 +85,12 @@ const PairGrid = ({ graph }: Props) => {
 	const pointerAction = usePointerAction(true)
 
 	return (
-		<Wrap>
+		<Wrap className={className}>
 			<Header>
 				<Title>Sampling</Title>
-				<SampleButton filled primary small onPress={resample}>
+				<Button filled primary small onPress={resample}>
 					{showOnboarding ? 'Draw Samples' : 'Resample'}
-				</SampleButton>
+				</Button>
 			</Header>
 			<GridWrap ref={gridWrapRef}>
 				<CSSTransition
@@ -98,7 +100,7 @@ const PairGrid = ({ graph }: Props) => {
 					mountOnEnter
 					appear
 				>
-					<SVG ref={svgRef} width={width} height={height} />
+					<SVG ref={svgRef} />
 				</CSSTransition>
 				<CSSTransition
 					in={showOnboarding || isStale}
@@ -128,9 +130,8 @@ const PairGrid = ({ graph }: Props) => {
 export default observer(PairGrid)
 
 const Wrap = styled.div`
-	width: 100%;
 	display: grid;
-	grid-template-rows: max-content 1fr;
+	grid-template-rows: max-content minmax(0, 1fr);
 	gap: ${(p) => p.theme.space[2]};
 `
 
@@ -144,11 +145,6 @@ const Header = styled.div`
 const Title = styled.h3`
 	${(p) => p.theme.text.system.h6}
 	margin-right: ${(p) => p.theme.space[1]};
-	grid-column: 1;
-`
-
-const SampleButton = styled(Button)`
-	grid-column: 2;
 `
 
 const GridWrap = styled.div`

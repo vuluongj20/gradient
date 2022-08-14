@@ -3,14 +3,17 @@ import { RefObject, useMemo, useState } from 'react'
 import { debounce } from '@utils/functions'
 import useResizeObserver from '@utils/useResizeObserver'
 
-type State = { width?: number; height?: number }
-
 const useSize = (ref: RefObject<HTMLElement>) => {
-	const [size, setSize] = useState<State>({})
+	const [width, setWidth] = useState<number>()
+	const [height, setHeight] = useState<number>()
 
 	const debouncedOnResize = useMemo(() => {
-		const updateSize = () =>
-			setSize({ width: ref.current?.clientWidth, height: ref.current?.clientHeight })
+		const updateSize = () => {
+			if (!ref.current) return
+			const bBox = ref.current.getBoundingClientRect()
+			setWidth(bBox.width)
+			setHeight(bBox.height)
+		}
 		updateSize()
 
 		return debounce(updateSize, 100)
@@ -18,7 +21,7 @@ const useSize = (ref: RefObject<HTMLElement>) => {
 
 	useResizeObserver({ ref, onResize: debouncedOnResize })
 
-	return size
+	return { width, height }
 }
 
 export default useSize

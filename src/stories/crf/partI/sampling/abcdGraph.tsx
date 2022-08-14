@@ -132,13 +132,19 @@ const ABCDGraph = () => {
 				</GraphViewWrap>
 
 				<StyledDivider orientation="vertical" />
-				<PairGrid graph={graph} />
+				<StyledPairGrid graph={graph} />
 			</StyledPanel>
 		</Grid>
 	)
 }
 
 export default observer(ABCDGraph)
+
+const StyledPanel = styled(Panel)`
+	${(p) => p.theme.utils.space.marginVertical[3]}
+	height: 36rem;
+	display: flex;
+`
 
 const StyledDivider = styled(Divider)`
 	margin: 0 ${(p) => p.theme.space[3]};
@@ -185,15 +191,13 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 	`}
 `
 
+const StyledPairGrid = styled(PairGrid)`
+	width: 100%;
+`
+
 const GuideText = styled.p`
 	${(p) => p.theme.text.system.small}
 	color: ${(p) => p.theme.label};
 	margin-left: ${(p) => p.theme.space[0]};
 	width: 8rem;
-`
-
-const StyledPanel = styled(Panel)`
-	${(p) => p.theme.utils.space.marginVertical[3]}
-	height: 36rem;
-	display: flex;
 `
