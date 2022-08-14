@@ -7,72 +7,100 @@ type Position = 'top' | 'bottom' | 'left' | 'right'
 type Props = SVGAttributes<SVGSVGElement> & {
   from: Position
   to: Position
+  width?: number
+  height?: number
 }
 
-const controlRatio = 0.7
+const getPoint = (width: number, height: number, position: Position) => {
+  switch (position) {
+    case 'top':
+      return `${width / 2} 0`
+    case 'bottom':
+      return `${width / 2} ${height}`
+    case 'left':
+      return `0 ${height / 2}`
+    case 'right':
+      return `${width} ${height / 2}`
+  }
+}
+
+const controlRatio = 0.75
+const getControlPoint = (width: number, height: number, position: Position) => {
+  switch (position) {
+    case 'top':
+      return `${width / 2} ${(height / 2) * controlRatio}`
+    case 'bottom':
+      return `${width / 2} ${height - (height / 2) * controlRatio}`
+    case 'left':
+      return `${(width / 2) * controlRatio} ${height / 2}`
+    case 'right':
+      return `${width - (width / 2) * controlRatio} ${height / 2}`
+  }
+}
 
 const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, Props> = (
-  { from, to, ...props },
+  { width = 48, height = 48, from, to, ...props },
   ref,
 ) => {
   const arrowMarkerId = useMemo(() => nanoid(), [])
+
   const linePath = useMemo(() => {
-    let fromPath
-    let toPath
+    return [
+      'M',
+      getPoint(width, height, from),
+      'C',
+      getControlPoint(width, height, from),
+      ',',
+      getControlPoint(width, height, to),
+      ',',
+      getPoint(width, height, to),
+    ].join('')
+  }, [from, to, width, height])
 
-    switch (from) {
-      case 'top':
-        fromPath = `M 50 0 C 50 ${controlRatio * 50}`
-        break
-      case 'bottom':
-        fromPath = `M 50 100 C 50 ${100 - controlRatio * 50}`
-        break
-      case 'left':
-        fromPath = `M 0 50 C ${controlRatio * 50} 50`
-        break
-      case 'right':
-        fromPath = `M 100 50 C ${100 - controlRatio * 50} 50`
-        break
-    }
-
-    switch (to) {
-      case 'top':
-        toPath = `, 50 ${controlRatio * 50}, 50 0`
-        break
-      case 'bottom':
-        toPath = `, 50 ${100 - controlRatio * 50}, 50 100`
-        break
-      case 'left':
-        toPath = `, ${controlRatio * 50} 50, 0 50`
-        break
-      case 'right':
-        toPath = `, ${100 - controlRatio * 50} 50, 100 50`
-        break
-    }
-
-    return `${fromPath}${toPath}`
-  }, [from, to])
+  const arrowMarkerSize = useMemo(
+    () => Math.max(Math.min(width, height) / 8, 12),
+    [width, height],
+  )
+  const arrowMarkerPath = useMemo(
+    () =>
+      [
+        'M',
+        arrowMarkerSize * 0.2,
+        ' ',
+        arrowMarkerSize * 0.2,
+        'L',
+        arrowMarkerSize * 0.8,
+        ' ',
+        arrowMarkerSize * 0.5,
+        'L',
+        arrowMarkerSize * 0.2,
+        ' ',
+        arrowMarkerSize * 0.8,
+      ].join(''),
+    [arrowMarkerSize],
+  )
 
   return (
     <SVG
       ref={ref}
       overflow="visible"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
+      viewBox={`0 0 ${width} ${height}`}
+      width={width}
+      height={height}
       {...props}
     >
       <defs>
         <marker
           id={`arrow-marker-${arrowMarkerId}`}
-          viewBox="0 0 20 20"
-          markerWidth="20"
-          markerHeight="20"
-          refX="16"
-          refY="10"
+          viewBox={`0 0 ${arrowMarkerSize} ${arrowMarkerSize}`}
+          markerWidth={arrowMarkerSize}
+          markerHeight={arrowMarkerSize}
+          markerUnits="userSpaceOnUse"
+          refX={arrowMarkerSize * 0.8}
+          refY={arrowMarkerSize * 0.5}
           orient="auto-start-reverse"
-          preserveAspectRatio="xMidYMid meet"
         >
-          <path d="M 4,4 L 16,10 L 4,16" vectorEffect="non-scaling-stroke" />
+          <path d={arrowMarkerPath} />
         </marker>
       </defs>
 
