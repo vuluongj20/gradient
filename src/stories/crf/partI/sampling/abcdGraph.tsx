@@ -17,6 +17,7 @@ import GuideArrow from '@components/guideArrow'
 import Panel from '@components/panel'
 
 import { usePointerAction } from '@utils/text'
+import useMobile from '@utils/useMobile'
 import useMountEffect from '@utils/useMountEffect'
 
 const createGraph = () => {
@@ -102,6 +103,7 @@ const ABCDGraph = () => {
 	})
 
 	const pointerAction = usePointerAction(true)
+	const isMobile = useMobile()
 
 	return (
 		<Grid noPaddingOnMobile>
@@ -131,7 +133,7 @@ const ABCDGraph = () => {
 					</CSSTransition>
 				</GraphViewWrap>
 
-				<StyledDivider orientation="vertical" />
+				<StyledDivider orientation={isMobile ? 'horizontal' : 'vertical'} />
 				<StyledPairGrid graph={graph} />
 			</StyledPanel>
 		</Grid>
@@ -144,10 +146,20 @@ const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginVertical[3]}
 	height: 36rem;
 	display: flex;
+
+	${(p) => p.theme.utils.media.mobile} {
+		${(p) => p.theme.utils.space.paddingVertical[6]}
+		flex-direction: column;
+		height: auto;
+	}
 `
 
 const StyledDivider = styled(Divider)`
 	margin: 0 ${(p) => p.theme.space[3]};
+
+	${(p) => p.theme.utils.media.mobile} {
+		margin: ${(p) => p.theme.space[3]} 0;
+	}
 `
 
 const GraphViewWrap = styled.div`
@@ -155,6 +167,11 @@ const GraphViewWrap = styled.div`
 	height: 100%;
 	width: 30%;
 	flex-shrink: 0;
+
+	${(p) => p.theme.utils.media.mobile} {
+		width: 100%;
+		height: 22rem;
+	}
 `
 
 const StyledGraphView = styled(GraphView)`
@@ -193,6 +210,10 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 
 const StyledPairGrid = styled(PairGrid)`
 	width: 100%;
+
+	${(p) => p.theme.utils.media.mobile} {
+		height: 28rem;
+	}
 `
 
 const GuideText = styled.p`
