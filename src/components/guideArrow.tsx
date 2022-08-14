@@ -58,7 +58,7 @@ const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, Props> = (
   }, [from, to, width, height])
 
   const arrowMarkerSize = useMemo(
-    () => Math.max(Math.min(width, height) / 8, 12),
+    () => Math.max(Math.min(width, height) / 8, 8),
     [width, height],
   )
   const arrowMarkerPath = useMemo(

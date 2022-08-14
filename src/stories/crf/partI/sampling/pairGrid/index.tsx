@@ -164,7 +164,6 @@ const EmptyWrap = styled.div`
 	border-radius: ${(p) => p.theme.radii.m};
 	background: ${(p) => p.theme.background};
 	border: dashed 1px ${(p) => p.theme.line};
-	will-change: opacity;
 	opacity: 0;
 
 	&.enter-active,

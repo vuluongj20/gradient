@@ -16,7 +16,13 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
 import Graph from '../../model/graph'
-import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
+import {
+	MutableEdge,
+	MutableNode,
+	NodeEventListener,
+	RenderedEdges,
+	RenderedNodes,
+} from './types'
 import {
 	dragCallback,
 	mapMutableEdges,
@@ -42,6 +48,7 @@ type Props = {
 	graph: Graph
 	width?: number
 	height?: number
+	nodeEventListeners?: NodeEventListener[]
 	simulationPlayState: boolean
 	setSvgReady: Dispatch<SetStateAction<boolean>>
 }
@@ -50,6 +57,7 @@ const ForceGraph = ({
 	graph,
 	width,
 	height,
+	nodeEventListeners,
 	simulationPlayState,
 	setSvgReady,
 }: Props) => {
@@ -93,7 +101,7 @@ const ForceGraph = ({
 
 		const renderedNodes = (svg.append('g') as RenderedNodes)
 			.classed('nodes', true)
-			.call(renderSVGNodes, mutableNodes)
+			.call(renderSVGNodes, mutableNodes, nodeEventListeners)
 
 		// Construct the forces.
 		const forceNode = forceManyBody<MutableNode>().strength(-800)
@@ -166,7 +174,7 @@ const ForceGraph = ({
 
 				const { renderedNodes, renderedEdges, simulation } = render.current
 
-				renderedNodes.call(renderSVGNodes, combinedMutableNodes)
+				renderedNodes.call(renderSVGNodes, combinedMutableNodes, nodeEventListeners)
 				renderedNodes
 					.selectAll<SVGTextElement, MutableNode>('g')
 					.call(dragCallback(simulation))
@@ -181,7 +189,7 @@ const ForceGraph = ({
 				render.current.mutableNodes = combinedMutableNodes
 				render.current.mutableEdges = newMutableEdges
 			}),
-		[graph.nodes, graph.edges, arrowMarkerId],
+		[graph.nodes, graph.edges, arrowMarkerId, nodeEventListeners],
 	)
 
 	//
@@ -273,7 +281,7 @@ const SVG = styled.svg`
 			opacity: 1;
 			${(p) => p.theme.utils.svgFocusVisible};
 		}
-		&.highlighted > rect.node-box {
+		&.highlighted:not(.focused) > rect.node-box:not(:hover) {
 			opacity: 1;
 			stroke-dasharray: 4 3;
 			stroke-dashoffset: -4;

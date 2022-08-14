@@ -34,9 +34,14 @@ export type RenderedNodes = Selection<
 	null,
 	unknown
 >
+
 export type RenderedEdges = Selection<
 	SVGGElement,
 	MutableEdge[] | undefined,
 	null,
 	unknown
+>
+
+export type NodeEventListener = Parameters<
+	Selection<SVGGElement, MutableNode | undefined, null, unknown>['on']
 >

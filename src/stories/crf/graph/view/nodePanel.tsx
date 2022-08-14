@@ -41,7 +41,7 @@ const NodePanel = observer(
 		wrapRef,
 	}: Props<Node>) => {
 		const svgNodeRef = useRef<HTMLButtonElement>(
-			document.querySelector(`#node-${node.id}`),
+			document.querySelector(`g#node-${node.id}`),
 		)
 
 		const state = useOverlayTriggerState({

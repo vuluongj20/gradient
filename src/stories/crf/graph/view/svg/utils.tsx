@@ -4,7 +4,13 @@ import intersect from 'path-intersection'
 
 import Edge from '../../model/edge'
 import Node from '../../model/node'
-import { MutableEdge, MutableNode, RenderedEdges, RenderedNodes } from './types'
+import {
+	MutableEdge,
+	MutableNode,
+	NodeEventListener,
+	RenderedEdges,
+	RenderedNodes,
+} from './types'
 
 export function mapMutableNodes(node: Node, index: number): MutableNode {
 	return {
@@ -38,7 +44,11 @@ function getNodeBoxHeight() {
 	return 24
 }
 
-export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]) {
+export function renderSVGNodes(
+	renderedNodes: RenderedNodes,
+	data: MutableNode[],
+	eventListeners?: NodeEventListener[],
+) {
 	renderedNodes
 		.selectAll('g')
 		.data<MutableNode>(data, (n) => (n as MutableNode).id)
@@ -48,19 +58,17 @@ export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]
 					.append('g')
 					.classed('node-wrap', true)
 					.attr('id', (d) => `node-${d.id}`)
-					.on('click', (_, d) => {
-						document
-							.querySelector<HTMLButtonElement>(`#node-panel-trigger-${d.id}`)
-							?.click()
-					})
 
-				g.append('rect')
+				const rect = g
+					.append('rect')
 					.classed('node-box', true)
 					.attr('width', getNodeBoxWidth)
 					.attr('height', getNodeBoxHeight)
 					.attr('x', (d) => -getNodeBoxWidth(d) / 2)
 					.attr('y', -getNodeBoxHeight() / 2)
 					.attr('rx', getNodeBoxHeight() / 2)
+
+				eventListeners?.forEach((listener) => rect.on(...listener))
 
 				g.append('text')
 					.text((d) => d.label)
@@ -72,13 +80,17 @@ export function renderSVGNodes(renderedNodes: RenderedNodes, data: MutableNode[]
 				return g
 			},
 			(update) => {
-				update
-					.select('rect')
+				const rect = update
+					.select<SVGRectElement>('rect')
 					.attr('width', getNodeBoxWidth)
 					.attr('height', getNodeBoxHeight)
 					.attr('x', (d) => -getNodeBoxWidth(d) / 2)
 					.attr('y', -getNodeBoxHeight() / 2)
 					.attr('rx', getNodeBoxHeight() / 2)
+
+				rect.on('.', null)
+				eventListeners?.forEach((listener) => rect.on(...listener))
+
 				update.select('text').text((d) => d.label)
 
 				return update

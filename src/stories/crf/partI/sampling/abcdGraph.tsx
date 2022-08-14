@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { observer } from 'mobx-react-lite'
+import { ComponentProps, useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import GraphView from '../../graph/view'
@@ -8,9 +10,13 @@ import SamplingNode from './model/node'
 import SamplingNodePanel from './nodePanel'
 import PairGrid from './pairGrid'
 
+import BalancedText from '@components/balancedText'
 import Divider from '@components/divider'
 import Grid from '@components/grid'
+import GuideArrow from '@components/guideArrow'
 import Panel from '@components/panel'
+
+import useMountEffect from '@utils/useMountEffect'
 
 const createGraph = () => {
 	const g = new SamplingGraph()
@@ -55,23 +61,64 @@ const createGraph = () => {
 
 const ABCDGraph = () => {
 	const [graph] = useState(() => createGraph())
+	const [showGuide, setShowGuide] = useState(false)
+	const [guidePosition, setGuidePosition] = useState<{ x?: number; y?: number }>({})
+	const [nodeEventListeners, setNodeEventListeners] = useState<
+		ComponentProps<typeof GraphView>['nodeEventListeners']
+	>([])
+
+	useMountEffect(() => {
+		setTimeout(() => {
+			const nodeA = document.querySelector<SVGGElement>(`g#node-${graph.nodes[0].id}`)
+			if (!nodeA) return
+
+			const nodeABBox = nodeA.getBBox()
+			setGuidePosition({ x: nodeABBox.x + nodeABBox.width / 2, y: nodeABBox.y })
+			setShowGuide(true)
+			nodeA.classList.add('highlighted')
+
+			setNodeEventListeners([
+				[
+					'mousedown',
+					() => {
+						nodeA?.classList.remove('highlighted')
+						setShowGuide(false)
+						// Remove listener
+						setNodeEventListeners([])
+					},
+				],
+			])
+		}, 2000)
+	})
 
 	return (
 		<Grid noPaddingOnMobile>
 			<StyledPanel overlay size="m" gridColumn="wide">
-				<StyledGraphView
-					graph={graph}
-					renderNodePanel={(node, overlayProps) => (
-						<SamplingNodePanel
-							// styled-components doesn't preserve generic props
-							// https://github.com/styled-components/styled-components/issues/1803
-							node={node as SamplingNode}
-							incomingEdges={graph.getIncomingEdges(node.id)}
-							parentNodes={graph.getParentNodes(node.id)}
-							overlayProps={overlayProps}
-						/>
-					)}
-				/>
+				<GraphViewWrap>
+					<StyledGraphView
+						graph={graph}
+						nodeEventListeners={nodeEventListeners}
+						renderNodePanel={(node, overlayProps) => (
+							<SamplingNodePanel
+								// styled-components doesn't preserve generic props
+								// https://github.com/styled-components/styled-components/issues/1803
+								node={node as SamplingNode}
+								incomingEdges={graph.getIncomingEdges(node.id)}
+								parentNodes={graph.getParentNodes(node.id)}
+								overlayProps={overlayProps}
+							/>
+						)}
+					/>
+					<CSSTransition in={showGuide} timeout={500} unmountOnExit mountOnEnter appear>
+						<GuideWrap x={guidePosition.x} y={guidePosition.y}>
+							<GuideArrow from="right" to="bottom" width={48} height={120} />
+							<GuideText>
+								<BalancedText>Click to view & edit parameters</BalancedText>
+							</GuideText>
+						</GuideWrap>
+					</CSSTransition>
+				</GraphViewWrap>
+
 				<StyledDivider orientation="vertical" />
 				<PairGrid graph={graph} />
 			</StyledPanel>
@@ -79,16 +126,58 @@ const ABCDGraph = () => {
 	)
 }
 
-export default ABCDGraph
+export default observer(ABCDGraph)
 
 const StyledDivider = styled(Divider)`
 	margin: 0 ${(p) => p.theme.space[3]};
 `
 
-const StyledGraphView = styled(GraphView)`
+const GraphViewWrap = styled.div`
+	position: relative;
 	height: 100%;
 	width: 30%;
 	flex-shrink: 0;
+`
+
+const StyledGraphView = styled(GraphView)`
+	width: 100%;
+	height: 100%;
+`
+
+const GuideWrap = styled.div<{ x?: number; y?: number }>`
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	pointer-events: none;
+
+	opacity: 0;
+	transition: opacity ${(p) => p.theme.animation.fastOut};
+
+	&.enter-active,
+	&.enter-done {
+		opacity: 1;
+	}
+	&.exit-active {
+		opacity: 0;
+	}
+
+	${(p) =>
+		p.x &&
+		p.y &&
+		`
+		transform: translate(calc(-24px ${p.x > 0 ? `+ ${p.x}` : `- ${-p.x}`}px), calc(-100% ${
+			p.y > 0 ? `+${p.y}` : `- ${-p.y}`
+		}px));
+	`}
+`
+
+const GuideText = styled.p`
+	${(p) => p.theme.text.system.small}
+	color: ${(p) => p.theme.label};
+	margin-left: ${(p) => p.theme.space[0]};
+	width: 10rem;
 `
 
 const StyledPanel = styled(Panel)`
