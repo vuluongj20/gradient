@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import useMatchMedia from '@utils/useMatchMedia'
+
 const getReadableList = (list: ReactNode[]) => {
 	if (list.length === 0) return []
 	if (list.length === 1) return [list[0]]
@@ -68,4 +70,9 @@ export const tl = (string: string, ...args: ReactNode[][]) => {
 		})
 	})
 	return returnArray
+}
+
+export const usePointerAction = (capitalize = false) => {
+	const isTouch = useMatchMedia('(pointer: coarse)')
+	return isTouch ? (capitalize ? 'Tap' : 'tap') : capitalize ? 'Click' : 'click'
 }

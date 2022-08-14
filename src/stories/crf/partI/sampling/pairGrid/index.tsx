@@ -12,6 +12,7 @@ import { renderSVG } from './utils'
 import BalancedText from '@components/balancedText'
 import Button from '@components/button'
 
+import { usePointerAction } from '@utils/text'
 import { tl } from '@utils/text'
 import useSize from '@utils/useSize'
 
@@ -79,6 +80,8 @@ const PairGrid = ({ graph }: Props) => {
 		setIsStale(false)
 	}
 
+	const pointerAction = usePointerAction(true)
+
 	return (
 		<Wrap>
 			<Header>
@@ -109,10 +112,10 @@ const PairGrid = ({ graph }: Props) => {
 							<BalancedText>
 								{showOnboarding
 									? tl(
-											`Click "Draw Samples" to generate new random samples from $1.`,
+											`No samples drawn yet.`,
 											graph.nodes.map((n) => n.label),
 									  ).join('')
-									: "Some parameters in your graph have changed. Click 'Resample' to generate fresh samples."}
+									: `Certain sampling parameters have changed. ${pointerAction} "Resample" to draw a new set of samples.`}
 							</BalancedText>
 						</EmptyText>
 					</EmptyWrap>

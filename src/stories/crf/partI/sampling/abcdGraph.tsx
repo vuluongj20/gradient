@@ -16,6 +16,7 @@ import Grid from '@components/grid'
 import GuideArrow from '@components/guideArrow'
 import Panel from '@components/panel'
 
+import { usePointerAction } from '@utils/text'
 import useMountEffect from '@utils/useMountEffect'
 
 const createGraph = () => {
@@ -87,9 +88,20 @@ const ABCDGraph = () => {
 						setNodeEventListeners([])
 					},
 				],
+				[
+					'touchstart',
+					() => {
+						nodeA?.classList.remove('highlighted')
+						setShowGuide(false)
+						// Remove listener
+						setNodeEventListeners([])
+					},
+				],
 			])
 		}, 2000)
 	})
+
+	const pointerAction = usePointerAction(true)
 
 	return (
 		<Grid noPaddingOnMobile>
@@ -109,11 +121,11 @@ const ABCDGraph = () => {
 							/>
 						)}
 					/>
-					<CSSTransition in={showGuide} timeout={500} unmountOnExit mountOnEnter appear>
+					<CSSTransition in={showGuide} timeout={250} unmountOnExit mountOnEnter appear>
 						<GuideWrap x={guidePosition.x} y={guidePosition.y}>
 							<GuideArrow from="right" to="bottom" width={48} height={120} />
 							<GuideText>
-								<BalancedText>Click to view & edit parameters</BalancedText>
+								<BalancedText>{`${pointerAction} to view & edit distribution.`}</BalancedText>
 							</GuideText>
 						</GuideWrap>
 					</CSSTransition>
@@ -177,7 +189,7 @@ const GuideText = styled.p`
 	${(p) => p.theme.text.system.small}
 	color: ${(p) => p.theme.label};
 	margin-left: ${(p) => p.theme.space[0]};
-	width: 10rem;
+	width: 8rem;
 `
 
 const StyledPanel = styled(Panel)`
