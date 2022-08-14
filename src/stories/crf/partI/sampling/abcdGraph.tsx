@@ -23,10 +23,10 @@ import useMountEffect from '@utils/useMountEffect'
 const createGraph = () => {
 	const g = new SamplingGraph()
 
-	const nodeA = new SamplingNode({ label: 'A', x: -40, y: -20 })
-	const nodeB = new SamplingNode({ label: 'B', x: 40, y: -20 })
-	const nodeC = new SamplingNode({ label: 'C', x: -40, y: 20 })
-	const nodeD = new SamplingNode({ label: 'D', x: 40, y: 20 })
+	const nodeA = new SamplingNode({ label: 'A', x: -60, y: -60 })
+	const nodeB = new SamplingNode({ label: 'B', x: 40, y: -80 })
+	const nodeC = new SamplingNode({ label: 'C', x: -10, y: 120 })
+	const nodeD = new SamplingNode({ label: 'D', x: 10, y: 20 })
 	g.addNode(nodeA)
 	g.addNode(nodeB)
 	g.addNode(nodeC)
@@ -99,7 +99,7 @@ const ABCDGraph = () => {
 					},
 				],
 			])
-		}, 3000)
+		}, 2000)
 	})
 
 	const pointerAction = usePointerAction(true)
@@ -144,28 +144,28 @@ export default observer(ABCDGraph)
 
 const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginVertical[3]}
+	padding: 0;
 	height: 36rem;
 	display: flex;
 
 	${(p) => p.theme.utils.media.mobile} {
-		${(p) => p.theme.utils.space.paddingVertical[6]}
 		flex-direction: column;
 		height: auto;
 	}
 `
 
 const StyledDivider = styled(Divider)`
-	margin: 0 ${(p) => p.theme.space[3]};
+	margin: 0;
 
 	${(p) => p.theme.utils.media.mobile} {
-		margin: ${(p) => p.theme.space[3]} 0;
+		margin: 0 ${(p) => p.theme.utils.space.marginHorizontal};
 	}
 `
 
 const GraphViewWrap = styled.div`
 	position: relative;
 	height: 100%;
-	width: 30%;
+	width: 35%;
 	flex-shrink: 0;
 
 	${(p) => p.theme.utils.media.mobile} {
@@ -210,8 +210,12 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 
 const StyledPairGrid = styled(PairGrid)`
 	width: 100%;
+	margin: ${(p) => p.theme.space[3]};
 
 	${(p) => p.theme.utils.media.mobile} {
+		width: calc(100% - ${(p) => p.theme.space[3]} * 2);
+		margin-left: ${(p) => p.theme.utils.space.marginHorizontal};
+		margin-right: ${(p) => p.theme.utils.space.marginHorizontal};
 		height: 28rem;
 	}
 `

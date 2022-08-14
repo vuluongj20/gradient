@@ -242,6 +242,7 @@ export default observer(ForceGraph)
 
 const SVG = styled.svg`
 	${(p) => p.theme.text.viz.body};
+	overflow: hidden;
 
 	height: 100%;
 	width: auto;
