@@ -35,7 +35,7 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 	const allNodeEventListeners: NodeEventListener[] = useMemo(
 		() => [
 			[
-				typeof window !== 'undefined' && 'ontouchstart' in window ? 'touchend' : 'click',
+				'click',
 				(_, d) => {
 					// Pass click event from node element in SVG to the trigger button for the
 					// corresponding node panel

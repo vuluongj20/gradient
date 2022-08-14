@@ -260,13 +260,16 @@ const SVG = styled.svg`
 			fill-opacity: 0;
 			opacity: 0;
 
-			cursor: pointer;
 			transition: all ${(p) => p.theme.animation.fastOut},
 				stroke-dasharray ${(p) => p.theme.animation.mediumOut},
 				stroke-dashoffset ${(p) => p.theme.animation.mediumOut};
-			&:hover {
-				opacity: 0.5;
-				fill-opacity: 0.1;
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					opacity: 0.5;
+					fill-opacity: 0.1;
+					cursor: pointer;
+				}
 			}
 		}
 		text {
