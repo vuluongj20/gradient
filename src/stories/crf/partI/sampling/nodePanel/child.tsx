@@ -16,7 +16,7 @@ type Props = {
 
 const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
 	const nodeDescription = tl(
-		`${node.label} is conditionally depdendent on $1. It will be sampled from a normal distribution whose mean is a {1,multiple,weighted sum} of its {1,parent's, parents'} sampled {1,value,values}:`,
+		`${node.label} is conditionally depdendent on $1. We'll assume that it's normally distributed, with the mean being a {1,multiple,weighted sum} of its {1,parent's, parents'} sampled {1,value,values}:`,
 		parentNodes.map((n) => n.label),
 	)
 

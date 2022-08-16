@@ -1,5 +1,6 @@
 import HeroMDX from './hero.mdx'
-import PartIMDX from './partI/index.mdx'
+import PartIMDX from './partI/content.mdx'
+import PartIIMDX from './partII/content.mdx'
 
 import Head from '@components/head'
 import Page from '@components/page'
@@ -12,6 +13,7 @@ const Component = () => {
 			<MDXStoryProvider>
 				<HeroMDX />
 				<PartIMDX />
+				<PartIIMDX />
 			</MDXStoryProvider>
 		</Page>
 	)

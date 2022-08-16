@@ -12,7 +12,7 @@ import { renderSVG } from './utils'
 import BalancedText from '@components/balancedText'
 import Button from '@components/button'
 
-import { tl, usePointerAction } from '@utils/text'
+import { usePointerAction } from '@utils/text'
 import useSize from '@utils/useSize'
 
 type Props = {
@@ -24,8 +24,7 @@ const PairGrid = ({ graph, className }: Props) => {
 	const gridWrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
 	const { width, height } = useSize(gridWrapRef)
-	const [samples, setSamples] = useState<ReturnType<typeof graph.sample>>()
-	const [showOnboarding, setShowOnboarding] = useState(true)
+	const [samples, setSamples] = useState(() => graph.sample(50))
 
 	const domains = useMemo(() => {
 		if (!samples) return
@@ -77,7 +76,6 @@ const PairGrid = ({ graph, className }: Props) => {
 	)
 	const resample = () => {
 		setSamples(graph.sample(50))
-		setShowOnboarding(false)
 		setIsStale(false)
 	}
 
@@ -86,37 +84,21 @@ const PairGrid = ({ graph, className }: Props) => {
 	return (
 		<Wrap className={className}>
 			<Header>
-				<Title>Sampling</Title>
+				<Title>Sampled Population</Title>
 				<Button filled primary small onPress={resample}>
-					{showOnboarding ? 'Draw Samples' : 'Resample'}
+					Resample
 				</Button>
 			</Header>
 			<GridWrap ref={gridWrapRef}>
-				<CSSTransition
-					in={!(showOnboarding || isStale)}
-					timeout={500}
-					unmountOnExit
-					mountOnEnter
-					appear
-				>
+				<CSSTransition in={!isStale} timeout={500} unmountOnExit mountOnEnter appear>
 					<SVG ref={svgRef} />
 				</CSSTransition>
-				<CSSTransition
-					in={showOnboarding || isStale}
-					timeout={500}
-					unmountOnExit
-					mountOnEnter
-					appear
-				>
+				<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter appear>
 					<EmptyWrap>
 						<EmptyText>
 							<BalancedText>
-								{showOnboarding
-									? tl(
-											`No samples drawn yet.`,
-											graph.nodes.map((n) => n.label),
-									  ).join('')
-									: `Certain sampling parameters have changed. ${pointerAction} "Resample" to draw a new set of samples.`}
+								{`Certain sampling parameters have changed. ${pointerAction} "Resample" to
+								draw a new set of samples.`}
 							</BalancedText>
 						</EmptyText>
 					</EmptyWrap>

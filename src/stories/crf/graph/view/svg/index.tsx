@@ -285,7 +285,8 @@ const SVG = styled.svg`
 			opacity: 1;
 			${(p) => p.theme.utils.svgFocusVisible};
 		}
-		&.highlighted:not(.focused) > rect.node-box:not(:hover) {
+		&.highlighted:not(.focused) > rect.node-box:not(:hover),
+		&.highlighted-guide:not(.focused) > rect.node-box:not(:hover) {
 			opacity: 1;
 			stroke-dasharray: 4 3;
 			stroke-dashoffset: -4;

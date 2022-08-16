@@ -77,13 +77,13 @@ const ABCDGraph = () => {
 			const nodeABBox = nodeA.getBBox()
 			setGuidePosition({ x: nodeABBox.x + nodeABBox.width / 2, y: nodeABBox.y })
 			setShowGuide(true)
-			nodeA.classList.add('highlighted')
+			nodeA.classList.add('highlighted-guide')
 
 			setNodeEventListeners([
 				[
 					'mousedown',
 					() => {
-						nodeA?.classList.remove('highlighted')
+						nodeA?.classList.remove('highlighted-guide')
 						setShowGuide(false)
 						// Remove listener
 						setNodeEventListeners([])
@@ -92,7 +92,7 @@ const ABCDGraph = () => {
 				[
 					'touchstart',
 					() => {
-						nodeA?.classList.remove('highlighted')
+						nodeA?.classList.remove('highlighted-guide')
 						setShowGuide(false)
 						// Remove listener
 						setNodeEventListeners([])
