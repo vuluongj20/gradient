@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import ContentMDX from './content.mdx'
 import { DataProvider } from './dataContext'
 
+import Head from '@components/head'
 import Page from '@components/page'
 
 import MDXStoryProvider from '@utils/mdxStoryProvider'
@@ -37,7 +38,10 @@ const Main = () => {
     </Page>
   )
 }
+
 export default Main
+
+export { Head }
 
 const Wrap = styled.article`
   --theme: ${(p) => p.theme.green1};

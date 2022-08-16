@@ -1,5 +1,6 @@
 import { RelativeCiAgentWebpackPlugin } from '@relative-ci/agent'
 import { GatsbyNode } from 'gatsby'
+import { ImageDataLike, getSrc } from 'gatsby-plugin-image'
 import path from 'path'
 
 import graphQLTypes from './src/types/graphql'
@@ -59,9 +60,17 @@ export const createPages: GatsbyNode['createPages'] = async function ({
             isMock
           }
         }
+        site {
+          siteMetadata {
+            siteUrl
+          }
+        }
       }
     `,
   )
+
+  const siteUrl = storyResults.data?.site?.siteMetadata.siteUrl
+
   storyResults.data?.allStoriesJson.nodes.forEach((node) => {
     const story = node
     const component = path.resolve(`./src/stories/${story.slug}/index.tsx`)
@@ -74,7 +83,14 @@ export const createPages: GatsbyNode['createPages'] = async function ({
           slug: story.slug,
           title: story.title,
           description: story.description,
-          image: { ...story.cover?.image, width: 1200, height: 630 },
+          ...(story.cover?.image && {
+            image: {
+              src: `${siteUrl ?? ''}${getSrc(story.cover.image as ImageDataLike) ?? ''}`,
+              alt: story.cover?.alt,
+              width: 1200,
+              height: 630,
+            },
+          }),
         },
       })
   })

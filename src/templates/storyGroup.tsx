@@ -7,6 +7,7 @@ import Card from '@components/card'
 import FilterBar, { FilterProps } from '@components/filterBar'
 import Grid from '@components/grid'
 import Page from '@components/page'
+import SEO, { SEOProps } from '@components/seo'
 
 import { Story } from '@types'
 
@@ -146,6 +147,9 @@ export const query = graphql`
 `
 
 export default StoryGroupPage
+
+type HeadProps = { pageContext: SEOProps }
+export const Head = ({ pageContext }: HeadProps) => <SEO {...pageContext} />
 
 const PageContent = styled.div`
 	${(p) => p.theme.utils.space.paddingTop[6]};

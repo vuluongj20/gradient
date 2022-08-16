@@ -4,6 +4,8 @@ description: The privacy of your data — and it is your data, not ours! — is 
 lastEdited: 2021-11-08
 ---
 
+import SEO from '@components/seo'
+
 ## What we collect and why
 
 Our guiding principle is to collect only what we need. Here’s what that means in practice:
@@ -121,3 +123,7 @@ Have any questions, comments, or concerns about this privacy policy, your data, 
 ---
 
 Adapted from the [Basecamp open-source policies](https://github.com/basecamp/policies) / [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+export const Head = ({ pageContext: { frontmatter } }) => (
+	<SEO title={frontmatter.title} description={frontmatter.description} />
+)

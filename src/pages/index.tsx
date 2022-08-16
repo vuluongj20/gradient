@@ -4,6 +4,7 @@ import CardGroup from '@components/cardGroup'
 import Page from '@components/page'
 import Section from '@components/section'
 import SectionDivider from '@components/sectionDivider'
+import SEO from '@components/seo'
 
 import Header from '@pageComponents/home/header'
 
@@ -48,3 +49,5 @@ const IndexPage = (): JSX.Element => {
 }
 
 export default IndexPage
+
+export const Head = () => <SEO />

@@ -29,6 +29,6 @@ Directed Acyclic Graphs, or DAGs, offer a natural solution to this problem. Each
 
 <StaticABCDGraph />
 
-With this graph, it's easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process starts at the root node – $A$, then down through its descendants – $B$ and $C$, finally stopping at the leaf node – $D$.
+With this graph, it's easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process proceeds in [topological order](https://en.wikipedia.org/wiki/Topological_sorting), for example $A$ → $C$ → $B$ → $D$, to make sure that all dependencies have been resolved by the time each variable is sampled.
 
 <ABCDGraph />

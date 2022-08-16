@@ -1,14 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby'
-import { MetaHTMLAttributes } from 'react'
-import { Helmet } from 'react-helmet'
+import { Fragment, ReactNode } from 'react'
 
 import defaultOgImage from '@images/og.png'
 
-type Meta = MetaHTMLAttributes<HTMLMetaElement>
-
 export type SEOProps = {
-  dir?: string
-  lang?: string
   title?: string
   description?: string
   type?: string
@@ -20,37 +15,23 @@ export type SEOProps = {
     width?: number
     height?: number
   }
-  meta?: Meta[]
-}
-
-const defaultSEO: SEOProps = {
-  dir: 'ltr',
-  lang: 'en-US',
-  title: 'Gradient',
-  description: '',
-  type: '',
-  author: '',
-  authorTwitter: '',
+  children?: ReactNode
 }
 
 const SEO = ({
-  dir,
-  lang,
   title,
   description,
   type,
   author,
   authorTwitter,
   image,
-  meta,
+  children,
 }: SEOProps): JSX.Element => {
   const data = useStaticQuery<Queries.SiteMetadataQuery>(
     graphql`
       query SiteMetadata {
         site {
           siteMetadata {
-            dir
-            lang
             title
             description
             type
@@ -63,110 +44,47 @@ const SEO = ({
     `,
   )
 
-  const siteMetadata = data.site?.siteMetadata ?? defaultSEO
+  const siteMetadata = data.site?.siteMetadata
 
-  const metaDir = dir ?? siteMetadata.dir
-  const metaLang = lang ?? siteMetadata.lang
-  const metaTitle = title
-    ? `${title} - Gradient`
-    : `Gradient - Ideas on Technology, Design, Philosophy, and the Law`
-  const metaDescription = description ?? siteMetadata.description
-  const metaType = type ?? siteMetadata.type
-  const metaAuthor = author ?? siteMetadata.author
-  const metaAuthorTwitter = authorTwitter ?? siteMetadata.authorTwitter
-  const metaImage = image ?? {
-    src: defaultOgImage as string,
-    alt: 'Wordmark logo that says Gradient \\',
-    width: 1200,
-    height: 630,
+  const seo = {
+    title: title
+      ? `${title} – Gradient`
+      : `Gradient – Ideas on Technology, Design, Philosophy, and the Law`,
+    description: description ?? siteMetadata?.description,
+    type: type ?? siteMetadata?.type,
+    author: author ?? siteMetadata?.author,
+    authorTwitter: authorTwitter ?? siteMetadata?.authorTwitter,
+    image: image ?? {
+      src: `${siteMetadata?.siteUrl ?? ''}${defaultOgImage as string}`,
+      alt: 'Wordmark logo that says Gradient \\',
+      width: 1200,
+      height: 630,
+    },
   }
 
   return (
-    <Helmet
-      defer={false}
-      htmlAttributes={{
-        lang: metaLang,
-        dir: metaDir,
-      }}
-      title={metaTitle}
-      meta={(
-        [
-          {
-            name: 'viewport',
-            content: 'width=device-width, initial-scale=1, viewport-fit=cover',
-          },
-          {
-            name: `description`,
-            content: metaDescription,
-          },
-          {
-            name: `author`,
-            content: metaAuthor,
-          },
-          {
-            property: `og:site_name`,
-            content: `Gradient`,
-          },
-          {
-            property: `og:title`,
-            content: metaTitle,
-          },
-          {
-            property: `og:description`,
-            content: metaDescription,
-          },
-          {
-            property: `og:type`,
-            content: metaType,
-          },
-          {
-            property: `og:image`,
-            content: metaImage.src,
-          },
-          {
-            property: `og:image:alt`,
-            content: metaImage.alt,
-          },
-          {
-            property: `og:image:width`,
-            content: metaImage.width,
-          },
-          {
-            property: `og:image:height`,
-            content: metaImage.height,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: metaAuthorTwitter,
-          },
-          {
-            name: `twitter:title`,
-            content: metaTitle,
-          },
-          {
-            name: `twitter:description`,
-            content: metaDescription,
-          },
-          {
-            name: `twitter:image`,
-            content: metaImage.src,
-          },
-          {
-            name: `twitter:image:alt`,
-            content: metaImage.alt,
-          },
-        ] as NonNullable<SEOProps['meta']>
-      ).concat(meta ?? [])}
-    />
+    <Fragment>
+      <title>{seo.title}</title>
+      <meta name="description" content={seo.description} />
+      <meta name="author" content={seo.author} />
+      <meta name="image" content={seo.image.src} />
+      <meta name="og:title" content={seo.title} />
+      <meta name="og:description" content={seo.description} />
+      <meta name="og:site_name" content="Gradient" />
+      <meta name="og:type" content={seo.type} />
+      <meta name="og:image" content={seo.image.src} />
+      <meta name="og:image:alt" content={seo.image.alt} />
+      <meta name="og:image:width" content={String(seo.image.width)} />
+      <meta name="og:image:height" content={String(seo.image.height)} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content={seo.authorTwitter} />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:image" content={seo.image.src} />
+      <meta name="twitter:image:alt" content={seo.image.alt} />
+      {children}
+    </Fragment>
   )
-}
-
-SEO.defaultProps = {
-  meta: [],
 }
 
 export default SEO

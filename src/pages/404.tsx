@@ -6,7 +6,6 @@ import TransitionLink from '@components/transitionLink'
 
 const Page404 = () => (
   <Page>
-    <SEO title={'Page Not Found'} />
     <Wrap>
       <Title>Page Not Found…</Title>
       <Text>
@@ -50,3 +49,5 @@ const Link = styled(TransitionLink)`
     text-decoration-color: ${(p) => p.theme.body};
   }
 `
+
+export const Head = () => <SEO title="Page Not Found" />
