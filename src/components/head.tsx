@@ -12,8 +12,6 @@ const Head = ({ pageContext: { title, description, author, image } }: Props) => 
 		image,
 	}
 
-	console.log(seo.image)
-
 	return <SEO {...seo} />
 }
 

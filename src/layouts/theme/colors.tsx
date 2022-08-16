@@ -84,6 +84,9 @@ type ColorAliasName =
 	| 'onErrorBackground'
 	| 'linkText'
 	| 'linkUnderline'
+	| 'contentLinkText'
+	| 'contentLinkUnderline'
+	| 'contentLinkUnderlineHover'
 	| 'primaryLinkText'
 	| 'primaryLinkUnderline'
 	| 'buttonLabel'
@@ -265,8 +268,12 @@ export const getColorAliases = (
 		errorBackground: colors.red2,
 		onErrorBackground: colors.white,
 
-		linkText: colors.gray2,
+		linkText: colors.gray1,
 		linkUnderline: colors.gray7,
+
+		contentLinkText: colors.gray1,
+		contentLinkUnderline: colors.gray6,
+		contentLinkUnderlineHover: colors.gray5,
 
 		primaryLinkText: colors.red1,
 		primaryLinkUnderline: colors.red4,

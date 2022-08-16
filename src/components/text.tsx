@@ -41,5 +41,10 @@ export const Body = styled.p<Props>`
 
 export const Link = styled.a<Props>`
 	${(p) => p.theme.text.content.body};
-	text-decoration-color: ${(p) => p.theme.linkUnderline};
+	color: ${(p) => p.theme.contentLinkText};
+	text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+
+	&:hover:not([data-no-underline='true']) {
+		text-decoration-color: ${(p) => p.theme.contentLinkUnderlineHover};
+	}
 `
