@@ -9,7 +9,7 @@ const getReadableList = (list: ReactNode[]) => {
 	return [
 		...[...list.slice(0, -1).map((item) => [item, ', '])].flat(),
 		'and ',
-		list.slice(-1),
+		...list.slice(-1),
 	]
 }
 

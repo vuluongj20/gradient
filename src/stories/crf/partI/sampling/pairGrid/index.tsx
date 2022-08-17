@@ -17,10 +17,11 @@ import useSize from '@utils/useSize'
 
 type Props = {
 	graph: SamplingGraph
+	title?: string
 	className?: string
 }
 
-const PairGrid = ({ graph, className }: Props) => {
+const PairGrid = ({ graph, title, className }: Props) => {
 	const gridWrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
 	const { width, height } = useSize(gridWrapRef)
@@ -91,7 +92,7 @@ const PairGrid = ({ graph, className }: Props) => {
 			</Header>
 			<GridWrap ref={gridWrapRef}>
 				<CSSTransition in={!isStale} timeout={500} unmountOnExit mountOnEnter appear>
-					<SVG ref={svgRef} />
+					<SVG ref={svgRef} aria-label={title} />
 				</CSSTransition>
 				<CSSTransition in={isStale} timeout={500} unmountOnExit mountOnEnter appear>
 					<EmptyWrap>
@@ -123,7 +124,7 @@ const Header = styled.div`
 	align-items: center;
 `
 
-const Title = styled.h3`
+const Title = styled.p`
 	${(p) => p.theme.text.system.h6}
 	margin-right: ${(p) => p.theme.space[1]};
 `
@@ -167,6 +168,7 @@ const EmptyText = styled.p`
 
 const SVG = styled.svg`
 	${(p) => p.theme.text.viz.body};
+	width: 100%;
 
 	/*
 	Axes

@@ -29,7 +29,7 @@ Directed Acyclic Graphs, or DAGs, offer a natural solution to this problem. Each
 
 With this graph, it's easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process proceeds in [topological order](https://en.wikipedia.org/wiki/Topological_sorting), for example $A$ → $C$ → $B$ → $D$, to ensure that all dependencies have been resolved by the time each variable is sampled.
 
-Below is what a sampled population would look like. For the sake of explanation, we assume complete knowledge of the modeled variables: no unencoded dependencies, no confounding variables. Some parameters, for example the shape and scale parameters of normal distributions, are editable – in reality these are the quantities that must be learned given training data.
+Below is what a sampled population would look like. Some parameters, for example the shape and scale parameters of normal distributions, are editable – in reality these are the quantities to be learned given training data.
 
 <ABCDGraph />
 

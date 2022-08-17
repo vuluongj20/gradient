@@ -33,6 +33,7 @@ import {
 } from './utils'
 
 import { isDefined } from '@utils/functions'
+import { tl } from '@utils/text'
 import useEffectOnceDefined from '@utils/useEffectOnceDefined'
 
 type Render = {
@@ -235,7 +236,24 @@ const ForceGraph = ({
 		simulation.stop()
 	}, [simulationPlayState])
 
-	return <SVG ref={ref} />
+	const title = useMemo(() => {
+		const { nodes, edges } = graph
+
+		return tl(
+			`Visualized graph consisting of ${nodes.length} {1,node,nodes}: $1.${
+				edges.length > 0 ? ` There are edges pointing $2.` : ''
+			}`,
+			nodes.map((n) => n.label),
+			edges.map(
+				(e) =>
+					`from node ${graph.getNode(e.nodes.source).label} to node ${
+						graph.getNode(e.nodes.target).label
+					}`,
+			),
+		).join('')
+	}, [graph])
+
+	return <SVG ref={ref} aria-label={title} />
 }
 
 export default observer(ForceGraph)

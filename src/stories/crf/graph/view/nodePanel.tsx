@@ -108,7 +108,7 @@ const NodePanel = observer(
 						onPress={() => state.open()}
 						id={`node-panel-trigger-${node.id}`}
 					>
-						{node.label}
+						{`Node ${node.label}`}
 					</Button>
 				</VisuallyHidden>
 				<StyledPopover

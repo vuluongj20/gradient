@@ -124,7 +124,7 @@ const ABCDGraph = () => {
 						)}
 					/>
 					<CSSTransition in={showGuide} timeout={500} unmountOnExit mountOnEnter appear>
-						<GuideWrap x={guidePosition.x} y={guidePosition.y}>
+						<GuideWrap x={guidePosition.x} y={guidePosition.y} aria-hidden="true">
 							<GuideArrow from="right" to="bottom" width={48} height={120} />
 							<GuideText>
 								<BalancedText>{`${pointerAction} to view & edit distribution.`}</BalancedText>
@@ -134,7 +134,10 @@ const ABCDGraph = () => {
 				</GraphViewWrap>
 
 				<StyledDivider orientation={isMobile ? 'horizontal' : 'vertical'} />
-				<StyledPairGrid graph={graph} />
+				<StyledPairGrid
+					graph={graph}
+					title="Pair grid showing pairwise relationships between variables. Each cell in the grid is a scatterplot for the corresponding variables pair. There is a correlation between variables A and B, A and D, B and D, and C and D."
+				/>
 			</StyledPanel>
 		</Grid>
 	)

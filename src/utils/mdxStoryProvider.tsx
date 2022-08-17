@@ -43,7 +43,7 @@ const SectionSubHeading = ({ children, ...props }: Props) => (
 	</Grid>
 )
 const Body = ({ children, ...props }: Props) => (
-	<Grid>
+	<Grid role="presentation">
 		<Text.Body gridColumn="text" {...props}>
 			{children}
 		</Text.Body>
