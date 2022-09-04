@@ -93,6 +93,10 @@ const IncDecButton = styled(Button)`
 	:not(:first-child) {
 		border-top: solid 1px ${(p) => p.theme.oLine};
 	}
+
+	/* Fix Safari flicker */
+	transform: translateZ(0);
+
 	:first-child {
 		border-top-right-radius: calc(${(p) => p.theme.radii.s} - 1px);
 	}

@@ -86,6 +86,10 @@ const GlobalStyles = createGlobalStyle`
     ${(p) => p.theme.utils.focusVisible}; 
   }
 
+  button {
+    margin: 0;
+  }
+
 
   input {
     font-size: 1rem;
