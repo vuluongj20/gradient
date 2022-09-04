@@ -1,8 +1,8 @@
 [
 	{
 		"slug": "crf",
-		"title": "Named-Entity Recognition with Linear-Chain Graphical Models",
-		"description": " An investigation into how model structure and statistical assumptions affect predictions in named-entity recognition tasks.",
+		"title": "Naming Names with Graphical Models",
+		"description": "Understanding how model structure and statistical assumptions can affect predictions in a named-entity recognition task.",
 		"featuredIn": ["top"],
 		"featuredSize": "l",
 		"sections": ["technology"],
