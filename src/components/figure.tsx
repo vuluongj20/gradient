@@ -92,7 +92,8 @@ const StyledImage = styled(GatsbyImage)`
 `
 
 const Caption = styled.figcaption<{ gridColumn?: Props['gridColumn'] }>`
-	${(p) => p.theme.text.viz.label};
+	${(p) => p.theme.text.viz.small};
+	text-transform: uppercase;
 	line-height: 1.4;
 	margin-top: ${(p) => p.theme.space[1]};
 	max-width: 40rem;

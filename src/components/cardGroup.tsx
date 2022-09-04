@@ -17,18 +17,18 @@ type Props = {
 
 type SpanRange = {
 	mid: number
-	lowerLimit: number
-	upperLimit: number
+	min: number
+	max: number
 }
 
 type SizeMap = Record<Story['featuredSize'], SpanRange>
 
 /** Maps a size shortname (s/m/l/xl) to a full size range object */
 const sizeMap: SizeMap = {
-	s: { mid: 3, lowerLimit: 3, upperLimit: 3 },
-	m: { mid: 4, lowerLimit: 3, upperLimit: 4 },
-	l: { mid: 5, lowerLimit: 3, upperLimit: 6 },
-	xl: { mid: 7, lowerLimit: 3, upperLimit: 8 },
+	s: { mid: 3, min: 3, max: 3 },
+	m: { mid: 4, min: 3, max: 4 },
+	l: { mid: 5, min: 3, max: 6 },
+	xl: { mid: 6, min: 3, max: 8 },
 }
 
 const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
@@ -45,12 +45,21 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 		let currentRowIndex = 0
 
 		const needToWrap = (spanRanges: SpanRange[], nCols: number): boolean => {
-			return sum(spanRanges.map((spanRange) => spanRange.mid)) > nCols
+			return sum(spanRanges.map((sr) => sr.mid)) > nCols
+		}
+
+		const reallyNeedToWrap = (spanRanges: SpanRange[], nCols: number): boolean => {
+			return sum(spanRanges.map((sr) => Math.max(sr.min, sr.mid - 1))) > nCols
 		}
 
 		while (remainingSpanRanges.length > 0) {
 			// If there is more space in the row --> add next card to current row
 			if (!needToWrap(potentialNewRowConfig, nCols)) {
+				rows[currentRowIndex].push(remainingSpanRanges[0])
+			} else if (
+				rows[currentRowIndex].length === 1 &&
+				!reallyNeedToWrap(potentialNewRowConfig, nCols)
+			) {
 				rows[currentRowIndex].push(remainingSpanRanges[0])
 				// If there is no more space
 				// --> add next card to a new row
@@ -69,11 +78,18 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 
 	/**
 	 * Make cards wider/more narrow so they all
-	 * span entire rows, except for the last row
+	 * span entire rows (except for the last row)
 	 */
 	const calibrateRows = (rows: SpanRange[][], nCols: number): GridColumns[] =>
 		rows
 			.map((row, rowIndex) => {
+				/**
+				 * Sorted spans, from smallest to largest size
+				 */
+				const sortedSpans = row
+					.map((spanRange, index) => ({ index, ...spanRange }))
+					.sort((a, b) => a.mid - b.mid)
+
 				/**
 				 * Array of sizes of cards in the row,
 				 * starting out with the 'mid' values
@@ -83,33 +99,53 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 				 * For checking when the very upper limit is hit,
 				 * i.e. when no more card can be widened
 				 */
-				const upperLimit = sum(row.map((spanRange) => spanRange.upperLimit))
+				const max = sum(row.map((spanRange) => spanRange.max))
 				/**
 				 * To see if we need to make cards wider
 				 * or more narrow, and by how much
 				 */
 				let difference = nCols - sum(spans)
-				let nextIndex = 0
+				const shouldAdd = difference > 0
+				let nextSortedIndex = shouldAdd ? sortedSpans.length - 1 : 0
+				let nextIndex = sortedSpans[nextSortedIndex].index
 
 				// Progressively make cards wider/more narrow
 				// until either the cards span the entire row or no more
 				// card can be widened (usually the case in the last row)
 				const isLastRow = rowIndex === rows.length - 1
 
-				while (difference !== 0 && !(isLastRow && sum(spans) > upperLimit)) {
-					if (difference > 0) {
+				while (difference !== 0 && !(isLastRow && sum(spans) > max)) {
+					const nextSpanSize = spans[nextIndex]
+					const nextSpan = row[nextIndex]
+
+					// Adding space to spans
+					if (shouldAdd) {
 						spans[nextIndex] += 1
 						difference -= 1
-					} else if (spans[nextIndex] - 1 >= row[nextIndex].lowerLimit) {
-						spans[nextIndex] -= 1
-						difference += 1
-					}
-					// Move to next card in the row
-					if (nextIndex < row.length - 1) {
-						nextIndex += 1
+
+						// Move to next card in the row
+						if (nextSortedIndex !== 0) {
+							nextSortedIndex -= 1
+						} else {
+							nextSortedIndex = sortedSpans.length - 1
+						}
+
+						// Removing space from spans
 					} else {
-						nextIndex = 0
+						if (nextSpanSize - 1 >= nextSpan.min) {
+							spans[nextIndex] -= 1
+							difference += 1
+						}
+
+						// Move to next card in the row
+						if (nextSortedIndex < sortedSpans.length - 1) {
+							nextSortedIndex += 1
+						} else {
+							nextSortedIndex = 0
+						}
 					}
+
+					nextIndex = sortedSpans[nextSortedIndex].index
 				}
 
 				// Translate card spans [number] to grid-column
