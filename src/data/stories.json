@@ -1,6 +1,6 @@
 [
 	{
-		"slug": "crf",
+		"slug": "ner",
 		"title": "Naming Names with Graphical Models",
 		"description": "Understanding how model structure and statistical assumptions can affect predictions in a named-entity recognition task.",
 		"featuredIn": ["top"],
