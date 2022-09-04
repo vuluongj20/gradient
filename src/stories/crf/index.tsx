@@ -1,4 +1,4 @@
-import HeroMDX from './hero.mdx'
+import HeroMDX from './hero/content.mdx'
 import PartIMDX from './partI/content.mdx'
 import PartIIMDX from './partII/content.mdx'
 
