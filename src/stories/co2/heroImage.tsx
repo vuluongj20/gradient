@@ -45,5 +45,5 @@ const Image = (props: ComponentProps<typeof Figure>) => {
 export default Image
 
 const Wrap = styled(Grid)`
-	${(p) => p.theme.utils.space.marginBottom[5]};
+	${(p) => p.theme.utils.space.marginTop[5]};
 `

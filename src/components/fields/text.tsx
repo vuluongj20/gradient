@@ -41,7 +41,6 @@ const TextInput = ({
 export default TextInput
 
 const Input = styled.input<{ small: boolean; displayWidth?: string }>`
-	appearance: none;
 	background: ${(p) => p.theme.iBackground};
 	border-radius: ${(p) => p.theme.radii.s};
 	border: solid 1px ${(p) => p.theme.line};

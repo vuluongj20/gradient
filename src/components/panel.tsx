@@ -31,26 +31,26 @@ const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 	switch (p.size) {
 		case 's':
 			return `
-				padding: ${p.theme.space[2]} ${p.theme.space[3]};
+				padding: ${p.theme.space[3]};
 
 				${p.theme.utils.media.s} {
-					padding: ${p.theme.space[1]} ${p.theme.space[2]};
+					padding: ${p.theme.space[2]};
 				}
 			`
 		case 'm':
 			return `
-					padding: ${p.theme.space[3]} ${p.theme.space[4]};
+					padding: ${p.theme.space[4]};
 
 					${p.theme.utils.media.s} {
-						padding: ${p.theme.space[2]} ${p.theme.space[3]};
+						padding: ${p.theme.space[3]};
 					}
 				`
 		case 'l':
 			return `
-				padding: ${p.theme.space[4]} ${p.theme.space[5]};
+				padding: ${p.theme.space[5]};
 
 				${p.theme.utils.media.s} {
-					padding: ${p.theme.space[3]} ${p.theme.space[4]};
+					padding: ${p.theme.space[4]};
 				}
 			`
 		default:

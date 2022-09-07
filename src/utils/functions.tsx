@@ -11,7 +11,7 @@ export const isObject = (item: unknown) =>
 /** Simple array summation */
 export const sum = (arr: number[]) => arr.reduce((acc, cur) => acc + cur, 0)
 
-export const debounce = <FunctionArguments extends []>(
+export const debounce = <FunctionArguments extends Array<unknown>>(
 	func: (...args: FunctionArguments) => void,
 	wait: number,
 ) => {

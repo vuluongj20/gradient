@@ -5,10 +5,17 @@ type Props = {
 	label: string
 	showLabel?: boolean
 	diameter?: number
+	strokeWidth?: number
 	className?: string
 }
 
-const Spinner = ({ diameter = 24, label = 'Loading…', showLabel, className }: Props) => {
+const Spinner = ({
+	diameter = 24,
+	strokeWidth = 2,
+	label = 'Loading…',
+	showLabel,
+	className,
+}: Props) => {
 	const { progressBarProps } = useProgressBar({
 		isIndeterminate: true,
 		'aria-label': label,
@@ -22,8 +29,8 @@ const Spinner = ({ diameter = 24, label = 'Loading…', showLabel, className }: 
 					cy={diameter / 2}
 					r={diameter / 2 - 1}
 					diameter={diameter - 2}
+					strokeWidth={strokeWidth}
 					stroke="currentColor"
-					strokeWidth="2"
 					fill="none"
 					role="presentation"
 				/>

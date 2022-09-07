@@ -92,6 +92,7 @@ const GlobalStyles = createGlobalStyle`
 
 
   input {
+    appearance: none;
     font-size: 1rem;
     transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
   }

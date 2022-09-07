@@ -137,7 +137,6 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
   transition: ${(p) => p.theme.utils.defaultTransitions},
     opacity ${(p) => p.theme.animation.fastOut},
     transform ${(p) => p.theme.animation.fastOut};
-  will-change: opacity, transform;
 
   color: ${(p) => p.theme.label};
   line-height: 1.2;

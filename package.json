@@ -23,6 +23,7 @@
     "@floating-ui/react-dom": "^1.0.0",
     "@mdx-js/mdx": "v1",
     "@mdx-js/react": "v1",
+    "axios": "^0.27.2",
     "balance-text": "^3.3.1",
     "body-scroll-lock": "^4.0.0-beta.0",
     "color": "^4.2.3",
