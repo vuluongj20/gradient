@@ -18,7 +18,7 @@ const Demo = () => {
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
 
 	// Store input value & split it into tokens
-	const [inputValue, setInputValue] = useState('The UK Department of Transport.')
+	const [inputValue, setInputValue] = useState('The UK Department of. Transport')
 	const [tokens, setTokens] = useState<string[]>([])
 	const tokenSpaces = useMemo(
 		() => getTokenSpaces(inputValue, tokens),
@@ -162,9 +162,14 @@ const Demo = () => {
 
 								{hmmPredictions.map((pred, i) => (
 									<Pred key={i}>
-										<ZeroWidthContent isLoading={loadingPredictions}>
-											{tokens[i] && (pred.includes('-') ? pred.split('-')[1] : pred)}
-										</ZeroWidthContent>
+										<ZeroWidth isLoading={loadingPredictions}>
+											{tokens[i] && (
+												<PredSpan>
+													<PredBackground aria-hidden="true" />
+													{pred.includes('-') ? pred.split('-')[1] : pred}
+												</PredSpan>
+											)}
+										</ZeroWidth>
 									</Pred>
 								))}
 
@@ -192,9 +197,14 @@ const Demo = () => {
 
 								{crfPredictions.map((pred, i) => (
 									<Pred key={i}>
-										<ZeroWidthContent isLoading={loadingPredictions}>
-											{tokens[i] && (pred.includes('-') ? pred.split('-')[1] : pred)}
-										</ZeroWidthContent>
+										<ZeroWidth isLoading={loadingPredictions}>
+											{tokens[i] && (
+												<PredSpan>
+													<PredBackground aria-hidden="true" />
+													{pred.includes('-') ? pred.split('-')[1] : pred}
+												</PredSpan>
+											)}
+										</ZeroWidth>
 									</Pred>
 								))}
 
@@ -328,7 +338,7 @@ const Pred = styled.td`
 	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
 `
 
-const ZeroWidthContent = styled.span<{ isLoading: boolean }>`
+const ZeroWidth = styled.span<{ isLoading: boolean }>`
 	width: 0;
 	display: flex;
 	justify-content: center;
@@ -336,6 +346,22 @@ const ZeroWidthContent = styled.span<{ isLoading: boolean }>`
 
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 	${(p) => p.isLoading && `opacity: 0.25;`};
+`
+
+const PredSpan = styled.span`
+	display: inline-block;
+	position: relative;
+`
+
+const PredBackground = styled.div`
+	${(p) => p.theme.utils.absCenter}
+
+	width: calc(100% + ${(p) => p.theme.space[0]});
+	height: calc(100% + ${(p) => p.theme.space[0]});
+	background: ${(p) => p.theme.background};
+	border-radius: ${(p) => p.theme.radii.s};
+	opacity: 0.9;
+	z-index: -1;
 `
 
 const RowPadding = styled.td`
