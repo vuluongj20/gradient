@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
@@ -9,8 +9,7 @@ import Grid from '@components/grid'
 import Panel from '@components/panel'
 import Spinner from '@components/spinner'
 
-import { makeCancelable } from '@utils/functions'
-import { debounce } from '@utils/functions'
+import { debounce, makeCancelable } from '@utils/functions'
 import { fadeIn } from '@utils/style'
 import useMountEffect from '@utils/useMountEffect'
 
@@ -134,13 +133,16 @@ const Demo = () => {
 		}
 	})
 
-	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setInputValue(value)
+	const onInputChange = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			const { value } = e.target
+			setInputValue(value)
 
-		setLoadingPredictions(true)
-		debouncedUpdatePredictions(value)
-	}
+			setLoadingPredictions(true)
+			debouncedUpdatePredictions(value)
+		},
+		[debouncedUpdatePredictions],
+	)
 
 	return (
 		<Grid noPaddingOnMobile>
