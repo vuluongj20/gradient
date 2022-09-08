@@ -18,21 +18,21 @@ const domaine: TextScaleDefinition = {
 		...heading,
 		fontSizes: { xl: 4.75, l: 4.75, m: 3.875, s: 3, xs: 3 },
 		fontWeight: 700,
-		lineHeight: 1.1,
+		lineHeight: 1,
 		letterSpacing: '-0.02em',
 	},
 	h2: {
 		...heading,
 		fontSizes: { xl: 3.625, l: 3.625, m: 3.125, s: 2.5, xs: 2.5 },
 		fontWeight: 700,
-		lineHeight: 1.1,
+		lineHeight: 1,
 		letterSpacing: '-0.02em',
 	},
 	h3: {
 		...heading,
 		fontSizes: { xl: 2.75, l: 2.75, m: 2.5, s: 2.125, xs: 2.125 },
 		fontWeight: 600,
-		lineHeight: 1.1,
+		lineHeight: 1,
 		letterSpacing: '-0.01em',
 	},
 	h4: {
@@ -50,7 +50,7 @@ const domaine: TextScaleDefinition = {
 	},
 	h6: {
 		...heading,
-		fontSizes: { xl: 1.25, l: 1.25, m: 1.25, s: 1.25, xs: 1.25 },
+		fontSizes: { xl: 1.375, l: 1.375, m: 1.375, s: 1.25, xs: 1.25 },
 		fontWeight: 600,
 		lineHeight: 1.2,
 	},

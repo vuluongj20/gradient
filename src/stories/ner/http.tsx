@@ -3,7 +3,7 @@ import axios from 'axios'
 const getBaseUrl = () => {
   switch (process.env.NODE_ENV) {
     case 'production':
-      return 'https://ner-reg32b3vxq-uc.a.run.app'
+      return 'https://ner.gradient.pub'
     case 'development':
     default:
       return 'http://127.0.0.1:5000'

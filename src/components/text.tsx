@@ -10,9 +10,12 @@ export const Title = styled.h1<Props>`
 `
 
 export const Abstract = styled.p<Props>`
-	${(p) => p.theme.text.content.h5}
+	${(p) => p.theme.text.content.h6}
+	font-family: ${(p) => p.theme.text.content.body.fontFamily};
+	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
 	color: ${(p) => p.theme.heading};
-	font-weight: 400;
+	letter-spacing: -0.035em;
+
 	${(p) => p.theme.utils.space.marginTop[3]}
 	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
 `
