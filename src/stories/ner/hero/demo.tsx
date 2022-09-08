@@ -147,13 +147,16 @@ const Demo = () => {
 	return (
 		<Grid noPaddingOnMobile>
 			<StyledPanel overlay size="m" gridColumn="wide">
+				<Description>
+					Which words refer to a named entity? Predictions from two graphical models.
+				</Description>
 				<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} appear unmounOnExit>
 						<ResultsSpinner
 							showLabel
-							label="Warming up"
+							label="Getting predictions"
 							diameter={16}
 							strokeWidth={1.25}
 						/>
@@ -342,7 +345,7 @@ const Table = styled.table`
 
 	tr:not(:last-child) > td,
 	tr:not(:last-child) > th {
-		border-bottom: solid 1px ${(p) => p.theme.line};
+		border-bottom: solid 1px ${(p) => p.theme.iLine};
 	}
 
 	td {
@@ -461,7 +464,7 @@ const Legend = styled.p`
 	color: ${(p) => p.theme.label};
 
 	width: calc(100% - ${(p) => p.theme.space[1.5]});
-	border-top: solid 1px ${(p) => p.theme.line};
+	border-top: solid 1px ${(p) => p.theme.iLine};
 	padding-top: ${(p) => p.theme.space[2]};
 `
 
@@ -475,6 +478,12 @@ const LegendLabel = styled.span`
 `
 
 const LegendText = styled.span``
+
+const Description = styled.p`
+	color: ${(p) => p.theme.label};
+	margin-left: ${MODEL_NAME_WIDTH};
+	margin-bottom: ${(p) => p.theme.space[1.5]};
+`
 
 const Input = styled.input`
 	${(p) => p.theme.text.content.h5};
