@@ -209,7 +209,7 @@ const Demo = () => {
 						delay={250}
 						offset={6}
 						placement="bottom"
-						content="New Text Sample"
+						content="Get new text sample"
 					>
 						{(tooltipTriggerProps) => (
 							<RandomizeButton directProps={tooltipTriggerProps} onPress={randomize}>

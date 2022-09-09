@@ -8,7 +8,7 @@ import {
   useFloating,
 } from '@floating-ui/react-dom'
 import { FocusScope, FocusScopeProps } from '@react-aria/focus'
-import { AriaOverlayProps, DismissButton, useOverlay } from '@react-aria/overlays'
+import { AriaOverlayProps, useOverlay } from '@react-aria/overlays'
 import {
   CSSProperties,
   ForwardRefRenderFunction,

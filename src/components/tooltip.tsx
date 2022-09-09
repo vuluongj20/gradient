@@ -91,40 +91,37 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
 
 export default forwardRef(TooltipTrigger)
 
+const getTextAlign = ({ placement }: { placement?: UsePopoverProps['placement'] }) => {
+  switch (placement) {
+    case 'top-start':
+    case 'bottom-start':
+    case 'right':
+    case 'right-start':
+    case 'right-end':
+      return 'text-align: left;'
+    case 'top-end':
+    case 'bottom-end':
+    case 'left':
+    case 'left-start':
+    case 'left-end':
+      return 'text-align: right;'
+    case 'top':
+    case 'bottom':
+    default:
+      return 'text-align: center;'
+  }
+}
+
 const StyledPopover = styled(Popover)<{ maxWidth: string }>`
-  padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
-  background: ${(p) => p.theme.oBackground};
-  border: solid 1px ${(p) => p.theme.oLine};
-  border-radius: ${(p) => p.theme.radii.s};
-  box-shadow: ${(p) => p.theme.shadows.l};
-  z-index: ${(p) => p.theme.zIndices.tooltip};
-  opacity: 0;
-  transition: ${(p) => p.theme.utils.defaultTransitions},
-    opacity ${(p) => p.theme.animation.fastOut},
-    transform ${(p) => p.theme.animation.fastOut};
-
-  ${(p) => p.theme.text.system.small};
-  color: ${(p) => p.theme.label};
-
-  max-width: ${(p) => p.maxWidth};
   width: max-content;
+  max-width: ${(p) => p.maxWidth};
+  padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
+  border-radius: ${(p) => p.theme.radii.s};
+  z-index: ${(p) => p.theme.zIndices.tooltip};
 
-  ${(p) => p.placement === 'top' && `transform: translate3d(0, ${p.theme.space[1]}, 0)`};
-  ${(p) =>
-    p.placement === 'bottom' && `transform: translate3d(0, -${p.theme.space[1]}, 0)`};
-  ${(p) => p.placement === 'left' && `transform: translate3d(${p.theme.space[1]}, 0, 0)`};
-  ${(p) =>
-    p.placement === 'right' && `transform: translate3d(-${p.theme.space[1]}, 0, 0)`};
-
-  &.enter-active,
-  &.enter-done {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  &.exit-active {
-    opacity: 0;
-  }
+  color: ${(p) => p.theme.label};
+  ${(p) => p.theme.text.system.small};
+  ${getTextAlign}
 `
 
 const TriggerWrap = styled.div<{ spread: boolean }>`
