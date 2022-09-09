@@ -1,93 +1,48 @@
-import { useOverlayPosition } from '@react-aria/overlays'
-import { TooltipTriggerAria, useTooltip, useTooltipTrigger } from '@react-aria/tooltip'
+import { useTooltip, useTooltipTrigger } from '@react-aria/tooltip'
 import { mergeProps } from '@react-aria/utils'
-import { TooltipTriggerState, useTooltipTriggerState } from '@react-stately/tooltip'
-import { Placement, PlacementAxis } from '@react-types/overlays'
-import { AriaTooltipProps, TooltipTriggerProps } from '@react-types/tooltip'
-import { ForwardRefRenderFunction, ReactNode, RefObject, forwardRef, useRef } from 'react'
-import { CSSTransition } from 'react-transition-group'
+import { useTooltipTriggerState } from '@react-stately/tooltip'
+import { TooltipTriggerProps } from '@react-types/tooltip'
+import {
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+  ReactNode,
+  RefObject,
+  forwardRef,
+  useRef,
+} from 'react'
 import styled from 'styled-components'
 
-export type TooltipPlacement = Placement
+import BalancedText from '@components/balancedText'
+import Popover, { UsePopoverProps, usePopover } from '@components/popover'
 
-type Props = AriaTooltipProps & {
-  state: TooltipTriggerState
-  children: ReactNode
-  triggerRef: RefObject<HTMLElement>
-  placement: Placement
-  offset: number
-  ariaHidden?: boolean
-}
-
-const Tooltip = ({
-  triggerRef,
-  placement,
-  offset,
-  ariaHidden,
-  state,
-  ...props
-}: Props) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const { tooltipProps } = useTooltip(props, state)
-
-  const { overlayProps: positionProps, placement: calculatedPlacement } =
-    useOverlayPosition({
-      targetRef: triggerRef,
-      overlayRef: ref,
-      placement,
-      offset,
-      isOpen: state.isOpen,
-      containerPadding: 0,
-    })
-
-  return (
-    <CSSTransition in={state.isOpen} timeout={250} unmountOnExit>
-      <TooltipWrap
-        ref={ref}
-        placement={calculatedPlacement || placement}
-        aria-hidden={ariaHidden}
-        {...mergeProps(props, tooltipProps, positionProps)}
-      >
-        {props.children}
-      </TooltipWrap>
-    </CSSTransition>
-  )
-}
-
-type TriggerChildrenProps = {
-  props: TooltipTriggerAria['triggerProps']
-  ref: RefObject<HTMLElement>
-}
-
-type TriggerProps = TooltipTriggerProps & {
-  /**
-   * Contents of the tooltip
-   */
-  content: ReactNode
-  /**
-   * Tooltip trigger. The props and ref are provided
-   * (p: TriggerChildrenProps). Should return a trigger
-   * element with the props and ref attached.
-   */
-  children: (p: TriggerChildrenProps) => JSX.Element
-  /**
-   * Whether to stretch (via theme.utils.spread) the
-   * tooltip container to match its parent's bounds
-   */
-  spread?: boolean
-  placement?: Placement
-  offset?: number
-  ariaHidden?: boolean
-  className?: string
-}
+type TriggerProps = UsePopoverProps &
+  TooltipTriggerProps & {
+    /**
+     * Contents of the tooltip
+     */
+    content: ReactNode
+    /**
+     * Tooltip trigger. The props and ref are provided
+     * (p: TriggerChildrenProps). Should return a trigger
+     * element with the props and ref attached.
+     */
+    children: (p: Partial<HTMLAttributes<HTMLElement>>) => JSX.Element
+    /**
+     * Whether to stretch (via theme.utils.spread) the
+     * tooltip container to match its parent's bounds
+     */
+    spread?: boolean
+    maxWidth?: string
+    className?: string
+  }
 
 const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
   {
     spread = false,
     placement = 'bottom',
-    offset = 8,
+    offset = 4,
     delay = 1000,
-    ariaHidden = false,
+    maxWidth = '8rem',
     className,
     content,
     ...props
@@ -96,37 +51,45 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
 ) => {
   const internalRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? internalRef) as RefObject<HTMLElement>
+
   const state = useTooltipTriggerState({ delay, ...props })
-  const { triggerProps, tooltipProps } = useTooltipTrigger(
+  const { triggerProps, tooltipProps: tooltipTriggerProps } = useTooltipTrigger(
     { delay, ...props },
     state,
     ref,
   )
 
+  const { tooltipProps } = useTooltip(tooltipTriggerProps, state)
+
+  const { triggerProps: popoverTriggerProps, popoverProps } =
+    usePopover<HTMLButtonElement>({
+      placement,
+      offset,
+      isOpen: state.isOpen,
+      onClose: () => state.close(),
+    })
+
   // If no tooltip content is provided, then simply return
   // the trigger element without any tooltip associated with it
-  if (!content) return props.children({ props: {}, ref })
+  if (!content) return props.children({})
 
   return (
     <TriggerWrap className={className} spread={spread} {...props}>
-      {props.children({ props: triggerProps, ref })}
-      <Tooltip
-        state={state}
-        triggerRef={ref}
-        placement={placement}
-        offset={offset}
-        ariaHidden={ariaHidden}
-        {...tooltipProps}
+      {props.children(mergeProps(popoverTriggerProps, triggerProps))}
+      <StyledPopover
+        isOpen={state.isOpen}
+        maxWidth={maxWidth}
+        {...mergeProps(tooltipProps, popoverProps)}
       >
-        {content}
-      </Tooltip>
+        {typeof content === 'string' ? <BalancedText>{content}</BalancedText> : content}
+      </StyledPopover>
     </TriggerWrap>
   )
 }
 
 export default forwardRef(TooltipTrigger)
 
-const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
+const StyledPopover = styled(Popover)<{ maxWidth: string }>`
   padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
   background: ${(p) => p.theme.oBackground};
   border: solid 1px ${(p) => p.theme.oLine};
@@ -138,11 +101,11 @@ const TooltipWrap = styled.div<{ placement: PlacementAxis | Placement }>`
     opacity ${(p) => p.theme.animation.fastOut},
     transform ${(p) => p.theme.animation.fastOut};
 
+  ${(p) => p.theme.text.system.small};
   color: ${(p) => p.theme.label};
-  line-height: 1.2;
-  letter-spacing: +0.01em;
-  font-size: 0.75rem;
-  font-weight: 500;
+
+  max-width: ${(p) => p.maxWidth};
+  width: max-content;
 
   ${(p) => p.placement === 'top' && `transform: translate3d(0, ${p.theme.space[1]}, 0)`};
   ${(p) =>

@@ -8,7 +8,7 @@ import {
   useFloating,
 } from '@floating-ui/react-dom'
 import { FocusScope, FocusScopeProps } from '@react-aria/focus'
-import { DismissButton, OverlayProps, useOverlay } from '@react-aria/overlays'
+import { AriaOverlayProps, DismissButton, useOverlay } from '@react-aria/overlays'
 import {
   CSSProperties,
   ForwardRefRenderFunction,
@@ -25,7 +25,7 @@ import { Theme } from '@theme'
 import LocalThemeProvider from '@utils/localThemeProvider'
 import useMobile from '@utils/useMobile'
 
-type UsePopoverProps = OverlayProps &
+export type UsePopoverProps = AriaOverlayProps &
   UseFloatingProps & {
     placement?: Placement
     offset?: number
@@ -113,9 +113,8 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
   }
 }
 
-type Props = FocusScopeProps & {
+export type Props = FocusScopeProps & {
   isOpen: boolean
-  onClose: () => void
   arrowStyles?: CSSProperties
   placement?: Placement
   animateScale?: boolean
@@ -126,7 +125,6 @@ type Props = FocusScopeProps & {
 const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
     isOpen,
-    onClose,
     placement,
     autoFocus = true,
     restoreFocus = true,
@@ -153,7 +151,6 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               ref={ref}
             >
               {children}
-              <DismissButton onDismiss={onClose} />
             </Wrap>
           </LocalThemeProvider>
         </FocusScope>

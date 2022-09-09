@@ -111,12 +111,7 @@ const NodePanel = observer(
 						{`Node ${node.label}`}
 					</Button>
 				</VisuallyHidden>
-				<StyledPopover
-					animateScale
-					isOpen={state.isOpen}
-					onClose={() => state.close()}
-					{...popoverProps}
-				>
+				<StyledPopover animateScale isOpen={state.isOpen} {...popoverProps}>
 					<PopoverArrow size="l" {...arrowProps} />
 					{renderNodePanel(node, overlayProps)}
 				</StyledPopover>

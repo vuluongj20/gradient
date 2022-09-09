@@ -5,9 +5,15 @@ import styled from 'styled-components'
 import http, { ResponseData } from '../http'
 import { getTokenSpaces, tokenize } from '../utils'
 
+import { Theme } from '@theme'
+
+import Button from '@components/button'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
 import Spinner from '@components/spinner'
+import Tooltip from '@components/tooltip'
+
+import IconAutoAwesome from '@icons/autoAwesome'
 
 import { debounce, makeCancelable } from '@utils/functions'
 import { fadeIn } from '@utils/style'
@@ -150,7 +156,20 @@ const Demo = () => {
 				<Description>
 					Which words refer to a named entity? Predictions from two graphical models.
 				</Description>
-				<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
+				<InputGroup>
+					<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
+					<RandomizeButtonTooltip
+						delay={250}
+						placement="bottom"
+						content="New Text Sample"
+					>
+						{(tooltipTriggerProps) => (
+							<RandomizeButton directProps={tooltipTriggerProps}>
+								<IconAutoAwesome size="xl" />
+							</RandomizeButton>
+						)}
+					</RandomizeButtonTooltip>
+				</InputGroup>
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} appear unmounOnExit>
@@ -279,9 +298,53 @@ const Demo = () => {
 
 export default Demo
 
+const MODEL_NAME_WIDTH = '5rem'
+const inputPaddingRight = ({ theme }: { theme: Theme }) =>
+	`calc(${theme.space[1.5]} + ${theme.space[4]} + ${theme.space[1.5]})`
+
 const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginTop[5]}
 	max-width: 60rem;
+`
+
+const Description = styled.p`
+	color: ${(p) => p.theme.label};
+	margin-left: ${MODEL_NAME_WIDTH};
+	margin-bottom: ${(p) => p.theme.space[1.5]};
+`
+
+const InputGroup = styled.div`
+	position: relative;
+	width: calc(100% - ${MODEL_NAME_WIDTH} + ${(p) => p.theme.space[1.5]});
+	margin-left: calc(${MODEL_NAME_WIDTH} - ${(p) => p.theme.space[1.5]} - 1px);
+`
+
+const Input = styled.input`
+	${(p) => p.theme.text.content.h5};
+	font-family: ${(p) => p.theme.text.content.body.fontFamily};
+	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
+	letter-spacing: -0.035em;
+
+	background: ${(p) => p.theme.iBackground};
+	border-radius: ${(p) => p.theme.radii.s};
+	border: solid 1px ${(p) => p.theme.line};
+
+	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
+	padding-right: ${inputPaddingRight};
+	width: 100%;
+`
+
+const RandomizeButtonTooltip = styled(Tooltip)`
+	&& {
+		position: absolute;
+	}
+	top: 50%;
+	right: ${(p) => p.theme.space[0.5]};
+	transform: translateY(-50%);
+`
+
+const RandomizeButton = styled(Button)`
+	color: ${(p) => p.theme.label};
 `
 
 const ResultsWrapper = styled.div`
@@ -289,6 +352,8 @@ const ResultsWrapper = styled.div`
 `
 
 const ResultsAnimationWrapper = styled.div`
+	width: calc(100% - ${inputPaddingRight});
+
 	opacity: 0;
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 
@@ -324,7 +389,6 @@ const ResultsSpinner = styled(Spinner)`
 const TableWrapper = styled.div`
 	overflow: auto;
 	position: relative;
-	width: calc(100% - ${(p) => p.theme.space[1.5]});
 
 	padding-top: ${(p) => p.theme.space[0]};
 
@@ -380,7 +444,6 @@ const Connector = styled.div<{ isLoading: boolean }>`
 	${(p) => p.isLoading && `opacity: 0;`};
 `
 
-const MODEL_NAME_WIDTH = '5rem'
 const ModelName = styled.th`
 	position: sticky;
 	left: 0;
@@ -463,7 +526,7 @@ const Legend = styled.p`
 	${(p) => p.theme.text.system.small}
 	color: ${(p) => p.theme.label};
 
-	width: calc(100% - ${(p) => p.theme.space[1.5]});
+	width: 100%;
 	border-top: solid 1px ${(p) => p.theme.iLine};
 	padding-top: ${(p) => p.theme.space[2]};
 `
@@ -478,24 +541,3 @@ const LegendLabel = styled.span`
 `
 
 const LegendText = styled.span``
-
-const Description = styled.p`
-	color: ${(p) => p.theme.label};
-	margin-left: ${MODEL_NAME_WIDTH};
-	margin-bottom: ${(p) => p.theme.space[1.5]};
-`
-
-const Input = styled.input`
-	${(p) => p.theme.text.content.h5};
-	font-family: ${(p) => p.theme.text.content.body.fontFamily};
-	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
-	letter-spacing: -0.035em;
-
-	background: ${(p) => p.theme.iBackground};
-	border-radius: ${(p) => p.theme.radii.s};
-	border: solid 1px ${(p) => p.theme.line};
-
-	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
-	margin-left: calc(${MODEL_NAME_WIDTH} - ${(p) => p.theme.space[1.5]} - 1px);
-	width: calc(100% - ${MODEL_NAME_WIDTH} + ${(p) => p.theme.space[1.5]});
-`

@@ -2,7 +2,14 @@ import { useButton } from '@react-aria/button'
 import { useHover } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { AriaButtonProps } from '@react-types/button'
-import { ForwardRefRenderFunction, ReactNode, RefObject, forwardRef, useRef } from 'react'
+import {
+	ForwardRefRenderFunction,
+	HTMLAttributes,
+	ReactNode,
+	RefObject,
+	forwardRef,
+	useRef,
+} from 'react'
 import styled from 'styled-components'
 
 import StateLayer from '@components/stateLayer'
@@ -16,6 +23,7 @@ type Props = AriaButtonProps & {
 	small?: boolean
 	showBorder?: boolean
 	showExpandIcon?: boolean
+	directProps?: HTMLAttributes<HTMLButtonElement>
 	className?: string
 }
 
@@ -28,6 +36,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 		small = false,
 		showBorder = false,
 		showExpandIcon = false,
+		directProps = {},
 		...props
 	}: Props,
 	forwardedRef,
@@ -49,7 +58,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 			showExpandIcon={showExpandIcon}
 			isExpanded={isExpanded}
 			className={className}
-			{...mergeProps(buttonProps, hoverProps)}
+			{...mergeProps(directProps, buttonProps, hoverProps)}
 		>
 			<StateLayer
 				borderWidth={showBorder ? 1 : 0}

@@ -89,7 +89,7 @@ const BaseSelect = ({
 			) : (
 				<Fragment>
 					{renderTrigger()}
-					<Popover isOpen={state.isOpen} onClose={() => state.close()} {...popoverProps}>
+					<Popover isOpen={state.isOpen} {...popoverProps}>
 						{renderContent()}
 					</Popover>
 				</Fragment>
