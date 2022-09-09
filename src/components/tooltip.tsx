@@ -40,7 +40,7 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
   {
     spread = false,
     placement = 'bottom',
-    offset = 4,
+    offset = 8,
     delay = 1000,
     maxWidth = '8rem',
     className,
@@ -67,6 +67,8 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
       offset,
       isOpen: state.isOpen,
       onClose: () => state.close(),
+      // Prevent useOverlay from intercepting click events
+      isDismissable: false,
     })
 
   // If no tooltip content is provided, then simply return

@@ -19,6 +19,37 @@ import { debounce, makeCancelable } from '@utils/functions'
 import { fadeIn } from '@utils/style'
 import useMountEffect from '@utils/useMountEffect'
 
+const SAMPLES = [
+	'The St. Louis Merchants',
+	'The Green Bay Packers',
+	'The Czech second city Brno',
+	'West Indies tour manager',
+	'Australia coach Geoff Marsh',
+	'Australia beat West Indies',
+	'Swiss bank accounts',
+	'Polish brewer Zywiec',
+	'South African Breweries Ltd',
+	'Czech President Vaclav Havel',
+	'The UK Department of Transport',
+	'The British government',
+	'Trade and Industry Secretary Ian Lang',
+	'The London-to-Boston route',
+	'British Prime Minister John Major’s office',
+	'New York Commodities Desk',
+	'The London Stock Exchange',
+	'PaineWebber analyst Marc Cohen',
+	'New York Stock Exchange',
+	'The elected Bangui government',
+	'French-owned hotel',
+	'Polish-born Pope John Paul',
+	'East Timorese-born activist Jose Ramos Horta',
+	'The Indonesian ambassador to Norway',
+	"Suu Kyi's National League for Democracy",
+	'Director of the WTO secretariat',
+	'Canadian Grain Commission',
+	'Chicago Board of Trade',
+]
+
 const Demo = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
@@ -150,6 +181,22 @@ const Demo = () => {
 		[debouncedUpdatePredictions],
 	)
 
+	const randomize = useCallback(() => {
+		function getRandomIndex() {
+			return Math.round(Math.random() * SAMPLES.length - 1)
+		}
+
+		let newValue = SAMPLES[getRandomIndex()]
+		while (newValue === inputValue) {
+			newValue = SAMPLES[getRandomIndex()]
+		}
+
+		setInputValue(newValue)
+
+		setLoadingPredictions(true)
+		debouncedUpdatePredictions(newValue)
+	}, [inputValue, debouncedUpdatePredictions])
+
 	return (
 		<Grid noPaddingOnMobile>
 			<StyledPanel overlay size="m" gridColumn="wide">
@@ -160,11 +207,12 @@ const Demo = () => {
 					<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
 					<RandomizeButtonTooltip
 						delay={250}
+						offset={6}
 						placement="bottom"
 						content="New Text Sample"
 					>
 						{(tooltipTriggerProps) => (
-							<RandomizeButton directProps={tooltipTriggerProps}>
+							<RandomizeButton directProps={tooltipTriggerProps} onPress={randomize}>
 								<IconAutoAwesome size="xl" />
 							</RandomizeButton>
 						)}
