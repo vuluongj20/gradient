@@ -23,8 +23,8 @@ const sizes: Record<IconSize, string> = {
 	xs: '14px',
 	s: '16px',
 	m: '18px',
-	l: '20px',
-	xl: '22px',
+	l: '21px',
+	xl: '24px',
 }
 
 const SVG = ({

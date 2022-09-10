@@ -58,7 +58,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 			showExpandIcon={showExpandIcon}
 			isExpanded={isExpanded}
 			className={className}
-			{...mergeProps(directProps, buttonProps, hoverProps)}
+			{...mergeProps(buttonProps, directProps, hoverProps)}
 		>
 			<StateLayer
 				borderWidth={showBorder ? 1 : 0}

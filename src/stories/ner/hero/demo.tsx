@@ -7,13 +7,15 @@ import { getTokenSpaces, tokenize } from '../utils'
 
 import { Theme } from '@theme'
 
+import BalancedText from '@components/balancedText'
 import Button from '@components/button'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
 import Spinner from '@components/spinner'
 import Tooltip from '@components/tooltip'
+import TooltipSpan from '@components/tooltipSpan'
 
-import IconAutoAwesome from '@icons/autoAwesome'
+import IconRestart from '@icons/restart'
 
 import { debounce, makeCancelable } from '@utils/functions'
 import { fadeIn } from '@utils/style'
@@ -23,14 +25,11 @@ const SAMPLES = [
 	'The St. Louis Merchants',
 	'The Green Bay Packers',
 	'The Czech second city Brno',
-	'West Indies tour manager',
 	'Australia coach Geoff Marsh',
-	'Australia beat West Indies',
 	'Swiss bank accounts',
 	'Polish brewer Zywiec',
 	'South African Breweries Ltd',
 	'Czech President Vaclav Havel',
-	'The UK Department of Transport',
 	'The British government',
 	'Trade and Industry Secretary Ian Lang',
 	'The London-to-Boston route',
@@ -57,10 +56,7 @@ const Demo = () => {
 	// Store input value & split it into tokens
 	const [inputValue, setInputValue] = useState('The UK Department of Transport')
 	const [tokens, setTokens] = useState<string[]>([])
-	const tokenSpaces = useMemo(
-		() => getTokenSpaces(inputValue, tokens),
-		[inputValue, tokens],
-	)
+	const [tokenSpaces, setTokenSpaces] = useState<boolean[]>([])
 
 	// Fetch & store predictions
 	const [hmmPredictions, setHmmPredictions] = useState<string[]>([])
@@ -96,6 +92,7 @@ const Demo = () => {
 				cancelable.promise
 					.then(([hmmResponse, crfResponse]) => {
 						setTokens(tokens)
+						setTokenSpaces(getTokenSpaces(value, tokens))
 						setLoadingPredictions(false)
 						setInitialized(true)
 
@@ -201,19 +198,32 @@ const Demo = () => {
 		<Grid noPaddingOnMobile>
 			<StyledPanel overlay size="m" gridColumn="wide">
 				<Description>
-					Which words refer to a named entity? Predictions from two graphical models.
+					Which words in the following sequence refer to a&nbsp;
+					<TooltipSpan
+						delay={0}
+						placement="top"
+						maxWidth="16rem"
+						content="This can be a person (PER), organization (ORG), or location (LOC)."
+					>
+						named entity
+					</TooltipSpan>
+					?
 				</Description>
 				<InputGroup>
 					<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
 					<RandomizeButtonTooltip
-						delay={250}
 						offset={6}
 						placement="bottom"
+						maxWidth="8rem"
 						content="Get new text sample"
 					>
 						{(tooltipTriggerProps) => (
-							<RandomizeButton directProps={tooltipTriggerProps} onPress={randomize}>
-								<IconAutoAwesome size="xl" />
+							<RandomizeButton
+								small
+								directProps={tooltipTriggerProps}
+								onPress={randomize}
+							>
+								<IconRestart size="xl" />
 							</RandomizeButton>
 						)}
 					</RandomizeButtonTooltip>
@@ -223,9 +233,9 @@ const Demo = () => {
 					<CSSTransition in={!initialized} timeout={250} appear unmounOnExit>
 						<ResultsSpinner
 							showLabel
-							label="Getting predictions"
-							diameter={16}
-							strokeWidth={1.25}
+							label="Warming up…"
+							diameter={20}
+							strokeWidth={1.5}
 						/>
 					</CSSTransition>
 					<CSSTransition in={initialized} timeout={250} appear>
@@ -258,7 +268,7 @@ const Demo = () => {
 														<ModelNameSpinner
 															label="Loading new predictions"
 															diameter={12}
-															strokeWidth={1}
+															strokeWidth={1.25}
 														/>
 													</CSSTransition>
 												</ModelNameContent>
@@ -293,7 +303,7 @@ const Demo = () => {
 														<ModelNameSpinner
 															label="Loading new predictions"
 															diameter={12}
-															strokeWidth={1}
+															strokeWidth={1.25}
 														/>
 													</CSSTransition>
 												</ModelNameContent>
@@ -348,14 +358,15 @@ export default Demo
 
 const MODEL_NAME_WIDTH = '5rem'
 const inputPaddingRight = ({ theme }: { theme: Theme }) =>
-	`calc(${theme.space[1.5]} + ${theme.space[4]} + ${theme.space[1.5]})`
+	`calc(${theme.space[2]} + ${theme.space[3]} + ${theme.space[2]})`
 
 const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginTop[5]}
 	max-width: 60rem;
 `
 
-const Description = styled.p`
+const Description = styled.span`
+	display: block;
 	color: ${(p) => p.theme.label};
 	margin-left: ${MODEL_NAME_WIDTH};
 	margin-bottom: ${(p) => p.theme.space[1.5]};
@@ -371,10 +382,10 @@ const Input = styled.input`
 	${(p) => p.theme.text.content.h5};
 	font-family: ${(p) => p.theme.text.content.body.fontFamily};
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
-	letter-spacing: -0.035em;
+	letter-spacing: -0.03em;
 
 	background: ${(p) => p.theme.iBackground};
-	border-radius: ${(p) => p.theme.radii.s};
+	border-radius: ${(p) => p.theme.radii.m};
 	border: solid 1px ${(p) => p.theme.line};
 
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
@@ -387,7 +398,7 @@ const RandomizeButtonTooltip = styled(Tooltip)`
 		position: absolute;
 	}
 	top: 50%;
-	right: ${(p) => p.theme.space[0.5]};
+	right: ${(p) => p.theme.space[1]};
 	transform: translateY(-50%);
 `
 
@@ -417,6 +428,7 @@ const ResultsAnimationWrapper = styled.div`
 
 const ResultsSpinner = styled(Spinner)`
 	${(p) => p.theme.utils.absCenter}
+	color: ${(p) => p.theme.label};
 
 	/* Offset extra padding at bottom of StyledPanel */
 	transform: translate(-50%, calc(-50% + ${(p) => p.theme.space[1]}));
@@ -473,7 +485,7 @@ const Header = styled.th`
 	${(p) => p.theme.text.content.h5};
 	font-family: ${(p) => p.theme.text.content.body.fontFamily};
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
-	letter-spacing: -0.035em;
+	letter-spacing: -0.03em;
 	color: transparent;
 
 	opacity: 0;

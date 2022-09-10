@@ -14,8 +14,9 @@ import styled from 'styled-components'
 
 import BalancedText from '@components/balancedText'
 import Popover, { UsePopoverProps, usePopover } from '@components/popover'
+import PopoverArrow from '@components/popoverArrow'
 
-type TriggerProps = UsePopoverProps &
+export type TooltipProps = UsePopoverProps &
   TooltipTriggerProps & {
     /**
      * Contents of the tooltip
@@ -36,17 +37,17 @@ type TriggerProps = UsePopoverProps &
     className?: string
   }
 
-const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
+const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
   {
+    content,
     spread = false,
     placement = 'bottom',
     offset = 8,
     delay = 1000,
-    maxWidth = '8rem',
+    maxWidth = '10rem',
     className,
-    content,
     ...props
-  }: TriggerProps,
+  }: TooltipProps,
   forwardedRef,
 ) => {
   const internalRef = useRef<HTMLElement>(null)
@@ -61,15 +62,17 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
 
   const { tooltipProps } = useTooltip(tooltipTriggerProps, state)
 
-  const { triggerProps: popoverTriggerProps, popoverProps } =
-    usePopover<HTMLButtonElement>({
-      placement,
-      offset,
-      isOpen: state.isOpen,
-      onClose: () => state.close(),
-      // Prevent useOverlay from intercepting click events
-      isDismissable: false,
-    })
+  const {
+    triggerProps: popoverTriggerProps,
+    popoverProps,
+    arrowProps,
+  } = usePopover<HTMLButtonElement>({
+    placement,
+    offset,
+    isOpen: state.isOpen,
+    // Prevent useOverlay from intercepting click events
+    isDismissable: false,
+  })
 
   // If no tooltip content is provided, then simply return
   // the trigger element without any tooltip associated with it
@@ -83,6 +86,7 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TriggerProps> = (
         maxWidth={maxWidth}
         {...mergeProps(tooltipProps, popoverProps)}
       >
+        <PopoverArrow {...arrowProps} />
         {typeof content === 'string' ? <BalancedText>{content}</BalancedText> : content}
       </StyledPopover>
     </TriggerWrap>

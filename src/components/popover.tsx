@@ -138,7 +138,7 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref,
 ) => {
   return (
-    <Transition in={isOpen} timeout={200} unmountOnExit mountOnEnter>
+    <Transition in={isOpen} timeout={250} unmountOnExit mountOnEnter>
       {(animationState) => (
         <FocusScope autoFocus={autoFocus} restoreFocus={restoreFocus} contain={contain}>
           <LocalThemeProvider overlay>
@@ -212,6 +212,7 @@ const Wrap = styled.div<WrapProps>`
     opacity ${(p) => p.theme.animation.fastOut};
   opacity: 0;
   z-index: ${(p) => p.theme.zIndices.popover};
+  pointer-events: none;
 
   ${getTransform}
 
@@ -221,9 +222,14 @@ const Wrap = styled.div<WrapProps>`
     transform: translate3d(0, 0, 0) scale(1);
   }
 
+  &.entered {
+    pointer-events: auto;
+  }
+
   &.exiting {
     opacity: 0;
     transform: translate3d(0, 0, 0) scale(1);
+    pointer-events: none;
   }
 
   @media (prefers-reduced-motion) {

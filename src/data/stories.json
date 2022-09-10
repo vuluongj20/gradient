@@ -1,7 +1,7 @@
 [
 	{
 		"slug": "ner",
-		"title": "Learning What’s in a Name with Graphical Models",
+		"title": "Naming Names with Graphical Models",
 		"description": "Understanding how model structure and statistical assumptions can affect predictions in a named-entity recognition task.",
 		"featuredIn": ["top"],
 		"featuredSize": "l",

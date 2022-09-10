@@ -22,7 +22,7 @@ function getArrowWidth(size: Props['size']) {
 }
 
 export function getArrowHeight(size: Props['size']) {
-  return Math.round(getArrowWidth(size) / 3)
+  return Math.round(getArrowWidth(size) / 4)
 }
 
 const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (

@@ -14,7 +14,8 @@ export const Abstract = styled.p<Props>`
 	font-family: ${(p) => p.theme.text.content.body.fontFamily};
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
 	color: ${(p) => p.theme.heading};
-	letter-spacing: -0.035em;
+	line-height: 1.3;
+	letter-spacing: -0.03em;
 
 	${(p) => p.theme.utils.space.marginTop[3]}
 	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
