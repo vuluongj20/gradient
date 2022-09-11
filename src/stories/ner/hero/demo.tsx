@@ -357,8 +357,11 @@ const Demo = () => {
 export default Demo
 
 const MODEL_NAME_WIDTH = '5rem'
+
 const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 	`calc(${theme.space[2]} + ${theme.space[3]} + ${theme.space[2]})`
+
+const inputPaddingRightMobile = ({ theme }: { theme: Theme }) => theme.space[1.5]
 
 const StyledPanel = styled(Panel)`
 	${(p) => p.theme.utils.space.marginTop[5]}
@@ -391,6 +394,10 @@ const Input = styled.input`
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
 	padding-right: ${inputPaddingRight};
 	width: 100%;
+
+	${(p) => p.theme.utils.media.mobile} {
+		padding-right: ${inputPaddingRightMobile};
+	}
 `
 
 const RandomizeButtonTooltip = styled(Tooltip)`
@@ -400,6 +407,10 @@ const RandomizeButtonTooltip = styled(Tooltip)`
 	top: 50%;
 	right: ${(p) => p.theme.space[1]};
 	transform: translateY(-50%);
+
+	${(p) => p.theme.utils.media.mobile} {
+		display: none;
+	}
 `
 
 const RandomizeButton = styled(Button)`
@@ -423,6 +434,10 @@ const ResultsAnimationWrapper = styled.div`
 
 	&.exit-active {
 		opacity: 0;
+	}
+
+	${(p) => p.theme.utils.media.mobile} {
+		width: calc(100% - ${inputPaddingRightMobile});
 	}
 `
 
