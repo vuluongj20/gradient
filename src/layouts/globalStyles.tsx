@@ -112,6 +112,18 @@ const GlobalStyles = createGlobalStyle`
     list-style-type: none;
   }
 
+  abbr {
+    text-decoration: none;
+  }
+  @media not all and (hover: none) {
+    abbr {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+      text-decoration-thickness: 0.05rem;
+    }
+  }
+
   svg {
     overflow: visible;
   }

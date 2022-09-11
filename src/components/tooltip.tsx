@@ -34,6 +34,8 @@ export type TooltipProps = UsePopoverProps &
      */
     spread?: boolean
     maxWidth?: string
+    ariaHidden?: boolean
+    renderWrapperAsSpan?: boolean
     className?: string
   }
 
@@ -45,6 +47,8 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
     offset = 8,
     delay = 1000,
     maxWidth = '10rem',
+    renderWrapperAsSpan = false,
+    ariaHidden = false,
     className,
     ...props
   }: TooltipProps,
@@ -78,12 +82,15 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
   // the trigger element without any tooltip associated with it
   if (!content) return props.children({})
 
+  const TriggerWrap = renderWrapperAsSpan ? TriggerSpanWrap : TriggerDivWrap
+
   return (
     <TriggerWrap className={className} spread={spread} {...props}>
       {props.children(mergeProps(popoverTriggerProps, triggerProps))}
       <StyledPopover
         isOpen={state.isOpen}
         maxWidth={maxWidth}
+        aria-hidden={ariaHidden}
         {...mergeProps(tooltipProps, popoverProps)}
       >
         <PopoverArrow {...arrowProps} />
@@ -128,6 +135,10 @@ const StyledPopover = styled(Popover)<{ maxWidth: string }>`
   ${getTextAlign}
 `
 
-const TriggerWrap = styled.div<{ spread: boolean }>`
+const TriggerDivWrap = styled.div<{ spread: boolean }>`
+  ${(p) => (p.spread ? p.theme.utils.spread : `position: relative`)};
+`
+
+const TriggerSpanWrap = styled.span<{ spread: boolean }>`
   ${(p) => (p.spread ? p.theme.utils.spread : `position: relative`)};
 `

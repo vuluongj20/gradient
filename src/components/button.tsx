@@ -16,27 +16,28 @@ import StateLayer from '@components/stateLayer'
 
 import IconChevronDown from '@icons/chevronDown'
 
-type Props = AriaButtonProps & {
-	children: ReactNode
-	primary?: boolean
-	filled?: boolean
-	small?: boolean
-	showBorder?: boolean
-	showExpandIcon?: boolean
-	directProps?: HTMLAttributes<HTMLButtonElement>
-	className?: string
-}
+type Props = HTMLAttributes<HTMLButtonElement> &
+	AriaButtonProps & {
+		children: ReactNode
+		primary?: boolean
+		filled?: boolean
+		small?: boolean
+		showBorder?: boolean
+		showExpandIcon?: boolean
+		className?: string
+	}
 
 const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 	{
 		children,
+		title,
 		className,
+		tooltipProps = {},
 		primary = false,
 		filled = false,
 		small = false,
 		showBorder = false,
 		showExpandIcon = false,
-		directProps = {},
 		...props
 	}: Props,
 	forwardedRef,
@@ -58,7 +59,8 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 			showExpandIcon={showExpandIcon}
 			isExpanded={isExpanded}
 			className={className}
-			{...mergeProps(buttonProps, directProps, hoverProps)}
+			title={title}
+			{...mergeProps(buttonProps, tooltipProps, hoverProps)}
 		>
 			<StateLayer
 				borderWidth={showBorder ? 1 : 0}

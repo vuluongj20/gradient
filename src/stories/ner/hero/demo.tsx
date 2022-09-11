@@ -7,13 +7,10 @@ import { getTokenSpaces, tokenize } from '../utils'
 
 import { Theme } from '@theme'
 
-import BalancedText from '@components/balancedText'
 import Button from '@components/button'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
 import Spinner from '@components/spinner'
-import Tooltip from '@components/tooltip'
-import TooltipSpan from '@components/tooltipSpan'
 
 import IconRestart from '@icons/restart'
 
@@ -49,6 +46,25 @@ const SAMPLES = [
 	'Chicago Board of Trade',
 ]
 
+enum MODEL {
+	HMM = 'hmm',
+	CRF = 'crf',
+}
+
+const MODEL_LABELS = {
+	[MODEL.HMM]: 'Hidden Markov Model',
+	[MODEL.CRF]: 'Conditional Random Fields',
+}
+
+const EMPTY_PREDS = { [MODEL.HMM]: [], [MODEL.CRF]: [] }
+
+const PRED_LABELS = [
+	['O', 'not a name'],
+	['ORG', 'organization'],
+	['PER', 'person'],
+	['LOC', 'location'],
+]
+
 const Demo = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
@@ -59,8 +75,7 @@ const Demo = () => {
 	const [tokenSpaces, setTokenSpaces] = useState<boolean[]>([])
 
 	// Fetch & store predictions
-	const [hmmPredictions, setHmmPredictions] = useState<string[]>([])
-	const [crfPredictions, setCrfPredictions] = useState<string[]>([])
+	const [predictions, setPredictions] = useState<Record<MODEL, string[]>>(EMPTY_PREDS)
 	const [loadingPredictions, setLoadingPredictions] = useState(true)
 	const [initialized, setInitialized] = useState(false)
 	const [pendingRequest, setPendingRequest] =
@@ -72,8 +87,7 @@ const Demo = () => {
 				const tokens = tokenize(value)
 
 				if (tokens.length === 0) {
-					setHmmPredictions([])
-					setCrfPredictions([])
+					setPredictions(EMPTY_PREDS)
 					return
 				}
 
@@ -96,11 +110,11 @@ const Demo = () => {
 						setLoadingPredictions(false)
 						setInitialized(true)
 
-						if (hmmResponse.status === 200) {
-							setHmmPredictions(hmmResponse.data.predictions[0])
-						}
-						if (crfResponse.status === 200) {
-							setCrfPredictions(crfResponse.data.predictions[0])
+						if (hmmResponse.status === 200 && crfResponse.status === 200) {
+							setPredictions({
+								[MODEL.HMM]: hmmResponse.data.predictions[0],
+								[MODEL.CRF]: crfResponse.data.predictions[0],
+							})
 						}
 
 						setTimeout(() => {
@@ -199,38 +213,20 @@ const Demo = () => {
 			<StyledPanel overlay size="m" gridColumn="wide">
 				<Description>
 					Which words in the following sequence refer to a&nbsp;
-					<TooltipSpan
-						delay={0}
-						placement="top"
-						maxWidth="16rem"
-						content="This can be a person (PER), organization (ORG), or location (LOC)."
-					>
+					<abbr title="Person (PER), organization (ORG), or location (LOC)">
 						named entity
-					</TooltipSpan>
+					</abbr>
 					?
 				</Description>
 				<InputGroup>
 					<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
-					<RandomizeButtonTooltip
-						offset={6}
-						placement="bottom"
-						maxWidth="8rem"
-						content="Get new text sample"
-					>
-						{(tooltipTriggerProps) => (
-							<RandomizeButton
-								small
-								directProps={tooltipTriggerProps}
-								onPress={randomize}
-							>
-								<IconRestart size="xl" />
-							</RandomizeButton>
-						)}
-					</RandomizeButtonTooltip>
+					<RandomizeButton small onPress={randomize} title="Try new text sample">
+						<IconRestart size="xl" />
+					</RandomizeButton>
 				</InputGroup>
 
 				<ResultsWrapper>
-					<CSSTransition in={!initialized} timeout={250} appear unmounOnExit>
+					<CSSTransition in={!initialized} timeout={250} unmountOnExit appear>
 						<ResultsSpinner
 							showLabel
 							label="Warming up…"
@@ -244,107 +240,67 @@ const Demo = () => {
 								<Table>
 									<thead>
 										<tr>
-											<Header>Model</Header>
+											<Header scope="col">Model</Header>
 											{tokens.map((token, i) => (
-												<Header key={i} aria-hidden="true">
+												<Header key={i} scope="col">
 													{token}
-													{tokenSpaces[i] && '\u00a0'}
+													{tokenSpaces[i] && <span aria-hidden="true">&nbsp;</span>}
 													{token && <Connector isLoading={loadingPredictions} />}
 												</Header>
 											))}
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<ModelName>
-												<ModelNameContent>
-													<span>HMM</span>
-													<CSSTransition
-														in={loadingPredictions}
-														timeout={250}
-														unmountOnExit
-														appear
-													>
-														<ModelNameSpinner
-															label="Loading new predictions"
-															diameter={12}
-															strokeWidth={1.25}
-														/>
-													</CSSTransition>
-												</ModelNameContent>
-											</ModelName>
+										{(Object.values(MODEL) as MODEL[]).map((model) => (
+											<tr key={model}>
+												<ModelName scope="row">
+													<ModelNameContent>
+														<abbr title={MODEL_LABELS[model]}>{model}</abbr>
+														<CSSTransition
+															in={loadingPredictions}
+															timeout={250}
+															unmountOnExit
+															appear
+														>
+															<ModelNameSpinner
+																label="Loading new predictions"
+																diameter={12}
+																strokeWidth={1.25}
+															/>
+														</CSSTransition>
+													</ModelNameContent>
+												</ModelName>
 
-											{hmmPredictions.map((pred, i) => (
-												<Pred key={i}>
-													<ZeroWidth isLoading={loadingPredictions}>
-														{tokens[i] && (
-															<PredSpan isOut={pred === 'O'}>
-																<PredBackground aria-hidden="true" />
-																{pred.includes('-') ? pred.split('-')[1] : pred}
-															</PredSpan>
-														)}
-													</ZeroWidth>
-												</Pred>
-											))}
+												{predictions[model]?.map((pred, i) => (
+													<Pred key={i}>
+														<ZeroWidth isLoading={loadingPredictions}>
+															{tokens[i] && (
+																<PredSpan isOut={pred === 'O'}>
+																	<PredBackground aria-hidden="true" />
+																	{pred.includes('-') ? pred.split('-')[1] : pred}
+																</PredSpan>
+															)}
+														</ZeroWidth>
+													</Pred>
+												))}
 
-											<RowPadding aria-hidden="true" />
-										</tr>
-
-										<tr>
-											<ModelName>
-												<ModelNameContent>
-													<span>CRF</span>
-													<CSSTransition
-														in={loadingPredictions}
-														timeout={250}
-														unmountOnExit
-														appear
-													>
-														<ModelNameSpinner
-															label="Loading new predictions"
-															diameter={12}
-															strokeWidth={1.25}
-														/>
-													</CSSTransition>
-												</ModelNameContent>
-											</ModelName>
-
-											{crfPredictions.map((pred, i) => (
-												<Pred key={i}>
-													<ZeroWidth isLoading={loadingPredictions}>
-														{tokens[i] && (
-															<PredSpan isOut={pred === 'O'}>
-																<PredBackground aria-hidden="true" />
-																{pred.includes('-') ? pred.split('-')[1] : pred}
-															</PredSpan>
-														)}
-													</ZeroWidth>
-												</Pred>
-											))}
-
-											<RowPadding aria-hidden="true" />
-										</tr>
+												<RowPadding aria-hidden="true" />
+											</tr>
+										))}
 									</tbody>
 								</Table>
 							</TableWrapper>
 
 							<Legend>
-								<LegendItem>
-									<LegendLabel>O</LegendLabel>
-									<LegendText> = not a name</LegendText>
-								</LegendItem>
-								<LegendItem>
-									<LegendLabel>ORG</LegendLabel>
-									<LegendText> = organization</LegendText>
-								</LegendItem>
-								<LegendItem>
-									<LegendLabel>PER</LegendLabel>
-									<LegendText> = person</LegendText>
-								</LegendItem>
-								<LegendItem>
-									<LegendLabel>LOC</LegendLabel>
-									<LegendText> = Location</LegendText>
-								</LegendItem>
+								{PRED_LABELS.map(([term, label]) => (
+									<LegendItem key={term}>
+										<LegendDT>{term}</LegendDT>
+										<LegendDD>
+											<span aria-hidden="true">&nbsp;=&nbsp;</span>
+											{label}
+										</LegendDD>
+									</LegendItem>
+								))}
 							</Legend>
 						</ResultsAnimationWrapper>
 					</CSSTransition>
@@ -400,21 +356,17 @@ const Input = styled.input`
 	}
 `
 
-const RandomizeButtonTooltip = styled(Tooltip)`
-	&& {
-		position: absolute;
-	}
+const RandomizeButton = styled(Button)`
+	position: absolute;
 	top: 50%;
 	right: ${(p) => p.theme.space[1]};
 	transform: translateY(-50%);
 
+	color: ${(p) => p.theme.label};
+
 	${(p) => p.theme.utils.media.mobile} {
 		display: none;
 	}
-`
-
-const RandomizeButton = styled(Button)`
-	color: ${(p) => p.theme.label};
 `
 
 const ResultsWrapper = styled.div`
@@ -528,6 +480,7 @@ const ModelName = styled.th`
 	padding-right: ${(p) => p.theme.space[2]};
 	background: ${(p) => p.theme.background};
 	color: ${(p) => p.theme.label};
+	text-transform: uppercase;
 	z-index: 1;
 `
 
@@ -557,6 +510,7 @@ const Pred = styled.td`
 	${(p) => p.theme.text.viz.label};
 	font-weight: 500;
 	text-align: center;
+	text-transform: uppercase;
 
 	opacity: 0;
 	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
@@ -594,7 +548,7 @@ const RowPadding = styled.td`
 	width: 100%;
 `
 
-const Legend = styled.p`
+const Legend = styled.dl`
 	display: flex;
 	flex-wrap: wrap;
 
@@ -604,15 +558,19 @@ const Legend = styled.p`
 	width: 100%;
 	border-top: solid 1px ${(p) => p.theme.iLine};
 	padding-top: ${(p) => p.theme.space[2]};
-`
-
-const LegendItem = styled.span`
-	margin-right: ${(p) => p.theme.space[2]};
+	margin: 0;
 	white-space: nowrap;
 `
 
-const LegendLabel = styled.span`
+const LegendItem = styled.div`
+	display: flex;
+	margin-right: ${(p) => p.theme.space[2]};
+`
+
+const LegendDT = styled.dt`
 	${(p) => p.theme.text.viz.small}
 `
 
-const LegendText = styled.span``
+const LegendDD = styled.dd`
+	margin: 0;
+`
