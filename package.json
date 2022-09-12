@@ -52,7 +52,7 @@
     "nanoid": "^4.0.0",
     "path-intersection": "^2.2.1",
     "react": "^18.1.0",
-    "react-aria": "^3.16.0",
+    "react-aria": "^3.19",
     "react-dom": "^18.1.0",
     "react-transition-group": "^4.4.2",
     "rehype-katex": "^5.0.0",

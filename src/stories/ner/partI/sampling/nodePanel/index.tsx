@@ -19,7 +19,7 @@ const SamplingNodePanel = ({ node, incomingEdges, parentNodes, overlayProps }: P
 		<Wrap {...overlayProps}>
 			<NodeLabel>{node.label}</NodeLabel>
 			{node.isRoot ? (
-				<RootNode node={node} />
+				<RootNode node={node} overlayOnKeyDown={overlayProps.onKeyDown} />
 			) : (
 				<ChildNode node={node} incomingEdges={incomingEdges} parentNodes={parentNodes} />
 			)}

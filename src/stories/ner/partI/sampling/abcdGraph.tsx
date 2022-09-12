@@ -112,7 +112,7 @@ const ABCDGraph = () => {
 					<StyledGraphView
 						graph={graph}
 						nodeEventListeners={nodeEventListeners}
-						renderNodePanel={(node, overlayProps) => (
+						renderNodePanel={({ node, overlayProps }) => (
 							<SamplingNodePanel
 								// styled-components doesn't preserve generic props
 								// https://github.com/styled-components/styled-components/issues/1803

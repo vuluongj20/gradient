@@ -12,10 +12,10 @@ import useSize from '@utils/useSize'
 
 type Props<Node extends BaseNode, Edge extends BaseEdge> = {
 	graph: Graph<Node, Edge>
-	renderNodePanel?: (
-		node: Node,
-		overlayProps: HTMLAttributes<HTMLDivElement>,
-	) => ReactNode
+	renderNodePanel?: (props: {
+		node: Node
+		overlayProps: HTMLAttributes<HTMLDivElement>
+	}) => ReactNode
 	nodeEventListeners?: NodeEventListener[]
 	className?: string
 }

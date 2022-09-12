@@ -29,7 +29,10 @@ import useSize from '@utils/useSize'
 type Props<Node extends BaseNode> = {
 	node: Node
 	setSimulationPlayState: Dispatch<SetStateAction<boolean>>
-	renderNodePanel: (node: Node, overlayProps: HTMLAttributes<HTMLDivElement>) => ReactNode
+	renderNodePanel: (props: {
+		node: Node
+		overlayProps: HTMLAttributes<HTMLDivElement>
+	}) => ReactNode
 	wrapRef: RefObject<HTMLDivElement>
 }
 
@@ -113,7 +116,10 @@ const NodePanel = observer(
 				</VisuallyHidden>
 				<StyledPopover animateScale isOpen={state.isOpen} {...popoverProps}>
 					<PopoverArrow size="l" {...arrowProps} />
-					{renderNodePanel(node, overlayProps)}
+					{renderNodePanel({
+						node,
+						overlayProps: { ...overlayProps, onKeyDown: popoverProps.onKeyDown },
+					})}
 				</StyledPopover>
 			</Fragment>
 		)

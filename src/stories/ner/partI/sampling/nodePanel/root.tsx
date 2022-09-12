@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite'
+import { KeyboardEventHandler } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -14,6 +15,7 @@ import SelectField from '@components/fields/select'
 
 type Props = {
 	node: SamplingNode
+	overlayOnKeyDown?: KeyboardEventHandler<HTMLDivElement>
 }
 
 const distributionOptions = [
@@ -33,7 +35,7 @@ const distributionOptions = [
 	},
 ]
 
-const RootNodePanel = ({ node }: Props) => {
+const RootNodePanel = ({ node, overlayOnKeyDown }: Props) => {
 	const { parameters, parameterValues, type: distributionType } = node.distribution
 
 	return (
@@ -45,6 +47,7 @@ const RootNodePanel = ({ node }: Props) => {
 			<SelectField
 				small
 				rowLayout
+				onKeyDown={overlayOnKeyDown}
 				label="Distribution"
 				value={distributionType}
 				onChange={(dist) => node.setDistribution(dist as DistributionType)}

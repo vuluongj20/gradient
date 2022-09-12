@@ -51,7 +51,7 @@ const BaseSelect = ({
 				small={small}
 				showBorder={isDefined(label)}
 				showExpandIcon
-				{...mergeProps(triggerProps, selectTriggerProps, valueProps)}
+				{...mergeProps(selectTriggerProps, triggerProps, valueProps)}
 			>
 				{state.selectedItem ? state.selectedItem.rendered : 'Select an option'}
 			</StyledButton>
