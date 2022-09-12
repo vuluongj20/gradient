@@ -83,12 +83,12 @@ export default Footer
 
 const Wrap = styled.footer`
 	background: ${(p) => p.theme.background};
-	${(p) => p.theme.utils.space.marginTop[7]};
+	${(p) => p.theme.marginTop[7]};
 `
 
 const SiteMap = styled(Grid)`
 	justify-items: start;
-	${(p) => p.theme.utils.space.paddingVertical[4]};
+	${(p) => p.theme.paddingVertical[4]};
 `
 
 const Column = styled.div`
@@ -98,7 +98,7 @@ const Column = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.media.xs} {
 		&:not(:last-child) {
 			margin-bottom: ${(p) => p.theme.space[4]};
 		}
@@ -136,7 +136,7 @@ const PolicyText = styled.p`
 	grid-column-end: span 2;
 	color: ${(p) => p.theme.label};
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.media.xs} {
 		grid-column-end: span 4;
 		margin-bottom: ${(p) => p.theme.space[1]};
 	}

@@ -136,9 +136,9 @@ const StyledPopover = styled(Popover)<{ maxWidth: string }>`
 `
 
 const TriggerDivWrap = styled.div<{ spread: boolean }>`
-  ${(p) => (p.spread ? p.theme.utils.spread : `position: relative`)};
+  ${(p) => (p.spread ? p.theme.spread : `position: relative`)};
 `
 
 const TriggerSpanWrap = styled.span<{ spread: boolean }>`
-  ${(p) => (p.spread ? p.theme.utils.spread : `position: relative`)};
+  ${(p) => (p.spread ? p.theme.spread : `position: relative`)};
 `

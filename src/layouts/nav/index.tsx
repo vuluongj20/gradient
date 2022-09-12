@@ -130,7 +130,7 @@ const Wrap = styled.nav`
 	height: 100%;
 	z-index: ${(p) => p.theme.zIndices.nav};
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: 100%;
 		height: ${navSize.mobileHeight};
 	}
@@ -153,7 +153,7 @@ const PageShadow = styled.div<{ active: boolean }>`
 
 	${(p) => p.active && `pointer-events: initial;`}
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: none;
 	}
 

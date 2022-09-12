@@ -83,7 +83,7 @@ const GlobalStyles = createGlobalStyle`
     outline: none;
   }
   a.focus-visible {
-    ${(p) => p.theme.utils.focusVisible}; 
+    ${(p) => p.theme.focusVisible}; 
   }
 
   button {
@@ -100,7 +100,7 @@ const GlobalStyles = createGlobalStyle`
     outline: none;
   }
   input.focus-visible {
-    ${(p) => p.theme.utils.focusVisible}; 
+    ${(p) => p.theme.focusVisible}; 
   }
 
   ol, ul {
@@ -133,7 +133,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .autolinked-header.before {
-    ${(p) => p.theme.utils.flexCenter};
+    ${(p) => p.theme.flexCenter};
     height: 100%;
   }
   .autolinked-header svg {
@@ -145,7 +145,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .katex-display {
-    ${(p) => p.theme.utils.space.marginBottom[3]}
+    ${(p) => p.theme.marginBottom[3]}
   }
 `
 

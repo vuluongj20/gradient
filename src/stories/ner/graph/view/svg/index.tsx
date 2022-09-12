@@ -301,7 +301,7 @@ const SVG = styled.svg`
 		}
 		&.focused > rect.node-box {
 			opacity: 1;
-			${(p) => p.theme.utils.svgFocusVisible};
+			${(p) => p.theme.svgFocusVisible};
 		}
 		&.highlighted:not(.focused) > rect.node-box:not(:hover),
 		&.highlighted-guide:not(.focused) > rect.node-box:not(:hover) {

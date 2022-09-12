@@ -170,7 +170,7 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 
 	z-index: -1;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		position: fixed;
 		width: 100%;
 		border-right: none;
@@ -178,7 +178,7 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 		transform: translateY(-100%);
 	}
 
-	${(p) => p.theme.utils.space.paddingHorizontalMobile};
+	${(p) => p.theme.paddingHorizontalMobile};
 
 	@media (prefers-reduced-motion) {
 		width: auto;
@@ -189,7 +189,7 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 
 		${(p) => p.isOpen && `opacity: 1; pointer-events: initial;`}
 
-		${(p) => p.theme.utils.media.mobile} {
+		${(p) => p.theme.media.mobile} {
 			width: 100%;
 			transform: none;
 		}
@@ -197,7 +197,7 @@ const MenuWrap = styled.div<{ isOpen: boolean }>`
 `
 
 const InnerWrap = styled.div`
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: flex;
 		width: 100%;
 		height: 100%;
@@ -215,7 +215,7 @@ const LinksWrap = styled.ul`
 		display: flex;
 	}
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: initial;
 	}
 `
@@ -225,7 +225,7 @@ const LinksWrap = styled.ul`
 // 	opacity: 0;
 // 	padding-top: ${(p) => p.theme.space[2]};
 
-// 	${(p) => p.theme.utils.media.mobile} {
+// 	${(p) => p.theme.media.mobile} {
 // 		display: block;
 
 // 		@media (prefers-reduced-motion) {

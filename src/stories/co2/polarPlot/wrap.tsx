@@ -14,7 +14,7 @@ const Wrap = styled.div`
     position: relative;
     fill: ${(p) => p.theme.label};
     transition: opacity ${(p) => p.theme.animation.slowOut};
-    ${(p) => p.theme.utils.media.s} {
+    ${(p) => p.theme.media.s} {
       font-size: 0.75rem;
     }
   }

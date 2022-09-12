@@ -7,28 +7,28 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 	grid-template-columns: [start] repeat(${gridColCounts.xxl}, 1fr) [end];
 	column-gap: ${(p) => p.theme.space[3]};
 
-	${(p) => p.theme.utils.space.paddingHorizontal};
+	${(p) => p.theme.paddingHorizontal};
 
-	${(p) => p.theme.utils.media.xl} {
+	${(p) => p.theme.media.xl} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xl}, 1fr)
 			[end];
 	}
 
-	${(p) => p.theme.utils.media.l} {
+	${(p) => p.theme.media.l} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.l}, 1fr)
 			[end];
 	}
 
-	${(p) => p.theme.utils.media.m} {
+	${(p) => p.theme.media.m} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
 		column-gap: ${(p) => p.theme.space[2]};
 	}
 
-	${(p) => p.theme.utils.media.s} {
+	${(p) => p.theme.media.s} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
@@ -36,7 +36,7 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 		${(p) => p.noPaddingOnMobile && `padding-left: 0; padding-right: 0;`}
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.media.xs} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];

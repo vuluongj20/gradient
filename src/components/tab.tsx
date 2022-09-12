@@ -48,7 +48,7 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
     outline: none;
   }
   &.focus-visible {
-    ${(p) => p.theme.utils.focusVisible};
+    ${(p) => p.theme.focusVisible};
   }
 
   ${(p) =>
@@ -61,13 +61,13 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
 const LabelWrap = styled.span``
 
 const LeadingWrap = styled.div`
-  ${(p) => p.theme.utils.flexCenter};
-  height: ${(p) => p.theme.utils.lineHeight};
+  ${(p) => p.theme.flexCenter};
+  height: ${(p) => p.theme.lineHeight};
   gap: ${(p) => p.theme.space[1]};
 `
 
 const TrailingWrap = styled.div`
-  ${(p) => p.theme.utils.flexCenter};
-  height: ${(p) => p.theme.utils.lineHeight};
+  ${(p) => p.theme.flexCenter};
+  height: ${(p) => p.theme.lineHeight};
   gap: ${(p) => p.theme.space[1]};
 `

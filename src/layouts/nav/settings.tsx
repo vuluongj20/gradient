@@ -48,7 +48,7 @@ export default Settings
 const Wrap = styled.li``
 
 const TriggerInnerWrap = styled.div`
-	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.flexCenter};
 	gap: ${(p) => p.theme.space[0]};
 	color: ${(p) => p.theme.heading};
 	padding: ${(p) => p.theme.space[0]};
@@ -58,7 +58,7 @@ const TriggerInnerWrap = styled.div`
 		color: ${(p) => p.theme.heading};
 	}
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		padding-left: 0;
 	}
 `

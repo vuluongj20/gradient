@@ -320,7 +320,7 @@ const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 const inputPaddingRightMobile = ({ theme }: { theme: Theme }) => theme.space[1.5]
 
 const StyledPanel = styled(Panel)`
-	${(p) => p.theme.utils.space.marginTop[5]}
+	${(p) => p.theme.marginTop[5]}
 	max-width: 60rem;
 `
 
@@ -351,7 +351,7 @@ const Input = styled.input`
 	padding-right: ${inputPaddingRight};
 	width: 100%;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		padding-right: ${inputPaddingRightMobile};
 	}
 `
@@ -364,7 +364,7 @@ const RandomizeButton = styled(Button)`
 
 	color: ${(p) => p.theme.label};
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: none;
 	}
 `
@@ -388,13 +388,13 @@ const ResultsAnimationWrapper = styled.div`
 		opacity: 0;
 	}
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: calc(100% - ${inputPaddingRightMobile});
 	}
 `
 
 const ResultsSpinner = styled(Spinner)`
-	${(p) => p.theme.utils.absCenter}
+	${(p) => p.theme.absCenter}
 	color: ${(p) => p.theme.label};
 
 	/* Offset extra padding at bottom of StyledPanel */
@@ -464,7 +464,7 @@ const Connector = styled.div<{ isLoading: boolean }>`
 	height: calc(100% - ${(p) => p.theme.space[2]});
 	border-right: solid 1px ${(p) => p.theme.line};
 
-	${(p) => p.theme.utils.absCenter}
+	${(p) => p.theme.absCenter}
 
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 	transition-delay: 10ms;
@@ -534,7 +534,7 @@ const PredSpan = styled.span<{ isOut?: boolean }>`
 `
 
 const PredBackground = styled.div`
-	${(p) => p.theme.utils.absCenter}
+	${(p) => p.theme.absCenter}
 
 	width: calc(100% + ${(p) => p.theme.space[0]});
 	height: calc(100% + ${(p) => p.theme.space[0]});

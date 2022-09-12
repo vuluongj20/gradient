@@ -17,7 +17,8 @@ import {
 export type Appearance = 'light' | 'dark'
 
 export type Theme = ColorPalette['colors'] &
-	ColorAliases & {
+	ColorAliases &
+	Utils & {
 		elevation: number
 		appearance: Appearance
 		colorPalette: keyof typeof colorPalettes
@@ -42,8 +43,6 @@ export type Theme = ColorPalette['colors'] &
 		zIndices: Record<string, number>
 		/** Spacing */
 		space: Record<number, string>
-		/** Utilities */
-		utils: Utils
 	}
 
 export type ThemeSettings = {
@@ -86,7 +85,7 @@ export const useThemeObject = (
 		viz: textScales[settings.text.viz],
 	}
 
-	const partialTheme: Omit<Theme, 'utils'> = {
+	const partialTheme: Omit<Theme, keyof Utils> = {
 		elevation,
 		appearance,
 		colorPalette,
@@ -106,6 +105,6 @@ export const useThemeObject = (
 
 	return {
 		...partialTheme,
-		utils: generateUtils(partialTheme),
+		...generateUtils(partialTheme),
 	}
 }

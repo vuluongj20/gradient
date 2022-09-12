@@ -32,7 +32,6 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 		children,
 		title,
 		className,
-		tooltipProps = {},
 		primary = false,
 		filled = false,
 		small = false,
@@ -60,7 +59,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 			isExpanded={isExpanded}
 			className={className}
 			title={title}
-			{...mergeProps(buttonProps, tooltipProps, hoverProps)}
+			{...mergeProps(buttonProps, hoverProps)}
 		>
 			<StateLayer
 				borderWidth={showBorder ? 1 : 0}
@@ -115,7 +114,7 @@ const Wrap = styled.button<{
 		outline: none;
 	}
 	&.focus-visible {
-		${(p) => p.theme.utils.focusVisible};
+		${(p) => p.theme.focusVisible};
 	}
 
 	${(p) => p.showExpandIcon && `padding-right: ${p.theme.space[0]};`}

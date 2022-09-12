@@ -70,5 +70,5 @@ const MDXStoryProvider = ({ children }: Props) => (
 export default MDXStoryProvider
 
 const HeaderWrap = styled.header`
-	${(p) => p.theme.utils.space.paddingVertical[5]}
+	${(p) => p.theme.paddingVertical[5]}
 `

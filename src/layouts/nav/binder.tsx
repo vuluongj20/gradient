@@ -51,7 +51,7 @@ Props): JSX.Element => {
 export default Binder
 
 const Wrap = styled.ul`
-	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.flexCenter};
 	flex-direction: column;
 	position: relative;
 	width: 100%;
@@ -62,7 +62,7 @@ const Wrap = styled.ul`
 	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
 	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		align-items: flex-start;
 		position: fixed;
 		top: 0;
@@ -74,14 +74,14 @@ const Wrap = styled.ul`
 		border-right-width: 0;
 	}
 
-	${(p) => p.theme.utils.space.paddingHorizontalMobile};
+	${(p) => p.theme.paddingHorizontalMobile};
 `
 
 const SearchWrap = styled.li`
 	color: ${(p) => p.theme.heading};
 	cursor: pointer;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: none;
 	}
 `
@@ -95,10 +95,10 @@ const StyledIconSearch = styled(IconSearch)`
 `
 
 const LogoWrap = styled.li`
-	${(p) => p.theme.utils.absCenter};
+	${(p) => p.theme.absCenter};
 	display: none;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: initial;
 	}
 `
@@ -109,7 +109,7 @@ const Logo = styled(TransitionLink)`
 `
 
 // const StyledSettings = styled(Settings)`
-// 	${(p) => p.theme.utils.media.mobile} {
+// 	${(p) => p.theme.media.mobile} {
 // 		display: none;
 // 	}
 // `

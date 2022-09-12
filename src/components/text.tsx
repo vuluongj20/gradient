@@ -2,11 +2,11 @@ import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
-type Props = { gridColumn?: keyof Theme['utils']['gridColumn'] }
+type Props = { gridColumn?: keyof Theme['gridColumn'] }
 
 export const Title = styled.h1<Props>`
 	${(p) => p.theme.text.content.h1};
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const Abstract = styled.p<Props>`
@@ -17,14 +17,14 @@ export const Abstract = styled.p<Props>`
 	line-height: 1.3;
 	letter-spacing: -0.03em;
 
-	${(p) => p.theme.utils.space.marginTop[3]}
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.theme.marginTop[3]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const SectionHeading = styled.h2<Props>`
 	${(p) => p.theme.text.content.h2}
-	${(p) => p.theme.utils.space.marginBottom[5]}
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.theme.marginBottom[5]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 	
 	/* Force line breaks after each word */
 	word-spacing: 100em;
@@ -33,14 +33,14 @@ export const SectionHeading = styled.h2<Props>`
 
 export const SectionSubHeading = styled.h3<Props>`
 	${(p) => p.theme.text.content.h5}
-	${(p) => p.theme.utils.space.marginBottom[3]}
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.theme.marginBottom[3]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const Body = styled.p<Props>`
 	${(p) => p.theme.text.content.body};
-	${(p) => p.theme.utils.space.marginBottom[3]}
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.theme.marginBottom[3]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const Link = styled.a<Props>`

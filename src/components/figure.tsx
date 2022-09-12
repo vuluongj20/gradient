@@ -6,7 +6,7 @@ import { Theme } from '@theme'
 type Props = GatsbyImageProps & {
 	caption?: string
 	from?: string
-	gridColumn?: keyof Theme['utils']['gridColumn']
+	gridColumn?: keyof Theme['gridColumn']
 	className?: string
 }
 
@@ -48,11 +48,11 @@ const Wrap = styled.figure<{ gridColumn?: Props['gridColumn'] }>`
 	margin: 0;
 	padding: 0;
 
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 const ImageWrap = styled('div')<{ gridColumn?: Props['gridColumn'] }>`
-	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.flexCenter};
 	position: relative;
 	width: 100%;
 	overflow: hidden;
@@ -74,7 +74,7 @@ const ImageWrap = styled('div')<{ gridColumn?: Props['gridColumn'] }>`
 	${(p) =>
 		p.gridColumn === 'wide' &&
 		`
-			${p.theme.utils.media.s} {
+			${p.theme.media.s} {
 				border-radius: 0;
 				border-left-width: 0;
 				border-right-width: 0;
@@ -98,7 +98,7 @@ const Caption = styled.figcaption<{ gridColumn?: Props['gridColumn'] }>`
 	margin-top: ${(p) => p.theme.space[1]};
 	max-width: 40rem;
 
-	${(p) => p.gridColumn === 'wide' && p.theme.utils.space.paddingHorizontalMobile}
+	${(p) => p.gridColumn === 'wide' && p.theme.paddingHorizontalMobile}
 `
 
 const From = styled.span`

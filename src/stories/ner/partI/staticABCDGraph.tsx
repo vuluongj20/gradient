@@ -64,8 +64,8 @@ export default StaticABCDGraph
 
 const Wrap = styled.div`
 	position: relative;
-	${(p) => p.theme.utils.gridColumn.text};
-	${(p) => p.theme.utils.space.marginBottom[3]}
+	${(p) => p.theme.gridColumn.text};
+	${(p) => p.theme.marginBottom[3]}
 `
 
 const StyledGraphView = styled(GraphView)`

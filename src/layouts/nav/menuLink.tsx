@@ -46,7 +46,7 @@ export const Wrap = styled.li`
 	text-decoration: none;
 	opacity: 0;
 
-	${(p) => p.theme.utils.media.s} {
+	${(p) => p.theme.media.s} {
 		width: 5rem;
 	}
 
@@ -54,7 +54,7 @@ export const Wrap = styled.li`
 		box-shadow: 1px 0 0 0 ${(p) => p.theme.line};
 	}
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		position: relative;
 		height: auto;
 		width: calc(100% - ${(p) => p.theme.space[1]});
@@ -76,7 +76,7 @@ export const Wrap = styled.li`
 `
 
 const InnerWrap = styled(TransitionLink)`
-	${(p) => p.theme.utils.spread};
+	${(p) => p.theme.spread};
 	cursor: pointer;
 	transition: transform ${(p) => p.theme.animation.fastOut};
 	border-radius: ${(p) => p.theme.radii.m};
@@ -97,7 +97,7 @@ const InnerWrap = styled(TransitionLink)`
 		pointer-events: none;
 	}
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: block;
 		position: relative;
 		padding: ${(p) => p.theme.space[1]} 0;
@@ -133,7 +133,7 @@ const ContentBox = styled.p`
 	${(p) => p.theme.text.system.h3}
 	color: ${(p) => p.theme.heading};
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		position: initial;
 		top: auto;
 		right: auto;
@@ -148,7 +148,7 @@ const ContentBox = styled.p`
 			transform: translate(0.25rem, 0);
 		}
 
-		${(p) => p.theme.text.system.h5[p.theme.utils.media.xs]};
+		${(p) => p.theme.text.system.h5[p.theme.media.xs]};
 	}
 `
 
@@ -160,7 +160,7 @@ const Line = styled.span`
 	transform-origin: right;
 	transform: scaleX(3) translate(0, -0.18em);
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: none;
 	}
 `

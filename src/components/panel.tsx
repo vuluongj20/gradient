@@ -7,7 +7,7 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = ComponentProps<typeof LocalThemeProvider> & {
 	size?: 's' | 'm' | 'l'
-	gridColumn?: keyof Theme['utils']['gridColumn']
+	gridColumn?: keyof Theme['gridColumn']
 	className?: string
 }
 
@@ -33,7 +33,7 @@ const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 			return `
 				padding: ${p.theme.space[3]};
 
-				${p.theme.utils.media.s} {
+				${p.theme.media.s} {
 					padding: ${p.theme.space[2]};
 				}
 			`
@@ -41,7 +41,7 @@ const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 			return `
 					padding: ${p.theme.space[4]};
 
-					${p.theme.utils.media.s} {
+					${p.theme.media.s} {
 						padding: ${p.theme.space[3]};
 					}
 				`
@@ -49,7 +49,7 @@ const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 			return `
 				padding: ${p.theme.space[5]};
 
-				${p.theme.utils.media.s} {
+				${p.theme.media.s} {
 					padding: ${p.theme.space[4]};
 				}
 			`
@@ -68,14 +68,14 @@ const Wrap = styled.div<{
 
 	${getPadding}
 
-	${(p) => p.gridColumn && p.theme.utils.gridColumn[p.gridColumn]}
+	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 
-	${(p) => p.gridColumn === 'wide' && p.theme.utils.space.paddingHorizontalMobile}
+	${(p) => p.gridColumn === 'wide' && p.theme.paddingHorizontalMobile}
 
 	${(p) =>
 		p.gridColumn === 'wide' &&
 		`
-			${p.theme.utils.media.s} {
+			${p.theme.media.s} {
 				border-radius: 0;
 				border-left-width: 0;
 				border-right-width: 0;

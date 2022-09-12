@@ -60,7 +60,7 @@ const Wrap = styled.li<{
   outline: none;
   white-space: nowrap;
   cursor: pointer;
-  transition: ${(p) => p.theme.utils.defaultTransitions}, background-color 0s,
+  transition: ${(p) => p.theme.defaultTransitions}, background-color 0s,
     color ${(p) => p.theme.animation.mediumIn};
 
   && {
@@ -71,7 +71,7 @@ const Wrap = styled.li<{
 `
 
 const CheckIndent = styled.div<{ visible: boolean }>`
-  ${(p) => p.theme.utils.flexCenter};
+  ${(p) => p.theme.flexCenter};
   width: 1.2rem;
   height: 1.2rem;
   margin-right: ${(p) => p.theme.space[0]};

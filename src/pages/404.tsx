@@ -22,23 +22,23 @@ export default Page404
 const Wrap = styled.div`
   flex: 1;
   flex-direction: column;
-  ${(p) => p.theme.utils.flexCenter};
-  ${(p) => p.theme.utils.space.paddingVertical[7]};
-  ${(p) => p.theme.utils.space.paddingHorizontal};
+  ${(p) => p.theme.flexCenter};
+  ${(p) => p.theme.paddingVertical[7]};
+  ${(p) => p.theme.paddingHorizontal};
 
-  ${(p) => p.theme.utils.media.xs} {
+  ${(p) => p.theme.media.xs} {
     align-items: flex-start;
   }
 `
 
 const Title = styled.h1`
-  ${(p) => p.theme.utils.space.marginBottom[4]};
+  ${(p) => p.theme.marginBottom[4]};
 `
 
 const Text = styled.p`
   max-width: 24rem;
   text-align: center;
-  ${(p) => p.theme.utils.space.marginBottom[1]};
+  ${(p) => p.theme.marginBottom[1]};
 `
 
 const Link = styled(TransitionLink)`

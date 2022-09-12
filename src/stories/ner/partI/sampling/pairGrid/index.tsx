@@ -137,7 +137,7 @@ const GridWrap = styled.div`
 `
 
 const EmptyWrap = styled.div`
-	${(p) => p.theme.utils.spread}
+	${(p) => p.theme.spread}
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -160,7 +160,7 @@ const EmptyWrap = styled.div`
 
 const EmptyText = styled.p`
 	${(p) => p.theme.text.system.small};
-	${(p) => p.theme.utils.space.marginHorizontal};
+	${(p) => p.theme.marginHorizontal};
 	color: ${(p) => p.theme.label};
 	max-width: 20rem;
 	text-align: center;

@@ -127,7 +127,7 @@ const Wrap = styled(TransitionLink)<
 	border-radius: ${(p) => p.theme.radii.m};
 
 	&.focus-visible {
-		${(p) => p.theme.utils.focusVisible};
+		${(p) => p.theme.focusVisible};
 	}
 
 	&:hover {
@@ -143,20 +143,20 @@ const Wrap = styled(TransitionLink)<
 				padding-bottom: ${p.theme.space[1]};
 				grid-column: ${p.$gridCols.xxl.start} / ${p.$gridCols.xxl.end};
 
-				${p.theme.utils.media.xl} {
+				${p.theme.media.xl} {
 					grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
 				}
 
-				${p.theme.utils.media.l} {
+				${p.theme.media.l} {
 					grid-column: ${p.$gridCols.l.start} / ${p.$gridCols.l.end};
 				}
-				${p.theme.utils.media.m} {
+				${p.theme.media.m} {
 					grid-column: ${p.$gridCols.m.start} / ${p.$gridCols.m.end};
 				}
-				${p.theme.utils.media.s} {
+				${p.theme.media.s} {
 					grid-column: ${p.$gridCols.s.start} / ${p.$gridCols.s.end};
 				}
-				${p.theme.utils.media.xs} {
+				${p.theme.media.xs} {
 					grid-column: 1 / -1;
 				}
 	`}
@@ -168,7 +168,7 @@ const StyledInnerGrid = styled(Grid)<{ rowLayout: boolean }>`
 `
 
 const ImageWrap = styled.div<{ rowLayout: boolean }>`
-	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.flexCenter};
 	position: relative;
 	width: 100%;
 	max-height: 48rem;
@@ -190,14 +190,14 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
-	${(p) => p.theme.utils.media.m} {
+	${(p) => p.theme.media.m} {
 		max-height: 32rem;
 	}
-	${(p) => p.theme.utils.media.s} {
+	${(p) => p.theme.media.s} {
 		max-height: 24rem;
 		${(p) => p.rowLayout && `grid-column: 1 / -1;`}
 	}
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.media.xs} {
 		max-height: 16rem;
 	}
 `
@@ -210,7 +210,7 @@ const TitleWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) =>
 		p.rowLayout ? `grid-column-end: span 4;` : `margin-top: ${p.theme.space[1]};`}
 
-	${(p) => p.theme.utils.media.s} {
+	${(p) => p.theme.media.s} {
 		margin: ${(p) => p.theme.space[1]} 0;
 	}
 `
@@ -227,7 +227,7 @@ const Title = styled.p<{ active: boolean }>`
 `
 
 const DummyTitle = styled.span<{ active: boolean }>`
-	${(p) => p.theme.utils.spread};
+	${(p) => p.theme.spread};
 
 	color: transparent;
 	text-decoration-line: underline;

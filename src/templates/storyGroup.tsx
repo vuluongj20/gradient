@@ -152,12 +152,12 @@ type HeadProps = { pageContext: SEOProps }
 export const Head = ({ pageContext }: HeadProps) => <SEO {...pageContext} />
 
 const PageContent = styled.div`
-	${(p) => p.theme.utils.space.paddingTop[6]};
+	${(p) => p.theme.paddingTop[6]};
 `
 
 const Header = styled.header`
-	${(p) => p.theme.utils.space.paddingHorizontal};
-	${(p) => p.theme.utils.space.marginBottom[4]};
+	${(p) => p.theme.paddingHorizontal};
+	${(p) => p.theme.marginBottom[4]};
 `
 
 const Title = styled.h1`

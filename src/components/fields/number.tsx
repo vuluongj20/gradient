@@ -1,6 +1,6 @@
 import { useLocale } from '@react-aria/i18n'
 import { useNumberField } from '@react-aria/numberfield'
-import { NumberFieldStateProps, useNumberFieldState } from '@react-stately/numberfield'
+import { NumberFieldStateOptions, useNumberFieldState } from '@react-stately/numberfield'
 import { AriaNumberFieldProps } from '@react-types/numberfield'
 import { useRef } from 'react'
 import styled from 'styled-components'
@@ -13,7 +13,7 @@ import IconChevronUp from '@icons/chevronUp'
 
 type Props = FieldProps &
 	AriaNumberFieldProps &
-	Omit<NumberFieldStateProps, 'locale'> & {
+	Omit<NumberFieldStateOptions, 'locale'> & {
 		inputWidth?: string
 		small?: boolean
 		className?: string

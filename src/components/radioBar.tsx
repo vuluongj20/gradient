@@ -135,7 +135,7 @@ const RadioWrap = styled.label<{ isSelected: boolean }>`
 	@media (prefers-reduced-motion) {
 		&::after {
 			content: '';
-			${(p) => p.theme.utils.spread};
+			${(p) => p.theme.spread};
 			border-radius: ${(p) => p.theme.radii.m};
 			background: ${(p) => p.theme.activeBackground};
 			z-index: -1;

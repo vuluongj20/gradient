@@ -84,23 +84,23 @@ const Hamburger = ({ toggleMenu, menuOpen }: HamProps) => {
 export default Hamburger
 
 const Wrap = styled.li`
-	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.flexCenter};
 	width: 100%;
 	position: relative;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: auto;
 	}
 `
 
 const StyledButton = styled(Button)`
-	${(p) => p.theme.utils.flexCenter};
+	${(p) => p.theme.flexCenter};
 	box-sizing: border-box;
 	width: calc(${navSize.width} - ${(p) => p.theme.space[1]});
 	height: calc(${navSize.width} - ${(p) => p.theme.space[1]});
 	padding: ${(p) => p.theme.space[0]};
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: auto;
 		transform: translateX(-${(p) => p.theme.space[0]});
 	}
@@ -111,7 +111,7 @@ const InnerWrap = styled.div`
 	width: 2rem;
 	height: 1.75rem;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: 1.5rem;
 		height: 1.5rem;
 	}

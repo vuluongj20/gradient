@@ -94,9 +94,9 @@ const OuterWrap = styled.div`
 `
 
 const Backdrop = styled.div`
-	${(p) => p.theme.utils.spread};
-	${(p) => p.theme.utils.flexCenter};
-	${(p) => p.theme.utils.space.paddingHorizontal};
+	${(p) => p.theme.spread};
+	${(p) => p.theme.flexCenter};
+	${(p) => p.theme.paddingHorizontal};
 
 	background: ${(p) => p.theme.line};
 `
@@ -126,7 +126,7 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 		transform: translate3d(0, 0, 0);
 	}
 
-	${(p) => p.theme.utils.media.xs} {
+	${(p) => p.theme.media.xs} {
 		padding: ${(p) =>
 			p.compact
 				? `${p.theme.space[0]} ${p.theme.space[0]}`

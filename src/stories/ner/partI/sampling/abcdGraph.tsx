@@ -146,12 +146,12 @@ const ABCDGraph = () => {
 export default observer(ABCDGraph)
 
 const StyledPanel = styled(Panel)`
-	${(p) => p.theme.utils.space.marginVertical[3]}
+	${(p) => p.theme.marginVertical[3]}
 	padding: 0;
 	height: 36rem;
 	display: flex;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		flex-direction: column;
 		height: auto;
 	}
@@ -160,8 +160,8 @@ const StyledPanel = styled(Panel)`
 const StyledDivider = styled(Divider)`
 	margin: 0;
 
-	${(p) => p.theme.utils.media.mobile} {
-		margin: 0 ${(p) => p.theme.utils.space.marginHorizontal};
+	${(p) => p.theme.media.mobile} {
+		margin: 0 ${(p) => p.theme.marginHorizontal};
 	}
 `
 
@@ -171,7 +171,7 @@ const GraphViewWrap = styled.div`
 	width: 35%;
 	flex-shrink: 0;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: 100%;
 		height: 22rem;
 	}
@@ -215,10 +215,10 @@ const StyledPairGrid = styled(PairGrid)`
 	width: 100%;
 	margin: ${(p) => p.theme.space[3]};
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		width: calc(100% - ${(p) => p.theme.space[3]} * 2);
-		margin-left: ${(p) => p.theme.utils.space.marginHorizontal};
-		margin-right: ${(p) => p.theme.utils.space.marginHorizontal};
+		margin-left: ${(p) => p.theme.marginHorizontal};
+		margin-right: ${(p) => p.theme.marginHorizontal};
 		height: 28rem;
 	}
 `

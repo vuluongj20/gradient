@@ -16,9 +16,9 @@ const Wrap = styled.header`
 	display: flex;
 	align-items: flex-end;
 	padding: ${(p) => p.theme.space[3]} 0;
-	${(p) => p.theme.utils.space.paddingHorizontal};
+	${(p) => p.theme.paddingHorizontal};
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: none;
 	}
 `
@@ -33,11 +33,11 @@ const DescWrap = styled.p`
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateX(-0.25rem);
 
-	${(p) => p.theme.utils.media.m} {
+	${(p) => p.theme.media.m} {
 		margin-bottom: 0.35em;
 	}
 
-	${(p) => p.theme.utils.media.s} {
+	${(p) => p.theme.media.s} {
 		margin-bottom: 0.3em;
 	}
 `

@@ -18,7 +18,7 @@ const Wrap = styled.div`
   .axis text {
     font-size: 0.875rem;
     color: ${(p) => p.theme.label};
-    ${(p) => p.theme.utils.media.s} {
+    ${(p) => p.theme.media.s} {
       font-size: 0.75rem;
     }
   }
@@ -51,7 +51,7 @@ const Wrap = styled.div`
     stroke-linejoin: round;
     fill: none;
     transition: stroke 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    ${(p) => p.theme.utils.media.xs} {
+    ${(p) => p.theme.media.xs} {
       stroke-width: 1.5;
     }
   }
@@ -65,7 +65,7 @@ const Wrap = styled.div`
     stroke-width: 3;
     stroke-linejoin: round;
     fill: none;
-    ${(p) => p.theme.utils.media.xs} {
+    ${(p) => p.theme.media.xs} {
       stroke-width: 2;
     }
   }
@@ -108,7 +108,7 @@ const Wrap = styled.div`
   }
   .hover-text-group {
     font-size: 0.875rem;
-    ${(p) => p.theme.utils.media.s} {
+    ${(p) => p.theme.media.s} {
       font-size: 0.75rem;
     }
   }
@@ -186,7 +186,7 @@ const Wrap = styled.div`
       opacity: 1;
     }
   }
-  ${(p) => p.theme.utils.media.s} {
+  ${(p) => p.theme.media.s} {
     .mse-group {
       display: none;
     }

@@ -63,7 +63,7 @@ const Section = styled.li`
 	width: 100%;
 	height: 100%;
 
-	${(p) => p.theme.utils.media.mobile} {
+	${(p) => p.theme.media.mobile} {
 		display: none;
 	}
 `

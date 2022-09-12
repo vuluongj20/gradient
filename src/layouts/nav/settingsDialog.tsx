@@ -45,7 +45,7 @@ export default Dialog
 const InnerWrap = styled.div``
 
 const Section = styled.section`
-	${(p) => p.theme.utils.space.paddingVertical[0]};
+	${(p) => p.theme.paddingVertical[0]};
 `
 
 const SectionTitle = styled.h3`

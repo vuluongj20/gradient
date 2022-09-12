@@ -95,8 +95,8 @@ const Wrap = styled.div`
     margin-bottom: ${(p) => p.theme.space[1]};
   }
   hr {
-    ${(p) => p.theme.utils.space.marginTop[6]};
-    ${(p) => p.theme.utils.space.marginBottom[5]};
+    ${(p) => p.theme.marginTop[6]};
+    ${(p) => p.theme.marginBottom[5]};
   }
   p,
   a,
@@ -122,13 +122,13 @@ const Wrap = styled.div`
     margin-bottom: ${(p) => p.theme.space[1]};
   }
 
-  ${(p) => p.theme.utils.media.l} {
+  ${(p) => p.theme.media.l} {
     grid-column: 1 / -3;
   }
-  ${(p) => p.theme.utils.media.m} {
+  ${(p) => p.theme.media.m} {
     grid-column: 1 / -2;
   }
-  ${(p) => p.theme.utils.media.s} {
+  ${(p) => p.theme.media.s} {
     grid-column: 1 / -1;
   }
 
@@ -143,7 +143,7 @@ const Wrap = styled.div`
 const ContentWrap = styled(Wrap)``
 
 const Header = styled.header`
-  ${(p) => p.theme.utils.space.paddingTop[6]};
+  ${(p) => p.theme.paddingTop[6]};
 
   h1 {
     padding-top: 0;
@@ -164,10 +164,10 @@ const StyledTOC = styled(TOC)`
   grid-column: -4 / -1;
   position: sticky;
   top: 0;
-  ${(p) => p.theme.utils.space.paddingTop[6]};
-  ${(p) => p.theme.utils.space.paddingBottom[4]};
+  ${(p) => p.theme.paddingTop[6]};
+  ${(p) => p.theme.paddingBottom[4]};
 
-  ${(p) => p.theme.utils.media.l} {
+  ${(p) => p.theme.media.l} {
     display: none;
   }
 `
