@@ -1,8 +1,8 @@
 [
 	{
 		"slug": "ner",
-		"title": "Naming Names with Graphical Models",
-		"description": "Understanding how model structure and statistical assumptions can affect predictions in a named-entity recognition task.",
+		"title": "Learning What's in a Name with Graphical Models",
+		"description": "Linear-chain graphical models are powerful and interpretable solutions to sequence labeling problems like named entity recognition.",
 		"featuredIn": ["top"],
 		"featuredSize": "l",
 		"sections": ["technology"],
