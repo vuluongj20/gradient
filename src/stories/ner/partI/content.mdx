@@ -5,7 +5,7 @@ import '@layouts/katex.css'
 
 ## I. Probabilistic Graphical Models
 
-Graphical modeling is a robust framework for representing probabilistic models. Complex, multivariate probability distributions can be represented by compact graphs that are vastly easier to understand and interpret.
+Graphical modeling is a robust framework for representing probabilistic models. Complex multivariate probability distributions can be expressed with compact graphs that are vastly easier to understand and interpret.
 
 ### 1. Factorizing Joint Distributions
 
@@ -21,17 +21,17 @@ $$
 p(a, b, c, d) = p(a) \cdot p(b|a) \cdot p(c) \cdot p(d|a, b, c)
 $$
 
-The relationship between variables is more opaque, hidden behind second-order dependencies. For example, while it's clear that $D$ is directly dependent on $A$, it's easy to miss the fact that there is also a second-order dependency between the two ($D$ is dependent on $B$, which in turn is dependent on $A$).
+The relationship between variables is more opaque, hidden behind second-order dependencies. For example, while it’s clear that $D$ is directly dependent on $A$, we may miss the fact that there is another, second-order dependency between the two ($D$ is dependent on $B$, which in turn is dependent on $A$).
 
 ### 2. Directed Acyclic Graphs
 
-Directed Acyclic Graphs, or DAGs, offer a natural solution to this problem. Each factor in the equation can be represented by a node. An arrow indicates conditional dependence. The resulting graph would look like:
+Directed Acyclic Graphs, or DAGs, offer a natural remedy to this problem. Each factor in the equation can be represented by a node. An arrow indicates conditional dependence. The resulting graph would look like:
 
 <StaticABCDGraph />
 
-With this graph, it's easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process proceeds in [topological order](https://en.wikipedia.org/wiki/Topological_sorting), for example $A$ → $C$ → $B$ → $D$, to ensure that all dependencies have been resolved by the time each variable is sampled.
+With this graph, it’s easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process proceeds in [topological order](https://en.wikipedia.org/wiki/Topological_sorting), for example $A$ → $C$ → $B$ → $D$, to ensure that all dependencies have been resolved by the time each variable is sampled.
 
-Below is what a sampled population would look like. Some parameters, for example the shape and scale parameters of normal distributions, are editable – in reality these are the quantities to be learned given training data.
+Below is what a sampled population of the given distributions would look like. For the sake of demonstration, some distribution parameters are modifiable – in reality these are the quantities that need to be learned from training data.
 
 <ABCDGraph />
 

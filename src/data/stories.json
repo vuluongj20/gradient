@@ -1,8 +1,8 @@
 [
 	{
 		"slug": "ner",
-		"title": "Learning What's in a Name with Graphical Models",
-		"description": "Linear-chain graphical models are powerful and interpretable solutions to sequence labeling problems like named entity recognition.",
+		"title": "Learning What’s in a Name with Graphical Models",
+		"description": "An overview of the structure and statistical assumptions behind linear-chain graphical models – effective and interpretable approaches to sequence labeling problems such as named entity recognition.",
 		"featuredIn": ["top"],
 		"featuredSize": "l",
 		"sections": ["technology"],

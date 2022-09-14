@@ -53,7 +53,7 @@ enum MODEL {
 
 const MODEL_LABELS = {
 	[MODEL.HMM]: 'Hidden Markov Model',
-	[MODEL.CRF]: 'Conditional Random Fields',
+	[MODEL.CRF]: 'Conditional Random Field',
 }
 
 const EMPTY_PREDS = { [MODEL.HMM]: [], [MODEL.CRF]: [] }
