@@ -145,17 +145,9 @@ const EmptyWrap = styled.div`
 	border-radius: ${(p) => p.theme.radii.m};
 	background: ${(p) => p.theme.background};
 	border: dashed 1px ${(p) => p.theme.line};
-	opacity: 0;
 
-	&.enter-active,
-	&.enter-done {
-		transition: opacity ${(p) => p.theme.animation.mediumOut};
-		opacity: 1;
-	}
-	&.exit-active {
-		transition: opacity ${(p) => p.theme.animation.mediumIn};
-		opacity: 0;
-	}
+	${(p) => p.theme.transitionGroupFade}
+	transition: opacity ${(p) => p.theme.animation.mediumOut};
 `
 
 const EmptyText = styled.p`
@@ -247,8 +239,9 @@ const SVG = styled.svg`
 	/* 
 	Animations 
 	*/
-	opacity: 0;
+	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
+
 	g.x-axis path.domain {
 		transform: scaleX(0);
 		transform-box: fill-box;
@@ -267,7 +260,6 @@ const SVG = styled.svg`
 
 	&.enter-active,
 	&.enter-done {
-		opacity: 1;
 		g.x-axis path.domain {
 			transform: scaleX(1);
 		}
@@ -277,8 +269,6 @@ const SVG = styled.svg`
 		}
 	}
 	&.exit-active {
-		opacity: 0;
-		transition: opacity ${(p) => p.theme.animation.mediumIn};
 		g.x-axis path.domain {
 			transform: scaleX(1);
 		}

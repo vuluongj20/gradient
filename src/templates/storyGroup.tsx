@@ -105,10 +105,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 				<FilterBar filters={filters} onChange={onChange} aria-label="Filters" />
 				<SwitchTransition>
 					<CSSTransition
-						timeout={{
-							enter: 500,
-							exit: 250,
-						}}
+						timeout={{ enter: 250, exit: 0 }}
 						key={filteredStories.map((s) => s.slug).join('')}
 					>
 						<Results>
@@ -168,16 +165,6 @@ const Results = styled(Grid)`
 	margin-top: ${(p) => p.theme.space[1]};
 	grid-row-gap: ${(p) => p.theme.space[3]};
 
-	&.enter {
-		opacity: 0;
-	}
-	&.enter-active,
-	&.enter-done {
-		transition: opacity ${(p) => p.theme.animation.mediumOut};
-		opacity: 1;
-	}
-	&.exit-active {
-		transition: opacity ${(p) => p.theme.animation.fastIn};
-		opacity: 0;
-	}
+	${(p) => p.theme.transitionGroupFade}
+	transition: opacity ${(p) => p.theme.animation.fastOut};
 `

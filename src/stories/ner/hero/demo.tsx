@@ -226,7 +226,7 @@ const Demo = () => {
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} unmountOnExit appear>
-						<LoadingMessage>Warming server up…</LoadingMessage>
+						<LoadingMessage>Restarting server…</LoadingMessage>
 					</CSSTransition>
 					<CSSTransition in={initialized} timeout={250} appear>
 						<ResultsAnimationWrapper aria-hidden={!initialized}>
@@ -251,7 +251,7 @@ const Demo = () => {
 													<ModelNameContent>
 														<abbr title={MODEL_LABELS[model]}>{model}</abbr>
 														<CSSTransition
-															in={loadingPredictions}
+															in={initialized && loadingPredictions}
 															timeout={250}
 															unmountOnExit
 															appear
@@ -370,17 +370,8 @@ const ResultsWrapper = styled.div`
 const ResultsAnimationWrapper = styled.div`
 	width: calc(100% - ${inputPaddingRight});
 
-	opacity: 0;
+	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.fastOut};
-
-	&.enter-active,
-	&.enter-done {
-		opacity: 1;
-	}
-
-	&.exit-active {
-		opacity: 0;
-	}
 
 	${(p) => p.theme.media.mobile} {
 		width: calc(100% - ${inputPaddingRightMobile});
@@ -393,17 +384,8 @@ const LoadingMessage = styled.p`
 	/* Offset extra padding at bottom of StyledPanel */
 	transform: translate(-50%, calc(-50% + ${(p) => p.theme.space[1]}));
 
-	opacity: 0;
+	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.fastOut};
-
-	&.enter-active,
-	&.enter-done {
-		opacity: 1;
-	}
-
-	&.exit-active {
-		opacity: 0;
-	}
 `
 
 const TableWrapper = styled.div`
@@ -485,18 +467,9 @@ const ModelNameContent = styled.span`
 `
 
 const ModelNameSpinner = styled(Spinner)`
-	opacity: 0;
 	transition: opacity ${(p) => p.theme.animation.fastOut};
-
-	&.enter-active,
-	&.enter-done {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
-
-	&.exit-active {
-		opacity: 0;
-	}
+	${(p) => p.theme.transitionGroupFade}
+	transition: opacity ${(p) => p.theme.animation.fastOut};
 `
 
 const Pred = styled.td`

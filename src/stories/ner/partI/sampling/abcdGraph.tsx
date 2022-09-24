@@ -123,7 +123,7 @@ const ABCDGraph = () => {
 							/>
 						)}
 					/>
-					<CSSTransition in={showGuide} timeout={500} unmountOnExit mountOnEnter appear>
+					<CSSTransition in={showGuide} timeout={500} mountOnEnter appear>
 						<GuideWrap x={guidePosition.x} y={guidePosition.y} aria-hidden="true">
 							<GuideArrow from="right" to="bottom" width={48} height={120} />
 							<GuideText>
@@ -190,16 +190,8 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 	left: 50%;
 	pointer-events: none;
 
-	opacity: 0;
+	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
-
-	&.enter-active,
-	&.enter-done {
-		opacity: 1;
-	}
-	&.exit-active {
-		opacity: 0;
-	}
 
 	${(p) =>
 		p.x &&

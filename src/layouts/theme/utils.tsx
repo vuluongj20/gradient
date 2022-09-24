@@ -10,6 +10,7 @@ type CSSUtilName =
 	| 'absCenter'
 	| 'focusVisible'
 	| 'svgFocusVisible'
+	| 'transitionGroupFade'
 
 type CSSUtil = Record<CSSUtilName, CSSObject>
 
@@ -112,6 +113,15 @@ export const generateUtils = (theme: PartialTheme): Utils => ({
 	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
       border-color 0.5s ${theme.animation.outQuart},
       box-shadow 0.5s ${theme.animation.outQuart}`,
+	transitionGroupFade: {
+		opacity: 0,
+		['&.enter-active, &.enter-done']: {
+			opacity: 1,
+		},
+		['&.exit-active, &.exit-done']: {
+			opacity: 0,
+		},
+	},
 	media: {
 		xs: `@media only screen and (max-width: ${theme.breakpoints.xs})`,
 		s: `@media only screen and (max-width: ${theme.breakpoints.s})`,

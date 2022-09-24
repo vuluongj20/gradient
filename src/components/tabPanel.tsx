@@ -23,17 +23,6 @@ export default TabPanel
 
 const Wrap = styled.div`
   padding: ${(p) => p.theme.space[2]} ${(p) => p.theme.space[3]};
-
-  &.enter {
-    opacity: 0;
-  }
-  &.enter-active,
-  &.enter-done {
-    transition: opacity ${(p) => p.theme.animation.fastOut};
-    opacity: 1;
-  }
-  &.exit-active {
-    transition: opacity ${(p) => p.theme.animation.fastIn};
-    opacity: 0;
-  }
+  ${(p) => p.theme.transitionGroupFade}
+  transition: opacity ${(p) => p.theme.animation.fastOut};
 `
