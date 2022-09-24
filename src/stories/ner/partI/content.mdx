@@ -7,7 +7,7 @@ import '@layouts/katex.css'
 
 Graphical modeling is a robust framework for representing probabilistic models. Complex multivariate probability distributions can be expressed with compact graphs that are vastly easier to understand and interpret.
 
-### 1. Factorizing Joint Distributions
+### Factorizing Joint Distributions
 
 Let’s start with a simple example with just two random variables, $A$ and $B$. Assume that $B$ is conditionally dependent on $A$. Through a canonical application of the chain rule, the joint distribution of $A$ and $B$ is:
 
@@ -23,7 +23,7 @@ $$
 
 The relationship between variables is more opaque, hidden behind second-order dependencies. For example, while it’s clear that $D$ is directly dependent on $A$, we may miss the fact that there is another, second-order dependency between the two ($D$ is dependent on $B$, which in turn is dependent on $A$).
 
-### 2. Directed Acyclic Graphs
+### Directed Acyclic Graphs
 
 Directed Acyclic Graphs, or DAGs, offer a natural remedy to this problem. Each factor in the equation can be represented by a node. An arrow indicates conditional dependence. The resulting graph would look like:
 

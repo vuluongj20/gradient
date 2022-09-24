@@ -1,1 +1,48 @@
+import EmissionGraph from './emissionGraph'
+import OverviewGraph from './overviewGraph'
+import TransitionGraph from './transitionGraph'
+
 ## II. Hidden Markov Models
+
+Hidden Markov Models (HMMs) are an early class of probabilistic graphical models representing partially hidden (unobserved) sequences of events. Structurally, they are built with two main layers, one hidden and one observed:
+
+<OverviewGraph />
+
+States inside the hidden layer ($X_n$) can be inferred using data in the observed layer ($Y_n$).
+
+### The Hidden Layer
+
+The hidden layer is assumed to be a Markov process: a chain of events in which each event’s probability depends only on the state of the preceding event. More formally, given a sequence of $N$ random events $X_1$, $X_2$,…, $X_N$, the Markov assumption holds that:
+
+$$
+p(x_i | x_1, x_2,…, x_{i-1}) = p(x_i | x_{i-1}) \\
+\scriptsize \textrm{for every $i \in S = \{2,…, N\}$}
+$$
+
+In a graph, this translates to a linear chain of events where each event has exactly one arrow pointing towards it (except for the first event) and one pointing away from it (except for the last):
+
+<TransitionGraph />
+
+A second, key assumption that HMMs make is time-homogeneity: that the probability of transition from one event's state to the next is constant over time. In formal terms:
+
+$$
+p(x_i | x_{i-1}) = p(x_{i+1} | x_i) \\
+\scriptsize \textrm{for every $i \in S = \{2,…, N-1\}$}
+$$
+
+The assumptions about the hidden layer (Markov and time-homogeneity) hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
+
+### The Observed Layer
+
+Information flows from the hidden to the observed layer via one-to-one mapping relationships. The probability of each observed event is assumed to depend only on the state of the hidden event at the same time step. Given a sequence of $N$ hidden events $X_1$, $X_2$,…, $X_N$ and observed events $Y_1$, $Y_2$,…, $Y_N$ we have:
+
+$$
+p(y_i | x_1, x_2,…, x_N) = p(y_i | x_i) \\
+\scriptsize \textrm{for every $i \in S = \{1, 2,…, N\}$}
+$$
+
+In a graph, this looks like:
+
+<EmissionGraph />
+
+The conditional probability $p(y_i | x_i)$ is also assumed to be time-homogenous, further reducing the complexity of the model.

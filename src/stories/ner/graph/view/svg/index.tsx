@@ -125,13 +125,13 @@ const ForceGraph = ({
 			.force(
 				'y',
 				forceY<MutableNode>((n) => n.forceY ?? 0).strength((n) =>
-					isDefined(n.forceY) ? 1 : 0,
+					isDefined(n.forceY) ? 20 : 0,
 				),
 			)
 			.force(
 				'x',
 				forceX<MutableNode>((n) => n.forceX ?? 0).strength((n) =>
-					isDefined(n.forceY) ? 1 : 0,
+					isDefined(n.forceY) ? 20 : 0,
 				),
 			)
 			.on('tick', ticked(renderedNodes, renderedEdges))
@@ -240,13 +240,13 @@ const ForceGraph = ({
 		const { nodes, edges } = graph
 
 		return tl(
-			`Visualized graph consisting of ${nodes.length} {1,node,nodes}: $1.${
-				edges.length > 0 ? ` There are edges pointing $2.` : ''
+			`A graphical structure consisting of ${nodes.length} {1,node,nodes}: $1.${
+				edges.length > 0 ? ` There are directed edges $2.` : ''
 			}`,
 			nodes.map((n) => n.label),
 			edges.map(
 				(e) =>
-					`from node ${graph.getNode(e.nodes.source).label} to node ${
+					`from ${graph.getNode(e.nodes.source).label} to ${
 						graph.getNode(e.nodes.target).label
 					}`,
 			),

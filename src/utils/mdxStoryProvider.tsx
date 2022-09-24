@@ -30,16 +30,16 @@ const Abstract = ({ children, ...props }: Props) => (
 )
 const SectionHeading = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.SectionHeading gridColumn="text" {...props}>
+		<Text.Heading gridColumn="text" {...props}>
 			{children}
-		</Text.SectionHeading>
+		</Text.Heading>
 	</Grid>
 )
 const SectionSubHeading = ({ children, ...props }: Props) => (
 	<Grid>
-		<Text.SectionSubHeading gridColumn="text" {...props}>
+		<Text.Subheading gridColumn="text" {...props}>
 			{children}
-		</Text.SectionSubHeading>
+		</Text.Subheading>
 	</Grid>
 )
 const Body = ({ children, ...props }: Props) => (

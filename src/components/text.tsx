@@ -21,7 +21,7 @@ export const Abstract = styled.p<Props>`
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
-export const SectionHeading = styled.h2<Props>`
+export const Heading = styled.h2<Props>`
 	${(p) => p.theme.text.content.h2}
 	${(p) => p.theme.marginBottom[5]}
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
@@ -31,7 +31,7 @@ export const SectionHeading = styled.h2<Props>`
 	text-align: center;
 `
 
-export const SectionSubHeading = styled.h3<Props>`
+export const Subheading = styled.h3<Props>`
 	${(p) => p.theme.text.content.h5}
 	${(p) => p.theme.marginBottom[3]}
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}

@@ -11,10 +11,10 @@ import Grid from '@components/grid'
 const createGraph = () => {
 	const graph = new Graph()
 
-	const nodeA = new Node({ label: 'A', forceX: -40, forceY: -30, x: -20, y: -20 })
-	const nodeB = new Node({ label: 'B', forceX: 50, forceY: -40, x: 60, y: -50 })
-	const nodeC = new Node({ label: 'C', forceX: -50, forceY: 40, x: -40, y: 30 })
-	const nodeD = new Node({ label: 'D', forceX: 40, forceY: 30, x: 50, y: 40 })
+	const nodeA = new Node({ label: 'A', forceX: -40, forceY: -30, x: -40, y: -30 })
+	const nodeB = new Node({ label: 'B', forceX: 50, forceY: -40, x: 50, y: -40 })
+	const nodeC = new Node({ label: 'C', forceX: -50, forceY: 40, x: -50, y: 40 })
+	const nodeD = new Node({ label: 'D', forceX: 40, forceY: 30, x: 40, y: 30 })
 	graph.addNode(nodeA)
 	graph.addNode(nodeB)
 	graph.addNode(nodeC)

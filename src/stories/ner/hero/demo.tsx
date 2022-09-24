@@ -23,7 +23,6 @@ const SAMPLES = [
 	'The Green Bay Packers',
 	'The Czech second city Brno',
 	'Australia coach Geoff Marsh',
-	'Swiss bank accounts',
 	'Polish brewer Zywiec',
 	'South African Breweries Ltd',
 	'Czech President Vaclav Havel',
@@ -227,15 +226,10 @@ const Demo = () => {
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} unmountOnExit appear>
-						<ResultsSpinner
-							showLabel
-							label="Warming up…"
-							diameter={20}
-							strokeWidth={1.5}
-						/>
+						<LoadingMessage>Warming server up…</LoadingMessage>
 					</CSSTransition>
 					<CSSTransition in={initialized} timeout={250} appear>
-						<ResultsAnimationWrapper>
+						<ResultsAnimationWrapper aria-hidden={!initialized}>
 							<TableWrapper ref={tableWrapperRef}>
 								<Table>
 									<thead>
@@ -393,10 +387,9 @@ const ResultsAnimationWrapper = styled.div`
 	}
 `
 
-const ResultsSpinner = styled(Spinner)`
-	${(p) => p.theme.absCenter}
+const LoadingMessage = styled.p`
 	color: ${(p) => p.theme.label};
-
+	${(p) => p.theme.absCenter}
 	/* Offset extra padding at bottom of StyledPanel */
 	transform: translate(-50%, calc(-50% + ${(p) => p.theme.space[1]}));
 
