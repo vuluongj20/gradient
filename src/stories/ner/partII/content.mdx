@@ -16,7 +16,7 @@ The hidden layer is assumed to be a Markov process: a chain of events in which e
 
 $$
 p(x_i | x_1, x_2,…, x_{i-1}) = p(x_i | x_{i-1}) \\
-\scriptsize \textrm{for every $i \in S = \{2,…, N\}$}
+\footnotesize \textrm{for all $i \in S = \{2,…, N\}$}
 $$
 
 In a graph, this translates to a linear chain of events where each event has exactly one arrow pointing towards it (except for the first event) and one pointing away from it (except for the last):
@@ -27,7 +27,7 @@ A second, key assumption that HMMs make is time-homogeneity: that the probabilit
 
 $$
 p(x_i | x_{i-1}) = p(x_{i+1} | x_i) \\
-\scriptsize \textrm{for every $i \in S = \{2,…, N-1\}$}
+\footnotesize \textrm{for all $i \in S = \{2,…, N-1\}$}
 $$
 
 The assumptions about the hidden layer (Markov and time-homogeneity) hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
@@ -38,11 +38,11 @@ Information flows from the hidden to the observed layer via one-to-one mapping r
 
 $$
 p(y_i | x_1, x_2,…, x_N) = p(y_i | x_i) \\
-\scriptsize \textrm{for every $i \in S = \{1, 2,…, N\}$}
+\footnotesize \textrm{for all $i \in S = \{1, 2,…, N\}$}
 $$
 
 In a graph, this looks like:
 
 <EmissionGraph />
 
-The conditional probability $p(y_i | x_i)$ is also assumed to be time-homogenous, further reducing the complexity of the model.
+The conditional probability $p(y_i | x_i)$ is also assumed to be time-homogenous, further reducing the model's complexity.

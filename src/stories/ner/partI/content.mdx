@@ -3,6 +3,10 @@ import StaticABCDGraph from './staticABCDGraph'
 
 import '@layouts/katex.css'
 
+import Alert from '@components/alert'
+
+import IconEditAlt from '@icons/editAlt'
+
 ## I. Probabilistic Graphical Models
 
 Graphical modeling is a robust framework for representing probabilistic models. Complex multivariate probability distributions can be expressed with compact graphs that are vastly easier to understand and interpret.
@@ -14,6 +18,13 @@ Let’s start with a simple example with just two random variables, $A$ and $B$.
 $$
 p(a, b) = p(a) \cdot p(b|a)
 $$
+
+<Grid>
+	<Alert gridColumn="text" title="Notation" marginBottom={3}>
+		In this article, we'll use the shorthand notation <em>p(a)</em> to mean{' '}
+		<em>p(A = a)</em>, that is, the probability of variable A taking value a.
+	</Alert>
+</Grid>
 
 This is a simple enough example, with just 2 factors in the right hand side. Add more variables, however, and the result can get messy fast. To see this, assume that there are two more variables, $C$ and $D$, and that $D$ is conditionally dependent on $A$, $B$, and $C$. The factorization becomes:
 
