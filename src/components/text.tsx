@@ -52,3 +52,7 @@ export const Link = styled.a<Props>`
 		text-decoration-color: ${(p) => p.theme.contentLinkUnderlineHover};
 	}
 `
+
+export const Footnote = styled.sup`
+	font-size: 0.5em;
+`

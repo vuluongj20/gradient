@@ -12,10 +12,10 @@ type PolicyMDX = {
 const usePoliciesPages = (): Page[] => {
 	const data = useStaticQuery<Queries.AllMdxPoliciesQuery>(graphql`
 		query AllMdxPolicies {
-			allMdx(filter: { fileAbsolutePath: { regex: "/pages/policies/" } }) {
+			allMdx(filter: { internal: { contentFilePath: { regex: "/pages/policies/" } } }) {
 				nodes {
-					slug
 					frontmatter {
+						slug
 						title
 					}
 				}
@@ -26,7 +26,7 @@ const usePoliciesPages = (): Page[] => {
 	return data.allMdx.nodes.map((node) => {
 		const page = node as PolicyMDX
 		return {
-			slug: page.slug,
+			slug: page.frontmatter.slug,
 			title: page.frontmatter.title,
 			path: `/policies/${page.slug}`,
 		}

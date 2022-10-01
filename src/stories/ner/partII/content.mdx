@@ -1,6 +1,9 @@
 import EmissionGraph from './emissionGraph'
+import NERGraph from './nerGraph'
 import OverviewGraph from './overviewGraph'
 import TransitionGraph from './transitionGraph'
+
+import Alert from '@components/alert'
 
 ## II. Hidden Markov Models
 
@@ -23,26 +26,73 @@ In a graph, this translates to a linear chain of events where each event has exa
 
 <TransitionGraph />
 
-A second, key assumption that HMMs make is time-homogeneity: that the probability of transition from one event's state to the next is constant over time. In formal terms:
+A second assumption that HMMs make is time-homogeneity: that the probability of transition from one event's state to the next is constant over time. In formal terms:
 
 $$
 p(x_i | x_{i-1}) = p(x_{i+1} | x_i) \\
 \footnotesize \textrm{for all $i \in S = \{2,…, N-1\}$}
 $$
 
-The assumptions about the hidden layer (Markov and time-homogeneity) hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
+$p(x_i | x_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
+
+The assumptions about the hidden layer, Markov and time-homogeneity, hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
 
 ### The Observed Layer
 
-Information flows from the hidden to the observed layer via one-to-one mapping relationships. The probability of each observed event is assumed to depend only on the state of the hidden event at the same time step. Given a sequence of $N$ hidden events $X_1$, $X_2$,…, $X_N$ and observed events $Y_1$, $Y_2$,…, $Y_N$ we have:
+The hidden and observed layer are connected via a one-to-one mapping relationship. The probability of each observed event is assumed to depend only on the state of the hidden event at the same time step. Given a sequence of $N$ hidden events $X_1$, $X_2$,…, $X_N$ and observed events $Y_1$, $Y_2$,…, $Y_N$ we have:
 
 $$
 p(y_i | x_1, x_2,…, x_N) = p(y_i | x_i) \\
 \footnotesize \textrm{for all $i \in S = \{1, 2,…, N\}$}
 $$
 
-In a graph, this looks like:
+In a graph, this one-to-one relationship looks like:
 
 <EmissionGraph />
 
-The conditional probability $p(y_i | x_i)$ is also assumed to be time-homogenous, further reducing the model's complexity.
+The conditional probability $p(y_i | x_i)$, called the emission probability, is also assumed to be time-homogenous, further reducing the model's complexity. It is the second key parameter to be learned, alongside the transition probability.
+
+### Representing Named Entities
+
+HMMs’ chain structure with two layers, one hidden and one observed, makes them particularly suited to sequence labeling problems like NER. Unknown name tags constitute the hidden layer, while word tokens from the input sequence make up the observed layer:
+
+<NERGraph />
+
+<Grid>
+	<Alert gridColumn="text" title="Notation" marginBottom={3}>
+		From this point forward, rather than labeling each node with the name of the variable
+		it represents (X&#8321;, Y&#8321;), we'll use the observed/predicted value of that
+		variable (“O”, “Great”). This is not standard notation, but it helps make the graphs
+		easier to parse.
+	</Alert>
+</Grid>
+
+Each name tag apart from the “O” tag contains either a B- (beginning) or I- (inside) prefix. This way, when there are two named entities next to each other (“Argentine Nestor”), there is no confusion about when an entity stops and the next one begins.
+
+There are $9$ name tags, resulting in a total of $9^2 = 81$ possible transitions between any two consecutive hidden states. Each transition path has its own associated transition probability:
+
+– transition visualization
+
+The number of emission probabilities is orders of magnitude larger. Each node in the observed layer can be any word in the known vocabulary, whose size ranges anywhere from thousands to hundreds of thousands of words (the one created for the HMM in this article contains 23,622 tokens). Let $N$ be the number of word tokens in the known vocabulary. There is a total of $9N$ possible emission probabilities:
+
+– emission visualization
+
+### Training
+
+The training step involves learning the two key sets of parameters, the transition and emission probabilities, as well as a special set of start probabilities. All can be obtained as normalized rates from the training data.
+
+For example, to get the transition probability from state “O” to state “B-LOC”, $p(B{-}LOC | O)$, we need only two numbers: the number of times state “O” is followed by any other state (that is, it isn't the last state in the sequence), as $N_O$, and the number of times state “O” is followed by state “B-LOC”, as $N_{O→B-LOC}$. The desired transition probaility is simply $\frac{N_{O→B-LOC}}{N_O}$.
+
+### Inference
+
+In the context of HMMs, inference involves answering useful questions about hidden states given observed values, or about missing values in a partially observed sequence. For NER, we are focused on the first type of inference. Specifically, we want to perform maximum a posteriori (MAP) inference: identifying the most likely sequence of states in the hidden layer conditioned on observed values.
+
+The number of possible sequences in the hidden layer can easily be intractably large. For any two consecutive states, there are $81$ potential transition paths. For 3 consecutive states there are $82^2$ different paths. For 4 states there are $82^3$ paths, and so on.
+
+– trellis graph w/ 4 states & potentially fade-out effect on the right
+
+Given the massive number of potential paths, brute force algorithms are not an option. Doing so would involve calculating the probability of every possible transition path in a sequence, and then finding the path with the highest probability among them.
+
+Luckily, there is an efficient strategy that accomplishes the same task with substantially less complexity: the Viterbi algorithm. It is a dynamic algorithm that constructs a trellis-shaped memory structure to progressively find the most likely path as it progesses through the given sequence. For a detailed account of the Viterbi algorithm and its exact steps, refer to [^1].
+
+[^1]: Footnote 1

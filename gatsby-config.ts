@@ -38,11 +38,10 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        defaultLayouts: {
-          policies: path.resolve('./src/templates/policies.tsx'),
+        mdxOptions: {
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [[rehypeKatex, { strict: 'ignore' }]],
         },
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
         gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-autolink-headers',

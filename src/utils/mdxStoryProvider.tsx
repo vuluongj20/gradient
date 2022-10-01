@@ -56,6 +56,7 @@ const components = {
 	h3: SectionSubHeading,
 	p: Body,
 	a: Text.Link,
+	sup: Text.Footnote,
 	hr: SectionDivider,
 	Header,
 	Abstract,
