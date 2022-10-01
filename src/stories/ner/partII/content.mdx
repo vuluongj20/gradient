@@ -58,6 +58,8 @@ HMMs’ chain structure with two layers, one hidden and one observed, makes them
 
 <NERGraph />
 
+{
+
 <Grid>
 	<Alert gridColumn="text" title="Notation" marginBottom={3}>
 		From this point forward, rather than labeling each node with the name of the variable
@@ -66,6 +68,7 @@ HMMs’ chain structure with two layers, one hidden and one observed, makes them
 		easier to parse.
 	</Alert>
 </Grid>
+}
 
 Each name tag apart from the “O” tag contains either a B- (beginning) or I- (inside) prefix. This way, when there are two named entities next to each other (“Argentine Nestor”), there is no confusion about when an entity stops and the next one begins.
 
