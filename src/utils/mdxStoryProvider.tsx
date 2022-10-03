@@ -4,10 +4,16 @@ import styled from 'styled-components'
 
 import Figure from '@components/figure'
 import Grid from '@components/grid'
+import {
+	Citation,
+	Reference,
+	References,
+	ReferencesProvider,
+} from '@components/references'
 import SectionDivider from '@components/sectionDivider'
 import * as Text from '@components/text'
 
-type Props = { children: ReactNode }
+type Props = { children?: ReactNode }
 
 const Header = ({ children, ...props }: Props) => (
 	<HeaderWrap as="header" {...props}>
@@ -50,22 +56,27 @@ const Body = ({ children, ...props }: Props) => (
 	</Grid>
 )
 
-const components = {
-	h1: Title,
-	h2: SectionHeading,
-	h3: SectionSubHeading,
-	p: Body,
-	a: Text.Link,
-	sup: Text.Footnote,
-	hr: SectionDivider,
-	Header,
-	Abstract,
-	Figure,
-	Grid,
-}
-
-const MDXStoryProvider = ({ children }: Props) => (
-	<MDXProvider components={components}>{children}</MDXProvider>
+type MDXStoryProviderProps = Props & { references?: Reference[] }
+const MDXStoryProvider = ({ references, children }: MDXStoryProviderProps) => (
+	<MDXProvider
+		components={{
+			h1: Title,
+			h2: SectionHeading,
+			h3: SectionSubHeading,
+			p: Body,
+			a: Text.Link,
+			sup: Text.Footnote,
+			hr: SectionDivider,
+			Header,
+			Abstract,
+			Figure,
+			Grid,
+			Citation,
+			References,
+		}}
+	>
+		<ReferencesProvider references={references ?? []}>{children}</ReferencesProvider>
+	</MDXProvider>
 )
 
 export default MDXStoryProvider
