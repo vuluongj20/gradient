@@ -33,6 +33,14 @@ const HTML = (props: Props) => {
               body.palette-${key} {
                 background-color: ${colorAliases[key].background};
               }
+              @media only screen and (prefers-color-scheme: dark) {
+                body {
+                  background-color: ${colorAliases.charcoal.background};
+                }
+                body.palette-${key} {
+                  background-color: ${colorAliases[key].background};
+                }
+              }
             `,
               )
               .join('')}
