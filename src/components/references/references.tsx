@@ -5,6 +5,8 @@ import Grid from '@components/grid'
 import { Reference, ReferencesContext } from '@components/references/provider'
 import SectionDivider from '@components/sectionDivider'
 
+import IconBackRef from '@icons/backRef'
+
 export const References = () => {
 	const { references, referencesOrder, registeredCitations } =
 		useContext(ReferencesContext)
@@ -35,7 +37,7 @@ export const References = () => {
 											key={citationId}
 											href={`#citation-${reference.id}-${citationId}`}
 										>
-											&#8617;
+											<IconBackRef size="xs" />
 										</ReferenceBackRef>
 									))}
 								</ReferenceTitle>
@@ -88,10 +90,18 @@ const ReferenceTitle = styled.span`
 `
 
 const ReferenceBackRef = styled.a`
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	height: 1.4em;
+	margin-left: ${(p) => p.theme.space[0]};
+	transform: translateY(0.15em);
+
 	color: ${(p) => p.theme.label};
-	padding-left: ${(p) => p.theme.space[0]};
 	font-size: ${(p) => p.theme.text.system.small.fontSize};
+
+	&:hover {
+		color: ${(p) => p.theme.heading};
+	}
 
 	/* Prevent iOS Safari from displaying ↩ as an emoji */
 	font-family: 'Hiragino Mincho ProN', sans-serif;
