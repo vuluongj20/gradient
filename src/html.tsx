@@ -27,6 +27,11 @@ const HTML = (props: Props) => {
             body {
               background-color: ${colorAliases.paper.background};
             }
+            @media only screen and (prefers-color-scheme: dark) {
+              body {
+                background-color: ${colorAliases.charcoal.background};
+              }
+            }
             ${(Object.keys(colorAliases) as (keyof typeof colorAliases)[])
               .map(
                 (key) => `
@@ -34,9 +39,6 @@ const HTML = (props: Props) => {
                 background-color: ${colorAliases[key].background};
               }
               @media only screen and (prefers-color-scheme: dark) {
-                body {
-                  background-color: ${colorAliases.charcoal.background};
-                }
                 body.palette-${key} {
                   background-color: ${colorAliases[key].background};
                 }
