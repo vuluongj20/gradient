@@ -10,15 +10,15 @@ import MDXStoryProvider from '@utils/mdxStoryProvider'
 
 const references: Reference[] = [
 	{
-		id: 'test_1',
+		id: 'test1',
 		title: 'Test 1',
 		author: [{ family: 'Luong', given: 'Vu' }],
 		year: 2022,
 	},
 	{
-		id: 'test_2',
+		id: 'test2',
 		title: 'Test 2',
-		author: [{ family: 'Luong', given: 'Vu2' }],
+		author: [{ family: 'Luong', given: 'Vu' }],
 		year: 2022,
 	},
 ]

@@ -66,7 +66,7 @@ const MDXStoryProvider = ({ references, children }: MDXStoryProviderProps) => (
 			p: Body,
 			a: Text.Link,
 			sup: Text.Footnote,
-			hr: SectionDivider,
+			hr: () => <SectionDivider />,
 			Header,
 			Abstract,
 			Figure,
