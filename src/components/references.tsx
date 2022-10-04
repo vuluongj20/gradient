@@ -202,6 +202,10 @@ const ReferenceBackRef = styled.a`
 	display: inline-block;
 	color: ${(p) => p.theme.label};
 	padding-left: ${(p) => p.theme.space[0]};
+	font-size: ${(p) => p.theme.text.system.small.fontSize};
+
+	/* Prevent iOS Safari from displaying ↩ as an emoji */
+	font-family: 'Hiragino Mincho ProN', sans-serif;
 `
 
 const ReferenceDetails = styled.span`
