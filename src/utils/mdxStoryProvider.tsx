@@ -2,6 +2,7 @@ import { MDXProvider } from '@mdx-js/react'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
+import Alert from '@components/alert'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
 import {
@@ -56,6 +57,14 @@ const Body = ({ children, ...props }: Props) => (
 	</Grid>
 )
 
+const WrappedAlert = ({ children, ...props }: Props) => (
+	<Grid role="presentation">
+		<Alert gridColumn="text" {...props}>
+			{children}
+		</Alert>
+	</Grid>
+)
+
 type MDXStoryProviderProps = Props & { references?: Reference[] }
 const MDXStoryProvider = ({ references, children }: MDXStoryProviderProps) => (
 	<MDXProvider
@@ -67,6 +76,7 @@ const MDXStoryProvider = ({ references, children }: MDXStoryProviderProps) => (
 			a: Text.Link,
 			sup: Text.Footnote,
 			hr: () => <SectionDivider />,
+			Alert: WrappedAlert,
 			Header,
 			Abstract,
 			Figure,

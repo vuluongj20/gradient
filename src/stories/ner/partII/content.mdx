@@ -3,8 +3,6 @@ import NERGraph from './nerGraph'
 import OverviewGraph from './overviewGraph'
 import TransitionGraph from './transitionGraph'
 
-import Alert from '@components/alert'
-
 ## II. Hidden Markov Models
 
 Hidden Markov Models (HMMs) are an early class of probabilistic graphical models representing partially hidden (unobserved) sequences of events. Structurally, they are built with two main layers, one hidden and one observed:
@@ -60,14 +58,12 @@ HMMs’ chain structure with two layers, one hidden and one observed, makes them
 
 {
 
-<Grid>
-	<Alert gridColumn="text" title="Notation" marginBottom={3}>
-		From this point forward, rather than labeling each node with the name of the variable
-		it represents (X&#8321;, Y&#8321;), we'll use the observed/predicted value of that
-		variable (“O”, “Great”). This is not standard notation, but it helps make the graphs
-		easier to parse.
-	</Alert>
-</Grid>
+<Alert title="Notation" marginBottom={3}>
+	From this point forward, rather than labeling each node with the name of the variable it
+	represents (X&#8321;, Y&#8321;), we'll use the observed/predicted value of that variable
+	(“O”, “Great”). This is not standard notation, but it helps make the graphs easier to
+	parse.
+</Alert>
 }
 
 Each name tag apart from the “O” tag contains either a B- (beginning) or I- (inside) prefix. This way, when there are two named entities next to each other (“Argentine Nestor”), there is no confusion about when an entity stops and the next one begins.
@@ -96,6 +92,6 @@ The number of possible sequences in the hidden layer can easily be intractably l
 
 Given the massive number of potential paths, brute force algorithms are not an option. Doing so would involve calculating the probability of every possible transition path in a sequence, and then finding the path with the highest probability among them.
 
-Luckily, there is an efficient strategy that accomplishes the same goal with substantially less complexity: the Viterbi algorithm. It is a dynamic algorithm that constructs a trellis-shaped memory structure to progressively find the most likely path as it progesses through the given sequence. For a detailed account of the Viterbi algorithm and its exact steps, refer to <Citation id="a" refId="test1" />
+Luckily, there is an efficient strategy that accomplishes the same goal with substantially less complexity: the Viterbi algorithm. It is a dynamic algorithm that constructs a trellis-shaped memory structure to progressively find the most likely path as it progesses through the given sequence. For a detailed account of the Viterbi algorithm and its exact steps, refer to <Citation id="a" refId="test2" /> <Citation id="a" refId="test1" /> <Citation id="b" refId="test1" />
 
 <References />
