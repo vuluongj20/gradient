@@ -25,6 +25,10 @@ export function getArrowHeight(size: Props['size']) {
   return Math.round(getArrowWidth(size) / 4)
 }
 
+function round(number: number) {
+  return +number.toFixed(1)
+}
+
 const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   { size = 'm', strokeWidth = 1, placement, ...props },
   ref,
@@ -43,9 +47,11 @@ const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (
    */
   const s = strokeWidth
   const arrowPath = [
-    `M 0 ${h - s / 2}`,
-    `C ${w * 0.4} ${h - s / 2} ${w * 0.45} 0 ${w / 2} 0`,
-    `C ${w * 0.55} 0 ${w * 0.6} ${h - s / 2} ${w} ${h - s / 2}`,
+    `M 0 ${round(h - s / 2)}`,
+    `C ${round(w * 0.4)} ${round(h - s / 2)} ${round(w * 0.45)} 0 ${round(w / 2)} 0`,
+    `C ${round(w * 0.55)} 0 ${round(w * 0.6)} ${round(h - s / 2)} ${w} ${round(
+      h - s / 2,
+    )}`,
   ].join('')
 
   const strokeMaskId = useMemo(() => nanoid(), [])
@@ -53,7 +59,7 @@ const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   return (
     <Wrap ref={ref} placement={placement} {...props}>
-      <SVG overflow="visible" width={w} viewBox={`0 0 ${w} ${h}`}>
+      <SVG overflow="visible" width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
         <defs>
           <mask id={`fill-mask-${fillMaskId}`}>
             <rect x="0" y="0" width="100%" height="100%" fill="white" />

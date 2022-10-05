@@ -31,6 +31,16 @@ export type UsePopoverProps = AriaOverlayProps &
     offset?: number
   }
 
+const roundPixels = {
+  name: 'roundPixels',
+  fn({ x, y }: { x: number; y: number }) {
+    return {
+      x: Math.round(x),
+      y: Math.round(y),
+    }
+  },
+}
+
 export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
   isOpen,
   onClose,
@@ -62,6 +72,7 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
       flip(),
       offset(mainOffset),
       ...(arrowElement ? [arrow({ element: arrowElement, padding: 20 })] : []),
+      roundPixels,
     ],
     [mainOffset, arrowElement, isMobile],
   )
