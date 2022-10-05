@@ -211,7 +211,7 @@ const Demo = () => {
 		<Grid noPaddingOnMobile>
 			<StyledPanel overlay size="m" gridColumn="wide">
 				<Description>
-					Which words in the following sequence refer to a&nbsp;
+					Which of these words refer to a&nbsp;
 					<abbr title="Person (PER), organization (ORG), or location (LOC)">
 						named entity
 					</abbr>
@@ -226,7 +226,9 @@ const Demo = () => {
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} unmountOnExit appear>
-						<LoadingMessage>Starting server…</LoadingMessage>
+						<LoadingWrap>
+							<LoadingMessage>Starting prediction server…</LoadingMessage>
+						</LoadingWrap>
 					</CSSTransition>
 					<CSSTransition in={initialized} timeout={250} appear>
 						<ResultsAnimationWrapper aria-hidden={!initialized}>
@@ -234,7 +236,7 @@ const Demo = () => {
 								<Table>
 									<thead>
 										<tr>
-											<Header scope="col">Model</Header>
+											<ModelNameHeader scope="col">Model</ModelNameHeader>
 											{tokens.map((token, i) => (
 												<Header key={i} scope="col">
 													{token}
@@ -306,7 +308,7 @@ const Demo = () => {
 
 export default Demo
 
-const MODEL_NAME_WIDTH = '5rem'
+const MODEL_NAME_WIDTH = '4rem'
 
 const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 	`calc(${theme.space[2]} + ${theme.space[3]} + ${theme.space[2]})`
@@ -378,14 +380,23 @@ const ResultsAnimationWrapper = styled.div`
 	}
 `
 
-const LoadingMessage = styled.p`
-	color: ${(p) => p.theme.label};
-	${(p) => p.theme.absCenter}
-	/* Offset extra padding at bottom of StyledPanel */
-	transform: translate(-50%, calc(-50% + ${(p) => p.theme.space[1]}));
+const LoadingWrap = styled.div`
+	position: absolute;
+	top: ${(p) => p.theme.space[2]};
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border: dashed 1px ${(p) => p.theme.line};
+	border-radius: ${(p) => p.theme.radii.m};
 
+	${(p) => p.theme.flexCenter};
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.fastOut};
+	z-index: 1;
+`
+
+const LoadingMessage = styled.p`
+	color: ${(p) => p.theme.label};
 `
 
 const TableWrapper = styled.div`
@@ -422,6 +433,7 @@ const Table = styled.table`
 const Header = styled.th`
 	position: relative;
 	padding: ${(p) => p.theme.space[1]} 0;
+	min-height: 3rem;
 	user-select: none;
 
 	${(p) => p.theme.text.content.h5};
@@ -432,6 +444,18 @@ const Header = styled.th`
 
 	opacity: 0;
 	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
+`
+
+const ModelNameHeader = styled(Header)`
+	position: sticky;
+	left: 0;
+	width: ${MODEL_NAME_WIDTH};
+	min-width: ${MODEL_NAME_WIDTH};
+
+	padding-right: ${(p) => p.theme.space[2]};
+	background: ${(p) => p.theme.background};
+	color: transparent;
+	z-index: 1;
 `
 
 const Connector = styled.div<{ isLoading: boolean }>`
@@ -460,16 +484,19 @@ const ModelName = styled.th`
 `
 
 const ModelNameContent = styled.span`
+	position: relative;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	min-height: 3rem;
 `
 
 const ModelNameSpinner = styled(Spinner)`
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translate(50%, -50%);
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.fastOut};
 `
 
 const Pred = styled.td`
