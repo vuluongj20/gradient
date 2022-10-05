@@ -14,7 +14,7 @@ import Spinner from '@components/spinner'
 
 import IconRestart from '@icons/restart'
 
-import { debounce, makeCancelable } from '@utils/functions'
+import { debounce, isDev, makeCancelable } from '@utils/functions'
 import { fadeIn } from '@utils/style'
 import useMountEffect from '@utils/useMountEffect'
 
@@ -134,7 +134,7 @@ const Demo = () => {
 
 	// Sync scroll positions of input & table
 	useMountEffect(() => {
-		debouncedUpdatePredictions(inputValue)
+		!isDev && debouncedUpdatePredictions(inputValue)
 
 		if (!inputRef.current || !tableWrapperRef.current) return
 		let scrollingFromInput = false
@@ -226,7 +226,7 @@ const Demo = () => {
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} unmountOnExit appear>
-						<LoadingMessage>Restarting server…</LoadingMessage>
+						<LoadingMessage>Starting server…</LoadingMessage>
 					</CSSTransition>
 					<CSSTransition in={initialized} timeout={250} appear>
 						<ResultsAnimationWrapper aria-hidden={!initialized}>
