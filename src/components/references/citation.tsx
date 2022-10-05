@@ -51,7 +51,7 @@ export const Citation = ({ id, refId }: CitationProps) => {
 					id={`citation-${refId}-${id}`}
 					href={`#reference-${refId}`}
 				>
-					<sup>[{referenceNumber}]</sup>
+					<SuperScript>[{referenceNumber}]</SuperScript>
 				</CitationLink>
 			)}
 		</Tooltip>
@@ -75,4 +75,10 @@ const CitationTitle = styled.p`
 
 const CitationDetail = styled.p`
 	color: ${(p) => p.theme.label};
+`
+
+const SuperScript = styled.sup`
+	vertical-align: top;
+	position: relative;
+	top: -0.1em;
 `
