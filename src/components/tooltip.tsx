@@ -14,7 +14,6 @@ import styled from 'styled-components'
 
 import BalancedText from '@components/balancedText'
 import Popover, { UsePopoverProps, usePopover } from '@components/popover'
-import PopoverArrow from '@components/popoverArrow'
 
 export type TooltipProps = UsePopoverProps &
   TooltipTriggerProps & {
@@ -66,17 +65,14 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
 
   const { tooltipProps } = useTooltip(tooltipTriggerProps, state)
 
-  const {
-    triggerProps: popoverTriggerProps,
-    popoverProps,
-    arrowProps,
-  } = usePopover<HTMLButtonElement>({
-    placement,
-    offset,
-    isOpen: state.isOpen,
-    // Prevent useOverlay from intercepting click events
-    isDismissable: false,
-  })
+  const { triggerProps: popoverTriggerProps, popoverProps } =
+    usePopover<HTMLButtonElement>({
+      placement,
+      offset,
+      isOpen: state.isOpen,
+      // Prevent useOverlay from intercepting click events
+      isDismissable: false,
+    })
 
   // If no tooltip content is provided, then simply return
   // the trigger element without any tooltip associated with it
@@ -93,7 +89,6 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
         aria-hidden={ariaHidden}
         {...mergeProps(tooltipProps, popoverProps)}
       >
-        <PopoverArrow {...arrowProps} />
         {typeof content === 'string' ? <BalancedText>{content}</BalancedText> : content}
       </StyledPopover>
     </TriggerWrap>

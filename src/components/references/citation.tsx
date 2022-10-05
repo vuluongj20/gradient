@@ -43,7 +43,7 @@ export const Citation = ({ id, refId }: CitationProps) => {
 			maxWidth="20rem"
 			renderWrapperAsSpan
 			delay={0}
-			offset={6}
+			offset={2}
 		>
 			{(tooltipProps) => (
 				<CitationLink
