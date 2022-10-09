@@ -1,5 +1,6 @@
 import { OverlayProvider } from '@react-aria/overlays'
 import { SSRProvider } from '@react-aria/ssr'
+import { Script } from 'gatsby'
 import { ReactNode, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -28,6 +29,7 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 				<GlobalThemeProvider>
 					<OverlayProvider>
 						<GlobalStyles />
+						<Script src="https://unpkg.com/focus-visible@5.2.0/dist/focus-visible.min.js" />
 						<Nav pageTitle={title} />
 						<PageContent id="page-content">{children}</PageContent>
 					</OverlayProvider>
