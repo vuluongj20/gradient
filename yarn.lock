@@ -1121,6 +1121,28 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
+"@benrbray/mdast-util-cite@^1.0.1":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@benrbray/mdast-util-cite/-/mdast-util-cite-1.1.0.tgz#beb8adb95afad7df902c074c1d1b8c80aaca5768"
+  integrity sha512-jJL69PwjdgD+p479e3AkIG/6GNfRigyfgA/iXZiV8I0PIXWv4fdonpncIthvDnyXV6+KTrKKObJ4s59qUZocBw==
+  dependencies:
+    "@benrbray/micromark-extension-cite" "^1.0.0"
+
+"@benrbray/micromark-extension-cite@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@benrbray/micromark-extension-cite/-/micromark-extension-cite-1.0.0.tgz#612e24cb104275e451f85410f4f24ba6274bdc05"
+  integrity sha512-MiqLxAr6/+sslKOgsuAGOHIWFUyw9umL5GzBijPqMp/pcidOgeCzC1Sb8KT3pq0XyB3gYuQQjgEnXNDjQrJ/Wg==
+  dependencies:
+    micromark "^2.11.4"
+
+"@benrbray/remark-cite@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@benrbray/remark-cite/-/remark-cite-1.1.0.tgz#05aa2dca2cd9892e395d949a96ad69f95acbfa03"
+  integrity sha512-UOeh0JOyO6JaCGgWimFtBCjXOabLLbGxT72KgQvIQH9MPX3DYGQtks0QAuGRz00raMV5UOK1uL12xMkh4MIlzA==
+  dependencies:
+    "@benrbray/mdast-util-cite" "^1.0.1"
+    "@benrbray/micromark-extension-cite" "^1.0.0"
+
 "@builder.io/partytown@^0.5.2":
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/@builder.io/partytown/-/partytown-0.5.4.tgz#1a89069978734e132fa4a59414ddb64e4b94fde7"
@@ -5005,6 +5027,16 @@ ci-info@2.0.0, ci-info@^2.0.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
 
+citeproc-types@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/citeproc-types/-/citeproc-types-1.0.2.tgz#1df6d4d3e1c5e474678be3d2e9203214dbbc03a3"
+  integrity sha512-aHCDM7EWoypA3gQ2ILRKJP39bCEmQXKSFb9qYT7Ye77+UbcMjD/CRy/ZiJFbxRhFc8nx6+NuN9nw1Aw66Nvd/g==
+
+citeproc@^2.4.62:
+  version "2.4.62"
+  resolved "https://registry.yarnpkg.com/citeproc/-/citeproc-2.4.62.tgz#c2a27eafd7182b95b0812b92c53193b037840ed3"
+  integrity sha512-l3uFfSEwNZp/jlz/TpgyBs85kOww6VlQHbAth0cpbgOn6iulZd+QlFY43LrRelzcYt3FZHTZ3soDyd8lNmkqdw==
+
 cli-boxes@^2.2.0, cli-boxes@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/cli-boxes/-/cli-boxes-2.2.1.tgz#ddd5035d25094fce220e9cab40a45840a440318f"
@@ -5399,6 +5431,11 @@ crypto-random-string@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
+
+csl-json@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/csl-json/-/csl-json-0.1.0.tgz#5c625e03171c9232dc3839876c38bf5eef3b4187"
+  integrity sha512-KMvcQ07H0kMpzl2aO1mgyp+F+LVk+z+QMpN01noMUv0Uu4mqg4KyJjeM2u2716qU9ZgPq1Kr30DXqhT4RuEg1w==
 
 css-color-keywords@^1.0.0:
   version "1.0.0"
@@ -9969,6 +10006,14 @@ micromark-util-types@^1.0.0, micromark-util-types@^1.0.1:
   resolved "https://registry.yarnpkg.com/micromark-util-types/-/micromark-util-types-1.0.2.tgz#f4220fdb319205812f99c40f8c87a9be83eded20"
   integrity sha512-DCfg/T8fcrhrRKTPjRrw/5LLvdGV7BHySf/1LOZx7TzWZdYRjogNtyNq885z3nNallwr3QUKARjqvHqX1/7t+w==
 
+micromark@^2.11.4, micromark@~2.11.0:
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/micromark/-/micromark-2.11.4.tgz#d13436138eea826383e822449c9a5c50ee44665a"
+  integrity sha512-+WoovN/ppKolQOFIAajxi7Lu9kInbPxFuTBVEavFcL8eAfVstoc5MocPmqBeAdBOJV00uaVjegzH4+MA0DN/uA==
+  dependencies:
+    debug "^4.0.0"
+    parse-entities "^2.0.0"
+
 micromark@^3.0.0:
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/micromark/-/micromark-3.0.10.tgz#1eac156f0399d42736458a14b0ca2d86190b457c"
@@ -9991,14 +10036,6 @@ micromark@^3.0.0:
     micromark-util-symbol "^1.0.0"
     micromark-util-types "^1.0.1"
     uvu "^0.5.0"
-
-micromark@~2.11.0:
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/micromark/-/micromark-2.11.4.tgz#d13436138eea826383e822449c9a5c50ee44665a"
-  integrity sha512-+WoovN/ppKolQOFIAajxi7Lu9kInbPxFuTBVEavFcL8eAfVstoc5MocPmqBeAdBOJV00uaVjegzH4+MA0DN/uA==
-  dependencies:
-    debug "^4.0.0"
-    parse-entities "^2.0.0"
 
 micromatch@^4.0.2, micromatch@^4.0.4, micromatch@^4.0.5:
   version "4.0.5"

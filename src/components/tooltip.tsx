@@ -35,6 +35,7 @@ export type TooltipProps = UsePopoverProps &
     maxWidth?: string
     ariaHidden?: boolean
     renderWrapperAsSpan?: boolean
+    renderOverlayAsSpan?: boolean
     className?: string
   }
 
@@ -47,6 +48,7 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
     delay = 1000,
     maxWidth = '10rem',
     renderWrapperAsSpan = false,
+    renderOverlayAsSpan = false,
     ariaHidden = false,
     className,
     ...props
@@ -84,9 +86,10 @@ const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
     <TriggerWrap className={className} spread={spread} {...props}>
       {props.children(mergeProps(popoverTriggerProps, triggerProps))}
       <StyledPopover
+        aria-hidden={ariaHidden}
         isOpen={state.isOpen}
         maxWidth={maxWidth}
-        aria-hidden={ariaHidden}
+        renderWrapperAsSpan={renderOverlayAsSpan}
         {...mergeProps(tooltipProps, popoverProps)}
       >
         {typeof content === 'string' ? <BalancedText>{content}</BalancedText> : content}
@@ -120,7 +123,6 @@ const getTextAlign = ({ placement }: { placement?: UsePopoverProps['placement'] 
 
 const StyledPopover = styled(Popover)<{ maxWidth: string }>`
   width: max-content;
-  max-width: ${(p) => p.maxWidth};
   padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
   border-radius: ${(p) => p.theme.radii.s};
   z-index: ${(p) => p.theme.zIndices.tooltip};

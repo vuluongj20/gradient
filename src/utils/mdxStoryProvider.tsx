@@ -5,12 +5,7 @@ import styled from 'styled-components'
 import Alert from '@components/alert'
 import Figure from '@components/figure'
 import Grid from '@components/grid'
-import {
-	Citation,
-	Reference,
-	References,
-	ReferencesProvider,
-} from '@components/references'
+import { Citation, References, ReferencesProvider } from '@components/references'
 import SectionDivider from '@components/sectionDivider'
 import * as Text from '@components/text'
 
@@ -65,8 +60,8 @@ const WrappedAlert = ({ children, ...props }: Props) => (
 	</Grid>
 )
 
-type MDXStoryProviderProps = Props & { references?: Reference[] }
-const MDXStoryProvider = ({ references, children }: MDXStoryProviderProps) => (
+type MDXStoryProviderProps = Props & { references?: CSL.Data[] }
+const MDXStoryProvider = ({ references = [], children }: MDXStoryProviderProps) => (
 	<MDXProvider
 		components={{
 			h1: Title,
@@ -85,7 +80,7 @@ const MDXStoryProvider = ({ references, children }: MDXStoryProviderProps) => (
 			References,
 		}}
 	>
-		<ReferencesProvider references={references ?? []}>{children}</ReferencesProvider>
+		<ReferencesProvider references={references}>{children}</ReferencesProvider>
 	</MDXProvider>
 )
 

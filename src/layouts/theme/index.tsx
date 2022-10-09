@@ -30,7 +30,7 @@ export type Theme = ColorPalette['colors'] &
 			viz: TextScale
 		}
 		/** Box shadow */
-		shadows: Partial<Record<Breakpoint, string>> & {
+		shadows: Record<keyof typeof boxShadowsLight, string> & {
 			text: string
 		}
 		/** Animation */
@@ -38,7 +38,7 @@ export type Theme = ColorPalette['colors'] &
 		/** Breakpoints */
 		breakpoints: Record<Breakpoint, string>
 		/** Border radius */
-		radii: Partial<Record<Breakpoint, string>>
+		radii: Record<keyof typeof radii, string>
 		/** z-indices */
 		zIndices: Record<string, number>
 		/** Spacing */

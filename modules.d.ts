@@ -1,3 +1,6 @@
+import 'citeproc-types'
+import 'csl-json'
+
 declare module '*.jpg'
 declare module '*.png'
 declare module 'gatsby-plugin-transition-link'

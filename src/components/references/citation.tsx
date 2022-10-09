@@ -2,54 +2,42 @@ import { useContext, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { ReferencesContext } from '@components/references/provider'
+import { formatReferences } from '@components/references/utils'
 import Tooltip from '@components/tooltip'
-
-import useMountEffect from '@utils/useMountEffect'
 
 type CitationProps = {
 	id: string
-	refId: string
+	referenceId: string
+	referenceNumber: number
 }
 
-export const Citation = ({ id, refId }: CitationProps) => {
-	const { references, referencesOrder, registerCitation } = useContext(ReferencesContext)
-
-	useMountEffect(() => registerCitation(refId, id))
+export const Citation = ({ id, referenceNumber, referenceId }: CitationProps) => {
+	const references = useContext(ReferencesContext)
 	const reference = useMemo(
-		() => references.find((ref) => ref.id === refId),
-		[refId, references],
+		() => references.find((reference) => reference.id === referenceId),
+		[references, referenceId],
 	)
 
-	const referenceNumber = useMemo(
-		() => referencesOrder.findIndex((referenceId) => referenceId === refId) + 1,
-		[refId, referencesOrder],
-	)
+	if (!reference) {
+		return null
+	}
 
-	if (!reference || referenceNumber === 0) return null
+	const formattedReference = formatReferences([reference])[0]
 
 	return (
 		<Tooltip
-			content={
-				<CitationDetails>
-					<CitationTitle>{reference.title}</CitationTitle>
-					<CitationDetail>
-						{reference.author
-							.map((author) => `${author.given.substring(0, 1)}. ${author.family}`)
-							.join(', ')}
-					</CitationDetail>
-					<CitationDetail>{[reference.containerTitle, reference.year]}</CitationDetail>
-				</CitationDetails>
-			}
-			maxWidth="20rem"
+			content={<CitationText dangerouslySetInnerHTML={{ __html: formattedReference }} />}
+			maxWidth="28rem"
 			renderWrapperAsSpan
+			renderOverlayAsSpan
 			delay={0}
-			offset={2}
+			offset={4}
 		>
 			{(tooltipProps) => (
 				<CitationLink
 					{...tooltipProps}
-					id={`citation-${refId}-${id}`}
-					href={`#reference-${refId}`}
+					id={`citation-${referenceId}-${id}`}
+					href={`#reference-${referenceId}`}
 				>
 					<SuperScript>[{referenceNumber}]</SuperScript>
 				</CitationLink>
@@ -63,18 +51,19 @@ const CitationLink = styled.a`
 	font-style: italic;
 `
 
-const CitationDetails = styled.div`
+const CitationText = styled.span`
+	${(p) => p.theme.text.system.body};
+	display: block;
 	text-align: left;
 	padding: ${(p) => p.theme.space[0]};
-`
 
-const CitationTitle = styled.p`
-	font-weight: 500;
-	color: ${(p) => p.theme.heading};
-`
-
-const CitationDetail = styled.p`
-	color: ${(p) => p.theme.label};
+	b {
+		width: 100%;
+		display: inline-block;
+		margin-bottom: ${(p) => p.theme.space[0]};
+		color: ${(p) => p.theme.heading};
+		font-weight: 500;
+	}
 `
 
 const SuperScript = styled.sup`

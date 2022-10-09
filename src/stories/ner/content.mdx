@@ -1,7 +1,79 @@
-import EmissionGraph from './emissionGraph'
-import NERGraph from './nerGraph'
-import OverviewGraph from './overviewGraph'
-import TransitionGraph from './transitionGraph'
+import Demo from './hero/demo'
+import ABCDGraph from './partI/sampling/abcdGraph'
+import StaticABCDGraph from './partI/staticABCDGraph'
+import EmissionGraph from './partII/emissionGraph'
+import NERGraph from './partII/nerGraph'
+import OverviewGraph from './partII/overviewGraph'
+import TransitionGraph from './partII/transitionGraph'
+
+import '@layouts/katex.css'
+
+<Header>
+
+# Learning What’s in a Name with Graphical Models
+
+{
+
+<Abstract>
+	An overview of the structure and statistical assumptions behind linear-chain graphical
+	models – effective and interpretable approaches to sequence labeling problems such as
+	named entity recognition.
+</Abstract>
+}
+
+<Demo />
+
+</Header>
+
+“The UK” alone is a country, but “The UK Department of Transport” is an organization within said country. In a named entity recognition (NER) task, where we want to label each word with a name tag (organization/person/location/not a name), how can a computer model know one from the other?
+
+In such cases, contextual information is key. In the second example, the fact that “The UK” is followed by “Department” is compelling evidence that when taken together the phrase refers to an organization. Sequence models – machine learning systems designed to take sequences of data as input, can recognize and put such relationships to productive use. Rather than making isolated predictions based on individual words, they take the given sequence as a combined unit, model the dependencies between words in that sequences, and depending on the problem can return the most likely label sequence.
+
+In this article, we’ll explore three sequence models that are particularly successful at NER: Hidden Markov Models (HMMs), Maximum-Entropy Markov Models (MEMMs), and Conditional Random Fields (CRFs). All three are probabilistic graphical models, which we’ll cover in the next section.
+
+---
+
+## I. Probabilistic Graphical Models
+
+Graphical modeling is a robust framework for representing probabilistic models. Complex multivariate probability distributions can be expressed with compact graphs that are vastly easier to understand and interpret.
+
+### Factorizing Joint Distributions
+
+Let’s start with a simple example with just two random variables, $A$ and $B$. Assume that $B$ is conditionally dependent on $A$. Through a canonical application of the chain rule, the joint distribution of $A$ and $B$ is:
+
+$$
+p(a, b) = p(a) \cdot p(b|a)
+$$
+
+{
+
+<Alert title="Notation" marginBottom={3}>
+	In this article, we'll use the shorthand notation <em>p(a)</em> to mean{' '}
+	<em>p(A = a)</em>, that is, the probability of variable A taking value a.
+</Alert>
+}
+
+This is a simple enough example, with just 2 factors in the right hand side. Add more variables, however, and the result can get messy fast. To see this, assume that there are two more variables, $C$ and $D$, and that $D$ is conditionally dependent on $A$, $B$, and $C$. The factorization becomes:
+
+$$
+p(a, b, c, d) = p(a) \cdot p(b|a) \cdot p(c) \cdot p(d|a, b, c)
+$$
+
+The relationship between variables is more opaque, hidden behind second-order dependencies. For example, while it’s clear that $D$ is directly dependent on $A$, we may miss the fact that there is another, second-order dependency between the two ($D$ is dependent on $B$, which in turn is dependent on $A$).
+
+### Directed Acyclic Graphs
+
+Directed Acyclic Graphs, or DAGs, offer a natural remedy to this problem. Each factor in the equation can be represented by a node. An arrow indicates conditional dependence. The resulting graph would look like:
+
+<StaticABCDGraph />
+
+With this graph, it’s easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process proceeds in [topological order](https://en.wikipedia.org/wiki/Topological_sorting), for example $A$ → $C$ → $B$ → $D$, to ensure that all dependencies have been resolved by the time each variable is sampled.
+
+Below is what a sampled population of the given distributions would look like. For the sake of demonstration, some distribution parameters are modifiable – in reality these are the quantities that need to be learned from training data.
+
+<ABCDGraph />
+
+---
 
 ## II. Hidden Markov Models
 
@@ -92,6 +164,6 @@ The number of possible sequences in the hidden layer can easily be intractably l
 
 Given the massive number of potential paths, brute force algorithms are not an option. Doing so would involve calculating the probability of every possible transition path in a sequence, and then finding the path with the highest probability among them.
 
-Luckily, there is an efficient strategy that accomplishes the same goal with substantially less complexity: the Viterbi algorithm. It is a dynamic algorithm that constructs a trellis-shaped memory structure to progressively find the most likely path as it progesses through the given sequence. For a detailed account of the Viterbi algorithm and its exact steps, refer to <Citation id="a" refId="test2" />
+Luckily, there is an efficient strategy that accomplishes the same goal with substantially less complexity: the Viterbi algorithm. It is a dynamic algorithm that constructs a trellis-shaped memory structure to progressively find the most likely path as it progesses through the given sequence. For a detailed account of the Viterbi algorithm and its exact steps, refer to [@Bikel1999]
 
 <References />

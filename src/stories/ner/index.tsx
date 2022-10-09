@@ -1,35 +1,16 @@
-import HeroMDX from './hero/content.mdx'
-import PartIMDX from './partI/content.mdx'
-import PartIIMDX from './partII/content.mdx'
+import Content from './content.mdx'
+import { references } from './references'
 
 import Head from '@components/head'
 import Page from '@components/page'
-import { Reference } from '@components/references'
 
 import MDXStoryProvider from '@utils/mdxStoryProvider'
-
-const references: Reference[] = [
-	{
-		id: 'test1',
-		title: 'Test 1',
-		author: [{ family: 'Luong', given: 'Vu' }],
-		year: 2022,
-	},
-	{
-		id: 'test2',
-		title: 'Test 2',
-		author: [{ family: 'Luong', given: 'Vu' }],
-		year: 2022,
-	},
-]
 
 const Component = () => {
 	return (
 		<Page>
 			<MDXStoryProvider references={references}>
-				<HeroMDX />
-				<PartIMDX />
-				<PartIIMDX />
+				<Content />
 			</MDXStoryProvider>
 		</Page>
 	)

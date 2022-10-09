@@ -1,3 +1,4 @@
+import { citePlugin } from '@benrbray/remark-cite'
 import dotenv from 'dotenv'
 import { GatsbyConfig } from 'gatsby'
 import path from 'path'
@@ -39,10 +40,11 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         mdxOptions: {
-          remarkPlugins: [remarkMath],
+          remarkPlugins: [remarkMath, [citePlugin, {}]],
           rehypePlugins: [[rehypeKatex, { strict: 'ignore' }]],
         },
         gatsbyRemarkPlugins: [
+          'gatsby-remark-references',
           {
             resolve: 'gatsby-remark-autolink-headers',
             options: {

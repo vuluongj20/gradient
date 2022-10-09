@@ -128,7 +128,9 @@ export type Props = FocusScopeProps & {
   isOpen: boolean
   arrowStyles?: CSSProperties
   placement?: Placement
+  maxWidth?: string
   animateScale?: boolean
+  renderWrapperAsSpan?: boolean
   className?: string
   children?: ReactNode
 }
@@ -137,17 +139,20 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   {
     isOpen,
     placement,
+    maxWidth,
     autoFocus = true,
     restoreFocus = true,
     contain = true,
     animateScale = false,
     arrowStyles = {},
+    renderWrapperAsSpan,
     children,
     className,
     ...props
   },
   ref,
 ) => {
+  const Wrap = renderWrapperAsSpan ? SpanWrap : DivWrap
   return (
     <Transition in={isOpen} timeout={250} unmountOnExit mountOnEnter>
       {(animationState) => (
@@ -155,6 +160,7 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           <LocalThemeProvider overlay>
             <Wrap
               {...props}
+              maxWidth={maxWidth}
               placement={placement}
               className={`${animationState} ${className ?? ''}`}
               animateScale={animateScale}
@@ -173,6 +179,7 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 export default forwardRef(Popover)
 
 type WrapProps = {
+  maxWidth?: string
   placement?: Placement
   animateScale: boolean
   arrowStyles: CSSProperties
@@ -212,20 +219,22 @@ const getTransform = ({
   }
 }
 
-const Wrap = styled.div<WrapProps>`
+const getStyles = (p: WrapProps & { theme: Theme }) => `
   position: absolute;
-  max-width: calc(100vw - 32px);
-  background: ${(p) => p.theme.oBackground};
-  border-radius: ${(p) => p.theme.radii.m};
-  padding: ${(p) => p.theme.space[0]};
-  box-shadow: 0 0 0 1px ${(p) => p.theme.oLine}, ${(p) => p.theme.shadows.l};
-  transition: transform ${(p) => p.theme.animation.fastOut},
-    opacity ${(p) => p.theme.animation.fastOut};
+  max-width: ${
+    p.maxWidth ? `min(${p.maxWidth}, calc(100vw - 32px))` : `calc(100vw - 32px)`
+  };
+  background: ${p.theme.oBackground};
+  border-radius: ${p.theme.radii.m};
+  padding: ${p.theme.space[0]};
+  box-shadow: 0 0 0 1px ${p.theme.oLine}, ${p.theme.shadows.l};
+  transition: transform ${p.theme.animation.fastOut},
+    opacity ${p.theme.animation.fastOut};
   opacity: 0;
-  z-index: ${(p) => p.theme.zIndices.popover};
+  z-index: ${p.theme.zIndices.popover};
   pointer-events: none;
 
-  ${getTransform}
+  ${getTransform(p)}
 
   &.entering,
   &.entered {
@@ -244,6 +253,15 @@ const Wrap = styled.div<WrapProps>`
   }
 
   @media (prefers-reduced-motion) {
-    transition: opacity ${(p) => p.theme.animation.fastOut};
+    transition: opacity ${p.theme.animation.fastOut};
   }
+`
+
+const DivWrap = styled.div<WrapProps>`
+  ${getStyles}
+`
+
+const SpanWrap = styled.span`
+  display: block;
+  ${getStyles}
 `
