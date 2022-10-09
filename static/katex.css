@@ -153,6 +153,9 @@
 	line-height: 1;
 	letter-spacing: 0.01em;
 }
+.katex.katex {
+	color: inherit;
+}
 .katex * {
 	-ms-high-contrast-adjust: none !important;
 	border-color: currentColor;

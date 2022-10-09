@@ -94,7 +94,8 @@ const GlobalStyles = createGlobalStyle`
   input {
     appearance: none;
     font-size: 1rem;
-    transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
+    transition: color ${(p) => p.theme.animation.vFastOut}, 
+      box-shadow ${(p) => p.theme.animation.vFastOut};
   }
   input:focus {
     outline: none;
@@ -140,11 +141,15 @@ const GlobalStyles = createGlobalStyle`
     fill: ${(p) => p.theme.label};
   }
 
-  .math-display {
-    ${(p) => p.theme.text.content.body}
+  .katex {
+    display: inline-block;
+    color: transparent;
+    transition: color ${(p) => p.theme.animation.vFastOut};
   }
-
   .katex-display {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
     ${(p) => p.theme.marginBottom[3]}
   }
 `
