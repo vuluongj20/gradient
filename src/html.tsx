@@ -24,26 +24,14 @@ const HTML = (props: Props) => {
         <style
           dangerouslySetInnerHTML={{
             __html: `
-            body {
-              background-color: ${colorAliases.paper.background};
-            }
-            @media only screen and (prefers-color-scheme: dark) {
-              body {
-                background-color: ${colorAliases.charcoal.background};
-              }
-            }
-            ${(Object.keys(colorAliases) as (keyof typeof colorAliases)[])
+            body{background-color:${
+              colorAliases.paper.background
+            }}@media only screen and (prefers-color-scheme:dark){body{background-color:${
+              colorAliases.charcoal.background
+            }}}${(Object.keys(colorAliases) as (keyof typeof colorAliases)[])
               .map(
-                (key) => `
-              body.palette-${key} {
-                background-color: ${colorAliases[key].background};
-              }
-              @media only screen and (prefers-color-scheme: dark) {
-                body.palette-${key} {
-                  background-color: ${colorAliases[key].background};
-                }
-              }
-            `,
+                (key) =>
+                  `body.palette-${key}{background-color:${colorAliases[key].background}}@media only screen and (prefers-color-scheme:dark){body.palette-${key}{background-color:${colorAliases[key].background}}}`,
               )
               .join('')}
           `,
@@ -55,29 +43,7 @@ const HTML = (props: Props) => {
         {props.preBodyComponents}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-            (function () {
-              try {
-                const localSettings = JSON.parse(localStorage.getItem('UP'))
-                const appearance = localSettings?.theme?.colors?.appearance
-                const lightPalette = localSettings?.theme?.colors?.lightPalette
-                const darkPalette = localSettings?.theme?.colors?.darkPalette
-
-                if (!appearance || appearance === 'auto') {
-                  const preferDarkAppearance =
-                    window.matchMedia('(prefers-color-scheme: dark)').matches === true
-                  if (preferDarkAppearance) {
-                    document.body.classList.add('palette-' + darkPalette)
-                  } else {
-                    document.body.classList.add('palette-' + lightPalette)
-                  }
-                } else {
-                  const palette = appearance === 'light' ? lightPalette : darkPalette
-                  document.body.classList.add('palette-' + palette)
-                }
-              } catch (e) {console.warn(e)}
-            })();
-          `,
+            __html: `!function(){try{const e=JSON.parse(localStorage.getItem("UP")),t=e?.theme?.colors?.appearance,a=e?.theme?.colors?.lightPalette,o=e?.theme?.colors?.darkPalette;if(t&&"auto"!==t){const e="light"===t?a:o;document.body.classList.add("palette-"+e)}else{!0===window.matchMedia("(prefers-color-scheme: dark)").matches?document.body.classList.add("palette-"+o):document.body.classList.add("palette-"+a)}}catch(e){console.warn(e)}}();`,
           }}
         />
         <div

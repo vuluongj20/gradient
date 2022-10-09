@@ -1,8 +1,12 @@
+import { PageProps } from 'gatsby'
+import { Fragment } from 'react'
+
 import Content from './content.mdx'
 import { references } from './references'
 
-import Head from '@components/head'
+import AsyncStylesheet from '@components/asyncStyleSheet'
 import Page from '@components/page'
+import SEO from '@components/seo'
 
 import MDXStoryProvider from '@utils/mdxStoryProvider'
 
@@ -18,4 +22,9 @@ const Component = () => {
 
 export default Component
 
-export { Head }
+export const Head = ({ pageContext }: PageProps) => (
+	<Fragment>
+		<SEO {...pageContext} />
+		<AsyncStylesheet href="/katex.min.css" />
+	</Fragment>
+)

@@ -1,6 +1,8 @@
 import { keyframes } from 'styled-components'
 
 export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
+
+export const orderedBreakpoints: Breakpoint[] = ['xl', 'l', 'm', 's', 'xs']
 /**
  * List of breakpoints. This should be in the utils folder
  * instead of the theme folder since we may want to import it

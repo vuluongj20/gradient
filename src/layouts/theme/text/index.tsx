@@ -4,7 +4,7 @@ import domaine from '@theme/text/domaine'
 import sohne from '@theme/text/sohne'
 import sohneMono from '@theme/text/sohneMono'
 
-import { Breakpoint, breakpoints } from '@utils/style'
+import { Breakpoint, breakpoints, orderedBreakpoints } from '@utils/style'
 
 type TextCategoryStyles = {
 	fontFamily: string
@@ -41,21 +41,34 @@ const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
 
 	;(Object.keys(scale) as TextCategoryName[]).map((key) => {
 		const { fontSizes, ...rest } = scale[key]
-		result[key] = {
+		const scaleCSS: CSSObject = {
 			...rest,
 			fontSize: `${fontSizes.xl}rem`,
 		}
-		;(Object.keys(fontSizes) as Breakpoint[]).map((breakpoint) => {
-			;(result[key] as CSSObject)[
-				`@media only screen and (max-width: ${breakpoints[breakpoint]})`
-			] = {
+
+		orderedBreakpoints.forEach((breakpoint, i) => {
+			if (
+				// Skip 'xs' as mobile styles will be added together below
+				breakpoint === 'xs' ||
+				// Skip this breakpoint if the font size is the same
+				(i > 0 && fontSizes[breakpoint] === fontSizes[orderedBreakpoints[i - 1]])
+			) {
+				return
+			}
+
+			scaleCSS[`@media only screen and (max-width: ${breakpoints[breakpoint]})`] = {
 				fontSize: `${fontSizes[breakpoint]}rem`,
 			}
 		})
-		;(result[key] as CSSObject)[`@media only screen and (max-height: ${breakpoints.s})`] =
-			{
-				fontSize: `${fontSizes.xs}rem`,
-			}
+
+		// Mobile styles
+		scaleCSS[
+			`@media only screen and (max-width: ${breakpoints.xs}), only screen and (max-height: ${breakpoints.s})`
+		] = {
+			fontSize: `${fontSizes.xs}rem`,
+		}
+
+		result[key] = scaleCSS
 	})
 
 	return result as TextScale

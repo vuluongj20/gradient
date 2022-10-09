@@ -1,10 +1,11 @@
+import { PageProps } from 'gatsby'
 import styled from 'styled-components'
 
 import ContentMDX from './content.mdx'
 import { DataProvider } from './dataContext'
 
-import Head from '@components/head'
 import Page from '@components/page'
+import SEO from '@components/seo'
 
 import MDXStoryProvider from '@utils/mdxStoryProvider'
 
@@ -41,7 +42,7 @@ const Main = () => {
 
 export default Main
 
-export { Head }
+export const Head = ({ pageContext }: PageProps) => <SEO {...pageContext} />
 
 const Wrap = styled.article`
   --theme: ${(p) => p.theme.green1};
