@@ -16,6 +16,7 @@
     "build-relative": "RELATIVE_CI=true gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "preinstall": "yarn --cwd plugins/gatsby-remark-references install",
     "stylelint": "npx stylelint '*/**/*.{js,jsx,ts,tsx}'",
     "lint": "yarn eslint & yarn stylelint && tsc --noemit --skipLibCheck"
   },
