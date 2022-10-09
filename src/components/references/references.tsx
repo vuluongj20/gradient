@@ -25,6 +25,8 @@ export const References = ({ order, citations }: Props) => {
 
 	const formattedReferences = formatReferences(orderedReferences)
 
+	console.log(formattedReferences)
+
 	return (
 		<Fragment>
 			<SectionDivider />
@@ -84,11 +86,7 @@ const ReferenceItem = styled.li`
 `
 
 const ReferenceContent = styled.span`
-	div {
-		display: inline;
-	}
 	b {
-		width: 100%;
 		display: inline-block;
 		margin-bottom: ${(p) => p.theme.space[0]};
 		font-weight: 500;

@@ -55,10 +55,9 @@ const CitationText = styled.span`
 	${(p) => p.theme.text.system.body};
 	display: block;
 	text-align: left;
-	padding: ${(p) => p.theme.space[0]};
+	padding: ${(p) => p.theme.space[1]};
 
 	b {
-		width: 100%;
 		display: inline-block;
 		margin-bottom: ${(p) => p.theme.space[0]};
 		color: ${(p) => p.theme.heading};
