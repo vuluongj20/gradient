@@ -126,7 +126,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-gatsby-cloud',
       options: {
         headers: {
-          'fonts/*': [
+          '/fonts/*': [
             'Cache-Control: public,max-age=31536000,s-maxage=31536000,immutable',
           ],
         },
