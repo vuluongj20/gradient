@@ -25,8 +25,6 @@ export const References = ({ order, citations }: Props) => {
 
 	const formattedReferences = formatReferences(orderedReferences)
 
-	console.log(formattedReferences)
-
 	return (
 		<Fragment>
 			<SectionDivider />
