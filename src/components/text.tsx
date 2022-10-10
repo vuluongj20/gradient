@@ -37,7 +37,7 @@ export const Heading = styled.h2<Props>`
 		top: auto;
 		bottom: 0;
 		left: 0;
-		padding-top: ${(p) => p.theme.space[0.5]};
+		padding-top: ${(p) => p.theme.space[0]};
 		transform: translateY(100%);
 
 		${(p) => p.theme.media.xs} {
