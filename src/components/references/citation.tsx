@@ -1,32 +1,45 @@
-import { useContext, useMemo } from 'react'
+import { Fragment, useContext, useMemo } from 'react'
 import styled from 'styled-components'
 
+import Divider from '@components/divider'
 import { ReferencesContext } from '@components/references/provider'
 import { formatReferences } from '@components/references/utils'
 import Tooltip from '@components/tooltip'
 
 type CitationProps = {
-	id: string
-	referenceId: string
-	referenceNumber: number
+	citeItems: {
+		id: string
+		referenceId: string
+		referenceNumber: number
+		suppressAuthor?: boolean
+		prefix?: string
+		suffix?: string
+	}[]
 }
 
-export const Citation = ({ id, referenceNumber, referenceId }: CitationProps) => {
+export const Citation = ({ citeItems }: CitationProps) => {
 	const references = useContext(ReferencesContext)
-	const reference = useMemo(
-		() => references.find((reference) => reference.id === referenceId),
-		[references, referenceId],
+
+	const citedReferences = useMemo(
+		() =>
+			citeItems
+				.map(({ referenceId }) =>
+					references.find((reference) => reference.id === referenceId),
+				)
+				.filter((reference): reference is CSL.Data => !!reference),
+		[references, citeItems],
 	)
 
-	if (!reference) {
-		return null
-	}
-
-	const formattedReference = formatReferences([reference])[0]
+	const formattedReferences = formatReferences(citedReferences)
 
 	return (
 		<Tooltip
-			content={<CitationText dangerouslySetInnerHTML={{ __html: formattedReference }} />}
+			content={formattedReferences.map((formattedText, i) => (
+				<Fragment key={i}>
+					<CitationText dangerouslySetInnerHTML={{ __html: formattedText }} />
+					{i < formattedReferences.length - 1 && <StyledDivider />}
+				</Fragment>
+			))}
 			maxWidth="28rem"
 			renderWrapperAsSpan
 			renderOverlayAsSpan
@@ -34,28 +47,58 @@ export const Citation = ({ id, referenceNumber, referenceId }: CitationProps) =>
 			offset={4}
 		>
 			{(tooltipProps) => (
-				<CitationLink
-					{...tooltipProps}
-					id={`citation-${referenceId}-${id}`}
-					href={`#reference-${referenceId}`}
-				>
-					<SuperScript>[{referenceNumber}]</SuperScript>
-				</CitationLink>
+				<Wrap {...tooltipProps}>
+					{citeItems.length > 1 ? (
+						citeItems.map(({ id, referenceId, referenceNumber }, i) => (
+							<CitationLink
+								key={referenceId}
+								id={`citation-${referenceId}-${id}`}
+								href={`#reference-${referenceId}`}
+							>
+								{i === 0 && '['}
+								{i > 0 && i < citeItems.length ? ' ' : ''}
+								{referenceNumber}
+								{i < citeItems.length - 1 ? ',' : ']'}
+							</CitationLink>
+						))
+					) : (
+						<CitationLink
+							id={`citation-${citeItems[0].referenceId}-${citeItems[0].id}`}
+							href={`#reference-${citeItems[0].referenceId}`}
+						>
+							[{citeItems[0].referenceNumber}]
+						</CitationLink>
+					)}
+				</Wrap>
 			)}
 		</Tooltip>
 	)
 }
 
-const CitationLink = styled.a`
-	${(p) => p.theme.text.content.body}
+const Wrap = styled.sup`
 	font-style: italic;
+	vertical-align: top;
+	position: relative;
+	top: -0.1em;
+	white-space: nowrap;
+`
+
+const CitationLink = styled.a`
+	font-family: inherit;
+
+	&:hover,
+	&:target,
+	&.focus-visible {
+		color: ${(p) => p.theme.primaryLinkText};
+		text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
+	}
 `
 
 const CitationText = styled.span`
 	${(p) => p.theme.text.system.body};
 	display: block;
 	text-align: left;
-	padding: ${(p) => p.theme.space[0.5]};
+	margin: ${(p) => p.theme.space[0.5]};
 
 	b {
 		display: inline-block;
@@ -65,8 +108,6 @@ const CitationText = styled.span`
 	}
 `
 
-const SuperScript = styled.sup`
-	vertical-align: top;
-	position: relative;
-	top: -0.1em;
+const StyledDivider = styled(Divider)`
+	margin: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[0.5]};
 `

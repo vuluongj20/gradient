@@ -26,42 +26,46 @@ module.exports = ({ markdownAST }) => {
    */
   const referenceOrder = []
   /**
-   * Record of citations, organized by the correpsonding reference ID.
+   * Record of citations, organized by the corresponding reference keys.
    */
   const citations = {}
 
   visit(markdownAST, 'cite', (node) => {
     const { data } = node
-    const referenceId = data && data.citeItems && data.citeItems[0].key
 
-    if (!referenceId) {
-      return
-    }
+    const citeItems = []
+    data.citeItems.forEach(({ key, suppressAuthor, prefix, suffix }) => {
+      const referenceId = key
 
-    if (!referenceOrder.includes(referenceId)) {
-      referenceOrder.push(referenceId)
-    }
+      if (!referenceOrder.includes(referenceId)) {
+        referenceOrder.push(referenceId)
+      }
 
-    if (!citations[referenceId]) {
-      citations[referenceId] = []
-    }
+      if (!citations[referenceId]) {
+        citations[referenceId] = []
+      }
 
-    const citationNumber = citations[referenceId].length
-    const citationId =
-      citationNumber <= 25
-        ? String.fromCharCode(97 + citationNumber)
-        : String(citationNumber - 25)
-    citations[referenceId].push(citationId)
+      const citationPosition = citations[referenceId].length
+      const citationId =
+        citationPosition <= 25
+          ? String.fromCharCode(97 + citationPosition)
+          : String(citationPosition - 25)
+      citations[referenceId].push(citationId)
 
-    const referenceIndex = referenceOrder.findIndex((id) => id === referenceId)
+      const referenceNumber = referenceOrder.findIndex((id) => id === referenceId) + 1
+      citeItems.push({
+        id: citationId,
+        referenceId,
+        referenceNumber,
+        suppressAuthor,
+        prefix,
+        suffix,
+      })
+    })
 
     node.type = 'mdxJsxFlowElement'
     node.name = 'Citation'
-    node.attributes = attributes({
-      id: citationId,
-      referenceId,
-      referenceNumber: referenceIndex + 1,
-    })
+    node.attributes = attributes({ citeItems })
   })
 
   visit(markdownAST, 'mdxJsxFlowElement', (node) => {

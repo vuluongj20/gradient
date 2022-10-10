@@ -85,9 +85,10 @@ const ReferenceItem = styled.li`
 
 const ReferenceContent = styled.span`
 	b {
-		display: inline-block;
-		margin-bottom: ${(p) => p.theme.space[0]};
 		font-weight: 500;
+	}
+	br {
+		margin-bottom: ${(p) => p.theme.space[0]};
 	}
 `
 
@@ -96,7 +97,7 @@ const ReferenceBackRef = styled.a`
 	align-items: center;
 	height: 1.4em;
 	margin-left: ${(p) => p.theme.space[0]};
-	transform: translateY(0.25em);
+	transform: translateY(0.15em);
 
 	color: ${(p) => p.theme.label};
 	font-size: ${(p) => p.theme.text.system.small.fontSize};

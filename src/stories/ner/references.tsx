@@ -48,4 +48,36 @@ export const references: CSL.Data[] = [
     publisher: 'Morgan Kaufmann Publishers Inc.',
     title: 'Maximum Entropy Markov Models for Information Extraction and Segmentation',
   },
+  {
+    'publisher-place': 'San Francisco, CA, USA',
+    'number-of-pages': '8',
+    author: [
+      {
+        given: 'John D.',
+        family: 'Lafferty',
+      },
+      {
+        given: 'Andrew',
+        family: 'McCallum',
+      },
+      {
+        given: 'Fernando C. N.',
+        family: 'Pereira',
+      },
+    ],
+    'container-title':
+      'Proceedings of the Eighteenth International Conference on Machine Learning',
+    'collection-title': "ICML '01",
+    type: 'paper-conference',
+    id: 'Lafferty2001',
+    'citation-label': '10.5555/645530.655813',
+    ISBN: '1558607781',
+    issued: {
+      'date-parts': [[2001]],
+    },
+    page: '282-289',
+    publisher: 'Morgan Kaufmann Publishers Inc.',
+    title:
+      'Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data',
+  },
 ]
