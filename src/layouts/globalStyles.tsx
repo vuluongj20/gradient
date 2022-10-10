@@ -136,9 +136,22 @@ const GlobalStyles = createGlobalStyle`
   .autolinked-header.before {
     ${(p) => p.theme.flexCenter};
     height: 100%;
+    padding-right: ${(p) => p.theme.space[0.5]};
+
+    > div {
+      ${(p) => p.theme.flexCenter};
+    }
+
+    ${(p) => p.theme.media.xs} {
+      padding-right: ${(p) => p.theme.space[0]};
+    }
   }
   .autolinked-header svg {
     fill: ${(p) => p.theme.label};
+
+    ${(p) => p.theme.media.xs} {
+      width: 0.75em;
+    }
   }
 
   .katex {

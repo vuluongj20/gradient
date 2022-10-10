@@ -29,6 +29,21 @@ export const Heading = styled.h2<Props>`
 	/* Force line breaks after each word */
 	word-spacing: 100em;
 	text-align: center;
+
+	.autolinked-header.before {
+		position: absolute;
+		width: 100%;
+		height: auto;
+		top: auto;
+		bottom: 0;
+		left: 0;
+		padding-top: ${(p) => p.theme.space[0.5]};
+		transform: translateY(100%);
+
+		${(p) => p.theme.media.xs} {
+			padding-top: 0;
+		}
+	}
 `
 
 export const Subheading = styled.h3<Props>`
