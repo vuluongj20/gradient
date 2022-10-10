@@ -23,6 +23,7 @@ module.exports = {
           ['@utils', './src/utils'],
           ['@layouts', './src/layouts'],
           ['@theme', './src/layouts/theme'],
+          ['@templates', './src/layouts/templates'],
           ['@components', './src/components'],
           ['@pageComponents', './src/pageComponents'],
           ['@icons', './src/icons'],

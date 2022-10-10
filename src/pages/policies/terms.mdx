@@ -5,6 +5,8 @@ description: All the terms that you agree to when you use our website.
 lastEdited: 2021-11-08
 ---
 
+import PoliciesTemplate from '@templates/policies'
+
 import SEO from '@components/seo'
 
 From everyone at Gradient, thank you for visiting our website! We build them to help you do your best work. Because we don't know every one of our users personally, we have to put in place some Terms of Service to help keep the ship afloat.
@@ -91,6 +93,8 @@ If you have a question about any of the Terms of Service, please contact us at [
 ---
 
 Adapted from the [Basecamp open-source policies](https://github.com/basecamp/policies) / [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+export default PoliciesTemplate
 
 export const Head = ({ pageContext: { frontmatter } }) => (
   <SEO title={frontmatter.title} description={frontmatter.description} />

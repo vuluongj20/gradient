@@ -30,6 +30,8 @@
 			"@layouts/*": ["./src/layouts/*"],
 			"@theme": ["./src/layouts/theme"],
 			"@theme/*": ["./src/layouts/theme/*"],
+			"@templates": ["./src/templates"],
+			"@templates/*": ["./src/templates/*"],
 			"@images": ["./src/images"],
 			"@images/*": ["./src/images/*"]
 		}

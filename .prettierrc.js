@@ -11,6 +11,7 @@ module.exports = {
     '^@data(/(.*))*$',
     '^@layouts(/(.*))*$',
     '^@theme(/(.*))*$',
+    '^@templates/(.*)$',
     '^@components/(.*)$',
     '^@pageComponents/(.*)$',
     '^@icons/(.*)$',

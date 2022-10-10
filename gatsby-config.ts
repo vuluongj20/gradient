@@ -110,6 +110,7 @@ const config: GatsbyConfig = {
           '@types': path.resolve(__dirname, 'src/types'),
           '@layouts': path.resolve(__dirname, 'src/layouts'),
           '@theme': path.resolve(__dirname, 'src/layouts/theme'),
+          '@templates': path.resolve(__dirname, 'src/templates'),
           '@images': path.resolve(__dirname, 'src/images'),
         },
         extensions: ['js', 'jsx', 'ts', 'tsx'],
