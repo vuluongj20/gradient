@@ -3,8 +3,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { Page } from '@types'
 
 type PolicyMDX = {
-	slug: string
 	frontmatter: {
+		slug: string
 		title: string
 	}
 }
@@ -28,7 +28,7 @@ const usePoliciesPages = (): Page[] => {
 		return {
 			slug: page.frontmatter.slug,
 			title: page.frontmatter.title,
-			path: `/policies/${page.slug}`,
+			path: `/policies/${page.frontmatter.slug}`,
 		}
 	})
 }

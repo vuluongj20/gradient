@@ -1,5 +1,5 @@
-import 'citeproc-types'
-import 'csl-json'
+import('citeproc-types')
+import('csl-json')
 
 declare module '*.jpg'
 declare module '*.png'

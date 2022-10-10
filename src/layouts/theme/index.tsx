@@ -4,7 +4,6 @@ import { TextScale, textScales } from '@theme/text'
 import { Utils, generateUtils } from '@theme/utils'
 
 import {
-	Breakpoint,
 	boxShadowsDark,
 	boxShadowsLight,
 	breakpoints,
@@ -30,19 +29,19 @@ export type Theme = ColorPalette['colors'] &
 			viz: TextScale
 		}
 		/** Box shadow */
-		shadows: Record<keyof typeof boxShadowsLight, string> & {
+		shadows: typeof boxShadowsLight & {
 			text: string
 		}
 		/** Animation */
 		animation: Animation
 		/** Breakpoints */
-		breakpoints: Record<Breakpoint, string>
+		breakpoints: typeof breakpoints
 		/** Border radius */
-		radii: Record<keyof typeof radii, string>
+		radii: typeof radii
 		/** z-indices */
-		zIndices: Record<string, number>
+		zIndices: typeof zIndices
 		/** Spacing */
-		space: Record<number, string>
+		space: typeof space
 	}
 
 export type ThemeSettings = {

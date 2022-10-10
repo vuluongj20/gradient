@@ -7,8 +7,8 @@ export type AlertProps = {
 	title?: string
 	leadingItem?: ReactNode
 	children?: ReactNode
-	marginTop?: number
-	marginBottom?: number
+	marginTop?: keyof Theme['space']
+	marginBottom?: keyof Theme['space']
 	gridColumn?: keyof Theme['gridColumn']
 }
 

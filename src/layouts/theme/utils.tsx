@@ -45,7 +45,7 @@ type PartialTheme = Omit<Theme, keyof Utils>
 
 const breakpointNames = Object.keys(breakpoints) as Breakpoint[]
 
-const adaptiveSpacing: Record<number, Record<Breakpoint, number>> = {
+const adaptiveSpacing: Record<number, Record<Breakpoint, keyof Theme['space']>> = {
 	0: { xl: 0, l: 0, m: 0, s: 0, xs: 0 },
 	0.5: { xl: 0.5, l: 0.5, m: 0.5, s: 0.5, xs: 0.5 },
 	1: { xl: 1, l: 1, m: 1, s: 1, xs: 0 },
