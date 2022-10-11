@@ -86,6 +86,24 @@ const ReferenceItem = styled.li`
 const ReferenceContent = styled.span`
 	b {
 		font-weight: 500;
+		margin-right: ${(p) => p.theme.space[0.5]};
+	}
+	a {
+		color: ${(p) => p.theme.label};
+		text-decoration: underline;
+		text-decoration-color: ${(p) => p.theme.linkUnderline};
+
+		&:hover,
+		&.focus-visible {
+			color: ${(p) => p.theme.contentLinkText};
+			text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+		}
+
+		&::before {
+			content: '|';
+			color: ${(p) => p.theme.oLine};
+			margin-right: ${(p) => p.theme.space[0.5]};
+		}
 	}
 	br {
 		margin-bottom: ${(p) => p.theme.space[0]};

@@ -76,7 +76,6 @@ export const Citation = ({ citeItems }: CitationProps) => {
 }
 
 const Wrap = styled.sup`
-	font-style: italic;
 	vertical-align: top;
 	position: relative;
 	top: -0.1em;
@@ -85,12 +84,13 @@ const Wrap = styled.sup`
 
 const CitationLink = styled.a`
 	font-family: inherit;
+	color: ${(p) => p.theme.label};
 
 	&:hover,
 	&:target,
 	&.focus-visible {
-		color: ${(p) => p.theme.primaryLinkText};
-		text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
+		color: ${(p) => p.theme.contentLinkText};
+		text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
 	}
 `
 
@@ -101,10 +101,29 @@ const CitationText = styled.span`
 	margin: ${(p) => p.theme.space[0.5]};
 
 	b {
-		display: inline-block;
-		margin-bottom: ${(p) => p.theme.space[0]};
+		margin-right: ${(p) => p.theme.space[0.5]};
 		color: ${(p) => p.theme.heading};
 		font-weight: 500;
+	}
+	br {
+		margin-bottom: ${(p) => p.theme.space[0]};
+	}
+	a {
+		color: ${(p) => p.theme.label};
+		text-decoration: underline;
+		text-decoration-color: ${(p) => p.theme.linkUnderline};
+
+		&:hover,
+		&.focus-visible {
+			color: ${(p) => p.theme.contentLinkText};
+			text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+		}
+
+		&::before {
+			content: '|';
+			color: ${(p) => p.theme.oLine};
+			margin-right: ${(p) => p.theme.space[0.5]};
+		}
 	}
 `
 

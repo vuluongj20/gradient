@@ -1,5 +1,28 @@
 export const references: CSL.Data[] = [
   {
+    'container-title': 'Sixth Message Understanding Conference (MUC-6)',
+    author: [
+      {
+        given: 'Beth',
+        family: 'Sundheim',
+      },
+      {
+        given: 'Nancy',
+        family: 'Chinchor',
+      },
+    ],
+    type: 'paper-conference',
+    id: 'Sundheim1995',
+    'citation-label': 'Sundheim1995',
+    issued: {
+      'date-parts': [[1995]],
+    },
+    page: '319-332',
+    title: 'Named Entity Task Definition (Version 2.1)',
+    URL: 'https://aclanthology.org/M95-1024.pdf',
+  },
+
+  {
     id: 'Bikel1999',
     type: 'article',
     author: [
