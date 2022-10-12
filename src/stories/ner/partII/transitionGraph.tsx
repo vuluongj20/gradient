@@ -17,7 +17,7 @@ const createGraph = () => {
 		const subscript = String.fromCodePoint(0x2080 + i + 1)
 
 		const x = new Node({
-			label: `X${subscript}`,
+			label: `S${subscript}`,
 			forceX,
 			forceY: 0,
 			x: forceX,

@@ -16,14 +16,14 @@ const createGraph = () => {
 		const subscript = String.fromCodePoint(0x2080 + i + 1)
 
 		const x = new Node({
-			label: `X${subscript}`,
+			label: `S${subscript}`,
 			forceX,
 			forceY: -40,
 			x: forceX,
 			y: -40,
 		})
 		const y = new Node({
-			label: `Y${subscript}`,
+			label: `O${subscript}`,
 			forceX,
 			forceY: 40,
 			x: forceX,

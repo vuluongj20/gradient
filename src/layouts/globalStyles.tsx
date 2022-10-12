@@ -160,10 +160,12 @@ const GlobalStyles = createGlobalStyle`
     transition: color ${(p) => p.theme.animation.vFastOut};
   }
   .katex-display {
+    ${(p) => p.theme.text.content.body}
+    ${(p) => p.theme.marginBottom[3]}
+
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    ${(p) => p.theme.marginBottom[3]}
   }
 `
 

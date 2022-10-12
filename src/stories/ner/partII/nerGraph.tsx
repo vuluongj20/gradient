@@ -8,8 +8,8 @@ import GraphView from '../graph/view'
 
 import Grid from '@components/grid'
 
-const X = ['O', 'B-LOC', 'I-LOC', 'O', 'O', 'B-LOC', 'I-LOC']
-const Y = ['Great', 'Birnam', 'Wood', 'to', 'high', 'Dunsinane', 'Hill']
+const S = ['O', 'B-LOC', 'I-LOC', 'O', 'O', 'B-LOC', 'I-LOC']
+const O = ['Great', 'Birnam', 'Wood', 'to', 'high', 'Dunsinane', 'Hill']
 
 const createGraph = () => {
 	const graph = new Graph()
@@ -17,44 +17,44 @@ const createGraph = () => {
 	const hiddenLayer = []
 	const observedLayer = []
 
-	for (let i = 0; i < X.length; i++) {
-		const forceX = (i - (X.length - 1) / 2) * 80
+	for (let i = 0; i < S.length; i++) {
+		const forceX = (i - (S.length - 1) / 2) * 80
 
-		const x = new Node({
-			label: X[i],
+		const s = new Node({
+			label: S[i],
 			forceX,
 			forceY: -40,
 			x: forceX,
 			y: -40,
 		})
-		const y = new Node({
-			label: Y[i],
+		const o = new Node({
+			label: O[i],
 			forceX,
 			forceY: 40,
 			x: forceX,
 			y: 40,
 		})
 
-		graph.addNode(x)
-		graph.addNode(y)
+		graph.addNode(s)
+		graph.addNode(o)
 
 		graph.addEdge(
 			new Edge({
-				nodes: { source: x.id, target: y.id },
+				nodes: { source: s.id, target: o.id },
 				isDirected: true,
 			}),
 		)
 		if (i > 0) {
 			graph.addEdge(
 				new Edge({
-					nodes: { source: hiddenLayer[hiddenLayer.length - 1].id, target: x.id },
+					nodes: { source: hiddenLayer[hiddenLayer.length - 1].id, target: s.id },
 					isDirected: true,
 				}),
 			)
 		}
 
-		hiddenLayer.push(x)
-		observedLayer.push(y)
+		hiddenLayer.push(s)
+		observedLayer.push(o)
 	}
 
 	return graph

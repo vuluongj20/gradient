@@ -77,19 +77,19 @@ For more detailed accounts of probabilistic graphical models, consider reading t
 
 ## II. Hidden Markov Models
 
-Hidden Markov Models (HMMs) are an early class of probabilistic graphical models representing partially hidden (unobserved) sequences of events. Structurally, they are built with two main layers, one hidden and one observed:
+Hidden Markov Models (HMMs) are an early class of probabilistic graphical models representing partially hidden (unobserved) sequences of events. Structurally, they are built with two main layers, one hidden ($S_i$) and one observed ($O_i$):
 
 <OverviewGraph />
 
-States inside the hidden layer ($X_n$) can be inferred using data in the observed layer ($Y_n$).
+HMMs have been successfully applied to a wide range of problems, including gene analysis [@Shatkay2000], information extraction [@Leek1997; @Freitag1999], speech recognition [@Rabiner1989], as well ass named entity recognition [@Bikel1999].
 
 ### The Hidden Layer
 
-The hidden layer is assumed to be a Markov process: a chain of events in which each event’s probability depends only on the state of the preceding event. More formally, given a sequence of $N$ random events $X_1$, $X_2$,…, $X_N$, the Markov assumption holds that:
+The hidden layer is assumed to be a Markov process: a chain of events in which each event’s probability depends only on the state of the preceding event. More formally, given a sequence of $N$ random events $S_1$, $S_2$,…, $S_N$, the Markov assumption holds that:
 
 $$
-p(x_i | x_1, x_2,…, x_{i-1}) = p(x_i | x_{i-1}) \\
-\footnotesize \textrm{for all $i \in S = \{2,…, N\}$}
+p(s_i | s_1, s_2,…, s_{i-1}) = p(s_i | s_{i-1}) \\
+\footnotesize \textrm{for all $i \in \{2,…, N\}$}
 $$
 
 In a graph, this translates to a linear chain of events where each event has exactly one arrow pointing towards it (except for the first event) and one pointing away from it (except for the last):
@@ -99,28 +99,28 @@ In a graph, this translates to a linear chain of events where each event has exa
 A second assumption that HMMs make is time-homogeneity: that the probability of transition from one event's state to the next is constant over time. In formal terms:
 
 $$
-p(x_i | x_{i-1}) = p(x_{i+1} | x_i) \\
-\footnotesize \textrm{for all $i \in S = \{2,…, N-1\}$}
+p(s_i | s_{i-1}) = p(s_{i+1} | s_i) \\
+\footnotesize \textrm{for all $i \in \{2,…, N-1\}$}
 $$
 
-$p(x_i | x_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
+$p(s_i | s_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
 
 The assumptions about the hidden layer – Markov and time-homogeneity – hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
 
 ### The Observed Layer
 
-The hidden and observed layer are connected via a one-to-one mapping relationship. The probability of each observed event is assumed to depend only on the state of the hidden event at the same time step. Given a sequence of $N$ hidden events $X_1$, $X_2$,…, $X_N$ and observed events $Y_1$, $Y_2$,…, $Y_N$ we have:
+The hidden and observed layer are connected via a one-to-one mapping relationship. The probability of each observed event is assumed to depend only on the state of the hidden event at the same time step. Given a sequence of $N$ hidden events $S_1$, $S_2$,…, $S_N$ and observed events $O_1$, $O_2$,…, $O_N$ we have:
 
 $$
-p(y_i | x_1, x_2,…, x_N) = p(y_i | x_i) \\
-\footnotesize \textrm{for all $i \in S = \{1, 2,…, N\}$}
+p(o_i | s_1, s_2,…, s_N) = p(o_i | s_i) \\
+\footnotesize \textrm{for all $i \in \{1, 2,…, N\}$}
 $$
 
 In a graph, this one-to-one relationship looks like:
 
 <EmissionGraph />
 
-The conditional probability $p(y_i | x_i)$, called the emission probability, is also assumed to be time-homogenous, further reducing the model's complexity. It is the second key parameter to be learned, alongside the transition probability.
+The conditional probability $p(o_i | s_i)$, called the emission probability, is also assumed to be time-homogenous, further reducing the model's complexity. It is the second key parameter to be learned, alongside the transition probability.
 
 ### Representing Named Entities
 
