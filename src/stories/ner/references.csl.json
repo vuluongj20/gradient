@@ -1,0 +1,140 @@
+[
+  {
+    "author": [{ "given": "Nancy", "family": "Chinchor" }],
+    "container-title": "Seventh Message Understanding Conference (MUC-7)",
+    "type": "paper-conference",
+    "id": "Chinchor1998",
+    "issued": { "date-parts": [[1998]] },
+    "title": "MUC-7 Named Entity Task Definition (Version 3.5)",
+    "URL": "https://aclanthology.org/M98-1028.pdf"
+  },
+  {
+    "author": [
+      { "given": "Daphne", "family": "Koller" },
+      { "given": "Nir", "family": "Friedman" }
+    ],
+    "type": "book",
+    "id": "Koller2009",
+    "ISBN": "0262013193",
+    "issued": { "date-parts": [[2009]] },
+    "publisher": "The MIT Press",
+    "title": "Probabilistic Graphical Models: Principles and Techniques - Adaptive Computation and Machine Learning"
+  },
+  {
+    "publisher-place": "San Francisco, CA, USA",
+    "author": [{ "given": "Judea", "family": "Pearl" }],
+    "type": "book",
+    "id": "Pearl1988",
+    "ISBN": "1558604790",
+    "issued": { "date-parts": [[1988]] },
+    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "title": "Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference"
+  },
+  {
+    "author": [{ "given": "Timothy Robert", "family": "Leek" }],
+    "type": "thesis",
+    "id": "Leek1997",
+    "issued": { "date-parts": [[1997]] },
+    "publisher": "Master's Thesis, UC San Diego",
+    "title": "Information Extraction Using Hidden Markov Models"
+  },
+  {
+    "number-of-pages": "6",
+    "author": [
+      { "given": "Dayne", "family": "Freitag" },
+      { "given": "Andrew", "family": "McCallum" }
+    ],
+    "container-title": "Papers from the AAAI-99 Workshop on Machine Learning for Information Extraction",
+    "collection-title": "AAAI Techinical Report WS-99-11",
+    "type": "paper-conference",
+    "id": "Freitag1999",
+    "ISBN": "1558607072",
+    "issued": { "date-parts": [[1999]] },
+    "page": "31-36",
+    "title": "Information Extraction with HMMs and Shrinkage",
+    "URL": "https://www.aaai.org/Papers/Workshops/1999/WS-99-11/WS99-11-006.pdf"
+  },
+  {
+    "container-title": "Proceedings of the IEEE",
+    "author": [{ "given": "Lawrence", "family": "R Rabiner" }],
+    "DOI": "10.1109/5.18626",
+    "type": "article-journal",
+    "id": "Rabiner1989",
+    "issue": 2,
+    "issued": { "date-parts": [[1989]] },
+    "page": "257-286",
+    "title": "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition",
+    "volume": 77
+  },
+  {
+    "container-title": "Proceedings of the  International Conference on Intelligent Systems for Molecular Biology",
+    "author": [
+      { "given": "Hagit", "family": "Shatkay" },
+      { "given": "Stephen", "family": "Edwards" },
+      { "given": "W John", "family": "Wilbur" },
+      { "given": "Mark", "family": "Boguski" }
+    ],
+    "type": "paper-conference",
+    "id": "Shatkay2000",
+    "issue": 8,
+    "issued": { "date-parts": [[2000]] },
+    "page": "317-328",
+    "title": "Genes, Themes and Microarrays: Using Information Retrieval for Large-Scale Gene Analysis"
+  },
+  {
+    "author": [
+      { "family": "Bikel", "given": "Daniel M." },
+      { "family": "Schwartz", "given": "Richard" },
+      { "family": "Weischedel", "given": "Ralph M." }
+    ],
+    "issued": { "date-parts": [[1999, 2, 1]] },
+    "DOI": "10.1023/A:1007558221122",
+    "id": "Bikel1999",
+    "issue": 1,
+    "ISSN": "1573-0565",
+    "page": "211-231",
+    "title": "An Algorithm that Learns What's in a Name",
+    "type": "article-journal",
+    "URL": "https://link.springer.com/content/pdf/10.1023/A:1007558221122.pdf",
+    "volume": 34,
+    "container-title": "Machine Learning"
+  },
+  {
+    "publisher-place": "San Francisco, CA, USA",
+    "number-of-pages": "8",
+    "author": [
+      { "given": "Andrew", "family": "McCallum" },
+      { "given": "Dayne", "family": "Freitag" },
+      { "given": "Fernando C. N.", "family": "Pereira" }
+    ],
+    "container-title": "Proceedings of the Seventeenth International Conference on Machine Learning",
+    "collection-title": "ICML '00",
+    "type": "paper-conference",
+    "id": "McCallum2000",
+    "ISBN": "1558607072",
+    "issued": { "date-parts": [[2000]] },
+    "page": "591-598",
+    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "title": "Maximum Entropy Markov Models for Information Extraction and Segmentation",
+    "URL": "http://www.ai.mit.edu/courses/6.891-nlp/READINGS/maxent.pdf"
+  },
+  {
+    "publisher-place": "San Francisco, CA, USA",
+    "number-of-pages": "8",
+    "author": [
+      { "given": "John D.", "family": "Lafferty" },
+      { "given": "Andrew", "family": "McCallum" },
+      { "given": "Fernando C. N.", "family": "Pereira" }
+    ],
+    "container-title": "Proceedings of the Eighteenth International Conference on Machine Learning",
+    "collection-title": "ICML '01",
+    "type": "paper-conference",
+    "id": "Lafferty2001",
+    "ISBN": "1558607781",
+    "issued": { "date-parts": [[2001]] },
+    "page": "282-289",
+    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "title": "Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data",
+    "URL": "http://www.aladdin.cs.cmu.edu/papers/pdfs/y2001/crf.pdf"
+  }
+]

@@ -101,8 +101,10 @@ const ReferenceContent = styled.span`
 
 		&::before {
 			content: '|';
+			display: inline-block;
 			color: ${(p) => p.theme.oLine};
 			margin-right: ${(p) => p.theme.space[0.5]};
+			text-decoration: none;
 		}
 	}
 	br {

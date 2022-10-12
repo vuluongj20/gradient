@@ -23,7 +23,7 @@ import TransitionGraph from './partII/transitionGraph'
 
 </Header>
 
-“The UK” alone is a country, but “The UK Department of Transport” is an organization within said country. In a named entity recognition (NER) task [@Sundheim1995], where we want to label each word with a name tag (organization/person/location/not a name), how can a computer model know one from the other?
+“The UK” alone is a country, but “The UK Department of Transport” is an organization within said country. In a named entity recognition (NER) task [@Chinchor1998], where we want to label each word with a name tag (organization/person/location/not a name), how can a computer model know one from the other?
 
 In such cases, contextual information is key. In the second example, the fact that “The UK” is followed by “Department” is compelling evidence that when taken together the phrase refers to an organization. Sequence models – machine learning systems designed to take sequences of data as input, can recognize and put such relationships to productive use. Rather than making isolated predictions based on individual words or word groups, they take the given sequence as a combined unit, model the dependencies between words in that sequences, and depending on the problem can return the most likely label sequence.
 
@@ -71,6 +71,8 @@ Below is what a sampled population of the given distributions would look like. F
 
 <ABCDGraph />
 
+For more detailed accounts of probabilistic graphical models, consider reading the textbooks _Probabilistic Graphical Models: Principles and Techniques_ by Daphne Koller and Nir Friedman [@Koller2009] and _Probabilistic Reasoning in Intelligent Systems_ by Judea Pearl [@Pearl1988].
+
 ---
 
 ## II. Hidden Markov Models
@@ -103,7 +105,7 @@ $$
 
 $p(x_i | x_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
 
-The assumptions about the hidden layer, Markov and time-homogeneity, hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
+The assumptions about the hidden layer – Markov and time-homogeneity – hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
 
 ### The Observed Layer
 
