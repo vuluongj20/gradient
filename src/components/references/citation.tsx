@@ -44,7 +44,7 @@ export const Citation = ({ citeItems }: CitationProps) => {
 			renderWrapperAsSpan
 			renderOverlayAsSpan
 			delay={0}
-			offset={4}
+			offset={6}
 		>
 			{(tooltipProps) => (
 				<Wrap {...tooltipProps}>
@@ -76,8 +76,9 @@ export const Citation = ({ citeItems }: CitationProps) => {
 }
 
 const Wrap = styled.sup`
-	vertical-align: top;
+	display: inline-block;
 	position: relative;
+	vertical-align: top;
 	top: -0.1em;
 	white-space: nowrap;
 `
