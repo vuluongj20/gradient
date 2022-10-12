@@ -45,8 +45,8 @@ $$
 
 {
 
-<Alert title="Notation" marginBottom={3}>
-	In this article, we'll use the shorthand notation <em>p(a)</em> to mean{' '}
+<Alert title="A note on notation:" marginBottom={3}>
+	in this article, we'll use the shorthand notation <em>p(a)</em> to mean{' '}
 	<em>p(A = a)</em>, that is, the probability of variable A taking value a.
 </Alert>
 }
@@ -105,7 +105,7 @@ $$
 
 $p(s_i | s_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
 
-The assumptions about the hidden layer – Markov and time-homogeneity – hold up in many time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they help to significantly reduce the computational complexity of both learning and inference.
+The assumptions about the hidden layer – Markov and time-homogeneity – hold up in various time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they meaningfully reduce the computational complexity of both learning and inference.
 
 ### The Observed Layer
 
@@ -124,17 +124,16 @@ The conditional probability $p(o_i | s_i)$, called the emission probability, is 
 
 ### Representing Named Entities
 
-HMMs’ chain structure with two layers, one hidden and one observed, makes them particularly suited to sequence labeling problems like NER. Unknown name tags constitute the hidden layer, while word tokens from the input sequence make up the observed layer:
+HMMs’ chain structure makes them particularly suited to sequence labeling problems like NER. Unknown name tags constitute the hidden layer, while known word tokens fall into the observed layer:
 
 <NERGraph />
 
 {
 
-<Alert title="Notation" marginBottom={3}>
-	From this point forward, rather than labeling each node with the name of the variable it
-	represents (X&#8321;, Y&#8321;), we'll use the observed/predicted value of that variable
-	(“O”, “Great”). This is not standard notation, but it helps make the graphs easier to
-	parse.
+<Alert title="A note on notation:" marginBottom={3}>
+	from here on, rather than labeling each node with the name of the variable it represents
+	(X&#8321;, Y&#8321;), we'll use the observed/predicted value of that variable (“O”,
+	“Great”). This helps make the graphs easier to read.
 </Alert>
 }
 

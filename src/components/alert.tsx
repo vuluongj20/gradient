@@ -26,11 +26,7 @@ const Alert = ({ title, leadingItem, children, ...props }: AlertProps) => {
 
 export default Alert
 
-const Wrap = styled.div<AlertProps>`
-	display: grid;
-	grid-auto-flow: column;
-	grid-template-columns: minmax(min-content, max-content) 1fr;
-	grid-template-rows: max-content max-content;
+const Wrap = styled.p<AlertProps>`
 	column-gap: ${(p) => p.theme.space[0]};
 
 	border-top: solid 1px ${(p) => p.theme.line};
@@ -44,12 +40,12 @@ const Wrap = styled.div<AlertProps>`
 	${(p) => p.marginBottom && `margin-bottom: ${p.theme.space[p.marginBottom]}`}
 `
 
-const Content = styled.div<{ row: number; column: number }>`
+const Content = styled.span<{ row: number; column: number }>`
 	grid-row: ${(p) => p.row};
 	grid-column: ${(p) => p.column};
 `
 
-const LeadingWrap = styled.div`
+const LeadingWrap = styled.span`
 	grid-row: 1;
 	grid-column: 1;
 
@@ -57,7 +53,7 @@ const LeadingWrap = styled.div`
 	align-items: center;
 `
 
-export const Title = styled.p<{ column: number }>`
+export const Title = styled.span<{ column: number }>`
 	grid-row: 1;
 	grid-column: ${(p) => p.column};
 
