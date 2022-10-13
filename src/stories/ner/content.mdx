@@ -5,6 +5,7 @@ import EmissionGraph from './partII/emissionGraph'
 import NERGraph from './partII/nerGraph'
 import OverviewGraph from './partII/overviewGraph'
 import TransitionGraph from './partII/transitionGraph'
+import TransitionPaths from './partII/transitionPaths'
 
 <Header>
 
@@ -141,7 +142,7 @@ Each name tag apart from the “O” tag contains either a B- (beginning) or I- 
 
 There are 9 name tags, resulting in a total of 9&#178; = 81 possible transitions between any two consecutive hidden states. Each transition path has its own associated transition probability:
 
-– transition visualization
+<TransitionPaths nStates={2} />
 
 The number of emission probabilities is orders of magnitude larger. Each node in the observed layer can be any word in the known vocabulary, whose size ranges anywhere from thousands to hundreds of thousands of words (the one created for the HMM in this article contains 23,622 tokens). Let N be the number of word tokens in the known vocabulary. There is a total of 9N possible emission probabilities:
 
@@ -157,9 +158,9 @@ For example, to get the transition probability from state “O” to state “B-
 
 In the context of HMMs, inference involves answering useful questions about hidden states given observed values, or about missing values in a partially observed sequence. For NER, we are focused on the first type of inference. Specifically, we want to perform maximum a posteriori (MAP) inference: identifying the most likely sequence of states in the hidden layer conditioned on observed values.
 
-The number of possible sequences in the hidden layer can easily be intractably large. For any two consecutive states, there are 81 potential transition paths. For 3 consecutive states there are 82&#178; different paths. For 4 states there are 82&#179; paths, and so on.
+The number of possible sequences in the hidden layer can become intractably large. For any two consecutive states, there are 81 different transition paths. For three states there are 82&#178; paths. This number continues to grow exponentially alongside the number of states.
 
-– trellis graph w/ 4 states & potentially fade-out effect on the right
+<TransitionPaths nStates={3} />
 
 Given the massive number of potential paths, brute force algorithms are not an option. Doing so would involve calculating the probability of every possible transition path in a sequence, and then finding the path with the highest probability among them.
 
