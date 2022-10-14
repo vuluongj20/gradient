@@ -2,6 +2,7 @@ import Demo from './hero/demo'
 import ABCDGraph from './partI/sampling/abcdGraph'
 import StaticABCDGraph from './partI/staticABCDGraph'
 import EmissionGraph from './partII/emissionGraph'
+import EmissionPaths from './partII/emissionPaths'
 import NERGraph from './partII/nerGraph'
 import OverviewGraph from './partII/overviewGraph'
 import TransitionGraph from './partII/transitionGraph'
@@ -140,13 +141,13 @@ HMMs’ chain structure makes them particularly suited to sequence labeling prob
 
 Each name tag apart from the “O” tag contains either a B- (beginning) or I- (inside) prefix. This way, when there are two named entities next to each other (“Argentine Nestor”), there is no confusion about when an entity stops and the next one begins.
 
-There are 9 name tags, resulting in a total of 9&#178; = 81 possible transitions between any two consecutive hidden states. Each transition path has its own associated transition probability:
+There are 9 name tags, resulting in a total of 9&#178; = 81 possible transitions between any two consecutive hidden states. Each transition has its own associated probability:
 
 <TransitionPaths nStates={2} />
 
 The number of emission probabilities is orders of magnitude larger. Each node in the observed layer can be any word in the known vocabulary, whose size ranges anywhere from thousands to hundreds of thousands of words (the one created for the HMM in this article contains 23,622 tokens). Let N be the number of word tokens in the known vocabulary. There is a total of 9N possible emission probabilities:
 
-– emission visualization
+<EmissionPaths />
 
 ### Training
 

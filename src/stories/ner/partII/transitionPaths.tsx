@@ -1,17 +1,18 @@
 import { Fragment, useRef } from 'react'
 import styled from 'styled-components'
 
-import { STATE, TRANSITION_PROBABILITIES } from './constants'
+import { states, transitionProbabilities } from './constants'
 
 import BalancedText from '@components/balancedText'
 import Grid from '@components/grid'
 
 import useSize from '@utils/useSize'
 
-type Props = { nStates: number }
+function probabilityToOpacity(probability: number) {
+	return probability / (1.2 * probability + 0.75)
+}
 
-const STATES = Object.values(STATE)
-const TransitionPaths = ({ nStates }: Props) => {
+const TransitionPaths = ({ nStates }: { nStates: number }) => {
 	const innerWrapRef = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(innerWrapRef)
 
@@ -26,13 +27,13 @@ const TransitionPaths = ({ nStates }: Props) => {
 								const xStart = (-(nStates - 1) / 2 + layerIndex) * xDelta
 								const xEnd = (-(nStates - 1) / 2 + layerIndex + 1) * xDelta
 
-								const yDelta = height / STATES.length
+								const yDelta = height / states.length
 
 								return (
 									<Fragment key={layerIndex}>
 										<g>
-											{STATES.map((state, stateIndex) => {
-												const y = (-(STATES.length - 1) / 2 + stateIndex) * yDelta
+											{states.map((state, stateIndex) => {
+												const y = (-(states.length - 1) / 2 + stateIndex) * yDelta
 
 												return (
 													<text key={stateIndex} x={xStart} y={y}>
@@ -43,15 +44,19 @@ const TransitionPaths = ({ nStates }: Props) => {
 										</g>
 										{layerIndex < nStates - 1 && (
 											<g>
-												{STATES.map((sourceState, sourceStateIndex) => {
+												{states.map((sourceState, sourceStateIndex) => {
 													const ySource =
-														(-(STATES.length - 1) / 2 + sourceStateIndex) * yDelta
+														(-(states.length - 1) / 2 + sourceStateIndex) * yDelta
 
 													return (
 														<g key={sourceStateIndex}>
-															{STATES.map((targetState, targetStateIndex) => {
+															{states.map((targetState, targetStateIndex) => {
 																const yTarget =
-																	(-(STATES.length - 1) / 2 + targetStateIndex) * yDelta
+																	(-(states.length - 1) / 2 + targetStateIndex) * yDelta
+
+																const opacity = probabilityToOpacity(
+																	transitionProbabilities[sourceState][targetState],
+																)
 
 																return (
 																	<path
@@ -59,10 +64,7 @@ const TransitionPaths = ({ nStates }: Props) => {
 																		d={`M ${xStart + 30} ${ySource} L ${
 																			xEnd - 30
 																		} ${yTarget}`}
-																		strokeOpacity={
-																			TRANSITION_PROBABILITIES[sourceState][targetState] /
-																			1.5
-																		}
+																		strokeOpacity={opacity}
 																	/>
 																)
 															})}
@@ -80,9 +82,8 @@ const TransitionPaths = ({ nStates }: Props) => {
 
 				<Legend>
 					<BalancedText>
-						<strong>Transition paths between states.</strong>&nbsp;Higher opacity means
-						higher probability, based on train results. Some paths appear invisible due to
-						low probability.
+						<strong>Transition paths between states.</strong>&nbsp;Higher opacity
+						indicates higher relative probability.
 					</BalancedText>
 				</Legend>
 			</Wrap>

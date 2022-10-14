@@ -1,14 +1,14 @@
-export enum STATE {
-	BPER = 'B-PER',
-	IPER = 'I-PER',
-	BORG = 'B-ORG',
-	IORG = 'I-ORG',
-	BLOC = 'B-LOC',
-	ILOC = 'I-LOC',
-	O = 'O',
-}
+export const states: string[] = [
+	'B-PER',
+	'I-PER',
+	'B-ORG',
+	'I-ORG',
+	'B-LOC',
+	'I-LOC',
+	'O',
+]
 
-export const TRANSITION_PROBABILITIES: Record<STATE, Record<STATE, number>> = {
+export const transitionProbabilities: Record<string, Record<string, number>> = {
 	'B-ORG': {
 		'B-ORG': 0.005196,
 		O: 0.589219,
@@ -107,5 +107,99 @@ export const TRANSITION_PROBABILITIES: Record<STATE, Record<STATE, number>> = {
 		'I-ORG': 0.0,
 		'I-MISC': 0.0,
 		'I-LOC': 0.108716,
+	},
+}
+
+export const words: string[] = [
+	'Davis',
+	'St',
+	'National',
+	'South',
+	'Bank',
+	'United',
+	'India',
+]
+
+export const emissionProbabilities: Record<string, Record<string, number>> = {
+	'B-ORG': {
+		Davis: 3.34001336005344e-5,
+		St: 0.0014696058784235137,
+		South: 0.00036740146960587844,
+		United: 0.0008016032064128256,
+		National: 0.0011022044088176352,
+		Bank: 0.00046760187040748166,
+		India: 3.34001336005344e-5,
+	},
+	O: {
+		Davis: 5.416091206975925e-6,
+		St: 5.416091206975925e-6,
+		South: 5.416091206975925e-6,
+		United: 5.416091206975925e-6,
+		National: 1.6248273620927776e-5,
+		Bank: 1.083218241395185e-5,
+		India: 5.416091206975925e-6,
+	},
+	'B-MISC': {
+		Davis: 0.00025868440502586844,
+		St: 3.695491500369549e-5,
+		South: 0.0012934220251293422,
+		United: 3.695491500369549e-5,
+		National: 0.0006282335550628234,
+		Bank: 3.695491500369549e-5,
+		India: 3.695491500369549e-5,
+	},
+	'B-PER': {
+		Davis: 0.0002646990702445158,
+		St: 3.3087383780564474e-5,
+		South: 3.3087383780564474e-5,
+		United: 3.3087383780564474e-5,
+		National: 3.3087383780564474e-5,
+		Bank: 3.3087383780564474e-5,
+		India: 3.3087383780564474e-5,
+	},
+	'I-PER': {
+		Davis: 0.0002131363006642748,
+		St: 3.552271677737913e-5,
+		South: 3.552271677737913e-5,
+		United: 3.552271677737913e-5,
+		National: 3.552271677737913e-5,
+		Bank: 3.552271677737913e-5,
+		India: 3.552271677737913e-5,
+	},
+	'B-LOC': {
+		Davis: 3.250763929523438e-5,
+		St: 0.0001625381964761719,
+		South: 0.002470580586437813,
+		United: 0.0019829659970092973,
+		National: 0.000260061114361875,
+		Bank: 3.250763929523438e-5,
+		India: 0.002308042389961641,
+	},
+	'I-ORG': {
+		Davis: 3.659384491528525e-5,
+		St: 0.0003659384491528525,
+		South: 7.31876898305705e-5,
+		United: 0.0009514399677974164,
+		National: 0.0006220953635598492,
+		Bank: 0.0011344091923738426,
+		India: 0.00025615691440699674,
+	},
+	'I-MISC': {
+		Davis: 4.035838243603196e-5,
+		St: 4.035838243603196e-5,
+		South: 4.035838243603196e-5,
+		United: 4.035838243603196e-5,
+		National: 0.00020179191218015982,
+		Bank: 4.035838243603196e-5,
+		India: 8.071676487206392e-5,
+	},
+	'I-LOC': {
+		Davis: 4.0355125100887815e-5,
+		St: 8.071025020177563e-5,
+		South: 8.071025020177563e-5,
+		United: 4.0355125100887815e-5,
+		National: 4.0355125100887815e-5,
+		Bank: 0.0013317191283292978,
+		India: 8.071025020177563e-5,
 	},
 }
