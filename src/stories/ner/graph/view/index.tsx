@@ -12,6 +12,9 @@ import useSize from '@utils/useSize'
 
 type Props<Node extends BaseNode, Edge extends BaseEdge> = {
 	graph: Graph<Node, Edge>
+	disableForceNode?: boolean
+	disableForceEdge?: boolean
+	disableForceCenter?: boolean
 	renderNodePanel?: (props: {
 		node: Node
 		overlayProps: HTMLAttributes<HTMLDivElement>
@@ -22,6 +25,9 @@ type Props<Node extends BaseNode, Edge extends BaseEdge> = {
 
 const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge>({
 	graph,
+	disableForceNode,
+	disableForceEdge,
+	disableForceCenter,
 	renderNodePanel,
 	nodeEventListeners = [],
 	className,
@@ -56,6 +62,9 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 				graph={graph}
 				width={width}
 				height={height}
+				disableForceNode={disableForceNode}
+				disableForceEdge={disableForceEdge}
+				disableForceCenter={disableForceCenter}
 				nodeEventListeners={allNodeEventListeners}
 				simulationPlayState={simulationPlayState}
 				setSvgReady={setSvgReady}

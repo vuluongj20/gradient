@@ -49,6 +49,9 @@ type Props = {
 	graph: Graph
 	width?: number
 	height?: number
+	disableForceNode?: boolean
+	disableForceEdge?: boolean
+	disableForceCenter?: boolean
 	nodeEventListeners?: NodeEventListener[]
 	simulationPlayState: boolean
 	setSvgReady: Dispatch<SetStateAction<boolean>>
@@ -58,6 +61,9 @@ const ForceGraph = ({
 	graph,
 	width,
 	height,
+	disableForceNode,
+	disableForceEdge,
+	disableForceCenter,
 	nodeEventListeners,
 	simulationPlayState,
 	setSvgReady,
@@ -105,10 +111,10 @@ const ForceGraph = ({
 			.call(renderSVGNodes, mutableNodes, nodeEventListeners)
 
 		// Construct the forces.
-		const forceNode = forceManyBody<MutableNode>().strength(-800)
+		const forceNode = forceManyBody<MutableNode>().strength(disableForceNode ? 0 : -800)
 		const forceEdge = forceLink<MutableNode, MutableEdge>(mutableEdges)
 			.id((e) => e.id)
-			.strength(1)
+			.strength(disableForceEdge ? 0 : 1)
 			.distance((e) => {
 				const minDistance = 50
 				const sourceCutoff = e.source.label.length * 4.5 + 10
@@ -121,17 +127,17 @@ const ForceGraph = ({
 		)
 			.force('link', forceEdge)
 			.force('charge', forceNode)
-			.force('center', forceCenter().strength(0.1))
+			.force('center', forceCenter().strength(disableForceCenter ? 0 : 0.1))
 			.force(
 				'y',
 				forceY<MutableNode>((n) => n.forceY ?? 0).strength((n) =>
-					isDefined(n.forceY) ? 20 : 0,
+					isDefined(n.forceY) ? 2.5 : 0,
 				),
 			)
 			.force(
 				'x',
 				forceX<MutableNode>((n) => n.forceX ?? 0).strength((n) =>
-					isDefined(n.forceY) ? 20 : 0,
+					isDefined(n.forceX) ? 2.5 : 0,
 				),
 			)
 			.on('tick', ticked(renderedNodes, renderedEdges))

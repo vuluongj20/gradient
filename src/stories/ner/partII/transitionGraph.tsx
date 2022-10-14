@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import Edge from '../graph/model/edge'
@@ -8,12 +8,14 @@ import GraphView from '../graph/view'
 
 import Grid from '@components/grid'
 
-const createGraph = () => {
+import useSize from '@utils/useSize'
+
+const createGraph = (nStates: number, xDelta: number) => {
 	const graph = new Graph()
 
 	const hiddenLayer = []
-	for (let i = 0; i < 4; i++) {
-		const forceX = (i - 1.5) * 100
+	for (let i = 0; i < nStates; i++) {
+		const forceX = (i - 1.5) * xDelta
 		const subscript = String.fromCodePoint(0x2080 + i + 1)
 
 		const x = new Node({
@@ -42,12 +44,24 @@ const createGraph = () => {
 }
 
 const TransitionGraph = () => {
-	const [graph] = useState(createGraph())
+	const wrapRef = useRef<HTMLDivElement>(null)
+	const [graph, setGraph] = useState<Graph>()
+
+	const { width } = useSize(wrapRef)
+
+	useEffect(() => {
+		if (!width) return
+
+		const nStates = 4
+		const xDelta = Math.min(100, width / nStates)
+		const graph = createGraph(nStates, xDelta)
+		setGraph(graph)
+	}, [width])
 
 	return (
 		<Grid>
-			<Wrap>
-				<StyledGraphView graph={graph} />
+			<Wrap ref={wrapRef}>
+				{graph && <StyledGraphView graph={graph} disableForceEdge disableForceCenter />}
 			</Wrap>
 		</Grid>
 	)

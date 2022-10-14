@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import Edge from '../graph/model/edge'
@@ -8,17 +8,21 @@ import GraphView from '../graph/view'
 
 import Grid from '@components/grid'
 
+import useSize from '@utils/useSize'
+
 const S = ['O', 'B-LOC', 'I-LOC', 'O', 'O', 'B-LOC', 'I-LOC']
 const O = ['Great', 'Birnam', 'Wood', 'to', 'high', 'Dunsinane', 'Hill']
 
-const createGraph = () => {
+const createGraph = (shortForm: boolean, xDelta: number) => {
 	const graph = new Graph()
 
 	const hiddenLayer = []
 	const observedLayer = []
 
-	for (let i = 0; i < S.length; i++) {
-		const forceX = (i - (S.length - 1) / 2) * 80
+	const SLength = shortForm ? 3 : S.length
+
+	for (let i = 0; i < SLength; i++) {
+		const forceX = (i - (SLength - 1) / 2) * xDelta
 
 		const s = new Node({
 			label: S[i],
@@ -61,12 +65,25 @@ const createGraph = () => {
 }
 
 const NERGraph = () => {
-	const [graph] = useState(createGraph())
+	const wrapRef = useRef<HTMLDivElement>(null)
+	const [graph, setGraph] = useState<Graph>()
+
+	const { width } = useSize(wrapRef)
+
+	useEffect(() => {
+		if (!width) return
+
+		const nStates = 4
+		const shortForm = width / nStates < 160
+		const xDelta = Math.min(100, width / nStates + 10)
+		const graph = createGraph(shortForm, xDelta)
+		setGraph(graph)
+	}, [width])
 
 	return (
 		<Grid>
-			<Wrap>
-				<StyledGraphView graph={graph} />
+			<Wrap ref={wrapRef}>
+				{graph && <StyledGraphView graph={graph} disableForceEdge disableForceCenter />}
 			</Wrap>
 		</Grid>
 	)
