@@ -69,7 +69,7 @@ const GlobalStyles = createGlobalStyle`
 
   a {
     cursor: pointer;
-    border-radius: ${(p) => p.theme.radii.s};
+    border-radius: ${(p) => p.theme.radii.xs};
 
     text-decoration-line: underline;
     text-decoration-color: transparent;

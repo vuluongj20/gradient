@@ -42,6 +42,14 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 
 	useEffect(() => {
 		setMounted(true)
+
+		// Remove the tabIndex attribute from .gatsby-focus-wrapper, to restore
+		// normal tab focus behavior
+		const gatsbyFocusWrapper = document.getElementById('gatsby-focus-wrapper')
+		if (gatsbyFocusWrapper) {
+			gatsbyFocusWrapper.removeAttribute('style')
+			gatsbyFocusWrapper.removeAttribute('tabIndex')
+		}
 	}, [])
 
 	if (!mounted) {

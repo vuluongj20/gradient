@@ -93,6 +93,11 @@ const CitationLink = styled.a`
 		color: ${(p) => p.theme.contentLinkText};
 		text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
 	}
+
+	&:target,
+	&.focus-visible {
+		${(p) => p.theme.focusVisible};
+	}
 `
 
 const CitationText = styled.span`
