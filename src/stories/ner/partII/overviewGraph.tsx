@@ -23,16 +23,16 @@ const createGraph = (nStates: number, xDelta: number) => {
 		const x = new Node({
 			label: `S${subscript}`,
 			forceX,
-			forceY: -40,
+			forceY: -30,
 			x: forceX,
-			y: -40,
+			y: -30,
 		})
 		const y = new Node({
 			label: `O${subscript}`,
 			forceX,
-			forceY: 40,
+			forceY: 30,
 			x: forceX,
-			y: 40,
+			y: 30,
 		})
 
 		graph.addNode(x)
@@ -70,7 +70,7 @@ const OverviewGraph = () => {
 		if (!width) return
 
 		const nStates = 4
-		const xDelta = Math.min(100, width / nStates)
+		const xDelta = Math.min(80, width / nStates)
 		const graph = createGraph(nStates, xDelta)
 		setGraph(graph)
 	}, [width])
@@ -93,6 +93,6 @@ const Wrap = styled.div`
 `
 
 const StyledGraphView = styled(GraphView)`
-	height: 7rem;
+	height: 6rem;
 	pointer-events: none;
 `

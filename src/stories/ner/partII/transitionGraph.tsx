@@ -53,7 +53,7 @@ const TransitionGraph = () => {
 		if (!width) return
 
 		const nStates = 4
-		const xDelta = Math.min(100, width / nStates)
+		const xDelta = Math.min(80, width / nStates)
 		const graph = createGraph(nStates, xDelta)
 		setGraph(graph)
 	}, [width])

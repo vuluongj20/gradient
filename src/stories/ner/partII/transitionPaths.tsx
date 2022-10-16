@@ -23,7 +23,7 @@ const TransitionPaths = ({ nStates }: { nStates: number }) => {
 					{width && height && (
 						<SVG viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
 							{new Array(nStates).fill(0).map((_, layerIndex) => {
-								const xDelta = Math.min(200, width / (nStates - 1) - 25)
+								const xDelta = Math.min(160, width / (nStates - 1) - 25)
 								const xStart = (-(nStates - 1) / 2 + layerIndex) * xDelta
 								const xEnd = (-(nStates - 1) / 2 + layerIndex + 1) * xDelta
 
@@ -101,7 +101,7 @@ const Wrap = styled.div`
 
 const InnerWrap = styled.div`
 	position: relative;
-	height: 14rem;
+	height: 12rem;
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 

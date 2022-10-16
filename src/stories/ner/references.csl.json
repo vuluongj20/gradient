@@ -136,5 +136,23 @@
     "publisher": "Morgan Kaufmann Publishers Inc.",
     "title": "Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data",
     "URL": "http://www.aladdin.cs.cmu.edu/papers/pdfs/y2001/crf.pdf"
+  },
+  {
+    "author": [
+      {
+        "given": "A.",
+        "family": "Viterbi"
+      }
+    ],
+    "container-title": "IEEE Transactions on Information Theory",
+    "id": "Viterbi1967",
+    "issue": 2,
+    "issued": {
+      "date-parts": [[1967]]
+    },
+    "page": "260-269",
+    "title": "Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm",
+    "type": "article-journal",
+    "volume": 13
   }
 ]

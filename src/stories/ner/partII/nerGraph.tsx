@@ -27,16 +27,16 @@ const createGraph = (shortForm: boolean, xDelta: number) => {
 		const s = new Node({
 			label: S[i],
 			forceX,
-			forceY: -40,
+			forceY: -30,
 			x: forceX,
-			y: -40,
+			y: -30,
 		})
 		const o = new Node({
 			label: O[i],
 			forceX,
-			forceY: 40,
+			forceY: 30,
 			x: forceX,
-			y: 40,
+			y: 30,
 		})
 
 		graph.addNode(s)
@@ -75,7 +75,7 @@ const NERGraph = () => {
 
 		const nStates = 4
 		const shortForm = width / nStates < 160
-		const xDelta = Math.min(100, width / nStates + 10)
+		const xDelta = Math.min(80, width / nStates + 10)
 		const graph = createGraph(shortForm, xDelta)
 		setGraph(graph)
 	}, [width])
@@ -98,6 +98,6 @@ const Wrap = styled.div`
 `
 
 const StyledGraphView = styled(GraphView)`
-	height: 8rem;
+	height: 6rem;
 	pointer-events: none;
 `

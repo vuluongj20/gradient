@@ -106,7 +106,7 @@ const Wrap = styled.div`
 
 const InnerWrap = styled.div`
 	position: relative;
-	height: 14rem;
+	height: 12rem;
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
