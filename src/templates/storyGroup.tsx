@@ -107,6 +107,7 @@ const StoryGroupPage = ({ pageContext, data }: Props) => {
 					<CSSTransition
 						timeout={{ enter: 250, exit: 0 }}
 						key={filteredStories.map((s) => s.slug).join('')}
+						appear
 					>
 						<Results>
 							{filteredStories.map((story) => (
