@@ -1,10 +1,9 @@
-import { Fragment, useContext, useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
 import { ReferencesContext } from '@components/references/provider'
 import { formatReferences } from '@components/references/utils'
-import SectionDivider from '@components/sectionDivider'
 
 import IconBackRef from '@icons/backRef'
 
@@ -26,30 +25,27 @@ export const References = ({ order, citations }: Props) => {
 	const formattedReferences = formatReferences(orderedReferences)
 
 	return (
-		<Fragment>
-			<SectionDivider />
-			<Grid>
-				<ReferencesWrap>
-					<ReferencesHeader>References</ReferencesHeader>
-					<ReferencesList>
-						{orderedReferences.map(({ id }, i) => {
-							return (
-								<ReferenceItem key={id} id={`reference-${id}`}>
-									<ReferenceContent
-										dangerouslySetInnerHTML={{ __html: formattedReferences[i] }}
-									/>
-									{citations[id].map((citation) => (
-										<ReferenceBackRef key={citation} href={`#citation-${id}-${citation}`}>
-											<IconBackRef size="xs" />
-										</ReferenceBackRef>
-									))}
-								</ReferenceItem>
-							)
-						})}
-					</ReferencesList>
-				</ReferencesWrap>
-			</Grid>
-		</Fragment>
+		<Grid>
+			<ReferencesWrap>
+				<ReferencesHeader>References</ReferencesHeader>
+				<ReferencesList>
+					{orderedReferences.map(({ id }, i) => {
+						return (
+							<ReferenceItem key={id} id={`reference-${id}`}>
+								<ReferenceContent
+									dangerouslySetInnerHTML={{ __html: formattedReferences[i] }}
+								/>
+								{citations[id].map((citation) => (
+									<ReferenceBackRef key={citation} href={`#citation-${id}-${citation}`}>
+										<IconBackRef size="xs" />
+									</ReferenceBackRef>
+								))}
+							</ReferenceItem>
+						)
+					})}
+				</ReferencesList>
+			</ReferencesWrap>
+		</Grid>
 	)
 }
 
