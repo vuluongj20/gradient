@@ -6,7 +6,7 @@ const useHomePage = () =>
   mapPageData(
     useStaticQuery(graphql`
       query HomePage {
-        allPagesJson(filter: { slug: { eq: "home" } }) {
+        allPagesJson(filter: { slug: { eq: "" } }) {
           nodes {
             ...Page
           }
