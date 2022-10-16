@@ -143,11 +143,14 @@ There are 9 possible name tags. Each, apart from the “O” tag, has either a B
 
 Between any two consecutive hidden states, there are 9&#178; = 81 possible transitions. Each transition has its own probability, $p(x_i|x_{i-1})$:
 
-<TransitionPaths nStates={2} />
+<TransitionPaths
+	nStates={2}
+	label="Higher opacity indicates higher relative probability."
+/>
 
 In the observed layer, each node can have any value from the vocabulary, whose size ranges anywhere from the thousands to the hundreds of thousands. The vocabulary created for the HMM in this article contains 23,622 tokens. Let N be the number of tokens in the vocabulary. The number of possible emission probabilities is 9N ($n_{states} \cdot n_{tokens}$).
 
-<EmissionPaths />
+<EmissionPaths label="Higher opacity indicates higher relative probability." />
 
 ### Training
 

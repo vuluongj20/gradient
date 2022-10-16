@@ -1,9 +1,11 @@
 import balanceText from 'balance-text'
-import { ReactNode, useEffect, useRef } from 'react'
+import { HTMLAttributes, useEffect, useRef } from 'react'
 
-type Props = { children: ReactNode; className?: string }
-
-const BalancedText = ({ children, className }: Props) => {
+const BalancedText = ({
+	children,
+	className,
+	...props
+}: HTMLAttributes<HTMLSpanElement>) => {
 	const ref = useRef<HTMLSpanElement>(null)
 
 	useEffect(() => {
@@ -12,7 +14,7 @@ const BalancedText = ({ children, className }: Props) => {
 	})
 
 	return (
-		<span ref={ref} className={className}>
+		<span ref={ref} className={className} {...props}>
 			{children}
 		</span>
 	)

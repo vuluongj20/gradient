@@ -3,16 +3,18 @@ import styled from 'styled-components'
 
 import { emissionProbabilities, states, words } from './constants'
 
-import BalancedText from '@components/balancedText'
 import Grid from '@components/grid'
 
+import { tl } from '@utils/text'
 import useSize from '@utils/useSize'
 
 function probabilityToOpacity(probability: number) {
 	return probability / (1.2 * probability + 0.001)
 }
 
-const EmissionPaths = () => {
+const title = 'Emission paths from hidden states to observations'
+
+const EmissionPaths = ({ label }: { label: string }) => {
 	const innerWrapRef = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(innerWrapRef)
 
@@ -22,12 +24,20 @@ const EmissionPaths = () => {
 		() => (width ? Math.min(60, width / (states.length - 1) - 10) : 60),
 		[width],
 	)
+
 	return (
 		<Grid>
 			<Wrap>
 				<InnerWrap ref={innerWrapRef}>
 					{width && height && (
-						<SVG viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
+						<SVG
+							viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
+							aria-label={tl(
+								`Visualization of potential emission paths from a hidden state to its corresponding observation. The hidden state's potential values include $1. The observation's potential values include $2. There are lines connecting each potential hidden state value to each potential observation value. Each line has a different opacity indicating the emission path's probability.`,
+								states,
+								words.slice(1, -1).concat(['other words in the vocabulary']),
+							).join('')}
+						>
 							<Fragment>
 								<g>
 									{states.map((state, stateIndex) => {
@@ -85,11 +95,13 @@ const EmissionPaths = () => {
 					)}
 				</InnerWrap>
 
-				<Legend>
-					<BalancedText>
-						<strong>Emission paths from states to observations.</strong>
-						&nbsp;Higher opacity indicates higher relative probability.
-					</BalancedText>
+				<Legend aria-hidden="true">
+					<strong>
+						{title}
+						{label && '.'}
+					</strong>
+					<br />
+					{label}
 				</Legend>
 			</Wrap>
 		</Grid>
@@ -132,7 +144,7 @@ const Legend = styled.small`
 	color: ${(p) => p.theme.label};
 
 	display: block;
-	max-width: 28rem;
+	max-width: 24rem;
 	margin: 0 auto;
 	text-align: center;
 	margin-bottom: ${(p) => p.theme.space[0]};

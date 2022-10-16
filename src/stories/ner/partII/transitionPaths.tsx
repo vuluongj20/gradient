@@ -3,16 +3,18 @@ import styled from 'styled-components'
 
 import { states, transitionProbabilities } from './constants'
 
-import BalancedText from '@components/balancedText'
 import Grid from '@components/grid'
 
+import { tl } from '@utils/text'
 import useSize from '@utils/useSize'
 
 function probabilityToOpacity(probability: number) {
 	return probability / (1.2 * probability + 0.75)
 }
 
-const TransitionPaths = ({ nStates }: { nStates: number }) => {
+const title = 'Transition paths between hidden states'
+
+const TransitionPaths = ({ nStates, label }: { nStates: number; label?: string }) => {
 	const innerWrapRef = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(innerWrapRef)
 
@@ -21,7 +23,13 @@ const TransitionPaths = ({ nStates }: { nStates: number }) => {
 			<Wrap>
 				<InnerWrap ref={innerWrapRef}>
 					{width && height && (
-						<SVG viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
+						<SVG
+							viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
+							aria-label={tl(
+								`Visualization of potential transition paths between ${nStates} consecutive hidden states. Each state's potential values include $1. There are lines connecting each state's potential values to the next state's potential values. Each line has a different opacity indicating the transition path's probability.`,
+								states,
+							).join('')}
+						>
 							{new Array(nStates).fill(0).map((_, layerIndex) => {
 								const xDelta = Math.min(160, width / (nStates - 1) - 25)
 								const xStart = (-(nStates - 1) / 2 + layerIndex) * xDelta
@@ -80,11 +88,13 @@ const TransitionPaths = ({ nStates }: { nStates: number }) => {
 					)}
 				</InnerWrap>
 
-				<Legend>
-					<BalancedText>
-						<strong>Transition paths between states.</strong>&nbsp;Higher opacity
-						indicates higher relative probability.
-					</BalancedText>
+				<Legend aria-hidden="true">
+					<strong>
+						{title}
+						{label && '.'}
+					</strong>
+					<br />
+					{label}
 				</Legend>
 			</Wrap>
 		</Grid>
