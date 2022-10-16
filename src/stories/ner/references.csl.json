@@ -138,21 +138,26 @@
     "URL": "http://www.aladdin.cs.cmu.edu/papers/pdfs/y2001/crf.pdf"
   },
   {
-    "author": [
-      {
-        "given": "A.",
-        "family": "Viterbi"
-      }
-    ],
+    "author": [{ "given": "A.", "family": "Viterbi" }],
     "container-title": "IEEE Transactions on Information Theory",
     "id": "Viterbi1967",
     "issue": 2,
-    "issued": {
-      "date-parts": [[1967]]
-    },
+    "issued": { "date-parts": [[1967]] },
     "page": "260-269",
     "title": "Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm",
     "type": "article-journal",
     "volume": 13
+  },
+  {
+    "author": [
+      { "given": "Daniel", "family": "Jurafsky" },
+      { "given": "James H.", "family": "Martin" }
+    ],
+    "id": "Jurafsky2021",
+    "issued": { "date-parts": [[2021]] },
+    "page": "8-10",
+    "title": "Appendix A.4 – Decoding: The Viterbi Algorithm",
+    "type": "book",
+    "URL": "https://web.stanford.edu/~jurafsky/slp3/A.pdf"
   }
 ]

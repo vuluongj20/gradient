@@ -163,6 +163,6 @@ There is usually an intractably large number of candidate state sequences. For a
 
 <TransitionPaths nStates={4} />
 
-Given the massive number of potential paths, brute force computations are not an option. Luckily, there is an efficient dynamic algorithm that accomplishes the same goal with substantially less computational complexity: the Viterbi algorithm [@Viterbi1967]. It constructs a trellis-shaped memory structure to progressively find the most likely path as it progesses through the given sequence.
+Luckily, there is an efficient dynamic algorithm that returns the most likely path with relatively low computational complexity: the Viterbi algorithm [@Viterbi1967]. It constructs a trellis-shaped memory structure to progressively find and store the most likely path as it progesses through the given sequence. For more details, refer to the explanation in the book _Speech and Language Processing_ by Jurafsky & Martin [@Jurafsky2021].
 
 <References />
