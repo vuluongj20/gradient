@@ -21,7 +21,7 @@ const EmissionPaths = ({ label }: { label: string }) => {
 	const yTop = useMemo(() => (height ? -height / 2 + 20 : -100), [height])
 	const yBottom = useMemo(() => (height ? height / 2 - 20 : 100), [height])
 	const xDelta = useMemo(
-		() => (width ? Math.min(60, width / (states.length - 1) - 10) : 60),
+		() => (width ? Math.min(60, width / (states.length - 1) - 5) : 60),
 		[width],
 	)
 
@@ -74,7 +74,7 @@ const EmissionPaths = ({ label }: { label: string }) => {
 
 													const isMock = wordIndex === 0 || wordIndex === words.length - 1
 													const opacity = probabilityToOpacity(
-														emissionProbabilities[state]?.[word],
+														emissionProbabilities[stateIndex][wordIndex],
 													)
 
 													return (

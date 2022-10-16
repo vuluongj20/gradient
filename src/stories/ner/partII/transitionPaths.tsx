@@ -63,7 +63,9 @@ const TransitionPaths = ({ nStates, label }: { nStates: number; label?: string }
 																	(-(states.length - 1) / 2 + targetStateIndex) * yDelta
 
 																const opacity = probabilityToOpacity(
-																	transitionProbabilities[sourceState][targetState],
+																	transitionProbabilities[sourceStateIndex][
+																		targetStateIndex
+																	],
 																)
 
 																return (
@@ -111,7 +113,7 @@ const Wrap = styled.div`
 
 const InnerWrap = styled.div`
 	position: relative;
-	height: 12rem;
+	height: 14rem;
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
@@ -122,7 +124,7 @@ const SVG = styled.svg`
 	text {
 		fill: ${(p) => p.theme.body};
 		text-anchor: middle;
-		transform: translateY(0.5em);
+		transform: translateY(0.35em);
 	}
 
 	path {
