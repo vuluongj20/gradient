@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactNode, useCallback, useMemo, useRef, useState } from 'react'
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import http, { ResponseData } from './http'
@@ -192,7 +192,7 @@ const Demo = ({ models, label }: Props) => {
 			inputRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft
 		}
 
-		// if (isDev) return
+		if (isDev) return
 		debouncedUpdatePredictions(inputValue)
 	})
 
@@ -230,8 +230,29 @@ const Demo = ({ models, label }: Props) => {
 
 				<InputGroup modelNameOffset={models.length > 1}>
 					<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
-					<RandomizeButton small onPress={randomize} title="Try new text sample">
-						<IconRestart size="xl" />
+					<RandomizeButton
+						small
+						onPress={randomize}
+						title="Try new text sample"
+						isLoading={loadingPredictions}
+					>
+						<SwitchTransition>
+							<CSSTransition
+								key={initialized && loadingPredictions ? 'loading' : ''}
+								timeout={125}
+								appear
+							>
+								{initialized && loadingPredictions ? (
+									<LoadingSpinner
+										label="Loading new predictions"
+										diameter={16}
+										strokeWidth={2}
+									/>
+								) : (
+									<StyledIconRestart size="xl" />
+								)}
+							</CSSTransition>
+						</SwitchTransition>
 					</RandomizeButton>
 				</InputGroup>
 
@@ -265,18 +286,6 @@ const Demo = ({ models, label }: Props) => {
 												<ModelName scope="row">
 													<ModelNameContent>
 														<abbr title={MODEL_LABELS[model]}>{model}</abbr>
-														<CSSTransition
-															in={initialized && loadingPredictions}
-															timeout={250}
-															unmountOnExit
-															appear
-														>
-															<ModelNameSpinner
-																label="Loading new predictions"
-																diameter={12}
-																strokeWidth={1.25}
-															/>
-														</CSSTransition>
 													</ModelNameContent>
 												</ModelName>
 
@@ -321,12 +330,10 @@ const Demo = ({ models, label }: Props) => {
 
 export default Demo
 
-const MODEL_NAME_WIDTH = '4rem'
+const MODEL_NAME_WIDTH = '2.5rem'
 
 const inputPaddingRight = ({ theme }: { theme: Theme }) =>
-	`calc(${theme.space[2]} + ${theme.space[3]} + ${theme.space[2]})`
-
-const inputPaddingRightMobile = ({ theme }: { theme: Theme }) => theme.space[1.5]
+	`calc(${theme.space[2]} + ${theme.space[2]} + ${theme.space[2]})`
 
 const StyledPanel = styled(Panel)`
 	max-width: 60rem;
@@ -365,23 +372,30 @@ const Input = styled.input`
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
 	padding-right: ${inputPaddingRight};
 	width: 100%;
-
-	${(p) => p.theme.media.mobile} {
-		padding-right: ${inputPaddingRightMobile};
-	}
 `
 
-const RandomizeButton = styled(Button)`
+const RandomizeButton = styled(Button)<{ isLoading: boolean }>`
 	position: absolute;
 	top: 50%;
 	right: ${(p) => p.theme.space[1]};
 	transform: translateY(-50%);
+	width: ${(p) => p.theme.space[4]};
+	height: ${(p) => p.theme.space[4]};
 
 	color: ${(p) => p.theme.label};
+`
 
-	${(p) => p.theme.media.mobile} {
-		display: none;
-	}
+const LoadingSpinner = styled(Spinner)`
+	${(p) => p.theme.absCenter}
+	${(p) => p.theme.transitionGroupFade}
+	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	color: ${(p) => p.theme.label};
+`
+
+const StyledIconRestart = styled(IconRestart)`
+	${(p) => p.theme.absCenter}
+	${(p) => p.theme.transitionGroupFade}
+	transition: opacity ${(p) => p.theme.animation.vFastOut};
 `
 
 const ResultsWrapper = styled.div`
@@ -393,10 +407,6 @@ const ResultsAnimationWrapper = styled.div`
 
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.fastOut};
-
-	${(p) => p.theme.media.mobile} {
-		width: calc(100% - ${inputPaddingRightMobile});
-	}
 `
 
 const LoadingWrap = styled.div`
@@ -515,15 +525,6 @@ const ModelNameContent = styled.span`
 	display: flex;
 	align-items: center;
 	min-height: 3rem;
-`
-
-const ModelNameSpinner = styled(Spinner)`
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translate(50%, -50%);
-	transition: opacity ${(p) => p.theme.animation.fastOut};
-	${(p) => p.theme.transitionGroupFade}
 `
 
 const Pred = styled.td`
