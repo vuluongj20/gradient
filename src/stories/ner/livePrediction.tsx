@@ -1,9 +1,9 @@
-import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react'
+import { ChangeEvent, ReactNode, useCallback, useMemo, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
-import http, { ResponseData } from '../http'
-import { getTokenSpaces, tokenize } from '../utils'
+import http, { ResponseData } from './http'
+import { getTokenSpaces, tokenize } from './utils'
 
 import { Theme } from '@theme'
 
@@ -47,24 +47,34 @@ const SAMPLES = [
 
 enum MODEL {
 	HMM = 'hmm',
+	MEMM = 'memm',
 	CRF = 'crf',
 }
 
 const MODEL_LABELS = {
 	[MODEL.HMM]: 'Hidden Markov Model',
+	[MODEL.MEMM]: 'Maximum-Entropy Markov Model',
 	[MODEL.CRF]: 'Conditional Random Field',
 }
 
-const EMPTY_PREDS = { [MODEL.HMM]: [], [MODEL.CRF]: [] }
+const MODEL_ENDPOINTS = {
+	[MODEL.HMM]: '/hmm',
+	[MODEL.MEMM]: '/memm',
+	[MODEL.CRF]: '/crf',
+}
+
+const EMPTY_PREDS = { [MODEL.HMM]: [], [MODEL.MEMM]: [], [MODEL.CRF]: [] }
 
 const PRED_LABELS = [
 	['O', 'not a name'],
 	['ORG', 'organization'],
 	['PER', 'person'],
 	['LOC', 'location'],
+	['MISC', 'miscellaneous'],
 ]
 
-const Demo = () => {
+type Props = { models: MODEL[]; label?: ReactNode }
+const Demo = ({ models, label }: Props) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
 
@@ -82,7 +92,7 @@ const Demo = () => {
 
 	const debouncedUpdatePredictions = useMemo(
 		() =>
-			debounce<[value: string]>((value) => {
+			debounce<[value: string]>((value: string) => {
 				const tokens = tokenize(value)
 
 				if (tokens.length === 0) {
@@ -96,24 +106,29 @@ const Demo = () => {
 				}
 
 				const cancelable = makeCancelable(
-					Promise.all([
-						http.post<ResponseData>('/hmm', { instances: [tokens] }),
-						http.post<ResponseData>('/crf', { instances: [tokens] }),
-					]),
+					Promise.all(
+						models.map((model) =>
+							http.post<ResponseData>(MODEL_ENDPOINTS[model], { instances: [tokens] }),
+						),
+					),
 				)
 
 				cancelable.promise
-					.then(([hmmResponse, crfResponse]) => {
+					.then((responses) => {
 						setTokens(tokens)
 						setTokenSpaces(getTokenSpaces(value, tokens))
 						setLoadingPredictions(false)
 						setInitialized(true)
 
-						if (hmmResponse.status === 200 && crfResponse.status === 200) {
-							setPredictions({
-								[MODEL.HMM]: hmmResponse.data.predictions[0],
-								[MODEL.CRF]: crfResponse.data.predictions[0],
-							})
+						if (responses.every((response) => response.status === 200)) {
+							setPredictions(
+								Object.fromEntries(
+									responses.map((response, i) => [
+										models[i],
+										response.data.predictions[0],
+									]),
+								) as Record<MODEL, string[]>,
+							)
 						}
 
 						setTimeout(() => {
@@ -129,13 +144,11 @@ const Demo = () => {
 
 				setPendingRequest(cancelable)
 			}, 500),
-		[pendingRequest],
+		[models, pendingRequest],
 	)
 
 	// Sync scroll positions of input & table
 	useMountEffect(() => {
-		!isDev && debouncedUpdatePredictions(inputValue)
-
 		if (!inputRef.current || !tableWrapperRef.current) return
 		let scrollingFromInput = false
 		let scrollingFromInputKeypress = false
@@ -178,6 +191,9 @@ const Demo = () => {
 			scrollingFromTable = true
 			inputRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft
 		}
+
+		// if (isDev) return
+		debouncedUpdatePredictions(inputValue)
 	})
 
 	const onInputChange = useCallback(
@@ -210,14 +226,9 @@ const Demo = () => {
 	return (
 		<Grid noPaddingOnMobile>
 			<StyledPanel overlay size="m" gridColumn="wide">
-				<Description>
-					Which of these words refer to a&nbsp;
-					<abbr title="Person (PER), organization (ORG), or location (LOC)">
-						named entity
-					</abbr>
-					?
-				</Description>
-				<InputGroup>
+				{label && <Label modelNameOffset={models.length > 1}>{label}</Label>}
+
+				<InputGroup modelNameOffset={models.length > 1}>
 					<Input ref={inputRef} value={inputValue} onChange={onInputChange} />
 					<RandomizeButton small onPress={randomize} title="Try new text sample">
 						<IconRestart size="xl" />
@@ -233,10 +244,12 @@ const Demo = () => {
 					<CSSTransition in={initialized} timeout={250} appear>
 						<ResultsAnimationWrapper aria-hidden={!initialized}>
 							<TableWrapper ref={tableWrapperRef}>
-								<Table>
+								<Table showModelNames={models.length > 1}>
 									<thead>
 										<tr>
-											<ModelNameHeader scope="col" aria-label="Model" />
+											<ModelNameHeader scope="col" aria-label="Model">
+												M
+											</ModelNameHeader>
 											{tokens.map((token, i) => (
 												<Header key={i} scope="col">
 													{token}
@@ -247,7 +260,7 @@ const Demo = () => {
 										</tr>
 									</thead>
 									<tbody>
-										{(Object.values(MODEL) as MODEL[]).map((model) => (
+										{models.map((model) => (
 											<tr key={model}>
 												<ModelName scope="row">
 													<ModelNameContent>
@@ -316,21 +329,27 @@ const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 const inputPaddingRightMobile = ({ theme }: { theme: Theme }) => theme.space[1.5]
 
 const StyledPanel = styled(Panel)`
-	${(p) => p.theme.marginTop[5]}
 	max-width: 60rem;
 `
 
-const Description = styled.span`
+const Label = styled.span<{ modelNameOffset?: boolean }>`
 	display: block;
 	color: ${(p) => p.theme.label};
-	margin-left: ${MODEL_NAME_WIDTH};
 	margin-bottom: ${(p) => p.theme.space[1.5]};
+
+	${(p) => p.modelNameOffset && `margin-left: ${MODEL_NAME_WIDTH};`}
 `
 
-const InputGroup = styled.div`
+const InputGroup = styled.div<{ modelNameOffset?: boolean }>`
 	position: relative;
-	width: calc(100% - ${MODEL_NAME_WIDTH} + ${(p) => p.theme.space[1.5]});
-	margin-left: calc(${MODEL_NAME_WIDTH} - ${(p) => p.theme.space[1.5]} - 1px);
+	width: calc(
+		100% - ${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} +
+			${(p) => p.theme.space[1.5]}
+	);
+	margin-left: calc(
+		${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} -
+			${(p) => p.theme.space[1.5]} - 1px
+	);
 `
 
 const Input = styled.input`
@@ -412,7 +431,7 @@ const TableWrapper = styled.div`
 	}
 `
 
-const Table = styled.table`
+const Table = styled.table<{ showModelNames?: boolean }>`
 	border-spacing: 0;
 	width: 100%;
 
@@ -428,6 +447,15 @@ const Table = styled.table`
 	td {
 		padding: ${(p) => p.theme.space[2]} 0;
 	}
+
+	${(p) =>
+		!p.showModelNames &&
+		`
+			& > thead > tr > th:first-child,
+			& > tbody > tr > th:first-child {
+				display: none;
+			}
+		`}
 `
 
 const Header = styled.th`

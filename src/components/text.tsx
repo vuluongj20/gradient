@@ -18,6 +18,7 @@ export const Abstract = styled.p<Props>`
 	letter-spacing: -0.03em;
 
 	${(p) => p.theme.marginTop[3]}
+	${(p) => p.theme.marginBottom[5]}
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 

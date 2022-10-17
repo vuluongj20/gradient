@@ -1,6 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import { ComponentProps } from 'react'
-import styled from 'styled-components'
 
 import Figure from '@components/figure'
 import Grid from '@components/grid'
@@ -30,7 +29,7 @@ const Image = (props: ComponentProps<typeof Figure>) => {
 	if (!imageData) return null
 
 	return (
-		<Wrap noPaddingOnMobile>
+		<Grid noPaddingOnMobile>
 			<Figure
 				{...props}
 				image={imageData}
@@ -38,12 +37,8 @@ const Image = (props: ComponentProps<typeof Figure>) => {
 				loading="eager"
 				sizes="100vw"
 			/>
-		</Wrap>
+		</Grid>
 	)
 }
 
 export default Image
-
-const Wrap = styled(Grid)`
-	${(p) => p.theme.marginTop[5]};
-`

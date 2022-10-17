@@ -1,4 +1,6 @@
-import Demo from './hero/demo'
+import { Fragment } from 'react'
+
+import LivePrediction from './livePrediction'
 import ABCDGraph from './partI/sampling/abcdGraph'
 import StaticABCDGraph from './partI/staticABCDGraph'
 import EmissionGraph from './partII/emissionGraph'
@@ -21,11 +23,21 @@ import TransitionPaths from './partII/transitionPaths'
 </Abstract>
 }
 
-<Demo />
+<LivePrediction
+	models={['hmm', 'crf']}
+	label={
+		<Fragment>
+			Which of these words refer to a&nbsp;
+			<abbr title="A person, organization, location, or other (miscellaneous)">
+				<span>named entity</span>
+			</abbr>?
+		</Fragment>
+	}
+/>
 
 </Header>
 
-“The UK” alone is a country, but “The UK Department of Transport” is an organization within said country. In a named entity recognition (NER) task [@Chinchor1998], where we want to label each word with a name tag (organization/person/location/not a name), how can a computer model know one from the other?
+“The UK” alone is a country, but “The UK Department of Transport” is an organization within said country. In a named entity recognition (NER) task, where we want to label each word with a name tag (organization/person/location/other/not a name) [@Chinchor1998], how can a computer model know one from the other?
 
 In such cases, contextual information is key. In the second example, the fact that “The UK” is followed by “Department” is compelling evidence that when taken together the phrase refers to an organization. Sequence models – machine learning systems designed to take sequences of data as input, can recognize and put such relationships to productive use. Rather than making isolated predictions based on individual words or word groups, they take the given sequence as a combined unit, model the dependencies between words in that sequences, and depending on the problem can return the most likely label sequence.
 
@@ -167,6 +179,13 @@ There is usually an intractably large number of candidate state sequences. For a
 <TransitionPaths nStates={4} />
 
 Luckily, there is an efficient dynamic algorithm that returns the most likely path with relatively low computational complexity: the Viterbi algorithm [@Viterbi1967]. It constructs a trellis-shaped memory structure to progressively find and store the most likely path as it progesses through the given sequence. For more details, refer to the explanation in the book _Speech and Language Processing_ by Jurafsky & Martin [@Jurafsky2021].
+
+### Results
+
+<LivePrediction
+	models={['hmm']}
+	label="Most likely state sequence estimation by a trained HMM:"
+/>
 
 ---
 
