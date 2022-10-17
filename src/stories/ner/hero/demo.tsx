@@ -134,7 +134,7 @@ const Demo = () => {
 
 	// Sync scroll positions of input & table
 	useMountEffect(() => {
-		debouncedUpdatePredictions(inputValue)
+		!isDev && debouncedUpdatePredictions(inputValue)
 
 		if (!inputRef.current || !tableWrapperRef.current) return
 		let scrollingFromInput = false
