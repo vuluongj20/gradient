@@ -73,8 +73,8 @@ const PRED_LABELS = [
 	['MISC', 'miscellaneous'],
 ]
 
-type Props = { models: MODEL[]; label?: ReactNode }
-const Demo = ({ models, label }: Props) => {
+type Props = { models: MODEL[]; label?: ReactNode; hideTagPrefixes?: boolean }
+const Demo = ({ models, label, hideTagPrefixes }: Props) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
 
@@ -258,7 +258,7 @@ const Demo = ({ models, label }: Props) => {
 
 				<ResultsWrapper>
 					<CSSTransition in={!initialized} timeout={250} unmountOnExit appear>
-						<LoadingWrap>
+						<LoadingWrap showBorders={models.length > 1}>
 							<LoadingMessage>Starting prediction server…</LoadingMessage>
 						</LoadingWrap>
 					</CSSTransition>
@@ -267,22 +267,20 @@ const Demo = ({ models, label }: Props) => {
 							<TableWrapper ref={tableWrapperRef}>
 								<Table showModelNames={models.length > 1}>
 									<thead>
-										<tr>
-											<ModelNameHeader scope="col" aria-label="Model">
-												M
-											</ModelNameHeader>
+										<ConnectorRow>
+											<ModelNameHeader scope="col" aria-label="Model" />
 											{tokens.map((token, i) => (
-												<Header key={i} scope="col">
+												<ConnectorCell key={i} scope="col">
 													{token}
 													{tokenSpaces[i] && <span aria-hidden="true">&nbsp;</span>}
 													{token && <Connector isLoading={loadingPredictions} />}
-												</Header>
+												</ConnectorCell>
 											))}
-										</tr>
+										</ConnectorRow>
 									</thead>
 									<tbody>
 										{models.map((model) => (
-											<tr key={model}>
+											<PredRow key={model}>
 												<ModelName scope="row">
 													<ModelNameContent>
 														<abbr title={MODEL_LABELS[model]}>{model}</abbr>
@@ -295,7 +293,7 @@ const Demo = ({ models, label }: Props) => {
 															{tokens[i] && (
 																<PredSpan isOut={pred === 'O'}>
 																	<PredBackground aria-hidden="true" />
-																	{pred.includes('-') ? pred.split('-')[1] : pred}
+																	{hideTagPrefixes ? pred.split('-').slice(-1) : pred}
 																</PredSpan>
 															)}
 														</ZeroWidth>
@@ -303,7 +301,7 @@ const Demo = ({ models, label }: Props) => {
 												))}
 
 												<RowPadding aria-hidden="true" />
-											</tr>
+											</PredRow>
 										))}
 									</tbody>
 								</Table>
@@ -409,14 +407,15 @@ const ResultsAnimationWrapper = styled.div`
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 `
 
-const LoadingWrap = styled.div`
+const LoadingWrap = styled.div<{ showBorders: boolean }>`
 	position: absolute;
 	top: ${(p) => p.theme.space[2]};
 	bottom: 0;
 	left: 0;
 	right: 0;
-	border: dashed 1px ${(p) => p.theme.line};
 	border-radius: ${(p) => p.theme.radii.m};
+
+	${(p) => p.showBorders && `border: dashed 1px ${p.theme.line};`}
 
 	${(p) => p.theme.flexCenter};
 	${(p) => p.theme.transitionGroupFade}
@@ -468,10 +467,13 @@ const Table = styled.table<{ showModelNames?: boolean }>`
 		`}
 `
 
-const Header = styled.th`
+const ConnectorRow = styled.tr`
+	height: 3rem;
+`
+
+const ConnectorCell = styled.th`
 	position: relative;
 	padding: ${(p) => p.theme.space[1]} 0;
-	min-height: 3rem;
 	user-select: none;
 
 	${(p) => p.theme.text.content.h5};
@@ -484,17 +486,6 @@ const Header = styled.th`
 	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
 `
 
-const ModelNameHeader = styled(Header)`
-	position: sticky;
-	left: 0;
-	width: ${MODEL_NAME_WIDTH};
-	min-width: ${MODEL_NAME_WIDTH};
-
-	background: ${(p) => p.theme.background};
-	color: transparent;
-	z-index: 1;
-`
-
 const Connector = styled.div<{ isLoading: boolean }>`
 	width: 0;
 	height: calc(100% - ${(p) => p.theme.space[2]});
@@ -505,6 +496,17 @@ const Connector = styled.div<{ isLoading: boolean }>`
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 	transition-delay: 10ms;
 	${(p) => p.isLoading && `opacity: 0;`};
+`
+
+const ModelNameHeader = styled(ConnectorCell)`
+	position: sticky;
+	left: 0;
+	width: ${MODEL_NAME_WIDTH};
+	min-width: ${MODEL_NAME_WIDTH};
+
+	background: ${(p) => p.theme.background};
+	color: transparent;
+	z-index: 1;
 `
 
 const ModelName = styled.th`
@@ -525,6 +527,10 @@ const ModelNameContent = styled.span`
 	display: flex;
 	align-items: center;
 	min-height: 3rem;
+`
+
+const PredRow = styled.tr`
+	height: 3rem;
 `
 
 const Pred = styled.td`
