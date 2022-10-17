@@ -134,7 +134,7 @@ const Demo = () => {
 
 	// Sync scroll positions of input & table
 	useMountEffect(() => {
-		!isDev && debouncedUpdatePredictions(inputValue)
+		debouncedUpdatePredictions(inputValue)
 
 		if (!inputRef.current || !tableWrapperRef.current) return
 		let scrollingFromInput = false
@@ -236,7 +236,7 @@ const Demo = () => {
 								<Table>
 									<thead>
 										<tr>
-											<ModelNameHeader scope="col">Model</ModelNameHeader>
+											<ModelNameHeader scope="col" aria-label="Model" />
 											{tokens.map((token, i) => (
 												<Header key={i} scope="col">
 													{token}
@@ -452,7 +452,6 @@ const ModelNameHeader = styled(Header)`
 	width: ${MODEL_NAME_WIDTH};
 	min-width: ${MODEL_NAME_WIDTH};
 
-	padding-right: ${(p) => p.theme.space[2]};
 	background: ${(p) => p.theme.background};
 	color: transparent;
 	z-index: 1;
