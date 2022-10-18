@@ -9,7 +9,7 @@ import { Theme } from '@theme'
 
 import Button from '@components/button'
 import Grid from '@components/grid'
-import Panel from '@components/panel'
+import Panel, { PanelProps } from '@components/panel'
 import Spinner from '@components/spinner'
 
 import IconRestart from '@icons/restart'
@@ -73,13 +73,24 @@ const PRED_LABELS = [
 	['MISC', 'miscellaneous'],
 ]
 
-type Props = { models: MODEL[]; label?: ReactNode; hideTagPrefixes?: boolean }
-const Demo = ({ models, label, hideTagPrefixes }: Props) => {
+type Props = PanelProps & {
+	models: MODEL[]
+	label?: ReactNode
+	initialInputValue?: string
+	hideTagPrefixes?: boolean
+}
+const Demo = ({
+	models,
+	label,
+	initialInputValue,
+	hideTagPrefixes,
+	...panelProps
+}: Props) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
 
 	// Store input value & split it into tokens
-	const [inputValue, setInputValue] = useState('The UK Department of Transport')
+	const [inputValue, setInputValue] = useState(initialInputValue ?? '')
 	const [tokens, setTokens] = useState<string[]>([])
 	const [tokenSpaces, setTokenSpaces] = useState<boolean[]>([])
 
@@ -192,7 +203,7 @@ const Demo = ({ models, label, hideTagPrefixes }: Props) => {
 			inputRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft
 		}
 
-		// if (isDev) return
+		if (isDev) return
 		debouncedUpdatePredictions(inputValue)
 	})
 
@@ -225,7 +236,7 @@ const Demo = ({ models, label, hideTagPrefixes }: Props) => {
 
 	return (
 		<Grid noPaddingOnMobile>
-			<StyledPanel overlay size="m" gridColumn="wide">
+			<StyledPanel overlay size="m" gridColumn="wide" {...panelProps}>
 				{label && <Label modelNameOffset={models.length > 1}>{label}</Label>}
 
 				<InputGroup modelNameOffset={models.length > 1}>

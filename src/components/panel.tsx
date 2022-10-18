@@ -3,23 +3,28 @@ import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
+import { isDefined } from '@utils/functions'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
-type Props = ComponentProps<typeof LocalThemeProvider> & {
+export type PanelProps = ComponentProps<typeof LocalThemeProvider> & {
 	size?: 's' | 'm' | 'l'
+	mt?: number
+	mb?: number
 	gridColumn?: keyof Theme['gridColumn']
 	className?: string
 }
 
 const Panel = ({
 	size,
+	mt,
+	mb,
 	gridColumn,
 	className,
 	children,
 	...themeProviderProps
 }: Props) => (
 	<LocalThemeProvider {...themeProviderProps}>
-		<Wrap className={className} size={size} gridColumn={gridColumn}>
+		<Wrap className={className} size={size} mt={mt} mb={mb} gridColumn={gridColumn}>
 			{children}
 		</Wrap>
 	</LocalThemeProvider>
@@ -60,6 +65,8 @@ const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 
 const Wrap = styled.div<{
 	size?: Props['size']
+	mt?: number
+	mb?: number
 	gridColumn?: Props['gridColumn']
 }>`
 	background-color: ${(p) => p.theme.background};
@@ -81,4 +88,7 @@ const Wrap = styled.div<{
 				border-right-width: 0;
 			}
 		`}
+
+	${(p) => isDefined(p.mt) && p.theme.marginTop[p.mt]};
+	${(p) => isDefined(p.mb) && p.theme.marginBottom[p.mb]};
 `

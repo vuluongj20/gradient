@@ -26,6 +26,7 @@ import TransitionPaths from './partII/transitionPaths'
 <LivePrediction
 	hideTagPrefixes
 	models={['hmm', 'crf']}
+	initialInputValue="The UK Department of Transport"
 	label={
 		<Fragment>
 			Which of these words refer to a&nbsp;
@@ -183,9 +184,15 @@ Luckily, there is an efficient dynamic algorithm that returns the most likely pa
 
 ### Results
 
-An HMM with the structure outlined above was trained on the CoNLL-2003 English dataset [@Sang2003].
+An HMM with the structure outlined above was trained on the CoNLL-2003 English dataset [@Sang2003]. The training set contains 14,987 sentences, for a total of 203,621 word tokens. Here's the model in action:
 
-<LivePrediction models={['hmm']} label="Most likely state sequence by a trained HMM" />
+<LivePrediction
+	models={['hmm']}
+	label="Name tag predictions by HMM:"
+	initialInputValue="East Timorese-born activist Jose Ramos Horta"
+	mt={1}
+	mb={1}
+/>
 
 ---
 
