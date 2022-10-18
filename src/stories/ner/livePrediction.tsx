@@ -192,7 +192,7 @@ const Demo = ({ models, label, hideTagPrefixes }: Props) => {
 			inputRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft
 		}
 
-		if (isDev) return
+		// if (isDev) return
 		debouncedUpdatePredictions(inputValue)
 	})
 
@@ -328,7 +328,7 @@ const Demo = ({ models, label, hideTagPrefixes }: Props) => {
 
 export default Demo
 
-const MODEL_NAME_WIDTH = '2.5rem'
+const MODEL_NAME_WIDTH = '3rem'
 
 const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 	`calc(${theme.space[2]} + ${theme.space[2]} + ${theme.space[2]})`
@@ -515,7 +515,6 @@ const ModelName = styled.th`
 	width: ${MODEL_NAME_WIDTH};
 	min-width: ${MODEL_NAME_WIDTH};
 
-	padding-right: ${(p) => p.theme.space[2]};
 	background: ${(p) => p.theme.background};
 	color: ${(p) => p.theme.label};
 	text-transform: uppercase;

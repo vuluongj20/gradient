@@ -159,5 +159,18 @@
     "title": "Appendix A.4 – Decoding: The Viterbi Algorithm",
     "type": "book",
     "URL": "https://web.stanford.edu/~jurafsky/slp3/A.pdf"
+  },
+  {
+    "author": [
+      { "given": "Erik F.", "family": "Tjong Kim Sang" },
+      { "given": "Fien", "family": "De Meulder" }
+    ],
+    "container-title": "Proceedings of the Seventh Conference on Natural Language Learning at HLT-NAACL 2003",
+    "type": "paper-conference",
+    "id": "Sang2003",
+    "issued": { "date-parts": [[2003]] },
+    "page": "142-147",
+    "title": "Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition",
+    "URL": "https://aclanthology.org/W03-0419.pdf"
   }
 ]
