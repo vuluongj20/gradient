@@ -7,6 +7,8 @@ import EmissionGraph from './partII/emissionGraph'
 import EmissionPaths from './partII/emissionPaths'
 import NERGraph from './partII/nerGraph'
 import OverviewGraph from './partII/overviewGraph'
+import PerEntityScorecards from './partII/perEntityScorecards'
+import PerWordScorecards from './partII/perWordScorecards'
 import TransitionGraph from './partII/transitionGraph'
 import TransitionPaths from './partII/transitionPaths'
 
@@ -184,15 +186,24 @@ Luckily, there is an efficient dynamic algorithm that returns the most likely pa
 
 ### Results
 
-An HMM with the structure outlined above was trained on the CoNLL-2003 English dataset [@Sang2003]. The training set contains 14,987 sentences, for a total of 203,621 word tokens. Here's the model in action:
+An HMM with the structure outlined above was trained on the CoNLL-2003 English dataset [@Sang2003]. The train set contains 14,987 sentences and a total of 203,621 word tokens. Here's the model in action:
 
 <LivePrediction
 	models={['hmm']}
 	label="Name tag predictions by HMM:"
 	initialInputValue="East Timorese-born activist Jose Ramos Horta"
-	mt={1}
-	mb={1}
+	mb={3}
 />
+
+Evaluated against a test set, the model achieves satisfactory per-word accuracy:
+
+<PerWordScorecards />
+
+However, precision and recall – calculated per entity [@Sang2003] – are relatively low:
+
+<PerEntityScorecards />
+
+These metrics are lower than the per-word accuracy bacause they are entity-level evaluations that only count exact matches as true positives. Long, multi-word entities are considered incorrect if one or more of their constituent words are misidentified, in effect ignoring the other correctly identified tokens.
 
 ---
 
