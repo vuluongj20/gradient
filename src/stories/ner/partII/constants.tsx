@@ -114,3 +114,19 @@ export const emissionProbabilities: number[][] = [
 		5.416091206975925e-6,
 	],
 ]
+
+export const entityLengths = [1, 2, 3, 4, 5, 6]
+
+export const precisionByEntityLength = [
+	[0.61, 0.77, 0.22, 0.18, 0.14, 0.1],
+	[0.79, 0.58, 0.62, 1.0, null, null],
+	[0.89, 0.68, 0.47, null, null, null],
+	[0.83, 0.43, 0.18, 0.08, 0.22, 0.0],
+]
+
+export const recallByEntityLength = [
+	[0.56, 0.61, 0.58, 0.55, 0.61, 0.75],
+	[0.09, 0.85, 0.12, 0.5, null, null],
+	[0.75, 0.59, 0.31, 0.0, null, 0.0],
+	[0.44, 0.37, 0.23, 0.4, 0.67, 0.0],
+]
