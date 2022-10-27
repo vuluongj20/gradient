@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components'
 
-import { nameTags, tagPrecisionSupport, tagRecallSupport } from './constants'
+import { nameTags } from './constants'
 
 import GuideArrow from '@components/guideArrow'
 
@@ -118,6 +118,8 @@ const TDBackground = styled.div<{ opacity: number }>`
 	background-color: ${(p) => p.theme.heading};
 	opacity: ${(p) => p.opacity};
 	z-index: -1;
+
+	transition: opacity ${(p) => p.theme.animation.fastOut};
 
 	tbody > tr:first-of-type > td:first-of-type > & {
 		border-top-left-radius: ${(p) => p.theme.radii.s};

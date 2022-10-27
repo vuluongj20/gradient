@@ -5,6 +5,7 @@ type ColorKey =
 	| 'surface2'
 	| 'surface3'
 	| 'surface4'
+	| 'surface5'
 	| 'gray1'
 	| 'gray2'
 	| 'gray3'
@@ -62,8 +63,10 @@ type ColorAliasName =
 	| 'background'
 	| 'line'
 	| 'oBackground'
+	| 'ooBackground'
 	| 'oLine'
 	| 'iBackground'
+	| 'iiBackground'
 	| 'iLine'
 	| 'focus'
 	| 'heading'
@@ -106,6 +109,7 @@ const paper: ColorPalette = {
 		surface2: '#FAF0F2',
 		surface3: '#FCF5F7',
 		surface4: '#FDFCFC',
+		surface5: '#FFFFFF',
 		gray1: '#161213',
 		gray2: '#2F2729',
 		gray3: '#4A3F41',
@@ -165,6 +169,7 @@ const charcoal: ColorPalette = {
 		surface2: '#171717',
 		surface3: '#1B1B1B',
 		surface4: '#1F1F1F',
+		surface5: '#242424',
 		gray1: '#F1F2F4',
 		gray2: '#D5D9DC',
 		gray3: '#BDC2C7',
@@ -218,7 +223,7 @@ export const getColorAliases = (
 	elevation: number,
 ): ColorAliases => {
 	const getBackground = (elevation: number) => {
-		const blockedElevation = Math.min(Math.max(elevation, 0), 4)
+		const blockedElevation = Math.min(Math.max(elevation, 0), 5)
 		return colors[`surface${blockedElevation}` as ColorKey]
 	}
 
@@ -235,10 +240,12 @@ export const getColorAliases = (
 
 		// Overlay
 		oBackground: getBackground(elevation + 1),
+		ooBackground: getBackground(elevation + 2),
 		oLine: getLine(elevation + 1),
 
 		// Inset
 		iBackground: getBackground(elevation - 1),
+		iiBackground: getBackground(elevation - 2),
 		iLine: getLine(elevation - 1),
 
 		// Text

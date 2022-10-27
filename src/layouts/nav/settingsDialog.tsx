@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 
-import RadioBar from '@components/radioBar'
+import SwitchBar from '@components/switchBar'
 
 import SettingsContext from '@utils/settingsContext'
 
@@ -28,13 +28,13 @@ const Dialog = () => {
 		<InnerWrap>
 			<Section>
 				<SectionTitle>Appearance</SectionTitle>
-				<RadioBar
+				{/*<SwitchBar
 					label="Appearance"
 					options={appearanceOptions}
 					onChange={setAppearance}
 					value={themeSettings.color.appearance}
 					moveLeft
-				/>
+				/>*/}
 			</Section>
 		</InnerWrap>
 	)

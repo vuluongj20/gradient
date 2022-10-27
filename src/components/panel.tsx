@@ -22,7 +22,7 @@ const Panel = ({
 	className,
 	children,
 	...themeProviderProps
-}: Props) => (
+}: PanelProps) => (
 	<LocalThemeProvider {...themeProviderProps}>
 		<Wrap className={className} size={size} mt={mt} mb={mb} gridColumn={gridColumn}>
 			{children}
@@ -32,7 +32,7 @@ const Panel = ({
 
 export default Panel
 
-const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
+const getPadding = (p: { size?: PanelProps['size']; theme: Theme }) => {
 	switch (p.size) {
 		case 's':
 			return `
@@ -64,10 +64,10 @@ const getPadding = (p: { size?: Props['size']; theme: Theme }) => {
 }
 
 const Wrap = styled.div<{
-	size?: Props['size']
+	size?: PanelProps['size']
 	mt?: number
 	mb?: number
-	gridColumn?: Props['gridColumn']
+	gridColumn?: PanelProps['gridColumn']
 }>`
 	background-color: ${(p) => p.theme.background};
 	border-radius: ${(p) => p.theme.radii.l};
