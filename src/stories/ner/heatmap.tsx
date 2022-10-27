@@ -62,7 +62,7 @@ const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
 			</Table>
 			{grouping && (
 				<GroupingCaption>
-					<GuideArrow from="left" to="right" width={120} height={8} />
+					<GuideArrow from="left" to="right" width={80} height={8} strokeWidth={1.125} />
 					<GroupingLabel>{grouping}</GroupingLabel>
 				</GroupingCaption>
 			)}

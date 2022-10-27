@@ -22,7 +22,6 @@ const EntityLengthHeatmap = () => {
 export default EntityLengthHeatmap
 
 const Wrap = styled.div`
-	position: relative;
 	${(p) => p.theme.gridColumn.text};
 	${(p) => p.theme.marginBottom[3]}
 `

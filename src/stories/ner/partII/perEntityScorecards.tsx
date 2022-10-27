@@ -19,6 +19,6 @@ export default PerEntityScorecards
 const Wrap = styled.div`
 	display: flex;
 	gap: ${(p) => p.theme.space[4]};
-	margin-bottom: ${(p) => p.theme.space[3]};
+	${(p) => p.theme.marginBottom[3]}
 	${(p) => p.theme.gridColumn.text};
 `
