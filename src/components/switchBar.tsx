@@ -60,7 +60,9 @@ const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
 					nextKey={collectionList[i + 1]?.key}
 					lastKey={lastKey}
 					setPositionMap={setPositionMap}
-				/>
+				>
+					{option.rendered}
+				</SwitchItem>
 			))}
 			<Indicator {...indicatorPosition} />
 		</SwitchBarWrap>
@@ -116,7 +118,7 @@ const SwitchItem = ({
 	return (
 		<SwitchItemWrap isSelected={isSelected} ref={wrapRef}>
 			<SwitchItemInput {...inputProps} ref={inputRef} />
-			{props.rendered}
+			{props.children}
 			<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
 		</SwitchItemWrap>
 	)

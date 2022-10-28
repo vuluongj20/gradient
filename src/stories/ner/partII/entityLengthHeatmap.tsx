@@ -17,6 +17,7 @@ const EntityLengthHeatmap = () => {
 		<Grid>
 			<Wrap>
 				<SwitchBar
+					aria-label="Metric"
 					value={dataSource}
 					onChange={(source) => setDataSource(source as DataSource)}
 				>
