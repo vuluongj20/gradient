@@ -4,15 +4,24 @@ import { ListCollection } from '@react-stately/list'
 import { RadioGroupState, useRadioGroupState } from '@react-stately/radio'
 import { AriaRadioGroupProps, AriaRadioProps } from '@react-types/radio'
 import { CollectionBase, Node } from '@react-types/shared'
-import { Key, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import {
+	Dispatch,
+	Key,
+	SetStateAction,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react'
 import styled from 'styled-components'
 
 import { isDefined } from '@utils/functions'
+import useSize from '@utils/useSize'
 
 export { Item } from '@react-stately/collections'
 
-type HandleStyles = { left: number; width: number }
-type HandleLookup = Record<string, HandleStyles>
+type Position = { left: number; width: number }
+type PositionMap = Record<string, Position>
 
 const factory = (nodes: Iterable<Node<object>>) => new ListCollection(nodes)
 
@@ -27,34 +36,18 @@ const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
 
 	const state = useRadioGroupState(props)
 	const { radioGroupProps } = useRadioGroup(props, state)
-	const [indicatorStyles, setIndicatorStyles] = useState<HandleStyles>({
-		left: 0,
-		width: 0,
-	})
-	const [indicatorLookup, setIndicatorLookup] = useState<HandleLookup>({})
 
-	/**
-	 * Initialize lookup table (handleLookup) that describes the position
-	 * of each render radio element, useful for animating <Handle />
-	 */
-	useLayoutEffect(() => {
-		const lookupTable: HandleLookup = {}
-		;(ref.current?.childNodes as NodeListOf<HTMLElement>)?.forEach(
-			(node: HTMLElement) => {
-				const radioValue = node.dataset?.radioValue
-				if (!radioValue) return
-				lookupTable[radioValue] = {
-					left: node.offsetLeft,
-					width: node.offsetWidth,
-				}
+	// Initialize lookup table that describes the position
+	// of each render radio element, useful for animating <Handle />
+	const [positionMap, setPositionMap] = useState<PositionMap>({})
+	const indicatorPosition = useMemo(
+		() =>
+			positionMap[state.selectedValue as keyof PositionMap] ?? {
+				width: 0,
+				height: 0,
 			},
-		)
-		setIndicatorLookup(lookupTable)
-	}, [])
-
-	useLayoutEffect(() => {
-		setIndicatorStyles(indicatorLookup[state.selectedValue as keyof HandleLookup])
-	}, [indicatorLookup, state.selectedValue])
+		[positionMap, state.selectedValue],
+	)
 
 	return (
 		<SwitchBarWrap moveLeft={moveLeft} {...radioGroupProps} ref={ref}>
@@ -66,9 +59,10 @@ const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
 					state={state}
 					nextKey={collectionList[i + 1]?.key}
 					lastKey={lastKey}
+					setPositionMap={setPositionMap}
 				/>
 			))}
-			<Indicator {...indicatorStyles} />
+			<Indicator {...indicatorPosition} />
 		</SwitchBarWrap>
 	)
 }
@@ -80,11 +74,19 @@ type SwitchItemProps = Omit<Node<object>, 'value'> &
 		state: RadioGroupState
 		lastKey: Key
 		nextKey?: Key
+		setPositionMap: Dispatch<SetStateAction<PositionMap>>
 	}
-const SwitchItem = ({ lastKey, nextKey, state, ...props }: SwitchItemProps) => {
-	const ref = useRef<HTMLInputElement>(null)
+const SwitchItem = ({
+	lastKey,
+	nextKey,
+	state,
+	setPositionMap,
+	...props
+}: SwitchItemProps) => {
+	const wrapRef = useRef<HTMLLabelElement>(null)
+	const inputRef = useRef<HTMLInputElement>(null)
 
-	const { inputProps } = useRadio(props, state, ref)
+	const { inputProps } = useRadio(props, state, inputRef)
 
 	const isSelected = useMemo(
 		() => state.selectedValue === props.value,
@@ -96,9 +98,24 @@ const SwitchItem = ({ lastKey, nextKey, state, ...props }: SwitchItemProps) => {
 		[state.selectedValue, nextKey],
 	)
 
+	const { width } = useSize(wrapRef)
+	useLayoutEffect(() => {
+		if (!wrapRef.current || !width) return
+		const parentLeft = wrapRef.current.offsetParent?.getBoundingClientRect().left ?? 0
+		const left = wrapRef.current.getBoundingClientRect().left ?? 0
+
+		setPositionMap((cur) => ({
+			...cur,
+			[props.value]: {
+				left: Math.round((left - parentLeft) * 100) / 100,
+				width: Math.round(width * 100) / 100,
+			},
+		}))
+	}, [width, props.value, setPositionMap])
+
 	return (
-		<SwitchItemWrap isSelected={isSelected} data-radio-value={props.value}>
-			<SwitchItemInput {...inputProps} ref={ref} />
+		<SwitchItemWrap isSelected={isSelected} ref={wrapRef}>
+			<SwitchItemInput {...inputProps} ref={inputRef} />
 			{props.rendered}
 			<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
 		</SwitchItemWrap>
@@ -133,7 +150,7 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 		`
 		opacity: 1;
 		transform: translateX(${p.left}px);
-		width: ${p.width - 5}px;
+		width: ${p.width - 4}px;
 	`}
 
 	@media (prefers-reduced-motion) {
