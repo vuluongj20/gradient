@@ -205,13 +205,15 @@ However, precision and recall – calculated per entity [@Sang2003] – are rela
 
 <PerEntityScorecards />
 
-These metrics are lower than the per-word accuracy bacause they are entity-level evaluations that only count exact matches as true positives. Long, multi-word entities are considered incorrect if one or more of their constituent words are misidentified, in effect ignoring the other correctly identified tokens.
+These metrics are lower than per-word accuracy because they are entity-level evaluations that only count exact matches as true positives. Long, multi-word entities are considered incorrect if one or more of their constituent words are misidentified, in effect ignoring the other correctly identified tokens in the entity.
 
-A closer look at the results reveals a discrepancy between entities with out-of-vocaburay words ()
+A closer look at the results reveals a discrepancy between entities that contain only known tokens and those with at least one out-of-vocabulary (OOV) tokens:
 
 <BinaryOOVHeatmap />
 
----
+This makes sense: we generally expect the model to perform worse on tokens that it wasn't trained on. And because the CoNLL-2003 train set has a large number of OOV tokens – 80.6% of all test entities contain at least one OOV token – overall precision and recall are heavily impacted.
+
+### Shortcomings
 
 <EntityLengthHeatmap />
 
