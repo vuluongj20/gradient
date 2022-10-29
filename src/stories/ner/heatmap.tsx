@@ -9,10 +9,8 @@ type HeatmapProps = {
 	data: (number | null)[][]
 	groups: (number | string)[]
 	grouping?: string
-	support?: number[]
-	showAll?: boolean
 }
-const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
+const Heatmap = ({ data, groups, grouping }: HeatmapProps) => {
 	const { appearance } = useTheme()
 
 	return (
