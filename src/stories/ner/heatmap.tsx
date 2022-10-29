@@ -1,3 +1,4 @@
+import { VisuallyHidden } from '@react-aria/visually-hidden'
 import styled, { useTheme } from 'styled-components'
 
 import { nameTags } from './constants'
@@ -7,7 +8,7 @@ import GuideArrow from '@components/guideArrow'
 type HeatmapProps = {
 	data: (number | null)[][]
 	groups: (number | string)[]
-	grouping?: string
+	grouping: string
 	support?: number[]
 	showAll?: boolean
 }
@@ -17,10 +18,23 @@ const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
 	return (
 		<Wrap>
 			<Table>
+				<VisuallyHidden elementType="thead">
+					<tr>
+						<TagName scope="col" invisible>
+							Name Tag
+						</TagName>
+						{groups.map((group) => (
+							<GroupName key={group} scope="col">
+								{`${grouping} ${group}`}
+							</GroupName>
+						))}
+					</tr>
+				</VisuallyHidden>
+
 				<TBody>
 					{nameTags.map((nameTag, nameTagIndex) => (
 						<TR key={nameTag}>
-							<TagName>{nameTag}</TagName>
+							<TagName scope="row">{nameTag}</TagName>
 							{groups.map((group, groupIndex) => {
 								const value = data[nameTagIndex][groupIndex]
 
@@ -51,17 +65,18 @@ const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
 						</TR>
 					))}
 				</TBody>
-				<THead>
+
+				<TFoot aria-hidden="true">
 					<tr>
 						<TagName invisible>Name Tag</TagName>
 						{groups.map((group) => (
 							<GroupName key={group}>{group}</GroupName>
 						))}
 					</tr>
-				</THead>
+				</TFoot>
 			</Table>
 			{grouping && (
-				<GroupingCaption>
+				<GroupingCaption aria-hidden="true">
 					<GuideArrow from="left" to="right" width={80} height={8} strokeWidth={1.125} />
 					<GroupingLabel>{grouping}</GroupingLabel>
 				</GroupingCaption>
@@ -80,7 +95,7 @@ const Table = styled.table`
 	border-spacing: 2px;
 `
 
-const THead = styled.tfoot``
+const TFoot = styled.tfoot``
 
 const GroupName = styled.th`
 	padding-top: ${(p) => p.theme.space[1]};
