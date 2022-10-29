@@ -35,7 +35,10 @@ const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
 	const lastKey = useMemo(() => collection.getLastKey(), [collection])
 
 	const state = useRadioGroupState(props)
-	const { radioGroupProps } = useRadioGroup(props, state)
+	const { radioGroupProps } = useRadioGroup(
+		{ ...props, orientation: 'horizontal' },
+		state,
+	)
 
 	// Initialize lookup table that describes the position
 	// of each render radio element, useful for animating <Handle />
@@ -119,7 +122,10 @@ const SwitchItem = ({
 		<SwitchItemWrap isSelected={isSelected} ref={wrapRef}>
 			<SwitchItemInput {...inputProps} ref={inputRef} />
 			{props.children}
-			<Divider visible={!isSelected && !nextOptionIsSelected && !isLastOption} />
+			<Divider
+				visible={!isSelected && !nextOptionIsSelected && !isLastOption}
+				role="presentation"
+			/>
 		</SwitchItemWrap>
 	)
 }
