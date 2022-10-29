@@ -97,7 +97,17 @@ const Wrap = styled.div`
 
 const Table = styled.table`
 	width: 100%;
-	border-spacing: 2px;
+	border-spacing: 0;
+
+	tbody > tr:last-of-type > th,
+	tbody > tr:last-of-type > td {
+		border-top: solid ${(p) => p.theme.space[0]} transparent;
+	}
+
+	tbody > tr:nth-last-of-type(2) > th,
+	tbody > tr:nth-last-of-type(2) > td {
+		border-bottom: solid ${(p) => p.theme.space[0]} transparent;
+	}
 `
 
 const TFoot = styled.tfoot``
@@ -137,7 +147,7 @@ const TD = styled.td`
 
 	/* Ensure that the cell is always wide enough to fit 2 decimal places */
 	box-sizing: content-box;
-	min-width: 1.5rem;
+	min-width: 2rem;
 `
 
 const TDBackground = styled.div<{ opacity: number }>`
@@ -154,11 +164,19 @@ const TDBackground = styled.div<{ opacity: number }>`
 	tbody > tr:first-of-type > td:last-of-type > & {
 		border-top-right-radius: ${(p) => p.theme.radii.s};
 	}
-	tbody > tr:last-of-type > td:first-of-type > & {
+
+	tbody > tr:nth-last-of-type(2) > td:first-of-type > & {
 		border-bottom-left-radius: ${(p) => p.theme.radii.s};
 	}
-
+	tbody > tr:nth-last-of-type(2) > td:last-of-type > & {
+		border-bottom-right-radius: ${(p) => p.theme.radii.s};
+	}
+	tbody > tr:last-of-type > td:first-of-type > & {
+		border-top-left-radius: ${(p) => p.theme.radii.s};
+		border-bottom-left-radius: ${(p) => p.theme.radii.s};
+	}
 	tbody > tr:last-of-type > td:last-of-type > & {
+		border-top-right-radius: ${(p) => p.theme.radii.s};
 		border-bottom-right-radius: ${(p) => p.theme.radii.s};
 	}
 `
