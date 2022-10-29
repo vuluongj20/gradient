@@ -548,6 +548,7 @@ const Pred = styled.td`
 	font-weight: 500;
 	text-align: center;
 	text-transform: uppercase;
+	white-space: nowrap;
 
 	opacity: 0;
 	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
