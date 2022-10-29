@@ -130,3 +130,16 @@ export const recallByEntityLength = [
 	[0.75, 0.59, 0.31, null, null, null],
 	[0.44, 0.37, 0.23, 0.4, 0.67, null],
 ]
+
+export const precisionByBinaryOOV = [
+	[0.82, 0.38],
+	[0.77, 0.57],
+	[0.74, 0.89],
+	[0.66, 0.56],
+]
+export const recallByBinaryOOV = [
+	[0.77, 0.47],
+	[0.63, 0.56],
+	[0.78, 0.71],
+	[0.62, 0.36],
+]

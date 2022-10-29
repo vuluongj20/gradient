@@ -8,7 +8,7 @@ import GuideArrow from '@components/guideArrow'
 type HeatmapProps = {
 	data: (number | null)[][]
 	groups: (number | string)[]
-	grouping: string
+	grouping?: string
 	support?: number[]
 	showAll?: boolean
 }
@@ -21,11 +21,11 @@ const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
 				<VisuallyHidden elementType="thead">
 					<tr>
 						<TagName scope="col" invisible>
-							Name Tag
+							Tag
 						</TagName>
 						{groups.map((group) => (
 							<GroupName key={group} scope="col">
-								{`${grouping} ${group}`}
+								{`${grouping ? `${grouping} ` : ''}${group}`}
 							</GroupName>
 						))}
 					</tr>
@@ -68,9 +68,13 @@ const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
 
 				<TFoot aria-hidden="true">
 					<tr>
-						<TagName invisible>Name Tag</TagName>
+						<TagName invisible scope="col">
+							Tag
+						</TagName>
 						{groups.map((group) => (
-							<GroupName key={group}>{group}</GroupName>
+							<GroupName key={group} scope="col">
+								{group}
+							</GroupName>
 						))}
 					</tr>
 				</TFoot>
@@ -87,10 +91,11 @@ const Heatmap = ({ data, groups, grouping /*support*/ }: HeatmapProps) => {
 
 export default Heatmap
 
-const Wrap = styled.div``
+const Wrap = styled.div`
+	width: 100%;
+`
 
 const Table = styled.table`
-	table-layout: fixed;
 	width: 100%;
 	border-spacing: 2px;
 `
@@ -98,16 +103,19 @@ const Table = styled.table`
 const TFoot = styled.tfoot``
 
 const GroupName = styled.th`
+	${(p) => p.theme.text.system.small}
+	color: ${(p) => p.theme.label};
 	padding-top: ${(p) => p.theme.space[1]};
-	font-weight: 400;
 	text-align: center;
 `
 
 const TagName = styled.th<{ invisible?: boolean }>`
-	font-weight: 400;
+	${(p) => p.theme.text.viz.small}
+	color: ${(p) => p.theme.label};
 	text-align: right;
 	padding-right: ${(p) => p.theme.space[1]};
-	${(p) => p.theme.text.viz.body}
+	width: 2rem;
+	overflow: hidden;
 
 	${(p) =>
 		p.invisible &&
@@ -124,8 +132,12 @@ const TR = styled.tr``
 
 const TD = styled.td`
 	position: relative;
-	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1]};
+	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
 	text-align: center;
+
+	/* Ensure that the cell is always wide enough to fit 2 decimal places */
+	box-sizing: content-box;
+	min-width: 1.5rem;
 `
 
 const TDBackground = styled.div<{ opacity: number }>`

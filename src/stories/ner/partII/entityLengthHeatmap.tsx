@@ -17,7 +17,7 @@ const EntityLengthHeatmap = () => {
 		<Grid>
 			<Wrap>
 				<SwitchBar
-					aria-label="Metric"
+					aria-label="Metric to Display in Heatmap"
 					value={dataSource}
 					onChange={(source) => setDataSource(source as DataSource)}
 				>
@@ -40,7 +40,8 @@ const Wrap = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: ${(p) => p.theme.space[2]};
+	gap: ${(p) => p.theme.space[1]};
 	${(p) => p.theme.gridColumn.text};
 	${(p) => p.theme.marginBottom[3]}
+	max-width: 32rem;
 `
