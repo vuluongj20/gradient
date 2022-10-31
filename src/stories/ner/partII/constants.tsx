@@ -115,22 +115,22 @@ export const emissionProbabilities: number[][] = [
 	],
 ]
 
-export const entityLengths = [1, 2, 3, 4, 5, 6]
+export const entityLengths = [1, 2, 3, 4, 5]
 
 export const precisionByEntityLength = [
-	[0.61, 0.77, 0.22, 0.18, 0.14, 0.1],
-	[0.79, 0.58, 0.62, null, null, null],
-	[0.89, 0.68, 0.47, null, null, null],
-	[0.83, 0.43, 0.18, 0.08, 0.22, 0.0],
-	[0.77, 0.61, 0.24, 0.17, 0.15, 0.09],
+	[0.61, 0.76, 0.22, 0.18, 0.14],
+	[0.79, 0.58, 0.62, null, null],
+	[0.89, 0.68, 0.47, null, null],
+	[0.83, 0.43, 0.17, 0.08, 0.22],
+	[0.77, 0.61, 0.24, 0.17, 0.15],
 ]
 
 export const recallByEntityLength = [
-	[0.56, 0.61, 0.58, 0.55, 0.61, 0.75],
-	[0.09, 0.85, 0.12, null, null, null],
-	[0.75, 0.59, 0.31, null, null, null],
-	[0.44, 0.37, 0.23, 0.4, 0.67, null],
-	[0.55, 0.72, 0.38, 0.5, 0.62, 0.5],
+	[0.55, 0.61, 0.59, 0.56, 0.61],
+	[0.08, 0.84, 0.12, null, null],
+	[0.74, 0.6, 0.32, null, null],
+	[0.41, 0.37, 0.39, 0.67, null],
+	[0.54, 0.72, 0.41, 0.57, 0.65],
 ]
 
 export const precisionByBinaryOOV = [
@@ -146,4 +146,22 @@ export const recallByBinaryOOV = [
 	[0.78, 0.71],
 	[0.62, 0.36],
 	[0.74, 0.56],
+]
+
+export const precisionByOOVRate = [
+	[0.84, null, null, null, null, null, null, null, null, null, 0.3],
+	[0.74, null, null, null, null, 0.48, null, null, null, null, 0.59],
+	[0.62, null, null, 0.08, null, null, null, 0.04, null, null, 0.05],
+	[0.41, null, 0.26, null, null, 0.0, null, null, 0.0, null, 0.0],
+	[0.5, 0.36, null, null, 0.08, null, 0.0, null, null, 0.11, 0.0],
+	[0.8, 0.36, 0.26, 0.08, 0.08, 0.47, 0.0, 0.04, 0.0, 0.11, 0.43],
+]
+
+export const recallByOOVRate = [
+	[0.69, null, null, null, null, null, null, null, null, null, 0.11],
+	[0.77, null, null, null, null, 0.68, null, null, null, null, 0.67],
+	[0.59, null, null, 0.15, null, null, null, 0.15, null, null, 0.17],
+	[0.52, null, 0.83, null, null, 0.0, null, null, null, null, null],
+	[0.5, 0.83, null, null, 0.67, null, null, null, null, null, null],
+	[0.7, 0.83, 0.83, 0.15, null, 0.68, null, 0.15, null, null, 0.28],
 ]

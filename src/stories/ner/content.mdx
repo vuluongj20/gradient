@@ -8,6 +8,7 @@ import EmissionGraph from './partII/emissionGraph'
 import EmissionPaths from './partII/emissionPaths'
 import EntityLengthHeatmap from './partII/entityLengthHeatmap'
 import NERGraph from './partII/nerGraph'
+import OOVRateHeatmap from './partII/oovRateHeatmap'
 import OverviewGraph from './partII/overviewGraph'
 import PerEntityScorecards from './partII/perEntityScorecards'
 import PerWordScorecards from './partII/perWordScorecards'
@@ -213,9 +214,27 @@ A closer look at the results reveals a discrepancy between entities that contain
 
 This makes sense: we generally expect the model to perform worse on tokens that it wasn't trained on. And because the CoNLL-2003 train set has a large number of OOV tokens – 80.6% of all test entities contain at least one OOV token – overall precision and recall are heavily impacted.
 
-### Shortcomings
+### Drawbacks
+
+HMMs are by no means perfect candidates for NER or text labeling problems in general, for at least three reasons. The first two have to do with the statistical assumptions that underlie HMMs’ chain structure, while the third relates to their sole reliance on word identity in the observed layer.
+
+First is the Markov assumption. We don't compose words and their respective labels (“Noun”, “Adjective”, “B-ORG”, “I-ORG”) in a tidy, unidirectional manner. A word may link to another many places before or many more further down the line. In “South African Breweries Ltd”, both “South African” and “Ltd” provide crucial context to “Breweries”, which would otherwise register as not a name. HMMs fail to capture such tangled interdependence, instead assuming that information simply passes from left to right in a single, neat chain.
+
+An indication, although it is by no means proof, of such limitation lies in the fast deterioration of the precision score as the entity length – counted as the number of tokens inside each entity – increases:
 
 <EntityLengthHeatmap />
+
+Such rapid deterioration hints at an inability to account for long-range dependencies that would potentially provide useful information for label predictions. A model that better accounts for such dependencies can be reasonably expected to perform better on longer entities.
+
+The second concern bears on the emissions assumption. When composing sentences, it isn’t natural to say that individual words are generated from their respective labels. We don’t go about forming a chain of labels (such as “B–ORG” – “I-ORG” – “I–ORG” – “O”…) and then, one by one, generating words from labels in that chain.
+
+While semantic and grammatical rules may restrict the range of words that can follow the current word, such restrictions are far from the strong emissions assumption that we make in HMMs. There is a whole host of other factors that together determine how words are chosen, not just the current word label. Additionally, while there is a cognizable link between things like part-of-speech tags and the chosen words, with name tags like “B-ORG” and “I-ORG” that link is less clear. In fact, the relationship here may be reversed: we tend to assign labels to already generated words post-hoc, not the other way around.
+
+The third concern has to do with HMMs reliance on word identity (whether the current observation is word A or B or something else in the vocabulary) and nothing else in the observed layer. There are other useful word features that can provide useful information for label prediction. Capitalization is a strong signal that a word is part of a name. Word shape, like “X.X.X” or “XDDD”, where “X” is a capitalized letter and “D” is a digit, may help account for common name patterns. HMMs take none of these features into account (in fact, they can’t, because given their generative structure all observations must be independent of each other).
+
+When the only information available is word identities, the model is particularly vulnerable to unknown, out-of-vocabulary words. While HMMs can still wring some useful information from nearby predicted name tags during the Viterbi estimation step, it is nowhere near enough:
+
+<OOVRateHeatmap />
 
 ---
 
