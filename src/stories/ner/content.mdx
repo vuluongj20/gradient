@@ -214,7 +214,7 @@ A closer look at the results reveals a discrepancy between entities with known w
 
 This makes sense: we expect the model to perform worse on tokens that it wasn't trained on. And because the CoNLL-2003 train set has a large number of OOV tokens – 80.6% of all test entities contain at least one OOV token – across-the-board precision and recall are heavily impacted.
 
-### Drawbacks
+### Limitations
 
 HMMs are by no means perfect candidates for NER or text labeling problems in general, for at least three reasons. The first two have to do with the statistical assumptions that underlie HMMs’ chain structure, while the third relates to their sole reliance on word identity in the observed layer.
 
@@ -228,11 +228,13 @@ The second concern has to do with the emissions assumption. When composing sente
 
 Semantic and grammatical rules may restrict the range of words that can appear in any given observation, but those restrictions are far from the strong emissions assumption made by HMMs. Beyond the current word label, there is a whole host of other factors that together help determine which words are chosen. Additionally, while there is a cognizable link between part-of-speech tags and the words that are chosen, with name tags that link is less clear.
 
-The third reason for concern relates to HMMs sole reliance on word identity in the observed layer. There are various word features that can provide additional information on the hidden label. Capitalization is a strong signal of named entities. Word shape may help account for common name patterns. HMMs take none of these features into account (in fact, they can’t: their generative chain structure requires that all observations be independent of each other).
+The third concern relates to HMMs sole reliance on word identity in the observed layer. There are various word features that can provide additional information on the hidden label. Capitalization is a strong signal of named entities. Word shape may help account for common name patterns. HMMs take none of these features into account (in fact, they can’t – their generative chain structure requires that all observations be independent of each other).
 
-When the only available information is word identities, HMMs can stumble with out-of-vocabulary words. While droplets of useful information can be wrung out of nearby predicted name tags – the Viterbi algorithm maximizes likelihood over the whole sequence – the results are nonetheless disappointing:
+With the only information available being word identities, HMMs end up stumbling over out-of-vocabulary words. While the models can wring bits of useful information out of nearby predicted name tags – the Viterbi algorithm maximizes likelihood over the whole sequence – the results are nonetheless discouraging:
 
 <OOVRateHeatmap />
+
+The concerns detailed above are direct consequences of HMMs’ generative graph structure. Below, we’ll consider another class of probabilistic graphical models with a different, discriminative structure that will hopefully address some of those concerns and deliver better performance on long, OOV-heavy entities.
 
 ---
 
