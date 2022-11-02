@@ -31,7 +31,7 @@ const Title = styled.h1`
 const DescWrap = styled.p`
 	margin-bottom: 0.45em;
 	margin-left: ${(p) => p.theme.space[0]};
-	transform: translateX(-0.25rem);
+	transform: translateX(-0.4rem);
 
 	${(p) => p.theme.media.m} {
 		margin-bottom: 0.35em;
@@ -48,7 +48,7 @@ const DescLine = styled.span`
 	color: ${(p) => p.theme.heading};
 
 	&& {
-		line-height: 1.1;
+		line-height: 1;
 	}
 `
 
