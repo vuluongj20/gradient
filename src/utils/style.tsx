@@ -83,7 +83,7 @@ export const space = {
 
 export const navSize = {
 	width: '2.5rem',
-	mobileHeight: '3rem',
+	mobileHeight: '2.5rem',
 }
 
 export type ColCounts = Record<Breakpoint | 'xxl', number>

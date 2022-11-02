@@ -4,7 +4,7 @@ import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import Binder from './binder'
-import Menu from './menu'
+// import Menu from './menu'
 import useMenuLinks from './useMenuLinks'
 
 import { navSize } from '@utils/style'
@@ -109,14 +109,14 @@ const Nav = ({ pageTitle }: Props): JSX.Element => {
 				beforeSettingsDialogOpen={beforeSettingsDialogOpen}
 				afterSettingsDialogClose={afterSettingsDialogClose}
 			/>
-			<Menu
+			{/*<Menu
 				toggleMenu={toggleMenu}
 				isOpen={menuOpen}
 				animations={animations}
 				reducedMotion={reducedMotion}
 				beforeSettingsDialogOpen={beforeSettingsDialogOpen}
 				afterSettingsDialogClose={afterSettingsDialogClose}
-			/>
+			/>*/}
 		</Wrap>
 	)
 }

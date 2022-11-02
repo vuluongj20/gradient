@@ -10,7 +10,8 @@
 		"cover": {
 			"image": "../images/2.png",
 			"alt": "Abstract top-down shot of what looks like flowing liquid metal."
-		}
+		},
+		"isMock": false
 	},
 	{
 		"slug": "co2",
@@ -18,53 +19,12 @@
 		"description": "Atmospheric CO₂ data from the Mauna Loa Observatory offers great insights into the state of the earth in the past, present, and where it could be in the future.",
 		"featuredIn": ["top"],
 		"featuredSize": "m",
-		"sections": ["misc"],
+		"sections": [],
 		"authors": ["vu-luong"],
 		"cover": {
 			"image": "../stories/co2/images/preview.png",
 			"alt": "Polar plot with red-blue data line"
-		}
-	},
-	{
-		"slug": "bl-mahanoy",
-		"title": "B.L. v. Mahanoy School District",
-		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
-		"featuredIn": ["top"],
-		"featuredSize": "l",
-		"sections": ["misc"],
-		"authors": ["vu-luong"],
-		"cover": {
-			"image": "../images/1.jpg",
-			"alt": "..."
 		},
-		"isMock": true
-	},
-	{
-		"slug": "group-unawareness",
-		"title": "Group Unawareness",
-		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
-		"featuredIn": ["top", "design"],
-		"featuredSize": "s",
-		"sections": ["design"],
-		"authors": ["vu-luong"],
-		"cover": {
-			"image": "../images/2.png",
-			"alt": "..."
-		},
-		"isMock": true
-	},
-	{
-		"slug": "generative-neural-nets",
-		"title": "How Generative Neural Nets Work",
-		"description": "Leaders of the world’s largest economies were joined by first responders as they posed for photographs at the start of the two-day Group of 20 summit in Rome.",
-		"featuredIn": ["top", "language"],
-		"featuredSize": "m",
-		"sections": ["language"],
-		"authors": ["vu-luong"],
-		"cover": {
-			"image": "../images/3.png",
-			"alt": "..."
-		},
-		"isMock": true
+		"isMock": false
 	}
 ]

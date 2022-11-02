@@ -50,7 +50,7 @@ const Footer = ({ inset = false }: Props): JSX.Element => {
 	return (
 		<LocalThemeProvider inset={inset}>
 			<Wrap>
-				<Grid>
+				{/*<Grid>
 					<StyledDivider />
 				</Grid>
 				<SiteMap as="nav">
@@ -66,7 +66,7 @@ const Footer = ({ inset = false }: Props): JSX.Element => {
 						<ColLabel>More</ColLabel>
 						{mapSiteLinks([archivePage], ColContent, ColLink)}
 					</Column>
-				</SiteMap>
+				</SiteMap>*/}
 				<Grid>
 					<StyledDivider />
 				</Grid>
@@ -86,41 +86,41 @@ const Wrap = styled.footer`
 	${(p) => p.theme.marginTop[7]};
 `
 
-const SiteMap = styled(Grid)`
-	justify-items: start;
-	${(p) => p.theme.paddingVertical[4]};
-`
+// const SiteMap = styled(Grid)`
+// 	justify-items: start;
+// 	${(p) => p.theme.paddingVertical[4]};
+// `
 
-const Column = styled.div`
-	grid-column-end: span 2;
+// const Column = styled.div`
+// 	grid-column-end: span 2;
 
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: flex-start;
 
-	${(p) => p.theme.media.xs} {
-		&:not(:last-child) {
-			margin-bottom: ${(p) => p.theme.space[4]};
-		}
-	}
-`
+// 	${(p) => p.theme.media.xs} {
+// 		&:not(:last-child) {
+// 			margin-bottom: ${(p) => p.theme.space[4]};
+// 		}
+// 	}
+// `
 
-const ColLabel = styled.label`
-	${(p) => p.theme.text.system.label};
-	color: ${(p) => p.theme.label};
+// const ColLabel = styled.label`
+// 	${(p) => p.theme.text.system.label};
+// 	color: ${(p) => p.theme.label};
 
-	margin-bottom: ${(p) => p.theme.space[1]};
-`
+// 	margin-bottom: ${(p) => p.theme.space[1]};
+// `
 
-const ColContent = styled.ul``
+// const ColContent = styled.ul``
 
-const ColLink = styled.li`
-	margin-bottom: ${(p) => p.theme.space[0]};
+// const ColLink = styled.li`
+// 	margin-bottom: ${(p) => p.theme.space[0]};
 
-	&:last-of-type {
-		margin-bottom: 0;
-	}
-`
+// 	&:last-of-type {
+// 		margin-bottom: 0;
+// 	}
+// `
 
 const StyledDivider = styled(Divider)`
 	grid-column: 1 / -1;
@@ -151,6 +151,11 @@ const PolicyLink = styled.li`
 `
 
 const StyledLink = styled(TransitionLink)`
+	color: ${(p) => p.theme.label};
+	&:hover {
+		color: ${(p) => p.theme.body};
+	}
+
 	&:not(:last-child) {
 		margin-bottom: ${(p) => p.theme.space[1]};
 	}
