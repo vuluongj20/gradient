@@ -71,8 +71,10 @@ const Footer = ({ inset = false }: Props): JSX.Element => {
 					<StyledDivider />
 				</Grid>
 				<Policies>
-					<PolicyText aria-hidden="true">Gradient</PolicyText>
-					{mapSiteLinks(policiesPages, PolicyContent, PolicyLink)}
+					<PolicyText aria-hidden="true">
+						© Gradient {new Date().getFullYear()}
+					</PolicyText>
+					{/*{mapSiteLinks(policiesPages, PolicyContent, PolicyLink)}*/}
 				</Policies>
 			</Wrap>
 		</LocalThemeProvider>
