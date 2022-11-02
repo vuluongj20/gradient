@@ -8,8 +8,8 @@
 		"sections": ["technology"],
 		"authors": ["vu-luong"],
 		"cover": {
-			"image": "../images/2.png",
-			"alt": "Abstract top-down shot of what looks like flowing liquid metal."
+			"image": "../stories/ner/images/preview.jpg",
+			"alt": "Stylized name chunks, including “St. Louis”, “South African Breweries”, “Department of Transaport” among others"
 		},
 		"isMock": false
 	},

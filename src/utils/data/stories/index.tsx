@@ -14,7 +14,7 @@ export const storyFragment = graphql`
     cover {
       image {
         childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
+          gatsbyImageData(layout: FULL_WIDTH, quality: 95)
         }
       }
       alt
