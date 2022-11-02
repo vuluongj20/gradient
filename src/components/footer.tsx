@@ -1,16 +1,15 @@
-import { ElementType } from 'react'
+// import { ElementType } from 'react'
 import styled from 'styled-components'
 
 import Divider from '@components/divider'
 import Grid from '@components/grid'
-import TransitionLink from '@components/transitionLink'
 
-import { Page } from '@types'
-
-import useAuthors from '@utils/data/authors'
-import useArchivePage from '@utils/data/pages/archive'
-import usePoliciesPages from '@utils/data/policies'
-import useSections from '@utils/data/sections'
+// import TransitionLink from '@components/transitionLink'
+// import { Page } from '@types'
+// import useAuthors from '@utils/data/authors'
+// import useArchivePage from '@utils/data/pages/archive'
+// import usePoliciesPages from '@utils/data/policies'
+// import useSections from '@utils/data/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
 type Props = {
@@ -18,34 +17,34 @@ type Props = {
 }
 
 const Footer = ({ inset = false }: Props): JSX.Element => {
-	const sections = useSections()
-	const sectionPages = sections.map((section) => ({
-		slug: section.slug,
-		path: section.path,
-		title: section.name,
-		type: 'section',
-	}))
-	const authors = useAuthors()
-	const authorPages = authors.map((author) => ({
-		slug: author.slug,
-		path: author.path,
-		title: author.name,
-		type: 'author',
-	}))
-	const archivePage = useArchivePage()
-	const policiesPages = usePoliciesPages()
+	// const sections = useSections()
+	// const sectionPages = sections.map((section) => ({
+	// 	slug: section.slug,
+	// 	path: section.path,
+	// 	title: section.name,
+	// 	type: 'section',
+	// }))
+	// const authors = useAuthors()
+	// const authorPages = authors.map((author) => ({
+	// 	slug: author.slug,
+	// 	path: author.path,
+	// 	title: author.name,
+	// 	type: 'author',
+	// }))
+	// const archivePage = useArchivePage()
+	// const policiesPages = usePoliciesPages()
 
-	const mapSiteLinks = (pages: Page[], OuterWrap: ElementType, LinkWrap: ElementType) => (
-		<OuterWrap>
-			{pages.map((page) => {
-				return (
-					<LinkWrap key={page.slug}>
-						<StyledLink to={page.path}>{page.title}</StyledLink>
-					</LinkWrap>
-				)
-			})}
-		</OuterWrap>
-	)
+	// const mapSiteLinks = (pages: Page[], OuterWrap: ElementType, LinkWrap: ElementType) => (
+	// 	<OuterWrap>
+	// 		{pages.map((page) => {
+	// 			return (
+	// 				<LinkWrap key={page.slug}>
+	// 					<StyledLink to={page.path}>{page.title}</StyledLink>
+	// 				</LinkWrap>
+	// 			)
+	// 		})}
+	// 	</OuterWrap>
+	// )
 
 	return (
 		<LocalThemeProvider inset={inset}>
@@ -144,21 +143,21 @@ const PolicyText = styled.p`
 	}
 `
 
-const PolicyContent = styled.ul`
-	display: contents;
-`
+// const PolicyContent = styled.ul`
+// 	display: contents;
+// `
 
-const PolicyLink = styled.li`
-	grid-column-end: span 2;
-`
+// const PolicyLink = styled.li`
+// 	grid-column-end: span 2;
+// `
 
-const StyledLink = styled(TransitionLink)`
-	color: ${(p) => p.theme.label};
-	&:hover {
-		color: ${(p) => p.theme.body};
-	}
+// const StyledLink = styled(TransitionLink)`
+// 	color: ${(p) => p.theme.label};
+// 	&:hover {
+// 		color: ${(p) => p.theme.body};
+// 	}
 
-	&:not(:last-child) {
-		margin-bottom: ${(p) => p.theme.space[1]};
-	}
-`
+// 	&:not(:last-child) {
+// 		margin-bottom: ${(p) => p.theme.space[1]};
+// 	}
+// `
