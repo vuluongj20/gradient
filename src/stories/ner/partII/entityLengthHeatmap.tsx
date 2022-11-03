@@ -25,9 +25,9 @@ const EntityLengthHeatmap = () => {
 					<Item key="recall">Recall</Item>
 				</SwitchBar>
 				<Heatmap
-					groups={entityLengths}
 					data={data[dataSource]}
-					grouping="Entity Length"
+					groups={entityLengths}
+					groupLabel="Entity Length"
 				/>
 			</Wrap>
 		</Grid>

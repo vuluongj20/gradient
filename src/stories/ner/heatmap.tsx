@@ -122,6 +122,13 @@ const Wrap = styled.div`
 const InnerWrap = styled.div`
 	display: flex;
 	width: 100%;
+	overflow: scroll;
+
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `
 
 const Table = styled.table<{ separateLastRow: boolean }>`
