@@ -118,50 +118,50 @@ export const emissionProbabilities: number[][] = [
 export const entityLengths = [1, 2, 3, 4, 5]
 
 export const precisionByEntityLength = [
-	[0.61, 0.76, 0.22, 0.18, 0.14],
-	[0.79, 0.58, 0.62, null, null],
-	[0.89, 0.68, 0.47, null, null],
-	[0.83, 0.43, 0.17, 0.08, 0.22],
-	[0.77, 0.61, 0.24, 0.17, 0.15],
+	[0.61, 0.68, 0.3, 0.12, 0.28],
+	[0.96, 0.67, 0.7, null, null],
+	[0.88, 0.36, null, null, null],
+	[0.9, 0.46, 0.24, 0.12, null],
+	[0.77, 0.61, 0.31, 0.12, 0.29],
 ]
 
 export const recallByEntityLength = [
-	[0.55, 0.61, 0.59, 0.56, 0.61],
-	[0.08, 0.84, 0.12, null, null],
-	[0.74, 0.6, 0.32, null, null],
-	[0.41, 0.37, 0.39, 0.67, null],
-	[0.54, 0.72, 0.41, 0.57, 0.65],
+	[0.51, 0.61, 0.62, 0.38, 0.44],
+	[0.08, 0.88, 0.11, null, null],
+	[0.63, 0.55, 0.2, null, null],
+	[0.41, 0.43, 0.48, null, null],
+	[0.48, 0.74, 0.42, 0.38, 0.5],
 ]
 
 export const precisionByBinaryOOV = [
-	[0.82, 0.38],
-	[0.77, 0.57],
-	[0.74, 0.89],
-	[0.66, 0.56],
-	[0.77, 0.6],
+	[0.8, 0.21],
+	[0.85, 0.62],
+	[0.87, 0.06],
+	[0.78, 0.12],
+	[0.84, 0.39],
 ]
 export const recallByBinaryOOV = [
-	[0.77, 0.47],
-	[0.63, 0.56],
-	[0.78, 0.71],
-	[0.62, 0.36],
-	[0.74, 0.56],
+	[0.64, 0.33],
+	[0.58, 0.59],
+	[0.71, 0.05],
+	[0.54, 0.06],
+	[0.64, 0.41],
 ]
 
 export const precisionByOOVRate = [
-	[0.84, null, null, null, null, null, null, null, null, null, 0.3],
-	[0.74, null, null, null, null, 0.48, null, null, null, null, 0.59],
-	[0.62, null, null, 0.08, null, null, null, 0.04, null, null, 0.05],
-	[0.41, null, 0.26, null, null, 0.0, null, null, 0.0, null, 0.0],
-	[0.5, 0.36, null, null, 0.08, null, 0.0, null, null, 0.11, 0.0],
-	[0.8, 0.36, 0.26, 0.08, 0.08, 0.47, 0.0, 0.04, 0.0, 0.11, 0.43],
+	[0.86, null, null, null, null, null, null, null, null, null, 0.3],
+	[0.8, null, null, null, null, 0.5, null, null, null, null, 0.52],
+	[0.78, null, null, 0.15, null, null, null, 0.06, null, null, 0.0],
+	[0.42, null, 0.22, null, null, 0.0, null, null, 0.0, null, 0.0],
+	[0.67, null, null, null, 0.22, null, 0.0, null, null, 0.14, null],
+	[0.84, null, 0.22, 0.15, 0.22, 0.48, 0.0, 0.06, 0.0, 0.14, 0.41],
 ]
 
 export const recallByOOVRate = [
-	[0.69, null, null, null, null, null, null, null, null, null, 0.11],
-	[0.77, null, null, null, null, 0.68, null, null, null, null, 0.67],
-	[0.59, null, null, 0.15, null, null, null, 0.15, null, null, 0.17],
-	[0.52, null, 0.83, null, null, 0.0, null, null, null, null, null],
-	[0.5, 0.83, null, null, 0.67, null, null, null, null, null, null],
-	[0.7, 0.83, 0.83, 0.15, null, 0.68, null, 0.15, null, null, 0.28],
+	[0.61, null, null, null, null, null, null, null, null, null, 0.11],
+	[0.78, null, null, null, null, 0.71, null, null, null, null, 0.7],
+	[0.59, null, null, 0.25, null, null, null, 0.19, null, null, 0.0],
+	[0.38, null, 0.5, null, null, null, null, null, null, null, null],
+	[0.4, 0.5, null, null, null, null, null, null, null, null, null],
+	[0.64, 0.5, 0.5, 0.25, null, 0.71, null, 0.19, null, null, 0.29],
 ]

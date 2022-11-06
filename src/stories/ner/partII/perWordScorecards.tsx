@@ -7,7 +7,7 @@ const PerWordScorecards = () => {
 	return (
 		<Grid>
 			<Wrap>
-				<Scorecard label="Accuracy" number={89.3} unit="%" />
+				<Scorecard label="Accuracy" number={90.1} unit="%" />
 			</Wrap>
 		</Grid>
 	)

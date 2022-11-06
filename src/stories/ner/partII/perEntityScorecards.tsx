@@ -7,8 +7,8 @@ const PerEntityScorecards = () => {
 	return (
 		<Grid>
 			<Wrap>
-				<Scorecard label="Precision" number={63.1} unit="%" />
-				<Scorecard label="Recall" number={59.4} unit="%" />
+				<Scorecard label="Precision" number={64.2} unit="%" />
+				<Scorecard label="Recall" number={55.8} unit="%" />
 			</Wrap>
 		</Grid>
 	)
