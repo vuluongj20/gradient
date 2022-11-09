@@ -104,7 +104,7 @@ const Demo = ({
 	const debouncedUpdatePredictions = useMemo(
 		() =>
 			debounce<[value: string]>((value: string) => {
-				const tokens = tokenize(value)
+				const tokens = tokenize(value ?? '')
 
 				if (tokens.length === 0) {
 					setPredictions(EMPTY_PREDS)
