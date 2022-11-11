@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Grid from '@components/grid'
 import Scorecard from '@components/scorecard'
 
-const PerWordScorecards = () => {
+const HMMPerWordScorecards = () => {
 	return (
 		<Grid>
 			<Wrap>
@@ -13,7 +13,7 @@ const PerWordScorecards = () => {
 	)
 }
 
-export default PerWordScorecards
+export default HMMPerWordScorecards
 
 const Wrap = styled.div`
 	display: flex;

@@ -172,5 +172,77 @@
     "page": "142-147",
     "title": "Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition",
     "URL": "https://aclanthology.org/W03-0419.pdf"
+  },
+  {
+    "container-title": "Proceedings of the National Academy of Sciences",
+    "author": [
+      { "given": "Thierry", "family": "Mora" },
+      { "given": "Aleksandra M.", "family": "Walczak" },
+      { "given": "William", "family": "Bialek" },
+      { "given": "Curtis G. Callan" }
+    ],
+    "DOI": "10.1073/pnas.1001705107",
+    "type": "article-journal",
+    "id": "Thierry2010",
+    "issue": 12,
+    "issued": { "date-parts": [[2010]] },
+    "page": "5405-5410",
+    "title": "Maximum entropy models for antibody diversity",
+    "URL": "https://www.pnas.org/doi/abs/10.1073/pnas.1001705107",
+    "volume": 107
+  },
+  {
+    "publisher-place": "San Francisco, CA, USA",
+    "number-of-pages": "8",
+    "author": [
+      { "given": "Andrew", "family": "McCallum" },
+      { "given": "Dayne", "family": "Freitag" },
+      { "given": "Fernando C. N.", "family": "Pereira" }
+    ],
+    "container-title": "Proceedings of the Seventeenth International Conference on Machine Learning",
+    "collection-title": "ICML '00",
+    "type": "paper-conference",
+    "id": "McCallum2000",
+    "ISBN": "1558607072",
+    "issued": { "date-parts": [[2000]] },
+    "page": "591-598",
+    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "title": "Maximum Entropy Markov Models for Information Extraction and Segmentation"
+  },
+  {
+    "author": [
+      { "given": "Brian", "family": "Ziebart" },
+      { "given": "Andrew", "family": "Maas" },
+      { "given": "J.", "family": "Bagnell" },
+      { "given": "Anind", "family": "Dey" }
+    ],
+    "container-title": "Papers from the 2009 AAAI Spring Symposium, Technical Report SS-09-04, Stanford, California, USA",
+    "type": "paper-conference",
+    "id": "Ziebart2009",
+    "citation-label": "inproceedings",
+    "issued": { "date-parts": [[2009, 1]] },
+    "page": "92-97",
+    "title": "Human Behavior Modeling with Maximum Entropy Inverse Optimal Control.",
+    "URL": "https://www.aaai.org/Papers/Symposia/Spring/2009/SS-09-04/SS09-04-016.pdf"
+  },
+  {
+    "author": [
+      { "given": "Andrew", "family": "Ng" },
+      { "given": "Michael", "family": "Jordan" }
+    ],
+    "container-title": "Advances in Neural Information Processing Systems",
+    "editor": [
+      { "given": "T.", "family": "Dietterich" },
+      { "given": "S.", "family": "Becker" },
+      { "given": "Z.", "family": "Ghahramani" }
+    ],
+    "type": "paper-conference",
+    "id": "Ng2001",
+    "citation-label": "NIPS2001_7b7a53e2",
+    "issued": { "date-parts": [[2001]] },
+    "publisher": "MIT Press",
+    "title": "On Discriminative vs. Generative Classifiers: A comparison of logistic regression and naive Bayes",
+    "URL": "https://proceedings.neurips.cc/paper/2001/file/7b7a53e239400a13bd6be6c91c4f6c4e-Paper.pdf",
+    "volume": 14
   }
 ]

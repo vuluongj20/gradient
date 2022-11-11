@@ -60,7 +60,7 @@ const createGraph = (nStates: number, xDelta: number) => {
 	return graph
 }
 
-const OverviewGraph = () => {
+const HMMOverviewGraph = () => {
 	const wrapRef = useRef<HTMLDivElement>(null)
 	const [graph, setGraph] = useState<Graph>()
 
@@ -84,7 +84,7 @@ const OverviewGraph = () => {
 	)
 }
 
-export default OverviewGraph
+export default HMMOverviewGraph
 
 const Wrap = styled.div`
 	position: relative;

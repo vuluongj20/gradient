@@ -6,7 +6,7 @@ import { precisionByBinaryOOV, recallByBinaryOOV } from './constants'
 import Grid from '@components/grid'
 
 const groups = ['No OOV', '1+ OOV']
-const BinaryOOVHeatmap = () => {
+const HMMBinaryOOVHeatmap = () => {
 	return (
 		<Grid>
 			<Wrap>
@@ -23,7 +23,7 @@ const BinaryOOVHeatmap = () => {
 	)
 }
 
-export default BinaryOOVHeatmap
+export default HMMBinaryOOVHeatmap
 
 const Wrap = styled.div`
 	display: flex;

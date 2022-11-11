@@ -14,36 +14,53 @@ const createGraph = (nStates: number, xDelta: number) => {
 	const graph = new Graph()
 
 	const hiddenLayer = []
+	const observedLayer = []
+
 	for (let i = 0; i < nStates; i++) {
 		const forceX = (i - 1.5) * xDelta
 		const subscript = String.fromCodePoint(0x2080 + i + 1)
 
-		const x = new Node({
+		const state = new Node({
 			label: `S${subscript}`,
 			forceX,
-			forceY: 0,
+			forceY: -30,
 			x: forceX,
-			y: 0,
+			y: -30,
+		})
+		const observation = new Node({
+			label: `O${subscript}`,
+			forceX,
+			forceY: 30,
+			x: forceX,
+			y: 30,
 		})
 
-		graph.addNode(x)
+		graph.addNode(state)
+		graph.addNode(observation)
 
+		graph.addEdge(
+			new Edge({
+				nodes: { source: observation.id, target: state.id },
+				isDirected: true,
+			}),
+		)
 		if (i > 0) {
 			graph.addEdge(
 				new Edge({
-					nodes: { source: hiddenLayer[hiddenLayer.length - 1].id, target: x.id },
+					nodes: { source: hiddenLayer[hiddenLayer.length - 1].id, target: state.id },
 					isDirected: true,
 				}),
 			)
 		}
 
-		hiddenLayer.push(x)
+		hiddenLayer.push(state)
+		observedLayer.push(observation)
 	}
 
 	return graph
 }
 
-const HMMTransitionGraph = () => {
+const MEMMOverviewGraph = () => {
 	const wrapRef = useRef<HTMLDivElement>(null)
 	const [graph, setGraph] = useState<Graph>()
 
@@ -67,7 +84,7 @@ const HMMTransitionGraph = () => {
 	)
 }
 
-export default HMMTransitionGraph
+export default MEMMOverviewGraph
 
 const Wrap = styled.div`
 	position: relative;
@@ -76,6 +93,6 @@ const Wrap = styled.div`
 `
 
 const StyledGraphView = styled(GraphView)`
-	height: 2rem;
+	height: 6rem;
 	pointer-events: none;
 `

@@ -131,13 +131,13 @@ const ForceGraph = ({
 			.force(
 				'y',
 				forceY<MutableNode>((n) => n.forceY ?? 0).strength((n) =>
-					isDefined(n.forceY) ? 2.5 : 0,
+					isDefined(n.forceY) ? 5 : 0,
 				),
 			)
 			.force(
 				'x',
 				forceX<MutableNode>((n) => n.forceX ?? 0).strength((n) =>
-					isDefined(n.forceX) ? 2.5 : 0,
+					isDefined(n.forceX) ? 5 : 0,
 				),
 			)
 			.on('tick', ticked(renderedNodes, renderedEdges))

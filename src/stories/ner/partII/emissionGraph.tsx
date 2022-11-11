@@ -46,7 +46,7 @@ const createGraph = (nStates: number, xDelta: number) => {
 	return graph
 }
 
-const EmissionGraph = () => {
+const HMMEmissionGraph = () => {
 	const wrapRef = useRef<HTMLDivElement>(null)
 	const [graph, setGraph] = useState<Graph>()
 
@@ -70,7 +70,7 @@ const EmissionGraph = () => {
 	)
 }
 
-export default EmissionGraph
+export default HMMEmissionGraph
 
 const Wrap = styled.div`
 	position: relative;

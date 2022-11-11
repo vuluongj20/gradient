@@ -10,7 +10,7 @@ import SwitchBar, { Item } from '@components/switchBar'
 const data = { precision: precisionByEntityLength, recall: recallByEntityLength }
 type DataSource = keyof typeof data
 
-const EntityLengthHeatmap = () => {
+const HMMEntityLengthHeatmap = () => {
 	const [dataSource, setDataSource] = useState<DataSource>('precision')
 
 	return (
@@ -34,7 +34,7 @@ const EntityLengthHeatmap = () => {
 	)
 }
 
-export default EntityLengthHeatmap
+export default HMMEntityLengthHeatmap
 
 const Wrap = styled.div`
 	display: flex;

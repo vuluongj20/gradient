@@ -14,7 +14,7 @@ function probabilityToOpacity(probability: number) {
 
 const title = 'Emission paths from hidden states to observations'
 
-const EmissionPaths = ({ label }: { label: string }) => {
+const HMMEmissionPaths = ({ label }: { label: string }) => {
 	const innerWrapRef = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(innerWrapRef)
 
@@ -108,7 +108,7 @@ const EmissionPaths = ({ label }: { label: string }) => {
 	)
 }
 
-export default EmissionPaths
+export default HMMEmissionPaths
 
 const Wrap = styled.div`
 	position: relative;

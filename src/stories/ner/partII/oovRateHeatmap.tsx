@@ -11,7 +11,7 @@ const entityLengths = [1, 2, 3, 4, 5]
 const oovRates = [0, 0.2, 0.25, 0.33, 0.4, 0.5, 0.6, 0.66, 0.75, 0.8, 1]
 const data = { precision: precisionByOOVRate, recall: recallByOOVRate }
 type DataSource = keyof typeof data
-const OOVRateHeatmap = () => {
+const HMMOOVRateHeatmap = () => {
 	const [dataSource, setDataSource] = useState<DataSource>('precision')
 
 	return (
@@ -38,7 +38,7 @@ const OOVRateHeatmap = () => {
 	)
 }
 
-export default OOVRateHeatmap
+export default HMMOOVRateHeatmap
 
 const Wrap = styled.div`
 	display: flex;

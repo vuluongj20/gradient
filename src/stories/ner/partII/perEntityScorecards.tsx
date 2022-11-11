@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Grid from '@components/grid'
 import Scorecard from '@components/scorecard'
 
-const PerEntityScorecards = () => {
+const HMMPerEntityScorecards = () => {
 	return (
 		<Grid>
 			<Wrap>
@@ -14,7 +14,7 @@ const PerEntityScorecards = () => {
 	)
 }
 
-export default PerEntityScorecards
+export default HMMPerEntityScorecards
 
 const Wrap = styled.div`
 	display: flex;

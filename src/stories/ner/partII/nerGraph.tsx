@@ -64,7 +64,7 @@ const createGraph = (shortForm: boolean, xDelta: number) => {
 	return graph
 }
 
-const NERGraph = () => {
+const HMMNERGraph = () => {
 	const wrapRef = useRef<HTMLDivElement>(null)
 	const [graph, setGraph] = useState<Graph>()
 
@@ -89,7 +89,7 @@ const NERGraph = () => {
 	)
 }
 
-export default NERGraph
+export default HMMNERGraph
 
 const Wrap = styled.div`
 	position: relative;

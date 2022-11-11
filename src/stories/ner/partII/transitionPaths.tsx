@@ -14,7 +14,7 @@ function probabilityToOpacity(probability: number) {
 
 const title = 'Transition paths between hidden states'
 
-const TransitionPaths = ({ nStates, label }: { nStates: number; label?: string }) => {
+const HMMTransitionPaths = ({ nStates, label }: { nStates: number; label?: string }) => {
 	const innerWrapRef = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(innerWrapRef)
 
@@ -103,7 +103,7 @@ const TransitionPaths = ({ nStates, label }: { nStates: number; label?: string }
 	)
 }
 
-export default TransitionPaths
+export default HMMTransitionPaths
 
 const Wrap = styled.div`
 	position: relative;
