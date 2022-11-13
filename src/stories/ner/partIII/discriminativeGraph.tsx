@@ -10,8 +10,8 @@ import Grid from '@components/grid'
 
 import useSize from '@utils/useSize'
 
-const S = ['O', 'B-LOC', 'I-LOC', 'O', 'O', 'B-LOC', 'I-LOC']
-const O = ['Great', 'Birnam', 'Wood', 'to', 'high', 'Dunsinane', 'Hill']
+const S = ['O', 'O', 'O', 'B-PER', 'I-PER', 'O']
+const O = ['Stately', ',', 'plump', 'Buck', 'Mulligan', 'came']
 
 const createGraph = (shortForm: boolean, xDelta: number) => {
 	const graph = new Graph()
@@ -19,10 +19,11 @@ const createGraph = (shortForm: boolean, xDelta: number) => {
 	const hiddenLayer = []
 	const observedLayer = []
 
-	const SLength = shortForm ? 3 : S.length
+	const SLength = shortForm ? 4 : S.length
+	const SStart = shortForm ? 2 : 0
 
-	for (let i = 0; i < SLength; i++) {
-		const forceX = (i - (SLength - 1) / 2) * xDelta
+	for (let i = SStart; i < SStart + SLength; i++) {
+		const forceX = (i - SStart - (SLength - 1) / 2) * xDelta
 
 		const s = new Node({
 			label: S[i],
@@ -44,11 +45,11 @@ const createGraph = (shortForm: boolean, xDelta: number) => {
 
 		graph.addEdge(
 			new Edge({
-				nodes: { source: s.id, target: o.id },
+				nodes: { source: o.id, target: s.id },
 				isDirected: true,
 			}),
 		)
-		if (i > 0) {
+		if (hiddenLayer.length > 0) {
 			graph.addEdge(
 				new Edge({
 					nodes: { source: hiddenLayer[hiddenLayer.length - 1].id, target: s.id },

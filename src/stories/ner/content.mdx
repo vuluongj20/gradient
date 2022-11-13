@@ -14,6 +14,7 @@ import HMMPerEntityScorecards from './partII/perEntityScorecards'
 import HMMPerWordScorecards from './partII/perWordScorecards'
 import HMMTransitionGraph from './partII/transitionGraph'
 import HMMTransitionPaths from './partII/transitionPaths'
+import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
 import MEMMOverviewGraph from './partIII/overviewGraph'
 
 <Header>
@@ -241,7 +242,7 @@ The concerns detailed above are direct consequences of HMMs’ generative graph 
 
 ## III. Maximum Entropy Markov Models
 
-Maximum Entropy Markov Models (MEMMs) resolve some of the concerns with HMMs by way of a slight yet meaningful difference in structure:
+Maximum Entropy Markov Models (MEMMs) resolve some of the concerns with HMMs by way of a simple yet meaningful modification in graphical structure:
 
 <MEMMOverviewGraph />
 
@@ -249,9 +250,43 @@ Similar to HMMs, MEMMs have been successfully applied to a wide range of sequenc
 
 ### Discriminative Structure
 
-Suppose we have a simple system with two variables, $X$ and $Y$. In many cases, we want to make predictions on one variable using observations from the other. A generative model does that by first getting a good understanding of the generative process – learning the joint distribution $p(X, Y)$ and then using Bayes' rule to get the probability distribution over the unobserved variable. On the other hand, a discriminative model would directly compute the probability of the unobserved variable conditioned on the observations [@Ng2001].
+Suppose there is a system with two variables, $X$ and $Y$, and we want to make predictions on $Y$ based on observations on $X$. A generative classifier would do that by first learning the prior distribution $p(X, Y)$ and then applying Bayes' rule to find the posterior $p(Y|X)$. A discriminative classifier, on the other hand, would model the posterior $p(Y|X)$ directly. [@Ng2001]
 
-While HMMs are generative models, MEMMs are discriminative.
+HMMs are generative generative classifiers, while MEMMs are discriminative. HMMs are generative because they model the joint distribution over both observations and hidden states, before using that to identify the most likely state sequence given observations or solve some other inference problems. MEMMs, on the other hand, directly model the conditional distribution $p(states|observations)$.
+
+<MEMMDiscriminativeGraph />
+
+### Word Features
+
+The biggest advatage that MEMMs have over HMMs is their ability to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and not subject to the independence requirement, so they can use any number of word features, overlapping or not. [@McCallum2000]
+
+Common practice is to use binary features, such as:
+
+$$
+b(o_t) = \begin{cases}
+	1\ \textrm{ if $o_t$ has word shape "Xxx"} \\
+	0\ \textrm{ otherwise}
+	\end{cases}
+$$
+
+These features are then paired with the current state $s$ to form feature-state pairs $a = \langle b, s \rangle$:
+
+$$
+f_a(o_t, s_t) = f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
+	1\ \textrm{ if $b(o_t) = 1$ and $s_t = s$} \\
+	0\ \textrm{ otherwise}
+	\end{cases}
+$$
+
+The thinking behind feature-state pairs is that they may provide useful information about which features and states go together, and which don’t. For example, if the current word is capitalized, then its corresponding state is less likely to be “O”. We can expect to see fewer occurrences of the "capitalized" + “O” pair than say "capitalized" + “B-ORG”.
+
+The transition function has exponential form and contains a weighted sum of all feature-state pairs:
+
+$$
+P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
+$$
+
+where $s\prime$ is the previous state, $s$ is the current state, $o$ is the current observation, $a$ is a feature-state pair, and $Z(o, s\prime)$ is a normalizing term to make the distribution sum to one across all next states $s$. [@McCallum2000]
 
 ---
 
