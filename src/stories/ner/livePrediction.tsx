@@ -70,19 +70,20 @@ const PRED_LABELS = [
 	['MISC', 'miscellaneous'],
 ]
 
-type Props = PanelProps & {
+interface LivePredictionProps extends PanelProps {
 	models: MODEL[]
 	label?: ReactNode
 	initialInputValue?: string
 	hideTagPrefixes?: boolean
 }
-const Demo = ({
+
+const LivePrediction = ({
 	models,
 	label,
 	initialInputValue,
 	hideTagPrefixes,
 	...panelProps
-}: Props) => {
+}: LivePredictionProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
 
@@ -334,7 +335,7 @@ const Demo = ({
 	)
 }
 
-export default Demo
+export default LivePrediction
 
 const MODEL_NAME_WIDTH = '3rem'
 

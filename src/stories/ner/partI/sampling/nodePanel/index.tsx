@@ -7,14 +7,19 @@ import SamplingNode from '../model/node'
 import ChildNode from './child'
 import RootNode from './root'
 
-type Props = {
+interface SamplingNodePanelProps {
 	node: SamplingNode
 	incomingEdges: SamplingEdge[]
 	parentNodes: SamplingNode[]
 	overlayProps: HTMLAttributes<HTMLDivElement>
 }
 
-const SamplingNodePanel = ({ node, incomingEdges, parentNodes, overlayProps }: Props) => {
+const SamplingNodePanel = ({
+	node,
+	incomingEdges,
+	parentNodes,
+	overlayProps,
+}: SamplingNodePanelProps) => {
 	return (
 		<Wrap {...overlayProps}>
 			<NodeLabel>{node.label}</NodeLabel>

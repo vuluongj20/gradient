@@ -4,13 +4,6 @@ import styled from 'styled-components'
 
 type Position = 'top' | 'bottom' | 'left' | 'right'
 
-type Props = SVGAttributes<SVGSVGElement> & {
-  from: Position
-  to: Position
-  width?: number
-  height?: number
-}
-
 const getPoint = (width: number, height: number, position: Position) => {
   switch (position) {
     case 'top':
@@ -38,7 +31,14 @@ const getControlPoint = (width: number, height: number, position: Position) => {
   }
 }
 
-const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, Props> = (
+interface GuideArrowProps extends SVGAttributes<SVGSVGElement> {
+  from: Position
+  to: Position
+  width?: number
+  height?: number
+}
+
+const GuideArrow: ForwardRefRenderFunction<SVGSVGElement, GuideArrowProps> = (
   { width = 48, height = 48, from, to, ...props },
   ref,
 ) => {

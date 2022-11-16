@@ -1,7 +1,7 @@
 import { makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
 
-type Props = {
+interface EdgeProps {
 	/**
 	 * The nodes that this edge connects. If this is a directed edge, the order
 	 * matters: the first listed node is the starting node, and the second the
@@ -22,7 +22,7 @@ class Edge {
 	}
 	isDirected: boolean
 
-	constructor(props: Props) {
+	constructor(props: EdgeProps) {
 		makeObservable(this, {
 			id: observable,
 			nodes: observable,

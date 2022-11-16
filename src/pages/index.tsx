@@ -13,7 +13,7 @@ import { Section as ISection, Story } from '@types'
 import useSections from '@utils/data/sections'
 import useFeaturedStories from '@utils/data/stories/featured'
 
-const IndexPage = (): JSX.Element => {
+const IndexPage = () => {
   const sections: ISection[] = useSections()
   const featuredStories: Story[] = useFeaturedStories()
 

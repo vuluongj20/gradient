@@ -1,7 +1,7 @@
 import { useProgressBar } from '@react-aria/progress'
 import styled, { keyframes } from 'styled-components'
 
-type Props = {
+interface SpinnerProps {
 	label: string
 	showLabel?: boolean
 	diameter?: number
@@ -15,7 +15,7 @@ const Spinner = ({
 	label = 'Loading…',
 	showLabel,
 	className,
-}: Props) => {
+}: SpinnerProps) => {
 	const { progressBarProps } = useProgressBar({
 		isIndeterminate: true,
 		'aria-label': label,

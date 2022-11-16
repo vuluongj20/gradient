@@ -8,7 +8,7 @@ export const orderedBreakpoints: Breakpoint[] = ['xl', 'l', 'm', 's', 'xs']
  * instead of the theme folder since we may want to import it
  * into individual components too.
  */
-export const breakpoints: Record<Breakpoint, string> = {
+export const breakpoints = {
 	xl: '90rem', // 1440px
 	l: '78rem', // 1248px
 	m: '64rem', // 1024px
@@ -16,7 +16,7 @@ export const breakpoints: Record<Breakpoint, string> = {
 	xs: '30rem', // 480px
 }
 /** Useful for comparing with window.innerWidth */
-export const numericBreakpoints: Record<Breakpoint, number> = {
+export const numericBreakpoints = {
 	xl: 1440,
 	l: 1184,
 	m: 1024,
@@ -36,7 +36,7 @@ export const zIndices: Record<string, number> = {
 }
 
 /** Border radii */
-export const radii: Partial<Record<Breakpoint, string>> = {
+export const radii = {
 	xs: '0.25rem',
 	s: '0.375rem',
 	m: '0.5rem',
@@ -44,13 +44,13 @@ export const radii: Partial<Record<Breakpoint, string>> = {
 }
 
 /** Box shadows */
-export const boxShadowsLight: Partial<Record<Breakpoint, string>> = {
+export const boxShadowsLight = {
 	s: '0 1px 2px rgba(33, 37, 41, 0.04)',
 	m: '0 1px 4px rgba(33, 37, 41, 0.06)',
 	l: '0 4px 32px rgba(33, 37, 41, 0.08)',
 }
 
-export const boxShadowsDark: Partial<Record<Breakpoint, string>> = {
+export const boxShadowsDark = {
 	s: '0 1px 2px rgb(25, 25, 25)',
 	m: '0 1px 4px rgb(25, 25, 25)',
 	l: '0 4px 32px rgb(25, 25, 25)',

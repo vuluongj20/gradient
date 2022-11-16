@@ -15,29 +15,28 @@ import styled from 'styled-components'
 import BalancedText from '@components/balancedText'
 import Popover, { UsePopoverProps, usePopover } from '@components/popover'
 
-export type TooltipProps = UsePopoverProps &
-  TooltipTriggerProps & {
-    /**
-     * Contents of the tooltip
-     */
-    content: ReactNode
-    /**
-     * Tooltip trigger. The props and ref are provided
-     * (p: TriggerChildrenProps). Should return a trigger
-     * element with the props and ref attached.
-     */
-    children: (p: Partial<HTMLAttributes<HTMLElement>>) => JSX.Element
-    /**
-     * Whether to stretch (via theme.utils.spread) the
-     * tooltip container to match its parent's bounds
-     */
-    spread?: boolean
-    maxWidth?: string
-    ariaHidden?: boolean
-    renderWrapperAsSpan?: boolean
-    renderOverlayAsSpan?: boolean
-    className?: string
-  }
+export interface TooltipProps extends UsePopoverProps, TooltipTriggerProps {
+  /**
+   * Contents of the tooltip
+   */
+  content: ReactNode
+  /**
+   * Tooltip trigger. The props and ref are provided
+   * (p: TriggerChildrenProps). Should return a trigger
+   * element with the props and ref attached.
+   */
+  children: (p: Partial<HTMLAttributes<HTMLElement>>) => JSX.Element
+  /**
+   * Whether to stretch (via theme.utils.spread) the
+   * tooltip container to match its parent's bounds
+   */
+  spread?: boolean
+  maxWidth?: string
+  ariaHidden?: boolean
+  renderWrapperAsSpan?: boolean
+  renderOverlayAsSpan?: boolean
+  className?: string
+}
 
 const TooltipTrigger: ForwardRefRenderFunction<HTMLElement, TooltipProps> = (
   {

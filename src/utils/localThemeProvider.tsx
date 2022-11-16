@@ -10,13 +10,13 @@ import { ThemeSettings, useThemeObject } from '@theme'
 
 import SettingsContext from '@utils/settingsContext'
 
-type Props = {
+interface LocalThemeProviderProps {
 	children?: ReactNode
 	inset?: boolean
 	overlay?: boolean
 }
 
-const LocalThemeProvider = ({ children, inset, overlay }: Props): JSX.Element => {
+const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProps) => {
 	const {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)

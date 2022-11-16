@@ -2,9 +2,9 @@ import { axisBottom, axisRight, easeCubicOut, select } from 'd3'
 import { ScaleLinear, ScaleTime } from 'd3-scale'
 import { Selection } from 'd3-selection'
 
-import { Data } from '../index'
+import { Datum } from '../index'
 
-type Props = {
+interface DrawVizProps {
 	height: number
 	innerHeight: number
 	width: number
@@ -19,7 +19,15 @@ type Props = {
 	y: ScaleLinear<number, number>
 }
 
-const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props) => {
+const drawViz = ({
+	height,
+	innerHeight,
+	width,
+	innerWidth,
+	x,
+	y,
+	margin,
+}: DrawVizProps) => {
 	const grandDaddy = select('#line-chart'),
 		svg = grandDaddy
 			.select('.svg-wrap')
@@ -237,8 +245,8 @@ const drawViz = ({ height, innerHeight, width, innerWidth, x, y, margin }: Props
 
 	return {
 		svg,
-		dataLine: dataLine as Selection<SVGPathElement, Data, HTMLElement, unknown>,
-		regLine: regLine as Selection<SVGPathElement, Data, HTMLElement, unknown>,
+		dataLine: dataLine as Selection<SVGPathElement, Datum[], HTMLElement, unknown>,
+		regLine: regLine as Selection<SVGPathElement, Datum[], HTMLElement, unknown>,
 		hoverLine,
 		hoverDataCircle,
 		hoverGroup,

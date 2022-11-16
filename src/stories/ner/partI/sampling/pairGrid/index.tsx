@@ -15,13 +15,13 @@ import Button from '@components/button'
 import { usePointerAction } from '@utils/text'
 import useSize from '@utils/useSize'
 
-type Props = {
+interface PairGridProps {
 	graph: SamplingGraph
 	title?: string
 	className?: string
 }
 
-const PairGrid = ({ graph, title, className }: Props) => {
+const PairGrid = ({ graph, title, className }: PairGridProps) => {
 	const gridWrapRef = useRef<HTMLDivElement>(null)
 	const svgRef = useRef<SVGSVGElement>(null)
 	const { width, height } = useSize(gridWrapRef)

@@ -10,18 +10,18 @@ import { AdaptiveGridColumns, GridColumns, Story } from '@types'
 import { sum } from '@utils/functions'
 import { ColCounts, gridColCounts } from '@utils/style'
 
-type Props = {
+interface CardGroupProps {
 	stories: Story[]
 	imageLoading?: GatsbyImageProps['loading']
 }
 
-type SpanRange = {
+interface SpanRange {
 	mid: number
 	min: number
 	max: number
 }
 
-type SizeMap = Record<Story['featuredSize'], SpanRange>
+interface SizeMap extends Record<Story['featuredSize'], SpanRange> {}
 
 /** Maps a size shortname (s/m/l/xl) to a full size range object */
 const sizeMap: SizeMap = {
@@ -180,7 +180,7 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 	return results as AdaptiveGridColumns[]
 }
 
-const CardGroup = ({ stories, imageLoading }: Props): JSX.Element => {
+const CardGroup = ({ stories, imageLoading }: CardGroupProps) => {
 	const gridColumns = useMemo(() => getGridColumns(stories), [stories])
 
 	return (

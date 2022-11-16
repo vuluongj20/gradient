@@ -7,14 +7,14 @@ type ColorProp = keyof ColorAliases | 'currentColor'
 
 type IconSize = 'xs' | 's' | 'm' | 'l' | 'xl'
 
-export type IconProps = {
+export interface IconProps {
 	size?: IconSize
 	color?: ColorProp
 	className?: string
 	useAlt?: boolean
 }
 
-type Props = IconProps & {
+interface SVGProps extends IconProps {
 	alt: string
 	children: ReactNode
 }
@@ -34,7 +34,7 @@ const SVG = ({
 	alt,
 	useAlt = false,
 	children,
-}: Props) => {
+}: SVGProps) => {
 	return (
 		<StyledSVG
 			xmlns="http://www.w3.org/2000/svg"

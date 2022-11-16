@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { Page } from '@types'
 
-type PolicyMDX = {
+interface PolicyMDX {
 	frontmatter: {
 		slug: string
 		title: string

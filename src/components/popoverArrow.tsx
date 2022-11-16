@@ -3,13 +3,13 @@ import { nanoid } from 'nanoid'
 import { ForwardRefRenderFunction, HTMLAttributes, forwardRef, useMemo } from 'react'
 import styled from 'styled-components'
 
-type Props = HTMLAttributes<HTMLDivElement> & {
+interface PopoverArrowProps extends HTMLAttributes<HTMLDivElement> {
   size?: 's' | 'm' | 'l'
   strokeWidth?: number
   placement?: Placement
 }
 
-function getArrowWidth(size: Props['size']) {
+function getArrowWidth(size: PopoverArrowProps['size']) {
   switch (size) {
     case 's':
       return 16
@@ -21,7 +21,7 @@ function getArrowWidth(size: Props['size']) {
   }
 }
 
-export function getArrowHeight(size: Props['size']) {
+export function getArrowHeight(size: PopoverArrowProps['size']) {
   return Math.round(getArrowWidth(size) / 4)
 }
 
@@ -29,7 +29,7 @@ function round(number: number) {
   return +number.toFixed(1)
 }
 
-const Arrow: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+const Arrow: ForwardRefRenderFunction<HTMLDivElement, PopoverArrowProps> = (
   { size = 'm', strokeWidth = 1, placement, ...props },
   ref,
 ) => {

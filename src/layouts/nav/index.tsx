@@ -12,14 +12,16 @@ import useMobile from '@utils/useMobile'
 import usePrevious from '@utils/usePrevious'
 import useReducedMotion from '@utils/useReducedMotion'
 
-type Props = { pageTitle: string }
+interface NavProps {
+	pageTitle: string
+}
 
 const animations = {
 	exit: { duration: 0.75, ease: 'power3.inOut' },
 	entry: { duration: 0.75, ease: 'power3.inOut' },
 }
 
-const Nav = ({ pageTitle }: Props): JSX.Element => {
+const Nav = ({ pageTitle }: NavProps) => {
 	// Create & intialize refs
 	const focusTrapRef = useRef<focusTrap.FocusTrap>()
 	const pageContentRef = useRef<HTMLDivElement | null>()

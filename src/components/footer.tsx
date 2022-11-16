@@ -12,11 +12,11 @@ import Grid from '@components/grid'
 // import useSections from '@utils/data/sections'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
-type Props = {
+interface FooterProps {
 	inset?: boolean
 }
 
-const Footer = ({ inset = false }: Props): JSX.Element => {
+const Footer = ({ inset = false }: FooterProps) => {
 	// const sections = useSections()
 	// const sectionPages = sections.map((section) => ({
 	// 	slug: section.slug,

@@ -23,7 +23,7 @@ export enum ParameterType {
 	Scale = 'scale',
 }
 
-export type ParameterInfo = {
+export interface ParameterInfo {
 	displayName: string
 	description: string
 	minValue?: number
@@ -32,7 +32,7 @@ export type ParameterInfo = {
 	type?: ParameterType
 }
 
-type BaseDistribution = {
+interface BaseDistribution {
 	parameters: Record<string, ParameterInfo>
 	parameterValues: Record<string, number>
 	setParameterValue: (name: string, value: number) => void
@@ -43,12 +43,12 @@ type BaseDistribution = {
 	sample: (n: number) => number[]
 }
 
-export type ContinuousDistribution = BaseDistribution & {
+export interface ContinuousDistribution extends BaseDistribution {
 	type: ContinuousDistributionType
 	pdf: (value: number) => number
 }
 
-export type DiscreteDistribution = BaseDistribution & {
+export interface DiscreteDistribution extends BaseDistribution {
 	type: DiscreteDistributionType
 	pmf: (value: number) => number
 }

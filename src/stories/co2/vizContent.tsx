@@ -4,14 +4,14 @@ import styled from 'styled-components'
 import Grid from '@components/grid'
 import { Body } from '@components/text'
 
-type Props = {
+interface VizContentProps {
 	height: string
 	content: { state: string; des: string; params?: number[] }[]
 	isResizing: boolean
 }
 
-const VizContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-	{ height, content, isResizing }: Props,
+const VizContent: ForwardRefRenderFunction<HTMLDivElement, VizContentProps> = (
+	{ height, content, isResizing },
 	ref,
 ) => (
 	<Grid>

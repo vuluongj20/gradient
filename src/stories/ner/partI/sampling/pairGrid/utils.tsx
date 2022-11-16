@@ -18,7 +18,7 @@ const gridGap = 24
 const marginLeft = 48
 const marginBottom = 40
 
-type SubplotSizeProps = {
+interface SubplotSizeProps {
 	width: number
 	height: number
 	numNodes: number

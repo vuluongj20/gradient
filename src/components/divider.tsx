@@ -1,7 +1,7 @@
 import { SeparatorProps, useSeparator } from '@react-aria/separator'
 import styled from 'styled-components'
 
-const Divider = styled(({ orientation, ...props }: SeparatorProps): JSX.Element => {
+const Divider = styled(({ orientation, ...props }: SeparatorProps) => {
 	const { separatorProps } = useSeparator({ orientation })
 	return <div {...separatorProps} {...props} />
 }).withConfig({

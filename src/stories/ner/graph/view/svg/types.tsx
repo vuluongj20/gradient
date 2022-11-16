@@ -3,7 +3,7 @@ import { Selection } from 'd3-selection'
 import Edge from '../../model/edge'
 import Node from '../../model/node'
 
-export type MutableNode = {
+export interface MutableNode {
 	id: Node['id']
 	label: Node['label']
 	index: number
@@ -17,7 +17,7 @@ export type MutableNode = {
 	fy?: number | null
 }
 
-export type MutableEdge = {
+export interface MutableEdge {
 	id: Edge['id']
 	index: number
 	source: MutableNode

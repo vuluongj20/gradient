@@ -3,9 +3,11 @@ import gsap from 'gsap'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-type Props = { pageTitle: string }
+interface BreadcrumbsProps {
+	pageTitle: string
+}
 
-const Breadcrumbs = ({ pageTitle }: Props): JSX.Element => {
+const Breadcrumbs = ({ pageTitle }: BreadcrumbsProps) => {
 	const [internalPageTitle, setInternalPageTitle] = useState(pageTitle)
 	const location = useLocation()
 	const disabled = location.pathname === '/'

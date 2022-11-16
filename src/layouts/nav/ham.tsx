@@ -6,7 +6,7 @@ import Button from '@components/button'
 
 import { navSize } from '@utils/style'
 
-export type HamProps = {
+export interface HamProps {
 	toggleMenu: (nextState: boolean) => void
 	menuOpen: boolean
 }

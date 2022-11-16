@@ -7,7 +7,7 @@ import GuideArrow from '@components/guideArrow'
 
 import { isDefined } from '@utils/functions'
 
-type HeatmapProps = {
+interface HeatmapProps {
 	data: (number | null)[][]
 	groups: (number | string)[]
 	groupLabel?: string
@@ -15,6 +15,7 @@ type HeatmapProps = {
 	rowLabel?: string
 	separateLastRow?: boolean
 }
+
 const Heatmap = ({
 	data,
 	groups,

@@ -6,18 +6,18 @@ import { Transition } from 'react-transition-group'
 
 import DialogContent, { DialogContentProps } from '@components/dialogContent'
 
-type TriggerChildrenProps = {
+interface DialogTriggerChildrenProps {
 	props: ButtonHTMLAttributes<HTMLButtonElement>
 	ref: RefObject<HTMLElement>
 }
 
-type Props = {
+interface DialogProps {
 	/**
 	 * For optionally replacing the trigger element.
 	 * Should return an element with the props and
 	 * ref (p: TriggerChildrenProps) attached
 	 */
-	trigger?: (p: TriggerChildrenProps) => ReactNode
+	trigger?: (p: DialogTriggerChildrenProps) => ReactNode
 	/**
 	 * If the trigger prop hasn't been provided, create a basic button
 	 * with the provided triggerLabel
@@ -89,7 +89,7 @@ const Dialog = ({
 	isOpen,
 	open,
 	close,
-}: Props) => {
+}: DialogProps) => {
 	const internalOpenButtonRef = useRef<HTMLButtonElement>(null)
 	const openButtonRef = triggerRef ?? internalOpenButtonRef
 	const closeButtonRef = useRef<HTMLButtonElement>(null)

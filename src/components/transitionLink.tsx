@@ -2,7 +2,7 @@ import TransitionLink from 'gatsby-plugin-transition-link'
 import gsap from 'gsap'
 import { HTMLAttributes, ReactNode } from 'react'
 
-type Props = HTMLAttributes<HTMLElement> & {
+interface TransitionLinkProps extends HTMLAttributes<HTMLLinkElement> {
 	to: string
 	children: ReactNode
 	onExit?: () => void
@@ -11,7 +11,7 @@ type Props = HTMLAttributes<HTMLElement> & {
 const exitTransition = { duration: 0.75, ease: 'power3.inOut' }
 const entryTransition = { duration: 1, ease: 'power3.out' }
 
-const Link = ({ to, children, onExit, ...rest }: Props): JSX.Element => {
+const Link = ({ to, children, onExit, ...rest }: TransitionLinkProps) => {
 	const exit = {
 		trigger: ({ node }: { node: HTMLElement }) => {
 			document.body.dataset.transitioning = 'true'

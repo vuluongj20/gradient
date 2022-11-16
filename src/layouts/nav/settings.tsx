@@ -6,7 +6,7 @@ import Dialog from '@components/dialog'
 
 import IconPalette from '@icons/palette'
 
-type Props = {
+interface SettingsProps {
 	as?: string
 	withLabel?: boolean
 	className?: string
@@ -21,7 +21,7 @@ const Settings = ({
 	beforeDialogOpen,
 	afterDialogClose,
 	dialogTriggerDisabled,
-}: Props) => {
+}: SettingsProps) => {
 	return (
 		<Wrap className={className}>
 			<Dialog

@@ -2,14 +2,16 @@ import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
-type Props = { gridColumn?: keyof Theme['gridColumn'] }
+interface TextProps {
+	gridColumn?: keyof Theme['gridColumn']
+}
 
-export const Title = styled.h1<Props>`
+export const Title = styled.h1<TextProps>`
 	${(p) => p.theme.text.content.h1};
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
-export const Abstract = styled.p<Props>`
+export const Abstract = styled.p<TextProps>`
 	${(p) => p.theme.text.content.h6}
 	font-family: ${(p) => p.theme.text.content.body.fontFamily};
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
@@ -22,7 +24,7 @@ export const Abstract = styled.p<Props>`
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
-export const Heading = styled.h2<Props>`
+export const Heading = styled.h2<TextProps>`
 	${(p) => p.theme.text.content.h2}
 	${(p) => p.theme.marginBottom[5]}
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
@@ -47,19 +49,19 @@ export const Heading = styled.h2<Props>`
 	}
 `
 
-export const Subheading = styled.h3<Props>`
+export const Subheading = styled.h3<TextProps>`
 	${(p) => p.theme.text.content.h5}
 	${(p) => p.theme.marginBottom[3]}
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
-export const Body = styled.p<Props>`
+export const Body = styled.p<TextProps>`
 	${(p) => p.theme.text.content.body};
 	${(p) => p.theme.marginBottom[3]}
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
-export const Link = styled.a<Props>`
+export const Link = styled.a<TextProps>`
 	${(p) => p.theme.text.content.body};
 	color: ${(p) => p.theme.contentLinkText};
 	text-decoration-color: ${(p) => p.theme.contentLinkUnderline};

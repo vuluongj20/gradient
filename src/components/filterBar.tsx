@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Select from '@components/fields/select'
 import Grid from '@components/grid'
 
-export type FilterProps = {
+export interface FilterProps {
 	name: string
 	'aria-label': string
 	defaultValue: string
@@ -15,7 +15,7 @@ export type FilterProps = {
 	]
 }
 
-type Props = {
+interface FilterBarProps {
 	filters: FilterProps[]
 	onChange: (filterName: string, value: string) => void
 	showDialogOnMobile?: boolean
@@ -26,7 +26,7 @@ const FilterBar = ({
 	onChange,
 	showDialogOnMobile,
 	...rest
-}: Props): JSX.Element => {
+}: FilterBarProps) => {
 	return (
 		<Wrap {...rest}>
 			{filters.map((filter) => (

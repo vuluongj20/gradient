@@ -9,18 +9,18 @@ import SEO from '@components/seo'
 
 import MDXStoryProvider from '@utils/mdxStoryProvider'
 
-export type Data = {
+export interface Datum {
   date: Date
   level: number
-}[]
+}
 
-export type VizData = {
+export interface VizData {
   key: string
   height: string
   description?: string[]
 }
 
-export type VizSection = {
+export interface VizSection {
   state: string
   des: string
   params?: number[]

@@ -36,7 +36,7 @@ import { isDefined } from '@utils/functions'
 import { tl } from '@utils/text'
 import useEffectOnceDefined from '@utils/useEffectOnceDefined'
 
-type Render = {
+interface Render {
 	svg: Selection<SVGSVGElement, unknown, null, unknown>
 	mutableNodes: MutableNode[]
 	mutableEdges: MutableEdge[]
@@ -45,7 +45,7 @@ type Render = {
 	simulation: Simulation<MutableNode, MutableEdge>
 }
 
-type Props = {
+interface ForceGraphProps {
 	graph: Graph
 	width?: number
 	height?: number
@@ -67,7 +67,7 @@ const ForceGraph = ({
 	nodeEventListeners,
 	simulationPlayState,
 	setSvgReady,
-}: Props) => {
+}: ForceGraphProps) => {
 	const ref = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 

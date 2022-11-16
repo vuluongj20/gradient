@@ -10,7 +10,7 @@ import useMenuLinks from './useMenuLinks'
 import useMobile from '@utils/useMobile'
 import usePrevious from '@utils/usePrevious'
 
-type Props = {
+interface MenuProps {
 	isOpen: boolean
 	toggleMenu: (nextState: boolean) => void
 	animations: Record<
@@ -32,7 +32,7 @@ const Menu = ({
 	toggleMenu,
 }: // beforeSettingsDialogOpen,
 // afterSettingsDialogClose,
-Props): JSX.Element => {
+MenuProps) => {
 	const isMobile = useMobile()
 	const links = useMenuLinks()
 

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Option from '@components/listBox/option'
 import Section from '@components/listBox/section'
 
-type ListBoxProps = AriaListBoxOptions<unknown> & {
+interface ListBoxProps extends AriaListBoxOptions<unknown> {
   state: SelectState<unknown>
   small?: boolean
 }

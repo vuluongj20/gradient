@@ -5,21 +5,21 @@ import { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'react
 
 import { Action, Settings, defaultSettings, init, reducer } from '@utils/settingsReducer'
 
-type Props = {
-	children: ReactNode
-}
-
-type ContextValue = {
+interface _SettingsContext {
 	settings: Settings
 	dispatch: Dispatch<Action>
 }
 
-const Context = createContext<ContextValue>({
+const SettingsContext = createContext<_SettingsContext>({
 	settings: defaultSettings,
 	dispatch: () => false,
 })
 
-const SettingsProvider = ({ children }: Props): JSX.Element => {
+interface SettingsProviderProps {
+	children: ReactNode
+}
+
+const SettingsProvider = ({ children }: SettingsProviderProps) => {
 	const [settings, dispatch] = useReducer(reducer, defaultSettings, init)
 
 	// Update local storage on state change
@@ -27,7 +27,11 @@ const SettingsProvider = ({ children }: Props): JSX.Element => {
 		localStorage.setItem('UP', JSON.stringify(settings))
 	}, [settings])
 
-	return <Context.Provider value={{ settings, dispatch }}>{children}</Context.Provider>
+	return (
+		<SettingsContext.Provider value={{ settings, dispatch }}>
+			{children}
+		</SettingsContext.Provider>
+	)
 }
 
-export { Context as default, SettingsProvider }
+export { SettingsContext as default, SettingsProvider }

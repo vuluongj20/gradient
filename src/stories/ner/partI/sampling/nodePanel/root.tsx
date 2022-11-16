@@ -13,11 +13,6 @@ import RootNodeDistributionViz from './rootViz'
 import NumberField from '@components/fields/number'
 import SelectField from '@components/fields/select'
 
-type Props = {
-	node: SamplingNode
-	overlayOnKeyDown?: KeyboardEventHandler<HTMLDivElement>
-}
-
 const distributionOptions = [
 	{
 		title: 'Continuous',
@@ -35,7 +30,12 @@ const distributionOptions = [
 	},
 ]
 
-const RootNodePanel = ({ node, overlayOnKeyDown }: Props) => {
+interface RootNodePanelProps {
+	node: SamplingNode
+	overlayOnKeyDown?: KeyboardEventHandler<HTMLDivElement>
+}
+
+const RootNodePanel = ({ node, overlayOnKeyDown }: RootNodePanelProps) => {
 	const { parameters, parameterValues, type: distributionType } = node.distribution
 
 	return (

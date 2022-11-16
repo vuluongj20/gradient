@@ -10,7 +10,7 @@ import IconClose from '@icons/close'
 
 import { Breakpoint } from '@utils/style'
 
-export type DialogContentProps = AriaDialogProps & {
+export interface DialogContentProps extends AriaDialogProps {
 	title?: string
 	isOpen: boolean
 	onClose: () => void

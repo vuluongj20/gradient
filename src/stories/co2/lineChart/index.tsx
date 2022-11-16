@@ -1,7 +1,7 @@
 import { extent, line, min, scaleLinear, scaleTime, select } from 'd3'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
-import { Data } from '../index'
+import { Datum } from '../index'
 import VizContent, { VizDesText } from '../vizContent'
 import drawViz from './drawViz'
 import updateViz from './updateViz'
@@ -10,10 +10,6 @@ import Wrap from './wrap'
 import usePrevious from '@utils/usePrevious'
 import useWindowHeight from '@utils/useWindowHeight'
 import useWindowWidth from '@utils/useWindowWidth'
-
-type Props = {
-  data: Data
-}
 
 const trackHeight = '600vh'
 const content = [
@@ -38,7 +34,11 @@ const content = [
   },
 ]
 
-const LineChart = ({ data }: Props) => {
+interface LineChartProps {
+  data: Datum[]
+}
+
+const LineChart = ({ data }: LineChartProps) => {
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)
   const [vizCreated, setVizCreated] = useState(false)
@@ -108,7 +108,7 @@ const LineChart = ({ data }: Props) => {
     regLine.datum(data)
     dataLine.datum(data).attr(
       'd',
-      line<Data[0]>()
+      line<Datum>()
         .x(function (d) {
           return x(d.date) + margin.left
         })

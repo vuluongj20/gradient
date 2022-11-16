@@ -12,7 +12,7 @@ import GlobalThemeProvider from '@utils/globalThemeProvider'
 import { SettingsProvider } from '@utils/settingsContext'
 import { navSize } from '@utils/style'
 
-type Props = {
+interface LayoutProps {
 	children: ReactNode
 	pageContext: {
 		title?: string
@@ -20,7 +20,7 @@ type Props = {
 	}
 }
 
-const Layout = ({ children, pageContext }: Props): JSX.Element => {
+const Layout = ({ children, pageContext }: LayoutProps) => {
 	const { title = '' } = pageContext.frontmatter ?? pageContext
 
 	const content = (

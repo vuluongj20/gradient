@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
-type ScorecardProps = {
+interface ScorecardProps {
 	label?: string
 	number: string | number
 	unit?: string
 }
+
 const Scorecard = ({ label, number, unit }: ScorecardProps) => {
 	return (
 		<Wrap>

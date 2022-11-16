@@ -12,7 +12,7 @@ import { navSize } from '@utils/style'
 // import Button from '@components/button'
 // import IconSearch from '@icons/search'
 
-type Props = HamProps & {
+interface BinderProps extends HamProps {
 	pageTitle: string
 	beforeSettingsDialogOpen?: () => void
 	afterSettingsDialogClose?: () => void
@@ -24,7 +24,7 @@ const Binder = ({
 // menuOpen,
 // beforeSettingsDialogOpen,
 // afterSettingsDialogClose,
-Props): JSX.Element => {
+BinderProps) => {
 	const location = useLocation()
 	const linkIsDisabled = location.pathname === '/'
 

@@ -3,7 +3,7 @@ import { Fragment, ReactNode } from 'react'
 
 import defaultOgImage from '@images/og.png'
 
-export type SEOProps = {
+export interface SEOProps {
   title?: string
   description?: string
   type?: string
@@ -26,7 +26,7 @@ const SEO = ({
   authorTwitter,
   image,
   children,
-}: SEOProps): JSX.Element => {
+}: SEOProps) => {
   const data = useStaticQuery<Queries.SiteMetadataQuery>(
     graphql`
       query SiteMetadata {

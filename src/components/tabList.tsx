@@ -12,7 +12,7 @@ import TabPanel from '@components/tabPanel'
 import LocalThemeProvider from '@utils/localThemeProvider'
 import useBreakpoint from '@utils/useBreakpoint'
 
-export type TabItem = {
+export interface TabItem {
   key: string
   label: string
   content: ReactNode
@@ -20,7 +20,7 @@ export type TabItem = {
   trailingItems?: ReactNode
 }
 
-type TabListProps = Omit<AriaTabListProps<TabItem>, 'children'> & {
+interface TabListProps extends Omit<AriaTabListProps<TabItem>, 'children'> {
   items: TabItem[]
   insetPanel?: boolean
   height?: string
@@ -41,7 +41,7 @@ const TabList = (props: TabListProps) => {
 
 export default TabList
 
-type TabListInnerProps = Omit<TabListProps, 'items'> & {
+interface TabListInnerProps extends Omit<TabListProps, 'items' | 'children'> {
   children: AriaTabListProps<TabItem>['children']
 }
 

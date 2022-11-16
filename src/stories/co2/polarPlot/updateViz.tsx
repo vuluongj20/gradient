@@ -1,12 +1,12 @@
 import { curveBasis, easeCubicIn, easeCubicOut, extent, lineRadial, max } from 'd3'
 import { ScaleLinear } from 'd3-scale'
 
-import { Data } from '../index'
+import { Datum } from '../index'
 import drawViz from './drawViz'
 
-type Props = {
+interface UpdateVizProps {
 	selections: ReturnType<typeof drawViz>
-	data: Data
+	data: Datum[]
 	radius: number
 	innerRadius: number
 	a: ScaleLinear<number, number>
@@ -23,7 +23,7 @@ type Props = {
 
 const updateViz = (
 	to: number,
-	{ selections, data, innerRadius, a, r, xDaysParsed, describeArc }: Props,
+	{ selections, data, innerRadius, a, r, xDaysParsed, describeArc }: UpdateVizProps,
 ) => {
 	const { svg, rAxisCircles, rAxisTicks, dataLine, winterStretch, summerStretch } =
 		selections
@@ -107,7 +107,7 @@ const updateViz = (
 
 		dataLine.datum(data.slice(0, 37)).attr(
 			'd',
-			lineRadial<Data[0]>()
+			lineRadial<Datum>()
 				.angle(function (_, index) {
 					return a(xDaysParsed[index])
 				})
@@ -216,7 +216,7 @@ const updateViz = (
 				.ease(easeCubicIn)
 				.attr(
 					'd',
-					lineRadial<Data[0]>()
+					lineRadial<Datum>()
 						.angle(function (_, index) {
 							return a(xDaysParsed[index])
 						})
@@ -228,7 +228,7 @@ const updateViz = (
 				.on('end', () => {
 					dataLine.datum(data).attr(
 						'd',
-						lineRadial<Data[0]>()
+						lineRadial<Datum>()
 							.angle(function (_, index) {
 								return a(xDaysParsed[index])
 							})
@@ -264,7 +264,7 @@ const updateViz = (
 			.classed('on', true)
 			.datum(data.slice(3112, 3126))
 			.attr('d', (d) => {
-				const line = lineRadial<Data[0]>()
+				const line = lineRadial<Datum>()
 					.angle((_, index) => {
 						return a(xDaysParsed[index + 3112])
 					})
@@ -280,7 +280,7 @@ const updateViz = (
 			.classed('on', true)
 			.datum(data.slice(3086, 3100))
 			.attr('d', (d) => {
-				const line = lineRadial<Data[0]>()
+				const line = lineRadial<Datum>()
 					.angle(function (_, index) {
 						return a(xDaysParsed[index + 3086])
 					})

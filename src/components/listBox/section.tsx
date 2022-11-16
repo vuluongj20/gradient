@@ -7,13 +7,13 @@ import styled from 'styled-components'
 
 import Option from '@components/listBox/option'
 
-type Props = AriaListBoxSectionProps & {
+interface ListBoxSectionProps extends AriaListBoxSectionProps {
 	section: Node<unknown>
 	state: SelectState<unknown>
 	small: boolean
 }
 
-const Section = ({ section, state, small }: Props) => {
+const Section = ({ section, state, small }: ListBoxSectionProps) => {
 	const { itemProps, headingProps, groupProps } = useListBoxSection({
 		heading: section.rendered,
 		'aria-label': section['aria-label'],

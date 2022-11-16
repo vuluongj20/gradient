@@ -1,7 +1,7 @@
 import { max, min, scaleLinear, select } from 'd3'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import { Data } from '../index'
+import { Datum } from '../index'
 import VizContent, { VizDesText } from '../vizContent'
 import drawViz from './drawViz'
 import updateViz from './updateViz'
@@ -10,10 +10,6 @@ import Wrap from './wrap'
 import usePrevious from '@utils/usePrevious'
 import useWindowHeight from '@utils/useWindowHeight'
 import useWindowWidth from '@utils/useWindowWidth'
-
-type Props = {
-  data: Data
-}
 
 const trackHeight = '440vh'
 const content = [
@@ -31,7 +27,11 @@ const content = [
   },
 ]
 
-const PolarPlot = ({ data }: Props) => {
+interface PolarPlotProps {
+  data: Datum[]
+}
+
+const PolarPlot = ({ data }: PolarPlotProps) => {
   const [visible, setVisible] = useState(false)
   const [intersectionIndex, setIntersectionIndex] = useState(-1)
   const [currentState, setCurrentState] = useState(-1)

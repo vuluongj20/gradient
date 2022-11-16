@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as tocbot from 'tocbot'
 
-type Props = {
+interface TOCProps {
 	label: string
 	contentSelector: string
 	className?: string
 }
 
-const TOC = ({ label, contentSelector, className }: Props): JSX.Element => {
+const TOC = ({ label, contentSelector, className }: TOCProps) => {
 	const [showUpperFade, setUpperFade] = useState(false)
 	const [showLowerFade, setLowerFade] = useState(false)
 	const upperCallback: IntersectionObserverCallback = (entries) => {

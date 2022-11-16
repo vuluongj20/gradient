@@ -8,13 +8,13 @@ import StateLayer from '@components/stateLayer'
 
 import IconDone from '@icons/done'
 
-type Props = AriaOptionProps & {
+interface ListBoxOptionProps extends AriaOptionProps {
   item: Node<unknown>
   state: SelectState<unknown>
   small: boolean
 }
 
-const Option = (props: Props) => {
+const Option = (props: ListBoxOptionProps) => {
   const ref = useRef<HTMLLIElement>(null)
   const { item, state, small } = props
   const { optionProps, isSelected, isFocused, isDisabled } = useOption(

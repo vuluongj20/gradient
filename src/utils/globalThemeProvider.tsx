@@ -8,7 +8,7 @@ import { Appearance, ThemeSettings, useThemeObject } from '@theme'
 import SettingsContext from '@utils/settingsContext'
 import useMatchMedia from '@utils/useMatchMedia'
 
-type Props = {
+interface GlobalThemeProviderProps {
 	children: ReactNode
 }
 
@@ -22,7 +22,7 @@ const useAppearance = (colorSettings: ThemeSettings['color']): Appearance => {
 	return colorSettings.appearance
 }
 
-const GlobalThemeProvider = ({ children }: Props): JSX.Element => {
+const GlobalThemeProvider = ({ children }: GlobalThemeProviderProps) => {
 	const {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)

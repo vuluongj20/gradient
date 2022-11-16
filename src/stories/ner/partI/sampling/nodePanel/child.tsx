@@ -8,13 +8,13 @@ import NumberField from '@components/fields/number'
 
 import { tl } from '@utils/text'
 
-type Props = {
+interface ChildNodeFieldsProps {
 	node: SamplingNode
 	incomingEdges: SamplingEdge[]
 	parentNodes: SamplingNode[]
 }
 
-const ChildNodeFields = ({ node, incomingEdges, parentNodes }: Props) => {
+const ChildNodeFields = ({ node, incomingEdges, parentNodes }: ChildNodeFieldsProps) => {
 	const nodeDescription = tl(
 		`${node.label} is conditionally depdendent on $1. In this example, we'll assume that ${node.label} is normally distributed, with the mean being a {1,multiple,weighted sum} of its {1,parent's, parents'} sampled {1,value,values}:`,
 		parentNodes.map((n) => n.label),

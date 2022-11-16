@@ -1,7 +1,7 @@
 import useHomePage from '@utils/data/pages/home'
 import useSections from '@utils/data/sections'
 
-type Link = {
+interface Link {
 	slug: string
 	path: string
 	title: string

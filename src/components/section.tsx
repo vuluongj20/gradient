@@ -5,13 +5,13 @@ import CardGroup from '@components/cardGroup'
 
 import { Section as ISection, Story } from '@types'
 
-type Props = {
+interface SectionProps {
 	section: ISection
 	stories: Story[]
 	imageLoading?: GatsbyImageProps['loading']
 }
 
-const Section = ({ section, stories, imageLoading }: Props): JSX.Element => {
+const Section = ({ section, stories, imageLoading }: SectionProps) => {
 	return (
 		<Wrap>
 			<TitleWrap>

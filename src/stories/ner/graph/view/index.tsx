@@ -10,7 +10,7 @@ import { NodeEventListener } from './svg/types'
 
 import useSize from '@utils/useSize'
 
-type Props<Node extends BaseNode, Edge extends BaseEdge> = {
+interface GraphViewProps<Node extends BaseNode, Edge extends BaseEdge> {
 	graph: Graph<Node, Edge>
 	disableForceNode?: boolean
 	disableForceEdge?: boolean
@@ -31,7 +31,7 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 	renderNodePanel,
 	nodeEventListeners = [],
 	className,
-}: Props<Node, Edge>) => {
+}: GraphViewProps<Node, Edge>) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(ref)
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
-export type AlertProps = {
+export interface AlertProps {
 	title?: string
 	leadingItem?: ReactNode
 	children?: ReactNode

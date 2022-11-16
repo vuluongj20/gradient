@@ -25,8 +25,10 @@ type PositionMap = Record<string, Position>
 
 const factory = (nodes: Iterable<Node<object>>) => new ListCollection(nodes)
 
-type SwitchBarProps = AriaRadioGroupProps &
-	CollectionBase<object> & { moveLeft?: boolean }
+interface SwitchBarProps extends CollectionBase<object>, AriaRadioGroupProps {
+	moveLeft?: boolean
+}
+
 const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
 	const ref = useRef<HTMLDivElement>(null)
 
@@ -74,13 +76,13 @@ const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
 
 export default SwitchBar
 
-type SwitchItemProps = Omit<Node<object>, 'value'> &
-	AriaRadioProps & {
-		state: RadioGroupState
-		lastKey: Key
-		nextKey?: Key
-		setPositionMap: Dispatch<SetStateAction<PositionMap>>
-	}
+interface SwitchItemProps extends Omit<Node<object>, 'value'>, AriaRadioProps {
+	state: RadioGroupState
+	lastKey: Key
+	nextKey?: Key
+	setPositionMap: Dispatch<SetStateAction<PositionMap>>
+}
+
 const SwitchItem = ({
 	lastKey,
 	nextKey,

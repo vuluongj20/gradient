@@ -1,12 +1,14 @@
 import { easeCubic, easeCubicOut, interpolate, line, pointer, select } from 'd3'
 import { ScaleLinear, ScaleTime } from 'd3-scale'
 
-import { Data, VizData, VizSection } from '../index'
+import { Datum, VizSection } from '../index'
 import drawViz from './drawViz'
 
-type Props = {
+const mse = [18.2, 5.06, 0.97]
+
+interface UpdateVizProps {
   selections: ReturnType<typeof drawViz>
-  data: Data
+  data: Datum[]
   content: VizSection[]
   xDays: number[]
   x: ScaleTime<number, number>
@@ -19,11 +21,9 @@ type Props = {
   }
 }
 
-const mse = [18.2, 5.06, 0.97]
-
 const updateViz = (
   to: number,
-  { selections, content, data, x, y, xDays, margin }: Props,
+  { selections, content, data, x, y, xDays, margin }: UpdateVizProps,
 ) => {
   const {
     svg,
@@ -181,7 +181,7 @@ const updateViz = (
         .duration(750)
         .ease(easeCubicOut)
         .attr('d', (data) =>
-          line<Data[0]>()
+          line<Datum>()
             .x(function (d) {
               return x(d.date) + margin.left
             })
@@ -194,7 +194,7 @@ const updateViz = (
       dataLine.classed('faded', true)
 
       regLine.attr('d', (data) =>
-        line<Data[0]>()
+        line<Datum>()
           .x(function (d) {
             return x(d.date) + margin.left
           })
@@ -256,7 +256,7 @@ const updateViz = (
       .ease(easeCubicOut)
       .attr(
         'd',
-        line<Data[0]>()
+        line<Datum>()
           .x(function (d) {
             return x(d.date) + margin.left
           })
@@ -294,7 +294,7 @@ const updateViz = (
       .ease(easeCubicOut)
       .attr(
         'd',
-        line<Data[0]>()
+        line<Datum>()
           .x(function (d) {
             return x(d.date) + margin.left
           })

@@ -6,7 +6,7 @@ import { Theme } from '@theme'
 import { isDefined } from '@utils/functions'
 import LocalThemeProvider from '@utils/localThemeProvider'
 
-export type PanelProps = ComponentProps<typeof LocalThemeProvider> & {
+export interface PanelProps extends ComponentProps<typeof LocalThemeProvider> {
 	size?: 's' | 'm' | 'l'
 	mt?: number
 	mb?: number

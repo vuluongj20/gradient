@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { Theme } from '@theme'
 
-type Props = GatsbyImageProps & {
+interface FigureProps extends GatsbyImageProps {
 	caption?: string
 	from?: string
 	gridColumn?: keyof Theme['gridColumn']
@@ -18,7 +18,7 @@ const Figure = ({
 	from,
 	gridColumn,
 	className,
-}: Props) => {
+}: FigureProps) => {
 	const imageData = getImage(image)
 
 	if (!caption) {
@@ -44,14 +44,14 @@ const Figure = ({
 
 export default Figure
 
-const Wrap = styled.figure<{ gridColumn?: Props['gridColumn'] }>`
+const Wrap = styled.figure<{ gridColumn?: FigureProps['gridColumn'] }>`
 	margin: 0;
 	padding: 0;
 
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
-const ImageWrap = styled('div')<{ gridColumn?: Props['gridColumn'] }>`
+const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 	${(p) => p.theme.flexCenter};
 	position: relative;
 	width: 100%;
@@ -91,7 +91,7 @@ const StyledImage = styled(GatsbyImage)`
 	width: 100%;
 `
 
-const Caption = styled.figcaption<{ gridColumn?: Props['gridColumn'] }>`
+const Caption = styled.figcaption<{ gridColumn?: FigureProps['gridColumn'] }>`
 	${(p) => p.theme.text.viz.small};
 	text-transform: uppercase;
 	line-height: 1.4;

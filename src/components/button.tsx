@@ -2,32 +2,25 @@ import { useButton } from '@react-aria/button'
 import { useHover } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { AriaButtonProps } from '@react-types/button'
-import {
-	ForwardRefRenderFunction,
-	HTMLAttributes,
-	ReactNode,
-	RefObject,
-	forwardRef,
-	useRef,
-} from 'react'
+import { ForwardRefRenderFunction, ReactNode, RefObject, forwardRef, useRef } from 'react'
 import styled from 'styled-components'
 
 import StateLayer from '@components/stateLayer'
 
 import IconChevronDown from '@icons/chevronDown'
 
-type Props = HTMLAttributes<HTMLButtonElement> &
-	AriaButtonProps & {
-		children: ReactNode
-		primary?: boolean
-		filled?: boolean
-		small?: boolean
-		showBorder?: boolean
-		showExpandIcon?: boolean
-		className?: string
-	}
+interface ButtonProps extends AriaButtonProps {
+	children: ReactNode
+	title?: string
+	primary?: boolean
+	filled?: boolean
+	small?: boolean
+	showBorder?: boolean
+	showExpandIcon?: boolean
+	className?: string
+}
 
-const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
 	{
 		children,
 		title,
@@ -38,7 +31,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 		showBorder = false,
 		showExpandIcon = false,
 		...props
-	}: Props,
+	},
 	forwardedRef,
 ) => {
 	const innerRef = useRef<HTMLButtonElement>(null)

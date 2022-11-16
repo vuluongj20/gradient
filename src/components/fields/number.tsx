@@ -11,13 +11,14 @@ import Field, { FieldProps } from '@components/fields/field'
 import IconChevronDown from '@icons/chevronDown'
 import IconChevronUp from '@icons/chevronUp'
 
-type Props = FieldProps &
-	AriaNumberFieldProps &
-	Omit<NumberFieldStateOptions, 'locale'> & {
-		inputWidth?: string
-		small?: boolean
-		className?: string
-	}
+interface NumberFieldProps
+	extends FieldProps,
+		Omit<NumberFieldStateOptions, 'locale'>,
+		AriaNumberFieldProps {
+	inputWidth?: string
+	small?: boolean
+	className?: string
+}
 
 const TextInput = ({
 	className,
@@ -26,7 +27,7 @@ const TextInput = ({
 	small = false,
 	skipFieldWrapper = false,
 	...props
-}: Props) => {
+}: NumberFieldProps) => {
 	const { label, description } = props
 	const { locale } = useLocale()
 	const inputRef = useRef<HTMLInputElement>(null)

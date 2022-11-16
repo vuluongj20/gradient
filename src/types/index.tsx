@@ -2,32 +2,32 @@ import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 import { ColCounts } from '@utils/style'
 
-export type GridColumns = {
+export interface GridColumns {
 	start: number
 	end: number
 }
 
 export type AdaptiveGridColumns = Record<keyof ColCounts, GridColumns>
 
-export type Page = {
+export interface Page {
 	readonly slug: string
 	readonly title: string
 	readonly path: string
 }
 
-export type Section = {
+export interface Section {
 	readonly slug: string
 	readonly name: string
 	readonly path: string
 }
 
-export type Author = {
+export interface Author {
 	readonly slug: string
 	readonly name: string
 	readonly path: string
 }
 
-export type Story = {
+export interface Story {
 	readonly slug: string
 	readonly title: string
 	readonly featuredIn?: readonly string[]

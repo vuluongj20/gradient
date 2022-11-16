@@ -13,13 +13,6 @@ import { AdaptiveGridColumns, Story } from '@types'
 import useSections from '@utils/data/sections'
 import { Breakpoint, fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
 
-type Props = Story & {
-	path: string
-	imageLoading?: GatsbyImageProps['loading']
-	rowLayout?: boolean
-	gridCols?: AdaptiveGridColumns
-}
-
 /**
  * Returns custom value for the "sizes" image prop, based on width
  * information from gridCols
@@ -50,6 +43,13 @@ const getImageSizesProp = (
 	)
 }
 
+interface CardProps extends Story {
+	path: string
+	imageLoading?: GatsbyImageProps['loading']
+	rowLayout?: boolean
+	gridCols?: AdaptiveGridColumns
+}
+
 const Card = ({
 	gridCols,
 	path,
@@ -58,7 +58,7 @@ const Card = ({
 	cover,
 	imageLoading = 'lazy',
 	rowLayout = false,
-}: Props): JSX.Element => {
+}: CardProps) => {
 	const sectionData = useSections()
 	const sectionNames = sections
 		.map((slug) => sectionData.find((s) => s.slug === slug)?.name)

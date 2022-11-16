@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx'
 import { nanoid } from 'nanoid'
 
-type Props = {
+interface NodeProps {
 	label?: string
 	edges?: {
 		incoming: string[]
@@ -46,7 +46,7 @@ class Node {
 	x?: number
 	y?: number
 
-	constructor(props: Props) {
+	constructor(props: NodeProps) {
 		makeObservable(this, {
 			id: observable,
 			label: observable,

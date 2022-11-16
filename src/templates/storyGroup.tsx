@@ -14,7 +14,7 @@ import { Story } from '@types'
 import useAuthors from '@utils/data/authors'
 import useSections from '@utils/data/sections'
 
-type Props = {
+interface StoryGroupPageProps {
 	pageContext: {
 		title: string
 		section?: string
@@ -35,7 +35,7 @@ type Props = {
 	}
 }
 
-const StoryGroupPage = ({ pageContext, data }: Props) => {
+const StoryGroupPage = ({ pageContext, data }: StoryGroupPageProps) => {
 	const stories = data.allStoriesJson.edges.map((edge) => {
 		const story = edge.node
 		return { ...story, path: `/story/${story.slug}` }
@@ -146,7 +146,10 @@ export const query = graphql`
 
 export default StoryGroupPage
 
-type HeadProps = { pageContext: SEOProps }
+interface HeadProps {
+	pageContext: SEOProps
+}
+
 export const Head = ({ pageContext }: HeadProps) => <SEO {...pageContext} />
 
 const PageContent = styled.div`

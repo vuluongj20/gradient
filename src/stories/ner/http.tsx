@@ -10,7 +10,9 @@ const getBaseUrl = () => {
   }
 }
 
-export type ResponseData = { predictions: string[][] }
+export interface ResponseData {
+  predictions: string[][]
+}
 
 export default axios.create({
   baseURL: getBaseUrl(),

@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from 'react'
 
 import { colorAliases } from '@theme/colors'
 
-type Props = {
+interface HTMLProps {
   htmlAttributes: HTMLAttributes<HTMLHtmlElement>
   headComponents: ReactNode
   bodyAttributes: HTMLAttributes<HTMLBodyElement>
@@ -11,7 +11,7 @@ type Props = {
   postBodyComponents: ReactNode
 }
 
-const HTML = (props: Props) => {
+const HTML = (props: HTMLProps) => {
   return (
     <html lang="en" {...props.htmlAttributes}>
       <head>

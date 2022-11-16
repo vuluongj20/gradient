@@ -1,7 +1,10 @@
 import { Fragment, useRef, useState } from 'react'
 
-type Props = { href: string }
-const AsyncStylesheet = ({ href }: Props) => {
+interface AsyncStylesheetProps {
+	href: string
+}
+
+const AsyncStylesheet = ({ href }: AsyncStylesheetProps) => {
 	const linkRef = useRef<HTMLLinkElement>(null)
 	const [loaded, setLoaded] = useState(false)
 

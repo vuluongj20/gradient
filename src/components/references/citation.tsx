@@ -6,7 +6,7 @@ import { ReferencesContext } from '@components/references/provider'
 import { formatReferences } from '@components/references/utils'
 import Tooltip from '@components/tooltip'
 
-type CitationProps = {
+interface CitationProps {
 	citeItems: {
 		id: string
 		referenceId: string

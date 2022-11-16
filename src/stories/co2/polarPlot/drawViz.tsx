@@ -1,13 +1,13 @@
 import { easeCubicOut, select } from 'd3'
 import { ScaleLinear } from 'd3-scale'
 
-type Props = {
+interface DrawVizProps {
 	radius: number
 	innerRadius: number
 	r: ScaleLinear<number, number>
 }
 
-const drawViz = ({ radius, innerRadius, r }: Props) => {
+const drawViz = ({ radius, innerRadius, r }: DrawVizProps) => {
 	const svg = select('#polar-plot .svg-wrap')
 		.append('svg')
 		.attr('preserveAspectRatio', 'xMidYMid meet')

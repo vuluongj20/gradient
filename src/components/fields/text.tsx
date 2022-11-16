@@ -1,18 +1,16 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield'
 import { mergeProps } from '@react-aria/utils'
-import { HTMLAttributes, useRef } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 
 import Field, { FieldProps } from '@components/fields/field'
 
-type Props = FieldProps &
-	Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'size'> &
-	AriaTextFieldOptions<'input'> & {
-		size?: number
-		small?: boolean
-		inputWidth?: string
-		className?: string
-	}
+interface TextFieldProps extends FieldProps, AriaTextFieldOptions<'input'> {
+	size?: number
+	small?: boolean
+	inputWidth?: string
+	className?: string
+}
 
 const TextInput = ({
 	className,
@@ -21,7 +19,7 @@ const TextInput = ({
 	small = false,
 	skipFieldWrapper = false,
 	...props
-}: Props) => {
+}: TextFieldProps) => {
 	const { label, description } = props
 	const ref = useRef<HTMLInputElement>(null)
 

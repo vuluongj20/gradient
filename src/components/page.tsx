@@ -3,12 +3,12 @@ import styled from 'styled-components'
 
 import Footer from '@components/footer'
 
-type Props = {
+interface PageProps {
 	children: ReactNode
 	footerProps?: ComponentProps<typeof Footer>
 }
 
-const Page = ({ children, footerProps }: Props): JSX.Element => {
+const Page = ({ children, footerProps }: PageProps) => {
 	return (
 		<PageContent>
 			{children}

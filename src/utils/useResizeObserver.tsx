@@ -1,12 +1,15 @@
 import { RefObject, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
-type Props<T> = {
+interface UseResizeObserverProps<T> {
   ref: RefObject<T>
   onResize: () => void
 }
 
-const useResizeObserver = <T extends HTMLElement>({ ref, onResize }: Props<T>) => {
+const useResizeObserver = <T extends HTMLElement>({
+  ref,
+  onResize,
+}: UseResizeObserverProps<T>) => {
   useEffect(() => {
     const element = ref.current
     if (!element) {

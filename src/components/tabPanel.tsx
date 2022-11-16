@@ -6,7 +6,9 @@ import styled from 'styled-components'
 
 import { TabItem } from '@components/tabList'
 
-type TabPanelProps = AriaTabPanelProps & { state: TabListState<TabItem> }
+interface TabPanelProps extends AriaTabPanelProps {
+  state: TabListState<TabItem>
+}
 
 const TabPanel = ({ state, ...props }: TabPanelProps) => {
   const ref = useRef<HTMLDivElement>(null)

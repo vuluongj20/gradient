@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Header = (): JSX.Element => (
+const Header = () => (
 	<Wrap>
 		<Title aria-label="Gradient">Gradient\</Title>
 		<DescWrap>

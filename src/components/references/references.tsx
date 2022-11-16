@@ -7,12 +7,12 @@ import { formatReferences } from '@components/references/utils'
 
 import IconBackRef from '@icons/backRef'
 
-type Props = {
+interface ReferencesProps {
 	order: string[]
 	citations: Record<string, string[]>
 }
 
-export const References = ({ order, citations }: Props) => {
+export const References = ({ order, citations }: ReferencesProps) => {
 	const references = useContext(ReferencesContext)
 	const orderedReferences = useMemo(
 		() =>

@@ -7,7 +7,7 @@ import Page from '@components/page'
 import SectionDivider from '@components/sectionDivider'
 import TOC from '@components/toc'
 
-type Props = {
+interface PolicyPageProps {
   children: ReactNode
   pageContext: {
     frontmatter: {
@@ -18,7 +18,7 @@ type Props = {
   }
 }
 
-const PlainText = ({ children, pageContext }: Props): JSX.Element => {
+const PolicyPage = ({ children, pageContext }: PolicyPageProps) => {
   const { frontmatter } = pageContext
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -54,7 +54,7 @@ const PlainText = ({ children, pageContext }: Props): JSX.Element => {
   )
 }
 
-export default PlainText
+export default PolicyPage
 
 const Wrap = styled.div`
   grid-column: 1 / -5;

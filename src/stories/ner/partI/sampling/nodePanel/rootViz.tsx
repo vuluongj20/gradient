@@ -13,17 +13,16 @@ import SamplingNode from '../model/node'
 
 import useMountEffect from '@utils/useMountEffect'
 
-type Props = {
-	node: SamplingNode
-}
-
-type Render = {
+interface Render {
 	xAxis: Selection<SVGGElement, unknown, null, undefined>
 	yAxis: Selection<SVGGElement, unknown, null, undefined>
 	dataLine: Selection<SVGPathElement, number[], null, undefined>
 }
 
-type YAxisProps = { isContinuous: boolean; y: ScaleLinear<number, number> }
+interface YAxisProps {
+	isContinuous: boolean
+	y: ScaleLinear<number, number>
+}
 const renderYAxis = (yAxis: Render['yAxis'], { y }: YAxisProps) => {
 	return yAxis.call(
 		axisRight(y)
@@ -33,7 +32,10 @@ const renderYAxis = (yAxis: Render['yAxis'], { y }: YAxisProps) => {
 	)
 }
 
-type XAxisProps = { isContinuous: boolean; x: ScaleLinear<number, number> }
+interface XAxisProps {
+	isContinuous: boolean
+	x: ScaleLinear<number, number>
+}
 const renderXAxis = (xAxis: Render['xAxis'], { x, isContinuous }: XAxisProps) => {
 	const axisCall = axisBottom(x).ticks(5).tickSize(0).tickPadding(8)
 	const domain = x.domain()
@@ -50,7 +52,7 @@ const renderXAxis = (xAxis: Render['xAxis'], { x, isContinuous }: XAxisProps) =>
 	return
 }
 
-type DataLineProps = {
+interface DataLineProps {
 	isContinuous: boolean
 	probabilityFn: (value: number) => number
 	x: ScaleLinear<number, number>
@@ -86,7 +88,11 @@ const paddingRight = 32
 const innerHeight = height - paddingBottom
 const innerWidth = width - paddingLeft - paddingRight
 
-const RootNodeDistributionViz = ({ node }: Props) => {
+interface RootNodeDistributionVizProps {
+	node: SamplingNode
+}
+
+const RootNodeDistributionViz = ({ node }: RootNodeDistributionVizProps) => {
 	const svgRef = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 

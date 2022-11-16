@@ -14,14 +14,14 @@ import {
 	DistributionType,
 } from './distributions/utils'
 
-type ConstructorProps = ConstructorParameters<typeof Node>[0] & {
+type SamplingNodeProps = ConstructorParameters<typeof Node>[0] & {
 	distribution?: Distribution
 }
 
 class SamplingNode extends Node {
 	distribution: Distribution
 
-	constructor(props: ConstructorProps) {
+	constructor(props: SamplingNodeProps) {
 		super(props)
 		makeObservable(this, { distribution: observable, setDistribution: action })
 		this.distribution = props.distribution ?? new NormalDistribution()

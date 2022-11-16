@@ -14,12 +14,11 @@ import Popover, { usePopover } from '@components/popover'
 import { isDefined } from '@utils/functions'
 import useBreakpoint from '@utils/useBreakpoint'
 
-type BaseProps = AriaSelectOptions<object> &
-	FieldProps & {
-		className?: string
-		showDialogOnMobile?: boolean
-		popoverProps?: Partial<ComponentProps<typeof Popover>>
-	}
+interface _SelectProps extends FieldProps, AriaSelectOptions<object> {
+	showDialogOnMobile?: boolean
+	popoverProps?: Partial<ComponentProps<typeof Popover>>
+	className?: string
+}
 
 const BaseSelect = ({
 	className,
@@ -28,7 +27,7 @@ const BaseSelect = ({
 	skipFieldWrapper = false,
 	showDialogOnMobile = false,
 	...props
-}: BaseProps) => {
+}: _SelectProps) => {
 	const { label, name } = props
 
 	const state = useSelectState(props)
@@ -100,13 +99,20 @@ const BaseSelect = ({
 	)
 }
 
-type SelectItem<Value extends Key> = { value: Value; label: string }
-type SelectSection<Value extends Key> = { title: string; options: SelectItem<Value>[] }
+interface SelectItem<Value extends Key> {
+	value: Value
+	label: string
+}
+interface SelectSection<Value extends Key> {
+	title: string
+	options: SelectItem<Value>[]
+}
 
-type Props<Value extends Key> = Omit<
-	BaseProps,
-	'children' | 'selectedKey' | 'defaultSelectedKey' | 'onSelectionChange'
-> & {
+interface SelectProps<Value extends Key>
+	extends Omit<
+		_SelectProps,
+		'children' | 'selectedKey' | 'defaultSelectedKey' | 'onSelectionChange'
+	> {
 	options: (SelectItem<Value> | SelectSection<Value>)[]
 	value?: Value
 	defaultValue?: Value
@@ -129,11 +135,11 @@ const Select = <Value extends Key>({
 	defaultValue,
 	onChange,
 	...props
-}: Props<Value>) => (
+}: SelectProps<Value>) => (
 	<BaseSelect
 		selectedKey={value}
 		defaultSelectedKey={defaultValue}
-		onSelectionChange={onChange as BaseProps['onSelectionChange']}
+		onSelectionChange={onChange as _SelectProps['onSelectionChange']}
 		{...props}
 	>
 		{options.map((el) => {

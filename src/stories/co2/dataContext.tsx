@@ -2,20 +2,23 @@ import { csv, timeParse } from 'd3'
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { Data } from './index'
+import { Datum } from './index'
 
 import Spinner from '@components/spinner'
 
 import { makeCancelable } from '@utils/functions'
 
-const DataContext = createContext<Data | null>(null)
+const DataContext = createContext<Datum[] | null>(null)
 export default DataContext
 
-type RawData = Record<keyof Data[0], string | undefined>[]
-type Props = { children?: ReactNode }
+type RawData = Record<keyof Datum, string | undefined>[]
 
-export const DataProvider = ({ children }: Props) => {
-	const [data, setData] = useState<Data | null>(null)
+interface DataProviderProps {
+	children?: ReactNode
+}
+
+export const DataProvider = ({ children }: DataProviderProps) => {
+	const [data, setData] = useState<Datum[] | null>(null)
 
 	useEffect(() => {
 		const cancelable = makeCancelable<RawData>(
@@ -39,7 +42,9 @@ export const DataProvider = ({ children }: Props) => {
 	return <DataContext.Provider value={data}>{children}</DataContext.Provider>
 }
 
-type DataConsumerProps = { render: (data: Data) => ReactNode }
+interface DataConsumerProps {
+	render: (data: Datum[]) => ReactNode
+}
 
 export const DataConsumer = ({ render }: DataConsumerProps) => {
 	const data = useContext(DataContext)

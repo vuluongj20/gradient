@@ -26,7 +26,7 @@ import useMountEffect from '@utils/useMountEffect'
 import usePrevious from '@utils/usePrevious'
 import useSize from '@utils/useSize'
 
-type Props<Node extends BaseNode> = {
+interface NodePanelProps<Node extends BaseNode> {
 	node: Node
 	setSimulationPlayState: Dispatch<SetStateAction<boolean>>
 	renderNodePanel: (props: {
@@ -42,7 +42,7 @@ const NodePanel = observer(
 		setSimulationPlayState,
 		renderNodePanel,
 		wrapRef,
-	}: Props<Node>) => {
+	}: NodePanelProps<Node>) => {
 		const svgNodeRef = useRef<HTMLButtonElement>(
 			document.querySelector(`g#node-${node.id}`),
 		)

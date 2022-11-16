@@ -12,7 +12,6 @@ import { AriaOverlayProps, useOverlay } from '@react-aria/overlays'
 import {
   CSSProperties,
   ForwardRefRenderFunction,
-  ReactNode,
   forwardRef,
   useMemo,
   useState,
@@ -25,11 +24,10 @@ import { Theme } from '@theme'
 import LocalThemeProvider from '@utils/localThemeProvider'
 import useMobile from '@utils/useMobile'
 
-export type UsePopoverProps = AriaOverlayProps &
-  UseFloatingProps & {
-    placement?: Placement
-    offset?: number
-  }
+export interface UsePopoverProps extends AriaOverlayProps, UseFloatingProps {
+  placement?: Placement
+  offset?: number
+}
 
 const roundPixels = {
   name: 'roundPixels',
@@ -124,7 +122,7 @@ export const usePopover = <TriggerType extends HTMLElement = HTMLElement>({
   }
 }
 
-export type Props = FocusScopeProps & {
+interface PopoverProps extends FocusScopeProps {
   isOpen: boolean
   arrowStyles?: CSSProperties
   placement?: Placement
@@ -132,10 +130,9 @@ export type Props = FocusScopeProps & {
   animateScale?: boolean
   renderWrapperAsSpan?: boolean
   className?: string
-  children?: ReactNode
 }
 
-const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+const Popover: ForwardRefRenderFunction<HTMLDivElement, PopoverProps> = (
   {
     isOpen,
     placement,
@@ -178,7 +175,7 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
 export default forwardRef(Popover)
 
-type WrapProps = {
+interface PopoverWrapProps {
   maxWidth?: string
   placement?: Placement
   animateScale: boolean
@@ -190,7 +187,7 @@ const getTransform = ({
   placement,
   arrowStyles,
   theme,
-}: WrapProps & { theme: Theme }) => {
+}: PopoverWrapProps & { theme: Theme }) => {
   const scaleTerm = animateScale ? 'scale(0.8)' : ''
 
   switch (placement?.split('-')[0]) {
@@ -219,7 +216,7 @@ const getTransform = ({
   }
 }
 
-const getStyles = (p: WrapProps & { theme: Theme }) => `
+const getStyles = (p: PopoverWrapProps & { theme: Theme }) => `
   position: absolute;
   max-width: ${
     p.maxWidth ? `min(${p.maxWidth}, calc(100vw - 32px))` : `calc(100vw - 32px)`
@@ -257,7 +254,7 @@ const getStyles = (p: WrapProps & { theme: Theme }) => `
   }
 `
 
-const DivWrap = styled.div<WrapProps>`
+const DivWrap = styled.div<PopoverWrapProps>`
   ${getStyles}
 `
 

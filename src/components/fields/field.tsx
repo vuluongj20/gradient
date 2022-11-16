@@ -3,19 +3,17 @@ import styled from 'styled-components'
 
 import { isDefined } from '@utils/functions'
 
-export type FieldProps = {
-	label?: string
-	description?: string
+export interface FieldProps {
 	rowLayout?: boolean
 	small?: boolean
 	skipFieldWrapper?: boolean
 }
 
-type Props = FieldProps & {
+interface _FieldProps extends HTMLAttributes<HTMLDivElement>, FieldProps {
+	label?: ReactNode
+	description?: ReactNode
 	labelProps?: HTMLAttributes<HTMLLabelElement>
 	descriptionProps?: HTMLAttributes<HTMLParagraphElement>
-	className?: string
-	children?: ReactNode
 }
 
 const Field = ({
@@ -26,15 +24,15 @@ const Field = ({
 	rowLayout = false,
 	small = false,
 	skipFieldWrapper = false,
-	className,
 	children,
-}: Props) => {
+	...props
+}: _FieldProps) => {
 	if (skipFieldWrapper) {
 		return <InputWrap rowLayout={false}>{children}</InputWrap>
 	}
 
 	return (
-		<Wrap className={className} rowLayout={rowLayout} small={small}>
+		<Wrap rowLayout={rowLayout} small={small} {...props}>
 			{isDefined(label) && (
 				<Label rowLayout={rowLayout} {...labelProps}>
 					{label}

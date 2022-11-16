@@ -2,7 +2,7 @@ import { ThemeSettings } from '@theme'
 
 import { isObject } from '@utils/functions'
 
-export type Settings = {
+export interface Settings {
 	theme: ThemeSettings
 }
 
@@ -44,7 +44,7 @@ const reconcileSettings = <T,>(settings: T, defaultSettings: T): T => {
 		returnObj[key] = settings[key] ?? defaultSettings[key]
 	})
 
-	return returnObj 
+	return returnObj
 }
 
 export const init = (defaultSettings: Settings): Settings => {

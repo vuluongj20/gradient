@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { TabItem } from '@components/tabList'
 
-type TabProps = AriaTabProps & {
+interface TabProps extends AriaTabProps {
   item: Node<TabItem>
   state: TabListState<TabItem>
 }

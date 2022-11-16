@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import TransitionLink from '@components/transitionLink'
 
-type Props = {
+interface MenuLinkProps {
 	path: string
 	title: string
 	isSection?: boolean
@@ -11,7 +11,7 @@ type Props = {
 	toggleMenu: (nextState: boolean) => void
 }
 
-const Link = ({ path, title, isSection, focusable, toggleMenu }: Props): JSX.Element => {
+const Link = ({ path, title, isSection, focusable, toggleMenu }: MenuLinkProps) => {
 	const location = useLocation()
 	const disabled = location.pathname.startsWith(path)
 

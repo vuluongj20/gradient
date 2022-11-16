@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 import BaseEdge from './edge'
 import BaseNode from './node'
 
-type Props<N, E> = {
+interface GraphProps<N, E> {
 	nodes?: N[]
 	edges?: E[]
 }
@@ -14,7 +14,7 @@ class Graph<Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge> 
 	nodesMap: Record<string, Node>
 	edgesMap: Record<string, Edge>
 
-	constructor(props: Props<Node, Edge> = {}) {
+	constructor(props: GraphProps<Node, Edge> = {}) {
 		makeObservable(this, {
 			id: observable,
 			nodesMap: observable,
