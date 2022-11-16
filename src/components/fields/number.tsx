@@ -24,6 +24,7 @@ const TextInput = ({
 	rowLayout,
 	inputWidth,
 	small = false,
+	skipFieldWrapper = false,
 	...props
 }: Props) => {
 	const { label, description } = props
@@ -50,6 +51,7 @@ const TextInput = ({
 			descriptionProps={descriptionProps}
 			rowLayout={rowLayout}
 			small={small}
+			skipFieldWrapper={skipFieldWrapper}
 			className={className}
 		>
 			<Group {...groupProps}>

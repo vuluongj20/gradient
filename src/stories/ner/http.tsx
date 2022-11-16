@@ -6,7 +6,7 @@ const getBaseUrl = () => {
       return 'https://ner.gradient.pub'
     case 'development':
     default:
-      return 'http://127.0.0.1:5000'
+      return 'http://127.0.0.1:8080'
   }
 }
 

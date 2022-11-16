@@ -25,6 +25,7 @@ const BaseSelect = ({
 	className,
 	rowLayout,
 	small = false,
+	skipFieldWrapper = false,
 	showDialogOnMobile = false,
 	...props
 }: BaseProps) => {
@@ -72,6 +73,7 @@ const BaseSelect = ({
 			labelProps={labelProps}
 			rowLayout={rowLayout}
 			small={small}
+			skipFieldWrapper={skipFieldWrapper}
 			className={className}
 		>
 			<HiddenSelect state={state} triggerRef={refs.trigger} label={label} name={name} />
@@ -98,31 +100,40 @@ const BaseSelect = ({
 	)
 }
 
-type SelectItem = { value: Key; label: string }
-type SelectSection = { title: string; options: SelectItem[] }
+type SelectItem<Value extends Key> = { value: Value; label: string }
+type SelectSection<Value extends Key> = { title: string; options: SelectItem<Value>[] }
 
-type Props = Omit<
+type Props<Value extends Key> = Omit<
 	BaseProps,
 	'children' | 'selectedKey' | 'defaultSelectedKey' | 'onSelectionChange'
 > & {
-	options: (SelectItem | SelectSection)[]
-	value?: BaseProps['selectedKey']
-	defaultValue?: BaseProps['defaultSelectedKey']
-	onChange?: BaseProps['onSelectionChange']
+	options: (SelectItem<Value> | SelectSection<Value>)[]
+	value?: Value
+	defaultValue?: Value
+	onChange?: (value: Value) => void
 }
 
-const isSection = (el: SelectItem | SelectSection): el is SelectSection =>
-	isDefined((el as SelectSection).title) && Array.isArray((el as SelectSection).options)
+const isSection = <Value extends Key>(
+	el: SelectItem<Value> | SelectSection<Value>,
+): el is SelectSection<Value> =>
+	isDefined((el as SelectSection<Value>).title) &&
+	Array.isArray((el as SelectSection<Value>).options)
 
 /**
  * Select component with simpler prop names: options, value, default value,
  * and onChange.
  */
-const Select = ({ options, value, defaultValue, onChange, ...props }: Props) => (
+const Select = <Value extends Key>({
+	options,
+	value,
+	defaultValue,
+	onChange,
+	...props
+}: Props<Value>) => (
 	<BaseSelect
 		selectedKey={value}
 		defaultSelectedKey={defaultValue}
-		onSelectionChange={onChange}
+		onSelectionChange={onChange as BaseProps['onSelectionChange']}
 		{...props}
 	>
 		{options.map((el) => {

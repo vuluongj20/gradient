@@ -170,7 +170,7 @@ const Logo = styled.svg`
 	}
 
 	circle {
-		r: 16px;
+		r: 18px;
 		fill: ${(p) => p.theme.body};
 		transition: opacity ${(p) => p.theme.animation.mediumOut};
 		opacity: 1;

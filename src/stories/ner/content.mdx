@@ -15,6 +15,7 @@ import HMMPerWordScorecards from './partII/perWordScorecards'
 import HMMTransitionGraph from './partII/transitionGraph'
 import HMMTransitionPaths from './partII/transitionPaths'
 import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
+import MEMMFeatureBreakdown from './partIII/featureBreakdown'
 import MEMMOverviewGraph from './partIII/overviewGraph'
 
 <Header>
@@ -286,7 +287,9 @@ $$
 P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
 $$
 
-where $s\prime$ is the previous state, $s$ is the current state, $o$ is the current observation, $a$ is a feature-state pair, and $Z(o, s\prime)$ is a normalizing term to make the distribution sum to one across all next states $s$. [@McCallum2000]
+where $s\prime$ is the previous state, $s$ is the current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution sum to one across all next states $s$. [@McCallum2000]
+
+<MEMMFeatureBreakdown />
 
 ---
 

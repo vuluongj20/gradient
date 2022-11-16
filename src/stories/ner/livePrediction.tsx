@@ -55,9 +55,9 @@ const MODEL_LABELS = {
 }
 
 const MODEL_ENDPOINTS = {
-	[MODEL.HMM]: '/hmm',
-	[MODEL.MEMM]: '/memm',
-	[MODEL.CRF]: '/crf',
+	[MODEL.HMM]: '/hmm/predict',
+	[MODEL.MEMM]: '/memm/predict',
+	[MODEL.CRF]: '/crf/predict',
 }
 
 const EMPTY_PREDS = { [MODEL.HMM]: [], [MODEL.MEMM]: [], [MODEL.CRF]: [] }
@@ -200,7 +200,7 @@ const Demo = ({
 			inputRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft
 		}
 
-		if (isDev) return
+		// if (isDev) return
 		debouncedUpdatePredictions(inputValue)
 	})
 

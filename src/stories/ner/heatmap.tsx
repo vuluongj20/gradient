@@ -1,7 +1,7 @@
 import { VisuallyHidden } from '@react-aria/visually-hidden'
 import styled, { useTheme } from 'styled-components'
 
-import { nameTags } from './constants'
+import { entityNameCategories } from './constants'
 
 import GuideArrow from '@components/guideArrow'
 
@@ -19,7 +19,7 @@ const Heatmap = ({
 	data,
 	groups,
 	groupLabel,
-	rows = nameTags,
+	rows = entityNameCategories,
 	rowLabel,
 	separateLastRow = true,
 }: HeatmapProps) => {

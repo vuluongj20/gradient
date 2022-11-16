@@ -8,6 +8,7 @@ export type FieldProps = {
 	description?: string
 	rowLayout?: boolean
 	small?: boolean
+	skipFieldWrapper?: boolean
 }
 
 type Props = FieldProps & {
@@ -24,9 +25,14 @@ const Field = ({
 	descriptionProps = {},
 	rowLayout = false,
 	small = false,
+	skipFieldWrapper = false,
 	className,
 	children,
 }: Props) => {
+	if (skipFieldWrapper) {
+		return <InputWrap rowLayout={false}>{children}</InputWrap>
+	}
+
 	return (
 		<Wrap className={className} rowLayout={rowLayout} small={small}>
 			{isDefined(label) && (
