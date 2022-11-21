@@ -279,15 +279,15 @@ f_a(o_t, s_t) = f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
 	\end{cases}
 $$
 
-The thinking behind feature-state pairs is that they may provide useful information about which features and states go together, and which don’t. For example, if the current word is capitalized, then its corresponding state is less likely to be “O”. We can expect to see fewer occurrences of the "capitalized" + “O” pair than say "capitalized" + “B-ORG”.
+Feature-state pairs provide useful information about which features and states go together and which don’t. For example, we expect to see fewer occurrences of the "capitalized" + “O” pair than say "capitalized" + “B-ORG”.
 
-The transition function has exponential form and contains a weighted sum of all feature-state pairs:
+A weighted sum of the values of all feature-state pairs is the main parameter for the state transition distribution, which has exponential form:
 
 $$
 P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
 $$
 
-where $s\prime$ is the previous state, $s$ is the current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$. [@McCallum2000]
+where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$. [@McCallum2000]
 
 <MEMMFeatureBreakdown />
 

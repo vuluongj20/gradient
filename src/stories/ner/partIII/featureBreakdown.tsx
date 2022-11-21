@@ -14,7 +14,13 @@ import Panel from '@components/panel'
 import PopoverArrow from '@components/popoverArrow'
 import Spinner from '@components/spinner'
 
-import { debounce, decimal, makeCancelable, toFixedUnlessZero } from '@utils/functions'
+import {
+	debounce,
+	decimal,
+	isDev,
+	makeCancelable,
+	toFixedUnlessZero,
+} from '@utils/functions'
 import useMobile from '@utils/useMobile'
 
 const tagOptions = nameTags.map((tag) => ({ value: tag, label: tag }))
@@ -90,6 +96,7 @@ const MEMMFeatureBreakdown = () => {
 	)
 
 	useEffect(() => {
+		if (isDev) return
 		debouncedUpdateBreakdown({ word, prevTag })
 	}, [word, prevTag])
 
@@ -178,12 +185,19 @@ const MEMMFeatureBreakdown = () => {
 					<StyledPopoverArrow size="l" />
 					<BreakdownHeader>
 						<BreakdownHeading>
-							Computing P<sub>{prevTag}</sub>({currentTag} | &apos;{word}&apos;)
+							Calculating P<sub>{prevTag}</sub>({currentTag} | &apos;{word}&apos;)
 						</BreakdownHeading>
 						<BreakdownDescription>
-							Numbers rounded to {decimalPlaces} decimal places for clarity.
+							<BalancedText>
+								{`With feature weights from a MEMM trained on CoNLL-2003 data. Numbers are rounded to ${decimalPlaces} decimal places for clarity.`}
+							</BalancedText>
 						</BreakdownDescription>
-						<CSSTransition in={!initialized || loading} timeout={125} appear>
+						<CSSTransition
+							in={!initialized || loading}
+							timeout={125}
+							unmountOnExit
+							appear
+						>
 							<LoadingSpinner
 								label="Loading feature breakdown"
 								diameter={16}
@@ -256,24 +270,26 @@ const MEMMFeatureBreakdown = () => {
 						</BreakdownTable>
 						<ProbabilityCalculation visible={initialized && !loading && !!sum}>
 							<ProbabilityCalculationLeftWrap>
-								P<sub>{prevTag}</sub>({currentTag} | &apos;{word}&apos;)&nbsp;
+								<span>
+									P<sub>{prevTag}</sub>({currentTag} | &apos;{word}&apos;)&nbsp;
+								</span>
 							</ProbabilityCalculationLeftWrap>
 							<ProbabilityCalculationRightWrap>
 								= e
 								<sup>
 									SUM(&#955;<sub>a</sub>f<sub>a</sub>)
-								</sup>{' '}
-								/ Z
-								<br />= e<sup>{decimal(sum ?? 0, decimalPlaces)}</sup> /{' '}
+								</sup>
+								&nbsp; / Z
+								<br />≈ e<sup>{decimal(sum ?? 0, decimalPlaces)}</sup> /{' '}
 								{decimal(Z, decimalPlaces)}
 								<br />
-								=&nbsp;
+								≈&nbsp;
 								<ProbabilityCalculationResult>
 									{decimal(Math.exp(sum ?? 0) / Z, decimalPlaces)}
 								</ProbabilityCalculationResult>
 							</ProbabilityCalculationRightWrap>
 						</ProbabilityCalculation>
-						<CSSTransition in={initialized && !sum} timeout={250} appear>
+						<CSSTransition in={initialized && !sum} timeout={250} unmountOnExit appear>
 							<NoObservationWrap>
 								<NoObservationMessage>
 									<BalancedText>
@@ -387,9 +403,13 @@ const BreakdownHeader = styled.div`
 
 const BreakdownHeading = styled.p`
 	${(p) => p.theme.text.system.h6};
+	margin-bottom: ${(p) => p.theme.space[0]};
 `
 
-const BreakdownDescription = styled.small``
+const BreakdownDescription = styled.small`
+	display: block;
+	max-width: 24rem;
+`
 
 const LoadingSpinner = styled(Spinner)`
 	position: absolute;
@@ -564,18 +584,20 @@ const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 	margin-top: ${(p) => p.theme.space[2]};
 	border-top: solid 1px ${(p) => p.theme.iLine};
 
-	color: ${(p) => p.theme.label};
 	font-weight: 600;
 	line-height: 1.5;
 	font-variant-numeric: tabular-nums;
 	letter-spacing: 0.025em;
+	white-space: nowrap;
+	color: ${(p) => p.theme.heading};
 
 	opacity: ${(p) => (p.visible ? 1 : 0)};
 	transition: opacity ${(p) => p.theme.animation.fastOut};
 `
 
 const ProbabilityCalculationLeftWrap = styled.span`
-	text-align: right;
+	display: flex;
+	justify-content: end;
 	color: ${(p) => p.theme.heading};
 	width: 10em;
 `
@@ -586,7 +608,6 @@ const ProbabilityCalculationRightWrap = styled.span`
 
 const ProbabilityCalculationResult = styled.span`
 	${(p) => p.theme.text.system.h5};
-	color: ${(p) => p.theme.heading};
 `
 
 const NoObservationWrap = styled.div`
