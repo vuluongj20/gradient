@@ -4,6 +4,12 @@ export const isDev = process.env.NODE_ENV === 'development'
 export const isDefined = <T,>(item: T): item is NonNullable<T> =>
 	typeof item !== 'undefined' && item !== null
 
+export const decimal = (number: number, decimalPlaces = 2) =>
+	Number(number.toFixed(decimalPlaces))
+
+export const toFixedUnlessZero = (number: number, decimalPlaces = 2) =>
+	number === 0 ? 0 : number.toFixed(decimalPlaces)
+
 /** Check if an item is an object */
 export const isObject = (item: unknown) =>
 	!!item && typeof item === 'object' && !Array.isArray(item)

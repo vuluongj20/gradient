@@ -10,7 +10,7 @@ const getBaseUrl = () => {
   }
 }
 
-export interface ResponseData {
+export interface PredictionResponseData {
   predictions: string[][]
 }
 

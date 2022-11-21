@@ -2,7 +2,7 @@ import { ChangeEvent, ReactNode, useCallback, useMemo, useRef, useState } from '
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
-import http, { ResponseData } from './http'
+import http, { PredictionResponseData } from './http'
 import { getTokenSpaces, tokenize } from './utils'
 
 import { Theme } from '@theme'
@@ -117,7 +117,9 @@ const LivePrediction = ({
 				const cancelable = makeCancelable(
 					Promise.all(
 						models.map((model) =>
-							http.post<ResponseData>(MODEL_ENDPOINTS[model], { instances: [tokens] }),
+							http.post<PredictionResponseData>(MODEL_ENDPOINTS[model], {
+								instances: [tokens],
+							}),
 						),
 					),
 				)

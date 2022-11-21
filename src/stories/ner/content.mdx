@@ -287,7 +287,7 @@ $$
 P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
 $$
 
-where $s\prime$ is the previous state, $s$ is the current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution sum to one across all next states $s$. [@McCallum2000]
+where $s\prime$ is the previous state, $s$ is the current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$. [@McCallum2000]
 
 <MEMMFeatureBreakdown />
 
