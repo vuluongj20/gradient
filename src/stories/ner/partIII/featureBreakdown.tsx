@@ -39,18 +39,17 @@ const featureNameSortOrder = [
 ]
 
 type NameTag = typeof nameTags[number]
-type Breakdown = Array<{
+type FeatureBreakdown = Array<{
 	feature: string
 	tag: string
 	value: number
 	weight: number
 }>
-type Breakdowns = Partial<Record<NameTag, Breakdown>>
-
-function getSum(breakdown: Breakdown) {
-	return breakdown.reduce((acc, cur) => {
-		return acc + cur.value * cur.weight
-	}, 0)
+type Breakdown = {
+	features: Partial<Record<NameTag, FeatureBreakdown>>
+	sums: Partial<Record<NameTag, number>>
+	probabilities: Partial<Record<NameTag, number>>
+	z: number
 }
 
 const MEMMFeatureBreakdown = () => {
@@ -58,7 +57,12 @@ const MEMMFeatureBreakdown = () => {
 	const [currentTag, setCurrentTag] = useState<NameTag>('B-LOC')
 	const [word, setWord] = useState('UK')
 
-	const [breakdown, setBreakdown] = useState<Breakdowns>({})
+	const [breakdown, setBreakdown] = useState<Breakdown>({
+		features: {},
+		sums: {},
+		probabilities: {},
+		z: 1,
+	})
 	const [loading, setLoading] = useState(true)
 	const [initialized, setInitialized] = useState(false)
 	const [pendingRequest, setPendingRequest] =
@@ -73,7 +77,7 @@ const MEMMFeatureBreakdown = () => {
 				}
 
 				const cancelable = makeCancelable(
-					http.post<{ breakdown: Breakdowns }>(ENDPOINT, { word, prevTag }),
+					http.post<Breakdown>(ENDPOINT, { word, prevTag }),
 				)
 
 				cancelable.promise
@@ -82,7 +86,7 @@ const MEMMFeatureBreakdown = () => {
 						setInitialized(true)
 
 						if (response.status === 200) {
-							setBreakdown(response.data.breakdown)
+							setBreakdown(response.data)
 						}
 					})
 					.catch((reason: { isCanceled: boolean }) => {
@@ -96,17 +100,17 @@ const MEMMFeatureBreakdown = () => {
 	)
 
 	useEffect(() => {
-		if (isDev) return
+		// if (isDev) return
 		debouncedUpdateBreakdown({ word, prevTag })
 	}, [word, prevTag])
 
-	const sortedBreakdown = useMemo(() => {
-		const currentTagBreakdown = breakdown[currentTag]
+	const sortedFeatureBreakdown = useMemo(() => {
+		const currentTagBreakdown = breakdown.features[currentTag]
 		if (!currentTagBreakdown) {
 			return []
 		}
 
-		function sortGroup(group: Breakdown) {
+		function sortGroup(group: FeatureBreakdown) {
 			return group.sort((a, b) => {
 				return (
 					featureNameSortOrder.findIndex((s) => s === a.feature.split('==')[0]) -
@@ -119,24 +123,9 @@ const MEMMFeatureBreakdown = () => {
 			sortGroup(currentTagBreakdown.filter((entry) => entry.value === 1)),
 			sortGroup(currentTagBreakdown.filter((entry) => entry.value === 0)),
 		].flat()
-	}, [breakdown, currentTag])
+	}, [breakdown.features, currentTag])
 
-	const sum = useMemo(() => {
-		const currentTagBreakdown = breakdown[currentTag]
-		if (!currentTagBreakdown) {
-			return null
-		}
-
-		return getSum(currentTagBreakdown)
-	}, [breakdown, currentTag])
-
-	/**
-	 * Normalizing constant
-	 */
-	const Z = useMemo(
-		() => Object.values(breakdown).reduce((acc, cur) => acc + Math.exp(getSum(cur)), 0),
-		[breakdown],
-	)
+	const sum = useMemo(() => breakdown.sums[currentTag], [breakdown, currentTag])
 
 	const isMobile = useMobile()
 	const decimalPlaces = useMemo(() => (isMobile ? 2 : 3), [isMobile])
@@ -230,7 +219,7 @@ const MEMMFeatureBreakdown = () => {
 								</TR>
 							</TableHeader>
 							<TableBody>
-								{sortedBreakdown.map(({ feature, tag, weight, value }) => (
+								{sortedFeatureBreakdown.map(({ feature, tag, weight, value }) => (
 									<TR key={feature + tag} inactive={value === 0}>
 										<TH headers="memm_feature_breakdown_header" scope="row">
 											<span>
@@ -244,7 +233,7 @@ const MEMMFeatureBreakdown = () => {
 										</TD>
 									</TR>
 								))}
-								{new Array(8 - sortedBreakdown.length).fill(0).map((_, index) => (
+								{new Array(8 - sortedFeatureBreakdown.length).fill(0).map((_, index) => (
 									<TR aria-hidden="true" key={index}>
 										<TH headers="memm_feature_breakdown_header">……</TH>
 										<TD align="right">…</TD>
@@ -281,11 +270,11 @@ const MEMMFeatureBreakdown = () => {
 								</sup>
 								&nbsp; / Z
 								<br />≈ e<sup>{decimal(sum ?? 0, decimalPlaces)}</sup> /{' '}
-								{decimal(Z, decimalPlaces)}
+								{decimal(breakdown.z, decimalPlaces)}
 								<br />
 								≈&nbsp;
 								<ProbabilityCalculationResult>
-									{decimal(Math.exp(sum ?? 0) / Z, decimalPlaces)}
+									{decimal(breakdown.probabilities[currentTag] ?? 0, decimalPlaces)}
 								</ProbabilityCalculationResult>
 							</ProbabilityCalculationRightWrap>
 						</ProbabilityCalculation>
