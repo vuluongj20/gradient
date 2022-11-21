@@ -60,10 +60,7 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
-export const useThemeObject = (
-	settings: ThemeSettings,
-	appearance: Appearance,
-): Theme => {
+export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme => {
 	const elevation = settings.color.elevation
 	const colorPalette =
 		appearance === 'dark' ? settings.color.darkPalette : settings.color.lightPalette

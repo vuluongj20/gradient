@@ -3,10 +3,10 @@
 // a separate appearance from the rest of the UI. One example is
 // theme inversion in the footer of some pages.
 import deepMerge from 'deepmerge'
-import { ReactNode, useContext } from 'react'
+import { ReactNode, useContext, useMemo } from 'react'
 import { ThemeProvider, useTheme } from 'styled-components'
 
-import { ThemeSettings, useThemeObject } from '@theme'
+import { ThemeSettings, getTheme } from '@theme'
 
 import SettingsContext from '@utils/settingsContext'
 
@@ -21,20 +21,19 @@ const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProp
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
 	const { appearance, elevation } = useTheme()
-	const localElevation = elevation + (overlay ? 1 : 0) + (inset ? -1 : 0)
-	const boundedLocalElevation = Math.min(5, Math.max(0, localElevation))
 
-	/**
-	 * Falls back to current settings if
-	 * appearance is not defined
-	 */
-	const localColorSettings = { elevation: boundedLocalElevation }
+	// Falls back to current settings if
+	// appearance is not defined
+	const localTheme = useMemo(() => {
+		const unboundedLocalElevation = elevation + (overlay ? 1 : 0) + (inset ? -1 : 0)
+		const localElevation = Math.min(5, Math.max(0, unboundedLocalElevation))
 
-	const mergedThemeSettings = deepMerge(themeSettings, {
-		color: localColorSettings,
-	}) as ThemeSettings
+		const localThemeSettings = deepMerge(themeSettings, {
+			color: { elevation: localElevation },
+		}) as ThemeSettings
 
-	const localTheme = useThemeObject(mergedThemeSettings, appearance)
+		return getTheme(localThemeSettings, appearance)
+	}, [themeSettings, elevation, overlay, inset, appearance])
 
 	return <ThemeProvider theme={localTheme}>{children}</ThemeProvider>
 }

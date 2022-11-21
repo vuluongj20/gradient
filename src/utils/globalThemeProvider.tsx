@@ -3,7 +3,7 @@
 import { ReactNode, useContext, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { Appearance, ThemeSettings, useThemeObject } from '@theme'
+import { Appearance, ThemeSettings, getTheme } from '@theme'
 
 import SettingsContext from '@utils/settingsContext'
 import useMatchMedia from '@utils/useMatchMedia'
@@ -27,7 +27,7 @@ const GlobalThemeProvider = ({ children }: GlobalThemeProviderProps) => {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
 	const appearance = useAppearance(themeSettings.color)
-	const theme = useThemeObject(themeSettings, appearance)
+	const theme = getTheme(themeSettings, appearance)
 
 	// Update body background color, if needed, on state change
 	useEffect(() => {
