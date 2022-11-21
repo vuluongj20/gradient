@@ -14,13 +14,7 @@ import Panel from '@components/panel'
 import PopoverArrow from '@components/popoverArrow'
 import Spinner from '@components/spinner'
 
-import {
-	debounce,
-	decimal,
-	isDev,
-	makeCancelable,
-	toFixedUnlessZero,
-} from '@utils/functions'
+import { debounce, isDev, makeCancelable, toFixedUnlessZero } from '@utils/functions'
 import useMobile from '@utils/useMobile'
 
 const tagOptions = nameTags.map((tag) => ({ value: tag, label: tag }))
@@ -49,13 +43,14 @@ type Breakdown = {
 	features: Partial<Record<NameTag, FeatureBreakdown>>
 	sums: Partial<Record<NameTag, number>>
 	probabilities: Partial<Record<NameTag, number>>
-	z: number
+	z: string | number
 }
 
 const MEMMFeatureBreakdown = () => {
 	const [prevTag, setPrevTag] = useState<NameTag>('O')
 	const [currentTag, setCurrentTag] = useState<NameTag>('B-LOC')
 	const [word, setWord] = useState('UK')
+	const [usedWord, setUsedWord] = useState('UK')
 
 	const [breakdown, setBreakdown] = useState<Breakdown>({
 		features: {},
@@ -87,6 +82,7 @@ const MEMMFeatureBreakdown = () => {
 
 						if (response.status === 200) {
 							setBreakdown(response.data)
+							setUsedWord(word)
 						}
 					})
 					.catch((reason: { isCanceled: boolean }) => {
@@ -100,7 +96,7 @@ const MEMMFeatureBreakdown = () => {
 	)
 
 	useEffect(() => {
-		// if (isDev) return
+		if (isDev) return
 		debouncedUpdateBreakdown({ word, prevTag })
 	}, [word, prevTag])
 
@@ -123,12 +119,143 @@ const MEMMFeatureBreakdown = () => {
 			sortGroup(currentTagBreakdown.filter((entry) => entry.value === 1)),
 			sortGroup(currentTagBreakdown.filter((entry) => entry.value === 0)),
 		].flat()
-	}, [breakdown.features, currentTag])
-
-	const sum = useMemo(() => breakdown.sums[currentTag], [breakdown, currentTag])
+	}, [breakdown, currentTag])
 
 	const isMobile = useMobile()
 	const decimalPlaces = useMemo(() => (isMobile ? 2 : 3), [isMobile])
+	const sum = useMemo(() => breakdown.sums[currentTag], [breakdown, currentTag])
+
+	const breakdownContent = useMemo(
+		() => (
+			<BreakdownWrap overlay>
+				<StyledPopoverArrow size="l" />
+				<BreakdownHeader>
+					<BreakdownHeading>
+						Calculating P<sub>{prevTag}</sub>({currentTag} | &apos;{usedWord}&apos;)
+					</BreakdownHeading>
+					<BreakdownDescription>
+						<BalancedText>
+							{`With feature weights from a MEMM trained on CoNLL-2003 data. Numbers are rounded to ${decimalPlaces} decimal places for clarity.`}
+						</BalancedText>
+					</BreakdownDescription>
+					<CSSTransition in={!initialized || loading} timeout={125} unmountOnExit appear>
+						<LoadingSpinner
+							label="Loading feature breakdown"
+							diameter={16}
+							strokeWidth={2}
+						/>
+					</CSSTransition>
+				</BreakdownHeader>
+				<BreakdownContent>
+					<BreakdownTable visible={initialized && !loading && !!sum}>
+						<colgroup>
+							<col span={1} />
+							<col span={1} />
+							<col span={1} />
+							<col span={1} />
+						</colgroup>
+						<TableHeader>
+							<TR>
+								<TH scope="column" id="memm_feature_breakdown_header">
+									Feature-State Pair (a)
+								</TH>
+								<TH scope="column" align="right">
+									&#955;<sub>a</sub>
+								</TH>
+								<TH scope="column" align="right">
+									f<sub>a</sub>
+								</TH>
+								<TH scope="column" align="right">
+									&#955;<sub>a</sub>f<sub>a</sub>
+								</TH>
+							</TR>
+						</TableHeader>
+						<TableBody>
+							{sortedFeatureBreakdown.map(({ feature, tag, weight, value }) => (
+								<TR key={feature + tag} inactive={value === 0}>
+									<TH headers="memm_feature_breakdown_header" scope="row">
+										<span>
+											{feature} <LongEm>-</LongEm> {tag}
+										</span>
+									</TH>
+									<TD align="right">{toFixedUnlessZero(weight, decimalPlaces)}</TD>
+									<TD align="right">{value}</TD>
+									<TD align="right">
+										{toFixedUnlessZero(value * weight, decimalPlaces)}
+									</TD>
+								</TR>
+							))}
+							{new Array(8 - sortedFeatureBreakdown.length).fill(0).map((_, index) => (
+								<TR aria-hidden="true" key={index}>
+									<TH headers="memm_feature_breakdown_header">……</TH>
+									<TD align="right">…</TD>
+									<TD align="right">…</TD>
+									<TD align="right">…</TD>
+								</TR>
+							))}
+							<TR aria-hidden="true">
+								<TH headers="memm_feature_breakdown_header">……</TH>
+								<TD align="right">…</TD>
+								<TD align="right">…</TD>
+								<TD align="right">…</TD>
+							</TR>
+						</TableBody>
+						<TableFooter>
+							<TR aria-hidden="true">
+								<TH align="right" colSpan={3}>
+									SUM(&#955;<sub>a</sub>f<sub>a</sub>)
+								</TH>
+								<TD align="right">{toFixedUnlessZero(sum ?? 0, decimalPlaces)}</TD>
+							</TR>
+						</TableFooter>
+					</BreakdownTable>
+					<ProbabilityCalculation visible={initialized && !loading && !!sum}>
+						<ProbabilityCalculationLeftWrap>
+							<span>
+								P<sub>{prevTag}</sub>({currentTag} | &apos;{usedWord}&apos;)&nbsp;
+							</span>
+						</ProbabilityCalculationLeftWrap>
+						<ProbabilityCalculationRightWrap>
+							= e
+							<sup>
+								SUM(&#955;<sub>a</sub>f<sub>a</sub>)
+							</sup>
+							&nbsp; / Z
+							<br />≈ e<sup>{toFixedUnlessZero(sum ?? 0, decimalPlaces)}</sup> /{' '}
+							{toFixedUnlessZero(+breakdown.z ?? 0, decimalPlaces)}
+							<br />
+							≈&nbsp;
+							<ProbabilityCalculationResult>
+								{toFixedUnlessZero(breakdown.probabilities[currentTag] ?? 0, 3)}
+							</ProbabilityCalculationResult>
+						</ProbabilityCalculationRightWrap>
+					</ProbabilityCalculation>
+					<CSSTransition in={initialized && !sum} timeout={250} unmountOnExit appear>
+						<NoObservationWrap>
+							<NoObservationMessage>
+								<BalancedText>
+									{`The transition from ${prevTag} to ${currentTag} never occurred in the train set, so no applicable feature-state pair was found. The transition probability is 0.`}
+								</BalancedText>
+							</NoObservationMessage>
+						</NoObservationWrap>
+					</CSSTransition>
+				</BreakdownContent>
+			</BreakdownWrap>
+		),
+		[
+			breakdown,
+			sortedFeatureBreakdown,
+			sum,
+			prevTag,
+			currentTag,
+			usedWord,
+			initialized,
+			loading,
+			decimalPlaces,
+		],
+	)
+
+	const textFieldSize = useMemo(() => Math.max(word.length, 2), [word])
 	return (
 		<Wrap noPaddingOnMobile>
 			<StyledPanel overlay gridColumn="wide">
@@ -164,131 +291,13 @@ const MEMMFeatureBreakdown = () => {
 								skipFieldWrapper
 								value={word}
 								onChange={setWord}
-								size={Math.max(word.length, 2)}
+								size={textFieldSize}
 								aria-label="Current word"
 							/>
 						</WordInputWrap>
 					</CurrentTagWrap>
 				</InputWrap>
-				<BreakdownWrap overlay>
-					<StyledPopoverArrow size="l" />
-					<BreakdownHeader>
-						<BreakdownHeading>
-							Calculating P<sub>{prevTag}</sub>({currentTag} | &apos;{word}&apos;)
-						</BreakdownHeading>
-						<BreakdownDescription>
-							<BalancedText>
-								{`With feature weights from a MEMM trained on CoNLL-2003 data. Numbers are rounded to ${decimalPlaces} decimal places for clarity.`}
-							</BalancedText>
-						</BreakdownDescription>
-						<CSSTransition
-							in={!initialized || loading}
-							timeout={125}
-							unmountOnExit
-							appear
-						>
-							<LoadingSpinner
-								label="Loading feature breakdown"
-								diameter={16}
-								strokeWidth={2}
-							/>
-						</CSSTransition>
-					</BreakdownHeader>
-					<BreakdownContent>
-						<BreakdownTable visible={initialized && !loading && !!sum}>
-							<colgroup>
-								<col span={1} />
-								<col span={1} />
-								<col span={1} />
-								<col span={1} />
-							</colgroup>
-							<TableHeader>
-								<TR>
-									<TH scope="column" id="memm_feature_breakdown_header">
-										Feature-State Pair (a)
-									</TH>
-									<TH scope="column" align="right">
-										&#955;<sub>a</sub>
-									</TH>
-									<TH scope="column" align="right">
-										f<sub>a</sub>
-									</TH>
-									<TH scope="column" align="right">
-										&#955;<sub>a</sub>f<sub>a</sub>
-									</TH>
-								</TR>
-							</TableHeader>
-							<TableBody>
-								{sortedFeatureBreakdown.map(({ feature, tag, weight, value }) => (
-									<TR key={feature + tag} inactive={value === 0}>
-										<TH headers="memm_feature_breakdown_header" scope="row">
-											<span>
-												{feature} <LongEm>-</LongEm> {tag}
-											</span>
-										</TH>
-										<TD align="right">{toFixedUnlessZero(weight, decimalPlaces)}</TD>
-										<TD align="right">{value}</TD>
-										<TD align="right">
-											{toFixedUnlessZero(value * weight, decimalPlaces)}
-										</TD>
-									</TR>
-								))}
-								{new Array(8 - sortedFeatureBreakdown.length).fill(0).map((_, index) => (
-									<TR aria-hidden="true" key={index}>
-										<TH headers="memm_feature_breakdown_header">……</TH>
-										<TD align="right">…</TD>
-										<TD align="right">…</TD>
-										<TD align="right">…</TD>
-									</TR>
-								))}
-								<TR aria-hidden="true">
-									<TH headers="memm_feature_breakdown_header">……</TH>
-									<TD align="right">…</TD>
-									<TD align="right">…</TD>
-									<TD align="right">…</TD>
-								</TR>
-							</TableBody>
-							<TableFooter>
-								<TR aria-hidden="true">
-									<TH align="right" colSpan={3}>
-										SUM(&#955;<sub>a</sub>f<sub>a</sub>)
-									</TH>
-									<TD align="right">{decimal(sum ?? 0, decimalPlaces)}</TD>
-								</TR>
-							</TableFooter>
-						</BreakdownTable>
-						<ProbabilityCalculation visible={initialized && !loading && !!sum}>
-							<ProbabilityCalculationLeftWrap>
-								<span>
-									P<sub>{prevTag}</sub>({currentTag} | &apos;{word}&apos;)&nbsp;
-								</span>
-							</ProbabilityCalculationLeftWrap>
-							<ProbabilityCalculationRightWrap>
-								= e
-								<sup>
-									SUM(&#955;<sub>a</sub>f<sub>a</sub>)
-								</sup>
-								&nbsp; / Z
-								<br />≈ e<sup>{decimal(sum ?? 0, decimalPlaces)}</sup> /{' '}
-								{decimal(breakdown.z, decimalPlaces)}
-								<br />
-								≈&nbsp;
-								<ProbabilityCalculationResult>
-									{decimal(breakdown.probabilities[currentTag] ?? 0, decimalPlaces)}
-								</ProbabilityCalculationResult>
-							</ProbabilityCalculationRightWrap>
-						</ProbabilityCalculation>
-						<CSSTransition in={initialized && !sum} timeout={250} unmountOnExit appear>
-							<NoObservationWrap>
-								<NoObservationMessage>
-									<BalancedText>
-										{`The transition from ${prevTag} to ${currentTag} never occurred in the train set, so no applicable feature-state pair was found. The transition probability is 0.`}
-									</BalancedText>
-								</NoObservationMessage>
-							</NoObservationWrap>
-						</CSSTransition>
-					</BreakdownContent>
-				</BreakdownWrap>
+				{breakdownContent}
 			</StyledPanel>
 		</Wrap>
 	)

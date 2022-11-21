@@ -2,7 +2,7 @@ import { AriaSelectOptions, HiddenSelect, useSelect } from '@react-aria/select'
 import { mergeProps } from '@react-aria/utils'
 import { Item, Section } from '@react-stately/collections'
 import { useSelectState } from '@react-stately/select'
-import { ComponentProps, Fragment, Key, useCallback } from 'react'
+import { ComponentProps, Fragment, Key, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import Button from '@components/button'
@@ -135,27 +135,35 @@ const Select = <Value extends Key>({
 	defaultValue,
 	onChange,
 	...props
-}: SelectProps<Value>) => (
-	<BaseSelect
-		selectedKey={value}
-		defaultSelectedKey={defaultValue}
-		onSelectionChange={onChange as _SelectProps['onSelectionChange']}
-		{...props}
-	>
-		{options.map((el) => {
-			if (isSection(el)) {
-				return (
-					<Section key={el.title} title={el.title}>
-						{el.options.map((c) => (
-							<Item key={c.value}>{c.label}</Item>
-						))}
-					</Section>
-				)
-			}
-			return <Item key={el.value}>{el.label}</Item>
-		})}
-	</BaseSelect>
-)
+}: SelectProps<Value>) => {
+	const children = useMemo(
+		() =>
+			options.map((el) => {
+				if (isSection(el)) {
+					return (
+						<Section key={el.title} title={el.title}>
+							{el.options.map((c) => (
+								<Item key={c.value}>{c.label}</Item>
+							))}
+						</Section>
+					)
+				}
+				return <Item key={el.value}>{el.label}</Item>
+			}),
+		[options],
+	)
+
+	return (
+		<BaseSelect
+			selectedKey={value}
+			defaultSelectedKey={defaultValue}
+			onSelectionChange={onChange as _SelectProps['onSelectionChange']}
+			{...props}
+		>
+			{children}
+		</BaseSelect>
+	)
+}
 
 export default Select
 
