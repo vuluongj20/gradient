@@ -98,6 +98,7 @@ const MEMMFeatureBreakdown = () => {
 	useEffect(() => {
 		if (isDev) return
 		debouncedUpdateBreakdown({ word, prevTag })
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [word, prevTag])
 
 	const sortedFeatureBreakdown = useMemo(() => {
@@ -479,11 +480,39 @@ const TR = styled.tr<{ inactive?: boolean }>`
 			padding-top: ${(p) => p.theme.space[2]};
 		}
 	}
+
+	// Row background
+	&:nth-of-type(2n) > th,
+	&:nth-of-type(2n) > td {
+		position: relative;
+		z-index: 1;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: ${(p) => p.theme.iiBackground};
+			z-index: -1;
+			transition: background-color ${(p) => p.theme.animation.fastOut};
+		}
+
+		&:first-child::before {
+			border-top-left-radius: ${(p) => p.theme.radii.s};
+			border-bottom-left-radius: ${(p) => p.theme.radii.s};
+		}
+		&:last-child::before {
+			border-top-right-radius: ${(p) => p.theme.radii.s};
+			border-bottom-right-radius: ${(p) => p.theme.radii.s};
+		}
+	}
 `
 
 const TH = styled.th<{ align?: 'left' | 'right' }>`
 	font-weight: 400;
-	padding: ${(p) => p.theme.space[0.5]} ${(p) => p.theme.space[1.5]};
+	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
 	${(p) => p.align && `text-align: ${p.align};`}
 
 	& > span {
@@ -492,60 +521,12 @@ const TH = styled.th<{ align?: 'left' | 'right' }>`
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-
-	// Row background
-	tr:nth-of-type(2n) > & {
-		position: relative;
-		z-index: 1;
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			background-color: ${(p) => p.theme.iBackground};
-			z-index: -1;
-			transition: background-color ${(p) => p.theme.animation.fastOut};
-		}
-
-		&:first-of-type::before {
-			border-top-left-radius: ${(p) => p.theme.radii.s};
-			border-bottom-left-radius: ${(p) => p.theme.radii.s};
-		}
-	}
-
-	tr:nth-of-type(2n) > & {
-	}
 `
 
 const TD = styled.td<{ align?: 'left' | 'right' }>`
 	font-weight: 400;
-	padding: ${(p) => p.theme.space[0.5]} ${(p) => p.theme.space[1.5]};
+	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
 	${(p) => p.align && `text-align: ${p.align};`}
-
-	// Row background
-	tr:nth-of-type(2n) > & {
-		position: relative;
-		z-index: 1;
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			background: ${(p) => p.theme.iBackground};
-			z-index: -1;
-		}
-
-		&:last-of-type::before {
-			border-top-right-radius: ${(p) => p.theme.radii.s};
-			border-bottom-right-radius: ${(p) => p.theme.radii.s};
-		}
-	}
 `
 
 const TableHeader = styled.thead`
@@ -583,7 +564,6 @@ const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 	border-top: solid 1px ${(p) => p.theme.iLine};
 
 	font-weight: 600;
-	line-height: 1.5;
 	font-variant-numeric: tabular-nums;
 	letter-spacing: 0.025em;
 	white-space: nowrap;
