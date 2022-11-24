@@ -25,20 +25,35 @@ type PositionMap = Record<string, Position>
 
 const factory = (nodes: Iterable<Node<object>>) => new ListCollection(nodes)
 
-interface SwitchBarProps extends CollectionBase<object>, AriaRadioGroupProps {
+interface SwitchBarProps<Value>
+	extends CollectionBase<object>,
+		Omit<AriaRadioGroupProps, 'value' | 'defaultValue' | 'onChange'> {
+	value?: Value
+	defaultValue?: Value
+	onChange?: (value: Value) => void
 	moveLeft?: boolean
 }
 
-const SwitchBar = ({ moveLeft, ...props }: SwitchBarProps) => {
+const SwitchBar = <Value extends string>({
+	moveLeft,
+	...props
+}: SwitchBarProps<Value>) => {
 	const ref = useRef<HTMLDivElement>(null)
 
 	const collection = useCollection(props, factory)
 	const collectionList = useMemo(() => [...collection], [collection])
 	const lastKey = useMemo(() => collection.getLastKey(), [collection])
 
-	const state = useRadioGroupState(props)
+	const ariaProps = useMemo(
+		() => ({
+			...props,
+			onChange: props.onChange as AriaRadioGroupProps['onChange'],
+		}),
+		[props],
+	)
+	const state = useRadioGroupState(ariaProps)
 	const { radioGroupProps } = useRadioGroup(
-		{ ...props, orientation: 'horizontal' },
+		{ ...ariaProps, orientation: 'horizontal' },
 		state,
 	)
 

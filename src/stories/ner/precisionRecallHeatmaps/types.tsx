@@ -1,1 +1,0 @@
-import { HeatmapProps } from '../heatmap'

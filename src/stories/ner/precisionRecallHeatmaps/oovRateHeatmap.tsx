@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
 import { MODEL, MODEL_SHORT } from '../constants'
