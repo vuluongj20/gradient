@@ -115,9 +115,7 @@ export const emissionProbabilities: number[][] = [
 	],
 ]
 
-export const entityLengths = [1, 2, 3, 4, 5]
-
-export const precisionByEntityLength = [
+export const hmmPrecisionByEntityLength = [
 	[0.61, 0.68, 0.3, 0.12, 0.28],
 	[0.96, 0.67, 0.7, null, null],
 	[0.88, 0.36, null, null, null],
@@ -125,7 +123,7 @@ export const precisionByEntityLength = [
 	[0.77, 0.61, 0.31, 0.12, 0.29],
 ]
 
-export const recallByEntityLength = [
+export const hmmRecallByEntityLength = [
 	[0.51, 0.61, 0.62, 0.38, 0.44],
 	[0.08, 0.88, 0.11, null, null],
 	[0.63, 0.55, 0.2, null, null],
@@ -133,14 +131,14 @@ export const recallByEntityLength = [
 	[0.48, 0.74, 0.42, 0.38, 0.5],
 ]
 
-export const precisionByBinaryOOV = [
+export const hmmPrecisionByBinaryOOV = [
 	[0.8, 0.21],
 	[0.85, 0.62],
 	[0.87, 0.06],
 	[0.78, 0.12],
 	[0.84, 0.39],
 ]
-export const recallByBinaryOOV = [
+export const hmmRecallByBinaryOOV = [
 	[0.64, 0.33],
 	[0.58, 0.59],
 	[0.71, 0.05],
@@ -148,7 +146,7 @@ export const recallByBinaryOOV = [
 	[0.64, 0.41],
 ]
 
-export const precisionByOOVRate = [
+export const hmmPrecisionByOOVRate = [
 	[0.86, null, null, null, null, null, null, null, null, null, 0.3],
 	[0.8, null, null, null, null, 0.5, null, null, null, null, 0.52],
 	[0.78, null, null, 0.15, null, null, null, 0.06, null, null, 0.0],
@@ -157,7 +155,7 @@ export const precisionByOOVRate = [
 	[0.84, null, 0.22, 0.15, 0.22, 0.48, 0.0, 0.06, 0.0, 0.14, 0.41],
 ]
 
-export const recallByOOVRate = [
+export const hmmRecallByOOVRate = [
 	[0.61, null, null, null, null, null, null, null, null, null, 0.11],
 	[0.78, null, null, null, null, 0.71, null, null, null, null, 0.7],
 	[0.59, null, null, 0.25, null, null, null, 0.19, null, null, 0.0],

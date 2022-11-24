@@ -1,9 +1,11 @@
 import { Fragment } from 'react'
 
+import BinaryOOVHeatmap from './heatmaps/binaryOOVHeatmap'
 import LivePrediction from './livePrediction'
 import ABCDGraph from './partI/sampling/abcdGraph'
 import StaticABCDGraph from './partI/staticABCDGraph'
 import HMMBinaryOOVHeatmap from './partII/binaryOOVHeatmap'
+import { hmmPrecisionByBinaryOOV, hmmRecallByBinaryOOV } from './partII/constants'
 import HMMEmissionGraph from './partII/emissionGraph'
 import HMMEmissionPaths from './partII/emissionPaths'
 import HMMEntityLengthHeatmap from './partII/entityLengthHeatmap'
@@ -14,9 +16,13 @@ import HMMPerEntityScorecards from './partII/perEntityScorecards'
 import HMMPerWordScorecards from './partII/perWordScorecards'
 import HMMTransitionGraph from './partII/transitionGraph'
 import HMMTransitionPaths from './partII/transitionPaths'
+import { memmPrecisionByBinaryOOV, memmRecallByBinaryOOV } from './partIII/constants'
 import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
+import MEMMEntityLengthHeatmap from './partIII/entityLengthHeatmap'
 import MEMMFeatureBreakdown from './partIII/featureBreakdown'
 import MEMMOverviewGraph from './partIII/overviewGraph'
+import MEMMPerEntityScorecards from './partIII/perEntityScorecards'
+import MEMMPerWordScorecard from './partIII/perWordScorecards'
 
 <Header>
 
@@ -59,9 +65,9 @@ Similar to HMMs, MEMMs have been successfully applied to a wide range of sequenc
 
 ### Discriminative Structure
 
-Suppose there is a system with two variables, $X$ and $Y$, and we want to make predictions on $Y$ based on observations on $X$. A generative classifier would do that by first learning the prior distribution $p(X, Y)$ and then applying Bayes' rule to find the posterior $p(Y|X)$. A discriminative classifier, on the other hand, would model the posterior $p(Y|X)$ directly. [@Ng2001]
+Suppose there is a system with two variables, $X$ and $Y$, and we want to make predictions about $Y$ based on observations of $X$. A generative classifier would do that by first learning the prior distribution $p(X, Y)$ and then applying Bayes' rule to find the posterior $p(Y|X)$. In a way, it attempts to reconstruct the process that generated the observed data. A discriminative classifier, on the other hand, would model the posterior $p(Y|X)$ directly based on training data. [@Ng2001]
 
-HMMs are generative generative classifiers, while MEMMs are discriminative. HMMs are generative because they model the joint distribution over both observations and hidden states, before using that to identify the most likely state sequence given observations or solve some other inference problems. MEMMs, on the other hand, directly model the conditional distribution $p(states|observations)$.
+While HMMs are generative classifiers, MEMMs are discriminative. The former are generative because they model the joint distribution over both observations and hidden states (as a product of transition and emission probabilities) before using that joint distribution to find the most likely state sequence given observations (or solve some other inference problem). MEMMs, on the other hand, directly model the conditional distribution $p(states|observations)$ without any intermediaries.
 
 <MEMMDiscriminativeGraph />
 
@@ -73,7 +79,7 @@ Common practice is to use binary features, such as:
 
 $$
 b(o_t) = \begin{cases}
-	1\ \textrm{ if $o_t$ has word shape "Xxx"} \\
+	1\ \textrm{ if $o_t$ has shape "Xxx"} \\
 	0\ \textrm{ otherwise}
 	\end{cases}
 $$
@@ -81,23 +87,92 @@ $$
 These features are then paired with the current state $s$ to form feature-state pairs $a = \langle b, s \rangle$:
 
 $$
-f_a(o_t, s_t) = f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
+f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
 	1\ \textrm{ if $b(o_t) = 1$ and $s_t = s$} \\
 	0\ \textrm{ otherwise}
 	\end{cases}
 $$
 
-Feature-state pairs provide useful information about which features and states go together and which don’t. For example, we expect to see fewer occurrences of the "capitalized" + “O” pair than say "capitalized" + “B-ORG”.
+Feature-state pairs provide useful additional information about which features and states go together and which don’t. For example, we can expect that pairs like "is_capitalized" + “B-ORG” would occur more frequently than "is_capitalized" + “O”, capturing the fact that in English named entities are often capitalized.
 
-A weighted sum of the values of all feature-state pairs is the main parameter for the state transition distribution, which has exponential form:
+### State Transition Distributions
+
+State transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
 
 $$
 P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
 $$
 
-where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$. [@McCallum2000]
+where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
+
+The distribution's exponential form is a direct result of the maximum entropy principle that underlies MEMMs’ statistical structure and gives them their name. The principle states that the model that best represents a given system is one that makes the fewest possible assumptions except for certain constraints derived from training data. [@McCallum2000; @Pietra1997]
+
+Here's a breakdown of the probability calculation:
 
 <MEMMFeatureBreakdown />
+
+### Training & Inference
+
+The training step involves learning the weights $\lambda_a$ that satisfy MEMMs’ maximum entropy constraint. Learning is done through Generalized Iterative Scaling, which iteratively updates the values $\lambda_a$ in order to nudge the expected value of all features closer to their train set average [@McCallum2000]. Convergence at a global optimum is guaranteed given the exponential form of the transition distribution.
+
+Inference is done using the Viterbi algorithm, like with HMMs [@McCallum2000; @Viterbi1967]. Rather than multiplying the previous probability with a transition and emission probability, here there is only a transition probability as described above.
+
+### Results
+
+A MEMM was trained with the CoNLL-2003 English dataset [@Sang2003]. Outside of word identity, additional features used for training include a lowercase version (“Algeria” → “algeria”), word shape, letter case (title case and uppercase), and whether the word contained only digits.
+
+Here's the model in action:
+
+<LivePrediction
+	models={['memm']}
+	initialInputValue="Chicago Board of Trade"
+	label="Name tag predictions by MEMM:"
+	mb={3}
+/>
+
+Overall, the model has better performance than its HMM equivalent. Per-word accuracy is slightly higher:
+
+<MEMMPerWordScorecard />
+
+Per-entity precision and recall are also notably higher:
+
+<MEMMPerEntityScorecards />
+
+A closer look at the results reveals that a significant part of the performance boost is attributable to better performance with OOV words:
+
+<BinaryOOVHeatmap
+	precision={memmPrecisionByBinaryOOV}
+	recall={memmRecallByBinaryOOV}
+	overlay={{
+		name: 'HMM',
+		precision: hmmPrecisionByBinaryOOV,
+		recall: hmmRecallByBinaryOOV,
+	}}
+/>
+
+### Advantage Over HMMs
+
+As mentioned, the biggest advantage that MEMMs have over HMMs is their ability to model word features. This is important because with out-of-vocabulary words, which the CoNLL-2003 test set has plenty of, word identity alone contains no useful information – the model has never seen that word before. In those cases, derived features like word shape and capitalization are compelling stand-ins for word identity, helping the model make educated guesses about the hidden name tag.
+
+<EntityLengthHeatmap
+	precision={memmPrecisionByEntityLength}
+	recall={memmRecallByEntityLength}
+	overlay={{
+		name: 'HMM',
+		precision: hmmPrecisionByEntityLength,
+		recall: hmmRecallByEntityLength,
+	}}
+/>
+
+<OOVRateHeatmap
+	precision={memmPrecisionByOOVRate}
+	recall={memmRecallByOOVRate}
+	overlay={{
+		name: 'HMM',
+		precision: hmmPrecisionByOOVRate,
+		recall: hmmRecallByOOVRate,
+	}}
+/>
 
 ---
 

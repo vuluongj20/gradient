@@ -136,10 +136,15 @@ const MEMMFeatureBreakdown = () => {
 					</BreakdownHeading>
 					<BreakdownDescription>
 						<BalancedText>
-							{`With feature weights from a MEMM trained on CoNLL-2003 data. Numbers are rounded to ${decimalPlaces} decimal places for clarity.`}
+							{`With weights retrieved from a MEMM trained on CoNLL-2003 data. Numbers are rounded to ${decimalPlaces} decimal places for clarity.`}
 						</BalancedText>
 					</BreakdownDescription>
-					<CSSTransition in={!initialized || loading} timeout={125} unmountOnExit appear>
+					<CSSTransition
+						in={!isDev && (!initialized || loading)}
+						timeout={125}
+						unmountOnExit
+						appear
+					>
 						<LoadingSpinner
 							label="Loading feature breakdown"
 							diameter={16}

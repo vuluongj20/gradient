@@ -1,5 +1,5 @@
 import { useButton } from '@react-aria/button'
-import { useHover } from '@react-aria/interactions'
+import { HoverProps, useHover } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { AriaButtonProps } from '@react-types/button'
 import { ForwardRefRenderFunction, ReactNode, RefObject, forwardRef, useRef } from 'react'
@@ -9,7 +9,7 @@ import StateLayer from '@components/stateLayer'
 
 import IconChevronDown from '@icons/chevronDown'
 
-interface ButtonProps extends AriaButtonProps {
+interface ButtonProps extends AriaButtonProps, HoverProps {
 	children: ReactNode
 	title?: string
 	primary?: boolean
@@ -17,6 +17,7 @@ interface ButtonProps extends AriaButtonProps {
 	small?: boolean
 	showBorder?: boolean
 	showExpandIcon?: boolean
+	hideStateLayer?: boolean
 	className?: string
 }
 
@@ -30,6 +31,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
 		small = false,
 		showBorder = false,
 		showExpandIcon = false,
+		hideStateLayer = false,
 		...props
 	},
 	forwardedRef,
@@ -38,7 +40,7 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
 	const ref = (forwardedRef ?? innerRef) as RefObject<HTMLButtonElement>
 
 	const { buttonProps, isPressed } = useButton(props, ref)
-	const { hoverProps, isHovered } = useHover({})
+	const { hoverProps, isHovered } = useHover(props)
 	const isExpanded = !!props['aria-expanded']
 
 	return (
@@ -54,12 +56,14 @@ const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
 			title={title}
 			{...mergeProps(buttonProps, hoverProps)}
 		>
-			<StateLayer
-				borderWidth={showBorder ? 1 : 0}
-				isPressed={isPressed}
-				isHovered={isHovered}
-				isExpanded={isExpanded}
-			/>
+			{!hideStateLayer && (
+				<StateLayer
+					borderWidth={showBorder ? 1 : 0}
+					isPressed={isPressed}
+					isHovered={isHovered}
+					isExpanded={isExpanded}
+				/>
+			)}
 			{children}
 			{showExpandIcon && <IconChevronDown aria-hidden="true" />}
 		</Wrap>

@@ -212,6 +212,7 @@ const LivePrediction = ({
 			const { value } = e.target
 			setInputValue(value)
 
+			if (!value) return
 			setLoadingPredictions(true)
 			debouncedUpdatePredictions(value)
 		},

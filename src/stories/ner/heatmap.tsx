@@ -5,9 +5,9 @@ import { entityNameCategories } from './constants'
 
 import GuideArrow from '@components/guideArrow'
 
-import { isDefined } from '@utils/functions'
+import { isDefined, toFixedUnlessZero } from '@utils/functions'
 
-interface HeatmapProps {
+export interface HeatmapProps {
 	data: (number | null)[][]
 	groups: (number | string)[]
 	groupLabel?: string
@@ -42,6 +42,12 @@ const Heatmap = ({
 					</RowCaption>
 				)}
 				<Table separateLastRow={separateLastRow}>
+					<colgroup>
+						<col style={{ width: 'max-content' }} />
+						{groups.map((_, index) => (
+							<col key={index} style={{ width: `calc(100% / ${groups.length}` }} />
+						))}
+					</colgroup>
 					<VisuallyHidden elementType="thead">
 						<tr>
 							<RowName scope="col" invisible>
@@ -81,7 +87,7 @@ const Heatmap = ({
 										<TD key={group}>
 											<TDBackground opacity={0.025 + value * 0.85} aria-hidden="true" />
 											<TDLabel whiteText={whiteText} opacity={labelOpacity}>
-												{value}
+												{toFixedUnlessZero(value, 2)}
 											</TDLabel>
 										</TD>
 									)
@@ -212,7 +218,9 @@ const TR = styled.tr``
 const TD = styled.td`
 	position: relative;
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[0.5]};
+	z-index: 0;
 	text-align: center;
+	font-variant-numeric: tabular-nums;
 
 	/* Ensure that the cell is always wide enough to fit 2 decimal places */
 	min-width: 2.5rem;
