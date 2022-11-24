@@ -1,28 +1,24 @@
 import { Fragment } from 'react'
 
-import BinaryOOVHeatmap from './heatmaps/binaryOOVHeatmap'
 import LivePrediction from './livePrediction'
 import ABCDGraph from './partI/sampling/abcdGraph'
 import StaticABCDGraph from './partI/staticABCDGraph'
-import HMMBinaryOOVHeatmap from './partII/binaryOOVHeatmap'
-import { hmmPrecisionByBinaryOOV, hmmRecallByBinaryOOV } from './partII/constants'
 import HMMEmissionGraph from './partII/emissionGraph'
 import HMMEmissionPaths from './partII/emissionPaths'
-import HMMEntityLengthHeatmap from './partII/entityLengthHeatmap'
 import HMMNERGraph from './partII/nerGraph'
-import HMMOOVRateHeatmap from './partII/oovRateHeatmap'
 import HMMOverviewGraph from './partII/overviewGraph'
 import HMMPerEntityScorecards from './partII/perEntityScorecards'
-import HMMPerWordScorecards from './partII/perWordScorecards'
+import HMMPerWordScorecard from './partII/perWordScorecard'
 import HMMTransitionGraph from './partII/transitionGraph'
 import HMMTransitionPaths from './partII/transitionPaths'
-import { memmPrecisionByBinaryOOV, memmRecallByBinaryOOV } from './partIII/constants'
 import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
-import MEMMEntityLengthHeatmap from './partIII/entityLengthHeatmap'
 import MEMMFeatureBreakdown from './partIII/featureBreakdown'
 import MEMMOverviewGraph from './partIII/overviewGraph'
 import MEMMPerEntityScorecards from './partIII/perEntityScorecards'
 import MEMMPerWordScorecard from './partIII/perWordScorecards'
+import BinaryOOVHeatmap from './precisionRecallHeatmaps/binaryOOVHeatmap'
+import EntityLengthHeatmap from './precisionRecallHeatmaps/entityLengthHeatmap'
+import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 
 <Header>
 
@@ -130,49 +126,25 @@ Here's the model in action:
 	mb={3}
 />
 
-Overall, the model has better performance than its HMM equivalent. Per-word accuracy is slightly higher:
+Overall, the model has better performance than its HMM equivalent. Per-word accuracy is slightly higher than the HMM’s 90.1%:
 
 <MEMMPerWordScorecard />
 
-Per-entity precision and recall are also notably higher:
+Per-entity precision and recall are also notably higher (up from 64.2% and 55.8%, respectively):
 
 <MEMMPerEntityScorecards />
 
-A closer look at the results reveals that a significant part of the performance boost is attributable to better performance with OOV words:
+A large part of the performance boost is attributable to better performance on OOV words:
 
-<BinaryOOVHeatmap
-	precision={memmPrecisionByBinaryOOV}
-	recall={memmRecallByBinaryOOV}
-	overlay={{
-		name: 'HMM',
-		precision: hmmPrecisionByBinaryOOV,
-		recall: hmmRecallByBinaryOOV,
-	}}
-/>
+<BinaryOOVHeatmap models={['memm', 'hmm']} />
 
 ### Advantage Over HMMs
 
 As mentioned, the biggest advantage that MEMMs have over HMMs is their ability to model word features. This is important because with out-of-vocabulary words, which the CoNLL-2003 test set has plenty of, word identity alone contains no useful information – the model has never seen that word before. In those cases, derived features like word shape and capitalization are compelling stand-ins for word identity, helping the model make educated guesses about the hidden name tag.
 
-<EntityLengthHeatmap
-	precision={memmPrecisionByEntityLength}
-	recall={memmRecallByEntityLength}
-	overlay={{
-		name: 'HMM',
-		precision: hmmPrecisionByEntityLength,
-		recall: hmmRecallByEntityLength,
-	}}
-/>
+<EntityLengthHeatmap models={['memm', 'hmm']} />
 
-<OOVRateHeatmap
-	precision={memmPrecisionByOOVRate}
-	recall={memmRecallByOOVRate}
-	overlay={{
-		name: 'HMM',
-		precision: hmmPrecisionByOOVRate,
-		recall: hmmRecallByOOVRate,
-	}}
-/>
+<OOVRateHeatmap models={['memm', 'hmm']} />
 
 ---
 

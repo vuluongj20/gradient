@@ -3,14 +3,6 @@ import { Fragment } from 'react'
 import LivePrediction from './livePrediction'
 import ABCDGraph from './partI/sampling/abcdGraph'
 import StaticABCDGraph from './partI/staticABCDGraph'
-import {
-	hmmPrecisionByBinaryOOV,
-	hmmPrecisionByEntityLength,
-	hmmPrecisionByOOVRate,
-	hmmRecallByBinaryOOV,
-	hmmRecallByEntityLength,
-	hmmRecallByOOVRate,
-} from './partII/constants'
 import HMMEmissionGraph from './partII/emissionGraph'
 import HMMEmissionPaths from './partII/emissionPaths'
 import HMMNERGraph from './partII/nerGraph'
@@ -19,14 +11,6 @@ import HMMPerEntityScorecards from './partII/perEntityScorecards'
 import HMMPerWordScorecard from './partII/perWordScorecard'
 import HMMTransitionGraph from './partII/transitionGraph'
 import HMMTransitionPaths from './partII/transitionPaths'
-import {
-	memmPrecisionByBinaryOOV,
-	memmPrecisionByEntityLength,
-	memmPrecisionByOOVRate,
-	memmRecallByBinaryOOV,
-	memmRecallByEntityLength,
-	memmRecallByOOVRate,
-} from './partIII/constants'
 import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
 import MEMMFeatureBreakdown from './partIII/featureBreakdown'
 import MEMMOverviewGraph from './partIII/overviewGraph'
@@ -231,7 +215,7 @@ These metrics are lower than per-word accuracy because they are entity-level eva
 
 A closer look at the results reveals a discrepancy between entities with known words and those with at least one out-of-vocabulary (OOV) words:
 
-<BinaryOOVHeatmap precision={hmmPrecisionByBinaryOOV} recall={hmmRecallByBinaryOOV} />
+<BinaryOOVHeatmap models={['hmm']} />
 
 This makes sense: we expect the model to perform worse on tokens that it wasn't trained on. And because the CoNLL-2003 train set has a large number of OOV tokens – 80.6% of all test entities contain at least one OOV token – across-the-board precision and recall are heavily impacted.
 
@@ -243,10 +227,7 @@ First is the Markov assumption. We don't compose words and their respective labe
 
 An indication, although it is by no means proof, of such limitation lies in the fast deterioration of the precision score as the entity length – counted as the number of tokens inside each entity – increases (the recall scores are much more noisy and thus less conclusive):
 
-<EntityLengthHeatmap
-	precision={hmmPrecisionByEntityLength}
-	recall={hmmRecallByEntityLength}
-/>
+<EntityLengthHeatmap models={['hmm']} />
 
 The second concern has to do with the emissions assumption. When composing sentences, we don’t go about forming a chain of labels (such as “B–ORG” – “I-ORG” – “I–ORG” – “O”…) before generating words from each label in that chain.
 
@@ -256,7 +237,7 @@ The third concern relates to HMMs sole reliance on word identity in the observed
 
 With the only information available being word identities, HMMs end up stumbling over out-of-vocabulary words. While the models can wring bits of useful information out of nearby predicted name tags – the Viterbi algorithm maximizes likelihood over the whole sequence – the results are nonetheless discouraging:
 
-<OOVRateHeatmap precision={hmmPrecisionByOOVRate} recall={hmmRecallByOOVRate} />
+<OOVRateHeatmap models={['hmm']} />
 
 The concerns detailed above are direct consequences of HMMs’ generative graph structure. Below, we’ll consider another class of probabilistic graphical models with a different, discriminative structure that will hopefully address some of those concerns and deliver better performance on long, OOV-heavy entities.
 
@@ -347,39 +328,15 @@ Per-entity precision and recall are also notably higher:
 
 A closer look at the results reveals that a significant part of the performance boost is attributable to better performance with OOV words:
 
-<BinaryOOVHeatmap
-	precision={memmPrecisionByBinaryOOV}
-	recall={memmRecallByBinaryOOV}
-	overlay={{
-		name: 'HMM',
-		precision: hmmPrecisionByBinaryOOV,
-		recall: hmmRecallByBinaryOOV,
-	}}
-/>
+<BinaryOOVHeatmap models={['memm', 'hmm']} />
 
 ### Advantage Over HMMs
 
 As mentioned, the biggest advantage that MEMMs have over HMMs is their ability to model word features. This is important because with out-of-vocabulary words, which the CoNLL-2003 test set has plenty of, word identity alone contains no useful information – the model has never seen that word before. In those cases, derived features like word shape and capitalization are compelling stand-ins for word identity, helping the model make educated guesses about the hidden name tag.
 
-<EntityLengthHeatmap
-	precision={memmPrecisionByEntityLength}
-	recall={memmRecallByEntityLength}
-	overlay={{
-		name: 'HMM',
-		precision: hmmPrecisionByEntityLength,
-		recall: hmmRecallByEntityLength,
-	}}
-/>
+<EntityLengthHeatmap models={['memm', 'hmm']} />
 
-<OOVRateHeatmap
-	precision={memmPrecisionByOOVRate}
-	recall={memmRecallByOOVRate}
-	overlay={{
-		name: 'HMM',
-		precision: hmmPrecisionByOOVRate,
-		recall: hmmRecallByOOVRate,
-	}}
-/>
+<OOVRateHeatmap models={['memm', 'hmm']} />
 
 ---
 

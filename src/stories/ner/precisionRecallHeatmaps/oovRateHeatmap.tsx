@@ -2,82 +2,114 @@ import { useMemo, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
+import { MODEL, MODEL_SHORT } from '../constants'
 import Heatmap from '../heatmap'
-import { OverlayTrigger, OverlayWrap } from './components'
-import { PrecisionRecallHeatmapProps } from './types'
 
 import Grid from '@components/grid'
 import SwitchBar, { Item } from '@components/switchBar'
 
+const hmmPrecisionByOOVRate = [
+	[0.86, null, null, null, null, null, null, null, null, null, 0.3],
+	[0.8, null, null, null, null, 0.5, null, null, null, null, 0.52],
+	[0.78, null, null, 0.15, null, null, null, 0.06, null, null, 0.0],
+	[0.42, null, 0.22, null, null, 0.0, null, null, 0.0, null, 0.0],
+	[0.67, null, null, null, 0.22, null, 0.0, null, null, 0.14, null],
+	[0.84, null, 0.22, 0.15, 0.22, 0.48, 0.0, 0.06, 0.0, 0.14, 0.41],
+]
+const hmmRecallByOOVRate = [
+	[0.61, null, null, null, null, null, null, null, null, null, 0.11],
+	[0.78, null, null, null, null, 0.71, null, null, null, null, 0.7],
+	[0.59, null, null, 0.25, null, null, null, 0.19, null, null, 0.0],
+	[0.38, null, 0.5, null, null, null, null, null, null, null, null],
+	[0.4, 0.5, null, null, null, null, null, null, null, null, null],
+	[0.64, 0.5, 0.5, 0.25, null, 0.71, null, 0.19, null, null, 0.29],
+]
+
+const memmPrecisionByOOVRate = [
+	[0.83, null, null, null, null, null, null, null, null, null, 0.34],
+	[0.76, null, null, null, null, 0.72, null, null, null, null, 0.55],
+	[0.6, null, null, 0.56, null, null, null, 0.59, null, null, 0.5],
+	[0.16, null, 0.2, null, null, 0.0, null, null, null, null, null],
+	[0.6, 0.5, null, null, null, null, null, null, null, null, null],
+	[0.8, 0.5, 0.2, 0.56, null, 0.71, null, 0.59, null, null, 0.45],
+]
+const memmRecallByOOVRate = [
+	[0.82, null, null, null, null, null, null, null, null, null, 0.14],
+	[0.74, null, null, null, null, 0.62, null, null, null, null, 0.5],
+	[0.51, null, null, 0.55, null, null, null, 0.59, null, null, 0.5],
+	[0.19, null, 0.25, null, null, null, null, null, null, null, null],
+	[0.6, 0.5, null, null, null, null, null, null, null, null, null],
+	[0.79, 0.5, 0.25, 0.55, null, 0.61, null, 0.59, null, null, 0.25],
+]
+
 const entityLengths = [1, 2, 3, 4, 5]
 const oovRates = [0, 0.2, 0.25, 0.33, 0.4, 0.5, 0.6, 0.66, 0.75, 0.8, 1]
 
-const HMMOOVRateHeatmap = ({
-	precision,
-	recall,
-	overlay,
-}: PrecisionRecallHeatmapProps) => {
-	const [dataSource, setDataSource] = useState<'precision' | 'recall'>('precision')
+interface OOVRateHeatmapProps {
+	models: MODEL[]
+}
 
-	const [isHovered, setIsHovered] = useState(false)
-	const [isClicked, setIsClicked] = useState(false)
-	const showOverlay = useMemo(() => isClicked || isHovered, [isHovered, isClicked])
+const OOVRateHeatmap = ({ models }: OOVRateHeatmapProps) => {
+	const [metric, setMetric] = useState<'precision' | 'recall'>('precision')
+
+	const [selectedModel, setSelectedModel] = useState<MODEL>(models[0])
+
+	const data = useMemo(() => {
+		if (metric === 'precision') {
+			switch (selectedModel) {
+				case MODEL.HMM:
+					return hmmPrecisionByOOVRate
+				case MODEL.MEMM:
+				default:
+					return memmPrecisionByOOVRate
+			}
+		}
+
+		switch (selectedModel) {
+			case MODEL.HMM:
+				return hmmRecallByOOVRate
+			case MODEL.MEMM:
+			default:
+				return memmRecallByOOVRate
+		}
+	}, [selectedModel, metric])
 
 	return (
 		<Grid>
 			<Wrap>
 				<ControlWrap>
-					<SwitchBar
-						aria-label="Metric to Display in Heatmap"
-						value={dataSource}
-						onChange={(source) => setDataSource(source)}
-					>
+					{models.length > 1 && (
+						<SwitchBar
+							aria-label="Model"
+							value={selectedModel}
+							onChange={setSelectedModel}
+						>
+							{models.map((model) => (
+								<Item key={model}>{MODEL_SHORT[model]}</Item>
+							))}
+						</SwitchBar>
+					)}
+					<SwitchBar aria-label="Metric" value={metric} onChange={setMetric}>
 						<Item key="precision">Precision</Item>
 						<Item key="recall">Recall</Item>
 					</SwitchBar>
-					{overlay && (
-						<OverlayTrigger
-							small
-							onHoverChange={setIsHovered}
-							onPress={() => setIsClicked((cur) => !cur)}
-							hideStateLayer
-							isClicked={isClicked}
-						>
-							Superpose {overlay.name}
-						</OverlayTrigger>
-					)}
 				</ControlWrap>
-
 				<ContentWrap>
 					<Heatmap
-						data={dataSource === 'precision' ? precision : recall}
+						data={data}
 						groups={oovRates}
 						groupLabel="OOV Rate"
 						rows={entityLengths}
 						rowLabel="Entity Length"
 						separateLastRow={false}
 					/>
-					{overlay && (
-						<CSSTransition in={showOverlay} timeout={500} unmountOnExit appear>
-							<OverlayWrap>
-								<Heatmap
-									data={dataSource === 'precision' ? overlay.precision : overlay.recall}
-									groups={oovRates}
-									groupLabel="OOV Rate"
-									rows={entityLengths}
-									rowLabel="Entity Length"
-									separateLastRow={false}
-								/>
-							</OverlayWrap>
-						</CSSTransition>
-					)}
 				</ContentWrap>
 			</Wrap>
 		</Grid>
 	)
 }
 
-export default HMMOOVRateHeatmap
+export default OOVRateHeatmap
 
 const Wrap = styled.div`
 	display: flex;
@@ -90,13 +122,13 @@ const Wrap = styled.div`
 	max-width: 32rem;
 `
 
-const ContentWrap = styled.div`
-	position: relative;
-	width: 100%;
-`
-
 const ControlWrap = styled.div`
 	display: flex;
 	justify-content: center;
 	gap: ${(p) => p.theme.space[2]};
+`
+
+const ContentWrap = styled.div`
+	position: relative;
+	width: 100%;
 `

@@ -2,6 +2,7 @@ import { ChangeEvent, ReactNode, useCallback, useMemo, useRef, useState } from '
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
+import { MODEL, MODEL_FULL } from './constants'
 import http, { PredictionResponseData } from './http'
 import { getTokenSpaces, tokenize } from './utils'
 
@@ -41,18 +42,6 @@ const SAMPLES = [
 	'Canadian Grain Commission',
 	'Chicago Board of Trade',
 ]
-
-enum MODEL {
-	HMM = 'hmm',
-	MEMM = 'memm',
-	CRF = 'crf',
-}
-
-const MODEL_LABELS = {
-	[MODEL.HMM]: 'Hidden Markov Model',
-	[MODEL.MEMM]: 'Maximum-Entropy Markov Model',
-	[MODEL.CRF]: 'Conditional Random Field',
-}
 
 const MODEL_ENDPOINTS = {
 	[MODEL.HMM]: '/hmm/predict',
@@ -295,7 +284,7 @@ const LivePrediction = ({
 											<PredRow key={model}>
 												<ModelName scope="row">
 													<ModelNameContent>
-														<abbr title={MODEL_LABELS[model]}>{model}</abbr>
+														<abbr title={MODEL_FULL[model]}>{model}</abbr>
 													</ModelNameContent>
 												</ModelName>
 

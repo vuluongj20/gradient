@@ -486,7 +486,7 @@ const TR = styled.tr<{ inactive?: boolean }>`
 		}
 	}
 
-	// Row background
+	/* Row background */
 	&:nth-of-type(2n) > th,
 	&:nth-of-type(2n) > td {
 		position: relative;

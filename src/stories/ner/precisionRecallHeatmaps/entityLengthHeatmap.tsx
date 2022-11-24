@@ -1,67 +1,95 @@
 import { useMemo, useState } from 'react'
-import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
+import { MODEL, MODEL_SHORT } from '../constants'
 import Heatmap from '../heatmap'
-import { OverlayTrigger, OverlayWrap } from './components'
-import { PrecisionRecallHeatmapProps } from './types'
 
 import Grid from '@components/grid'
 import SwitchBar, { Item } from '@components/switchBar'
 
-const groups = [1, 2, 3, 4, 5]
-const EntityLengthHeatmap = ({
-	precision,
-	recall,
-	overlay,
-}: PrecisionRecallHeatmapProps) => {
-	const [dataSource, setDataSource] = useState<'precision' | 'recall'>('precision')
+const hmmPrecisionByEntityLength = [
+	[0.61, 0.68, 0.3, 0.12, 0.28],
+	[0.96, 0.67, 0.7, null, null],
+	[0.88, 0.36, null, null, null],
+	[0.9, 0.46, 0.24, 0.12, null],
+	[0.77, 0.61, 0.31, 0.12, 0.29],
+]
+const hmmRecallByEntityLength = [
+	[0.51, 0.61, 0.62, 0.38, 0.44],
+	[0.08, 0.88, 0.11, null, null],
+	[0.63, 0.55, 0.2, null, null],
+	[0.41, 0.43, 0.48, null, null],
+	[0.48, 0.74, 0.42, 0.38, 0.5],
+]
 
-	const [isHovered, setIsHovered] = useState(false)
-	const [isClicked, setIsClicked] = useState(false)
-	const showOverlay = useMemo(() => isClicked || isHovered, [isHovered, isClicked])
+const memmPrecisionByEntityLength = [
+	[0.76, 0.69, 0.84, 0.36, 0.8],
+	[0.59, 0.91, 0.66, 0.25, null],
+	[0.8, 0.33, 0.35, 0.0, null],
+	[0.82, 0.57, 0.29, 0.18, null],
+	[0.77, 0.7, 0.58, 0.16, 0.43],
+]
+const memmRecallByEntityLength = [
+	[0.55, 0.46, 0.38, 0.12, 0.44],
+	[0.34, 0.74, 0.8, null, null],
+	[0.83, 0.66, 0.52, null, null],
+	[0.63, 0.44, 0.52, null, null],
+	[0.64, 0.64, 0.53, 0.22, 0.5],
+]
+
+const groups = [1, 2, 3, 4, 5]
+
+interface EntityLengthHeatmapProps {
+	models: MODEL[]
+}
+
+const EntityLengthHeatmap = ({ models }: EntityLengthHeatmapProps) => {
+	const [metric, setMetric] = useState<'precision' | 'recall'>('precision')
+
+	const [selectedModel, setSelectedModel] = useState<MODEL>(models[0])
+
+	const data = useMemo(() => {
+		if (metric === 'precision') {
+			switch (selectedModel) {
+				case MODEL.HMM:
+					return hmmPrecisionByEntityLength
+				case MODEL.MEMM:
+				default:
+					return memmPrecisionByEntityLength
+			}
+		}
+
+		switch (selectedModel) {
+			case MODEL.HMM:
+				return hmmRecallByEntityLength
+			case MODEL.MEMM:
+			default:
+				return memmRecallByEntityLength
+		}
+	}, [selectedModel, metric])
 
 	return (
 		<Grid>
 			<Wrap>
 				<ControlWrap>
-					<SwitchBar
-						aria-label="Metric to Display in Heatmap"
-						value={dataSource}
-						onChange={(source) => setDataSource(source)}
-					>
+					{models.length > 1 && (
+						<SwitchBar
+							aria-label="Model"
+							value={selectedModel}
+							onChange={setSelectedModel}
+						>
+							{models.map((model) => (
+								<Item key={model}>{MODEL_SHORT[model]}</Item>
+							))}
+						</SwitchBar>
+					)}
+					<SwitchBar aria-label="Metric" value={metric} onChange={setMetric}>
 						<Item key="precision">Precision</Item>
 						<Item key="recall">Recall</Item>
 					</SwitchBar>
-					{overlay && (
-						<OverlayTrigger
-							small
-							onHoverChange={setIsHovered}
-							onPress={() => setIsClicked((cur) => !cur)}
-							hideStateLayer
-							isClicked={isClicked}
-						>
-							Superpose {overlay.name}
-						</OverlayTrigger>
-					)}
 				</ControlWrap>
 				<ContentWrap>
-					<Heatmap
-						data={dataSource === 'precision' ? precision : recall}
-						groups={groups}
-						groupLabel="Entity Length"
-					/>
-					{overlay && (
-						<CSSTransition in={showOverlay} timeout={500} unmountOnExit appear>
-							<OverlayWrap>
-								<Heatmap
-									data={dataSource === 'precision' ? overlay.precision : overlay.recall}
-									groups={groups}
-									groupLabel="Entity Length"
-								/>
-							</OverlayWrap>
-						</CSSTransition>
-					)}
+					<Heatmap data={data} groups={groups} groupLabel="Entity Length" />
 				</ContentWrap>
 			</Wrap>
 		</Grid>
@@ -81,13 +109,13 @@ const Wrap = styled.div`
 	max-width: 32rem;
 `
 
-const ContentWrap = styled.div`
-	position: relative;
-	width: 100%;
-`
-
 const ControlWrap = styled.div`
 	display: flex;
 	justify-content: center;
 	gap: ${(p) => p.theme.space[2]};
+`
+
+const ContentWrap = styled.div`
+	position: relative;
+	width: 100%;
 `
