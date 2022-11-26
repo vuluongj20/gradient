@@ -261,7 +261,7 @@ While HMMs are generative classifiers, MEMMs are discriminative. The former are 
 
 ### Word Features
 
-The biggest advatage that MEMMs have over HMMs is their ability to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and not subject to the independence requirement, so they can use any number of word features, overlapping or not. [@McCallum2000]
+The biggest advatage that MEMMs have over HMMs is their ability to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and able to relax the independence requirement, so they can use any number of word features, overlapping or not. [@McCallum2000]
 
 Common practice is to use binary features, such as:
 
@@ -283,7 +283,7 @@ $$
 
 Feature-state pairs provide useful additional information about which features and states go together and which don’t. For example, we can expect that pairs like "is_capitalized" + “B-ORG” would occur more frequently than "is_capitalized" + “O”, capturing the fact that in English named entities are often capitalized.
 
-### State Transition Distributions
+### State Transitions
 
 State transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
 
@@ -293,9 +293,7 @@ $$
 
 where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
 
-The distribution's exponential form is a direct result of the maximum entropy principle that underlies MEMMs’ statistical structure and gives them their name. The principle states that the model that best represents a given system is one that makes the fewest possible assumptions except for certain constraints derived from training data. [@McCallum2000; @Pietra1997]
-
-Here's a breakdown of the probability calculation:
+Those familiar with neural networks will recognize that the distribution function is a softmax. Its exponential form results from a core principle that underlies MEMMs’ statistical structure: that of maximum entropy, which states that the model that best represents our knowledge about a system is one that makes the fewest possible assumptions except for certain constraints derived from prior data from that system. [@McCallum2000; @Pietra1997]
 
 <MEMMFeatureBreakdown />
 
@@ -303,13 +301,13 @@ Here's a breakdown of the probability calculation:
 
 The training step involves learning the weights $\lambda_a$ that satisfy MEMMs’ maximum entropy constraint. Learning is done through Generalized Iterative Scaling, which iteratively updates the values $\lambda_a$ in order to nudge the expected value of all features closer to their train set average [@McCallum2000]. Convergence at a global optimum is guaranteed given the exponential form of the transition distribution.
 
-Inference is done using the Viterbi algorithm, like with HMMs [@McCallum2000; @Viterbi1967]. Rather than multiplying the previous probability with a transition and emission probability, here there is only a transition probability as described above.
+As with HMMs, inference is done using the Viterbi algorithm [@McCallum2000; @Viterbi1967]. Rather than multiplying the previous probability with a transition and emission probability, here there is only a transition probability as described above.
 
 ### Results
 
-A MEMM was trained with the CoNLL-2003 English dataset [@Sang2003]. Outside of word identity, additional features used for training include a lowercase version (“Algeria” → “algeria”), word shape, letter case (title case and uppercase), and whether the word contained only digits.
+A MEMM was trained on the CoNLL-2003 English dataset [@Sang2003]. In addition to word identity, features used for training include the word’s lowercase version (“Algeria” → “algeria”), shape (“Xxxx”), whether it is in title/upper case, and whether it contains only digits and no letter.
 
-Here's the model in action:
+Here’s a live version of the trained model:
 
 <LivePrediction
 	models={['memm']}
@@ -318,25 +316,29 @@ Here's the model in action:
 	mb={3}
 />
 
-Overall, the model has better performance than its HMM equivalent. Per-word accuracy is slightly higher:
+The model has better performance than its HMM counterpart. Per-word accuracy is higher than the HMM’s 90.1%:
 
 <MEMMPerWordScorecard />
 
-Per-entity precision and recall are also notably higher:
+Per-entity precision and recall are notably higher, up from 64.2% and 55.8%, respectively:
 
 <MEMMPerEntityScorecards />
 
-A closer look at the results reveals that a significant part of the performance boost is attributable to better performance with OOV words:
+A large part of the performance boost is attributable to better performance on entities with OOV words:
 
 <BinaryOOVHeatmap models={['memm', 'hmm']} />
 
-### Advantage Over HMMs
+This likely has to do with MEMM’s ability to model word features and deserves further discussion.
 
-As mentioned, the biggest advantage that MEMMs have over HMMs is their ability to model word features. This is important because with out-of-vocabulary words, which the CoNLL-2003 test set has plenty of, word identity alone contains no useful information – the model has never seen that word before. In those cases, derived features like word shape and capitalization are compelling stand-ins for word identity, helping the model make educated guesses about the hidden name tag.
+### The Word Feature Advantage
 
-<EntityLengthHeatmap models={['memm', 'hmm']} />
+As mentioned, the biggest advantage that MEMMs have over HMMs is their ability to model word features. With out-of-vocabulary words, which the CoNLL-2003 test set has plenty of, word identity alone provides no useful information – the model has never seen the word before. In those cases, derived features such as word shape and capitalization can function as imperfect but immensely helpful proxies for word identity, allowing the model to make better guesses at the hidden name tag. Precision and recall scores for OOV-dense entities are compelling evidence of this effect:
 
 <OOVRateHeatmap models={['memm', 'hmm']} />
+
+With higher predictive power on OOV words, we can additionally expect better performance on long, multi-word entities. That’s because OOV words are dangerous information gaps inside named entities: they’re easy to misclassify, and when they are the entire predicted entity is counted as incorrect. MEMMs are able to fill those gaps to an extent using derived word features. As a result, we don’t see as drastic of a performance deterioration for longer entities as observed with the HMM:
+
+<EntityLengthHeatmap models={['memm', 'hmm']} />
 
 ---
 
