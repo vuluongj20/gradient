@@ -190,6 +190,7 @@ const GroupName = styled.th`
 	color: ${(p) => p.theme.label};
 	padding-top: ${(p) => p.theme.space[1]};
 	text-align: center;
+	font-variant-numeric: tabular-nums;
 `
 
 const RowName = styled.th<{ invisible?: boolean; isLabel?: boolean }>`
@@ -197,6 +198,7 @@ const RowName = styled.th<{ invisible?: boolean; isLabel?: boolean }>`
 	color: ${(p) => p.theme.label};
 	text-align: right;
 	padding-right: ${(p) => p.theme.space[1]};
+	font-variant-numeric: tabular-nums;
 
 	overflow: hidden;
 
