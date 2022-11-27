@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import styled from 'styled-components'
 
 import CardGroup from '@components/cardGroup'
 import Page from '@components/page'
@@ -31,7 +32,9 @@ const IndexPage = () => {
   return (
     <Page>
       <section>
-        <Header />
+        <HeaderWrap>
+          <HeaderText aria-label="Gradient">Gradient\</HeaderText>
+        </HeaderWrap>
         <CardGroup stories={topFeaturedStories} imageLoading="eager" />
       </section>
 
@@ -51,3 +54,19 @@ const IndexPage = () => {
 export default IndexPage
 
 export const Head = () => <SEO />
+
+const HeaderWrap = styled.header`
+  display: flex;
+  align-items: flex-end;
+  padding: ${(p) => p.theme.space[3]} 0;
+  ${(p) => p.theme.paddingHorizontal};
+
+  ${(p) => p.theme.media.mobile} {
+    display: none;
+  }
+`
+
+const HeaderText = styled.h1`
+  ${(p) => p.theme.text.content.h2};
+  color: ${(p) => p.theme.heading};
+`
