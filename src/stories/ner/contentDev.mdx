@@ -13,6 +13,7 @@ import HMMTransitionGraph from './partII/transitionGraph'
 import HMMTransitionPaths from './partII/transitionPaths'
 import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
 import MEMMFeatureBreakdown from './partIII/featureBreakdown'
+import MEMMMostInformativeFeatures from './partIII/mostInformativeFeatures'
 import MEMMOverviewGraph from './partIII/overviewGraph'
 import MEMMPerEntityScorecards from './partIII/perEntityScorecards'
 import MEMMPerWordScorecard from './partIII/perWordScorecards'
@@ -67,7 +68,7 @@ While HMMs are generative classifiers, MEMMs are discriminative. The former are 
 
 <MEMMDiscriminativeGraph />
 
-### Word Features
+### Modeling Word Features
 
 The biggest advatage that MEMMs have over HMMs is their ability to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and able to relax the independence requirement, so they can use any number of word features, overlapping or not. [@McCallum2000]
 
@@ -115,7 +116,13 @@ As with HMMs, inference is done using the Viterbi algorithm [@McCallum2000; @Vit
 
 A MEMM was trained on the CoNLL-2003 English dataset [@Sang2003]. In addition to word identity, features used for training include the word’s lowercase version (“Algeria” → “algeria”), shape (“Xxxx”), whether it is in title/upper case, and whether it contains only digits and no letter.
 
-Here’s a live version of the trained model:
+Many of the most informative features – those with the largest absolute weights – encode the identities of words that appear frequently in the train set:
+
+<MEMMMostInformativeFeatures />
+
+Other features are more revealing. For example, if the current word has shape “X.X”, then the current state is unlikely to be “O” (the corresponding feature-state pair has large negative weight), meaning the word is likely part of a named entity. With only one feature-state pair, the model has learned about two-letter initialisms, like “U.S.“ and “U.N.“. There are plenty examples of how it has found and encoded many other linguistic patterns using the same mechanism.
+
+Here’s a live version of the trained model with Viterbi decoding:
 
 <LivePrediction
 	models={['memm']}

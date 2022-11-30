@@ -517,7 +517,7 @@ const TR = styled.tr<{ inactive?: boolean }>`
 
 const TH = styled.th<{ align?: 'left' | 'right' }>`
 	font-weight: 400;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
+	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1.5]};
 	${(p) => p.align && `text-align: ${p.align};`}
 
 	& > span {
@@ -530,7 +530,7 @@ const TH = styled.th<{ align?: 'left' | 'right' }>`
 
 const TD = styled.td<{ align?: 'left' | 'right' }>`
 	font-weight: 400;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
+	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1.5]};
 	${(p) => p.align && `text-align: ${p.align};`}
 `
 
