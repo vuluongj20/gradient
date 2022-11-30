@@ -6,6 +6,7 @@ import { nameTags } from '../constants'
 import SelectField from '@components/fields/select'
 import Grid from '@components/grid'
 import Panel from '@components/panel'
+import { TD, TH, TR, Table, TableBody, TableHead } from '@components/table'
 
 type NameTag = typeof nameTags[number]
 const informativeFeatures: Record<NameTag, Array<string | number>[]> = {
@@ -129,16 +130,19 @@ const MEMMMostInformativeFeatures = () => {
 		<Grid noPaddingOnMobile>
 			<Wrap overlay size="m" gridColumn="wide">
 				<Heading>
-					Most Informative Features when Previous State is&nbsp;
+					<HeadingText>
+						Most Informative Features when Previous State is&nbsp;
+					</HeadingText>
 					<SelectField
 						skipFieldWrapper
 						options={selectOptions}
 						value={prevTag}
 						onChange={setPrevTag}
+						aria-label="Previous State"
 					/>
 				</Heading>
-				<Table>
-					<TableHeader>
+				<StyledTable>
+					<TableHead>
 						<TR>
 							<TH scope="col">Feature</TH>
 							<TH scope="col">State</TH>
@@ -146,7 +150,7 @@ const MEMMMostInformativeFeatures = () => {
 								Weight
 							</TH>
 						</TR>
-					</TableHeader>
+					</TableHead>
 					<TableBody>
 						{features.map(([feature, currentTag, weight]) => (
 							<TR key={`${feature}-${currentTag}`}>
@@ -156,7 +160,7 @@ const MEMMMostInformativeFeatures = () => {
 							</TR>
 						))}
 					</TableBody>
-				</Table>
+				</StyledTable>
 			</Wrap>
 		</Grid>
 	)
@@ -168,8 +172,7 @@ const Wrap = styled(Panel)`
 	${(p) => p.theme.marginBottom[3]};
 `
 
-const Heading = styled.p`
-	${(p) => p.theme.text.system.h6};
+const Heading = styled.div`
 	display: flex;
 	align-items: center;
 	margin-bottom: ${(p) => p.theme.space[1]};
@@ -182,10 +185,14 @@ const Heading = styled.p`
 	}
 `
 
-const Table = styled.table`
-	width: calc(100% + ${(p) => p.theme.space[1.5]} * 2);
-	transform: translateX(-${(p) => p.theme.space[1.5]});
-	border-spacing: 0;
+const HeadingText = styled.p`
+	${(p) => p.theme.text.system.h6};
+`
+
+const StyledTable = styled(Table)`
+	tbody {
+		${(p) => p.theme.text.viz.body}
+	}
 
 	colgroup {
 		col:nth-child(1) {
@@ -212,68 +219,4 @@ const Table = styled.table`
 			}
 		}
 	}
-`
-
-const TableHeader = styled.thead`
-	th {
-		color: ${(p) => p.theme.label};
-		border-bottom: solid 1px ${(p) => p.theme.iLine};
-	}
-`
-
-const TableBody = styled.tbody`
-	${(p) => p.theme.text.viz.body}
-	& > tr:first-of-type > th,
-	& > tr:first-of-type > td {
-		padding-top: ${(p) => p.theme.space[1]};
-	}
-`
-
-const TR = styled.tr`
-	/* Row background */
-	&:nth-of-type(2n) > th,
-	&:nth-of-type(2n) > td {
-		position: relative;
-		z-index: 1;
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			background-color: ${(p) => p.theme.iiBackground};
-			z-index: -1;
-			transition: background-color ${(p) => p.theme.animation.fastOut};
-		}
-
-		&:first-child::before {
-			border-top-left-radius: ${(p) => p.theme.radii.s};
-			border-bottom-left-radius: ${(p) => p.theme.radii.s};
-		}
-		&:last-child::before {
-			border-top-right-radius: ${(p) => p.theme.radii.s};
-			border-bottom-right-radius: ${(p) => p.theme.radii.s};
-		}
-	}
-`
-
-const TH = styled.th<{ align?: 'left' | 'right' }>`
-	font-weight: 400;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1.5]};
-	${(p) => p.align && `text-align: ${p.align};`}
-
-	& > span {
-		display: block;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-`
-
-const TD = styled.td<{ align?: 'left' | 'right' }>`
-	font-weight: 400;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1.5]};
-	${(p) => p.align && `text-align: ${p.align};`}
 `

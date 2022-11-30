@@ -13,6 +13,7 @@ import GuideArrow from '@components/guideArrow'
 import Panel from '@components/panel'
 import PopoverArrow from '@components/popoverArrow'
 import Spinner from '@components/spinner'
+import { TD, TH, TR, Table, TableBody, TableFoot, TableHead } from '@components/table'
 
 import { debounce, isDev, makeCancelable, toFixedUnlessZero } from '@utils/functions'
 import useMobile from '@utils/useMobile'
@@ -160,7 +161,7 @@ const MEMMFeatureBreakdown = () => {
 							<col span={1} />
 							<col span={1} />
 						</colgroup>
-						<TableHeader>
+						<TableHead>
 							<TR>
 								<TH scope="column" id="memm_feature_breakdown_header">
 									Feature-State Pair (a)
@@ -175,10 +176,10 @@ const MEMMFeatureBreakdown = () => {
 									&#955;<sub>a</sub>f<sub>a</sub>
 								</TH>
 							</TR>
-						</TableHeader>
+						</TableHead>
 						<TableBody>
 							{sortedFeatureBreakdown.map(({ feature, tag, weight, value }) => (
-								<TR key={feature + tag} inactive={value === 0}>
+								<BreakdownTR key={feature + tag} inactive={value === 0}>
 									<TH headers="memm_feature_breakdown_header" scope="row">
 										<span>
 											{feature} <LongEm>-</LongEm> {tag}
@@ -189,7 +190,7 @@ const MEMMFeatureBreakdown = () => {
 									<TD align="right">
 										{toFixedUnlessZero(value * weight, decimalPlaces)}
 									</TD>
-								</TR>
+								</BreakdownTR>
 							))}
 							{new Array(8 - sortedFeatureBreakdown.length).fill(0).map((_, index) => (
 								<TR aria-hidden="true" key={index}>
@@ -206,14 +207,14 @@ const MEMMFeatureBreakdown = () => {
 								<TD align="right">…</TD>
 							</TR>
 						</TableBody>
-						<TableFooter>
+						<BreakdownTableFoot>
 							<TR aria-hidden="true">
 								<TH align="right" colSpan={3}>
 									SUM(&#955;<sub>a</sub>f<sub>a</sub>)
 								</TH>
 								<TD align="right">{toFixedUnlessZero(sum ?? 0, decimalPlaces)}</TD>
 							</TR>
-						</TableFooter>
+						</BreakdownTableFoot>
 					</BreakdownTable>
 					<ProbabilityCalculation visible={initialized && !loading && !!sum}>
 						<ProbabilityCalculationLeftWrap>
@@ -430,13 +431,25 @@ const BreakdownContent = styled.div`
 	position: relative;
 `
 
-const BreakdownTable = styled.table<{ visible: boolean }>`
-	width: calc(100% + ${(p) => p.theme.space[1.5]} * 2);
-	transform: translateX(-${(p) => p.theme.space[1.5]});
-	border-spacing: 0;
-
+const BreakdownTable = styled(Table)<{ visible: boolean }>`
 	opacity: ${(p) => (p.visible ? 1 : 0)};
 	transition: opacity ${(p) => p.theme.animation.fastOut};
+
+	tbody {
+		${(p) => p.theme.text.viz.body}
+	}
+
+	tbody > tr:last-of-type {
+		color: ${(p) => p.theme.label};
+		opacity: 0.75;
+	}
+
+	tfoot > & {
+		td,
+		th {
+			padding-top: ${(p) => p.theme.space[2]};
+		}
+	}
 
 	colgroup {
 		col:nth-child(1) {
@@ -471,85 +484,7 @@ const BreakdownTable = styled.table<{ visible: boolean }>`
 	}
 `
 
-const TR = styled.tr<{ inactive?: boolean }>`
-	${(p) => p.inactive && `color: ${p.theme.label};`}
-
-	tbody > &:last-of-type {
-		color: ${(p) => p.theme.label};
-		opacity: 0.75;
-	}
-
-	tfoot > & {
-		td,
-		th {
-			padding-top: ${(p) => p.theme.space[2]};
-		}
-	}
-
-	/* Row background */
-	&:nth-of-type(2n) > th,
-	&:nth-of-type(2n) > td {
-		position: relative;
-		z-index: 1;
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			background-color: ${(p) => p.theme.iiBackground};
-			z-index: -1;
-			transition: background-color ${(p) => p.theme.animation.fastOut};
-		}
-
-		&:first-child::before {
-			border-top-left-radius: ${(p) => p.theme.radii.s};
-			border-bottom-left-radius: ${(p) => p.theme.radii.s};
-		}
-		&:last-child::before {
-			border-top-right-radius: ${(p) => p.theme.radii.s};
-			border-bottom-right-radius: ${(p) => p.theme.radii.s};
-		}
-	}
-`
-
-const TH = styled.th<{ align?: 'left' | 'right' }>`
-	font-weight: 400;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1.5]};
-	${(p) => p.align && `text-align: ${p.align};`}
-
-	& > span {
-		display: block;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-`
-
-const TD = styled.td<{ align?: 'left' | 'right' }>`
-	font-weight: 400;
-	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1.5]};
-	${(p) => p.align && `text-align: ${p.align};`}
-`
-
-const TableHeader = styled.thead`
-	th {
-		color: ${(p) => p.theme.label};
-		border-bottom: solid 1px ${(p) => p.theme.iLine};
-	}
-`
-
-const TableBody = styled.tbody`
-	${(p) => p.theme.text.viz.body}
-	& > tr:first-of-type > th,
-	& > tr:first-of-type > td {
-		padding-top: ${(p) => p.theme.space[1]};
-	}
-`
-
-const TableFooter = styled.tfoot`
+const BreakdownTableFoot = styled(TableFoot)`
 	th {
 		color: ${(p) => p.theme.label};
 		font-weight: 500;
@@ -559,6 +494,10 @@ const TableFooter = styled.tfoot`
 		color: ${(p) => p.theme.heading};
 		font-weight: 500;
 	}
+`
+
+const BreakdownTR = styled(TR)<{ inactive?: boolean }>`
+	${(p) => p.inactive && `color: ${p.theme.label};`}
 `
 
 const ProbabilityCalculation = styled.p<{ visible: boolean }>`
