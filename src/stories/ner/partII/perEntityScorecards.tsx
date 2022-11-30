@@ -9,6 +9,7 @@ const HMMPerEntityScorecards = () => {
 			<Wrap>
 				<Scorecard label="Precision" number={64.2} unit="%" />
 				<Scorecard label="Recall" number={55.8} unit="%" />
+				<Scorecard label={`F\u2081 Score`} number={59.7} unit="%" />
 			</Wrap>
 		</Grid>
 	)

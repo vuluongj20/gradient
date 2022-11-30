@@ -9,6 +9,7 @@ const MEMMPerEntityScorecards = () => {
 			<Wrap>
 				<Scorecard label="Precision" number={72.9} unit="%" />
 				<Scorecard label="Recall" number={63.5} unit="%" />
+				<Scorecard label={`F\u2081 Score`} number={67.9} unit="%" />
 			</Wrap>
 		</Grid>
 	)
