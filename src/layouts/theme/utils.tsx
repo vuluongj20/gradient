@@ -149,7 +149,7 @@ export const generateUtils = (theme: PartialTheme): Utils => ({
 		},
 		wide: {
 			width: '100%',
-			maxWidth: '74rem',
+			maxWidth: '60rem',
 			marginLeft: 'auto',
 			marginRight: 'auto',
 			gridColumn: '2 / -2',

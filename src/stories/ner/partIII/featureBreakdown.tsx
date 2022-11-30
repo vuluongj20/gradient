@@ -317,7 +317,6 @@ const Wrap = styled(Grid)`
 `
 
 const StyledPanel = styled(Panel)`
-	max-width: 48rem;
 	overflow: hidden;
 
 	${(p) => p.theme.media.mobile} {

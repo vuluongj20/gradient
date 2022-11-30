@@ -226,7 +226,7 @@ const LivePrediction = ({
 
 	return (
 		<Grid noPaddingOnMobile>
-			<StyledPanel overlay size="m" gridColumn="wide" {...panelProps}>
+			<Panel overlay size="m" gridColumn="wide" {...panelProps}>
 				{label && <Label modelNameOffset={models.length > 1}>{label}</Label>}
 
 				<InputGroup modelNameOffset={models.length > 1}>
@@ -322,7 +322,7 @@ const LivePrediction = ({
 						</ResultsAnimationWrapper>
 					</CSSTransition>
 				</ResultsWrapper>
-			</StyledPanel>
+			</Panel>
 		</Grid>
 	)
 }
@@ -333,10 +333,6 @@ const MODEL_NAME_WIDTH = '3rem'
 
 const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 	`calc(${theme.space[2]} + ${theme.space[2]} + ${theme.space[2]})`
-
-const StyledPanel = styled(Panel)`
-	max-width: 60rem;
-`
 
 const Label = styled.span<{ modelNameOffset?: boolean }>`
 	display: block;
