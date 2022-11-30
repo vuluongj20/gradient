@@ -1,5 +1,4 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield'
-import { mergeProps } from '@react-aria/utils'
 import { useRef } from 'react'
 import styled from 'styled-components'
 
@@ -18,6 +17,7 @@ const TextInput = ({
 	inputWidth,
 	small = false,
 	skipFieldWrapper = false,
+	size,
 	...props
 }: TextFieldProps) => {
 	const { label, description } = props
@@ -40,7 +40,8 @@ const TextInput = ({
 				ref={ref}
 				small={small}
 				displayWidth={inputWidth}
-				{...mergeProps(props, inputProps)}
+				size={size}
+				{...inputProps}
 			/>
 		</Field>
 	)

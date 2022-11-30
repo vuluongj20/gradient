@@ -297,7 +297,7 @@ const MEMMFeatureBreakdown = () => {
 								small
 								skipFieldWrapper
 								value={word}
-								onChange={setWord}
+								onChange={(word) => setWord(word.replace(' ', ''))}
 								size={textFieldSize}
 								aria-label="Current word"
 							/>
