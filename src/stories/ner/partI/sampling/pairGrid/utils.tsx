@@ -267,20 +267,20 @@ const renderHistogram = (
 					.attr('x', (d) => xScale(d.x0 ?? 0))
 					.attr('y', (d) => yScale(d.length) - 1)
 					.attr('width', function (d) {
-						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
+						return Math.abs(xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1)
 					})
 					.attr('height', function (d) {
-						return subplotHeight - yScale(d.length)
+						return Math.abs(subplotHeight - yScale(d.length))
 					}),
 			(update) =>
 				update
 					.attr('x', (d) => xScale(d.x0 ?? 0))
 					.attr('y', (d) => yScale(d.length) + 1)
 					.attr('width', function (d) {
-						return xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1
+						return Math.abs(xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 1)
 					})
 					.attr('height', function (d) {
-						return subplotHeight - yScale(d.length)
+						return Math.abs(subplotHeight - yScale(d.length))
 					}),
 		)
 	return

@@ -50,7 +50,7 @@ const PairGrid = ({ graph, title, className }: PairGridProps) => {
 	useEffect(
 		() =>
 			autorun(() => {
-				if (!svgRef.current || !samples) return
+				if (!svgRef.current || !samples || !width || !height) return
 
 				const svg = select(svgRef.current)
 				svg.call(renderSVG, {
