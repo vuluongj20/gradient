@@ -192,7 +192,7 @@ const LivePrediction = ({
 			inputRef.current.scrollLeft = (e.target as HTMLDivElement).scrollLeft
 		}
 
-		// if (isDev) return
+		if (isDev) return
 		debouncedUpdatePredictions(inputValue)
 	})
 

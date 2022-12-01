@@ -142,6 +142,11 @@ const MEMMMostInformativeFeatures = () => {
 					/>
 				</Heading>
 				<StyledTable>
+					<colgroup>
+						<col />
+						<col />
+						<col />
+					</colgroup>
 					<TableHead>
 						<TR>
 							<TH scope="col">Feature</TH>
@@ -173,20 +178,25 @@ const Wrap = styled(Panel)`
 `
 
 const Heading = styled.div`
-	display: flex;
-	align-items: center;
 	margin-bottom: ${(p) => p.theme.space[1]};
 
-	button {
-		${(p) => p.theme.text.system.h6};
-		padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[0]}
-			${(p) => p.theme.space[0]} ${(p) => p.theme.space[0.5]};
-		border: solid 1px ${(p) => p.theme.line};
+	/* Select trigger */
+	div {
+		display: inline-block;
+
+		button {
+			${(p) => p.theme.text.system.h6};
+			padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[0]}
+				${(p) => p.theme.space[0]} ${(p) => p.theme.space[0.5]};
+			border: solid 1px ${(p) => p.theme.line};
+		}
 	}
 `
 
 const HeadingText = styled.p`
+	display: inline;
 	${(p) => p.theme.text.system.h6};
+	line-height: ${(p) => p.theme.text.system.body.lineHeight};
 `
 
 const StyledTable = styled(Table)`
@@ -196,13 +206,13 @@ const StyledTable = styled(Table)`
 
 	colgroup {
 		col:nth-child(1) {
-			width: calc(70% - 8em);
+			width: calc(100% - 20em);
 		}
 		col:nth-child(2) {
-			width: 6em;
+			width: 10em;
 		}
 		col:nth-child(3) {
-			width: 6em;
+			width: 10em;
 		}
 	}
 
@@ -212,10 +222,10 @@ const StyledTable = styled(Table)`
 				width: calc(100% - 12em);
 			}
 			col:nth-child(2) {
-				width: 4em;
+				width: 6em;
 			}
 			col:nth-child(3) {
-				width: 4em;
+				width: 6em;
 			}
 		}
 	}
