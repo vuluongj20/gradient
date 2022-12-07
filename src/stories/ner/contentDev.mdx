@@ -155,6 +155,16 @@ With higher predictive power on OOV words, we can additionally expect better per
 
 <EntityLengthHeatmap models={['memm', 'hmm']} />
 
+### Label Bias Problem
+
+MEMMs’ discriminative structure confers great benefits, namely the ability to model word features, but there’s a downside: it makes MEMMs susceptible to the label bias problem. First recorded by Bottou[@Bottou1991], this problem mostly affects discriminative models, causing certain states to ignore their observations.
+
+MEMMs are susceptible to label bias because they are locally normalized. Normalization is necessary to make probability distributions to sum up to one. Here, the “local” in local normalization means only transition distributions between neighboring states need to be normalized, not the “global”, sequence-wide joint distributions. Hannun[@Hannun2019] provides an excellent explanation of how local normalization can cause certain states to ignore/take little notice of their observations.
+
+While the label bias problem doesn’t render models useless, it still has a notable effect on predictions, causing demonstrably higher error rates.[@Lafferty2001]
+
+We can consider getting rid of local normalization to avoid the problem. That leads us to Conditional Random Fields – a class of globally-normalized, undirected probabilistic models.
+
 ---
 
 <References />

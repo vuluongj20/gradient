@@ -1,7 +1,7 @@
 import { PageProps } from 'gatsby'
 import { Fragment } from 'react'
 
-import Content from './content.mdx'
+import Content from './contentDev.mdx'
 import references from './references.csl.json'
 
 import AsyncStylesheet from '@components/asyncStyleSheet'
