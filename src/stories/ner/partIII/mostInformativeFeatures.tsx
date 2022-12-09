@@ -149,8 +149,8 @@ const MEMMMostInformativeFeatures = () => {
 					</colgroup>
 					<TableHead>
 						<TR>
-							<TH scope="col">Feature</TH>
-							<TH scope="col">State</TH>
+							<TH scope="col">Current Word Feature</TH>
+							<TH scope="col">Current State</TH>
 							<TH scope="col" align="right">
 								Weight
 							</TH>

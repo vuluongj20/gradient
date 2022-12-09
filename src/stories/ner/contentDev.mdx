@@ -54,23 +54,25 @@ import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 
 ## III. Maximum Entropy Markov Models
 
-Maximum Entropy Markov Models (MEMMs) resolve some of the concerns with HMMs by way of a simple yet meaningful modification in graphical structure:
+Maximum Entropy Markov Models (MEMMs) [@McCallum2000] resolve some of the concerns we had with HMMs by way of a simple yet meaningful modification to their graphical structure :
 
 <MEMMOverviewGraph />
+
+The arrows connecting observations with their respective states have switched directions. We'll discuss the radical implications of such a change in the sections below.
 
 Similar to HMMs, MEMMs have been successfully applied to a wide range of sequence modeling problems [@McCallum2000; @Thierry2010; @Ziebart2009].
 
 ### Discriminative Structure
 
-Suppose there is a system with two variables, $X$ and $Y$, and we want to make predictions about $Y$ based on observations of $X$. A generative classifier would do that by first learning the prior distribution $p(X, Y)$ and then applying Bayes' rule to find the posterior $p(Y|X)$. In a way, it attempts to reconstruct the process that generated the observed data. A discriminative classifier, on the other hand, would model the posterior $p(Y|X)$ directly based on training data. [@Ng2001]
+There are two main approaches to building classification models: generative and discriminative [@Ng2001]. Suppose there is a system with two variables, $X$ and $Y$. We want to make predictions about $Y$ based on observations on $X$. A generative classifier would do that by first learning the prior distribution $p(X, Y)$ and then applying Bayes' rule to find the posterior $p(Y|X)$. This can be thought of as reconstructing the process that generated the observed data. A discriminative classifier, on the other hand, would model the posterior $p(Y|X)$ directly based on training data.
 
-While HMMs are generative classifiers, MEMMs are discriminative. The former are generative because they model the joint distribution over both observations and hidden states (as a product of transition and emission probabilities) before using that joint distribution to find the most likely state sequence given observations (or solve some other inference problem). MEMMs, on the other hand, directly model the conditional distribution $p(states|observations)$ without any intermediaries.
+HMMs are generative classifiers, while MEMMs are discriminative. The former are generative because they model the joint distribution over both observations and hidden states (as a product of transition and emission probabilities) before using that joint distribution to find the most likely state sequence given observations (or solve some other inference problem). MEMMs, on the other hand, directly model the conditional probabilities $p(state|observation, prev state)$ without any intermediary.
 
 <MEMMDiscriminativeGraph />
 
-### Modeling Word Features
+### Word Features
 
-The biggest advatage that MEMMs have over HMMs is their ability to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and able to relax the independence requirement, so they can use any number of word features, overlapping or not. [@McCallum2000]
+Notably, MEMMs’ discriminative structure allows them to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and able to relax the independence requirement, so they can use arbitrary overlapping word features [@McCallum2000].
 
 Common practice is to use binary features, such as:
 
@@ -90,39 +92,41 @@ f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
 	\end{cases}
 $$
 
-Feature-state pairs provide useful additional information about which features and states go together and which don’t. For example, we can expect that pairs like "is_capitalized" + “B-ORG” would occur more frequently than "is_capitalized" + “O”, capturing the fact that in English named entities are often capitalized.
+Feature-state pairs provide useful additional information how which features and states go together and which don’t. For example, we can expect pairs like "is_capitalized" + “B-ORG” to occur together frequently, capturing the fact that in English named entities are often capitalized.
 
 ### State Transitions
 
-State transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
+MEMMs’ state transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
 
 $$
 P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
 $$
 
-where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
-
-Those familiar with neural networks will recognize that the distribution function is a softmax. Its exponential form results from a core principle that underlies MEMMs’ statistical structure: that of maximum entropy, which states that the model that best represents our knowledge about a system is one that makes the fewest possible assumptions except for certain constraints derived from prior data from that system. [@McCallum2000; @Pietra1997]
+where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a = \langle b, s \rangle$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
 
 <MEMMFeatureBreakdown />
 
+Those familiar with neural networks will recognize that the function above is a softmax. Its exponential form is a result of the core principle of maximum entropy that underlies MEMMs’ statistical structure and gives them their name. Maximum entropy states that the model that best represents our knowledge about a system is one that makes the fewest possible assumptions except for certain constraints derived from prior data from that system [@McCallum2000; @Pietra1997].
+
 ### Training & Inference
 
-The training step involves learning the weights $\lambda_a$ that satisfy MEMMs’ maximum entropy constraint. Learning is done through Generalized Iterative Scaling, which iteratively updates the values $\lambda_a$ in order to nudge the expected value of all features closer to their train set average [@McCallum2000]. Convergence at a global optimum is guaranteed given the exponential form of the transition distribution.
+The training step involves learning the weights $\lambda_a$ that satisfy MEMMs’ maximum entropy constraint [@McCallum2000]. Learning is done through Generalized Iterative Scaling, which iteratively updates the values $\lambda_a$ in order to nudge the expected value of all features closer to their train set average. Convergence at a global optimum is guaranteed given the exponential form of the transition distribution.
 
-As with HMMs, inference is done using the Viterbi algorithm [@McCallum2000; @Viterbi1967]. Rather than multiplying the previous probability with a transition and emission probability, here there is only a transition probability as described above.
+As with HMMs, the Viterbi algorithm makes MAP inference tractable [@McCallum2000; @Viterbi1967]. The variable transition probability $P_{s\prime}(s|o)$ takes the place of HMMs’ fixed transition and emission probabilities.
 
 ### Results
 
-A MEMM was trained on the CoNLL-2003 English dataset [@Sang2003]. In addition to word identity, features used for training include the word’s lowercase version (“Algeria” → “algeria”), shape (“Xxxx”), whether it is in title/upper case, and whether it contains only digits and no letter.
+A MEMM was trained on the CoNLL-2003 English dataset [@Sang2003]. In addition to word identity, features used for training include the word’s lowercase version (“Algeria” → “algeria”), shape (“Xxxx”), whether it’s in title/upper case, and whether it contains only digits.
 
-Many of the most informative features – those with the largest absolute weights – encode the identities of words that appear frequently in the train set:
+A list of the most informative features – those with the largest absolute weights – offers valuable insights into how the model found and remembers linguistic patterns:
 
 <MEMMMostInformativeFeatures />
 
-Other features are more revealing. For example, if the current word has shape “X.X”, then the current state is unlikely to be “O” (the corresponding feature-state pair has large negative weight), meaning the word is likely part of a named entity. With only one feature-state pair, the model has learned about two-letter initialisms, like “U.S.“ and “U.N.“. There are plenty examples of how it has found and encoded many other linguistic patterns using the same mechanism.
+Many of these features are word identities. This makes intuitive sense: certain words, like “Germany”, are almost always used as names irrespective of what comes before or after them.
 
-Here’s a live version of the trained model with Viterbi decoding:
+Other features relate to established linguistic patterns. For example, if the current word has shape “X.X.”, such as “U.S.” and “U.N.”, it’s unlikely to have the “O” tag – the feature-state pair’s weight is a large negative number. This means the word is likely a named entity, most probably two-letter initialisms.
+
+Here’s a live version of the trained model:
 
 <LivePrediction
 	models={['memm']}
@@ -135,35 +139,31 @@ The model has better performance than its HMM counterpart. Per-word accuracy is 
 
 <MEMMPerWordScorecard />
 
-Per-entity precision and recall are notably higher, up from 64.2% and 55.8%, respectively:
+Per-entity precision and recall are notably higher, up from the HMM’s 64.2% and 55.8%, respectively:
 
 <MEMMPerEntityScorecards />
 
-A large part of the performance boost is attributable to better performance on entities with OOV words:
+A large part of the performance boost is attributable to higher precision on entities with at least one OOV word:
 
 <BinaryOOVHeatmap models={['memm', 'hmm']} />
 
-This likely has to do with MEMM’s ability to model word features and deserves further discussion.
-
 ### Advantage Over HMMs
 
-As mentioned, the biggest advantage that MEMMs have over HMMs is their ability to model word features. With out-of-vocabulary words, which the CoNLL-2003 test set has plenty of, word identity alone provides no useful information – the model has never seen the word before. In those cases, derived features such as word shape and capitalization can function as imperfect but immensely helpful proxies for word identity, allowing the model to make better guesses at the hidden name tag. Precision and recall scores for OOV-dense entities are compelling evidence of this effect:
+The ability to model word features allows MEMMs to fare better with OOV-dense name entities than HMMs. Faced with words that they have never seen before during training, these models can easily stumble. Word identity alone provides no useful information. In those cases, derived features such as word shape and capitalization can function as imperfect yet doubtlessly helpful proxies for word identity, allowing MEMMs to make better guesses at the name tag, resulting higher precision and recall scores:
 
 <OOVRateHeatmap models={['memm', 'hmm']} />
 
-With higher predictive power on OOV words, we can additionally expect better performance on long, multi-word entities. That’s because OOV words are dangerous information gaps inside named entities. They’re easy to misclassify, and when they are the entire predicted entity is counted as incorrect. MEMMs are able to fill those gaps to an extent using derived word features. As a result, we don’t see as drastic of a performance deterioration for longer entities as observed with the HMM:
+With stronger predictive power on OOV words, we can additionally expect better performance on long, multi-word entities. That’s because OOV words are dangerous information gaps inside named entities. They’re easy to misclassify, and when they are the entire entity prediction is counted as incorrect. MEMMs are able to fill those gaps to an extent by using word features. As a result, we don’t see as drastic of a performance deterioration for longer entities as observed with the HMM:
 
 <EntityLengthHeatmap models={['memm', 'hmm']} />
 
 ### Label Bias Problem
 
-MEMMs’ discriminative structure confers great benefits, namely the ability to model word features, but there’s a downside: it makes MEMMs susceptible to the label bias problem. First recorded by Bottou[@Bottou1991], this problem mostly affects discriminative models, causing certain states to ignore their observations.
+MEMMs’ discriminative structure confers great benefits, but there’s a downside: it makes them susceptible to the label bias problem. First recorded by Bottou [@Bottou1991], this problem mostly affects discriminative models, causing certain states to effectively ignore their observations, biasing predictions toward less likely transition paths. While the label bias problem doesn’t render models useless, it still has a notable effect on predictions, causing demonstrably higher error rates [@Lafferty2001].
 
-MEMMs are susceptible to label bias because they are locally normalized. Normalization is necessary to make probability distributions to sum up to one. Here, the “local” in local normalization means only transition distributions between neighboring states need to be normalized, not the “global”, sequence-wide joint distributions. Hannun[@Hannun2019] provides an excellent explanation of how local normalization can cause certain states to ignore/take little notice of their observations.
+What’s important to know is that MEMMs fall victim to the label bias problem because they have local probability normalization. The normalization factor $Z(o, s\prime)$ ensures that transition probabilities between neighboring states sum up to one. Local normalization forces every state to transfer all of its probability mass onto the next state, regardless of how likely or unlikely the current observation is. Hannun [@Hannun2019] provides an excellent, detailed explanation of how this happens.
 
-While the label bias problem doesn’t render models useless, it still has a notable effect on predictions, causing demonstrably higher error rates.[@Lafferty2001]
-
-We can consider getting rid of local normalization to avoid the problem. That leads us to Conditional Random Fields – a class of globally-normalized, undirected probabilistic models.
+We can consider getting rid of local normalization to avoid the problem. That would lead us to Conditional Random Fields – a class of globally-normalized, undirected probabilistic models, which we’ll cover next.
 
 ---
 

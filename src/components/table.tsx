@@ -10,6 +10,7 @@ export const TableHead = styled.thead`
 	th {
 		color: ${(p) => p.theme.label};
 		border-bottom: solid 1px ${(p) => p.theme.iLine};
+		white-space: nowrap;
 	}
 `
 

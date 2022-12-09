@@ -79,7 +79,7 @@ const Wrap = styled.sup`
 	display: inline-block;
 	position: relative;
 	vertical-align: top;
-	top: -0.1em;
+	top: 0.15em;
 	white-space: nowrap;
 `
 
