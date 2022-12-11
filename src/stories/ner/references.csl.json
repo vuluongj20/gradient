@@ -157,7 +157,7 @@
     "id": "Jurafsky2021",
     "issued": { "date-parts": [[2021]] },
     "page": "8-10",
-    "title": "Appendix A.4 – Decoding: The Viterbi Algorithm",
+    "title": "Appendix A.4 — Decoding: The Viterbi Algorithm",
     "type": "chapter",
     "URL": "https://web.stanford.edu/~jurafsky/slp3/A.pdf"
   },
@@ -271,7 +271,7 @@
   },
   {
     "author": [{ "family": "Hannun", "given": "Awni" }],
-    "container-title": "Awni Hannun – Writing About Machine Learning",
+    "container-title": "Awni Hannun — Writing About Machine Learning",
     "id": "Hannun2019",
     "issued": { "date-parts": [[2019, 11]] },
     "title": "The Label Bias Problem",

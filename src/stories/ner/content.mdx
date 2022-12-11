@@ -31,7 +31,7 @@ import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 
 <Abstract>
 	An overview of the structure and statistical assumptions behind linear-chain graphical
-	models – effective and interpretable approaches to sequence labeling problems such as
+	models — effective and interpretable approaches to sequence labeling problems such as
 	named entity recognition.
 </Abstract>
 }
@@ -54,7 +54,7 @@ import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 
 “The UK” alone is a country, but “The UK Department of Transport” is an organization within said country. In a named entity recognition (NER) task, where we want to label each word with a name tag (organization/person/location/other/not a name) [@Chinchor1998], how can a computer model know one from the other?
 
-In such cases, contextual information is key. In the second example, the fact that “The UK” is followed by “Department” is compelling evidence that when taken together the phrase refers to an organization. Sequence models – machine learning systems designed to take sequences of data as input, can recognize and put such relationships to productive use. Rather than making isolated predictions based on individual words or word groups, they take the given sequence as a combined unit, model the dependencies between words in that sequences, and depending on the problem can return the most likely label sequence.
+In such cases, contextual information is key. In the second example, the fact that “The UK” is followed by “Department” is compelling evidence that when taken together the phrase refers to an organization. Sequence models — machine learning systems designed to take sequences of data as input, can recognize and put such relationships to productive use. Rather than making isolated predictions based on individual words or word groups, they take the given sequence as a combined unit, model the dependencies between words in that sequences, and depending on the problem can return the most likely label sequence.
 
 In this article, we’ll explore three sequence models that are remarkably successful at NER: Hidden Markov Models (HMMs), Maximum-Entropy Markov Models (MEMMs), and Conditional Random Fields (CRFs). All three are probabilistic graphical models, which we’ll cover in the next section.
 
@@ -96,7 +96,7 @@ Directed Acyclic Graphs, or DAGs, offer a natural remedy to this problem. Each f
 
 With this graph, it’s easier to construct a generative story of how $A$, $B$, $C$ and $D$ are sampled. The process proceeds in [topological order](https://en.wikipedia.org/wiki/Topological_sorting), for example $A$ → $C$ → $B$ → $D$, to ensure that all dependencies have been resolved by the time each variable is sampled.
 
-Below is what a sampled population of the given distributions would look like. For the sake of demonstration, many distribution parameters are modifiable – in reality these are the quantities that need to be learned from training data.
+Below is what a sampled population of the given distributions would look like. For the sake of demonstration, many distribution parameters are modifiable — in reality these are the quantities that need to be learned from training data.
 
 <ABCDGraph />
 
@@ -134,7 +134,7 @@ $$
 
 $p(s_i | s_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
 
-The assumptions about the hidden layer – Markov and time-homogeneity – hold up in various time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they meaningfully reduce the computational complexity of both learning and inference.
+The assumptions about the hidden layer — Markov and time-homogeneity — hold up in various time-based systems where the hidden, unobserved events occur sequentially, one after the other. Together, they meaningfully reduce the computational complexity of both learning and inference.
 
 ### The Observed Layer
 
@@ -210,7 +210,7 @@ Evaluated against a test set, the model achieves satisfactory per-word accuracy:
 
 <HMMPerWordScorecard />
 
-However, precision and recall – calculated per entity [@Sang2003] – are decidedly low:
+However, precision and recall — calculated per entity [@Sang2003] — are decidedly low:
 
 <HMMPerEntityScorecards />
 
@@ -220,7 +220,7 @@ A closer look at the results reveals a discrepancy between entities with known w
 
 <BinaryOOVHeatmap models={['hmm']} />
 
-This makes sense: we expect the model to perform worse on tokens that it wasn't trained on. And because the CoNLL-2003 train set has a large number of OOV tokens – 80.6% of all test entities contain at least one OOV token – across-the-board precision and recall are heavily impacted.
+This makes sense: we expect the model to perform worse on tokens that it wasn't trained on. And because the CoNLL-2003 train set has a large number of OOV tokens — 80.6% of all test entities contain at least one OOV token — across-the-board precision and recall are heavily impacted.
 
 ### Limitations
 
@@ -228,17 +228,17 @@ HMMs are by no means perfect candidates for NER or text labeling problems in gen
 
 First is the Markov assumption. We don't compose words and their respective labels (“Noun”, “Adjective”, “B-ORG”, “I-ORG”) in a tidy, unidirectional manner. A word may link to another many places before or many more further down the line. In “South African Breweries Ltd”, both “South African” and “Ltd” provide crucial context to “Breweries”, which would otherwise register as not a name. HMMs fail to capture these tangled interdependencies, instead assuming that information passes from left to right in a single, neat chain.
 
-An indication, although it is by no means proof, of such limitation lies in the fast deterioration of the precision score as the entity length – counted as the number of tokens inside each entity – increases (the recall scores are much more noisy and thus less conclusive):
+An indication, although it is by no means proof, of such limitation lies in the fast deterioration of the precision score as the entity length — counted as the number of tokens inside each entity — increases (the recall scores are much more noisy and thus less conclusive):
 
 <EntityLengthHeatmap models={['hmm']} />
 
-The second concern has to do with the emissions assumption. When composing sentences, we don’t go about forming a chain of labels (such as “B–ORG” – “I-ORG” – “I–ORG” – “O”…) before generating words from each label in that chain.
+The second concern has to do with the emissions assumption. When composing sentences, we don’t go about forming a chain of labels (such as “B-ORG” – “I-ORG” – “I-ORG” – “O”…) before generating words from each label in that chain.
 
 Semantic and grammatical rules may restrict the range of words that can appear in any given observation, but those restrictions are far from the strong emissions assumption made by HMMs. Beyond the current word label, there is a whole host of other factors that together help determine which words are chosen. Additionally, while there is a cognizable link between part-of-speech tags and the words that are chosen, with name tags that link is less clear.
 
-The third concern relates to HMMs sole reliance on word identity in the observed layer. There are various word features that can provide additional information on the hidden label. Capitalization is a strong signal of named entities. Word shape may help account for common name patterns. HMMs take none of these features into account (in fact, they can’t – their generative chain structure requires that all observations be independent of each other).
+The third concern relates to HMMs sole reliance on word identity in the observed layer. There are various word features that can provide additional information on the hidden label. Capitalization is a strong signal of named entities. Word shape may help account for common name patterns. HMMs take none of these features into account (in fact, they can’t: their generative chain structure requires that all observations be independent of each other).
 
-With the only information available being word identities, HMMs end up stumbling over out-of-vocabulary words. While the models can wring bits of useful information out of nearby predicted name tags – the Viterbi algorithm maximizes likelihood over the whole sequence – the results are nonetheless discouraging:
+With the only information available being word identities, HMMs end up stumbling over out-of-vocabulary words. While the models can wring bits of useful information out of nearby predicted name tags — the Viterbi algorithm maximizes likelihood over the whole sequence — the results are nonetheless discouraging:
 
 <OOVRateHeatmap models={['hmm']} />
 
@@ -312,13 +312,13 @@ As with HMMs, the Viterbi algorithm makes MAP inference tractable [@McCallum2000
 
 A MEMM was trained on the CoNLL-2003 English dataset [@Sang2003]. In addition to word identity, features used for training include the word’s lowercase version (“Algeria” → “algeria”), shape (“Xxxx”), whether it’s in title/upper case, and whether it contains only digits.
 
-A list of the most informative features – those with the largest absolute weights – offers valuable insights into how the model found and remembers linguistic patterns:
+A list of the most informative features — those with the largest absolute weights — offers valuable insights into how the model found and remembers linguistic patterns:
 
 <MEMMMostInformativeFeatures />
 
 Many of these features are word identities. This makes intuitive sense: certain words, like “Germany”, are almost always used as names irrespective of what comes before or after them.
 
-Other features relate to established linguistic patterns. For example, if the current word has shape “X.X.”, such as “U.S.” and “U.N.”, it’s unlikely to have the “O” tag – the feature-state pair’s weight is a large negative number. This means the word is likely a named entity, most probably two-letter initialisms.
+Other features relate to established linguistic patterns. For example, if the current word has shape “X.X.”, such as “U.S.” and “U.N.”, it’s unlikely to have the “O” tag — the feature-state pair’s weight is a large negative number. This means the word is likely a named entity, most probably two-letter initialisms.
 
 Here’s a live version of the trained model:
 
@@ -357,7 +357,7 @@ MEMMs’ discriminative structure confers great benefits, but there’s a downsi
 
 What’s important to know is that MEMMs fall victim to the label bias problem because they have local probability normalization. The normalization factor $Z(o, s\prime)$ ensures that transition probabilities between neighboring states sum up to one. Local normalization forces every state to transfer all of its probability mass onto the next state, regardless of how likely or unlikely the current observation is. Hannun [@Hannun2019] provides an excellent, detailed explanation of how this happens.
 
-We can consider getting rid of local normalization to avoid the problem. That would lead us to Conditional Random Fields – a class of globally-normalized, undirected probabilistic models, which we’ll cover next.
+We can consider getting rid of local normalization to avoid the problem. That would lead us to Conditional Random Fields — a class of globally-normalized, undirected probabilistic models, which we’ll cover next.
 
 ---
 
@@ -371,29 +371,46 @@ While CRFs can have any graph structure, in this article we'll focus on the line
 
 ### Markov Random Fields
 
-CRFs are a notable class of Markov Random Fields – probability distributions defined by _undirected_ graphs where each node is a random variable:
+CRFs are a type of Markov Random Fields (MRFs), which are probability distributions over random variables defined by _undirected_ graphs [@Blake2011]:
 
 <CRFRandomFieldGraph />
 
-Undirected graphs are suitable for when it would be difficult or implausible to establish a causal, generative relationship between variables. Voting influence serves as an apt analogy for such relationships. In the graph above, we can think of $A$, $B$, and $C$ as individual voters. $A$ and $B$ are friends and tend to vote similarly. The same goes for $B$ and $C$ as well as $C$ and $A$.
+Undirected graphs are appropriate for when it’s difficult or implausible to establish causal, generative relationships between random variables. Social networks are a good example of undirected relationships. We can think of $A$, $B$, and $C$ in the graph above as people in a simple network. $A$ and $B$ are friends and tend to share similar beliefs. The same goes for $B$ and $C$ as well as $C$ and $A$. We might, for example, want to model whether each person in the group holds a certain opinion.
 
-Directed graphs fail to adequately represent the coupled voting behavior within the group. Cyclical configurations like $A$ → $B$ → $C$ → $A$… are out of the question. Any other configuration fails to fully account for all dependencies within the graph. For example, we might have $A$ → $B$ but no path from $B$ → $A$ – there will always be at least one such omission in a directed cyclical graph.
+Directed graphs fail to adequately represent the mutual belief propagation that occurs within the group. Cyclic configurations like $A$ → $B$ → $C$ → $A$… are incomputable. Any other configuration fails to account for all (in)dependencies within the graph. For example, we might have an edge from $A$ to $B$ but no path from $B$ back to $A$ — there will always be at least one such exclusion in a directed cyclical graph.
 
-In Markov Random Fields, the relationship between each variable pair is modeled with a scoring function, called a _factor_, that assigns higher scores if the variables’ values are in agreement, for example:
+MRFs model the relationships between pairs of variables with non-negative scoring functions, called a _factors_, that assign higher scores if the variables’ values are in agreement, for example:
 
 $$
-f(x, y) = \begin{cases}
-	10\ \textrm{ if $x = 1$ and $y = 1$} \\
-	5\ \textrm{ if $x = 0$ and $y = 0$} \\
+f(X, Y) = \begin{cases}
+	10\ \textrm{ if $X = 1$ and $Y = 1$} \\
+	5\ \textrm{ if $X = 0$ and $Y = 0$} \\
 	0\ \textrm{ otherwise}
 	\end{cases}
 $$
 
-The graph’s joint probability is a normalized product of all the applicable factors:
+Unlike conditional probabilities, there is no assumed directionality in scoring functions. These functions simply return higher scores if the variables agree and lower scores if they disagree. They model pairwise correlation, not causation.
+
+The joint probability of all variables in the graph is:
 
 $$
-p(a,b,c) = \frac{1}{Z}\ f(a,b)\ f(b,c)\ f(c,a)
+p(A,B,C) = \frac{1}{Z}\ f(A,B)\ f(B,C)\ f(C,A) \\
+\footnotesize \textrm{where Z is a normalization factor}
 $$
+
+Each factor $f$ promotes arrangements in which their constituent variables ($A$ and $B$ in the case of $f(A, B)$) agree with each other. The values 1-1-1 would receive a higher score and thus have higher probability than say 1-1-0, since there is more agreement in the former case.
+
+More generally, MRFs are probability distributions $p$ over random variables $x_1$, $x_2$,… that are defined by an undirected graph $\mathcal{G}$ and have the form:
+
+$$
+p(x_1, x_2,…) = \frac{1}{Z}\ \prod_{c\ \in\ C}f_c(x_c) \\
+\footnotesize \textrm{where Z is a normalization factor}\\
+\footnotesize \textrm{and C is the set of maximal cliques in $\mathcal{G}$}\\
+$$
+
+It’s important to note that MRFs are a more general formulation of the directed probabilistic models we’ve seen so far, including HMMs and MEMMs, and not a separate type of models. We can define the factors $f_c$ as conditional probabilities and fully represent the transition and emission probabilities contained within HMMs and MEMMs.
+
+The additional level of generality comes at a cost: the normalization factors $Z$ are often difficult to compute. They require summing over an exponential number of potential assignments, an infeasible task if the network is large enough. There are, however, configurations for which there is an efficient decoding algorithm. That includes linear-chain versions of CRFs, which can be decoded with the Viterbi algorithm.
 
 ---
 
