@@ -296,5 +296,137 @@
     "page": "282-289",
     "publisher": "Morgan Kaufmann Publishers Inc.",
     "title": "Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data"
+  },
+  {
+    "author": [
+      { "given": "Sanjiv", "family": "Kumar" },
+      { "given": "Martial", "family": "Hebert" }
+    ],
+    "container-title": "Advances in Neural Information Processing Systems",
+    "editor": [
+      { "given": "S.", "family": "Thrun" },
+      { "given": "L.", "family": "Saul" },
+      { "given": "B.", "family": "Schölkopf" }
+    ],
+    "type": "paper-conference",
+    "id": "Kumar2003",
+    "issued": { "date-parts": [[2003]] },
+    "publisher": "MIT Press",
+    "title": "Discriminative Fields for Modeling Spatial Dependencies in Natural Images",
+    "URL": "https://proceedings.neurips.cc/paper/2003/file/92049debbe566ca5782a3045cf300a3c-Paper.pdf",
+    "volume": 16
+  },
+  {
+    "author": [
+      { "given": "Xuming", "family": "He" },
+      { "given": "R.S.", "family": "Zemel" },
+      { "given": "M.A.", "family": "Carreira-Perpinan" }
+    ],
+    "container-title": "Proceedings of the 2004 IEEE Computer Society Conference on Computer Vision and Pattern Recognition, 2004. CVPR 2004.",
+    "DOI": "10.1109/CVPR.2004.1315232",
+    "type": "paper-conference",
+    "id": "He2004",
+    "issued": { "date-parts": [[2004]] },
+    "page": "II-II",
+    "title": "Multiscale Conditional Random Fields for Image Labeling",
+    "volume": 2,
+    "URL": "https://ieeexplore.ieee.org/document/1315232"
+  },
+  {
+    "author": [
+      { "given": "Shuai", "family": "Zheng" },
+      { "given": "Sadeep", "family": "Jayasumana" },
+      { "given": "Bernardino", "family": "Romera-Paredes" },
+      { "given": "Vibhav", "family": "Vineet" },
+      { "given": "Zhizhong", "family": "Su" },
+      { "given": "Dalong", "family": "Du" },
+      { "given": "Chang", "family": "Huang" },
+      { "given": "Philip H. S.", "family": "Torr" }
+    ],
+    "container-title": "2015 IEEE International Conference on Computer Vision (ICCV)",
+    "type": "paper-conference",
+    "id": "Zheng2015",
+    "issued": { "date-parts": [[2015, 12]] },
+    "publisher": "IEEE",
+    "title": "Conditional Random Fields as Recurrent Neural Networks",
+    "DOI": "10.1109/iccv.2015.179",
+    "URL": "https://ieeexplore.ieee.org/document/7410536"
+  },
+  {
+    "author": [
+      { "given": "Marvin T. T.", "family": "Teichmann" },
+      { "given": "Roberto", "family": "Cipolla" }
+    ],
+    "DOI": "10.48550/ARXIV.1805.04777",
+    "type": "book",
+    "id": "Teichmann2018",
+    "issued": { "date-parts": [[2018]] },
+    "publisher": "arXiv",
+    "title": "Convolutional CRFs for Semantic Segmentation",
+    "DOI": "10.48550/arxiv.1805.04777",
+    "URL": "https://arxiv.org/abs/1805.04777"
+  },
+  {
+    "publisher-place": "Boston, Massachusetts, USA",
+    "author": [
+      { "given": "Fuchun", "family": "Peng" },
+      { "given": "Andrew", "family": "McCallum" }
+    ],
+    "container-title": "Proceedings of the Human Language Technology Conference of the North American Chapter of the Association for Computational Linguistics: HLT-NAACL 2004",
+    "type": "paper-conference",
+    "id": "Peng2004",
+    "citation-label": "peng-mccallum-2004-accurate",
+    "issued": { "date-parts": [[2004]] },
+    "page": "329-336",
+    "publisher": "Association for Computational Linguistics",
+    "title": "Accurate Information Extraction from Research Papers using Conditional Random Fields",
+    "URL": "https://aclanthology.org/N04-1042"
+  },
+  {
+    "author": [
+      { "given": "Ben", "family": "Taskar" },
+      { "given": "Pieter", "family": "Abbeel" },
+      { "given": "Daphne", "family": "Koller" }
+    ],
+    "DOI": "10.48550/ARXIV.1301.0604",
+    "type": "book",
+    "id": "Taskar2002",
+    "issued": { "date-parts": [[2013]] },
+    "publisher": "arXiv",
+    "title": "Discriminative Probabilistic Models for Relational Data",
+    "URL": "https://arxiv.org/abs/1301.0604"
+  },
+  {
+    "container-title": "Bioinformatics",
+    "author": [
+      { "given": "Kengo", "family": "Sato" },
+      { "given": "Yasubumi", "family": "Sakakibara" }
+    ],
+    "type": "article-journal",
+    "id": "Sato2005",
+    "issued": { "date-parts": [[2005, 9]] },
+    "page": "ii237-ii242",
+    "title": "RNA Secondary Structural Alignment with Conditional Random Fields",
+    "volume": 21,
+    "DOI": "10.1093/bioinformatics/bti1139",
+    "URL": "https://academic.oup.com/bioinformatics/article/21/suppl_2/ii237/227803?login=false"
+  },
+  {
+    "container-title": "J. Comput. Biol.",
+    "author": [
+      { "given": "Yan", "family": "Liu" },
+      { "given": "Jaime", "family": "Carbonell" },
+      { "given": "Peter", "family": "Weigele" },
+      { "given": "Vanathi", "family": "Gopalakrishnan" }
+    ],
+    "type": "article-journal",
+    "id": "Liu2006",
+    "citation-label": "Liu2006",
+    "issue": 2,
+    "issued": { "date-parts": [[2006, 3]] },
+    "page": "394-406",
+    "publisher": "Mary Ann Liebert Inc",
+    "title": "Protein Fold Recognition Using Segmentation Conditional Random Fields (SCRFs)",
+    "volume": 13
   }
 ]

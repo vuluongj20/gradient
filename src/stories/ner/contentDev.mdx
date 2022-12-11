@@ -1,169 +1,43 @@
 import { Fragment } from 'react'
 
-import LivePrediction from './livePrediction'
-import ABCDGraph from './partI/sampling/abcdGraph'
-import StaticABCDGraph from './partI/staticABCDGraph'
-import HMMEmissionGraph from './partII/emissionGraph'
-import HMMEmissionPaths from './partII/emissionPaths'
-import HMMNERGraph from './partII/nerGraph'
-import HMMOverviewGraph from './partII/overviewGraph'
-import HMMPerEntityScorecards from './partII/perEntityScorecards'
-import HMMPerWordScorecard from './partII/perWordScorecard'
-import HMMTransitionGraph from './partII/transitionGraph'
-import HMMTransitionPaths from './partII/transitionPaths'
-import MEMMDiscriminativeGraph from './partIII/discriminativeGraph'
-import MEMMFeatureBreakdown from './partIII/featureBreakdown'
-import MEMMMostInformativeFeatures from './partIII/mostInformativeFeatures'
-import MEMMOverviewGraph from './partIII/overviewGraph'
-import MEMMPerEntityScorecards from './partIII/perEntityScorecards'
-import MEMMPerWordScorecard from './partIII/perWordScorecards'
-import BinaryOOVHeatmap from './precisionRecallHeatmaps/binaryOOVHeatmap'
-import EntityLengthHeatmap from './precisionRecallHeatmaps/entityLengthHeatmap'
-import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
+import CRFOverviewGraph from './partIV/overviewGraph'
+import CRFRandomFieldGraph from './partIV/randomFieldGraph'
 
-<Header>
+<Header></Header>
 
-# Learning What’s in a Name with Graphical Models
+## IV. Conditional Random Fields
 
-{
+Conditional Random Fields (CRFs) are a class of undirected probabilistic models. They have proved to be powerful models with a wide range of applications, including text processing [@Lafferty2001; @Taskar2002; @Peng2004], image recognition [@Kumar2003; @He2004; @Zheng2015; @Teichmann2018], and bioinformatics [@Sato2005; @Liu2006].
 
-<Abstract>
-	An overview of the structure and statistical assumptions behind linear-chain graphical
-	models – effective and interpretable approaches to sequence labeling problems such as
-	named entity recognition.
-</Abstract>
-}
+While CRFs can have any graph structure, in this article we'll focus on the linear-chain version:
 
-<LivePrediction
-	hideTagPrefixes
-	models={['hmm', 'memm', 'crf']}
-	initialInputValue="East Timorese-born activist Jose Ramos Horta"
-	label={
-		<Fragment>
-			Which of these words refer to a&nbsp;
-			<abbr title="A person, organization, location, or other (miscellaneous)">
-				<span>named entity</span>
-			</abbr>?
-		</Fragment>
-	}
-/>
+<CRFOverviewGraph />
 
-</Header>
+### Markov Random Fields
 
----
+CRFs are a notable class of Markov Random Fields – probability distributions defined by *undirected* graphs where each node is a random variable:
 
-## III. Maximum Entropy Markov Models
+<CRFRandomFieldGraph />
 
-Maximum Entropy Markov Models (MEMMs) [@McCallum2000] resolve some of the concerns we had with HMMs by way of a simple yet meaningful modification to their graphical structure :
+Undirected graphs are suitable for when it would be difficult or implausible to establish a causal, generative relationship between variables. Voting influence serves as an apt analogy for such relationships. In the graph above, we can think of $A$, $B$, and $C$ as individual voters. $A$ and $B$ are friends and tend to vote similarly. The same goes for $B$ and $C$ as well as $C$ and $A$.
 
-<MEMMOverviewGraph />
+Directed graphs fail to adequately represent the coupled voting behavior within the group. Cyclical configurations like $A$ → $B$ → $C$ → $A$… are out of the question. Any other configuration fails to fully account for all dependencies within the graph. For example, we might have $A$ → $B$ but no path from $B$ → $A$ – there will always be at least one such omission in a directed cyclical graph.
 
-The arrows connecting observations with their respective states have switched directions. We'll discuss the radical implications of such a change in the sections below.
-
-Similar to HMMs, MEMMs have been successfully applied to a wide range of sequence modeling problems [@McCallum2000; @Thierry2010; @Ziebart2009].
-
-### Discriminative Structure
-
-There are two main approaches to building classification models: generative and discriminative [@Ng2001]. Suppose there is a system with two variables, $X$ and $Y$. We want to make predictions about $Y$ based on observations on $X$. A generative classifier would do that by first learning the prior distribution $p(X, Y)$ and then applying Bayes' rule to find the posterior $p(Y|X)$. This can be thought of as reconstructing the process that generated the observed data. A discriminative classifier, on the other hand, would model the posterior $p(Y|X)$ directly based on training data.
-
-HMMs are generative classifiers, while MEMMs are discriminative. The former are generative because they model the joint distribution over both observations and hidden states (as a product of transition and emission probabilities) before using that joint distribution to find the most likely state sequence given observations (or solve some other inference problem). MEMMs, on the other hand, directly model the conditional probabilities $p(state|observation, prev state)$ without any intermediary.
-
-<MEMMDiscriminativeGraph />
-
-### Word Features
-
-Notably, MEMMs’ discriminative structure allows them to model overlapping word features. Two features can overlap when they contain the same or similar pieces of information, like word shape (“Xxx”) and capitalization. HMMs don’t allow overlapping features, since as a result of their generative structure they require that all events in the observation layer be independent of one another. MEMMs, on the other hand, are discriminative and able to relax the independence requirement, so they can use arbitrary overlapping word features [@McCallum2000].
-
-Common practice is to use binary features, such as:
+In Markov Random Fields, the relationship between each variable pair is modeled with a scoring function, called a *factor*, that assigns higher scores if the variables’ values are in agreement, for example:
 
 $$
-b(o_t) = \begin{cases}
-	1\ \textrm{ if $o_t$ has shape "Xxx"} \\
+f(x, y) = \begin{cases}
+	10\ \textrm{ if $x = 1$ and $y = 1$} \\
+	5\ \textrm{ if $x = 0$ and $y = 0$} \\
 	0\ \textrm{ otherwise}
 	\end{cases}
 $$
 
-These features are then paired with the current state $s$ to form feature-state pairs $a = \langle b, s \rangle$:
+The graph’s joint probability is a normalized product of all the applicable factors:
 
 $$
-f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
-	1\ \textrm{ if $b(o_t) = 1$ and $s_t = s$} \\
-	0\ \textrm{ otherwise}
-	\end{cases}
+p(a,b,c) = \frac{1}{Z}\ f(a,b)\ f(b,c)\ f(c,a)
 $$
-
-Feature-state pairs provide useful additional information how which features and states go together and which don’t. For example, we can expect pairs like "is_capitalized" + “B-ORG” to occur together frequently, capturing the fact that in English named entities are often capitalized.
-
-### State Transitions
-
-MEMMs’ state transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
-
-$$
-P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
-$$
-
-where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a = \langle b, s \rangle$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
-
-<MEMMFeatureBreakdown />
-
-Those familiar with neural networks will recognize that the function above is a softmax. Its exponential form is a result of the core principle of maximum entropy that underlies MEMMs’ statistical structure and gives them their name. Maximum entropy states that the model that best represents our knowledge about a system is one that makes the fewest possible assumptions except for certain constraints derived from prior data from that system [@McCallum2000; @Pietra1997].
-
-### Training & Inference
-
-The training step involves learning the weights $\lambda_a$ that satisfy MEMMs’ maximum entropy constraint [@McCallum2000]. Learning is done through Generalized Iterative Scaling, which iteratively updates the values $\lambda_a$ in order to nudge the expected value of all features closer to their train set average. Convergence at a global optimum is guaranteed given the exponential form of the transition distribution.
-
-As with HMMs, the Viterbi algorithm makes MAP inference tractable [@McCallum2000; @Viterbi1967]. The variable transition probability $P_{s\prime}(s|o)$ takes the place of HMMs’ fixed transition and emission probabilities.
-
-### Results
-
-A MEMM was trained on the CoNLL-2003 English dataset [@Sang2003]. In addition to word identity, features used for training include the word’s lowercase version (“Algeria” → “algeria”), shape (“Xxxx”), whether it’s in title/upper case, and whether it contains only digits.
-
-A list of the most informative features – those with the largest absolute weights – offers valuable insights into how the model found and remembers linguistic patterns:
-
-<MEMMMostInformativeFeatures />
-
-Many of these features are word identities. This makes intuitive sense: certain words, like “Germany”, are almost always used as names irrespective of what comes before or after them.
-
-Other features relate to established linguistic patterns. For example, if the current word has shape “X.X.”, such as “U.S.” and “U.N.”, it’s unlikely to have the “O” tag – the feature-state pair’s weight is a large negative number. This means the word is likely a named entity, most probably two-letter initialisms.
-
-Here’s a live version of the trained model:
-
-<LivePrediction
-	models={['memm']}
-	initialInputValue="Chicago Board of Trade"
-	label="Name tag predictions by MEMM:"
-	mb={3}
-/>
-
-The model has better performance than its HMM counterpart. Per-word accuracy is higher than the HMM’s 90.1%:
-
-<MEMMPerWordScorecard />
-
-Per-entity precision and recall are notably higher, up from the HMM’s 64.2% and 55.8%, respectively:
-
-<MEMMPerEntityScorecards />
-
-A large part of the performance boost is attributable to higher precision on entities with at least one OOV word:
-
-<BinaryOOVHeatmap models={['memm', 'hmm']} />
-
-### Advantage Over HMMs
-
-The ability to model word features allows MEMMs to fare better with OOV-dense name entities than HMMs. Faced with words that they have never seen before during training, these models can easily stumble. Word identity alone provides no useful information. In those cases, derived features such as word shape and capitalization can function as imperfect yet doubtlessly helpful proxies for word identity, allowing MEMMs to make better guesses at the name tag, resulting higher precision and recall scores:
-
-<OOVRateHeatmap models={['memm', 'hmm']} />
-
-With stronger predictive power on OOV words, we can additionally expect better performance on long, multi-word entities. That’s because OOV words are dangerous information gaps inside named entities. They’re easy to misclassify, and when they are the entire entity prediction is counted as incorrect. MEMMs are able to fill those gaps to an extent by using word features. As a result, we don’t see as drastic of a performance deterioration for longer entities as observed with the HMM:
-
-<EntityLengthHeatmap models={['memm', 'hmm']} />
-
-### Label Bias Problem
-
-MEMMs’ discriminative structure confers great benefits, but there’s a downside: it makes them susceptible to the label bias problem. First recorded by Bottou [@Bottou1991], this problem mostly affects discriminative models, causing certain states to effectively ignore their observations, biasing predictions toward less likely transition paths. While the label bias problem doesn’t render models useless, it still has a notable effect on predictions, causing demonstrably higher error rates [@Lafferty2001].
-
-What’s important to know is that MEMMs fall victim to the label bias problem because they have local probability normalization. The normalization factor $Z(o, s\prime)$ ensures that transition probabilities between neighboring states sum up to one. Local normalization forces every state to transfer all of its probability mass onto the next state, regardless of how likely or unlikely the current observation is. Hannun [@Hannun2019] provides an excellent, detailed explanation of how this happens.
-
-We can consider getting rid of local normalization to avoid the problem. That would lead us to Conditional Random Fields – a class of globally-normalized, undirected probabilistic models, which we’ll cover next.
 
 ---
 

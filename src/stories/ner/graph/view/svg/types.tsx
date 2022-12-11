@@ -22,6 +22,7 @@ export interface MutableEdge {
 	index: number
 	source: MutableNode
 	target: MutableNode
+	isDirected: boolean
 	x1?: number
 	y1?: number
 	x2?: number

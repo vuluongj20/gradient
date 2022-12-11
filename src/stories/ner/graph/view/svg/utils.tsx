@@ -34,6 +34,7 @@ export function mapMutableEdges(
 		id: edge.id,
 		source: mutableNodes.find((n) => n.id === edge.nodes.source) as MutableNode,
 		target: mutableNodes.find((n) => n.id === edge.nodes.target) as MutableNode,
+		isDirected: edge.isDirected,
 	}
 }
 
@@ -110,7 +111,9 @@ export function renderSVGEdges(
 			enter
 				.append('g')
 				.append('line')
-				.attr('marker-end', `url(#arrow-marker-${arrowMarkerId})`),
+				.attr('marker-end', (edge) =>
+					edge.isDirected ? `url(#arrow-marker-${arrowMarkerId})` : null,
+				),
 		)
 }
 

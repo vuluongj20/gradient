@@ -17,6 +17,8 @@ import MEMMMostInformativeFeatures from './partIII/mostInformativeFeatures'
 import MEMMOverviewGraph from './partIII/overviewGraph'
 import MEMMPerEntityScorecards from './partIII/perEntityScorecards'
 import MEMMPerWordScorecard from './partIII/perWordScorecards'
+import CRFOverviewGraph from './partIV/overviewGraph'
+import CRFRandomFieldGraph from './partIV/randomFieldGraph'
 import BinaryOOVHeatmap from './precisionRecallHeatmaps/binaryOOVHeatmap'
 import EntityLengthHeatmap from './precisionRecallHeatmaps/entityLengthHeatmap'
 import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
@@ -356,6 +358,42 @@ MEMMs’ discriminative structure confers great benefits, but there’s a downsi
 What’s important to know is that MEMMs fall victim to the label bias problem because they have local probability normalization. The normalization factor $Z(o, s\prime)$ ensures that transition probabilities between neighboring states sum up to one. Local normalization forces every state to transfer all of its probability mass onto the next state, regardless of how likely or unlikely the current observation is. Hannun [@Hannun2019] provides an excellent, detailed explanation of how this happens.
 
 We can consider getting rid of local normalization to avoid the problem. That would lead us to Conditional Random Fields – a class of globally-normalized, undirected probabilistic models, which we’ll cover next.
+
+---
+
+## IV. Conditional Random Fields
+
+Conditional Random Fields (CRFs) are a class of undirected probabilistic models. They have proved to be powerful models with a wide range of applications, including text processing [@Lafferty2001; @Taskar2002; @Peng2004], image recognition [@Kumar2003; @He2004; @Zheng2015; @Teichmann2018], and bioinformatics [@Sato2005; @Liu2006].
+
+While CRFs can have any graph structure, in this article we'll focus on the linear-chain version:
+
+<CRFOverviewGraph />
+
+### Markov Random Fields
+
+CRFs are a notable class of Markov Random Fields – probability distributions defined by _undirected_ graphs where each node is a random variable:
+
+<CRFRandomFieldGraph />
+
+Undirected graphs are suitable for when it would be difficult or implausible to establish a causal, generative relationship between variables. Voting influence serves as an apt analogy for such relationships. In the graph above, we can think of $A$, $B$, and $C$ as individual voters. $A$ and $B$ are friends and tend to vote similarly. The same goes for $B$ and $C$ as well as $C$ and $A$.
+
+Directed graphs fail to adequately represent the coupled voting behavior within the group. Cyclical configurations like $A$ → $B$ → $C$ → $A$… are out of the question. Any other configuration fails to fully account for all dependencies within the graph. For example, we might have $A$ → $B$ but no path from $B$ → $A$ – there will always be at least one such omission in a directed cyclical graph.
+
+In Markov Random Fields, the relationship between each variable pair is modeled with a scoring function, called a _factor_, that assigns higher scores if the variables’ values are in agreement, for example:
+
+$$
+f(x, y) = \begin{cases}
+	10\ \textrm{ if $x = 1$ and $y = 1$} \\
+	5\ \textrm{ if $x = 0$ and $y = 0$} \\
+	0\ \textrm{ otherwise}
+	\end{cases}
+$$
+
+The graph’s joint probability is a normalized product of all the applicable factors:
+
+$$
+p(a,b,c) = \frac{1}{Z}\ f(a,b)\ f(b,c)\ f(c,a)
+$$
 
 ---
 
