@@ -15,29 +15,38 @@ While CRFs can have any graph structure, in this article we'll focus on the line
 
 ### Markov Random Fields
 
-CRFs are a notable class of Markov Random Fields – probability distributions defined by *undirected* graphs where each node is a random variable:
+CRFs are a type of Markov Random Fields (MRFs), which are probability distributions defined by _undirected_ graphs where each node is a random variable [@Blake2011]:
 
 <CRFRandomFieldGraph />
 
-Undirected graphs are suitable for when it would be difficult or implausible to establish a causal, generative relationship between variables. Voting influence serves as an apt analogy for such relationships. In the graph above, we can think of $A$, $B$, and $C$ as individual voters. $A$ and $B$ are friends and tend to vote similarly. The same goes for $B$ and $C$ as well as $C$ and $A$.
+Undirected graphs are appropriate for when it’s difficult or implausible to establish causal, generative relationships between random variables. Social networks are a good example of undirected relationships. We can think of $A$, $B$, and $C$ in the graph above as people in a simple network. $A$ and $B$ are friends and tend to share similar beliefs. The same goes for $B$ and $C$ as well as $C$ and $A$. We might, for example, want to model whether each person in the group holds a certain opinion.
 
-Directed graphs fail to adequately represent the coupled voting behavior within the group. Cyclical configurations like $A$ → $B$ → $C$ → $A$… are out of the question. Any other configuration fails to fully account for all dependencies within the graph. For example, we might have $A$ → $B$ but no path from $B$ → $A$ – there will always be at least one such omission in a directed cyclical graph.
+Directed graphs fail to adequately represent the mutual belief propagation that occurs within the group. Cyclic configurations like $A$ → $B$ → $C$ → $A$… are incomputable. Any other configuration fails to account for all (in)dependencies within the graph. For example, we might have an edge from $A$ to $B$ but no path from $B$ back to $A$ – there will always be at least one such exclusion in a directed cyclical graph.
 
-In Markov Random Fields, the relationship between each variable pair is modeled with a scoring function, called a *factor*, that assigns higher scores if the variables’ values are in agreement, for example:
+MRFs model the relationships between pairs of variables with scoring functions, called a _factors_, that assign higher scores if the variables’ values are in agreement, for example:
 
 $$
-f(x, y) = \begin{cases}
-	10\ \textrm{ if $x = 1$ and $y = 1$} \\
-	5\ \textrm{ if $x = 0$ and $y = 0$} \\
+f(X, Y) = \begin{cases}
+	10\ \textrm{ if $X = 1$ and $Y = 1$} \\
+	5\ \textrm{ if $X = 0$ and $Y = 0$} \\
 	0\ \textrm{ otherwise}
 	\end{cases}
 $$
 
-The graph’s joint probability is a normalized product of all the applicable factors:
+Unlike conditional probabilities, there is no assumed directionality in scoring functions. These functions simply return higher scores if the variables agree and lower scores if they disagree. They model pairwise correlation, not causation.
+
+The joint probability of all variables in the graph is:
 
 $$
-p(a,b,c) = \frac{1}{Z}\ f(a,b)\ f(b,c)\ f(c,a)
+p(A,B,C) = \frac{1}{Z}\ f(A,B)\ f(B,C)\ f(C,A) \\
+\footnotesize \textrm{where Z is a normalization factor}
 $$
+
+Each factor $f$ promotes arrangements in which their constituent variables ($A$ and $B$ in the case of $f(A, B)$) agree with each other. The values 1-1-1 would receive a higher score and thus have higher probability than say 1-1-0, since there is more agreement in the former case.
+
+It’s important to note that MRFs are a more general formulation of the directed probabilistic models we’ve seen so far, including HMMs and MEMMs, not a separate type class of models. Since the factors $f$ can 
+
+### Global Conditioning
 
 ---
 
