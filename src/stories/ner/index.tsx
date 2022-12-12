@@ -1,4 +1,5 @@
 import { PageProps } from 'gatsby'
+import { Fragment } from 'react'
 
 import Content from './content.mdx'
 import references from './references.csl.json'
@@ -20,4 +21,9 @@ const Component = () => {
 
 export default Component
 
-export const Head = ({ pageContext }: PageProps) => <SEO {...pageContext} />
+export const Head = ({ pageContext }: PageProps) => (
+	<Fragment>
+		<SEO {...pageContext} />
+		<link rel="stylesheet" href="/katex.min.css" />
+	</Fragment>
+)
