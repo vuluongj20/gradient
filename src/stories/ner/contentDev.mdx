@@ -27,9 +27,9 @@ MRFs model the relationships between pairs of variables with non-negative scorin
 
 $$
 f(X, Y) = \begin{cases}
-	10\ \textrm{ if $X = 1$ and $Y = 1$} \\
-	5\ \textrm{ if $X = 0$ and $Y = 0$} \\
-	0\ \textrm{ otherwise}
+	\textrm{10 if $X = 1$ and $Y = 1$} \\
+	\textrm{5 if $X = 0$ and $Y = 0$} \\
+	\textrm{0 otherwise}
 	\end{cases}
 $$
 
@@ -38,8 +38,8 @@ Unlike conditional probabilities, there is no assumed directionality in scoring 
 The joint probability of all variables in the graph is:
 
 $$
-p(A,B,C) = \frac{1}{Z}\ f(A,B)\ f(B,C)\ f(C,A) \\
-\footnotesize \textrm{where Z is a normalization factor}
+p(A,B,C) = \frac{1}{Z}\,f(A,B)\,f(B,C)\,f(C,A) \\
+\footnotesize\textrm{where Z is a normalization factor}
 $$
 
 Each factor $f$ promotes arrangements in which their constituent variables ($A$ and $B$ in the case of $f(A, B)$) agree with each other. The values 1-1-1 would receive a higher score and thus have higher probability than say 1-1-0, since there is more agreement in the former case.
@@ -47,14 +47,18 @@ Each factor $f$ promotes arrangements in which their constituent variables ($A$ 
 More generally, MRFs are probability distributions $p$ over random variables $x_1$, $x_2$,… that are defined by an undirected graph $\mathcal{G}$ and have the form:
 
 $$
-p(x_1, x_2,…) = \frac{1}{Z}\ \prod_{c\ \in\ C}f_c(x_c) \\
-\footnotesize \textrm{where Z is a normalization factor}\\
-\footnotesize \textrm{and C is the set of maximal cliques in $\mathcal{G}$}\\
+p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{f_c(x_c)} \\
+\footnotesize\textrm{where Z is a normalization factor} \\
+\footnotesize\textrm{and C is the set of maximal cliques in $\mathcal{G}$}
 $$
 
 It’s important to note that MRFs are a more general formulation of the directed probabilistic models we’ve seen so far, including HMMs and MEMMs, and not a separate type of models. We can define the factors $f_c$ as conditional probabilities and fully represent the transition and emission probabilities contained within HMMs and MEMMs.
 
 The additional level of generality comes at a cost: the normalization factors $Z$ are often difficult to compute. They require summing over an exponential number of potential assignments, an infeasible task if the network is large enough. There are, however, configurations for which there is an efficient decoding algorithm. That includes linear-chain versions of CRFs, which can be decoded with the Viterbi algorithm.
+
+### Conditional Form
+
+CRFs are Markov Random Fields that model conditional probabilities $p(y|x)$.
 
 ---
 

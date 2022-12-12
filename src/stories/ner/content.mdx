@@ -118,7 +118,7 @@ The hidden layer is assumed to be a Markov process: a chain of events in which e
 
 $$
 p(s_i | s_1, s_2,…, s_{i-1}) = p(s_i | s_{i-1}) \\
-\footnotesize \textrm{for all $i \in \{2,…, N\}$}
+\footnotesize\textrm{for all $i\,{\scriptscriptstyle \in}\,\{2,…, N\}$}
 $$
 
 In a graph, this translates to a linear chain of events where each event has one arrow pointing towards it (except for the first event) and one pointing away from it (except for the last):
@@ -129,7 +129,7 @@ A second assumption that HMMs make is time-homogeneity: that the probability of 
 
 $$
 p(s_i | s_{i-1}) = p(s_{i+1} | s_i) \\
-\footnotesize \textrm{for all $i \in \{2,…, N-1\}$}
+\footnotesize\textrm{for all $i\,{\scriptscriptstyle \in}\,\{2,…, N-1\}$}
 $$
 
 $p(s_i | s_{i-1})$ is called the transition probability and is one of the two key parameters to be learned during training.
@@ -142,7 +142,7 @@ The hidden and observed layer are connected via a one-to-one mapping relationshi
 
 $$
 p(o_i | s_1, s_2,…, s_N) = p(o_i | s_i) \\
-\footnotesize \textrm{for all $i \in \{1, 2,…, N\}$}
+\footnotesize\textrm{for all $i\,{\scriptscriptstyle \in}\,\{1, 2,…, N\}$}
 $$
 
 In a graph, this one-to-one relationship looks like:
@@ -272,8 +272,8 @@ Common practice is to use binary features, such as:
 
 $$
 b(o_t) = \begin{cases}
-	1\ \textrm{ if $o_t$ has shape “Xxx”} \\
-	0\ \textrm{ otherwise}
+	\textrm{1 if $o_t$ has shape “Xxx”} \\
+	\textrm{0 otherwise}
 	\end{cases}
 $$
 
@@ -281,8 +281,8 @@ These features are then paired with the current state $s$ to form feature-state 
 
 $$
 f_{\langle b, s \rangle}(o_t, s_t) = \begin{cases}
-	1\ \textrm{ if $b(o_t) = 1$ and $s_t = s$} \\
-	0\ \textrm{ otherwise}
+	\textrm{1 if $b(o_t) = 1$ and $s_t = s$} \\
+	\textrm{0 otherwise}
 	\end{cases}
 $$
 
@@ -293,7 +293,7 @@ Feature-state pairs provide useful additional information how which features and
 MEMMs’ state transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
 
 $$
-P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a} \lambda_a \ f_a(o, s)\right)
+P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a}{\lambda_a \, f_a(o, s)}\right)
 $$
 
 where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a = \langle b, s \rangle$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
@@ -383,9 +383,9 @@ MRFs model the relationships between pairs of variables with non-negative scorin
 
 $$
 f(X, Y) = \begin{cases}
-	10\ \textrm{ if $X = 1$ and $Y = 1$} \\
-	5\ \textrm{ if $X = 0$ and $Y = 0$} \\
-	0\ \textrm{ otherwise}
+	\textrm{10 if $X = 1$ and $Y = 1$} \\
+	\textrm{5 if $X = 0$ and $Y = 0$} \\
+	\textrm{0 otherwise}
 	\end{cases}
 $$
 
@@ -394,8 +394,8 @@ Unlike conditional probabilities, there is no assumed directionality in scoring 
 The joint probability of all variables in the graph is:
 
 $$
-p(A,B,C) = \frac{1}{Z}\ f(A,B)\ f(B,C)\ f(C,A) \\
-\footnotesize \textrm{where Z is a normalization factor}
+p(A,B,C) = \frac{1}{Z}\,f(A,B)\,f(B,C)\,f(C,A) \\
+\footnotesize\textrm{where Z is a normalization factor}
 $$
 
 Each factor $f$ promotes arrangements in which their constituent variables ($A$ and $B$ in the case of $f(A, B)$) agree with each other. The values 1-1-1 would receive a higher score and thus have higher probability than say 1-1-0, since there is more agreement in the former case.
@@ -403,14 +403,18 @@ Each factor $f$ promotes arrangements in which their constituent variables ($A$ 
 More generally, MRFs are probability distributions $p$ over random variables $x_1$, $x_2$,… that are defined by an undirected graph $\mathcal{G}$ and have the form:
 
 $$
-p(x_1, x_2,…) = \frac{1}{Z}\ \prod_{c\ \in\ C}f_c(x_c) \\
-\footnotesize \textrm{where Z is a normalization factor}\\
-\footnotesize \textrm{and C is the set of maximal cliques in $\mathcal{G}$}\\
+p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{f_c(x_c)} \\
+\footnotesize\textrm{where Z is a normalization factor} \\
+\footnotesize\textrm{and C is the set of maximal cliques in $\mathcal{G}$}
 $$
 
 It’s important to note that MRFs are a more general formulation of the directed probabilistic models we’ve seen so far, including HMMs and MEMMs, and not a separate type of models. We can define the factors $f_c$ as conditional probabilities and fully represent the transition and emission probabilities contained within HMMs and MEMMs.
 
 The additional level of generality comes at a cost: the normalization factors $Z$ are often difficult to compute. They require summing over an exponential number of potential assignments, an infeasible task if the network is large enough. There are, however, configurations for which there is an efficient decoding algorithm. That includes linear-chain versions of CRFs, which can be decoded with the Viterbi algorithm.
+
+### Conditional Form
+
+CRFs are Markov Random Fields that model conditional probabilities $p(y|x)$.
 
 ---
 

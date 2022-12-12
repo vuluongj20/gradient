@@ -174,7 +174,7 @@
 }
 .katex .katex-html > .newline {
 	display: block;
-	height: 0.25em;
+	height: 0.125em;
 }
 .katex .base {
 	position: relative;
