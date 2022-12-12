@@ -93,11 +93,11 @@ export default HMMNERGraph
 
 const Wrap = styled.div`
 	position: relative;
+	height: 7rem;
 	${(p) => p.theme.gridColumn.wide};
 	${(p) => p.theme.marginBottom[3]}
 `
 
 const StyledGraphView = styled(GraphView)`
-	height: 7rem;
 	pointer-events: none;
 `

@@ -88,11 +88,11 @@ export default HMMOverviewGraph
 
 const Wrap = styled.div`
 	position: relative;
+	height: 6rem;
 	${(p) => p.theme.gridColumn.text};
 	${(p) => p.theme.marginBottom[3]}
 `
 
 const StyledGraphView = styled(GraphView)`
-	height: 6rem;
 	pointer-events: none;
 `

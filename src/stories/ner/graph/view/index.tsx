@@ -90,4 +90,5 @@ const Wrap = styled.div`
 	position: relative;
 	display: flex;
 	justify-content: center;
+	height: 100%;
 `
