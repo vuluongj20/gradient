@@ -82,14 +82,12 @@ const ReferenceItem = styled.li`
 const ReferenceContent = styled.span`
 	b {
 		font-weight: 500;
-		margin-right: ${(p) => p.theme.space[0.5]};
 	}
 	a {
 		position: relative;
 		color: ${(p) => p.theme.label};
 		text-decoration: underline;
 		text-decoration-color: ${(p) => p.theme.linkUnderline};
-		margin-left: ${(p) => p.theme.space[1]};
 
 		&:hover,
 		&.focus-visible {
@@ -98,14 +96,11 @@ const ReferenceContent = styled.span`
 		}
 
 		&::before {
-			content: '|';
+			content: ' —  ';
+			white-space: pre;
 			display: inline-block;
-			position: absolute;
-			color: ${(p) => p.theme.oLine};
-			top: 0;
-			left: -${(p) => p.theme.space[1]};
 			text-decoration: none;
-			transform: translateX(-50%);
+			opacity: 0.5;
 		}
 	}
 	br {

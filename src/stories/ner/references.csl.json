@@ -25,7 +25,7 @@
     "id": "Pearl1988",
     "ISBN": "1558604790",
     "issued": { "date-parts": [[1988]] },
-    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "publisher": "Morgan Kaufmann Publishers Inc",
     "publisher-place": "San Francisco, CA, USA",
     "title": "Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference",
     "type": "book"
@@ -112,7 +112,7 @@
     "issued": { "date-parts": [[2000]] },
     "number-of-pages": "8",
     "page": "591-598",
-    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "publisher": "Morgan Kaufmann Publishers Inc",
     "publisher-place": "San Francisco, CA, USA",
     "title": "Maximum Entropy Markov Models for Information Extraction and Segmentation",
     "type": "paper-conference",
@@ -131,7 +131,7 @@
     "issued": { "date-parts": [[2001]] },
     "number-of-pages": "8",
     "page": "282-289",
-    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "publisher": "Morgan Kaufmann Publishers Inc",
     "publisher-place": "San Francisco, CA, USA",
     "title": "Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data",
     "type": "paper-conference",
@@ -187,7 +187,7 @@
     "issue": 12,
     "issued": { "date-parts": [[2010]] },
     "page": "5405-5410",
-    "title": "Maximum entropy models for antibody diversity",
+    "title": "Maximum Entropy Models for Antibody Diversity",
     "type": "article-journal",
     "URL": "https://www.pnas.org/doi/abs/10.1073/pnas.1001705107",
     "volume": 107
@@ -205,7 +205,7 @@
     "issued": { "date-parts": [[2000]] },
     "number-of-pages": "8",
     "page": "591-598",
-    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "publisher": "Morgan Kaufmann Publishers Inc",
     "publisher-place": "San Francisco, CA, USA",
     "title": "Maximum Entropy Markov Models for Information Extraction and Segmentation",
     "type": "paper-conference"
@@ -221,7 +221,7 @@
     "id": "Ziebart2009",
     "issued": { "date-parts": [[2009, 1]] },
     "page": "92-97",
-    "title": "Human Behavior Modeling with Maximum Entropy Inverse Optimal Control.",
+    "title": "Human Behavior Modeling with Maximum Entropy Inverse Optimal Control",
     "type": "paper-conference",
     "URL": "https://www.aaai.org/Papers/Symposia/Spring/2009/SS-09-04/SS09-04-016.pdf"
   },
@@ -291,7 +291,7 @@
     "issued": { "date-parts": [[2001]] },
     "number-of-pages": "8",
     "page": "282-289",
-    "publisher": "Morgan Kaufmann Publishers Inc.",
+    "publisher": "Morgan Kaufmann Publishers Inc",
     "publisher-place": "San Francisco, CA, USA",
     "title": "Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data",
     "type": "paper-conference"
@@ -321,7 +321,7 @@
       { "family": "Zemel", "given": "R.S." },
       { "family": "Carreira-Perpinan", "given": "M.A." }
     ],
-    "container-title": "Proceedings of the 2004 IEEE Computer Society Conference on Computer Vision and Pattern Recognition, 2004. CVPR 2004.",
+    "container-title": "Proceedings of the 2004 IEEE Computer Society Conference on Computer Vision and Pattern Recognition, 2004, CVPR 2004,",
     "DOI": "10.1109/CVPR.2004.1315232",
     "id": "He2004",
     "issued": { "date-parts": [[2004]] },
