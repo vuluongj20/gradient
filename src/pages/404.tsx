@@ -1,8 +1,8 @@
+import { Link } from 'gatsby'
 import styled from 'styled-components'
 
 import Page from '@components/page'
 import SEO from '@components/seo'
-import TransitionLink from '@components/transitionLink'
 
 const Page404 = () => (
   <Page>
@@ -12,7 +12,7 @@ const Page404 = () => (
         We couldn&apos;t find the page you&apos;re looking for. Make sure you typed in the
         correct URL, or go back to the home page and start looking from there.
       </Text>
-      <Link to="/">Take me home.</Link>
+      <HomeLink to="/">Take me home.</HomeLink>
     </Wrap>
   </Page>
 )
@@ -41,7 +41,7 @@ const Text = styled.p`
   ${(p) => p.theme.marginBottom[1]};
 `
 
-const Link = styled(TransitionLink)`
+const HomeLink = styled(Link)`
   text-decoration: underline;
   text-decoration-color: ${(p) => p.theme.label};
   &:hover {

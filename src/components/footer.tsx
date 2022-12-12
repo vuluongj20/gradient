@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Divider from '@components/divider'
 import Grid from '@components/grid'
 
-// import TransitionLink from '@components/transitionLink'
+// import {Link} from 'gatsby'
 // import { Page } from '@types'
 // import useAuthors from '@utils/data/authors'
 // import useArchivePage from '@utils/data/pages/archive'
@@ -151,7 +151,7 @@ const PolicyText = styled.p`
 // 	grid-column-end: span 2;
 // `
 
-// const StyledLink = styled(TransitionLink)`
+// const StyledLink = styled(Link)`
 // 	color: ${(p) => p.theme.label};
 // 	&:hover {
 // 		color: ${(p) => p.theme.body};

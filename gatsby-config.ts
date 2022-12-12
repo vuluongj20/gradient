@@ -26,6 +26,7 @@ const config: GatsbyConfig = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
+    'gatsby-plugin-layout',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -114,13 +115,6 @@ const config: GatsbyConfig = {
           '@images': path.resolve(__dirname, 'src/images'),
         },
         extensions: ['js', 'jsx', 'ts', 'tsx'],
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-transition-link',
-      options: {
-        layout: path.resolve(`./src/layouts/index.tsx`),
-        injectPageProps: false,
       },
     },
     {

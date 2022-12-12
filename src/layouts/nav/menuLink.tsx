@@ -1,7 +1,6 @@
 import { useLocation } from '@reach/router'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
-
-import TransitionLink from '@components/transitionLink'
 
 interface MenuLinkProps {
 	path: string
@@ -11,18 +10,13 @@ interface MenuLinkProps {
 	toggleMenu: (nextState: boolean) => void
 }
 
-const Link = ({ path, title, isSection, focusable, toggleMenu }: MenuLinkProps) => {
+const MenuLink = ({ path, title, isSection, focusable, toggleMenu }: MenuLinkProps) => {
 	const location = useLocation()
 	const disabled = location.pathname.startsWith(path)
 
 	return (
 		<Wrap onClick={() => disabled && toggleMenu(false)}>
-			<InnerWrap
-				to={path}
-				tabIndex={focusable ? 0 : -1}
-				onExit={() => toggleMenu(false)}
-				data-no-underline
-			>
+			<InnerWrap to={path} tabIndex={focusable ? 0 : -1} data-no-underline>
 				<ContentBox>
 					<Title>{title}</Title>
 					{isSection && <Line>_</Line>}
@@ -32,7 +26,7 @@ const Link = ({ path, title, isSection, focusable, toggleMenu }: MenuLinkProps) 
 	)
 }
 
-export default Link
+export default MenuLink
 
 export const Wrap = styled.li`
 	display: block;
@@ -75,7 +69,7 @@ export const Wrap = styled.li`
 	}
 `
 
-const InnerWrap = styled(TransitionLink)`
+const InnerWrap = styled(Link)`
 	${(p) => p.theme.spread};
 	cursor: pointer;
 	transition: transform ${(p) => p.theme.animation.fastOut};

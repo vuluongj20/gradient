@@ -1,10 +1,8 @@
 import { useLocation } from '@reach/router'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
 
-import Breadcrumbs from './breadcrumbs'
 import { HamProps } from './ham'
-
-import TransitionLink from '@components/transitionLink'
 
 import { navSize } from '@utils/style'
 
@@ -101,7 +99,7 @@ BinderProps) => {
 					<circle cx="74" cy="97" />
 				</Logo>
 			</HomeLink>
-			<Breadcrumbs pageTitle={pageTitle} />
+			<PageTitle>{pageTitle}</PageTitle>
 		</Wrap>
 	)
 }
@@ -135,7 +133,7 @@ const Wrap = styled.div`
 	${(p) => p.theme.paddingHorizontalMobile};
 `
 
-const HomeLink = styled(TransitionLink)<{ disabled: boolean }>`
+const HomeLink = styled(Link)<{ disabled: boolean }>`
 	position: absolute;
 	top: ${(p) => p.theme.space[2]};
 	right: 50%;
@@ -181,6 +179,24 @@ const Logo = styled.svg`
 	}
 `
 
+const PageTitle = styled.span`
+	position: absolute;
+	bottom: ${(p) => p.theme.space[1]};
+	left: 50%;
+	transform-origin: left;
+	transform: rotate(-90deg);
+
+	${(p) => p.theme.text.viz.label};
+	color: ${(p) => p.theme.heading};
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+	text-transform: uppercase;
+
+	${(p) => p.theme.media.mobile} {
+		display: none;
+	}
+`
+
 // const SearchWrap = styled.li`
 // 	color: ${(p) => p.theme.heading};
 // 	cursor: pointer;
@@ -206,7 +222,7 @@ const Logo = styled.svg`
 // 		display: initial;
 // 	}
 // `
-// const Logo = styled(TransitionLink)`
+// const Logo = styled(Link)`
 // 	${(p) => p.theme.text.content.h4};
 // 	color: ${(p) => p.theme.heading};
 // 	font-weight: 700;

@@ -1,12 +1,12 @@
 import { useHover, usePress } from '@react-aria/interactions'
 import { mergeProps } from '@react-aria/utils'
 import { VisuallyHidden } from '@react-aria/visually-hidden'
+import { Link } from 'gatsby'
 import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
 
 import Grid from '@components/grid'
-import TransitionLink from '@components/transitionLink'
 
 import { AdaptiveGridColumns, Story } from '@types'
 
@@ -112,7 +112,7 @@ const Card = ({
 
 export default memo(Card)
 
-const Wrap = styled(TransitionLink)<
+const Wrap = styled(Link)<
 	| { $rowLayout: true; $gridCols: undefined }
 	| { $rowLayout: false; $gridCols: AdaptiveGridColumns }
 >`
