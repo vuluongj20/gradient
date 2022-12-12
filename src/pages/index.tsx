@@ -7,8 +7,6 @@ import Section from '@components/section'
 import SectionDivider from '@components/sectionDivider'
 import SEO from '@components/seo'
 
-import Header from '@pageComponents/home/header'
-
 import { Section as ISection, Story } from '@types'
 
 import useSections from '@utils/data/sections'

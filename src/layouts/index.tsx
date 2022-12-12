@@ -50,6 +50,11 @@ const Layout = ({ children, pageContext }: LayoutProps) => {
 			gatsbyFocusWrapper.removeAttribute('style')
 			gatsbyFocusWrapper.removeAttribute('tabIndex')
 		}
+
+		// Disable browser scroll restoration in favor of Gatsby's
+		if ('scrollRestoration' in history) {
+			history.scrollRestoration = 'manual'
+		}
 	}, [])
 
 	if (!mounted) {
