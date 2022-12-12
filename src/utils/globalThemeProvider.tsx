@@ -1,6 +1,6 @@
 // Theme provider for the entire app. This consumes the
 // user settings context.
-import { ReactNode, useContext, useEffect } from 'react'
+import { ReactNode, useContext, useEffect, useMemo } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { Appearance, ThemeSettings, getTheme } from '@theme'
@@ -27,7 +27,10 @@ const GlobalThemeProvider = ({ children }: GlobalThemeProviderProps) => {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
 	const appearance = useAppearance(themeSettings.color)
-	const theme = getTheme(themeSettings, appearance)
+	const theme = useMemo(
+		() => getTheme(themeSettings, appearance),
+		[themeSettings, appearance],
+	)
 
 	// Update body background color, if needed, on state change
 	useEffect(() => {
