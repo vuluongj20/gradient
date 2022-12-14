@@ -38,10 +38,10 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
-  gap: ${(p) => p.theme.space[1]};
-  padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
-  padding-right: ${(p) => p.theme.space[3]};
-  border-radius: ${(p) => p.theme.radii.m};
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  padding-right: var(--space-3);
+  border-radius: var(--border-radius-m);
   cursor: pointer;
 
   &:focus {
@@ -63,11 +63,11 @@ const LabelWrap = styled.span``
 const LeadingWrap = styled.div`
   ${(p) => p.theme.flexCenter};
   height: ${(p) => p.theme.lineHeight};
-  gap: ${(p) => p.theme.space[1]};
+  gap: var(--space-1);
 `
 
 const TrailingWrap = styled.div`
   ${(p) => p.theme.flexCenter};
   height: ${(p) => p.theme.lineHeight};
-  gap: ${(p) => p.theme.space[1]};
+  gap: var(--space-1);
 `

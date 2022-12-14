@@ -15,8 +15,6 @@ export const defaultSettings: Settings = {
 		color: {
 			appearance: 'auto',
 			elevation: 3,
-			lightPalette: 'paper',
-			darkPalette: 'charcoal',
 			increaseContrast: false,
 		},
 		text: {

@@ -56,7 +56,7 @@ const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 	position: relative;
 	width: 100%;
 	overflow: hidden;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 	mask-image: radial-gradient(white, black);
 	background: var(--color-i-background);
 
@@ -67,7 +67,7 @@ const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 		top: 0;
 		width: 100%;
 		height: 100%;
-		border-radius: ${(p) => p.theme.radii.m};
+		border-radius: var(--border-radius-m);
 		box-shadow: inset 0 0 0 1px var(--color-line);
 	}
 
@@ -95,7 +95,7 @@ const Caption = styled.figcaption<{ gridColumn?: FigureProps['gridColumn'] }>`
 	${(p) => p.theme.text.viz.small};
 	text-transform: uppercase;
 	line-height: 1.4;
-	margin-top: ${(p) => p.theme.space[1]};
+	margin-top: var(--space-1);
 	max-width: 40rem;
 
 	${(p) => p.gridColumn === 'wide' && p.theme.paddingHorizontalMobile}

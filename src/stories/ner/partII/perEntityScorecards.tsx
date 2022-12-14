@@ -19,7 +19,7 @@ export default HMMPerEntityScorecards
 
 const Wrap = styled.div`
 	display: flex;
-	gap: ${(p) => p.theme.space[4]};
-	${(p) => p.theme.marginBottom[3]}
+	gap: var(--space-4);
+	margin-bottom: var(--adaptive-space-3);
 	${(p) => p.theme.gridColumn.text};
 `

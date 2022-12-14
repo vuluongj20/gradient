@@ -124,7 +124,7 @@ const Wrap = styled(Link)<
 	animation: ${fadeIn} ${(p) => p.theme.animation.mediumOut} forwards;
 
 	align-self: start;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 
 	&.focus-visible {
 		${(p) => p.theme.focusVisible};
@@ -140,7 +140,7 @@ const Wrap = styled(Link)<
 				grid-column: 1 / -1;
 			`
 			: `
-				padding-bottom: ${p.theme.space[1]};
+				padding-bottom: var(--space-1);
 				grid-column: ${p.$gridCols.xxl.start} / ${p.$gridCols.xxl.end};
 
 				${p.theme.media.xl} {
@@ -173,7 +173,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 	width: 100%;
 	max-height: 48rem;
 	overflow: hidden;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 	mask-image: radial-gradient(white, black);
 	background: var(--color-i-background);
 
@@ -184,7 +184,7 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 		top: 0;
 		width: 100%;
 		height: 100%;
-		border-radius: ${(p) => p.theme.radii.m};
+		border-radius: var(--border-radius-m);
 		box-shadow: inset 0 0 0 1px var(--color-line);
 	}
 
@@ -207,11 +207,10 @@ const StyledGatsbyImage = styled(GatsbyImage)`
 `
 
 const TitleWrap = styled.div<{ rowLayout: boolean }>`
-	${(p) =>
-		p.rowLayout ? `grid-column-end: span 4;` : `margin-top: ${p.theme.space[1]};`}
+	${(p) => (p.rowLayout ? `grid-column-end: span 4;` : `margin-top: var(--space-1);`)}
 
 	${(p) => p.theme.media.s} {
-		margin: ${(p) => p.theme.space[1]} 0;
+		margin: var(--space-1) 0;
 	}
 `
 
@@ -242,7 +241,7 @@ const DummyTitle = styled.span<{ active: boolean }>`
 const Tags = styled.div<{ active: boolean }>`
 	${(p) => p.theme.text.system.label};
 	color: var(--color-label);
-	margin-top: ${(p) => p.theme.space[0]};
+	margin-top: var(--space-0);
 	transition: color ${(p) => p.theme.animation.vFastOut};
 	text-transform: capitalize;
 

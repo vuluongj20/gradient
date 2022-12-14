@@ -182,34 +182,29 @@ interface PopoverWrapProps {
   arrowStyles: CSSProperties
 }
 
-const getTransform = ({
-  animateScale,
-  placement,
-  arrowStyles,
-  theme,
-}: PopoverWrapProps & { theme: Theme }) => {
+const getTransform = ({ animateScale, placement, arrowStyles }: PopoverWrapProps) => {
   const scaleTerm = animateScale ? 'scale(0.8)' : ''
 
   switch (placement?.split('-')[0]) {
     case 'top':
       return `
         transform-origin: ${arrowStyles.left ?? 0}px 100%;
-        transform: translate3d(0, ${theme.space[2]}, 0) ${scaleTerm};
+        transform: translate3d(0, var(--space-2), 0) ${scaleTerm};
       `
     case 'bottom':
       return `
         transform-origin: ${arrowStyles.left ?? 0}px 0%;
-        transform: translate3d(0, -${theme.space[2]}, 0) ${scaleTerm};
+        transform: translate3d(0, calc(var(--space-2) * -1), 0) ${scaleTerm};
       `
     case 'left':
       return `
         transform-origin: 100% ${arrowStyles.top ?? 0}px;
-        transform: translate3d(${theme.space[2]}, 0, 0) ${scaleTerm};
+        transform: translate3d(var(--space-2), 0, 0) ${scaleTerm};
       `
     case 'right':
       return `
         transform-origin: 0% ${arrowStyles.top ?? 0}px;
-        transform: translate3d(-${theme.space[2]}, 0, 0) ${scaleTerm};
+        transform: translate3d(calc(var(--space-2) * -1), 0, 0) ${scaleTerm};
       `
     default:
       return ''
@@ -222,13 +217,13 @@ const getStyles = (p: PopoverWrapProps & { theme: Theme }) => `
     p.maxWidth ? `min(${p.maxWidth}, calc(100vw - 32px))` : `calc(100vw - 32px)`
   };
   background: var(--color-o-background);
-  border-radius: ${p.theme.radii.m};
-  padding: ${p.theme.space[0]};
-  box-shadow: 0 0 0 1px var(--color-o-line), ${p.theme.shadows.l};
+  border-radius: var(--border-radius-m);
+  padding: var(--space-0);
+  box-shadow: 0 0 0 1px var(--color-o-line), var(--box-shadow-l);
   transition: transform ${p.theme.animation.fastOut},
     opacity ${p.theme.animation.fastOut};
   opacity: 0;
-  z-index: ${p.theme.zIndices.popover};
+  z-index: var(--z-index-popover);
   pointer-events: none;
 
   ${getTransform(p)}

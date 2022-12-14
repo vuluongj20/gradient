@@ -22,62 +22,17 @@ type MediaUtil = { media: Record<Breakpoint | 'mobile', string> }
 
 type GridColumnUtil = { gridColumn: Record<'text' | 'wide' | 'fullWidth', CSSObject> }
 
-type SpacingName =
-	| 'paddingVertical'
-	| 'paddingTop'
-	| 'paddingBottom'
-	| 'marginVertical'
-	| 'marginTop'
-	| 'marginBottom'
-
 type ComplexSpacingName =
 	| 'paddingHorizontal'
 	| 'paddingHorizontalMobile'
 	| 'marginHorizontal'
 	| 'marginHorizontalMobile'
 
-export type SpacingUtil = Record<SpacingName, CSSObject[]> &
-	Record<ComplexSpacingName, CSSObject>
+export type SpacingUtil = Record<ComplexSpacingName, CSSObject>
 
 export type Utils = CSSUtil & CSSStringUtil & MediaUtil & GridColumnUtil & SpacingUtil
 
 type PartialTheme = Omit<Theme, keyof Utils>
-
-const breakpointNames = Object.keys(breakpoints) as Breakpoint[]
-
-const adaptiveSpacing: Record<number, Record<Breakpoint, keyof Theme['space']>> = {
-	0: { xl: 0, l: 0, m: 0, s: 0, xs: 0 },
-	0.5: { xl: 0.5, l: 0.5, m: 0.5, s: 0.5, xs: 0.5 },
-	1: { xl: 1, l: 1, m: 1, s: 1, xs: 0 },
-	1.5: { xl: 1.5, l: 1.5, m: 1, s: 1, xs: 1 },
-	2: { xl: 2, l: 2, m: 1, s: 1, xs: 1 },
-	3: { xl: 3, l: 3, m: 2, s: 2, xs: 1 },
-	4: { xl: 4, l: 4, m: 3, s: 3, xs: 2 },
-	5: { xl: 5, l: 5, m: 4, s: 4, xs: 2 },
-	6: { xl: 6, l: 6, m: 5, s: 5, xs: 3 },
-	7: { xl: 7, l: 7, m: 6, s: 6, xs: 4 },
-	8: { xl: 8, l: 8, m: 7, s: 7, xs: 5 },
-}
-
-const generateAdaptiveSpacing = (
-	theme: PartialTheme,
-	properties: string[],
-): CSSObject[] => {
-	const generateCSSProperties = (props: string[], value: string): CSSObject =>
-		Object.fromEntries(props.map((p) => [p, value]))
-
-	return (Object.entries(theme.space) as unknown as Array<[number, string]>).map(
-		([i, s]) => ({
-			...generateCSSProperties(properties, s),
-			...Object.fromEntries(
-				breakpointNames.map((b) => [
-					`@media only screen and (max-width: ${theme.breakpoints[b]})`,
-					generateCSSProperties(properties, theme.space[adaptiveSpacing[i][b]]),
-				]),
-			),
-		}),
-	)
-}
 
 export const generateUtils = (theme: PartialTheme): Utils => ({
 	spread: {
@@ -162,9 +117,6 @@ export const generateUtils = (theme: PartialTheme): Utils => ({
 			gridColumn: '1 / -1',
 		},
 	},
-	paddingVertical: generateAdaptiveSpacing(theme, ['paddingTop', 'paddingBottom']),
-	paddingTop: generateAdaptiveSpacing(theme, ['paddingTop']),
-	paddingBottom: generateAdaptiveSpacing(theme, ['paddingBottom']),
 	paddingHorizontal: {
 		paddingLeft: `max(${paddingHorizontal * 2}rem, var(--sal, 0px))`,
 		paddingRight: `max(${paddingHorizontal * 2}rem, var(--sar, 0px))`,
@@ -189,9 +141,6 @@ export const generateUtils = (theme: PartialTheme): Utils => ({
 			paddingRight: `max(${paddingHorizontal * 0.5}rem, var(--sar, 0px))`,
 		},
 	},
-	marginVertical: generateAdaptiveSpacing(theme, ['marginTop', 'marginBottom']),
-	marginTop: generateAdaptiveSpacing(theme, ['marginTop']),
-	marginBottom: generateAdaptiveSpacing(theme, ['marginBottom']),
 	marginHorizontal: {
 		marginLeft: `max(${paddingHorizontal * 2}rem, var(--sal, 0px))`,
 		marginRight: `max(${paddingHorizontal * 2}rem, var(--sar, 0px))`,

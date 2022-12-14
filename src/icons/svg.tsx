@@ -1,15 +1,11 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { ColorAliases } from '@theme/colors'
-
-type ColorProp = keyof ColorAliases | 'currentColor'
-
 type IconSize = 'xs' | 's' | 'm' | 'l' | 'xl'
 
 export interface IconProps {
 	size?: IconSize
-	color?: ColorProp
+	color?: string
 	className?: string
 	useAlt?: boolean
 }
@@ -52,10 +48,11 @@ const SVG = ({
 
 export default SVG
 
-const StyledSVG = styled.svg<{ $color: ColorProp }>`
+const StyledSVG = styled.svg<{ $color: string }>`
 	fill: ${(p) =>
-		p.$color &&
-		(p.$color === 'currentColor' ? 'currentColor' : `var(--color${p.color ?? 'body'})`)};
+		!p.$color || p.$color === 'currentColor'
+			? 'currentColor'
+			: `var(--color-${p.$color})`};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	path {

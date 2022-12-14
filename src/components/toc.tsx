@@ -85,7 +85,7 @@ const TocWrap = styled.div`
 const TocInnerWrap = styled.div`
 	position: relative;
 	height: 100%;
-	padding-top: ${(p) => p.theme.space[2]};
+	padding-top: var(--space-2);
 `
 
 const TocInnerContentWrap = styled.div`
@@ -108,7 +108,7 @@ const TocContent = styled.div`
 	}
 
 	li {
-		margin-bottom: ${(p) => p.theme.space[1]};
+		margin-bottom: var(--space-1);
 	}
 
 	li,
@@ -135,7 +135,7 @@ const LowerIntersectionTarget = styled(IntersectionTarget)``
 const ScrollFade = styled.div<{ visible: boolean }>`
 	position: absolute;
 	width: 100%;
-	height: ${(p) => p.theme.space[6]};
+	height: var(--space-6);
 	z-index: 1;
 	pointer-events: none;
 	transition: opacity ${(p) => p.theme.animation.fastOut};

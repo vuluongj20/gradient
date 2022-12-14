@@ -59,10 +59,10 @@ const ReferencesHeader = styled.h2`
 `
 
 const ReferencesList = styled.ol`
-	margin-top: ${(p) => p.theme.space[2]};
+	margin-top: var(--space-2);
 
 	${(p) => p.theme.media.xs} {
-		padding-left: ${(p) => p.theme.space[3]};
+		padding-left: var(--space-3);
 	}
 `
 
@@ -75,7 +75,7 @@ const ReferenceItem = styled.li`
 	}
 
 	&:not(:last-child) {
-		margin-bottom: ${(p) => p.theme.space[2]};
+		margin-bottom: var(--space-2);
 	}
 `
 
@@ -93,10 +93,15 @@ const ReferenceContent = styled.span`
 		&.focus-visible {
 			color: var(--color-content-link-text);
 			text-decoration-color: var(--color-content-link-underline);
+
+			::before {
+				color: var(--color-label);
+			}
 		}
 
 		&::before {
 			content: ' —  ';
+			color: var(--color-label);
 			white-space: pre;
 			display: inline-block;
 			text-decoration: none;
@@ -104,7 +109,7 @@ const ReferenceContent = styled.span`
 		}
 	}
 	br {
-		margin-bottom: ${(p) => p.theme.space[0]};
+		margin-bottom: var(--space-0);
 	}
 `
 
@@ -112,7 +117,7 @@ const ReferenceBackRef = styled.a`
 	display: inline-flex;
 	align-items: center;
 	height: 1.4em;
-	margin-left: ${(p) => p.theme.space[0]};
+	margin-left: var(--space-0);
 	transform: translateY(0.15em);
 
 	color: var(--color-label);

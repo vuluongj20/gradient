@@ -55,12 +55,12 @@ const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
 		p.rowLayout
 			? `
 					display: grid;
-					grid-column-gap: ${p.theme.space[2]};
-					grid-row-gap: ${p.theme.space[0]};
+					grid-column-gap: var(--space-2);
+					grid-row-gap: var(--space-0);
 					grid-template-columns: 1fr max-content;
 					align-items: center;
 					justify-items: end;
-					padding: ${p.theme.space[2]} 0;
+					padding: var(--space-2) 0;
 
 					:not(:last-child) {
 						border-bottom: solid 1px var(--color-line);
@@ -70,7 +70,7 @@ const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
 					display: flex;
 					flex-direction: column;
 					align-items: flex-start;
-					padding: ${p.theme.space[1]} 0;
+					padding: var(--space-1) 0;
 				`}
 `
 
@@ -81,7 +81,7 @@ const Label = styled.label<{ rowLayout: boolean }>`
 		!p.rowLayout &&
 		`
 		display: block; 
-		margin-bottom: ${p.theme.space[0]};
+		margin-bottom: var(--space-0);
 	`}
 `
 
@@ -96,7 +96,7 @@ const Description = styled.small<{ rowLayout: boolean }>`
 		!p.rowLayout &&
 		`
 		display: block; 
-		margin-bottom: ${p.theme.space[0]};
+		margin-bottom: var(--space-0);
 	`}
 `
 

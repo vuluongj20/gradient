@@ -104,14 +104,14 @@ const CitationText = styled.span`
 	${(p) => p.theme.text.system.body};
 	display: block;
 	text-align: left;
-	margin: ${(p) => p.theme.space[0.5]};
+	margin: var(--space-0-5);
 
 	b {
 		color: var(--color-heading);
 		font-weight: 500;
 	}
 	br {
-		margin-bottom: ${(p) => p.theme.space[0]};
+		margin-bottom: var(--space-0);
 	}
 	a {
 		position: relative;
@@ -123,10 +123,15 @@ const CitationText = styled.span`
 		&.focus-visible {
 			color: var(--color-content-link-text);
 			text-decoration-color: var(--color-content-link-underline);
+
+			::before {
+				color: var(--color-label);
+			}
 		}
 
 		&::before {
 			content: ' —  ';
+			color: var(--color-label);
 			white-space: pre;
 			display: inline-block;
 			text-decoration: none;
@@ -136,5 +141,5 @@ const CitationText = styled.span`
 `
 
 const StyledDivider = styled(Divider)`
-	margin: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[0.5]};
+	margin: var(--space-1) var(--space-0-5);
 `

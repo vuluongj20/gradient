@@ -24,7 +24,7 @@ const TabPanel = ({ state, ...props }: TabPanelProps) => {
 export default TabPanel
 
 const Wrap = styled.div`
-  padding: ${(p) => p.theme.space[2]} ${(p) => p.theme.space[3]};
+  padding: var(--space-2) var(--space-3);
   ${(p) => p.theme.transitionGroupFade}
   transition: opacity ${(p) => p.theme.animation.fastOut};
 `

@@ -127,7 +127,7 @@ const NodePanel = observer(
 )
 
 const StyledPopover = styled(Popover)`
-	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[2]};
+	padding: var(--space-1) var(--space-2);
 `
 
 export default NodePanel

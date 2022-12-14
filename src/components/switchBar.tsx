@@ -151,10 +151,10 @@ const SwitchBarWrap = styled.div<{ moveLeft?: boolean }>`
 	position: relative;
 	display: inline-flex;
 	background: var(--color-ii-background);
-	box-shadow: inset ${(p) => p.theme.shadows.s};
-	border-radius: ${(p) => p.theme.radii.m};
+	box-shadow: inset var(--box-shadow-s);
+	border-radius: var(--border-radius-m);
 
-	${(p) => p.moveLeft && `transform: translateX(-${p.theme.space[0]})`}
+	${(p) => p.moveLeft && `transform: translateX(-var(--space-0))`}
 `
 
 const Indicator = styled.div<{ left?: number; width?: number }>`
@@ -163,8 +163,8 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 	left: 2px;
 	height: calc(100% - 4px);
 	background: var(--color-oo-background);
-	border-radius: calc(${(p) => p.theme.radii.m} - 2px);
-	box-shadow: ${(p) => p.theme.shadows.m};
+	border-radius: calc(var(--border-radius-m) - 2px);
+	box-shadow: var(--box-shadow-m);
 	opacity: 0;
 	transition: transform ${(p) => p.theme.animation.fastOut},
 		width ${(p) => p.theme.animation.fastOut}, opacity ${(p) => p.theme.animation.fastOut};
@@ -186,7 +186,7 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
 	position: relative;
 	display: block;
-	padding: ${(p) => p.theme.space[0.5]} ${(p) => p.theme.space[2]};
+	padding: var(--space-0-5) var(--space-2);
 	cursor: pointer;
 	user-select: none;
 
@@ -194,7 +194,7 @@ const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
 		&::after {
 			content: '';
 			${(p) => p.theme.spread};
-			border-radius: ${(p) => p.theme.radii.m};
+			border-radius: var(--border-radius-m);
 			background: var(--color-active-background);
 			z-index: -1;
 			opacity: 0;
@@ -205,7 +205,7 @@ const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
 	${(p) =>
 		p.isSelected &&
 		`
-		text-shadow: ${p.theme.shadows.text};
+		text-shadow: var(--box-shadow-text);
 		z-index: 1;
 
 		@media (prefers-reduced-motion) {
@@ -225,7 +225,7 @@ const SwitchItemInput = styled.input`
 	right: 0;
 	padding: 0;
 	margin: 0 1px;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 	transition: box-shadow ${(p) => p.theme.animation.fastOut};
 	cursor: pointer;
 	z-index: -1;

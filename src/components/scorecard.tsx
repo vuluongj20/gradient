@@ -25,8 +25,8 @@ const Wrap = styled.div``
 const Label = styled.p`
 	${(p) => p.theme.text.system.label};
 	color: var(--color-label);
-	margin-top: ${(p) => p.theme.space[0]};
-	margin-bottom: ${(p) => p.theme.space[0]};
+	margin-top: var(--space-0);
+	margin-bottom: var(--space-0);
 `
 
 const Main = styled.p`
@@ -36,7 +36,7 @@ const Main = styled.p`
 const MainNumber = styled.span`
 	${(p) => p.theme.text.system.h3};
 	color: var(--color-heading);
-	padding-right: ${(p) => p.theme.space[0]};
+	padding-right: var(--space-0);
 	line-height: 1;
 `
 

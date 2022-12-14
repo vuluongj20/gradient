@@ -87,11 +87,9 @@ const Wrap = styled.button<{
 	appearance: none;
 	border: none;
 	cursor: pointer;
-	border-radius: ${(p) => p.theme.radii.s};
+	border-radius: var(--border-radius-s);
 	padding: ${(p) =>
-		p.small
-			? `${p.theme.space[0.5]} ${p.theme.space[1]}`
-			: `${p.theme.space[1]} ${p.theme.space[1.5]}`};
+		p.small ? `var(--space-0-5) var(--space-1)` : `var(--space-1) var(--space-1-5)`};
 	background-color: ${(p) =>
 		p.filled
 			? p.primary
@@ -115,7 +113,7 @@ const Wrap = styled.button<{
 		${(p) => p.theme.focusVisible};
 	}
 
-	${(p) => p.showExpandIcon && `padding-right: ${p.theme.space[0]};`}
+	${(p) => p.showExpandIcon && `padding-right: var(--space-0);`}
 	${(p) =>
 		p.showBorder &&
 		`border: solid 1px ${p.isExpanded ? 'var(--color-o-line)' : 'var(--color-line)'}`}

@@ -80,5 +80,5 @@ const Circle = styled.circle<{ diameter: number }>`
 const Label = styled.span`
 	${(p) => p.theme.text.system.small}
 	color: var(--color-label);
-	margin-top: ${(p) => p.theme.space[2]};
+	margin-top: var(--space-2);
 `

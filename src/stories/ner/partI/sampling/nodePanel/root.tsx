@@ -82,5 +82,5 @@ const Wrap = styled.div``
 const NodeDescription = styled.p`
 	${(p) => p.theme.text.system.small}
 	color: var(--color-label);
-	margin-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: var(--space-1);
 `

@@ -2,13 +2,15 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --color-scale-paper-white: #F1F2F4;
-    --color-scale-paper-black: #212529;
+    --color-white: #F1F2F4;
+    --color-black: #212529;
+
+    /* Paper palette */
     --color-scale-paper-surface1: #F8EAEC;
     --color-scale-paper-surface2: #FAF0F2;
     --color-scale-paper-surface3: #FCF5F7;
     --color-scale-paper-surface4: #FDFCFC;
-    --color-scale-paper-surface5: #FFFFFF;
+    --color-scale-paper-surface5: #FFF;
     --color-scale-paper-gray1: #161213;
     --color-scale-paper-gray2: #2F2729;
     --color-scale-paper-gray3: #4A3F41;
@@ -16,8 +18,8 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-paper-gray5: #7C6E71;
     --color-scale-paper-gray6: #A19798;
     --color-scale-paper-gray7: #C5BFC0;
-    --color-scale-paper-gray8: rgba(148, 137, 139, 0.22);
-    --color-scale-paper-gray9: rgba(148, 137, 139, 0.16);
+    --color-scale-paper-gray8: rgb(148 137 139 / 22%);
+    --color-scale-paper-gray9: rgb(148 137 139 / 16%);
     --color-scale-paper-red1: #CB3510;
     --color-scale-paper-red2: #ED4921;
     --color-scale-paper-red3: #F17456;
@@ -55,8 +57,7 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-paper-purple5: #F9B4EC;
     --color-scale-paper-purple6: #FDE3F8;
 
-    --color-scale-charcoal-white: #F1F2F4;
-    --color-scale-charcoal-black: #212529;
+    /* Charcoal palette */
     --color-scale-charcoal-surface1: #131313;
     --color-scale-charcoal-surface2: #171717;
     --color-scale-charcoal-surface3: #1B1B1B;
@@ -69,49 +70,167 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-charcoal-gray5: #858C93;
     --color-scale-charcoal-gray6: #686E73;
     --color-scale-charcoal-gray7: #494D50;
-    --color-scale-charcoal-gray8: rgba(102, 107, 112, 0.24);
-    --color-scale-charcoal-gray9: rgba(102, 107, 112, 0.14);
-    --color-scale-charcoal-red1: rgba(255, 115, 82, 1);
-    --color-scale-charcoal-red2: rgba(255, 115, 82, 0.9);
-    --color-scale-charcoal-red3: rgba(255, 115, 82, 0.8);
-    --color-scale-charcoal-red4: rgba(255, 115, 82, 0.6);
-    --color-scale-charcoal-red5: rgba(255, 115, 82, 0.4);
-    --color-scale-charcoal-red6: rgba(255, 115, 82, 0.12);
-    --color-scale-charcoal-yellow1: rgba(184, 229, 0, 1);
-    --color-scale-charcoal-yellow2: rgba(184, 229, 0, 0.9);
-    --color-scale-charcoal-yellow3: rgba(184, 229, 0, 0.8);
-    --color-scale-charcoal-yellow4: rgba(184, 229, 0, 0.6);
-    --color-scale-charcoal-yellow5: rgba(184, 229, 0, 0.4);
-    --color-scale-charcoal-yellow6: rgba(184, 229, 0, 0.08);
-    --color-scale-charcoal-green1: rgba(0, 204, 59, 1);
-    --color-scale-charcoal-green2: rgba(0, 204, 59, 0.9);
-    --color-scale-charcoal-green3: rgba(0, 204, 59, 0.8);
-    --color-scale-charcoal-green4: rgba(0, 204, 59, 0.6);
-    --color-scale-charcoal-green5: rgba(0, 204, 59, 0.4);
-    --color-scale-charcoal-green6: rgba(0, 204, 59, 0.14);
-    --color-scale-charcoal-teal1: rgba(15, 209, 255, 1);
-    --color-scale-charcoal-teal2: rgba(15, 209, 255, 0.9);
-    --color-scale-charcoal-teal3: rgba(15, 209, 255, 0.8);
-    --color-scale-charcoal-teal4: rgba(15, 209, 255, 0.6);
-    --color-scale-charcoal-teal5: rgba(15, 209, 255, 0.4);
-    --color-scale-charcoal-teal6: rgba(15, 209, 255, 0.12);
-    --color-scale-charcoal-blue1: rgba(153, 128, 255, 1);
-    --color-scale-charcoal-blue2: rgba(153, 128, 255, 0.9);
-    --color-scale-charcoal-blue3: rgba(153, 128, 255, 0.8);
-    --color-scale-charcoal-blue4: rgba(153, 128, 255, 0.6);
-    --color-scale-charcoal-blue5: rgba(153, 128, 255, 0.4);
-    --color-scale-charcoal-blue6: rgba(153, 128, 255, 0.12);
-    --color-scale-charcoal-purple1: rgba(255, 92, 223, 1);
-    --color-scale-charcoal-purple2: rgba(255, 92, 223, 0.9);
-    --color-scale-charcoal-purple3: rgba(255, 92, 223, 0.8);
-    --color-scale-charcoal-purple4: rgba(255, 92, 223, 0.6);
-    --color-scale-charcoal-purple5: rgba(255, 92, 223, 0.4);
-    --color-scale-charcoal-purple6: rgba(255, 92, 223, 0.14);
+    --color-scale-charcoal-gray8: rgb(102 107 112 / 24%);
+    --color-scale-charcoal-gray9: rgb(102 107 112 / 14%);
+    --color-scale-charcoal-red1: rgb(255 115 82 / 100%);
+    --color-scale-charcoal-red2: rgb(255 115 82 / 90%);
+    --color-scale-charcoal-red3: rgb(255 115 82 / 80%);
+    --color-scale-charcoal-red4: rgb(255 115 82 / 60%);
+    --color-scale-charcoal-red5: rgb(255 115 82 / 40%);
+    --color-scale-charcoal-red6: rgb(255 115 82 / 12%);
+    --color-scale-charcoal-yellow1: rgb(184 229 0 / 100%);
+    --color-scale-charcoal-yellow2: rgb(184 229 0 / 90%);
+    --color-scale-charcoal-yellow3: rgb(184 229 0 / 80%);
+    --color-scale-charcoal-yellow4: rgb(184 229 0 / 60%);
+    --color-scale-charcoal-yellow5: rgb(184 229 0 / 40%);
+    --color-scale-charcoal-yellow6: rgb(184 229 0 / 08%);
+    --color-scale-charcoal-green1: rgb(0 204 59 / 100%);
+    --color-scale-charcoal-green2: rgb(0 204 59 / 90%);
+    --color-scale-charcoal-green3: rgb(0 204 59 / 80%);
+    --color-scale-charcoal-green4: rgb(0 204 59 / 60%);
+    --color-scale-charcoal-green5: rgb(0 204 59 / 40%);
+    --color-scale-charcoal-green6: rgb(0 204 59 / 14%);
+    --color-scale-charcoal-teal1: rgb(15 209 255 / 100%);
+    --color-scale-charcoal-teal2: rgb(15 209 255 / 90%);
+    --color-scale-charcoal-teal3: rgb(15 209 255 / 80%);
+    --color-scale-charcoal-teal4: rgb(15 209 255 / 60%);
+    --color-scale-charcoal-teal5: rgb(15 209 255 / 40%);
+    --color-scale-charcoal-teal6: rgb(15 209 255 / 12%);
+    --color-scale-charcoal-blue1: rgb(153 128 255 / 100%);
+    --color-scale-charcoal-blue2: rgb(153 128 255 / 90%);
+    --color-scale-charcoal-blue3: rgb(153 128 255 / 80%);
+    --color-scale-charcoal-blue4: rgb(153 128 255 / 60%);
+    --color-scale-charcoal-blue5: rgb(153 128 255 / 40%);
+    --color-scale-charcoal-blue6: rgb(153 128 255 / 12%);
+    --color-scale-charcoal-purple1: rgb(255 92 223 / 100%);
+    --color-scale-charcoal-purple2: rgb(255 92 223 / 90%);
+    --color-scale-charcoal-purple3: rgb(255 92 223 / 80%);
+    --color-scale-charcoal-purple4: rgb(255 92 223 / 60%);
+    --color-scale-charcoal-purple5: rgb(255 92 223 / 40%);
+    --color-scale-charcoal-purple6: rgb(255 92 223 / 14%);
+
+    /* Light box shadows */
+    --box-shadow-light-s: 0 1px 2px rgb(33 37 41 / 4%);
+    --box-shadow-light-m: 0 1px 4px rgb(33 37 41 / 6%);
+    --box-shadow-light-l: 0 4px 32px rgb(33 37 41 / 8%);
+    --box-shadow-light-text: 0 1px 8px rgb(33 37 41 / 16%);
+
+    /* Dark box shadows */
+    --box-shadow-dark-s: 0 1px 2px rgb(25 25 25);
+    --box-shadow-dark-m: 0 1px 4px rgb(25 25 25);
+    --box-shadow-dark-l: 0 4px 32px rgb(25 25 25);
+    --box-shadow-dark-text: 0 1px 12px rgb(25 25 25 / 32%);
+
+    /* Z-indices */
+    --z-index-nav: 9;
+    --z-index-dialog: 10;
+    --z-index-popover: 10;    
+    --z-index-tooltip: 10;
+
+    /* Border radii */
+    --border-radius-xs: 0.25rem;
+    --border-radius-s: 0.375rem;
+    --border-radius-m: 0.5rem;
+    --border-radius-l: 0.75rem;
+
+    /* Space */
+    --space-0: 4px;
+    --space-0-5: 6px;
+    --space-1: 8px;
+    --space-1-5: 12px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --space-6: 64px;
+    --space-7: 96px;
+    --space-8: 128px;
+
+    /* Adaptive space */
+    --adaptive-space-0: var(--space-0);
+    --adaptive-space-1: var(--space-1);
+    --adaptive-space-2: var(--space-2);
+    --adaptive-space-3: var(--space-3);
+    --adaptive-space-4: var(--space-4);
+    --adaptive-space-5: var(--space-5);
+    --adaptive-space-6: var(--space-6);
+    --adaptive-space-7: var(--space-7);
+    --adaptive-space-8: var(--space-8);
+    --adaptive-space-0-5: var(--space-0-5);
+    --adaptive-space-1-5: var(--space-1-5);
+
+    @media only screen and (max-width: 90rem){
+      --adaptive-space-0: var(--space-0);
+      --adaptive-space-1: var(--space-1);
+      --adaptive-space-2: var(--space-2);
+      --adaptive-space-3: var(--space-3);
+      --adaptive-space-4: var(--space-4);
+      --adaptive-space-5: var(--space-5);
+      --adaptive-space-6: var(--space-6);
+      --adaptive-space-7: var(--space-7);
+      --adaptive-space-8: var(--space-8);
+      --adaptive-space-0-5: var(--space-0-5);
+      --adaptive-space-1-5: var(--space-1-5)
+    }
+
+    @media only screen and (max-width: 78rem){
+      --adaptive-space-0: var(--space-0);
+      --adaptive-space-1: var(--space-1);
+      --adaptive-space-2: var(--space-2);
+      --adaptive-space-3: var(--space-3);
+      --adaptive-space-4: var(--space-4);
+      --adaptive-space-5: var(--space-5);
+      --adaptive-space-6: var(--space-6);
+      --adaptive-space-7: var(--space-7);
+      --adaptive-space-8: var(--space-8);
+      --adaptive-space-0-5: var(--space-0-5);
+      --adaptive-space-1-5: var(--space-1-5)
+    }
+
+    @media only screen and (max-width: 64rem){
+      --adaptive-space-0: var(--space-0);
+      --adaptive-space-1: var(--space-1);
+      --adaptive-space-2: var(--space-1);
+      --adaptive-space-3: var(--space-2);
+      --adaptive-space-4: var(--space-3);
+      --adaptive-space-5: var(--space-4);
+      --adaptive-space-6: var(--space-5);
+      --adaptive-space-7: var(--space-6);
+      --adaptive-space-8: var(--space-7);
+      --adaptive-space-0-5: var(--space-0-5);
+      --adaptive-space-1-5: var(--space-1)
+    }
+
+    @media only screen and (max-width: 48rem){
+      --adaptive-space-0: var(--space-0);
+      --adaptive-space-1: var(--space-1);
+      --adaptive-space-2: var(--space-1);
+      --adaptive-space-3: var(--space-2);
+      --adaptive-space-4: var(--space-3);
+      --adaptive-space-5: var(--space-4);
+      --adaptive-space-6: var(--space-5);
+      --adaptive-space-7: var(--space-6);
+      --adaptive-space-8: var(--space-7);
+      --adaptive-space-0-5: var(--space-0-5);
+      --adaptive-space-1-5: var(--space-1)
+    }
+
+    @media only screen and (max-width: 30rem){
+      --adaptive-space-0: var(--space-0);
+      --adaptive-space-1: var(--space-0);
+      --adaptive-space-2: var(--space-1);
+      --adaptive-space-3: var(--space-1);
+      --adaptive-space-4: var(--space-2);
+      --adaptive-space-5: var(--space-2);
+      --adaptive-space-6: var(--space-3);
+      --adaptive-space-7: var(--space-4);
+      --adaptive-space-8: var(--space-5);
+      --adaptive-space-0-5: var(--space-0-5);
+      --adaptive-space-1-5: var(--space-1);
+    }
   }
 
   html {
-    --color-scale-white: var(--color-scale-paper-white);
-    --color-scale-black: var(--color-scale-paper-black);
     --color-scale-surface1: var(--color-scale-paper-surface1);
     --color-scale-surface2: var(--color-scale-paper-surface2);
     --color-scale-surface3: var(--color-scale-paper-surface3);
@@ -162,12 +281,50 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-purple4: var(--color-scale-paper-purple4);
     --color-scale-purple5: var(--color-scale-paper-purple5);
     --color-scale-purple6: var(--color-scale-paper-purple6);
+
+    /* Box shadows */
+    --box-shadow-s: var(--box-shadow-light-s);
+    --box-shadow-m: var(--box-shadow-light-m);
+    --box-shadow-l: var(--box-shadow-light-l);
+
+    /* Semantic colors */
+    --color-heading: var(--color-scale-gray1);
+    --color-body: var(--color-scale-gray1);
+    --color-label: var(--color-scale-gray5);
+    --color-bar: var(--color-scale-gray7);
+    --color-focus: var(--color-scale-red3);
+    --color-button-label: var(--color-scale-gray1);
+    --color-button-label-hover: var(--color-scale-gray3);
+    --color-primary-text: var(--color-scale-red1);
+    --color-primary-background: var(--color-scale-red2);
+    --color-primary-opaque-background: var(--color-scale-red6);
+    --color-on-primary-background: var(--color-scale-white);
+    --color-active-text: var(--color-scale-red1);
+    --color-active-background: var(--color-scale-red2);
+    --color-on-active-background: var(--color-scale-white);
+    --color-success-text: var(--color-scale-red1);
+    --color-success-background: var(--color-scale-red2);
+    --color-on-success-background: var(--color-scale-white);
+    --color-error-text: var(--color-scale-red1);
+    --color-error-background: var(--color-scale-red2);
+    --color-on-error-background: var(--color-scale-white);
+    --color-link-text: var(--color-scale-gray1);
+    --color-link-underline: var(--color-scale-gray7);
+    --color-content-link-text: var(--color-scale-gray1);
+    --color-content-link-underline: var(--color-scale-gray6);
+    --color-content-link-underline-hover: var(--color-scale-gray5);
+    --color-primary-link-text: var(--color-scale-red1);
+    --color-primary-link-underline: var(--color-scale-red4);
+
+    font-size: 100%;
+    line-height: 1.2;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
-  @media (prefers-color-scheme:dark) {
+  @media (prefers-color-scheme: dark) {
     html {
-      --color-scale-white: var(--color-scale-charcoal-white);
-      --color-scale-black: var(--color-scale-charcoal-black);
       --color-scale-surface1: var(--color-scale-charcoal-surface1);
       --color-scale-surface2: var(--color-scale-charcoal-surface2);
       --color-scale-surface3: var(--color-scale-charcoal-surface3);
@@ -218,6 +375,11 @@ const GlobalStyles = createGlobalStyle`
       --color-scale-purple4: var(--color-scale-charcoal-purple4);
       --color-scale-purple5: var(--color-scale-charcoal-purple5);
       --color-scale-purple6: var(--color-scale-charcoal-purple6);
+
+      /* Box shadows */
+      --box-shadow-s: var(--box-shadow-dark-s);
+      --box-shadow-m: var(--box-shadow-dark-m);
+      --box-shadow-l: var(--box-shadow-dark-l);
     }
   }
 
@@ -276,49 +438,6 @@ const GlobalStyles = createGlobalStyle`
     --color-i-line: var(--color-scale-gray8);
   }
 
-  html {
-    --color-heading: var(--color-scale-gray1);
-    --color-body: var(--color-scale-gray1);
-    --color-label: var(--color-scale-gray5);
-    --color-bar: var(--color-scale-gray7);
-
-    --color-focus: var(--color-scale-red3);
-
-    --color-button-label: var(--color-scale-gray1);
-    --color-button-label-hover: var(--color-scale-gray3);
-
-    --color-primary-text: var(--color-scale-red1);
-    --color-primary-background: var(--color-scale-red2);
-    --color-primary-opaque-background: var(--color-scale-red6);
-    --color-on-primary-background: var(--color-scale-white);
-
-    --color-active-text: var(--color-scale-red1);
-    --color-active-background: var(--color-scale-red2);
-    --color-on-active-background: var(--color-scale-white);
-
-    --color-success-text: var(--color-scale-red1);
-    --color-success-background: var(--color-scale-red2);
-    --color-on-success-background: var(--color-scale-white);
-
-    --color-error-text: var(--color-scale-red1);
-    --color-error-background: var(--color-scale-red2);
-    --color-on-error-background: var(--color-scale-white);
-
-    --color-link-text: var(--color-scale-gray1);
-    --color-link-underline: var(--color-scale-gray7);
-    --color-content-link-text: var(--color-scale-gray1);
-    --color-content-link-underline: var(--color-scale-gray6);
-    --color-content-link-underline-hover: var(--color-scale-gray5);
-    --color-primary-link-text: var(--color-scale-red1);
-    --color-primary-link-underline: var(--color-scale-red4);
-
-    font-size: 100%;
-    line-height: 1.2;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
   @supports (padding-top: env(safe-area-inset-top)) {
     body {
       --sat: env(safe-area-inset-top);
@@ -341,6 +460,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     ${(p) => p.theme.text.system.body}; 
+    background: var(--color-background);
     color: var(--color-body);
     font-feature-settings: 'kern', 'liga';
     -webkit-font-smoothing: antialiased;
@@ -380,7 +500,7 @@ const GlobalStyles = createGlobalStyle`
 
   a {
     cursor: pointer;
-    border-radius: ${(p) => p.theme.radii.xs};
+    border-radius: var(--border-radius-xs);
 
     text-decoration-line: underline;
     text-decoration-color: transparent;
@@ -447,14 +567,14 @@ const GlobalStyles = createGlobalStyle`
   .autolinked-header.before {
     ${(p) => p.theme.flexCenter};
     height: 100%;
-    padding-right: ${(p) => p.theme.space[0.5]};
+    padding-right: var(--space-0-5);
 
     > div {
       ${(p) => p.theme.flexCenter};
     }
 
     ${(p) => p.theme.media.xs} {
-      padding-right: ${(p) => p.theme.space[0]};
+      padding-right: var(--space-0);
     }
   }
   .autolinked-header svg {
@@ -472,7 +592,7 @@ const GlobalStyles = createGlobalStyle`
   }
   .katex-display {
     ${(p) => p.theme.text.content.body}
-    ${(p) => p.theme.marginBottom[3]}
+    margin-bottom: var(--adaptive-space-3);
 
     text-align: center;
     margin-left: auto;

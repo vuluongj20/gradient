@@ -88,7 +88,7 @@ const TabListInner = ({
 
 const Wrap = styled.div<{ orientation: TabListProps['orientation']; height?: string }>`
   display: flex;
-  gap: ${(p) => p.theme.space[2]};
+  gap: var(--space-2);
 
   ${(p) => p.height && `height: ${p.height};`}
   ${(p) =>
@@ -96,9 +96,9 @@ const Wrap = styled.div<{ orientation: TabListProps['orientation']; height?: str
       ? `
         flex-direction: column;
         align-items: center;
-        gap: ${p.theme.space[1]};
+        gap: var(--space-1);
       `
-      : `gap: ${p.theme.space[2]};`};
+      : `gap: var(--space-2);`};
 `
 
 const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
@@ -111,7 +111,7 @@ const TabsWrap = styled.ul<{ orientation: TabListProps['orientation'] }>`
 const PanelsWrap = styled.div`
   height: 100%;
   width: 100%;
-  border-radius: ${(p) => p.theme.radii.m};
+  border-radius: var(--border-radius-m);
   background: var(--color-background);
   border: solid 1px var(--color-line);
 `

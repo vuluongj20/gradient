@@ -20,10 +20,11 @@ const Page404 = () => (
 export default Page404
 
 const Wrap = styled.div`
+  ${(p) => p.theme.flexCenter};
   flex: 1;
   flex-direction: column;
-  ${(p) => p.theme.flexCenter};
-  ${(p) => p.theme.paddingVertical[7]};
+  padding-top: var(--adaptive-space-7);
+  padding-bottom: var(--adaptive-space-7);
   ${(p) => p.theme.paddingHorizontal};
 
   ${(p) => p.theme.media.xs} {
@@ -32,13 +33,13 @@ const Wrap = styled.div`
 `
 
 const Title = styled.h1`
-  ${(p) => p.theme.marginBottom[4]};
+  margin-bottom: var(--adaptive-space-4);
 `
 
 const Text = styled.p`
   max-width: 24rem;
   text-align: center;
-  ${(p) => p.theme.marginBottom[1]};
+  margin-bottom: var(--adaptive-space-1);
 `
 
 const HomeLink = styled(Link)`

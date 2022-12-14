@@ -83,12 +83,13 @@ const Footer = ({ inset = false }: FooterProps) => {
 export default Footer
 
 const Wrap = styled.footer`
-	${(p) => p.theme.marginTop[7]};
+	margin-top: var(--adaptive-space-7);
 `
 
 // const SiteMap = styled(Grid)`
 // 	justify-items: start;
-// 	${(p) => p.theme.paddingVertical[4]};
+// 	padding-top: var(--adaptive-space-4);
+//  padding-bottom: var(--adaptive-space-4);
 // `
 
 // const Column = styled.div`
@@ -100,7 +101,7 @@ const Wrap = styled.footer`
 
 // 	${(p) => p.theme.media.xs} {
 // 		&:not(:last-child) {
-// 			margin-bottom: ${(p) => p.theme.space[4]};
+// 			margin-bottom: var(--space-4);
 // 		}
 // 	}
 // `
@@ -109,13 +110,13 @@ const Wrap = styled.footer`
 // 	${(p) => p.theme.text.system.label};
 // 	color: var(--color-label);
 
-// 	margin-bottom: ${(p) => p.theme.space[1]};
+// 	margin-bottom: var(--space-1);
 // `
 
 // const ColContent = styled.ul``
 
 // const ColLink = styled.li`
-// 	margin-bottom: ${(p) => p.theme.space[0]};
+// 	margin-bottom: var(--space-0);
 
 // 	&:last-of-type {
 // 		margin-bottom: 0;
@@ -127,8 +128,8 @@ const StyledDivider = styled(Divider)`
 `
 
 const Policies = styled(Grid)`
-	padding-top: ${(p) => p.theme.space[2]};
-	padding-bottom: calc(${(p) => p.theme.space[2]} + var(--sab, 0));
+	padding-top: var(--space-2);
+	padding-bottom: calc(var(--space-2) + var(--sab, 0));
 	justify-items: start;
 `
 
@@ -138,7 +139,7 @@ const PolicyText = styled.p`
 
 	${(p) => p.theme.media.xs} {
 		grid-column-end: span 4;
-		margin-bottom: ${(p) => p.theme.space[1]};
+		margin-bottom: var(--space-1);
 	}
 `
 
@@ -157,6 +158,6 @@ const PolicyText = styled.p`
 // 	}
 
 // 	&:not(:last-child) {
-// 		margin-bottom: ${(p) => p.theme.space[1]};
+// 		margin-bottom: var(--space-1);
 // 	}
 // `

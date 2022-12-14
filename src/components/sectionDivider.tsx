@@ -24,6 +24,6 @@ export default SectionDivider
 
 const StyledDivider = styled(Divider)<Required<SectionDividerProps>>`
 	${(p) => !p.fullWidth && p.theme.marginHorizontal};
-	${(p) => (p.noMt ? `margin-top: 0;` : p.theme.marginTop[p.mt])};
-	${(p) => (p.noMb ? `margin-bottom: 0;` : p.theme.marginBottom[p.mb])};
+	margin-top: ${(p) => (p.noMt ? '0' : `var(--adaptive-space-${p.mt})`)};
+	margin-bottom: ${(p) => (p.noMb ? '0' : `var(--adaptive-space-${p.mb})`)};
 `

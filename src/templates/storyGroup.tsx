@@ -153,12 +153,12 @@ interface HeadProps {
 export const Head = ({ pageContext }: HeadProps) => <SEO {...pageContext} />
 
 const PageContent = styled.div`
-	${(p) => p.theme.paddingTop[6]};
+	padding-top: var(--adaptive-space-6);
 `
 
 const Header = styled.header`
 	${(p) => p.theme.paddingHorizontal};
-	${(p) => p.theme.marginBottom[4]};
+	margin-bottom: var(--adaptive-space-4);
 `
 
 const Title = styled.h1`
@@ -166,8 +166,8 @@ const Title = styled.h1`
 `
 
 const Results = styled(Grid)`
-	margin-top: ${(p) => p.theme.space[1]};
-	grid-row-gap: ${(p) => p.theme.space[3]};
+	margin-top: var(--space-1);
+	grid-row-gap: var(--space-3);
 
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.fastOut};

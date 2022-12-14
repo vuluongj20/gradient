@@ -117,10 +117,10 @@ export const VizDesText = styled(Body)`
 	max-width: 100%;
 	box-sizing: border-box;
 	margin: 0;
-	padding: ${(p) => p.theme.space[2]} ${(p) => p.theme.space[3]};
+	padding: var(--space-2) var(--space-3);
 	background: var(--color-o-background);
-	border-radius: ${(p) => p.theme.radii.m};
-	box-shadow: 0 0 0 1px var(--color-line), ${(p) => p.theme.shadows.l};
+	border-radius: var(--border-radius-m);
+	box-shadow: 0 0 0 1px var(--color-line), var(--box-shadow-l);
 
 	&.dummy {
 		visibility: hidden;

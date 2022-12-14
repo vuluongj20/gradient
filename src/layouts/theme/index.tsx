@@ -1,54 +1,31 @@
 import { Animation, animation } from '@theme/animation'
-import { ColorAliases, ColorPalette, colorPalettes, getColorAliases } from '@theme/colors'
 import { TextScale, textScales } from '@theme/text'
 import { Utils, generateUtils } from '@theme/utils'
 
-import {
-	boxShadowsDark,
-	boxShadowsLight,
-	breakpoints,
-	radii,
-	space,
-	textShadows,
-	zIndices,
-} from '@utils/style'
+import { breakpoints } from '@utils/style'
 
 export type Appearance = 'light' | 'dark'
 
 export type Theme = Utils & {
 	elevation: number
 	appearance: Appearance
-	colorPalette: keyof typeof colorPalettes
 	opacityFactor: number
-	colors: ColorPalette['colors'] & ColorAliases
 	/** Text */
 	text: {
 		system: TextScale
 		content: TextScale
 		viz: TextScale
 	}
-	/** Box shadow */
-	shadows: typeof boxShadowsLight & {
-		text: string
-	}
 	/** Animation */
 	animation: Animation
 	/** Breakpoints */
 	breakpoints: typeof breakpoints
-	/** Border radius */
-	radii: typeof radii
-	/** z-indices */
-	zIndices: typeof zIndices
-	/** Spacing */
-	space: typeof space
 }
 
 export type ThemeSettings = {
 	color: {
 		appearance: Appearance | 'auto'
 		elevation: number
-		lightPalette: keyof typeof colorPalettes
-		darkPalette: keyof typeof colorPalettes
 		increaseContrast: boolean
 	}
 	text: {
@@ -61,18 +38,7 @@ export type ThemeSettings = {
 
 export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme => {
 	const elevation = settings.color.elevation
-	const colorPalette =
-		appearance === 'dark' ? settings.color.darkPalette : settings.color.lightPalette
-
-	const colors = colorPalettes[colorPalette].colors
-	const colorAliases = getColorAliases(colorPalettes[colorPalette].colors, elevation)
-
 	const opacityFactor = appearance === 'dark' ? 1.2 : 1
-
-	const shadows =
-		appearance === 'light'
-			? { ...boxShadowsLight, text: textShadows.light }
-			: { ...boxShadowsDark, text: textShadows.dark }
 
 	const text = {
 		system: textScales[settings.text.system],
@@ -83,21 +49,11 @@ export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme
 	const partialTheme: Omit<Theme, keyof Utils> = {
 		elevation,
 		appearance,
-		colorPalette,
 		opacityFactor,
 
-		colors: {
-			...colors,
-			...colorAliases,
-		},
-
-		shadows,
 		text,
 		animation,
-		breakpoints: breakpoints,
-		space,
-		radii,
-		zIndices,
+		breakpoints,
 	}
 
 	return {

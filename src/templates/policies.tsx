@@ -68,35 +68,35 @@ const Wrap = styled.div`
   h5,
   h6 {
     :not(hr + *, :first-child) {
-      margin-top: ${(p) => p.theme.space[4]};
+      margin-top: var(--space-4);
     }
-    padding-top: ${(p) => p.theme.space[1]};
-    margin-bottom: ${(p) => p.theme.space[1]};
+    padding-top: var(--space-1);
+    margin-bottom: var(--space-1);
   }
   .autolinked-header.before {
-    padding-top: ${(p) => p.theme.space[1]};
+    padding-top: var(--space-1);
   }
   p {
-    margin-bottom: ${(p) => p.theme.space[2]};
+    margin-bottom: var(--space-2);
   }
   h1 {
     ${(p) => p.theme.text.content.h2}
-    margin-bottom: ${(p) => p.theme.space[4]};
+    margin-bottom: var(--space-4);
   }
   h2 {
     ${(p) => p.theme.text.content.h3}
-    margin-bottom: ${(p) => p.theme.space[2]};
+    margin-bottom: var(--space-2);
   }
   h3,
   h4,
   h5,
   h6 {
     ${(p) => p.theme.text.content.h5}
-    margin-bottom: ${(p) => p.theme.space[1]};
+    margin-bottom: var(--space-1);
   }
   hr {
-    ${(p) => p.theme.marginTop[6]};
-    ${(p) => p.theme.marginBottom[5]};
+    margin-top: var(--adaptive-space-6);
+    margin-bottom: var(--adaptive-space-5);
   }
   p,
   a,
@@ -110,7 +110,7 @@ const Wrap = styled.div`
   }
   ul,
   ol {
-    margin-left: ${(p) => p.theme.space[3]};
+    margin-left: var(--space-3);
   }
   ul > li {
     list-style-type: disc;
@@ -119,7 +119,7 @@ const Wrap = styled.div`
     list-style-type: decimal;
   }
   li {
-    margin-bottom: ${(p) => p.theme.space[1]};
+    margin-bottom: var(--space-1);
   }
 
   ${(p) => p.theme.media.l} {
@@ -143,11 +143,11 @@ const Wrap = styled.div`
 const ContentWrap = styled(Wrap)``
 
 const Header = styled.header`
-  ${(p) => p.theme.paddingTop[6]};
+  padding-top: var(--adaptive-space-6);
 
   h1 {
     padding-top: 0;
-    margin-bottom: ${(p) => p.theme.space[2]};
+    margin-bottom: var(--space-2);
   }
   p:last-of-type {
     margin-bottom: 0;
@@ -164,8 +164,8 @@ const StyledTOC = styled(TOC)`
   grid-column: -4 / -1;
   position: sticky;
   top: 0;
-  ${(p) => p.theme.paddingTop[6]};
-  ${(p) => p.theme.paddingBottom[4]};
+  padding-top: var(--adaptive-space-6);
+  padding-bottom: var(--adaptive-space-4);
 
   ${(p) => p.theme.media.l} {
     display: none;

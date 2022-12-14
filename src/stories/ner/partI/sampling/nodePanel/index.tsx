@@ -42,7 +42,7 @@ const Wrap = styled.div`
 const NodeLabel = styled.h2`
 	${(p) => p.theme.text.system.h5};
 	border-bottom: solid 1px var(--color-line);
-	padding-bottom: ${(p) => p.theme.space[0]};
-	margin-top: ${(p) => p.theme.space[0]};
-	margin-bottom: ${(p) => p.theme.space[1]};
+	padding-bottom: var(--space-0);
+	margin-top: var(--space-0);
+	margin-bottom: var(--space-1);
 `

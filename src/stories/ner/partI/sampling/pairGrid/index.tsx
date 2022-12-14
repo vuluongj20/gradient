@@ -114,7 +114,7 @@ export default observer(PairGrid)
 const Wrap = styled.div`
 	display: grid;
 	grid-template-rows: max-content minmax(0, 1fr);
-	gap: ${(p) => p.theme.space[2]};
+	gap: var(--space-2);
 `
 
 const Header = styled.div`
@@ -126,7 +126,7 @@ const Header = styled.div`
 
 const Title = styled.p`
 	${(p) => p.theme.text.system.h6}
-	margin-right: ${(p) => p.theme.space[1]};
+	margin-right: var(--space-1);
 `
 
 const GridWrap = styled.div`
@@ -142,7 +142,7 @@ const EmptyWrap = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 	background: var(--color-background);
 	border: dashed 1px var(--color-line);
 

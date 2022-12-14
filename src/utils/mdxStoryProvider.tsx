@@ -93,5 +93,6 @@ const MDXStoryProvider = ({ references = [], children }: MDXStoryProviderProps) 
 export default MDXStoryProvider
 
 const HeaderWrap = styled.header`
-	${(p) => p.theme.paddingVertical[5]}
+	padding-top: var(--adaptive-space-5);
+	padding-bottom: var(--adaptive-space-5);
 `

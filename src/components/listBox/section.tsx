@@ -42,10 +42,10 @@ export default Section
 
 const Separator = styled.li`
 	border-bottom: solid 1px var(--color-line);
-	margin: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
+	margin: var(--space-0) var(--space-1);
 `
 const Wrap = styled.li`
-	padding: ${(p) => p.theme.space[0]} 0;
+	padding: var(--space-0) 0;
 `
 
 const Title = styled.p`
@@ -53,8 +53,8 @@ const Title = styled.p`
 		${(p) => p.theme.text.system.label}
 	}
 	color: var(--color-label);
-	margin-left: ${(p) => p.theme.space[1]};
-	margin-bottom: ${(p) => p.theme.space[0]};
+	margin-left: var(--space-1);
+	margin-bottom: var(--space-0);
 `
 
 const Group = styled.ul``

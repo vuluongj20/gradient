@@ -31,7 +31,7 @@ const Wrap = styled.section`
 `
 
 const TitleWrap = styled.div`
-	margin-bottom: ${(p) => p.theme.space[3]};
+	margin-bottom: var(--space-3);
 	${(p) => p.theme.paddingHorizontal};
 `
 

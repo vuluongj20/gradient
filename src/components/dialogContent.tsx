@@ -81,7 +81,7 @@ const OuterWrap = styled.div`
 	transform: translateZ(0);
 	opacity: 0;
 	will-change: opacity;
-	z-index: ${(p) => p.theme.zIndices.dialog};
+	z-index: var(--z-index-dialog);
 
 	&.entering,
 	&.entered {
@@ -105,17 +105,15 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 	width: ${(p) => p.theme.breakpoints[p.size]};
 	max-width: 100%;
 	background: var(--color-o-background);
-	border-radius: ${(p) => p.theme.radii.l};
-	box-shadow: 0 0 0 1px var(--color-o-line), ${(p) => p.theme.shadows.l};
+	border-radius: var(--border-radius-l);
+	box-shadow: 0 0 0 1px var(--color-o-line), var(--box-shadow-l);
 	transform: translate3d(0, 4rem, 0);
 	transition: transform ${(p) => p.theme.animation.mediumOut};
 	will-change: transform;
 	text-align: left;
 	align-items: flex-start;
 	padding: ${(p) =>
-		p.compact
-			? `${p.theme.space[0]} ${p.theme.space[0]}`
-			: `${p.theme.space[3]} ${p.theme.space[4]}`};
+		p.compact ? `var(--space-0) var(--space-0)` : `var(--space-3) var(--space-4)`};
 
 	${/* sc-selector */ OuterWrap}.entering &,
 		${/* sc-selector */ OuterWrap}.entered & {
@@ -128,9 +126,7 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 
 	${(p) => p.theme.media.xs} {
 		padding: ${(p) =>
-			p.compact
-				? `${p.theme.space[0]} ${p.theme.space[0]}`
-				: `${p.theme.space[2]} ${p.theme.space[3]}`};
+			p.compact ? `var(--space-0) var(--space-0)` : `var(--space-2) var(--space-3)`};
 	}
 
 	@media (prefers-reduced-motion) {
@@ -142,23 +138,23 @@ const TitleWrap = styled.div<{ compact: boolean }>`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: ${(p) => p.theme.space[2]};
-	padding-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: var(--space-2);
+	padding-bottom: var(--space-1);
 	border-bottom: solid 1px var(--color-line);
 
 	${(p) =>
 		p.compact &&
 		`
-		padding: ${p.theme.space[1]} 0; 
-		margin: 0 ${p.theme.space[1]} ${p.theme.space[0]} ${p.theme.space[2]};
-		gap: ${p.theme.space[2]};
+		padding: var(--space-1) 0; 
+		margin: 0 var(--space-1) var(--space-0) var(--space-2);
+		gap: var(--space-2);
 	`};
 `
 
 const CloseButton = styled.button<{ compact: boolean }>`
 	display: flex;
-	padding: ${(p) => p.theme.space[1]};
-	margin: -${(p) => p.theme.space[1]};
+	padding: var(--space-1);
+	margin: calc(var(--space-1) * -1);
 	color: var(--color-label);
 
 	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h4)};

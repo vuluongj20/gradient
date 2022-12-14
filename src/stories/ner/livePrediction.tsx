@@ -330,14 +330,12 @@ const LivePrediction = ({
 export default LivePrediction
 
 const MODEL_NAME_WIDTH = '3rem'
-
-const inputPaddingRight = ({ theme }: { theme: Theme }) =>
-	`calc(${theme.space[2]} + ${theme.space[2]} + ${theme.space[2]})`
+const inputPaddingRight = 'calc(var(--space-2) + var(--space-2) + var(--space-2))'
 
 const Label = styled.span<{ modelNameOffset?: boolean }>`
 	display: block;
 	color: var(--color-label);
-	margin-bottom: ${(p) => p.theme.space[1.5]};
+	margin-bottom: var(--space-1-5);
 
 	${(p) => p.modelNameOffset && `margin-left: ${MODEL_NAME_WIDTH};`}
 `
@@ -345,12 +343,10 @@ const Label = styled.span<{ modelNameOffset?: boolean }>`
 const InputGroup = styled.div<{ modelNameOffset?: boolean }>`
 	position: relative;
 	width: calc(
-		100% - ${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} +
-			${(p) => p.theme.space[1.5]}
+		100% - ${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} + var(--space-1-5)
 	);
 	margin-left: calc(
-		${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} -
-			${(p) => p.theme.space[1.5]} - 1px
+		${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} - var(--space-1-5) - 1px
 	);
 `
 
@@ -361,10 +357,10 @@ const Input = styled.input`
 	letter-spacing: -0.03em;
 
 	background: var(--color-i-background);
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 	border: solid 1px var(--color-line);
 
-	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
+	padding: var(--space-1) var(--space-1-5);
 	padding-right: ${inputPaddingRight};
 	width: 100%;
 `
@@ -372,10 +368,10 @@ const Input = styled.input`
 const RandomizeButton = styled(Button)<{ isLoading: boolean }>`
 	position: absolute;
 	top: 50%;
-	right: ${(p) => p.theme.space[1]};
+	right: var(--space-1);
 	transform: translateY(-50%);
-	width: ${(p) => p.theme.space[4]};
-	height: ${(p) => p.theme.space[4]};
+	width: var(--space-4);
+	height: var(--space-4);
 
 	color: var(--color-label);
 `
@@ -406,11 +402,11 @@ const ResultsAnimationWrapper = styled.div`
 
 const LoadingWrap = styled.div<{ showBorders: boolean }>`
 	position: absolute;
-	top: ${(p) => p.theme.space[2]};
+	top: var(--space-2);
 	bottom: 0;
 	left: 0;
 	right: 0;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 
 	${(p) => p.showBorders && `border: dashed 1px var(--color-line);`}
 
@@ -428,7 +424,7 @@ const TableWrapper = styled.div`
 	overflow: auto;
 	position: relative;
 
-	padding-top: ${(p) => p.theme.space[0]};
+	padding-top: var(--space-0);
 
 	scrollbar-width: none;
 	-ms-overflow-style: none;
@@ -451,7 +447,7 @@ const Table = styled.table<{ showModelNames?: boolean }>`
 	}
 
 	td {
-		padding: ${(p) => p.theme.space[2]} 0;
+		padding: var(--space-2) 0;
 	}
 
 	${(p) =>
@@ -470,7 +466,7 @@ const ConnectorRow = styled.tr`
 
 const ConnectorCell = styled.th`
 	position: relative;
-	padding: ${(p) => p.theme.space[1]} 0;
+	padding: var(--space-1) 0;
 	user-select: none;
 
 	${(p) => p.theme.text.content.h5};
@@ -485,7 +481,7 @@ const ConnectorCell = styled.th`
 
 const Connector = styled.div<{ isLoading: boolean }>`
 	width: 0;
-	height: calc(100% - ${(p) => p.theme.space[2]});
+	height: calc(100% - var(--space-2));
 	border-right: solid 1px var(--color-line);
 
 	${(p) => p.theme.absCenter}
@@ -560,10 +556,10 @@ const PredSpan = styled.span<{ isOut?: boolean }>`
 const PredBackground = styled.div`
 	${(p) => p.theme.absCenter}
 
-	width: calc(100% + ${(p) => p.theme.space[0]});
-	height: calc(100% + ${(p) => p.theme.space[0]});
+	width: calc(100% + var(--space-0));
+	height: calc(100% + var(--space-0));
 	background: var(--color-background);
-	border-radius: ${(p) => p.theme.radii.s};
+	border-radius: var(--border-radius-s);
 	opacity: 0.9;
 	z-index: -1;
 `
@@ -581,14 +577,14 @@ const Legend = styled.dl`
 
 	width: 100%;
 	border-top: solid 1px var(--color-i-line);
-	padding-top: ${(p) => p.theme.space[2]};
+	padding-top: var(--space-2);
 	margin: 0;
 	white-space: nowrap;
 `
 
 const LegendItem = styled.div`
 	display: flex;
-	margin-right: ${(p) => p.theme.space[2]};
+	margin-right: var(--space-2);
 `
 
 const LegendDT = styled.dt`

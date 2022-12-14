@@ -96,7 +96,7 @@ const Wrap = styled.div`
 	position: relative;
 	height: 7rem;
 	${(p) => p.theme.gridColumn.wide};
-	${(p) => p.theme.marginBottom[3]}
+	margin-bottom: var(--adaptive-space-3);
 `
 
 const StyledGraphView = styled(GraphView)`

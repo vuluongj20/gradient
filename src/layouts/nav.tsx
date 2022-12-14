@@ -89,7 +89,7 @@ const Wrap = styled.nav`
 	top: 0;
 	width: ${navSize.width};
 	height: 100%;
-	z-index: ${(p) => p.theme.zIndices.nav};
+	z-index: var(--z-index-nav);
 
 	${(p) => p.theme.media.mobile} {
 		width: 100%;
@@ -109,8 +109,8 @@ const InnerWrap = styled.div`
 	height: 100%;
 	box-sizing: border-box;
 	border-right: solid 1px var(--color-line);
-	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
-	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));
+	padding-top: calc(var(--space-0) + var(--sat, 0));
+	padding-bottom: calc(var(--space-0) + var(--sab, 0));
 
 	${(p) => p.theme.media.mobile} {
 		align-items: flex-start;
@@ -129,7 +129,7 @@ const InnerWrap = styled.div`
 
 const HomeLink = styled(Link)<{ disabled: boolean }>`
 	position: absolute;
-	top: ${(p) => p.theme.space[2]};
+	top: var(--space-2);
 	right: 50%;
 	transform-origin: right;
 	transform: rotate(-90deg);
@@ -175,7 +175,7 @@ const HomeLogo = styled.svg`
 
 const PageTitle = styled.p`
 	position: absolute;
-	bottom: ${(p) => p.theme.space[1]};
+	bottom: var(--space-1);
 	left: 50%;
 	transform-origin: left;
 	transform: rotate(-90deg);

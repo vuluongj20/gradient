@@ -7,8 +7,8 @@ export interface AlertProps {
 	title?: string
 	leadingItem?: ReactNode
 	children?: ReactNode
-	marginTop?: keyof Theme['space']
-	marginBottom?: keyof Theme['space']
+	marginTop?: number
+	marginBottom?: number
 	gridColumn?: keyof Theme['gridColumn']
 }
 
@@ -27,17 +27,17 @@ const Alert = ({ title, leadingItem, children, ...props }: AlertProps) => {
 export default Alert
 
 const Wrap = styled.p<AlertProps>`
-	column-gap: ${(p) => p.theme.space[0]};
+	column-gap: var(--space-0);
 
 	border-top: solid 1px var(--color-line);
 	border-bottom: solid 1px var(--color-line);
-	padding: ${(p) => p.theme.space[1.5]} 0;
+	padding: var(--space-1-5) 0;
 
 	color: var(--color-label);
 
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
-	${(p) => p.marginTop && `margin-top: ${p.theme.space[p.marginTop]}`}
-	${(p) => p.marginBottom && `margin-bottom: ${p.theme.space[p.marginBottom]}`}
+	${(p) => p.marginTop && `margin-top: var(--space-${String(p.marginTop)});`}
+	${(p) => p.marginBottom && `margin-bottom: var(--space-${String(p.marginBottom)});`}
 `
 
 const Content = styled.span<{ row: number; column: number }>`
@@ -59,5 +59,5 @@ export const Title = styled.span<{ column: number }>`
 
 	font-weight: 500;
 	color: var(--color-label);
-	margin-bottom: ${(p) => p.theme.space[0]};
+	margin-bottom: var(--space-0);
 `

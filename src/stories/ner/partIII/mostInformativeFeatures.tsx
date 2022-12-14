@@ -174,11 +174,11 @@ const MEMMMostInformativeFeatures = () => {
 export default MEMMMostInformativeFeatures
 
 const Wrap = styled(Panel)`
-	${(p) => p.theme.marginBottom[3]};
+	margin-bottom: var(--adaptive-space-3);
 `
 
 const Heading = styled.div`
-	margin-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: var(--space-1);
 
 	/* Select trigger */
 	div {
@@ -186,8 +186,7 @@ const Heading = styled.div`
 
 		button {
 			${(p) => p.theme.text.system.h6};
-			padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[0]}
-				${(p) => p.theme.space[0]} ${(p) => p.theme.space[0.5]};
+			padding: var(--space-0) var(--space-0) var(--space-0) var(--space-0-5);
 			border: solid 1px var(--color-line);
 		}
 	}

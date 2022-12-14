@@ -33,7 +33,7 @@ const StyledListBox = styled.ul`
   padding: 0;
   margin: 0;
   min-width: 8rem;
-  border-radius: ${(p) => p.theme.radii.m};
+  border-radius: var(--border-radius-m);
   list-style-type: none;
 
   :focus {

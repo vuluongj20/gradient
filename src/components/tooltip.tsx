@@ -122,9 +122,9 @@ const getTextAlign = ({ placement }: { placement?: UsePopoverProps['placement'] 
 
 const StyledPopover = styled(Popover)<{ maxWidth: string }>`
   width: max-content;
-  padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
-  border-radius: ${(p) => p.theme.radii.s};
-  z-index: ${(p) => p.theme.zIndices.tooltip};
+  padding: var(--space-0) var(--space-1);
+  border-radius: var(--border-radius-s);
+  z-index: var(--z-index-tooltip);
 
   color: var(--color-label);
   ${(p) => p.theme.text.system.small};

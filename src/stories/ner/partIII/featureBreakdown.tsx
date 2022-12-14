@@ -313,7 +313,8 @@ const MEMMFeatureBreakdown = () => {
 export default MEMMFeatureBreakdown
 
 const Wrap = styled(Grid)`
-	${(p) => p.theme.marginVertical[3]}
+	margin-top: var(--adaptive-space-3);
+	margin-bottom: var(--adaptive-space-3);
 `
 
 const StyledPanel = styled(Panel)`
@@ -335,10 +336,10 @@ const InputWrap = styled.div`
 	display: flex;
 	align-items: start;
 	justify-content: center;
-	border-radius: ${(p) => p.theme.radii.m};
+	border-radius: var(--border-radius-m);
 
-	padding: ${(p) => p.theme.space[3]} ${(p) => p.theme.space[4]};
-	margin-bottom: ${(p) => p.theme.space[1]};
+	padding: var(--space-3) var(--space-4);
+	margin-bottom: var(--space-1);
 
 	input,
 	button,
@@ -362,11 +363,11 @@ const CurrentTagWrap = styled.div`
 	align-items: center;
 	justify-content: center;
 
-	margin-right: ${(p) => p.theme.space[4]};
+	margin-right: var(--space-4);
 `
 
 const StyledGuideArrow = styled(GuideArrow)`
-	margin: ${(p) => p.theme.space[0]};
+	margin: var(--space-0);
 `
 
 const SelectWrap = styled.div`
@@ -388,8 +389,7 @@ const BreakdownWrap = styled(Panel)`
 	border-right: 0;
 	border-bottom: 0;
 	border-radius: 0;
-	padding: ${(p) => p.theme.space[3]} ${(p) => p.theme.space[4]}
-		${(p) => p.theme.space[4]};
+	padding: var(--space-3) var(--space-4) var(--space-4);
 	background: var(--color-o-background);
 	${(p) => p.theme.paddingHorizontalMobile}
 `
@@ -402,12 +402,12 @@ const StyledPopoverArrow = styled(PopoverArrow)`
 
 const BreakdownHeader = styled.div`
 	position: relative;
-	margin-bottom: ${(p) => p.theme.space[2]};
+	margin-bottom: var(--space-2);
 `
 
 const BreakdownHeading = styled.p`
 	${(p) => p.theme.text.system.h6};
-	margin-bottom: ${(p) => p.theme.space[0]};
+	margin-bottom: var(--space-0);
 `
 
 const BreakdownDescription = styled.small`
@@ -446,7 +446,7 @@ const BreakdownTable = styled(Table)<{ visible: boolean }>`
 	tfoot > & {
 		td,
 		th {
-			padding-top: ${(p) => p.theme.space[2]};
+			padding-top: var(--space-2);
 		}
 	}
 
@@ -502,8 +502,8 @@ const BreakdownTR = styled(TR)<{ inactive?: boolean }>`
 const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 	display: flex;
 	justify-content: center;
-	padding-top: ${(p) => p.theme.space[3]};
-	margin-top: ${(p) => p.theme.space[2]};
+	padding-top: var(--space-3);
+	margin-top: var(--space-2);
 	border-top: solid 1px var(--color-i-line);
 
 	font-weight: 600;
@@ -536,8 +536,8 @@ const NoObservationWrap = styled.div`
 	${(p) => p.theme.flexCenter};
 	background: var(--color-background);
 	border: dashed 1px var(--color-o-line);
-	border-radius: ${(p) => p.theme.radii.m};
-	padding: ${(p) => p.theme.space[2]};
+	border-radius: var(--border-radius-m);
+	padding: var(--space-2);
 
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.vFastOut};

@@ -101,21 +101,20 @@ const IncDecButton = styled(Button)`
 	transform: translateZ(0);
 
 	:first-child {
-		border-top-right-radius: calc(${(p) => p.theme.radii.s} - 1px);
+		border-top-right-radius: calc(var(--border-radius-s) - 1px);
 	}
 	:last-child {
-		border-bottom-right-radius: calc(${(p) => p.theme.radii.s} - 1px);
+		border-bottom-right-radius: calc(var(--border-radius-s) - 1px);
 	}
 `
 
 const Input = styled.input<{ small: boolean; displayWidth?: string }>`
 	appearance: none;
 	background: var(--color-i-background);
-	border-radius: ${(p) => p.theme.radii.s};
+	border-radius: var(--border-radius-s);
 	border: solid 1px var(--color-line);
-	padding: ${(p) =>
-		p.small ? `${p.theme.space[0]} ${p.theme.space[1]}` : p.theme.space[1]};
-	padding-right: ${(p) => p.theme.space[3]};
+	padding: ${(p) => (p.small ? 'var(--space-0) var(--space-1)' : 'var(--space-1)')};
+	padding-right: var(--space-3);
 
 	${(p) => p.displayWidth && `width: ${p.displayWidth}`}
 `

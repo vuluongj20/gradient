@@ -143,16 +143,16 @@ const Table = styled.table<{ separateLastRow: boolean }>`
 	border-spacing: 1px;
 
 	tbody > tr:first-of-type > td:first-of-type > div {
-		border-top-left-radius: ${(p) => p.theme.radii.s};
+		border-top-left-radius: var(--border-radius-s);
 	}
 	tbody > tr:first-of-type > td:last-of-type > div {
-		border-top-right-radius: ${(p) => p.theme.radii.s};
+		border-top-right-radius: var(--border-radius-s);
 	}
 	tbody > tr:last-of-type > td:first-of-type > div {
-		border-bottom-left-radius: ${(p) => p.theme.radii.s};
+		border-bottom-left-radius: var(--border-radius-s);
 	}
 	tbody > tr:last-of-type > td:last-of-type > div {
-		border-bottom-right-radius: ${(p) => p.theme.radii.s};
+		border-bottom-right-radius: var(--border-radius-s);
 	}
 
 	${(p) =>
@@ -160,25 +160,25 @@ const Table = styled.table<{ separateLastRow: boolean }>`
 		`
 			tbody > tr:last-of-type > th,
 			tbody > tr:last-of-type > td {
-				border-top: solid ${p.theme.space[0]} transparent;
+				border-top: solid var(--space-0) transparent;
 			}
 
 			tbody > tr:nth-last-of-type(2) > th,
 			tbody > tr:nth-last-of-type(2) > td {
-				border-bottom: solid ${p.theme.space[0]} transparent;
+				border-bottom: solid var(--space-0) transparent;
 			}
 
 			tbody > tr:nth-last-of-type(2) > td:first-of-type > div {
-				border-bottom-left-radius: ${p.theme.radii.s};
+				border-bottom-left-radius: var(--border-radius-s);
 			}
 			tbody > tr:nth-last-of-type(2) > td:last-of-type > div {
-				border-bottom-right-radius: ${p.theme.radii.s};
+				border-bottom-right-radius: var(--border-radius-s);
 			}
 			tbody > tr:last-of-type > td:first-of-type > div {
-				border-top-left-radius: ${p.theme.radii.s};
+				border-top-left-radius: var(--border-radius-s);
 			}
 			tbody > tr:last-of-type > td:last-of-type > div {
-				border-top-right-radius: ${p.theme.radii.s};
+				border-top-right-radius: var(--border-radius-s);
 			}
 	`}
 `
@@ -188,7 +188,7 @@ const TFoot = styled.tfoot``
 const GroupName = styled.th`
 	${(p) => p.theme.text.system.small}
 	color: var(--color-label);
-	padding-top: ${(p) => p.theme.space[1]};
+	padding-top: var(--space-1);
 	text-align: center;
 	font-variant-numeric: tabular-nums;
 `
@@ -197,7 +197,7 @@ const RowName = styled.th<{ invisible?: boolean; isLabel?: boolean }>`
 	${(p) => p.theme.text.viz.small}
 	color: var(--color-label);
 	text-align: right;
-	padding-right: ${(p) => p.theme.space[1]};
+	padding-right: var(--space-1);
 	font-variant-numeric: tabular-nums;
 
 	overflow: hidden;
@@ -219,7 +219,7 @@ const TR = styled.tr``
 
 const TD = styled.td`
 	position: relative;
-	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[0.5]};
+	padding: var(--space-1) var(--space-0-5);
 	z-index: 0;
 	text-align: center;
 	font-variant-numeric: tabular-nums;
@@ -239,7 +239,7 @@ const TDBackground = styled.div<{ opacity: number }>`
 
 const TDLabel = styled.span<{ whiteText: boolean; opacity: number }>`
 	${(p) => p.theme.text.system.small}
-	${(p) => p.whiteText && `text-shadow: ${p.theme.shadows.text};`}
+	${(p) => p.whiteText && `text-shadow: var(--box-shadow-text);`}
 	color: ${(p) => (p.whiteText ? 'var(--color-white)' : 'var(--color-black)')};
 	opacity: ${(p) => p.opacity};
 `
@@ -249,7 +249,7 @@ const GroupCaption = styled.div`
 	flex-direction: column;
 	align-items: flex-end;
 	margin-left: auto;
-	margin-top: ${(p) => p.theme.space[0]};
+	margin-top: var(--space-0);
 `
 
 const GroupLabel = styled.p`
@@ -261,8 +261,8 @@ const RowCaption = styled.div`
 	display: flex;
 	align-items: flex-end;
 	margin-left: auto;
-	margin-bottom: ${(p) => p.theme.space[3]};
-	margin-right: ${(p) => p.theme.space[1]};
+	margin-bottom: var(--space-3);
+	margin-right: var(--space-1);
 `
 
 const RowLabel = styled.p`

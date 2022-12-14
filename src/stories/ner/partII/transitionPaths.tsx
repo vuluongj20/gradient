@@ -108,13 +108,13 @@ export default HMMTransitionPaths
 const Wrap = styled.div`
 	position: relative;
 	${(p) => p.theme.gridColumn.text};
-	${(p) => p.theme.marginBottom[3]}
+	margin-bottom: var(--adaptive-space-3);
 `
 
 const InnerWrap = styled.div`
 	position: relative;
 	height: 14rem;
-	margin-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: var(--space-1);
 `
 
 const SVG = styled.svg`
@@ -142,7 +142,7 @@ const Legend = styled.small`
 	max-width: 22rem;
 	margin: 0 auto;
 	text-align: center;
-	margin-bottom: ${(p) => p.theme.space[0]};
+	margin-bottom: var(--space-0);
 
 	strong {
 		font-weight: 500;

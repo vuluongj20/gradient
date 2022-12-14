@@ -206,14 +206,14 @@ export default observer(RootNodeDistributionViz)
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin: ${(p) => p.theme.space[2]} 0;
+	margin: var(--space-2) 0;
 `
 
 const Label = styled.small`
 	display: block;
 	color: var(--color-label);
 	margin-left: auto;
-	margin-bottom: ${(p) => p.theme.space[1]};
+	margin-bottom: var(--space-1);
 `
 
 const Wrap = styled.svg`

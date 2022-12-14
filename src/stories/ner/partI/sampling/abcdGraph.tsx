@@ -146,7 +146,8 @@ const ABCDGraph = () => {
 export default observer(ABCDGraph)
 
 const StyledPanel = styled(Panel)`
-	${(p) => p.theme.marginVertical[3]}
+	margin-top: var(--adaptive-space-3);
+	margin-bottom: var(--adaptive-space-3);
 	padding: 0;
 	height: 36rem;
 	display: flex;
@@ -205,10 +206,10 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 
 const StyledPairGrid = styled(PairGrid)`
 	width: 100%;
-	margin: ${(p) => p.theme.space[3]};
+	margin: var(--space-3);
 
 	${(p) => p.theme.media.mobile} {
-		width: calc(100% - ${(p) => p.theme.space[3]} * 2);
+		width: calc(100% - var(--space-3) * 2);
 		margin-left: ${(p) => p.theme.marginHorizontal};
 		margin-right: ${(p) => p.theme.marginHorizontal};
 		height: 28rem;
@@ -218,6 +219,6 @@ const StyledPairGrid = styled(PairGrid)`
 const GuideText = styled.p`
 	${(p) => p.theme.text.system.small}
 	color: var(--color-label);
-	margin-left: ${(p) => p.theme.space[0]};
+	margin-left: var(--space-0);
 	width: 8rem;
 `

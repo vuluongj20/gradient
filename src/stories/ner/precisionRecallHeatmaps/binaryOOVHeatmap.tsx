@@ -99,14 +99,14 @@ export const Wrap = styled.div`
 	flex-direction: column;
 	align-items: center;
 	${(p) => p.theme.gridColumn.text};
-	${(p) => p.theme.marginBottom[3]}
-	gap: ${(p) => p.theme.space[1.5]};
+	margin-bottom: var(--adaptive-space-3);
+	gap: var(--space-1-5);
 `
 
 const ControlWrap = styled.div`
 	display: flex;
 	justify-content: center;
-	gap: ${(p) => p.theme.space[2]};
+	gap: var(--space-2);
 `
 
 const ContentWrap = styled.div`
@@ -114,10 +114,10 @@ const ContentWrap = styled.div`
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	gap: ${(p) => p.theme.space[4]};
+	gap: var(--space-4);
 
 	${(p) => p.theme.media.mobile} {
-		gap: ${(p) => p.theme.space[2]};
+		gap: var(--space-2);
 	}
 `
 
@@ -125,7 +125,7 @@ const Column = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: ${(p) => p.theme.space[0.5]};
+	gap: var(--space-0-5);
 	width: 100%;
 	max-width: 14rem;
 `

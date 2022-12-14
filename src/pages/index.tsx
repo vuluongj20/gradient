@@ -56,7 +56,7 @@ export const Head = () => <SEO />
 const HeaderWrap = styled.header`
   display: flex;
   align-items: flex-end;
-  padding: ${(p) => p.theme.space[3]} 0;
+  padding: var(--space-3) 0;
   ${(p) => p.theme.paddingHorizontal};
 
   ${(p) => p.theme.media.mobile} {

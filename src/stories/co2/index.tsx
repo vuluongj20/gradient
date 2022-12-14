@@ -45,9 +45,9 @@ export default Main
 export const Head = ({ pageContext }: PageProps) => <SEO {...pageContext} />
 
 const Wrap = styled.article`
-  --theme: var(--color-green1);
-  --warm: var(--color-red1);
-  --cool: var(--color-blue1);
+  --theme: var(--color-scale-green1);
+  --warm: var(--color-scale-red1);
+  --cool: var(--color-scale-blue1);
   min-height: 100vh;
 
   svg {

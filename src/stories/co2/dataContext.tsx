@@ -55,5 +55,5 @@ export const DataConsumer = ({ render }: DataConsumerProps) => {
 }
 
 const StyledSpinner = styled(Spinner)`
-	margin: ${(p) => p.theme.space[5]} auto 0;
+	margin: var(--space-5) auto 0;
 `

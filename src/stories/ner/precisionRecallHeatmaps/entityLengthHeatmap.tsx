@@ -103,16 +103,16 @@ const Wrap = styled.div`
 	flex-direction: column;
 	align-items: center;
 	${(p) => p.theme.gridColumn.text};
-	${(p) => p.theme.marginTop[1]}
-	${(p) => p.theme.marginBottom[3]}
-	gap: ${(p) => p.theme.space[1.5]};
+	margin-top: var(--adaptive-space-1);
+	margin-bottom: var(--adaptive-space-3);
+	gap: var(--space-1-5);
 	max-width: 32rem;
 `
 
 const ControlWrap = styled.div`
 	display: flex;
 	justify-content: center;
-	gap: ${(p) => p.theme.space[2]};
+	gap: var(--space-2);
 `
 
 const ContentWrap = styled.div`

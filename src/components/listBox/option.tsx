@@ -52,11 +52,9 @@ const Wrap = styled.li<{
   align-items: center;
 
   padding: ${(p) =>
-    p.small
-      ? `${p.theme.space[0]} ${p.theme.space[1]}`
-      : `${p.theme.space[1]} ${p.theme.space[2]}`};
-  padding-left: ${(p) => p.theme.space[1]};
-  border-radius: ${(p) => p.theme.radii.s};
+    p.small ? `var(--space-0) var(--space-1)` : `var(--space-1) var(--space-2)`};
+  padding-left: var(--space-1);
+  border-radius: var(--border-radius-s);
   outline: none;
   white-space: nowrap;
   cursor: pointer;
@@ -74,7 +72,7 @@ const CheckIndent = styled.div<{ visible: boolean }>`
   ${(p) => p.theme.flexCenter};
   width: 1.2rem;
   height: 1.2rem;
-  margin-right: ${(p) => p.theme.space[0]};
+  margin-right: var(--space-0);
   opacity: 0;
   transition: opacity ${(p) => p.theme.animation.mediumIn};
 

@@ -50,18 +50,18 @@ const getPadding = (p: { size?: PanelProps['size']; theme: Theme }) => {
 	switch (p.size) {
 		case 's':
 			return `
-				padding: ${p.theme.space[3]};
-				${p.theme.media.s} {padding: ${p.theme.space[2]}}
+				padding: var(--space-3);
+				${p.theme.media.s} {padding: var(--space-2)}
 			`
 		case 'm':
 			return `
-					padding: ${p.theme.space[4]};
-					${p.theme.media.s} {padding: ${p.theme.space[3]}}
+					padding: var(--space-4);
+					${p.theme.media.s} {padding: var(--space-3)}
 				`
 		case 'l':
 			return `
-				padding: ${p.theme.space[5]};
-				${p.theme.media.s} {padding: ${p.theme.space[4]}}
+				padding: var(--space-5);
+				${p.theme.media.s} {padding: var(--space-4)}
 			`
 		default:
 			return null
@@ -75,7 +75,7 @@ const Wrap = styled.div<{
 	gridColumn?: PanelProps['gridColumn']
 }>`
 	background-color: var(--color-background);
-	border-radius: ${(p) => p.theme.radii.l};
+	border-radius: var(--border-radius-l);
 	border: solid 1px var(--color-i-line);
 
 	${getPadding}
@@ -93,6 +93,6 @@ const Wrap = styled.div<{
 			}
 		`}
 
-	${(p) => isDefined(p.mt) && p.theme.marginTop[p.mt]};
-	${(p) => isDefined(p.mb) && p.theme.marginBottom[p.mb]};
+	margin-top: ${(p) => (!isDefined(p.mt) ? '0' : `var(--adaptive-space-${p.mt})`)};
+	margin-bottom: ${(p) => (!isDefined(p.mb) ? '0' : `var(--adaptive-space-${p.mb})`)};
 `

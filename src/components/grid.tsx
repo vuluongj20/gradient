@@ -5,7 +5,7 @@ import { gridColCounts } from '@utils/style'
 const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xxl}, 1fr) [end];
-	column-gap: ${(p) => p.theme.space[3]};
+	column-gap: var(--space-3);
 
 	${(p) => p.theme.paddingHorizontal};
 
@@ -25,7 +25,7 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
-		column-gap: ${(p) => p.theme.space[2]};
+		column-gap: var(--space-2);
 	}
 
 	${(p) => p.theme.media.s} {
@@ -40,7 +40,7 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];
-		column-gap: ${(p) => p.theme.space[1]};
+		column-gap: var(--space-1);
 	}
 `
 

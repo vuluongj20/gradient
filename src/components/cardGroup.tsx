@@ -200,5 +200,5 @@ const CardGroup = ({ stories, imageLoading }: CardGroupProps) => {
 export default CardGroup
 
 const Wrap = styled(Grid)`
-	row-gap: ${(p) => p.theme.space[4]};
+	row-gap: var(--space-4);
 `
