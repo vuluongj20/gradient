@@ -87,8 +87,8 @@ export default Nav
 const Wrap = styled.nav`
 	position: fixed;
 	top: 0;
-	width: ${navSize.width};
 	height: 100%;
+	width: ${navSize.width};
 	z-index: var(--z-index-nav);
 
 	${(p) => p.theme.media.mobile} {
@@ -108,6 +108,7 @@ const InnerWrap = styled.div`
 	width: 100%;
 	height: 100%;
 	box-sizing: border-box;
+	background: var(--color-background);
 	border-right: solid 1px var(--color-line);
 	padding-top: calc(var(--space-0) + var(--sat, 0));
 	padding-bottom: calc(var(--space-0) + var(--sab, 0));
