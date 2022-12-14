@@ -43,10 +43,10 @@ const Text = styled.p`
 
 const HomeLink = styled(Link)`
   text-decoration: underline;
-  text-decoration-color: ${(p) => p.theme.label};
+  text-decoration-color: var(--color-label);
   &:hover {
     text-decoration: underline;
-    text-decoration-color: ${(p) => p.theme.body};
+    text-decoration-color: var(--color-body);
   }
 `
 

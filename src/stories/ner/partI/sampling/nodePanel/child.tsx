@@ -80,14 +80,14 @@ const Wrap = styled.div``
 
 const NodeDescription = styled.p`
 	${(p) => p.theme.text.system.small}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
 
 const ValueFnWrap = styled.div`
 	margin: ${(p) => p.theme.space[2]} 0;
 	padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[2]};
-	border-left: solid 2px ${(p) => p.theme.line};
+	border-left: solid 2px var(--color-line);
 `
 
 const ValueFn = styled.p`

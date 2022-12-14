@@ -143,8 +143,8 @@ const EmptyWrap = styled.div`
 	align-items: center;
 	justify-content: center;
 	border-radius: ${(p) => p.theme.radii.m};
-	background: ${(p) => p.theme.background};
-	border: dashed 1px ${(p) => p.theme.line};
+	background: var(--color-background);
+	border: dashed 1px var(--color-line);
 
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
@@ -153,7 +153,7 @@ const EmptyWrap = styled.div`
 const EmptyText = styled.p`
 	${(p) => p.theme.text.system.small};
 	${(p) => p.theme.marginHorizontal};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	max-width: 20rem;
 	text-align: center;
 `
@@ -167,7 +167,7 @@ const SVG = styled.svg`
 	*/
 	g.axis {
 		path.domain {
-			stroke: ${(p) => p.theme.label};
+			stroke: var(--color-label);
 			stroke-opacity: 0.5;
 			stroke-width: 1.5;
 			stroke-linecap: round;
@@ -182,14 +182,14 @@ const SVG = styled.svg`
 
 		.tick {
 			line {
-				stroke: ${(p) => p.theme.label};
+				stroke: var(--color-label);
 				stroke-opacity: 0.5;
 				stroke-width: 1.5;
 				stroke-linecap: round;
 			}
 			text {
 				${(p) => p.theme.text.viz.small};
-				fill: ${(p) => p.theme.label};
+				fill: var(--color-label);
 			}
 		}
 	}
@@ -205,18 +205,18 @@ const SVG = styled.svg`
 	Data plots
 	*/
 	g.data circle {
-		fill: ${(p) => p.theme.body};
+		fill: var(--color-body);
 		fill-opacity: 0.75;
 	}
 	g.data rect {
-		fill: ${(p) => p.theme.label};
+		fill: var(--color-label);
 		fill-opacity: 0.25;
 	}
 
 	g.row-label,
 	g.column-label {
 		text {
-			fill: ${(p) => p.theme.label};
+			fill: var(--color-label);
 			transition: fill ${(p) => p.theme.animation.fastOut};
 		}
 		&.highlighted text {
@@ -224,7 +224,7 @@ const SVG = styled.svg`
 		}
 
 		path.underline {
-			stroke: ${(p) => p.theme.bar};
+			stroke: var(--color-bar);
 			stroke-dasharray: 4 3;
 			stroke-linecap: round;
 			opacity: 0;

@@ -85,13 +85,13 @@ const Wrap = styled.sup`
 
 const CitationLink = styled.a`
 	font-family: inherit;
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	&:hover,
 	&:target,
 	&.focus-visible {
-		color: ${(p) => p.theme.contentLinkText};
-		text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+		color: var(--color-content-link-text);
+		text-decoration-color: var(--color-content-link-underline);
 	}
 
 	&:target,
@@ -107,7 +107,7 @@ const CitationText = styled.span`
 	margin: ${(p) => p.theme.space[0.5]};
 
 	b {
-		color: ${(p) => p.theme.heading};
+		color: var(--color-heading);
 		font-weight: 500;
 	}
 	br {
@@ -115,14 +115,14 @@ const CitationText = styled.span`
 	}
 	a {
 		position: relative;
-		color: ${(p) => p.theme.label};
+		color: var(--color-label);
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.linkUnderline};
+		text-decoration-color: var(--color-link-underline);
 
 		&:hover,
 		&.focus-visible {
-			color: ${(p) => p.theme.contentLinkText};
-			text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+			color: var(--color-content-link-text);
+			text-decoration-color: var(--color-content-link-underline);
 		}
 
 		&::before {

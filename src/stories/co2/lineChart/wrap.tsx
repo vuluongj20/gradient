@@ -17,7 +17,7 @@ const Wrap = styled.div`
   }
   .axis text {
     font-size: 0.875rem;
-    color: ${(p) => p.theme.label};
+    color: var(--color-label);
     ${(p) => p.theme.media.s} {
       font-size: 0.75rem;
     }
@@ -30,7 +30,7 @@ const Wrap = styled.div`
     transform: translateY(-0.8rem);
   }
   .bottom-axis {
-    stroke: ${(p) => p.theme.label};
+    stroke: var(--color-label);
     stroke-linecap: round;
     stroke-width: 2;
   }
@@ -40,13 +40,13 @@ const Wrap = styled.div`
     display: none;
   }
   .grid line {
-    stroke: ${(p) => p.theme.line};
+    stroke: var(--color-line);
     opacity: 0.8;
   }
 
   /* Data line */
   .data-line {
-    stroke: ${(p) => p.theme.body};
+    stroke: var(--color-body);
     stroke-width: 2;
     stroke-linejoin: round;
     fill: none;
@@ -97,7 +97,7 @@ const Wrap = styled.div`
     }
   }
   .hover-line {
-    stroke: ${(p) => p.theme.label};
+    stroke: var(--color-label);
     stroke-width: 2;
   }
   .hover-data-circle {
@@ -115,8 +115,8 @@ const Wrap = styled.div`
   .hover-rect {
     width: 13.1em;
     height: 2.8em;
-    fill: ${(p) => p.theme.oBackground};
-    stroke: ${(p) => p.theme.line};
+    fill: var(--color-o-background);
+    stroke: var(--color-line);
     transform: translate(-14.6em, -4.72em);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
     will-change: transform, width, height;
@@ -131,7 +131,7 @@ const Wrap = styled.div`
   .hover-data-label,
   .hover-reg-label,
   .hover-diff-label {
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
   }
 
   .hover-data-label {
@@ -139,7 +139,7 @@ const Wrap = styled.div`
     transition: none;
   }
   .hover-data-text {
-    fill: ${(p) => p.theme.heading};
+    fill: var(--color-heading);
     transform: translate(-8.8em, -3em);
     font-weight: 500;
   }
@@ -150,7 +150,7 @@ const Wrap = styled.div`
     transform: translate(-8.8em, -7em);
   }
   .hover-data-text.out {
-    fill: ${(p) => p.theme.body};
+    fill: var(--color-body);
   }
 
   .hover-reg-circle {
@@ -166,14 +166,14 @@ const Wrap = styled.div`
   }
 
   .hover-diff-line {
-    stroke: ${(p) => p.theme.errorText};
+    stroke: var(--color-error-text);
     stroke-width: 2;
   }
   .hover-diff-label {
     transform: translate(-17.7em, -3.4em);
   }
   .hover-diff-text {
-    fill: ${(p) => p.theme.errorText};
+    fill: var(--color-error-text);
     transform: translate(-8.8em, -3.4em);
     font-weight: 500;
   }
@@ -192,8 +192,8 @@ const Wrap = styled.div`
     }
   }
   .mse-rect {
-    fill: ${(p) => p.theme.oBackground};
-    stroke: ${(p) => p.theme.line};
+    fill: var(--color-o-background);
+    stroke: var(--color-line);
     stroke-width: 1;
     rx: 0.4rem;
     ry: 0.4rem;
@@ -211,19 +211,19 @@ const Wrap = styled.div`
     width: 24em;
   }
   .mse-title {
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
   }
   .mse-equation-label {
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
     transform: translateY(1.6em);
   }
   .mse-equation {
     position: absolute;
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
     transform: translate(3.6em, 1.6em);
   }
   .mse-equation > tspan {
-    fill: ${(p) => p.theme.body};
+    fill: var(--color-body);
     font-weight: 500;
     visibility: hidden;
     &.linear,
@@ -232,14 +232,14 @@ const Wrap = styled.div`
     }
   }
   .mse-equation > .span.off {
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
   }
   .mse-acc-label {
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
     transform: translateY(3.2em);
   }
   .mse-acc-text {
-    fill: ${(p) => p.theme.errorText};
+    fill: var(--color-error-text);
     transform: translate(3.2em, 3.2em);
     font-weight: 500;
   }

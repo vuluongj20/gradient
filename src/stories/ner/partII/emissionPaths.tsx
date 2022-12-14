@@ -127,13 +127,13 @@ const SVG = styled.svg`
 	height: 100%;
 
 	text {
-		fill: ${(p) => p.theme.body};
+		fill: var(--color-body);
 		text-anchor: middle;
 		transform: translateY(0.5em);
 	}
 
 	path {
-		stroke: ${(p) => p.theme.body};
+		stroke: var(--color-body);
 		stroke-linecap: round;
 		stroke-width: 2;
 	}
@@ -141,7 +141,7 @@ const SVG = styled.svg`
 
 const Legend = styled.small`
 	${(p) => p.theme.text.system.small};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	display: block;
 	max-width: 24rem;
@@ -151,6 +151,6 @@ const Legend = styled.small`
 
 	strong {
 		font-weight: 500;
-		color: ${(p) => p.theme.label};
+		color: var(--color-label);
 	}
 `

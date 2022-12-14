@@ -390,14 +390,14 @@ const BreakdownWrap = styled(Panel)`
 	border-radius: 0;
 	padding: ${(p) => p.theme.space[3]} ${(p) => p.theme.space[4]}
 		${(p) => p.theme.space[4]};
-	background: ${(p) => p.theme.oBackground};
+	background: var(--color-o-background);
 	${(p) => p.theme.paddingHorizontalMobile}
 `
 
 const StyledPopoverArrow = styled(PopoverArrow)`
 	top: 0;
 	left: calc(50% + 3.75em);
-	background: ${(p) => p.theme.background};
+	background: var(--color-background);
 `
 
 const BreakdownHeader = styled.div`
@@ -420,7 +420,7 @@ const LoadingSpinner = styled(Spinner)`
 	top: 50%;
 	right: 0;
 	transform: translateY(-50%);
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
@@ -439,7 +439,7 @@ const BreakdownTable = styled(Table)<{ visible: boolean }>`
 	}
 
 	tbody > tr:last-of-type {
-		color: ${(p) => p.theme.label};
+		color: var(--color-label);
 		opacity: 0.75;
 	}
 
@@ -485,18 +485,18 @@ const BreakdownTable = styled(Table)<{ visible: boolean }>`
 
 const BreakdownTableFoot = styled(TableFoot)`
 	th {
-		color: ${(p) => p.theme.label};
+		color: var(--color-label);
 		font-weight: 500;
 	}
 	td {
 		${(p) => p.theme.text.viz.body}
-		color: ${(p) => p.theme.heading};
+		color: var(--color-heading);
 		font-weight: 500;
 	}
 `
 
 const BreakdownTR = styled(TR)<{ inactive?: boolean }>`
-	${(p) => p.inactive && `color: ${p.theme.label};`}
+	${(p) => p.inactive && `color: var(--color-label);`}
 `
 
 const ProbabilityCalculation = styled.p<{ visible: boolean }>`
@@ -504,13 +504,13 @@ const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 	justify-content: center;
 	padding-top: ${(p) => p.theme.space[3]};
 	margin-top: ${(p) => p.theme.space[2]};
-	border-top: solid 1px ${(p) => p.theme.iLine};
+	border-top: solid 1px var(--color-i-line);
 
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
 	letter-spacing: 0.025em;
 	white-space: nowrap;
-	color: ${(p) => p.theme.heading};
+	color: var(--color-heading);
 
 	opacity: ${(p) => (p.visible ? 1 : 0)};
 	transition: opacity ${(p) => p.theme.animation.fastOut};
@@ -519,7 +519,7 @@ const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 const ProbabilityCalculationLeftWrap = styled.span`
 	display: flex;
 	justify-content: end;
-	color: ${(p) => p.theme.heading};
+	color: var(--color-heading);
 	width: 10em;
 `
 
@@ -534,8 +534,8 @@ const ProbabilityCalculationResult = styled.span`
 const NoObservationWrap = styled.div`
 	${(p) => p.theme.spread}
 	${(p) => p.theme.flexCenter};
-	background: ${(p) => p.theme.background};
-	border: dashed 1px ${(p) => p.theme.oLine};
+	background: var(--color-background);
+	border: dashed 1px var(--color-o-line);
 	border-radius: ${(p) => p.theme.radii.m};
 	padding: ${(p) => p.theme.space[2]};
 
@@ -545,7 +545,7 @@ const NoObservationWrap = styled.div`
 
 const NoObservationMessage = styled.p`
 	${(p) => p.theme.text.system.small};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	text-align: center;
 	max-width: 28em;
 `

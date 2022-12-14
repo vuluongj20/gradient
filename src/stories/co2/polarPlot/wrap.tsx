@@ -12,7 +12,7 @@ const Wrap = styled.div`
   .ticks .tick {
     font-size: 0.875rem;
     position: relative;
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
     transition: opacity ${(p) => p.theme.animation.slowOut};
     ${(p) => p.theme.media.s} {
       font-size: 0.75rem;
@@ -23,14 +23,14 @@ const Wrap = styled.div`
     animation: opacity ${(p) => p.theme.animation.slowOut};
   }
   .ticks .tick .text {
-    fill: ${(p) => p.theme.label};
+    fill: var(--color-label);
   }
 
   /* Grid lines */
   .grid-line,
   .grid-circle {
     fill: none;
-    stroke: ${(p) => p.theme.line};
+    stroke: var(--color-line);
     opacity: 0.8;
     transition: opacity ${(p) => p.theme.animation.slowOut};
   }
@@ -49,11 +49,11 @@ const Wrap = styled.div`
     stroke-linejoin: round;
     stroke-width: 2;
     fill: none;
-    stroke: ${(p) => p.theme.body};
+    stroke: var(--color-body);
   }
 
   .stretch {
-    stroke: ${(p) => p.theme.label};
+    stroke: var(--color-label);
     opacity: 0;
     transition: opacity ${(p) => p.theme.animation.slowOut};
     &.on {

@@ -48,7 +48,7 @@ const Wrap = styled(Grid)`
 	top: 0;
 	padding-top: ${(p) => p.theme.space[0]};
 	padding-bottom: ${(p) => p.theme.space[0]};
-	background: ${(p) => p.theme.background};
+	background: var(--color-background);
 	transform: translateX(-${(p) => p.theme.space[1]});
 	z-index: 9;
 `

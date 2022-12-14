@@ -187,7 +187,7 @@ const TFoot = styled.tfoot``
 
 const GroupName = styled.th`
 	${(p) => p.theme.text.system.small}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	padding-top: ${(p) => p.theme.space[1]};
 	text-align: center;
 	font-variant-numeric: tabular-nums;
@@ -195,7 +195,7 @@ const GroupName = styled.th`
 
 const RowName = styled.th<{ invisible?: boolean; isLabel?: boolean }>`
 	${(p) => p.theme.text.viz.small}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	text-align: right;
 	padding-right: ${(p) => p.theme.space[1]};
 	font-variant-numeric: tabular-nums;
@@ -230,7 +230,7 @@ const TD = styled.td`
 
 const TDBackground = styled.div<{ opacity: number }>`
 	${(p) => p.theme.spread};
-	background-color: ${(p) => p.theme.heading};
+	background-color: var(--color-heading);
 	opacity: ${(p) => p.opacity};
 	z-index: -1;
 
@@ -240,7 +240,7 @@ const TDBackground = styled.div<{ opacity: number }>`
 const TDLabel = styled.span<{ whiteText: boolean; opacity: number }>`
 	${(p) => p.theme.text.system.small}
 	${(p) => p.whiteText && `text-shadow: ${p.theme.shadows.text};`}
-	color: ${(p) => (p.whiteText ? p.theme.white : p.theme.black)};
+	color: ${(p) => (p.whiteText ? 'var(--color-white)' : 'var(--color-black)')};
 	opacity: ${(p) => p.opacity};
 `
 
@@ -254,7 +254,7 @@ const GroupCaption = styled.div`
 
 const GroupLabel = styled.p`
 	${(p) => p.theme.text.system.small}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 `
 
 const RowCaption = styled.div`
@@ -267,7 +267,7 @@ const RowCaption = styled.div`
 
 const RowLabel = styled.p`
 	${(p) => p.theme.text.system.small}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	display: flex;
 	justify-content: flex-end;

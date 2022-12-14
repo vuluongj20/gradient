@@ -29,11 +29,11 @@ export default Alert
 const Wrap = styled.p<AlertProps>`
 	column-gap: ${(p) => p.theme.space[0]};
 
-	border-top: solid 1px ${(p) => p.theme.line};
-	border-bottom: solid 1px ${(p) => p.theme.line};
+	border-top: solid 1px var(--color-line);
+	border-bottom: solid 1px var(--color-line);
 	padding: ${(p) => p.theme.space[1.5]} 0;
 
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 	${(p) => p.marginTop && `margin-top: ${p.theme.space[p.marginTop]}`}
@@ -58,6 +58,6 @@ export const Title = styled.span<{ column: number }>`
 	grid-column: ${(p) => p.column};
 
 	font-weight: 500;
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	margin-bottom: ${(p) => p.theme.space[0]};
 `

@@ -15,34 +15,33 @@ import {
 
 export type Appearance = 'light' | 'dark'
 
-export type Theme = ColorPalette['colors'] &
-	ColorAliases &
-	Utils & {
-		elevation: number
-		appearance: Appearance
-		colorPalette: keyof typeof colorPalettes
-		opacityFactor: number
-		/** Text */
-		text: {
-			system: TextScale
-			content: TextScale
-			viz: TextScale
-		}
-		/** Box shadow */
-		shadows: typeof boxShadowsLight & {
-			text: string
-		}
-		/** Animation */
-		animation: Animation
-		/** Breakpoints */
-		breakpoints: typeof breakpoints
-		/** Border radius */
-		radii: typeof radii
-		/** z-indices */
-		zIndices: typeof zIndices
-		/** Spacing */
-		space: typeof space
+export type Theme = Utils & {
+	elevation: number
+	appearance: Appearance
+	colorPalette: keyof typeof colorPalettes
+	opacityFactor: number
+	colors: ColorPalette['colors'] & ColorAliases
+	/** Text */
+	text: {
+		system: TextScale
+		content: TextScale
+		viz: TextScale
 	}
+	/** Box shadow */
+	shadows: typeof boxShadowsLight & {
+		text: string
+	}
+	/** Animation */
+	animation: Animation
+	/** Breakpoints */
+	breakpoints: typeof breakpoints
+	/** Border radius */
+	radii: typeof radii
+	/** z-indices */
+	zIndices: typeof zIndices
+	/** Spacing */
+	space: typeof space
+}
 
 export type ThemeSettings = {
 	color: {
@@ -87,8 +86,10 @@ export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme
 		colorPalette,
 		opacityFactor,
 
-		...colors,
-		...colorAliases,
+		colors: {
+			...colors,
+			...colorAliases,
+		},
 
 		shadows,
 		text,

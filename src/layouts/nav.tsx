@@ -107,9 +107,8 @@ const InnerWrap = styled.div`
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background: ${(p) => p.theme.background};
 	box-sizing: border-box;
-	border-right: solid 1px ${(p) => p.theme.line};
+	border-right: solid 1px var(--color-line);
 	padding-top: calc(${(p) => p.theme.space[0]} + var(--sat, 0));
 	padding-bottom: calc(${(p) => p.theme.space[0]} + var(--sab, 0));
 
@@ -153,7 +152,7 @@ const HomeLogo = styled.svg`
 	width: auto;
 
 	g > path {
-		fill: ${(p) => p.theme.body};
+		fill: var(--color-body);
 		transition: opacity ${(p) => p.theme.animation.mediumOut};
 		opacity: 0;
 
@@ -164,7 +163,7 @@ const HomeLogo = styled.svg`
 
 	circle {
 		r: 18px;
-		fill: ${(p) => p.theme.body};
+		fill: var(--color-body);
 		transition: opacity ${(p) => p.theme.animation.mediumOut};
 		opacity: 1;
 
@@ -182,7 +181,7 @@ const PageTitle = styled.p`
 	transform: rotate(-90deg);
 
 	${(p) => p.theme.text.viz.label};
-	color: ${(p) => p.theme.heading};
+	color: var(--color-heading);
 	letter-spacing: 0.02em;
 	white-space: nowrap;
 	text-transform: uppercase;

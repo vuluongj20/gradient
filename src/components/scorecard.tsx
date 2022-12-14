@@ -24,7 +24,7 @@ const Wrap = styled.div``
 
 const Label = styled.p`
 	${(p) => p.theme.text.system.label};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	margin-top: ${(p) => p.theme.space[0]};
 	margin-bottom: ${(p) => p.theme.space[0]};
 `
@@ -35,13 +35,13 @@ const Main = styled.p`
 
 const MainNumber = styled.span`
 	${(p) => p.theme.text.system.h3};
-	color: ${(p) => p.theme.heading};
+	color: var(--color-heading);
 	padding-right: ${(p) => p.theme.space[0]};
 	line-height: 1;
 `
 
 const MainUnit = styled.span`
 	${(p) => p.theme.text.system.h5};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	line-height: 1;
 `

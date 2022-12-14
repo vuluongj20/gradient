@@ -112,6 +112,6 @@ const PanelsWrap = styled.div`
   height: 100%;
   width: 100%;
   border-radius: ${(p) => p.theme.radii.m};
-  background: ${(p) => p.theme.background};
-  border: solid 1px ${(p) => p.theme.line};
+  background: var(--color-background);
+  border: solid 1px var(--color-line);
 `

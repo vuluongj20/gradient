@@ -15,7 +15,7 @@ export const Abstract = styled.p<TextProps>`
 	${(p) => p.theme.text.content.h6}
 	font-family: ${(p) => p.theme.text.content.body.fontFamily};
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
-	color: ${(p) => p.theme.heading};
+	color: var(--color-heading);
 	line-height: 1.3;
 	letter-spacing: -0.03em;
 
@@ -63,11 +63,11 @@ export const Body = styled.p<TextProps>`
 
 export const Link = styled.a<TextProps>`
 	${(p) => p.theme.text.content.body};
-	color: ${(p) => p.theme.contentLinkText};
-	text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+	color: var(--color-content-link-text);
+	text-decoration-color: var(--color-content-link-underline);
 
 	&:hover:not([data-no-underline='true']) {
-		text-decoration-color: ${(p) => p.theme.contentLinkUnderlineHover};
+		text-decoration-color: var(--color-content-link-underline-hover);
 	}
 `
 

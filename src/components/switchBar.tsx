@@ -150,7 +150,7 @@ const SwitchItem = ({
 const SwitchBarWrap = styled.div<{ moveLeft?: boolean }>`
 	position: relative;
 	display: inline-flex;
-	background: ${(p) => p.theme.iiBackground};
+	background: var(--color-ii-background);
 	box-shadow: inset ${(p) => p.theme.shadows.s};
 	border-radius: ${(p) => p.theme.radii.m};
 
@@ -162,7 +162,7 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 	top: 2px;
 	left: 2px;
 	height: calc(100% - 4px);
-	background: ${(p) => p.theme.ooBackground};
+	background: var(--color-oo-background);
 	border-radius: calc(${(p) => p.theme.radii.m} - 2px);
 	box-shadow: ${(p) => p.theme.shadows.m};
 	opacity: 0;
@@ -195,7 +195,7 @@ const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
 			content: '';
 			${(p) => p.theme.spread};
 			border-radius: ${(p) => p.theme.radii.m};
-			background: ${(p) => p.theme.activeBackground};
+			background: var(--color-active-background);
 			z-index: -1;
 			opacity: 0;
 			transition: opacity ${(p) => p.theme.animation.mediumOut};
@@ -231,7 +231,7 @@ const SwitchItemInput = styled.input`
 	z-index: -1;
 
 	&.focus-visible {
-		box-shadow: inset 0 0 0 2px ${(p) => p.theme.focus}, 0 0 0 1px ${(p) => p.theme.focus};
+		box-shadow: inset 0 0 0 2px var(--color-focus), 0 0 0 1px var(--color-focus);
 	}
 `
 
@@ -242,7 +242,7 @@ const Divider = styled.div<{ visible: boolean }>`
 	width: 0;
 	height: 50%;
 	transform: translateY(-50%);
-	border-right: solid 1px ${(p) => p.theme.line};
+	border-right: solid 1px var(--color-line);
 	transition: opacity ${(p) => p.theme.animation.mediumOut};
 
 	${(p) => !p.visible && `opacity: 0;`}

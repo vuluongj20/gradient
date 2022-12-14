@@ -54,7 +54,7 @@ const Wrap = styled.li<{ isSelected: boolean; isDisabled: boolean }>`
   ${(p) =>
     p.isSelected &&
     `
-    color: ${p.theme.activeText};
+    color: var(--color-active-text);
   `}
 `
 

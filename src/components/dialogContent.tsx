@@ -98,15 +98,15 @@ const Backdrop = styled.div`
 	${(p) => p.theme.flexCenter};
 	${(p) => p.theme.paddingHorizontal};
 
-	background: ${(p) => p.theme.line};
+	background: var(--color-line);
 `
 
 const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 	width: ${(p) => p.theme.breakpoints[p.size]};
 	max-width: 100%;
-	background: ${(p) => p.theme.oBackground};
+	background: var(--color-o-background);
 	border-radius: ${(p) => p.theme.radii.l};
-	box-shadow: 0 0 0 1px ${(p) => p.theme.oLine}, ${(p) => p.theme.shadows.l};
+	box-shadow: 0 0 0 1px var(--color-o-line), ${(p) => p.theme.shadows.l};
 	transform: translate3d(0, 4rem, 0);
 	transition: transform ${(p) => p.theme.animation.mediumOut};
 	will-change: transform;
@@ -144,7 +144,7 @@ const TitleWrap = styled.div<{ compact: boolean }>`
 	align-items: center;
 	margin-bottom: ${(p) => p.theme.space[2]};
 	padding-bottom: ${(p) => p.theme.space[1]};
-	border-bottom: solid 1px ${(p) => p.theme.line};
+	border-bottom: solid 1px var(--color-line);
 
 	${(p) =>
 		p.compact &&
@@ -159,12 +159,12 @@ const CloseButton = styled.button<{ compact: boolean }>`
 	display: flex;
 	padding: ${(p) => p.theme.space[1]};
 	margin: -${(p) => p.theme.space[1]};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h4)};
 
 	&:hover {
-		color: ${(p) => p.theme.heading};
+		color: var(--color-heading);
 	}
 `
 

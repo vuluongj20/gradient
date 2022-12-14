@@ -221,10 +221,10 @@ const getStyles = (p: PopoverWrapProps & { theme: Theme }) => `
   max-width: ${
     p.maxWidth ? `min(${p.maxWidth}, calc(100vw - 32px))` : `calc(100vw - 32px)`
   };
-  background: ${p.theme.oBackground};
+  background: var(--color-o-background);
   border-radius: ${p.theme.radii.m};
   padding: ${p.theme.space[0]};
-  box-shadow: 0 0 0 1px ${p.theme.oLine}, ${p.theme.shadows.l};
+  box-shadow: 0 0 0 1px var(--color-o-line), ${p.theme.shadows.l};
   transition: transform ${p.theme.animation.fastOut},
     opacity ${p.theme.animation.fastOut};
   opacity: 0;

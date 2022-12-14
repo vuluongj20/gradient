@@ -41,7 +41,7 @@ const Section = ({ section, state, small }: ListBoxSectionProps) => {
 export default Section
 
 const Separator = styled.li`
-	border-bottom: solid 1px ${(p) => p.theme.line};
+	border-bottom: solid 1px var(--color-line);
 	margin: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[1]};
 `
 const Wrap = styled.li`
@@ -52,7 +52,7 @@ const Title = styled.p`
 	&& {
 		${(p) => p.theme.text.system.label}
 	}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	margin-left: ${(p) => p.theme.space[1]};
 	margin-bottom: ${(p) => p.theme.space[0]};
 `

@@ -111,9 +111,9 @@ const SVG = styled.svg`
   transform: translate3d(0, 0, 0);
 
   path.stroke {
-    stroke: ${(p) => p.theme.oLine};
+    stroke: var(--color-o-line);
   }
   path.fill {
-    fill: ${(p) => p.theme.oBackground};
+    fill: var(--color-o-background);
   }
 `

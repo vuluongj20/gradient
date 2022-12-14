@@ -95,16 +95,17 @@ const Wrap = styled.button<{
 	background-color: ${(p) =>
 		p.filled
 			? p.primary
-				? p.theme.primaryOpaqueBackground
-				: p.theme.iLine
+				? 'var(--color-primary-opaque-background)'
+				: 'var(--color-i-line)'
 			: 'transparent'};
 	transition: color, box-shadow ${(p) => p.theme.animation.vFastOut};
 
 	${(p) => p.theme.text.system.label};
-	color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.buttonLabel)};
+	color: ${(p) =>
+		p.primary ? 'var(--color-primary-text)' : 'var(--color-button-label)'};
 
 	&:hover {
-		color: ${(p) => (p.primary ? p.theme.primaryText : p.theme.heading)};
+		color: ${(p) => (p.primary ? 'var(--color-primary-text)' : 'var(--color-heading)')};
 	}
 
 	&:focus {
@@ -116,5 +117,6 @@ const Wrap = styled.button<{
 
 	${(p) => p.showExpandIcon && `padding-right: ${p.theme.space[0]};`}
 	${(p) =>
-		p.showBorder && `border: solid 1px ${p.isExpanded ? p.theme.oLine : p.theme.line};`}
+		p.showBorder &&
+		`border: solid 1px ${p.isExpanded ? 'var(--color-o-line)' : 'var(--color-line)'}`}
 `

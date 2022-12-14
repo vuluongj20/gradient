@@ -63,13 +63,13 @@ const TOC = ({ label, contentSelector, className }: TOCProps) => {
 		<TocWrap className={className}>
 			<TocLabel>{label}</TocLabel>
 			<TocInnerWrap>
-				<UpperScrollFade visible={showUpperFade} />
+				{/*<UpperScrollFade visible={showUpperFade} />*/}
 				<TocInnerContentWrap>
 					<UpperIntersectionTarget />
 					<TocContent />
 					<LowerIntersectionTarget />
 				</TocInnerContentWrap>
-				<LowerScrollFade visible={showLowerFade} />
+				{/*<LowerScrollFade visible={showLowerFade} />*/}
 			</TocInnerWrap>
 		</TocWrap>
 	)
@@ -98,7 +98,7 @@ const TocInnerContentWrap = styled.div`
 
 const TocLabel = styled.p`
 	${(p) => p.theme.text.system.label};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	text-transform: uppercase;
 `
 
@@ -113,12 +113,12 @@ const TocContent = styled.div`
 
 	li,
 	li > a {
-		color: ${(p) => p.theme.label};
+		color: var(--color-label);
 		font-weight: 400;
 	}
 	li > a.is-active-link {
 		font-weight: 500;
-		color: ${(p) => p.theme.heading};
+		color: var(--color-heading);
 		text-decoration: none;
 	}
 `
@@ -142,29 +142,29 @@ const ScrollFade = styled.div<{ visible: boolean }>`
 	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `
 
-const UpperScrollFade = styled(ScrollFade)`
-	top: 0;
-	background: linear-gradient(
-			180deg,
-			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1).string()} 100%
-		),
-		linear-gradient(
-			180deg,
-			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1).string()} 100%
-		);
-`
-const LowerScrollFade = styled(ScrollFade)`
-	bottom: -1px;
-	background: linear-gradient(
-			0deg,
-			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1).string()} 100%
-		),
-		linear-gradient(
-			0deg,
-			${(p) => p.theme.background} 0%,
-			${(p) => Color(p.theme.background).fade(1).string()} 100%
-		);
-`
+// const UpperScrollFade = styled(ScrollFade)`
+// 	top: 0;
+// 	background: linear-gradient(
+// 			180deg,
+// 			var(--color-background) 0%,
+// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
+// 		),
+// 		linear-gradient(
+// 			180deg,
+// 			var(--color-background) 0%,
+// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
+// 		);
+// `
+// const LowerScrollFade = styled(ScrollFade)`
+// 	bottom: -1px;
+// 	background: linear-gradient(
+// 			0deg,
+// 			var(--color-background) 0%,
+// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
+// 		),
+// 		linear-gradient(
+// 			0deg,
+// 			var(--color-background) 0%,
+// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
+// 		);
+// `

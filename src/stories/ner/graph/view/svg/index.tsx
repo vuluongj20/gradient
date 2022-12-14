@@ -279,7 +279,7 @@ const SVG = styled.svg`
 	}
 	g.node-wrap {
 		rect.node-box {
-			stroke: ${(p) => p.theme.bar};
+			stroke: var(--color-bar);
 			stroke-linecap: round;
 			fill: currentcolor;
 			fill-opacity: 0;
@@ -323,7 +323,7 @@ const SVG = styled.svg`
 	g.edges,
 	marker {
 		fill: none;
-		stroke: ${(p) => p.theme.bar};
+		stroke: var(--color-bar);
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}

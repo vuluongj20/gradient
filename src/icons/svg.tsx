@@ -54,7 +54,8 @@ export default SVG
 
 const StyledSVG = styled.svg<{ $color: ColorProp }>`
 	fill: ${(p) =>
-		p.$color && (p.$color === 'currentColor' ? 'currentColor' : p.theme[p.$color])};
+		p.$color &&
+		(p.$color === 'currentColor' ? 'currentColor' : `var(--color${p.color ?? 'body'})`)};
 	transition: color ${(p) => p.theme.animation.vFastOut};
 
 	path {

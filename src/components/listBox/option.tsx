@@ -67,7 +67,7 @@ const Wrap = styled.li<{
     margin: 0;
   }
 
-  ${(p) => p.isSelected && `color: ${p.theme.activeText};`}
+  ${(p) => p.isSelected && `color: var(--color-active-text);`}
 `
 
 const CheckIndent = styled.div<{ visible: boolean }>`

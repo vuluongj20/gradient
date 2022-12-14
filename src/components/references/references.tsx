@@ -55,7 +55,7 @@ const ReferencesWrap = styled.section`
 
 const ReferencesHeader = styled.h2`
 	${(p) => p.theme.text.system.h6}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 `
 
 const ReferencesList = styled.ol`
@@ -68,7 +68,7 @@ const ReferencesList = styled.ol`
 
 const ReferenceItem = styled.li`
 	list-style-type: decimal;
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	&::marker {
 		font-weight: 500;
@@ -85,14 +85,14 @@ const ReferenceContent = styled.span`
 	}
 	a {
 		position: relative;
-		color: ${(p) => p.theme.label};
+		color: var(--color-label);
 		text-decoration: underline;
-		text-decoration-color: ${(p) => p.theme.linkUnderline};
+		text-decoration-color: var(--color-link-underline);
 
 		&:hover,
 		&.focus-visible {
-			color: ${(p) => p.theme.contentLinkText};
-			text-decoration-color: ${(p) => p.theme.contentLinkUnderline};
+			color: var(--color-content-link-text);
+			text-decoration-color: var(--color-content-link-underline);
 		}
 
 		&::before {
@@ -115,11 +115,11 @@ const ReferenceBackRef = styled.a`
 	margin-left: ${(p) => p.theme.space[0]};
 	transform: translateY(0.15em);
 
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	font-size: ${(p) => p.theme.text.system.small.fontSize};
 
 	&:hover {
-		color: ${(p) => p.theme.heading};
+		color: var(--color-heading);
 	}
 
 	/* Prevent iOS Safari from displaying ↩ as an emoji */

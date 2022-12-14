@@ -211,7 +211,7 @@ const Wrapper = styled.div`
 
 const Label = styled.small`
 	display: block;
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	margin-left: auto;
 	margin-bottom: ${(p) => p.theme.space[1]};
 `
@@ -222,10 +222,10 @@ const Wrap = styled.svg`
 
 	g.axis text {
 		${(p) => p.theme.text.viz.small}
-		fill: ${(p) => p.theme.label};
+		fill: var(--color-label);
 	}
 	g.x-axis path {
-		stroke: ${(p) => p.theme.line};
+		stroke: var(--color-line);
 		stroke-width: 1.5;
 		stroke-linecap: round;
 	}
@@ -234,7 +234,7 @@ const Wrap = styled.svg`
 			stroke: none;
 		}
 		line {
-			stroke: ${(p) => p.theme.iLine};
+			stroke: var(--color-i-line);
 		}
 		.tick:first-of-type {
 			display: none;
@@ -243,7 +243,7 @@ const Wrap = styled.svg`
 
 	path.data-line {
 		fill: none;
-		stroke: ${(p) => p.theme.body};
+		stroke: var(--color-body);
 		stroke-width: 1.5;
 		stroke-linecap: round;
 
@@ -257,10 +257,10 @@ const Wrap = styled.svg`
 
 	marker {
 		.inner-dot {
-			fill: ${(p) => p.theme.body};
+			fill: var(--color-body);
 		}
 		.outer-dot {
-			fill: ${(p) => p.theme.background};
+			fill: var(--color-background);
 		}
 	}
 `

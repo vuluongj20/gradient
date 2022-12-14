@@ -100,13 +100,13 @@ export const generateUtils = (theme: PartialTheme): Utils => ({
 	},
 	focusVisible: {
 		outline: 'none',
-		boxShadow: `0 0 0 3px ${theme.focus}`,
+		boxShadow: '0 0 0 3px var(--color-focus)',
 		borderColor: 'transparent',
 		zIndex: 1,
 	},
 	svgFocusVisible: {
 		strokeWidth: 3,
-		stroke: theme.focus,
+		stroke: 'var(--color-focus)',
 		zIndex: 1,
 	},
 	lineHeight: `calc(1rem * ${String(theme.text.system.body.lineHeight)})`,

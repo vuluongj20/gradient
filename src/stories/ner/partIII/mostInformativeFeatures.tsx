@@ -188,7 +188,7 @@ const Heading = styled.div`
 			${(p) => p.theme.text.system.h6};
 			padding: ${(p) => p.theme.space[0]} ${(p) => p.theme.space[0]}
 				${(p) => p.theme.space[0]} ${(p) => p.theme.space[0.5]};
-			border: solid 1px ${(p) => p.theme.line};
+			border: solid 1px var(--color-line);
 		}
 	}
 `

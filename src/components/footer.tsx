@@ -83,7 +83,6 @@ const Footer = ({ inset = false }: FooterProps) => {
 export default Footer
 
 const Wrap = styled.footer`
-	background: ${(p) => p.theme.background};
 	${(p) => p.theme.marginTop[7]};
 `
 
@@ -108,7 +107,7 @@ const Wrap = styled.footer`
 
 // const ColLabel = styled.label`
 // 	${(p) => p.theme.text.system.label};
-// 	color: ${(p) => p.theme.label};
+// 	color: var(--color-label);
 
 // 	margin-bottom: ${(p) => p.theme.space[1]};
 // `
@@ -135,7 +134,7 @@ const Policies = styled(Grid)`
 
 const PolicyText = styled.p`
 	grid-column-end: span 2;
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	${(p) => p.theme.media.xs} {
 		grid-column-end: span 4;
@@ -152,9 +151,9 @@ const PolicyText = styled.p`
 // `
 
 // const StyledLink = styled(Link)`
-// 	color: ${(p) => p.theme.label};
+// 	color: var(--color-label);
 // 	&:hover {
-// 		color: ${(p) => p.theme.body};
+// 		color: var(--color-body);
 // 	}
 
 // 	&:not(:last-child) {

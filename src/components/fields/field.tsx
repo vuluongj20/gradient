@@ -63,7 +63,7 @@ const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
 					padding: ${p.theme.space[2]} 0;
 
 					:not(:last-child) {
-						border-bottom: solid 1px ${p.theme.line};
+						border-bottom: solid 1px var(--color-line);
 					}
 			`
 			: `
@@ -90,7 +90,7 @@ const Description = styled.small<{ rowLayout: boolean }>`
 	justify-self: start;
 
 	${(p) => p.theme.text.system.small};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	${(p) =>
 		!p.rowLayout &&

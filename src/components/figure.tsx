@@ -58,7 +58,7 @@ const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 	overflow: hidden;
 	border-radius: ${(p) => p.theme.radii.m};
 	mask-image: radial-gradient(white, black);
-	background: ${(p) => p.theme.iBackground};
+	background: var(--color-i-background);
 
 	::after {
 		content: '';
@@ -68,7 +68,7 @@ const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 		width: 100%;
 		height: 100%;
 		border-radius: ${(p) => p.theme.radii.m};
-		box-shadow: inset 0 0 0 1px ${(p) => p.theme.line};
+		box-shadow: inset 0 0 0 1px var(--color-line);
 	}
 
 	${(p) =>
@@ -102,5 +102,5 @@ const Caption = styled.figcaption<{ gridColumn?: FigureProps['gridColumn'] }>`
 `
 
 const From = styled.span`
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 `

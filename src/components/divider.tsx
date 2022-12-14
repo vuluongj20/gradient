@@ -7,7 +7,7 @@ const Divider = styled(({ orientation, ...props }: SeparatorProps) => {
 }).withConfig({
 	shouldForwardProp: (prop, defaultValidatorFn) => defaultValidatorFn(prop),
 })`
-	border-color: ${(p) => p.theme.iLine};
+	border-color: var(--color-i-line);
 	border-style: solid;
 	border-width: 0;
 	${(p) =>

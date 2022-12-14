@@ -66,5 +66,5 @@ const HeaderWrap = styled.header`
 
 const HeaderText = styled.h1`
   ${(p) => p.theme.text.content.h2};
-  color: ${(p) => p.theme.heading};
+  color: var(--color-heading);
 `

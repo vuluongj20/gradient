@@ -133,10 +133,10 @@ const Wrap = styled.div`
   }
 
   a {
-    color: ${(p) => p.theme.primaryLinkText};
+    color: var(--color-primary-link-text);
   }
   a:hover {
-    text-decoration-color: ${(p) => p.theme.primaryLinkUnderline};
+    text-decoration-color: var(--color-primary-link-underline);
   }
 `
 

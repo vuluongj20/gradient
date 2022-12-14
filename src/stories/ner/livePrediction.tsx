@@ -336,7 +336,7 @@ const inputPaddingRight = ({ theme }: { theme: Theme }) =>
 
 const Label = styled.span<{ modelNameOffset?: boolean }>`
 	display: block;
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 	margin-bottom: ${(p) => p.theme.space[1.5]};
 
 	${(p) => p.modelNameOffset && `margin-left: ${MODEL_NAME_WIDTH};`}
@@ -360,9 +360,9 @@ const Input = styled.input`
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
 	letter-spacing: -0.03em;
 
-	background: ${(p) => p.theme.iBackground};
+	background: var(--color-i-background);
 	border-radius: ${(p) => p.theme.radii.m};
-	border: solid 1px ${(p) => p.theme.line};
+	border: solid 1px var(--color-line);
 
 	padding: ${(p) => p.theme.space[1]} ${(p) => p.theme.space[1.5]};
 	padding-right: ${inputPaddingRight};
@@ -377,14 +377,14 @@ const RandomizeButton = styled(Button)<{ isLoading: boolean }>`
 	width: ${(p) => p.theme.space[4]};
 	height: ${(p) => p.theme.space[4]};
 
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 `
 
 const LoadingSpinner = styled(Spinner)`
 	${(p) => p.theme.absCenter}
 	${(p) => p.theme.transitionGroupFade}
 	transition: opacity ${(p) => p.theme.animation.vFastOut};
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 `
 
 const StyledIconRestart = styled(IconRestart)`
@@ -412,7 +412,7 @@ const LoadingWrap = styled.div<{ showBorders: boolean }>`
 	right: 0;
 	border-radius: ${(p) => p.theme.radii.m};
 
-	${(p) => p.showBorders && `border: dashed 1px ${p.theme.line};`}
+	${(p) => p.showBorders && `border: dashed 1px var(--color-line);`}
 
 	${(p) => p.theme.flexCenter};
 	${(p) => p.theme.transitionGroupFade}
@@ -421,7 +421,7 @@ const LoadingWrap = styled.div<{ showBorders: boolean }>`
 `
 
 const LoadingMessage = styled.p`
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 `
 
 const TableWrapper = styled.div`
@@ -447,7 +447,7 @@ const Table = styled.table<{ showModelNames?: boolean }>`
 
 	tr:not(:last-child) > td,
 	tr:not(:last-child) > th {
-		border-bottom: solid 1px ${(p) => p.theme.iLine};
+		border-bottom: solid 1px var(--color-i-line);
 	}
 
 	td {
@@ -486,7 +486,7 @@ const ConnectorCell = styled.th`
 const Connector = styled.div<{ isLoading: boolean }>`
 	width: 0;
 	height: calc(100% - ${(p) => p.theme.space[2]});
-	border-right: solid 1px ${(p) => p.theme.line};
+	border-right: solid 1px var(--color-line);
 
 	${(p) => p.theme.absCenter}
 
@@ -501,7 +501,7 @@ const ModelNameHeader = styled(ConnectorCell)`
 	width: ${MODEL_NAME_WIDTH};
 	min-width: ${MODEL_NAME_WIDTH};
 
-	background: ${(p) => p.theme.background};
+	background: var(--color-background);
 	color: transparent;
 	z-index: 1;
 `
@@ -512,8 +512,8 @@ const ModelName = styled.th`
 	width: ${MODEL_NAME_WIDTH};
 	min-width: ${MODEL_NAME_WIDTH};
 
-	background: ${(p) => p.theme.background};
-	color: ${(p) => p.theme.label};
+	background: var(--color-background);
+	color: var(--color-label);
 	text-transform: uppercase;
 	z-index: 1;
 `
@@ -554,7 +554,7 @@ const PredSpan = styled.span<{ isOut?: boolean }>`
 	display: inline-block;
 	position: relative;
 
-	${(p) => p.isOut && `color: ${p.theme.label};`}
+	${(p) => p.isOut && `color: var(--color-label);`}
 `
 
 const PredBackground = styled.div`
@@ -562,7 +562,7 @@ const PredBackground = styled.div`
 
 	width: calc(100% + ${(p) => p.theme.space[0]});
 	height: calc(100% + ${(p) => p.theme.space[0]});
-	background: ${(p) => p.theme.background};
+	background: var(--color-background);
 	border-radius: ${(p) => p.theme.radii.s};
 	opacity: 0.9;
 	z-index: -1;
@@ -577,10 +577,10 @@ const Legend = styled.dl`
 	flex-wrap: wrap;
 
 	${(p) => p.theme.text.system.small}
-	color: ${(p) => p.theme.label};
+	color: var(--color-label);
 
 	width: 100%;
-	border-top: solid 1px ${(p) => p.theme.iLine};
+	border-top: solid 1px var(--color-i-line);
 	padding-top: ${(p) => p.theme.space[2]};
 	margin: 0;
 	white-space: nowrap;

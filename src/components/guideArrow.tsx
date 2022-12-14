@@ -118,7 +118,7 @@ export default forwardRef(GuideArrow)
 const SVG = styled.svg`
   flex-shrink: 0;
   fill: none;
-  stroke: ${(p) => p.theme.bar};
+  stroke: var(--color-bar);
   stroke-linecap: round;
   stroke-linejoin: round;
 `
