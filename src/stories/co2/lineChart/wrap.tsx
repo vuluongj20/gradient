@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Wrap = styled.div`
   position: relative;
   width: 100%;
-  max-width: ${(p) => p.theme.breakpoints.l};
+  max-width: var(--size-l);
   margin: 0 auto;
 
   .viz-svg-wrap {

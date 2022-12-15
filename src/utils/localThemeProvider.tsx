@@ -20,7 +20,7 @@ const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProp
 	const {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
-	const { appearance, elevation } = useTheme()
+	const { elevation } = useTheme()
 
 	// Falls back to current settings if
 	// appearance is not defined
@@ -32,8 +32,8 @@ const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProp
 			color: { elevation: localElevation },
 		}) as ThemeSettings
 
-		return getTheme(localThemeSettings, appearance)
-	}, [themeSettings, elevation, overlay, inset, appearance])
+		return getTheme(localThemeSettings)
+	}, [themeSettings, elevation, overlay, inset])
 
 	return <ThemeProvider theme={localTheme}>{children}</ThemeProvider>
 }

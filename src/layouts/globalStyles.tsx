@@ -24,6 +24,13 @@ const GlobalStyles = createGlobalStyle`
       --page-margin-right: max(1rem, var(--sar, 0px));
     }
 
+    /* Sizes */
+    --size-xs: 30rem;
+    --size-s: 48rem;
+    --size-m: 64rem;
+    --size-l: 78rem;
+    --size-xl: 90rem;
+
     /* Colors */
     --color-white: #F1F2F4;
     --color-black: #212529;

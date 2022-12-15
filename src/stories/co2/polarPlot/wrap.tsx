@@ -4,7 +4,7 @@ const Wrap = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  max-width: ${(p) => p.theme.breakpoints.m};
+  max-width: var(--size-m);
   margin: 0 auto;
 
   /* Axes */

@@ -103,7 +103,8 @@ const Backdrop = styled.div`
 `
 
 const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
-	width: ${(p) => p.theme.breakpoints[p.size]};
+	/* stylelint-disable-next-line custom-property-pattern */
+	width: var(--size-${(p) => p.size});
 	max-width: 100%;
 	background: var(--color-o-background);
 	border-radius: var(--border-radius-l);

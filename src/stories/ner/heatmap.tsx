@@ -1,11 +1,17 @@
 import { VisuallyHidden } from '@react-aria/visually-hidden'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import { entityNameCategories } from './constants'
 
 import GuideArrow from '@components/guideArrow'
 
 import { isDefined, toFixedUnlessZero } from '@utils/functions'
+import useMatchMedia from '@utils/useMatchMedia'
+
+const useAppearance = () => {
+	const preferDark = useMatchMedia('(prefers-color-scheme: dark)')
+	return preferDark ? 'dark' : 'light'
+}
 
 export interface HeatmapProps {
 	data: (number | null)[][]
@@ -24,7 +30,7 @@ const Heatmap = ({
 	rowLabel,
 	separateLastRow = true,
 }: HeatmapProps) => {
-	const { appearance } = useTheme()
+	const appearance = useAppearance()
 
 	return (
 		<Wrap>
