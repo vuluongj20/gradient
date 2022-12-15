@@ -157,7 +157,8 @@ const PageContent = styled.div`
 `
 
 const Header = styled.header`
-	${(p) => p.theme.paddingHorizontal};
+	padding-left: var(--page-margin-left);
+	padding-right: var(--page-margin-right);
 	margin-bottom: var(--adaptive-space-4);
 `
 

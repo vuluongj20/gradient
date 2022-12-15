@@ -98,7 +98,14 @@ const Caption = styled.figcaption<{ gridColumn?: FigureProps['gridColumn'] }>`
 	margin-top: var(--space-1);
 	max-width: 40rem;
 
-	${(p) => p.gridColumn === 'wide' && p.theme.paddingHorizontalMobile}
+	${(p) =>
+		p.gridColumn === 'wide' &&
+		`
+		${p.theme.media.mobile} {
+			padding-left: var(--page-margin-left);
+			padding-right: var(--page-margin-right);
+		}
+	`}
 `
 
 const From = styled.span`

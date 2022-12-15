@@ -31,8 +31,9 @@ const Wrap = styled.section`
 `
 
 const TitleWrap = styled.div`
+	padding-left: var(--page-margin-left);
+	padding-right: var(--page-margin-right);
 	margin-bottom: var(--space-3);
-	${(p) => p.theme.paddingHorizontal};
 `
 
 const TitleLink = styled.a`

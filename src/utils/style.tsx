@@ -34,9 +34,6 @@ export type ColCounts = Record<Breakpoint | 'xxl', number>
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xxl: 14, xl: 12, l: 10, m: 8, s: 6, xs: 4 }
 
-/** Width of outer frame, in em unit */
-export const paddingHorizontal = 2
-
 export const fadeIn = keyframes`
 	from {
 		opacity: 0;

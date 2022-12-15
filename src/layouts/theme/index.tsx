@@ -8,7 +8,6 @@ export type Appearance = 'light' | 'dark'
 export type Theme = Utils & {
 	elevation: number
 	appearance: Appearance
-	opacityFactor: number
 	/** Text */
 	text: {
 		system: TextScale
@@ -35,7 +34,6 @@ export type ThemeSettings = {
 
 export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme => {
 	const elevation = settings.color.elevation
-	const opacityFactor = appearance === 'dark' ? 1.2 : 1
 
 	const text = {
 		system: textScales[settings.text.system],
@@ -46,7 +44,6 @@ export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme
 	const partialTheme: Omit<Theme, keyof Utils> = {
 		elevation,
 		appearance,
-		opacityFactor,
 
 		text,
 		breakpoints,

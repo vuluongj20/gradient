@@ -2,9 +2,32 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   :root {
+    /* Safe areas */
+    @supports (padding-top: env(safe-area-inset-top)) {
+      --sat: env(safe-area-inset-top);
+      --sar: env(safe-area-inset-right);
+      --sab: env(safe-area-inset-bottom);
+      --sal: env(safe-area-inset-left);
+    }
+
+    /* Page margins */
+    --page-margin-left: max(4rem, var(--sal, 0px));
+    --page-margin-right: max(4rem, var(--sar, 0px));
+
+    @media only screen and (max-width: 48rem), only screen and (max-height: 48rem) {
+      --page-margin-left: max(2rem, var(--sal, 0px));
+      --page-margin-right: max(2rem, var(--sar, 0px));
+    }
+
+    @media only screen and (max-width: 30rem) {
+      --page-margin-left: max(1rem, var(--sal, 0px));
+      --page-margin-right: max(1rem, var(--sar, 0px));
+    }
+
+    /* Colors */
     --color-white: #F1F2F4;
     --color-black: #212529;
-
+    
     /* Paper palette */
     --color-scale-paper-surface1: #F8EAEC;
     --color-scale-paper-surface2: #FAF0F2;
@@ -271,6 +294,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
+    /* Colors */
     --opacity-factor: 1;
     --color-scale-surface1: var(--color-scale-paper-surface1);
     --color-scale-surface2: var(--color-scale-paper-surface2);
@@ -328,44 +352,8 @@ const GlobalStyles = createGlobalStyle`
     --box-shadow-m: var(--box-shadow-light-m);
     --box-shadow-l: var(--box-shadow-light-l);
 
-    /* Semantic colors */
-    --color-heading: var(--color-scale-gray1);
-    --color-body: var(--color-scale-gray1);
-    --color-label: var(--color-scale-gray5);
-    --color-bar: var(--color-scale-gray7);
-    --color-focus: var(--color-scale-red3);
-    --color-button-label: var(--color-scale-gray1);
-    --color-button-label-hover: var(--color-scale-gray3);
-    --color-primary-text: var(--color-scale-red1);
-    --color-primary-background: var(--color-scale-red2);
-    --color-primary-opaque-background: var(--color-scale-red6);
-    --color-on-primary-background: var(--color-scale-white);
-    --color-active-text: var(--color-scale-red1);
-    --color-active-background: var(--color-scale-red2);
-    --color-on-active-background: var(--color-scale-white);
-    --color-success-text: var(--color-scale-red1);
-    --color-success-background: var(--color-scale-red2);
-    --color-on-success-background: var(--color-scale-white);
-    --color-error-text: var(--color-scale-red1);
-    --color-error-background: var(--color-scale-red2);
-    --color-on-error-background: var(--color-scale-white);
-    --color-link-text: var(--color-scale-gray1);
-    --color-link-underline: var(--color-scale-gray7);
-    --color-content-link-text: var(--color-scale-gray1);
-    --color-content-link-underline: var(--color-scale-gray6);
-    --color-content-link-underline-hover: var(--color-scale-gray5);
-    --color-primary-link-text: var(--color-scale-red1);
-    --color-primary-link-underline: var(--color-scale-red4);
-
-    font-size: 100%;
-    line-height: 1.2;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    html {
+    @media (prefers-color-scheme: dark) {
+      /* Colors */
       --opacity-factor: 1.2;
       --color-scale-surface1: var(--color-scale-charcoal-surface1);
       --color-scale-surface2: var(--color-scale-charcoal-surface2);
@@ -423,6 +411,41 @@ const GlobalStyles = createGlobalStyle`
       --box-shadow-m: var(--box-shadow-dark-m);
       --box-shadow-l: var(--box-shadow-dark-l);
     }
+
+    /* Semantic colors */
+    --color-heading: var(--color-scale-gray1);
+    --color-body: var(--color-scale-gray1);
+    --color-label: var(--color-scale-gray5);
+    --color-bar: var(--color-scale-gray7);
+    --color-focus: var(--color-scale-red3);
+    --color-button-label: var(--color-scale-gray1);
+    --color-button-label-hover: var(--color-scale-gray3);
+    --color-primary-text: var(--color-scale-red1);
+    --color-primary-background: var(--color-scale-red2);
+    --color-primary-opaque-background: var(--color-scale-red6);
+    --color-on-primary-background: var(--color-scale-white);
+    --color-active-text: var(--color-scale-red1);
+    --color-active-background: var(--color-scale-red2);
+    --color-on-active-background: var(--color-scale-white);
+    --color-success-text: var(--color-scale-red1);
+    --color-success-background: var(--color-scale-red2);
+    --color-on-success-background: var(--color-scale-white);
+    --color-error-text: var(--color-scale-red1);
+    --color-error-background: var(--color-scale-red2);
+    --color-on-error-background: var(--color-scale-white);
+    --color-link-text: var(--color-scale-gray1);
+    --color-link-underline: var(--color-scale-gray7);
+    --color-content-link-text: var(--color-scale-gray1);
+    --color-content-link-underline: var(--color-scale-gray6);
+    --color-content-link-underline-hover: var(--color-scale-gray5);
+    --color-primary-link-text: var(--color-scale-red1);
+    --color-primary-link-underline: var(--color-scale-red4);
+
+    font-size: 100%;
+    line-height: 1.2;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   .surface-1 {
@@ -478,15 +501,6 @@ const GlobalStyles = createGlobalStyle`
     --color-line: var(--color-scale-gray8);
     --color-o-line: var(--color-scale-gray8);
     --color-i-line: var(--color-scale-gray8);
-  }
-
-  @supports (padding-top: env(safe-area-inset-top)) {
-    body {
-      --sat: env(safe-area-inset-top);
-      --sar: env(safe-area-inset-right);
-      --sab: env(safe-area-inset-bottom);
-      --sal: env(safe-area-inset-left);
-    }
   }
 
   *,
@@ -588,9 +602,7 @@ const GlobalStyles = createGlobalStyle`
 
   abbr {
     text-decoration: none;
-  }
-  @media not all and (hover: none) {
-    abbr {
+    @media not all and (hover: none) {
       text-decoration: underline;
       text-decoration-style: dotted;
       text-decoration-color: var(--color-content-link-underline);

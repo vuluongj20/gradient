@@ -348,7 +348,10 @@ const InputWrap = styled.div`
 		${(p) => p.theme.text.viz.body};
 	}
 
-	${(p) => p.theme.paddingHorizontalMobile}
+	${(p) => p.theme.media.mobile} {
+		padding-left: var(--page-margin-left);
+		padding-right: var(--page-margin-right);
+	}
 `
 
 const PrevTagWrap = styled.div`
@@ -391,7 +394,11 @@ const BreakdownWrap = styled(Panel)`
 	border-radius: 0;
 	padding: var(--space-3) var(--space-4) var(--space-4);
 	background: var(--color-o-background);
-	${(p) => p.theme.paddingHorizontalMobile}
+
+	${(p) => p.theme.media.mobile} {
+		padding-left: var(--page-margin-left);
+		padding-right: var(--page-margin-right);
+	}
 `
 
 const StyledPopoverArrow = styled(PopoverArrow)`

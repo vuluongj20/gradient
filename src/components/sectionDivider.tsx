@@ -23,7 +23,8 @@ const SectionDivider = ({
 export default SectionDivider
 
 const StyledDivider = styled(Divider)<Required<SectionDividerProps>>`
-	${(p) => !p.fullWidth && p.theme.marginHorizontal};
-	margin-top: ${(p) => (p.noMt ? '0' : `var(--adaptive-space-${p.mt})`)};
-	margin-bottom: ${(p) => (p.noMb ? '0' : `var(--adaptive-space-${p.mb})`)};
+	margin: ${(p) => (p.noMt ? '0' : `var(--adaptive-space-${p.mt})`)} /* Top */
+		${(p) => (p.fullWidth ? '0' : 'var(--page-margin-right)')} /* Right */
+		${(p) => (p.noMb ? '0' : `var(--adaptive-space-${p.mb})`)} /* Bottom */
+		${(p) => (p.fullWidth ? '0' : 'var(--page-margin-left)')}; /* Left */
 `

@@ -120,12 +120,9 @@ const InnerWrap = styled.div`
 		left: 0;
 		width: 100%;
 		height: ${navSize.mobileHeight};
-		padding-top: 0;
-		padding-bottom: 0;
+		padding: 0 var(--page-margin-right) 0 var(--page-margin-left);
 		border-right-width: 0;
 	}
-
-	${(p) => p.theme.paddingHorizontalMobile};
 `
 
 const HomeLink = styled(Link)<{ disabled: boolean }>`

@@ -6,8 +6,8 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 	display: grid;
 	grid-template-columns: [start] repeat(${gridColCounts.xxl}, 1fr) [end];
 	column-gap: var(--space-3);
-
-	${(p) => p.theme.paddingHorizontal};
+	padding-left: var(--page-margin-left);
+	padding-right: var(--page-margin-right);
 
 	${(p) => p.theme.media.xl} {
 		grid-template-columns:

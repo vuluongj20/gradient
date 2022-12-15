@@ -162,7 +162,8 @@ const StyledDivider = styled(Divider)`
 	margin: 0;
 
 	${(p) => p.theme.media.mobile} {
-		margin: 0 ${(p) => p.theme.marginHorizontal};
+		margin-left: var(--page-margin-left);
+		margin-right: var(--page-margin-right);
 	}
 `
 
@@ -210,8 +211,8 @@ const StyledPairGrid = styled(PairGrid)`
 
 	${(p) => p.theme.media.mobile} {
 		width: calc(100% - var(--space-3) * 2);
-		margin-left: ${(p) => p.theme.marginHorizontal};
-		margin-right: ${(p) => p.theme.marginHorizontal};
+		margin-left: var(--page-margin-left);
+		margin-right: var(--page-margin-right);
 		height: 28rem;
 	}
 `

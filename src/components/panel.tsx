@@ -81,7 +81,14 @@ const Wrap = styled.div<{
 	${getPadding}
 
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
-	${(p) => p.gridColumn === 'wide' && p.theme.paddingHorizontalMobile}
+	${(p) =>
+		p.gridColumn === 'wide' &&
+		`
+		${p.theme.media.mobile} {
+			padding-left: var(--page-margin-left);
+			padding-right: var(--page-margin-right);
+		}
+	`}
 
 	${(p) =>
 		p.gridColumn === 'wide' &&

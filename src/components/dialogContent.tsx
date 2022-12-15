@@ -96,8 +96,9 @@ const OuterWrap = styled.div`
 const Backdrop = styled.div`
 	${(p) => p.theme.spread};
 	${(p) => p.theme.flexCenter};
-	${(p) => p.theme.paddingHorizontal};
 
+	padding-left: var(--page-margin-left);
+	padding-right: var(--page-margin-right);
 	background: var(--color-line);
 `
 

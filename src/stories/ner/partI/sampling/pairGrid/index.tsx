@@ -152,8 +152,9 @@ const EmptyWrap = styled.div`
 
 const EmptyText = styled.p`
 	${(p) => p.theme.text.system.small};
-	${(p) => p.theme.marginHorizontal};
 	color: var(--color-label);
+	margin-left: var(--page-margin-left);
+	margin-right: var(--page-margin-right);
 	max-width: 20rem;
 	text-align: center;
 `
