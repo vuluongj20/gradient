@@ -1,5 +1,3 @@
-import { keyframes } from 'styled-components'
-
 export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
 
 export const orderedBreakpoints: Breakpoint[] = ['xl', 'l', 'm', 's', 'xs']
@@ -29,12 +27,3 @@ export type ColCounts = Record<Breakpoint | 'xxl', number>
 
 /** Number of grid columns at different breakpoints */
 export const gridColCounts: ColCounts = { xxl: 14, xl: 12, l: 10, m: 8, s: 6, xs: 4 }
-
-export const fadeIn = keyframes`
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-`

@@ -1,4 +1,4 @@
-import { CSSObject } from 'styled-components'
+import { CSSObject, Keyframes, keyframes } from 'styled-components'
 
 import { TextScale, textScales } from '@theme/text'
 
@@ -26,6 +26,7 @@ export type Theme = {
 	}
 	media: Record<Breakpoint | 'mobile', string>
 	gridColumn: Record<'text' | 'wide' | 'fullWidth', CSSObject>
+	fadeIn: Keyframes
 } & CSSStringUtil &
 	CSSObjectUtil
 
@@ -43,6 +44,15 @@ export type ThemeSettings = {
 	alwaysShowVideoCaptions: boolean
 }
 
+const fadeIn = keyframes`
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+`
+
 export const getTheme = (settings: ThemeSettings): Theme => {
 	return {
 		elevation: settings.color.elevation,
@@ -51,6 +61,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			content: textScales[settings.text.content],
 			viz: textScales[settings.text.viz],
 		},
+		fadeIn,
 		spread: {
 			position: 'absolute',
 			top: 0,

@@ -11,7 +11,7 @@ import Grid from '@components/grid'
 import { AdaptiveGridColumns, Story } from '@types'
 
 import useSections from '@utils/data/sections'
-import { Breakpoint, fadeIn, gridColCounts, numericBreakpoints } from '@utils/style'
+import { Breakpoint, gridColCounts, numericBreakpoints } from '@utils/style'
 
 /**
  * Returns custom value for the "sizes" image prop, based on width
@@ -121,7 +121,7 @@ const Wrap = styled(Link)<
 	width: 100%;
 	text-decoration: none;
 	opacity: 0;
-	animation: ${fadeIn} var(--animation-medium-out) forwards;
+	animation: ${(p) => p.theme.fadeIn} var(--animation-medium-out) forwards;
 
 	align-self: start;
 	border-radius: var(--border-radius-m);

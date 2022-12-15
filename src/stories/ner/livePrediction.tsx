@@ -16,7 +16,6 @@ import Spinner from '@components/spinner'
 import IconRestart from '@icons/restart'
 
 import { debounce, isDev, makeCancelable } from '@utils/functions'
-import { fadeIn } from '@utils/style'
 import useMountEffect from '@utils/useMountEffect'
 
 const SAMPLES = [
@@ -486,7 +485,7 @@ const ConnectorCell = styled.th`
 	color: transparent;
 
 	opacity: 0;
-	animation: ${fadeIn} var(--animation-fast-out) forwards;
+	animation: ${(p) => p.theme.fadeIn} var(--animation-fast-out) forwards;
 `
 
 const Connector = styled.div<{ isLoading: boolean }>`
@@ -543,7 +542,7 @@ const Pred = styled.td`
 	white-space: nowrap;
 
 	opacity: 0;
-	animation: ${fadeIn} var(--animation-fast-out) forwards;
+	animation: ${(p) => p.theme.fadeIn} var(--animation-fast-out) forwards;
 `
 
 const ZeroWidth = styled.span<{ isLoading: boolean }>`
