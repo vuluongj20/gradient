@@ -138,7 +138,7 @@ const ScrollFade = styled.div<{ visible: boolean }>`
 	height: var(--space-6);
 	z-index: 1;
 	pointer-events: none;
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `
 

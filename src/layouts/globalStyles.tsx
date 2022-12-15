@@ -133,6 +133,46 @@ const GlobalStyles = createGlobalStyle`
     --border-radius-m: 0.5rem;
     --border-radius-l: 0.75rem;
 
+    /* Animation easings */
+    --ease-in-sine: cubic-bezier(0.12, 0, 0.39, 0);
+    --ease-out-sine: cubic-bezier(0.61, 1, 0.88, 1);
+    --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
+    --ease-in-quad: cubic-bezier(0.11, 0, 0.5, 0);
+    --ease-out-quad: cubic-bezier(0.5, 1, 0.89, 1);
+    --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+    --ease-in-cubic: cubic-bezier(0.32, 0, 0.67, 0);
+    --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+    --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+    --ease-in-quint: cubic-bezier(0.64, 0, 0.78, 0);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+    --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+    --ease-in-circ: cubic-bezier(0.55, 0, 1, 0.45);
+    --ease-out-circ: cubic-bezier(0, 0.55, 0.45, 1);
+    --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+    --ease-in-back: cubic-bezier(0.36, 0, 0.66, -0.56);
+    --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out-back: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+    /* Animations */
+    --animation-v-fast-in: 0.125s var(--ease-in-quad);
+    --animation-v-fast-out: 0.125s var(--ease-out-quad);
+    --animation-v-fast-in-out: 0.125s var(--ease-in-out-quad);
+    --animation-fast-in: 0.25s var(--ease-in-quart);
+    --animation-fast-out: 0.25s var(--ease-out-quart);
+    --animation-fast-in-out: 0.25s var(--ease-in-out-quart);
+    --animation-medium-in: 0.5s var(--ease-in-quart);
+    --animation-medium-out: 0.5s var(--ease-out-quart);
+    --animation-medium-in-out: 0.5s var(--ease-in-out-quart);
+    --animation-slow-in: 0.75s var(--ease-in-cubic);
+    --animation-slow-out: 0.75s var(--ease-out-cubic);
+    --animation-slow-in-out: 0.75s var(--ease-in-out-cubic);
+
     /* Space */
     --space-0: 4px;
     --space-0-5: 6px;
@@ -231,6 +271,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
+    --opacity-factor: 1;
     --color-scale-surface1: var(--color-scale-paper-surface1);
     --color-scale-surface2: var(--color-scale-paper-surface2);
     --color-scale-surface3: var(--color-scale-paper-surface3);
@@ -325,6 +366,7 @@ const GlobalStyles = createGlobalStyle`
 
   @media (prefers-color-scheme: dark) {
     html {
+      --opacity-factor: 1.2;
       --color-scale-surface1: var(--color-scale-charcoal-surface1);
       --color-scale-surface2: var(--color-scale-charcoal-surface2);
       --color-scale-surface3: var(--color-scale-charcoal-surface3);
@@ -453,9 +495,9 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
     text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color ${(p) => p.theme.animation.mediumOut}, 
-      border-color ${(p) => p.theme.animation.mediumOut},
-      box-shadow ${(p) => p.theme.animation.mediumOut};
+    transition: background-color var(--animation-medium-out), 
+      border-color var(--animation-medium-out),
+      box-shadow var(--animation-medium-out);
   }
 
   body {
@@ -504,8 +546,8 @@ const GlobalStyles = createGlobalStyle`
 
     text-decoration-line: underline;
     text-decoration-color: transparent;
-    transition: color ${(p) => p.theme.animation.vFastOut}, 
-      box-shadow ${(p) => p.theme.animation.vFastOut};
+    transition: color var(--animation-v-fast-out), 
+      box-shadow var(--animation-v-fast-out);
   }
   a:hover:not([data-no-underline="true"]) {
     text-decoration-color: var(--color-link-underline);
@@ -525,8 +567,8 @@ const GlobalStyles = createGlobalStyle`
   input {
     appearance: none;
     font-size: 1rem;
-    transition: color ${(p) => p.theme.animation.vFastOut}, 
-      box-shadow ${(p) => p.theme.animation.vFastOut};
+    transition: color var(--animation-v-fast-out), 
+      box-shadow var(--animation-v-fast-out);
   }
   input:focus {
     outline: none;
@@ -588,7 +630,7 @@ const GlobalStyles = createGlobalStyle`
   .katex {
     display: inline-block;
     color: transparent;
-    transition: color ${(p) => p.theme.animation.vFastOut};
+    transition: color var(--animation-v-fast-out);
   }
   .katex-display {
     ${(p) => p.theme.text.content.body}

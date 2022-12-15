@@ -170,5 +170,5 @@ const Results = styled(Grid)`
 	grid-row-gap: var(--space-3);
 
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 `

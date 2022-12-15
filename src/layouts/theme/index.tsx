@@ -1,4 +1,3 @@
-import { Animation, animation } from '@theme/animation'
 import { TextScale, textScales } from '@theme/text'
 import { Utils, generateUtils } from '@theme/utils'
 
@@ -16,8 +15,6 @@ export type Theme = Utils & {
 		content: TextScale
 		viz: TextScale
 	}
-	/** Animation */
-	animation: Animation
 	/** Breakpoints */
 	breakpoints: typeof breakpoints
 }
@@ -52,7 +49,6 @@ export const getTheme = (settings: ThemeSettings, appearance: Appearance): Theme
 		opacityFactor,
 
 		text,
-		animation,
 		breakpoints,
 	}
 

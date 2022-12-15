@@ -77,7 +77,7 @@ const OuterWrap = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 	transform: translateZ(0);
 	opacity: 0;
 	will-change: opacity;
@@ -108,7 +108,7 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 	border-radius: var(--border-radius-l);
 	box-shadow: 0 0 0 1px var(--color-o-line), var(--box-shadow-l);
 	transform: translate3d(0, 4rem, 0);
-	transition: transform ${(p) => p.theme.animation.mediumOut};
+	transition: transform var(--animation-medium-out);
 	will-change: transform;
 	text-align: left;
 	align-items: flex-start;

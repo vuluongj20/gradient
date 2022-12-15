@@ -24,12 +24,13 @@ export default styled.div<{
 	background-color: currentcolor;
 	border-radius: inherit;
 	border: solid ${(p) => p.borderWidth ?? 0}px transparent;
-	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	transition: opacity var(--animation-v-fast-out);
 	filter: saturate(10%);
 
 	${(p) =>
-		p.isHovered && `opacity: ${0.06 * p.theme.opacityFactor * (p.opacityFactor ?? 1)};`}
+		p.isHovered &&
+		`opacity: calc(0.06 * var(--opacity-factor) * ${p.opacityFactor ?? 1});`}
 	${(p) =>
 		(p.isPressed || p.isExpanded) &&
-		`opacity: ${0.1 * p.theme.opacityFactor * (p.opacityFactor ?? 1)};`}
+		`opacity: calc(0.1 * var(--opacity-factor) * ${p.opacityFactor ?? 1});`}
 `

@@ -59,7 +59,7 @@ const Wrap = styled.li<{
   white-space: nowrap;
   cursor: pointer;
   transition: ${(p) => p.theme.defaultTransitions}, background-color 0s,
-    color ${(p) => p.theme.animation.mediumIn};
+    color var(--animation-medium-in);
 
   && {
     margin: 0;
@@ -74,7 +74,7 @@ const CheckIndent = styled.div<{ visible: boolean }>`
   height: 1.2rem;
   margin-right: var(--space-0);
   opacity: 0;
-  transition: opacity ${(p) => p.theme.animation.mediumIn};
+  transition: opacity var(--animation-medium-in);
 
   ${(p) => p.visible && `opacity:100%;`};
 `

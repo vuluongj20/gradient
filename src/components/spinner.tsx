@@ -73,8 +73,7 @@ const SVG = styled.svg`
 
 const Circle = styled.circle<{ diameter: number }>`
 	stroke-linecap: round;
-	animation: ${(p) => dash(p.diameter)} 1.5s ${(p) => p.theme.animation.inOutQuad}
-		infinite;
+	animation: ${(p) => dash(p.diameter)} 1.5s var(--ease-in-out-quad) infinite;
 `
 
 const Label = styled.span`

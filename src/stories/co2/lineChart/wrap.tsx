@@ -81,7 +81,7 @@ const Wrap = styled.div`
   .hover-diff-label,
   .hover-diff-text {
     opacity: 0;
-    transition: opacity ${(p) => p.theme.animation.fastOut};
+    transition: opacity var(--animation-fast-out);
   }
   svg.hover-initiated:hover {
     .hover-line.visible,

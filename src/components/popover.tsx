@@ -220,8 +220,8 @@ const getStyles = (p: PopoverWrapProps & { theme: Theme }) => `
   border-radius: var(--border-radius-m);
   padding: var(--space-0);
   box-shadow: 0 0 0 1px var(--color-o-line), var(--box-shadow-l);
-  transition: transform ${p.theme.animation.fastOut},
-    opacity ${p.theme.animation.fastOut};
+  transition: transform var(--animation-fast-out),
+    opacity var(--animation-fast-out);
   opacity: 0;
   z-index: var(--z-index-popover);
   pointer-events: none;
@@ -245,7 +245,7 @@ const getStyles = (p: PopoverWrapProps & { theme: Theme }) => `
   }
 
   @media (prefers-reduced-motion) {
-    transition: opacity ${p.theme.animation.fastOut};
+    transition: opacity var(--animation-fast-out);
   }
 `
 

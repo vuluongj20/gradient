@@ -154,7 +154,7 @@ const HomeLogo = styled.svg`
 
 	g > path {
 		fill: var(--color-body);
-		transition: opacity ${(p) => p.theme.animation.mediumOut};
+		transition: opacity var(--animation-medium-out);
 		opacity: 0;
 
 		a:hover & {
@@ -165,7 +165,7 @@ const HomeLogo = styled.svg`
 	circle {
 		r: 18px;
 		fill: var(--color-body);
-		transition: opacity ${(p) => p.theme.animation.mediumOut};
+		transition: opacity var(--animation-medium-out);
 		opacity: 1;
 
 		a:hover & {

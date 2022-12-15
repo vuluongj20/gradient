@@ -285,9 +285,9 @@ const SVG = styled.svg`
 			fill-opacity: 0;
 			opacity: 0;
 
-			transition: all ${(p) => p.theme.animation.fastOut},
-				stroke-dasharray ${(p) => p.theme.animation.mediumOut},
-				stroke-dashoffset ${(p) => p.theme.animation.mediumOut};
+			transition: all var(--animation-fast-out),
+				stroke-dasharray var(--animation-medium-out),
+				stroke-dashoffset var(--animation-medium-out);
 
 			@media (hover: hover) and (pointer: fine) {
 				&:hover {

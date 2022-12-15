@@ -389,14 +389,14 @@ const RandomizeButton = styled(Button)<{ isLoading: boolean }>`
 const LoadingSpinner = styled(Spinner)`
 	${(p) => p.theme.absCenter}
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	transition: opacity var(--animation-v-fast-out);
 	color: var(--color-label);
 `
 
 const StyledIconRestart = styled(IconRestart)`
 	${(p) => p.theme.absCenter}
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	transition: opacity var(--animation-v-fast-out);
 `
 
 const ResultsWrapper = styled.div`
@@ -407,7 +407,7 @@ const ResultsAnimationWrapper = styled.div`
 	width: calc(100% - ${inputPaddingRight});
 
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 `
 
 const LoadingWrap = styled.div<{ showBorders: boolean }>`
@@ -422,7 +422,7 @@ const LoadingWrap = styled.div<{ showBorders: boolean }>`
 
 	${(p) => p.theme.flexCenter};
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 	z-index: 1;
 `
 
@@ -486,7 +486,7 @@ const ConnectorCell = styled.th`
 	color: transparent;
 
 	opacity: 0;
-	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
+	animation: ${fadeIn} var(--animation-fast-out) forwards;
 `
 
 const Connector = styled.div<{ isLoading: boolean }>`
@@ -496,7 +496,7 @@ const Connector = styled.div<{ isLoading: boolean }>`
 
 	${(p) => p.theme.absCenter}
 
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 	transition-delay: 10ms;
 	${(p) => p.isLoading && `opacity: 0;`};
 `
@@ -543,7 +543,7 @@ const Pred = styled.td`
 	white-space: nowrap;
 
 	opacity: 0;
-	animation: ${fadeIn} ${(p) => p.theme.animation.fastOut} forwards;
+	animation: ${fadeIn} var(--animation-fast-out) forwards;
 `
 
 const ZeroWidth = styled.span<{ isLoading: boolean }>`
@@ -552,7 +552,7 @@ const ZeroWidth = styled.span<{ isLoading: boolean }>`
 	justify-content: center;
 	margin: 0 auto;
 
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 	${(p) => p.isLoading && `opacity: 0.25;`};
 `
 

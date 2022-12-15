@@ -53,9 +53,9 @@ const StyledSVG = styled.svg<{ $color: string }>`
 		!p.$color || p.$color === 'currentColor'
 			? 'currentColor'
 			: `var(--color-${p.$color})`};
-	transition: color ${(p) => p.theme.animation.vFastOut};
+	transition: color var(--animation-v-fast-out);
 
 	path {
-		transition: color ${(p) => p.theme.animation.vFastOut};
+		transition: color var(--animation-v-fast-out);
 	}
 `

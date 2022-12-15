@@ -234,7 +234,7 @@ const TDBackground = styled.div<{ opacity: number }>`
 	opacity: ${(p) => p.opacity};
 	z-index: -1;
 
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 `
 
 const TDLabel = styled.span<{ whiteText: boolean; opacity: number }>`

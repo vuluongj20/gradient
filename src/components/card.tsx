@@ -121,7 +121,7 @@ const Wrap = styled(Link)<
 	width: 100%;
 	text-decoration: none;
 	opacity: 0;
-	animation: ${fadeIn} ${(p) => p.theme.animation.mediumOut} forwards;
+	animation: ${fadeIn} var(--animation-medium-out) forwards;
 
 	align-self: start;
 	border-radius: var(--border-radius-m);
@@ -220,7 +220,7 @@ const Title = styled.p<{ active: boolean }>`
 	position: relative;
 
 	color: var(--color-heading);
-	transition: color ${(p) => p.theme.animation.vFastOut};
+	transition: color var(--animation-v-fast-out);
 
 	${(p) => p.active && `color: var(--color-primary-link-text);`}
 `
@@ -233,7 +233,7 @@ const DummyTitle = styled.span<{ active: boolean }>`
 	text-decoration-color: var(--color-primary-link-underline);
 	z-index: 0;
 	opacity: 0;
-	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	transition: opacity var(--animation-v-fast-out);
 
 	${(p) => p.active && `opacity: 1;`}
 `
@@ -242,7 +242,7 @@ const Tags = styled.div<{ active: boolean }>`
 	${(p) => p.theme.text.system.label};
 	color: var(--color-label);
 	margin-top: var(--space-0);
-	transition: color ${(p) => p.theme.animation.vFastOut};
+	transition: color var(--animation-v-fast-out);
 	text-transform: capitalize;
 
 	${(p) => p.active && `color: var(--color-primary-link-text);`}

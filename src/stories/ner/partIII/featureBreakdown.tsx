@@ -423,7 +423,7 @@ const LoadingSpinner = styled(Spinner)`
 	color: var(--color-label);
 
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	transition: opacity var(--animation-v-fast-out);
 `
 
 const BreakdownContent = styled.div`
@@ -432,7 +432,7 @@ const BreakdownContent = styled.div`
 
 const BreakdownTable = styled(Table)<{ visible: boolean }>`
 	opacity: ${(p) => (p.visible ? 1 : 0)};
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 
 	tbody {
 		${(p) => p.theme.text.viz.body}
@@ -513,7 +513,7 @@ const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 	color: var(--color-heading);
 
 	opacity: ${(p) => (p.visible ? 1 : 0)};
-	transition: opacity ${(p) => p.theme.animation.fastOut};
+	transition: opacity var(--animation-fast-out);
 `
 
 const ProbabilityCalculationLeftWrap = styled.span`
@@ -540,7 +540,7 @@ const NoObservationWrap = styled.div`
 	padding: var(--space-2);
 
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.vFastOut};
+	transition: opacity var(--animation-v-fast-out);
 `
 
 const NoObservationMessage = styled.p`

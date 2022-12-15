@@ -147,7 +147,7 @@ const EmptyWrap = styled.div`
 	border: dashed 1px var(--color-line);
 
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.mediumOut};
+	transition: opacity var(--animation-medium-out);
 `
 
 const EmptyText = styled.p`
@@ -217,7 +217,7 @@ const SVG = styled.svg`
 	g.column-label {
 		text {
 			fill: var(--color-label);
-			transition: fill ${(p) => p.theme.animation.fastOut};
+			transition: fill var(--animation-fast-out);
 		}
 		&.highlighted text {
 			fill: currentcolor;
@@ -228,7 +228,7 @@ const SVG = styled.svg`
 			stroke-dasharray: 4 3;
 			stroke-linecap: round;
 			opacity: 0;
-			transition: ${(p) => p.theme.animation.fastOut};
+			transition: var(--animation-fast-out);
 		}
 		&.highlighted path.underline {
 			opacity: 1;
@@ -240,22 +240,20 @@ const SVG = styled.svg`
 	Animations 
 	*/
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.mediumOut};
+	transition: opacity var(--animation-medium-out);
 
 	g.x-axis path.domain {
 		transform: scaleX(0);
 		transform-box: fill-box;
 		transform-origin: left;
-		transition: transform ${(p) => p.theme.animation.mediumOut},
-			opacity ${(p) => p.theme.animation.mediumOut};
+		transition: transform var(--animation-medium-out), opacity var(--animation-medium-out);
 	}
 	g.y-axis path.domain,
 	g.data rect {
 		transform: scaleY(0);
 		transform-box: fill-box;
 		transform-origin: bottom;
-		transition: transform ${(p) => p.theme.animation.mediumOut},
-			opacity ${(p) => p.theme.animation.mediumOut};
+		transition: transform var(--animation-medium-out), opacity var(--animation-medium-out);
 	}
 
 	&.enter-active,

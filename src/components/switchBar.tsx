@@ -166,8 +166,8 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 	border-radius: calc(var(--border-radius-m) - 2px);
 	box-shadow: var(--box-shadow-m);
 	opacity: 0;
-	transition: transform ${(p) => p.theme.animation.fastOut},
-		width ${(p) => p.theme.animation.fastOut}, opacity ${(p) => p.theme.animation.fastOut};
+	transition: transform var(--animation-fast-out), width var(--animation-fast-out),
+		opacity var(--animation-fast-out);
 
 	${(p) =>
 		isDefined(p.left) &&
@@ -198,7 +198,7 @@ const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
 			background: var(--color-active-background);
 			z-index: -1;
 			opacity: 0;
-			transition: opacity ${(p) => p.theme.animation.mediumOut};
+			transition: opacity var(--animation-medium-out);
 		}
 	}
 
@@ -226,7 +226,7 @@ const SwitchItemInput = styled.input`
 	padding: 0;
 	margin: 0 1px;
 	border-radius: var(--border-radius-m);
-	transition: box-shadow ${(p) => p.theme.animation.fastOut};
+	transition: box-shadow var(--animation-fast-out);
 	cursor: pointer;
 	z-index: -1;
 
@@ -243,7 +243,7 @@ const Divider = styled.div<{ visible: boolean }>`
 	height: 50%;
 	transform: translateY(-50%);
 	border-right: solid 1px var(--color-line);
-	transition: opacity ${(p) => p.theme.animation.mediumOut};
+	transition: opacity var(--animation-medium-out);
 
 	${(p) => !p.visible && `opacity: 0;`}
 `

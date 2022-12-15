@@ -13,14 +13,14 @@ const Wrap = styled.div`
     font-size: 0.875rem;
     position: relative;
     fill: var(--color-label);
-    transition: opacity ${(p) => p.theme.animation.slowOut};
+    transition: opacity var(--animation-slow-out);
     ${(p) => p.theme.media.s} {
       font-size: 0.75rem;
     }
   }
 
   .tick:not(.secondary) {
-    animation: opacity ${(p) => p.theme.animation.slowOut};
+    animation: opacity var(--animation-slow-out);
   }
   .ticks .tick .text {
     fill: var(--color-label);
@@ -32,7 +32,7 @@ const Wrap = styled.div`
     fill: none;
     stroke: var(--color-line);
     opacity: 0.8;
-    transition: opacity ${(p) => p.theme.animation.slowOut};
+    transition: opacity var(--animation-slow-out);
   }
   .grid-circle.secondary,
   .r.tick.secondary,
@@ -55,7 +55,7 @@ const Wrap = styled.div`
   .stretch {
     stroke: var(--color-label);
     opacity: 0;
-    transition: opacity ${(p) => p.theme.animation.slowOut};
+    transition: opacity var(--animation-slow-out);
     &.on {
       opacity: 0.4;
     }

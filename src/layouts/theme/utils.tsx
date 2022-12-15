@@ -65,9 +65,9 @@ export const generateUtils = (theme: PartialTheme): Utils => ({
 		zIndex: 1,
 	},
 	lineHeight: `calc(1rem * ${String(theme.text.system.body.lineHeight)})`,
-	defaultTransitions: `background-color 0.5s ${theme.animation.outQuart}, 
-      border-color 0.5s ${theme.animation.outQuart},
-      box-shadow 0.5s ${theme.animation.outQuart}`,
+	defaultTransitions: `background-color var(--animation-medium-out), 
+      border-color var(--animation-medium-out),
+      box-shadow var(--animation-medium-out)`,
 	transitionGroupFade: {
 		opacity: 0,
 		['&.enter-active, &.enter-done']: {

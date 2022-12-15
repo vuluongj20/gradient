@@ -26,5 +26,5 @@ export default TabPanel
 const Wrap = styled.div`
   padding: var(--space-2) var(--space-3);
   ${(p) => p.theme.transitionGroupFade}
-  transition: opacity ${(p) => p.theme.animation.fastOut};
+  transition: opacity var(--animation-fast-out);
 `

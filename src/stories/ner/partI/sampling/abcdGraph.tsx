@@ -192,7 +192,7 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 	pointer-events: none;
 
 	${(p) => p.theme.transitionGroupFade}
-	transition: opacity ${(p) => p.theme.animation.mediumOut};
+	transition: opacity var(--animation-medium-out);
 
 	${(p) =>
 		p.x &&
