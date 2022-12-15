@@ -6,7 +6,7 @@ import { AriaDialogProps } from '@react-types/dialog'
 import { ButtonHTMLAttributes, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
-import { Breakpoint } from '@theme'
+import { Breakpoint } from '@theme/breakpoints'
 
 import IconClose from '@icons/close'
 

@@ -8,9 +8,10 @@ import styled from 'styled-components'
 
 import { Breakpoint, numericBreakpoints } from '@theme/breakpoints'
 
+import { AdaptiveGridColumns } from '@components/cardGroup'
 import Grid, { gridColCounts } from '@components/grid'
 
-import { AdaptiveGridColumns, Story } from '@types'
+import { Story } from '@types'
 
 import useSections from '@utils/data/sections'
 

@@ -46,7 +46,7 @@ const PolicyPage = ({ children, pageContext }: PolicyPageProps) => {
       <SectionDivider />
       <StyledGrid>
         <StyledTOC label="In this page" contentSelector={`${ContentWrap}`} />
-        <MDXProvider components={{ hr: () => <SectionDivider fullWidth /> }}>
+        <MDXProvider>
           <ContentWrap as="main">{children}</ContentWrap>
         </MDXProvider>
       </StyledGrid>

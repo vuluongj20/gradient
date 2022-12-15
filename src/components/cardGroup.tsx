@@ -5,14 +5,16 @@ import styled from 'styled-components'
 import Card from '@components/card'
 import Grid, { GridColCounts, gridColCounts } from '@components/grid'
 
-import { AdaptiveGridColumns, GridColumns, Story } from '@types'
+import { Story } from '@types'
 
 import { sum } from '@utils/functions'
 
-interface CardGroupProps {
-	stories: Story[]
-	imageLoading?: GatsbyImageProps['loading']
+interface GridColumns {
+	start: number
+	end: number
 }
+
+export type AdaptiveGridColumns = Record<keyof GridColCounts, GridColumns>
 
 interface SpanRange {
 	mid: number
@@ -175,6 +177,11 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 	})
 
 	return results as AdaptiveGridColumns[]
+}
+
+interface CardGroupProps {
+	stories: Story[]
+	imageLoading?: GatsbyImageProps['loading']
 }
 
 const CardGroup = ({ stories, imageLoading }: CardGroupProps) => {

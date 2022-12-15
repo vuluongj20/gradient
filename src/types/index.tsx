@@ -1,14 +1,5 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 
-import { ColCounts } from '@theme'
-
-export interface GridColumns {
-	start: number
-	end: number
-}
-
-export type AdaptiveGridColumns = Record<keyof ColCounts, GridColumns>
-
 export interface Page {
 	readonly slug: string
 	readonly title: string

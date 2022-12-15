@@ -14,12 +14,12 @@ const GlobalStyles = createGlobalStyle`
     --page-margin-left: max(4rem, var(--sal, 0px));
     --page-margin-right: max(4rem, var(--sar, 0px));
 
-    @media only screen and (max-width: 48rem), only screen and (max-height: 48rem) {
+    ${(p) => p.theme.breakpoints.mobile}  {
       --page-margin-left: max(2rem, var(--sal, 0px));
       --page-margin-right: max(2rem, var(--sar, 0px));
     }
 
-    @media only screen and (max-width: 30rem) {
+    ${(p) => p.theme.breakpoints.xs}  {
       --page-margin-left: max(1rem, var(--sal, 0px));
       --page-margin-right: max(1rem, var(--sar, 0px));
     }
@@ -226,7 +226,9 @@ const GlobalStyles = createGlobalStyle`
 
     /* Adaptive space */
     --adaptive-space-0: var(--space-0);
+    --adaptive-space-0-5: var(--space-0-5);
     --adaptive-space-1: var(--space-1);
+    --adaptive-space-1-5: var(--space-1-5);
     --adaptive-space-2: var(--space-2);
     --adaptive-space-3: var(--space-3);
     --adaptive-space-4: var(--space-4);
@@ -234,12 +236,12 @@ const GlobalStyles = createGlobalStyle`
     --adaptive-space-6: var(--space-6);
     --adaptive-space-7: var(--space-7);
     --adaptive-space-8: var(--space-8);
-    --adaptive-space-0-5: var(--space-0-5);
-    --adaptive-space-1-5: var(--space-1-5);
 
-    @media only screen and (max-width: 90rem){
+    ${(p) => p.theme.breakpoints.xl} {
       --adaptive-space-0: var(--space-0);
+      --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
+      --adaptive-space-1-5: var(--space-1-5)
       --adaptive-space-2: var(--space-2);
       --adaptive-space-3: var(--space-3);
       --adaptive-space-4: var(--space-4);
@@ -247,13 +249,13 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-6: var(--space-6);
       --adaptive-space-7: var(--space-7);
       --adaptive-space-8: var(--space-8);
-      --adaptive-space-0-5: var(--space-0-5);
-      --adaptive-space-1-5: var(--space-1-5)
     }
 
-    @media only screen and (max-width: 78rem){
+    ${(p) => p.theme.breakpoints.l} {
       --adaptive-space-0: var(--space-0);
+      --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
+      --adaptive-space-1-5: var(--space-1-5)
       --adaptive-space-2: var(--space-2);
       --adaptive-space-3: var(--space-3);
       --adaptive-space-4: var(--space-4);
@@ -261,13 +263,14 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-6: var(--space-6);
       --adaptive-space-7: var(--space-7);
       --adaptive-space-8: var(--space-8);
-      --adaptive-space-0-5: var(--space-0-5);
-      --adaptive-space-1-5: var(--space-1-5)
+      
     }
 
-    @media only screen and (max-width: 64rem){
+    ${(p) => p.theme.breakpoints.m} {
       --adaptive-space-0: var(--space-0);
+      --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
+      --adaptive-space-1-5: var(--space-1)
       --adaptive-space-2: var(--space-1);
       --adaptive-space-3: var(--space-2);
       --adaptive-space-4: var(--space-3);
@@ -275,13 +278,13 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-6: var(--space-5);
       --adaptive-space-7: var(--space-6);
       --adaptive-space-8: var(--space-7);
-      --adaptive-space-0-5: var(--space-0-5);
-      --adaptive-space-1-5: var(--space-1)
     }
 
-    @media only screen and (max-width: 48rem){
+    ${(p) => p.theme.breakpoints.s} {
       --adaptive-space-0: var(--space-0);
+      --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
+      --adaptive-space-1-5: var(--space-1)
       --adaptive-space-2: var(--space-1);
       --adaptive-space-3: var(--space-2);
       --adaptive-space-4: var(--space-3);
@@ -289,13 +292,13 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-6: var(--space-5);
       --adaptive-space-7: var(--space-6);
       --adaptive-space-8: var(--space-7);
-      --adaptive-space-0-5: var(--space-0-5);
-      --adaptive-space-1-5: var(--space-1)
     }
 
-    @media only screen and (max-width: 30rem){
+    ${(p) => p.theme.breakpoints.xs} {
       --adaptive-space-0: var(--space-0);
+      --adaptive-space-0-5: var(--space-0);
       --adaptive-space-1: var(--space-0);
+      --adaptive-space-1-5: var(--space-1);
       --adaptive-space-2: var(--space-1);
       --adaptive-space-3: var(--space-1);
       --adaptive-space-4: var(--space-2);
@@ -303,8 +306,6 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-6: var(--space-3);
       --adaptive-space-7: var(--space-4);
       --adaptive-space-8: var(--space-5);
-      --adaptive-space-0-5: var(--space-0-5);
-      --adaptive-space-1-5: var(--space-1);
     }
   }
 
