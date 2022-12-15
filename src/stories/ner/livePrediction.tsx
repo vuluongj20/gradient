@@ -348,6 +348,12 @@ const InputGroup = styled.div<{ modelNameOffset?: boolean }>`
 	margin-left: calc(
 		${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} - var(--space-1-5) - 1px
 	);
+
+	${(p) => p.theme.media.xs} {
+		margin-left: calc(
+			${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} - var(--space-1) - 1px
+		);
+	}
 `
 
 const Input = styled.input`
@@ -363,6 +369,10 @@ const Input = styled.input`
 	padding: var(--space-1) var(--space-1-5);
 	padding-right: ${inputPaddingRight};
 	width: 100%;
+
+	${(p) => p.theme.media.xs} {
+		padding-left: var(--space-1);
+	}
 `
 
 const RandomizeButton = styled(Button)<{ isLoading: boolean }>`

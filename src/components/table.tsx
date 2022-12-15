@@ -4,6 +4,11 @@ export const Table = styled.table`
 	width: calc(100% + var(--space-1-5) * 2);
 	transform: translateX(calc(var(--space-1-5) * -1));
 	border-spacing: 0;
+
+	${(p) => p.theme.media.xs} {
+		width: calc(100% + var(--space-1) * 2);
+		transform: translateX(calc(var(--space-1) * -1));
+	}
 `
 
 export const TableHead = styled.thead`
@@ -65,10 +70,18 @@ export const TH = styled.th<{ align?: Alignment }>`
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+
+	${(p) => p.theme.media.xs} {
+		padding: var(--space-0) var(--space-1);
+	}
 `
 
 export const TD = styled.td<{ align?: Alignment }>`
 	font-weight: 400;
 	padding: var(--space-0) var(--space-1-5);
 	${(p) => p.align && `text-align: ${p.align};`}
+
+	${(p) => p.theme.media.xs} {
+		padding: var(--space-0) var(--space-1);
+	}
 `
