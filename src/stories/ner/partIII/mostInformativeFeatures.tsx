@@ -215,7 +215,7 @@ const StyledTable = styled(Table)`
 		}
 	}
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		colgroup {
 			col:nth-child(1) {
 				width: calc(100% - 12em);

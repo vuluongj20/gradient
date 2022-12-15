@@ -61,7 +61,7 @@ const PageContent = styled('main')`
 	/* Leave space for nav bar */
 	padding-left: var(--nav-width);
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		padding-left: 0;
 		padding-top: var(--nav-height);
 	}

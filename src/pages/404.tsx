@@ -29,7 +29,7 @@ const Wrap = styled.div`
   padding: var(--adaptive-space-7) var(--page-margin-right) var(--adaptive-space-7)
     var(--page-margin-left);
 
-  ${(p) => p.theme.media.xs} {
+  ${(p) => p.theme.breakpoints.xs} {
     align-items: flex-start;
   }
 `
@@ -43,11 +43,11 @@ const Text = styled.p`
   text-align: center;
   margin-bottom: var(--space-1);
 
-  ${(p) => p.theme.media.s} {
+  ${(p) => p.theme.breakpoints.s} {
     max-width: 28rem;
   }
 
-  ${(p) => p.theme.media.xs} {
+  ${(p) => p.theme.breakpoints.xs} {
     text-align: left;
   }
 `

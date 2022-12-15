@@ -106,7 +106,7 @@ const InnerWrap = styled.div`
 	padding-top: calc(var(--space-0) + var(--sat, 0));
 	padding-bottom: calc(var(--space-0) + var(--sab, 0));
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		align-items: flex-start;
 		position: fixed;
 		top: 0;
@@ -130,7 +130,7 @@ const HomeLink = styled(Link)<{ disabled: boolean }>`
 
 	${(p) => p.disabled && `&& {color: inherit}`}
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		top: 50%;
 		left: 50%;
 		right: auto;
@@ -177,7 +177,7 @@ const PageTitle = styled.p`
 	white-space: nowrap;
 	text-transform: uppercase;
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		display: none;
 	}
 `

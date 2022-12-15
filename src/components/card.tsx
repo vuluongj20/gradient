@@ -144,20 +144,20 @@ const Wrap = styled(Link)<
 				padding-bottom: var(--space-1);
 				grid-column: ${p.$gridCols.xxl.start} / ${p.$gridCols.xxl.end};
 
-				${p.theme.media.xl} {
+				${p.theme.breakpoints.xl} {
 					grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
 				}
 
-				${p.theme.media.l} {
+				${p.theme.breakpoints.l} {
 					grid-column: ${p.$gridCols.l.start} / ${p.$gridCols.l.end};
 				}
-				${p.theme.media.m} {
+				${p.theme.breakpoints.m} {
 					grid-column: ${p.$gridCols.m.start} / ${p.$gridCols.m.end};
 				}
-				${p.theme.media.s} {
+				${p.theme.breakpoints.s} {
 					grid-column: ${p.$gridCols.s.start} / ${p.$gridCols.s.end};
 				}
-				${p.theme.media.xs} {
+				${p.theme.breakpoints.xs} {
 					grid-column: 1 / -1;
 				}
 	`}
@@ -191,14 +191,14 @@ const ImageWrap = styled.div<{ rowLayout: boolean }>`
 
 	${(p) => p.rowLayout && `grid-column: 1 / 5;`}
 
-	${(p) => p.theme.media.m} {
+	${(p) => p.theme.breakpoints.m} {
 		max-height: 32rem;
 	}
-	${(p) => p.theme.media.s} {
+	${(p) => p.theme.breakpoints.s} {
 		max-height: 24rem;
 		${(p) => p.rowLayout && `grid-column: 1 / -1;`}
 	}
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		max-height: 16rem;
 	}
 `
@@ -210,7 +210,7 @@ const StyledGatsbyImage = styled(GatsbyImage)`
 const TitleWrap = styled.div<{ rowLayout: boolean }>`
 	${(p) => (p.rowLayout ? `grid-column-end: span 4;` : `margin-top: var(--space-1);`)}
 
-	${(p) => p.theme.media.s} {
+	${(p) => p.theme.breakpoints.s} {
 		margin: var(--space-1) 0;
 	}
 `

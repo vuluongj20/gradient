@@ -116,7 +116,7 @@ const ContentWrap = styled.div`
 	width: 100%;
 	gap: var(--space-4);
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		gap: var(--space-2);
 	}
 `

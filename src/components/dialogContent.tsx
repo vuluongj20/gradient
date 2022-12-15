@@ -126,7 +126,7 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 		transform: translate3d(0, 0, 0);
 	}
 
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		padding: ${(p) =>
 			p.compact ? `var(--space-0) var(--space-0)` : `var(--space-2) var(--space-3)`};
 	}

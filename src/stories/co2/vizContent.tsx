@@ -83,7 +83,7 @@ export const VizScrollBox = styled.div`
 	flex-direction: column;
 	pointer-events: none;
 
-	${(p) => p.theme.media.s} {
+	${(p) => p.theme.breakpoints.s} {
 		width: 85%;
 	}
 `
@@ -95,7 +95,7 @@ export const VizDesWrap = styled.div`
 	height: 100%;
 	flex-shrink: 1;
 
-	${(p) => p.theme.media.s} {
+	${(p) => p.theme.breakpoints.s} {
 		width: 100%;
 		align-items: center;
 	}
@@ -126,7 +126,7 @@ export const VizDesText = styled(Body)`
 		visibility: hidden;
 	}
 
-	${(p) => p.theme.media.s} {
+	${(p) => p.theme.breakpoints.s} {
 		width: 20rem;
 	}
 `

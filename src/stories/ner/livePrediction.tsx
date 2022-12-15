@@ -63,6 +63,7 @@ interface LivePredictionProps extends PanelProps {
 	label?: ReactNode
 	initialInputValue?: string
 	hideTagPrefixes?: boolean
+	noMargin?: boolean
 }
 
 const LivePrediction = ({
@@ -70,6 +71,7 @@ const LivePrediction = ({
 	label,
 	initialInputValue,
 	hideTagPrefixes,
+	noMargin,
 	...panelProps
 }: LivePredictionProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
@@ -225,7 +227,7 @@ const LivePrediction = ({
 
 	return (
 		<Grid noPaddingOnMobile>
-			<Panel overlay size="m" gridColumn="wide" {...panelProps}>
+			<StyledPanel overlay size="m" gridColumn="wide" noMargin={noMargin}>
 				{label && <Label modelNameOffset={models.length > 1}>{label}</Label>}
 
 				<InputGroup modelNameOffset={models.length > 1}>
@@ -321,7 +323,7 @@ const LivePrediction = ({
 						</ResultsAnimationWrapper>
 					</CSSTransition>
 				</ResultsWrapper>
-			</Panel>
+			</StyledPanel>
 		</Grid>
 	)
 }
@@ -330,6 +332,10 @@ export default LivePrediction
 
 const MODEL_NAME_WIDTH = '3rem'
 const inputPaddingRight = 'calc(var(--space-2) + var(--space-2) + var(--space-2))'
+
+const StyledPanel = styled(Panel)<{ noMargin?: boolean }>`
+	${(p) => !p.noMargin && `margin-bottom: var(--adaptive-space-3);`}
+`
 
 const Label = styled.span<{ modelNameOffset?: boolean }>`
 	display: block;
@@ -348,7 +354,7 @@ const InputGroup = styled.div<{ modelNameOffset?: boolean }>`
 		${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} - var(--space-1-5) - 1px
 	);
 
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		margin-left: calc(
 			${(p) => (p.modelNameOffset ? MODEL_NAME_WIDTH : '0px')} - var(--space-1) - 1px
 		);
@@ -369,7 +375,7 @@ const Input = styled.input`
 	padding-right: ${inputPaddingRight};
 	width: 100%;
 
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		padding-left: var(--space-1);
 	}
 `

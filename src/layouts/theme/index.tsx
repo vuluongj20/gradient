@@ -1,11 +1,6 @@
 import { CSSObject, Keyframes, keyframes } from 'styled-components'
 
-import {
-	Breakpoint,
-	breakpoints,
-	numericBreakpoints,
-	orderedBreakpoints,
-} from '@theme/breakpoints'
+import { Breakpoint, breakpoints } from '@theme/breakpoints'
 import { TextScale, textScales } from '@theme/text'
 
 type CSSStringUtil = Record<'defaultTransitions' | 'lineHeight', string>
@@ -27,7 +22,7 @@ export type Theme = {
 		content: TextScale
 		viz: TextScale
 	}
-	media: Record<Breakpoint | 'mobile', string>
+	breakpoints: Record<Breakpoint | 'mobile', string>
 	gridColumn: Record<'text' | 'wide' | 'fullWidth', CSSObject>
 	fadeIn: Keyframes
 } & CSSStringUtil &
@@ -107,7 +102,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 				opacity: 0,
 			},
 		},
-		media: {
+		breakpoints: {
 			xs: `@media only screen and (max-width: ${breakpoints.xs})`,
 			s: `@media only screen and (max-width: ${breakpoints.s})`,
 			m: `@media only screen and (max-width: ${breakpoints.m})`,

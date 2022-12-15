@@ -61,7 +61,7 @@ const ReferencesHeader = styled.h2`
 const ReferencesList = styled.ol`
 	margin-top: var(--space-2);
 
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		padding-left: var(--space-3);
 	}
 `

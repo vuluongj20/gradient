@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Breakpoint } from '@theme'
+import { Breakpoint } from '@theme/breakpoints'
 
 export type GridColCounts = Record<Breakpoint | 'xxl', number>
 
@@ -21,26 +21,26 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 	padding-left: var(--page-margin-left);
 	padding-right: var(--page-margin-right);
 
-	${(p) => p.theme.media.xl} {
+	${(p) => p.theme.breakpoints.xl} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xl}, 1fr)
 			[end];
 	}
 
-	${(p) => p.theme.media.l} {
+	${(p) => p.theme.breakpoints.l} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.l}, 1fr)
 			[end];
 	}
 
-	${(p) => p.theme.media.m} {
+	${(p) => p.theme.breakpoints.m} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.m}, 1fr)
 			[end];
 		column-gap: var(--space-2);
 	}
 
-	${(p) => p.theme.media.s} {
+	${(p) => p.theme.breakpoints.s} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.s}, 1fr)
 			[end];
@@ -48,7 +48,7 @@ const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 		${(p) => p.noPaddingOnMobile && `padding-left: 0; padding-right: 0;`}
 	}
 
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		grid-template-columns:
 			[start] repeat(${gridColCounts.xs}, 1fr)
 			[end];

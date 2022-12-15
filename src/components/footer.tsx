@@ -99,7 +99,7 @@ const Wrap = styled.footer`
 // 	flex-direction: column;
 // 	align-items: flex-start;
 
-// 	${(p) => p.theme.media.xs} {
+// 	${(p) => p.theme.breakpoints.xs} {
 // 		&:not(:last-child) {
 // 			margin-bottom: var(--space-4);
 // 		}
@@ -137,7 +137,7 @@ const PolicyText = styled.p`
 	grid-column-end: span 2;
 	color: var(--color-label);
 
-	${(p) => p.theme.media.xs} {
+	${(p) => p.theme.breakpoints.xs} {
 		grid-column-end: span 4;
 		margin-bottom: var(--space-1);
 	}

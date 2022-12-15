@@ -34,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
     /* Nav sizes */
     --nav-width: 2.5rem;
     --nav-height: 100%;
-    ${(p) => p.theme.media.mobile} {
+    ${(p) => p.theme.breakpoints.mobile} {
       --nav-width: 100%;
       --nav-height: 3rem;
     }
@@ -642,14 +642,14 @@ const GlobalStyles = createGlobalStyle`
       ${(p) => p.theme.flexCenter};
     }
 
-    ${(p) => p.theme.media.xs} {
+    ${(p) => p.theme.breakpoints.xs} {
       padding-right: var(--space-0);
     }
   }
   .autolinked-header svg {
     fill: var(--color-label);
 
-    ${(p) => p.theme.media.xs} {
+    ${(p) => p.theme.breakpoints.xs} {
       width: 0.75em;
     }
   }

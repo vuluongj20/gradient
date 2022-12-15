@@ -320,7 +320,7 @@ const Wrap = styled(Grid)`
 const StyledPanel = styled(Panel)`
 	overflow: hidden;
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		padding-left: 0;
 		padding-right: 0;
 	}
@@ -348,7 +348,7 @@ const InputWrap = styled.div`
 		${(p) => p.theme.text.viz.body};
 	}
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		padding-left: var(--page-margin-left);
 		padding-right: var(--page-margin-right);
 	}
@@ -395,7 +395,7 @@ const BreakdownWrap = styled(Panel)`
 	padding: var(--space-3) var(--space-4) var(--space-4);
 	background: var(--color-o-background);
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		padding-left: var(--page-margin-left);
 		padding-right: var(--page-margin-right);
 	}
@@ -472,7 +472,7 @@ const BreakdownTable = styled(Table)<{ visible: boolean }>`
 		}
 	}
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		colgroup {
 			col:nth-child(1) {
 				width: calc(100% - 12em);

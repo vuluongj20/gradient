@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 
+import Callout from './callout'
 import LivePrediction from './livePrediction'
 import ABCDGraph from './partI/sampling/abcdGraph'
 import StaticABCDGraph from './partI/staticABCDGraph'
@@ -38,6 +39,7 @@ import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 
 <LivePrediction
 	hideTagPrefixes
+	noMargin
 	models={['hmm', 'memm', 'crf']}
 	initialInputValue="East Timorese-born activist Jose Ramos Horta"
 	label={
@@ -74,10 +76,10 @@ $$
 
 {
 
-<Alert title="Notation:" marginBottom={3}>
+<Callout title="Notation:">
 	the shorthand <em>p(a)</em> means <em>p(A = a)</em>, that is, the probability of
 	variable A taking value a.
-</Alert>
+</Callout>
 }
 
 This is a simple enough example, with 2 factors in the right hand side. Add more variables, however, and the result can get messy fast. To see this, assume that there are two more variables, $C$ and $D$, and that $D$ is conditionally dependent on $A$, $B$, and $C$. The factorization becomes:
@@ -159,11 +161,11 @@ HMMs’ chain structure is particularly useful in sequence labeling problems lik
 
 {
 
-<Alert title="Representation:" marginBottom={3}>
+<Callout title="Representation:">
 	rather than labeling each node using the name of the variable it represents (X&#8321;,
 	Y&#8321;) as we have until this point, we'll instead display the value of that variable
 	(“O”, “Great”). This helps make the graphs easier to read.
-</Alert>
+</Callout>
 }
 
 There are 9 possible name tags. Each, apart from the “O” tag, has either a B- (beginning) or I- (inside) prefix, to eliminate confusion about when an entity stops and the next one begins.
@@ -203,7 +205,6 @@ An HMM with the structure outlined above was trained on the CoNLL-2003 English d
 	models={['hmm']}
 	label="Name tag predictions by HMM:"
 	initialInputValue="The UK Department of Transport"
-	mb={3}
 />
 
 Evaluated against a test set, the model achieves satisfactory per-word accuracy:
@@ -326,7 +327,6 @@ Here’s a live version of the trained model:
 	models={['memm']}
 	initialInputValue="Chicago Board of Trade"
 	label="Name tag predictions by MEMM:"
-	mb={3}
 />
 
 The model has better performance than its HMM counterpart. Per-word accuracy is higher than the HMM’s 90.1%:

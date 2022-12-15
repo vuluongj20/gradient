@@ -8,8 +8,6 @@ import LocalThemeProvider from '@utils/localThemeProvider'
 
 interface PanelWrapProps extends ComponentProps<typeof LocalThemeProvider> {
 	size?: 's' | 'm' | 'l'
-	mt?: number
-	mb?: number
 	gridColumn?: keyof Theme['gridColumn']
 	className?: string
 }
@@ -30,15 +28,13 @@ export interface PanelProps
 
 const Panel = ({
 	size,
-	mt,
-	mb,
 	gridColumn,
 	className,
 	children,
 	...themeProviderProps
 }: PanelProps) => (
 	<LocalThemeProvider {...themeProviderProps}>
-		<PanelWrap className={className} size={size} mt={mt} mb={mb} gridColumn={gridColumn}>
+		<PanelWrap className={className} size={size} gridColumn={gridColumn}>
 			{children}
 		</PanelWrap>
 	</LocalThemeProvider>
@@ -51,17 +47,17 @@ const getPadding = (p: { size?: PanelProps['size']; theme: Theme }) => {
 		case 's':
 			return `
 				padding: var(--space-3);
-				${p.theme.media.s} {padding: var(--space-2)}
+				${p.theme.breakpoints.s} {padding: var(--space-2)}
 			`
 		case 'm':
 			return `
 					padding: var(--space-4);
-					${p.theme.media.s} {padding: var(--space-3)}
+					${p.theme.breakpoints.s} {padding: var(--space-3)}
 				`
 		case 'l':
 			return `
 				padding: var(--space-5);
-				${p.theme.media.s} {padding: var(--space-4)}
+				${p.theme.breakpoints.s} {padding: var(--space-4)}
 			`
 		default:
 			return null
@@ -84,7 +80,7 @@ const Wrap = styled.div<{
 	${(p) =>
 		p.gridColumn === 'wide' &&
 		`
-		${p.theme.media.mobile} {
+		${p.theme.breakpoints.mobile} {
 			padding-left: var(--page-margin-left);
 			padding-right: var(--page-margin-right);
 		}
@@ -93,13 +89,10 @@ const Wrap = styled.div<{
 	${(p) =>
 		p.gridColumn === 'wide' &&
 		`
-			${p.theme.media.s} {
+			${p.theme.breakpoints.s} {
 				border-radius: 0;
 				border-left-width: 0;
 				border-right-width: 0;
 			}
 		`}
-
-	margin-top: ${(p) => (!isDefined(p.mt) ? '0' : `var(--adaptive-space-${p.mt})`)};
-	margin-bottom: ${(p) => (!isDefined(p.mb) ? '0' : `var(--adaptive-space-${p.mb})`)};
 `

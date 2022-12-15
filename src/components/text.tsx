@@ -43,7 +43,7 @@ export const Heading = styled.h2<TextProps>`
 		padding-top: var(--space-0);
 		transform: translateY(100%);
 
-		${(p) => p.theme.media.xs} {
+		${(p) => p.theme.breakpoints.xs} {
 			padding-top: 0;
 		}
 	}

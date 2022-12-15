@@ -58,7 +58,7 @@ const HeaderWrap = styled.header`
   align-items: flex-end;
   padding: var(--space-3) var(--page-margin-right) var(--space-3) var(--page-margin-left);
 
-  ${(p) => p.theme.media.mobile} {
+  ${(p) => p.theme.breakpoints.mobile} {
     display: none;
   }
 `

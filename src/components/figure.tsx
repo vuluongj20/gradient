@@ -74,7 +74,7 @@ const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 	${(p) =>
 		p.gridColumn === 'wide' &&
 		`
-			${p.theme.media.s} {
+			${p.theme.breakpoints.s} {
 				border-radius: 0;
 				border-left-width: 0;
 				border-right-width: 0;
@@ -101,7 +101,7 @@ const Caption = styled.figcaption<{ gridColumn?: FigureProps['gridColumn'] }>`
 	${(p) =>
 		p.gridColumn === 'wide' &&
 		`
-		${p.theme.media.mobile} {
+		${p.theme.breakpoints.mobile} {
 			padding-left: var(--page-margin-left);
 			padding-right: var(--page-margin-right);
 		}

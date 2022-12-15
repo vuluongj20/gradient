@@ -20,10 +20,8 @@ interface SpanRange {
 	max: number
 }
 
-interface SizeMap extends Record<Story['featuredSize'], SpanRange> {}
-
 /** Maps a size shortname (s/m/l/xl) to a full size range object */
-const sizeMap: SizeMap = {
+const sizeMap: Record<Story['featuredSize'], SpanRange> = {
 	s: { mid: 3, min: 3, max: 3 },
 	m: { mid: 4, min: 3, max: 4 },
 	l: { mid: 5, min: 3, max: 6 },
@@ -168,7 +166,7 @@ const getGridColumns = (stories: Story[]): AdaptiveGridColumns[] => {
 	const results: Partial<AdaptiveGridColumns>[] = Array.from(Array(stories.length)).map(
 		() => ({}),
 	)
-	;(Object.keys(gridColCounts) as (keyof ColCounts)[]).forEach((key) => {
+	;(Object.keys(gridColCounts) as Array<keyof GridColCounts>).forEach((key) => {
 		const availableRows = gridColCounts[key]
 		const uncalibratedRows = getRows(spanRanges, availableRows)
 		const calibratedRows = calibrateRows(uncalibratedRows, availableRows)

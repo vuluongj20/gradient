@@ -152,7 +152,7 @@ const StyledPanel = styled(Panel)`
 	height: 36rem;
 	display: flex;
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		flex-direction: column;
 		height: auto;
 	}
@@ -161,7 +161,7 @@ const StyledPanel = styled(Panel)`
 const StyledDivider = styled(Divider)`
 	margin: 0;
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		margin-left: var(--page-margin-left);
 		margin-right: var(--page-margin-right);
 	}
@@ -173,7 +173,7 @@ const GraphViewWrap = styled.div`
 	width: 35%;
 	flex-shrink: 0;
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		width: 100%;
 		height: 22rem;
 	}
@@ -209,7 +209,7 @@ const StyledPairGrid = styled(PairGrid)`
 	width: 100%;
 	margin: var(--space-3);
 
-	${(p) => p.theme.media.mobile} {
+	${(p) => p.theme.breakpoints.mobile} {
 		width: calc(100% - var(--space-3) * 2);
 		margin-left: var(--page-margin-left);
 		margin-right: var(--page-margin-right);

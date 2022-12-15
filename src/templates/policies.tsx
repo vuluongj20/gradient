@@ -122,13 +122,13 @@ const Wrap = styled.div`
     margin-bottom: var(--space-1);
   }
 
-  ${(p) => p.theme.media.l} {
+  ${(p) => p.theme.breakpoints.l} {
     grid-column: 1 / -3;
   }
-  ${(p) => p.theme.media.m} {
+  ${(p) => p.theme.breakpoints.m} {
     grid-column: 1 / -2;
   }
-  ${(p) => p.theme.media.s} {
+  ${(p) => p.theme.breakpoints.s} {
     grid-column: 1 / -1;
   }
 
@@ -167,7 +167,7 @@ const StyledTOC = styled(TOC)`
   padding-top: var(--adaptive-space-6);
   padding-bottom: var(--adaptive-space-4);
 
-  ${(p) => p.theme.media.l} {
+  ${(p) => p.theme.breakpoints.l} {
     display: none;
   }
 `
