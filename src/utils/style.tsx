@@ -25,11 +25,6 @@ export const numericBreakpoints = {
 	xs: 480,
 }
 
-export const navSize = {
-	width: '2.5rem',
-	mobileHeight: '3rem',
-}
-
 export type ColCounts = Record<Breakpoint | 'xxl', number>
 
 /** Number of grid columns at different breakpoints */

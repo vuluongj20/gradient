@@ -31,6 +31,14 @@ const GlobalStyles = createGlobalStyle`
     --size-l: 78rem;
     --size-xl: 90rem;
 
+    /* Nav sizes */
+    --nav-width: 2.5rem;
+    --nav-height: 100%;
+    ${(p) => p.theme.media.mobile} {
+      --nav-width: 100%;
+      --nav-height: 3rem;
+    }
+
     /* Colors */
     --color-white: #F1F2F4;
     --color-black: #212529;

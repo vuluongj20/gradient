@@ -2,8 +2,6 @@ import { useLocation } from '@reach/router'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 
-import { navSize } from '@utils/style'
-
 interface NavProps {
 	pageTitle: string
 }
@@ -87,14 +85,9 @@ export default Nav
 const Wrap = styled.nav`
 	position: fixed;
 	top: 0;
-	height: 100%;
-	width: ${navSize.width};
+	height: var(--nav-height);
+	width: var(--nav-width);
 	z-index: var(--z-index-nav);
-
-	${(p) => p.theme.media.mobile} {
-		width: 100%;
-		height: ${navSize.mobileHeight};
-	}
 
 	@media print {
 		display: none;
@@ -119,7 +112,7 @@ const InnerWrap = styled.div`
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: ${navSize.mobileHeight};
+		height: var(--nav-height);
 		padding: 0 var(--page-margin-right) 0 var(--page-margin-left);
 		border-right-width: 0;
 	}

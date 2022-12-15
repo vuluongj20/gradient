@@ -10,7 +10,6 @@ import Nav from './nav'
 
 import GlobalThemeProvider from '@utils/globalThemeProvider'
 import { SettingsProvider } from '@utils/settingsContext'
-import { navSize } from '@utils/style'
 import useMountEffect from '@utils/useMountEffect'
 
 type Props = {
@@ -60,10 +59,10 @@ const PageContent = styled('main')`
 	margin: 0 auto;
 
 	/* Leave space for nav bar */
-	padding-left: ${navSize.width};
+	padding-left: var(--nav-width);
 
 	${(p) => p.theme.media.mobile} {
 		padding-left: 0;
-		padding-top: ${navSize.mobileHeight};
+		padding-top: var(--nav-height);
 	}
 `
