@@ -1,6 +1,6 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 
-import { ColCounts } from '@utils/style'
+import { ColCounts } from '@theme'
 
 export interface GridColumns {
 	start: number

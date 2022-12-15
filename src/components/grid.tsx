@@ -1,6 +1,18 @@
 import styled from 'styled-components'
 
-import { gridColCounts } from '@utils/style'
+import { Breakpoint } from '@theme'
+
+export type GridColCounts = Record<Breakpoint | 'xxl', number>
+
+/** Number of grid columns at different breakpoints */
+export const gridColCounts: GridColCounts = {
+	xxl: 14,
+	xl: 12,
+	l: 10,
+	m: 8,
+	s: 6,
+	xs: 4,
+}
 
 const Grid = styled.div<{ noPaddingOnMobile?: boolean }>`
 	display: grid;

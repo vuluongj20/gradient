@@ -1,10 +1,9 @@
 import { CSSObject } from 'styled-components'
 
+import { Breakpoint, breakpoints, orderedBreakpoints } from '@theme/breakpoints'
 import domaine from '@theme/text/domaine'
 import sohne from '@theme/text/sohne'
 import sohneMono from '@theme/text/sohneMono'
-
-import { Breakpoint, breakpoints, orderedBreakpoints } from '@utils/style'
 
 type TextCategoryStyles = {
 	fontFamily: string

@@ -6,9 +6,9 @@ import { AriaDialogProps } from '@react-types/dialog'
 import { ButtonHTMLAttributes, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
-import IconClose from '@icons/close'
+import { Breakpoint } from '@theme'
 
-import { Breakpoint } from '@utils/style'
+import IconClose from '@icons/close'
 
 export interface DialogContentProps extends AriaDialogProps {
 	title?: string

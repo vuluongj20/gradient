@@ -1,4 +1,5 @@
-import { breakpoints } from '@utils/style'
+import { breakpoints } from '@theme/breakpoints'
+
 import useMatchMedia from '@utils/useMatchMedia'
 
 /**

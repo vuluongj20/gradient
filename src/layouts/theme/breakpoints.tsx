@@ -1,7 +1,4 @@
 export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl'
-
-export const orderedBreakpoints: Breakpoint[] = ['xl', 'l', 'm', 's', 'xs']
-
 /**
  * List of breakpoints. This should be in the utils folder
  * instead of the theme folder since we may want to import it
@@ -22,8 +19,4 @@ export const numericBreakpoints = {
 	s: 768,
 	xs: 480,
 }
-
-export type ColCounts = Record<Breakpoint | 'xxl', number>
-
-/** Number of grid columns at different breakpoints */
-export const gridColCounts: ColCounts = { xxl: 14, xl: 12, l: 10, m: 8, s: 6, xs: 4 }
+export const orderedBreakpoints: Breakpoint[] = ['xl', 'l', 'm', 's', 'xs']

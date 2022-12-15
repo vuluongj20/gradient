@@ -6,12 +6,13 @@ import { GatsbyImage, GatsbyImageProps, getImage } from 'gatsby-plugin-image'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
 
-import Grid from '@components/grid'
+import { Breakpoint, numericBreakpoints } from '@theme/breakpoints'
+
+import Grid, { gridColCounts } from '@components/grid'
 
 import { AdaptiveGridColumns, Story } from '@types'
 
 import useSections from '@utils/data/sections'
-import { Breakpoint, gridColCounts, numericBreakpoints } from '@utils/style'
 
 /**
  * Returns custom value for the "sizes" image prop, based on width

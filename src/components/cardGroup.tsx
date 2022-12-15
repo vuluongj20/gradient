@@ -3,12 +3,11 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 
 import Card from '@components/card'
-import Grid from '@components/grid'
+import Grid, { GridColCounts, gridColCounts } from '@components/grid'
 
 import { AdaptiveGridColumns, GridColumns, Story } from '@types'
 
 import { sum } from '@utils/functions'
-import { ColCounts, gridColCounts } from '@utils/style'
 
 interface CardGroupProps {
 	stories: Story[]

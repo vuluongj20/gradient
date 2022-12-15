@@ -1,11 +1,14 @@
 import { CSSObject, Keyframes, keyframes } from 'styled-components'
 
+import {
+	Breakpoint,
+	breakpoints,
+	numericBreakpoints,
+	orderedBreakpoints,
+} from '@theme/breakpoints'
 import { TextScale, textScales } from '@theme/text'
 
-import { Breakpoint, breakpoints } from '@utils/style'
-
 type CSSStringUtil = Record<'defaultTransitions' | 'lineHeight', string>
-
 type CSSObjectUtil = Record<
 	| 'spread'
 	| 'flexCenter'
