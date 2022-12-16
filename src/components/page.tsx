@@ -1,18 +1,13 @@
-import { ComponentProps, ReactNode } from 'react'
+import { HTMLAttributes } from 'react'
 import styled from 'styled-components'
 
 import Footer from '@components/footer'
 
-interface PageProps {
-	children: ReactNode
-	footerProps?: ComponentProps<typeof Footer>
-}
-
-const Page = ({ children, footerProps }: PageProps) => {
+const Page = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
 	return (
-		<PageContent>
+		<PageContent {...props}>
 			{children}
-			<Footer {...footerProps} />
+			<Footer />
 		</PageContent>
 	)
 }

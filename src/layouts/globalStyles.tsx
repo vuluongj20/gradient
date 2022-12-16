@@ -241,7 +241,7 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-0: var(--space-0);
       --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
-      --adaptive-space-1-5: var(--space-1-5)
+      --adaptive-space-1-5: var(--space-1-5);
       --adaptive-space-2: var(--space-2);
       --adaptive-space-3: var(--space-3);
       --adaptive-space-4: var(--space-4);
@@ -255,7 +255,7 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-0: var(--space-0);
       --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
-      --adaptive-space-1-5: var(--space-1-5)
+      --adaptive-space-1-5: var(--space-1-5);
       --adaptive-space-2: var(--space-2);
       --adaptive-space-3: var(--space-3);
       --adaptive-space-4: var(--space-4);
@@ -270,7 +270,7 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-0: var(--space-0);
       --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
-      --adaptive-space-1-5: var(--space-1)
+      --adaptive-space-1-5: var(--space-1);
       --adaptive-space-2: var(--space-1);
       --adaptive-space-3: var(--space-2);
       --adaptive-space-4: var(--space-3);
@@ -284,7 +284,7 @@ const GlobalStyles = createGlobalStyle`
       --adaptive-space-0: var(--space-0);
       --adaptive-space-0-5: var(--space-0-5);
       --adaptive-space-1: var(--space-1);
-      --adaptive-space-1-5: var(--space-1)
+      --adaptive-space-1-5: var(--space-1);
       --adaptive-space-2: var(--space-1);
       --adaptive-space-3: var(--space-2);
       --adaptive-space-4: var(--space-3);
