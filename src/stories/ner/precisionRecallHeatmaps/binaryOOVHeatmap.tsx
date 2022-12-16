@@ -5,7 +5,7 @@ import { MODEL, MODEL_SHORT } from '../constants'
 import Heatmap from '../heatmap'
 
 import Grid from '@components/grid'
-import SwitchBar, { Item } from '@components/switchBar'
+import SegmentedControl, { Item } from '@components/segmentedControl'
 
 const groups = ['No OOV', '1+ OOV']
 
@@ -70,11 +70,15 @@ const BinaryOOVHeatmap = ({ models }: BinaryOOVHeatmapProps) => {
 		<Grid>
 			<Wrap>
 				{models.length > 1 && (
-					<SwitchBar aria-label="Model" value={selectedModel} onChange={setSelectedModel}>
+					<SegmentedControl
+						aria-label="Model"
+						value={selectedModel}
+						onChange={setSelectedModel}
+					>
 						{models.map((model) => (
 							<Item key={model}>{MODEL_SHORT[model]}</Item>
 						))}
-					</SwitchBar>
+					</SegmentedControl>
 				)}
 				<ContentWrap>
 					<Column>

@@ -108,7 +108,7 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-charcoal-gray5: #858C93;
     --color-scale-charcoal-gray6: #686E73;
     --color-scale-charcoal-gray7: #494D50;
-    --color-scale-charcoal-gray8: rgb(102 107 112 / 24%);
+    --color-scale-charcoal-gray8: rgb(102 107 112 / 22%);
     --color-scale-charcoal-gray9: rgb(102 107 112 / 14%);
     --color-scale-charcoal-red1: rgb(255 115 82 / 100%);
     --color-scale-charcoal-red2: rgb(255 115 82 / 90%);

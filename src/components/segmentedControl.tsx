@@ -25,7 +25,7 @@ type PositionMap = Record<string, Position>
 
 const factory = (nodes: Iterable<Node<object>>) => new ListCollection(nodes)
 
-interface SwitchBarProps<Value>
+interface SegmentedControlProps<Value>
 	extends CollectionBase<object>,
 		Omit<AriaRadioGroupProps, 'value' | 'defaultValue' | 'onChange'> {
 	value?: Value
@@ -34,10 +34,10 @@ interface SwitchBarProps<Value>
 	moveLeft?: boolean
 }
 
-const SwitchBar = <Value extends string>({
+const SegmentedControl = <Value extends string>({
 	moveLeft,
 	...props
-}: SwitchBarProps<Value>) => {
+}: SegmentedControlProps<Value>) => {
 	const ref = useRef<HTMLDivElement>(null)
 
 	const collection = useCollection(props, factory)
@@ -70,9 +70,9 @@ const SwitchBar = <Value extends string>({
 	)
 
 	return (
-		<SwitchBarWrap moveLeft={moveLeft} {...radioGroupProps} ref={ref}>
+		<SegmentedControlWrap moveLeft={moveLeft} {...radioGroupProps} ref={ref}>
 			{[...collectionList].map((option, i) => (
-				<SwitchItem
+				<SegmentedControlItem
 					{...option}
 					key={option.key}
 					value={String(option.key)}
@@ -82,29 +82,29 @@ const SwitchBar = <Value extends string>({
 					setPositionMap={setPositionMap}
 				>
 					{option.rendered}
-				</SwitchItem>
+				</SegmentedControlItem>
 			))}
 			<Indicator {...indicatorPosition} />
-		</SwitchBarWrap>
+		</SegmentedControlWrap>
 	)
 }
 
-export default SwitchBar
+export default SegmentedControl
 
-interface SwitchItemProps extends Omit<Node<object>, 'value'>, AriaRadioProps {
+interface SegmentedControlItemProps extends Omit<Node<object>, 'value'>, AriaRadioProps {
 	state: RadioGroupState
 	lastKey: Key
 	nextKey?: Key
 	setPositionMap: Dispatch<SetStateAction<PositionMap>>
 }
 
-const SwitchItem = ({
+const SegmentedControlItem = ({
 	lastKey,
 	nextKey,
 	state,
 	setPositionMap,
 	...props
-}: SwitchItemProps) => {
+}: SegmentedControlItemProps) => {
 	const wrapRef = useRef<HTMLLabelElement>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -136,18 +136,18 @@ const SwitchItem = ({
 	}, [width, props.value, setPositionMap])
 
 	return (
-		<SwitchItemWrap isSelected={isSelected} ref={wrapRef}>
-			<SwitchItemInput {...inputProps} ref={inputRef} />
+		<SegmentedControlItemWrap isSelected={isSelected} ref={wrapRef}>
+			<SegmentedControlItemInput {...inputProps} ref={inputRef} />
 			{props.children}
 			<Divider
 				visible={!isSelected && !nextOptionIsSelected && !isLastOption}
 				role="presentation"
 			/>
-		</SwitchItemWrap>
+		</SegmentedControlItemWrap>
 	)
 }
 
-const SwitchBarWrap = styled.div<{ moveLeft?: boolean }>`
+const SegmentedControlWrap = styled.div<{ moveLeft?: boolean }>`
 	position: relative;
 	display: inline-flex;
 	background: var(--color-background-recessed-lower);
@@ -183,7 +183,7 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 	}
 `
 
-const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
+const SegmentedControlItemWrap = styled.label<{ isSelected: boolean }>`
 	position: relative;
 	display: block;
 	padding: var(--space-0-5) var(--space-2);
@@ -216,7 +216,7 @@ const SwitchItemWrap = styled.label<{ isSelected: boolean }>`
 	`}
 `
 
-const SwitchItemInput = styled.input`
+const SegmentedControlItemInput = styled.input`
 	appearance: none;
 	position: absolute;
 	top: 0;

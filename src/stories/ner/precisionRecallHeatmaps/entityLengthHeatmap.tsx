@@ -5,7 +5,7 @@ import { MODEL, MODEL_SHORT } from '../constants'
 import Heatmap from '../heatmap'
 
 import Grid from '@components/grid'
-import SwitchBar, { Item } from '@components/switchBar'
+import SegmentedControl, { Item } from '@components/segmentedControl'
 
 const hmmPrecisionByEntityLength = [
 	[0.61, 0.68, 0.3, 0.12, 0.28],
@@ -73,7 +73,7 @@ const EntityLengthHeatmap = ({ models }: EntityLengthHeatmapProps) => {
 			<Wrap>
 				<ControlWrap>
 					{models.length > 1 && (
-						<SwitchBar
+						<SegmentedControl
 							aria-label="Model"
 							value={selectedModel}
 							onChange={setSelectedModel}
@@ -81,12 +81,12 @@ const EntityLengthHeatmap = ({ models }: EntityLengthHeatmapProps) => {
 							{models.map((model) => (
 								<Item key={model}>{MODEL_SHORT[model]}</Item>
 							))}
-						</SwitchBar>
+						</SegmentedControl>
 					)}
-					<SwitchBar aria-label="Metric" value={metric} onChange={setMetric}>
+					<SegmentedControl aria-label="Metric" value={metric} onChange={setMetric}>
 						<Item key="precision">Precision</Item>
 						<Item key="recall">Recall</Item>
-					</SwitchBar>
+					</SegmentedControl>
 				</ControlWrap>
 				<ContentWrap>
 					<Heatmap data={data} groups={groups} groupLabel="Entity Length" />
