@@ -115,7 +115,7 @@ const Wrap = styled.div`
   .hover-rect {
     width: 13.1em;
     height: 2.8em;
-    fill: var(--color-o-background);
+    fill: var(--color-background-raised);
     stroke: var(--color-line);
     transform: translate(-14.6em, -4.72em);
     transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -192,7 +192,7 @@ const Wrap = styled.div`
     }
   }
   .mse-rect {
-    fill: var(--color-o-background);
+    fill: var(--color-background-raised);
     stroke: var(--color-line);
     stroke-width: 1;
     rx: 0.4rem;

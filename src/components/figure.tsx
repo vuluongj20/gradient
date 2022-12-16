@@ -58,7 +58,7 @@ const ImageWrap = styled('div')<{ gridColumn?: FigureProps['gridColumn'] }>`
 	overflow: hidden;
 	border-radius: var(--border-radius-m);
 	mask-image: radial-gradient(white, black);
-	background: var(--color-i-background);
+	background: var(--color-background-recessed);
 
 	::after {
 		content: '';

@@ -72,7 +72,7 @@ const Wrap = styled.div<{
 }>`
 	background-color: var(--color-background);
 	border-radius: var(--border-radius-l);
-	border: solid 1px var(--color-i-line);
+	border: solid 1px var(--color-surface-border);
 
 	${getPadding}
 

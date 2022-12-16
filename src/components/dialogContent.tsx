@@ -106,9 +106,9 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 	/* stylelint-disable-next-line custom-property-pattern */
 	width: var(--size-${(p) => p.size});
 	max-width: 100%;
-	background: var(--color-o-background);
+	background: var(--color-background-raised);
 	border-radius: var(--border-radius-l);
-	box-shadow: 0 0 0 1px var(--color-o-line), var(--box-shadow-l);
+	box-shadow: 0 0 0 1px var(--color-line), var(--box-shadow-l);
 	transform: translate3d(0, 4rem, 0);
 	transition: transform var(--animation-medium-out);
 	will-change: transform;

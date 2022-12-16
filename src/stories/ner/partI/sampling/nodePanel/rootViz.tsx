@@ -234,7 +234,7 @@ const Wrap = styled.svg`
 			stroke: none;
 		}
 		line {
-			stroke: var(--color-i-line);
+			stroke: var(--color-line);
 		}
 		.tick:first-of-type {
 			display: none;

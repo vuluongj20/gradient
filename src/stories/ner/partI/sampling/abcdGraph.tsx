@@ -107,7 +107,7 @@ const ABCDGraph = () => {
 
 	return (
 		<Grid noPaddingOnMobile>
-			<StyledPanel overlay size="m" gridColumn="wide">
+			<StyledPanel raised size="m" gridColumn="wide">
 				<GraphViewWrap>
 					<StyledGraphView
 						graph={graph}
@@ -210,7 +210,7 @@ const StyledPairGrid = styled(PairGrid)`
 	margin: var(--space-3);
 
 	${(p) => p.theme.breakpoints.mobile} {
-		width: calc(100% - var(--space-3) * 2);
+		width: calc(100% - var(--page-margin-left) - var(--page-margin-right));
 		margin-left: var(--page-margin-left);
 		margin-right: var(--page-margin-right);
 		height: 28rem;

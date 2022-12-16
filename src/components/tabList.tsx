@@ -22,7 +22,7 @@ export interface TabItem {
 
 interface TabListProps extends Omit<AriaTabListProps<TabItem>, 'children'> {
   items: TabItem[]
-  insetPanel?: boolean
+  recessedPanel?: boolean
   height?: string
   className?: string
   children?: ReactNode
@@ -48,7 +48,7 @@ interface TabListInnerProps extends Omit<TabListProps, 'items' | 'children'> {
 const TabListInner = ({
   className,
   orientation = 'horizontal',
-  insetPanel = false,
+  recessedPanel = false,
   height,
   ...props
 }: TabListInnerProps) => {
@@ -67,7 +67,7 @@ const TabListInner = ({
           <Tab key={item.key} item={item} state={state} />
         ))}
       </TabsWrap>
-      <LocalThemeProvider inset={insetPanel}>
+      <LocalThemeProvider recessed={recessedPanel}>
         <PanelsWrap>
           <SwitchTransition>
             <CSSTransition

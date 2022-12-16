@@ -433,6 +433,7 @@ const GlobalStyles = createGlobalStyle`
     --color-body: var(--color-scale-gray1);
     --color-label: var(--color-scale-gray5);
     --color-bar: var(--color-scale-gray7);
+    --color-surface-border: var(--color-scale-gray9);
     --color-focus: var(--color-scale-red3);
     --color-button-label: var(--color-scale-gray1);
     --color-button-label-hover: var(--color-scale-gray3);
@@ -466,57 +467,47 @@ const GlobalStyles = createGlobalStyle`
 
   .surface-1 {
     --color-color-background: var(--color-scale-scale-surface1);
-    --color-o-background: var(--color-scale-surface2);
-    --color-oo-background: var(--color-scale-surface3);
-    --color-i-background: var(--color-scale-surface1);
-    --color-ii-background: var(--color-scale-surface1);
+    --color-background-raised: var(--color-scale-surface2);
+    --color-background-raised-higher: var(--color-scale-surface3);
+    --color-background-recessed: var(--color-scale-surface1);
+    --color-background-recessed-lower: var(--color-scale-surface1);
     --color-line: var(--color-scale-gray9);
-    --color-o-line: var(--color-scale-gray9);
-    --color-i-line: var(--color-scale-gray9);
   }
 
   .surface-2 {
     --color-background: var(--color-scale-surface2);
-    --color-o-background: var(--color-scale-surface3);
-    --color-oo-background: var(--color-scale-surface4);
-    --color-i-background: var(--color-scale-surface1);
-    --color-ii-background: var(--color-scale-surface1);
+    --color-background-raised: var(--color-scale-surface3);
+    --color-background-raised-higher: var(--color-scale-surface4);
+    --color-background-recessed: var(--color-scale-surface1);
+    --color-background-recessed-lower: var(--color-scale-surface1);
     --color-line: var(--color-scale-gray9);
-    --color-o-line: var(--color-scale-gray9);
-    --color-i-line: var(--color-scale-gray9);
   }
 
   .surface-3, html {
     --color-background: var(--color-scale-surface3);
-    --color-o-background: var(--color-scale-surface4);
-    --color-oo-background: var(--color-scale-surface5);
-    --color-i-background: var(--color-scale-surface2);
-    --color-ii-background: var(--color-scale-surface1);
+    --color-background-raised: var(--color-scale-surface4);
+    --color-background-raised-higher: var(--color-scale-surface5);
+    --color-background-recessed: var(--color-scale-surface2);
+    --color-background-recessed-lower: var(--color-scale-surface1);
     --color-line: var(--color-scale-gray9);
-    --color-o-line: var(--color-scale-gray8);
-    --color-i-line: var(--color-scale-gray9);
   }
 
   .surface-4 {
     --color-background: var(--color-scale-surface4);
-    --color-o-background: var(--color-scale-surface5);
-    --color-oo-background: var(--color-scale-surface5);
-    --color-i-background: var(--color-scale-surface3);
-    --color-ii-background: var(--color-scale-surface2);
+    --color-background-raised: var(--color-scale-surface5);
+    --color-background-raised-higher: var(--color-scale-surface5);
+    --color-background-recessed: var(--color-scale-surface3);
+    --color-background-recessed-lower: var(--color-scale-surface2);
     --color-line: var(--color-scale-gray8);
-    --color-o-line: var(--color-scale-gray8);
-    --color-i-line: var(--color-scale-gray9);
   }
 
   .surface-5 {
     --color-background: var(--color-scale-surface5);
-    --color-o-background: var(--color-scale-surface5);
-    --color-oo-background: var(--color-scale-surface5);
-    --color-i-background: var(--color-scale-surface4);
-    --color-ii-background: var(--color-scale-surface3);
+    --color-background-raised: var(--color-scale-surface5);
+    --color-background-raised-higher: var(--color-scale-surface5);
+    --color-background-recessed: var(--color-scale-surface4);
+    --color-background-recessed-lower: var(--color-scale-surface3);
     --color-line: var(--color-scale-gray8);
-    --color-o-line: var(--color-scale-gray8);
-    --color-i-line: var(--color-scale-gray8);
   }
 
   *,

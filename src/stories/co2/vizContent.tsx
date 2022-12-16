@@ -118,7 +118,7 @@ export const VizDesText = styled(Body)`
 	box-sizing: border-box;
 	margin: 0;
 	padding: var(--space-2) var(--space-3);
-	background: var(--color-o-background);
+	background: var(--color-background-raised);
 	border-radius: var(--border-radius-m);
 	box-shadow: 0 0 0 1px var(--color-line), var(--box-shadow-l);
 

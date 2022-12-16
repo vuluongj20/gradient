@@ -6,8 +6,6 @@ import { MODEL, MODEL_FULL } from './constants'
 import http, { PredictionResponseData } from './http'
 import { getTokenSpaces, tokenize } from './utils'
 
-import { Theme } from '@theme'
-
 import Button from '@components/button'
 import Grid from '@components/grid'
 import Panel, { PanelProps } from '@components/panel'
@@ -227,7 +225,7 @@ const LivePrediction = ({
 
 	return (
 		<Grid noPaddingOnMobile>
-			<StyledPanel overlay size="m" gridColumn="wide" noMargin={noMargin}>
+			<StyledPanel raised size="m" gridColumn="wide" noMargin={noMargin}>
 				{label && <Label modelNameOffset={models.length > 1}>{label}</Label>}
 
 				<InputGroup modelNameOffset={models.length > 1}>
@@ -367,7 +365,7 @@ const Input = styled.input`
 	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
 	letter-spacing: -0.03em;
 
-	background: var(--color-i-background);
+	background: var(--color-background-recessed);
 	border-radius: var(--border-radius-m);
 	border: solid 1px var(--color-line);
 
@@ -458,7 +456,7 @@ const Table = styled.table<{ showModelNames?: boolean }>`
 
 	tr:not(:last-child) > td,
 	tr:not(:last-child) > th {
-		border-bottom: solid 1px var(--color-i-line);
+		border-bottom: solid 1px var(--color-line);
 	}
 
 	td {
@@ -591,7 +589,7 @@ const Legend = styled.dl`
 	color: var(--color-label);
 
 	width: 100%;
-	border-top: solid 1px var(--color-i-line);
+	border-top: solid 1px var(--color-line);
 	padding-top: var(--space-2);
 	margin: 0;
 	white-space: nowrap;

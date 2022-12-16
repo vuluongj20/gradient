@@ -50,7 +50,7 @@ const TextInput = ({
 export default TextInput
 
 const Input = styled.input<{ small: boolean; displayWidth?: string }>`
-	background: var(--color-i-background);
+	background: var(--color-background-recessed);
 	border-radius: var(--border-radius-s);
 	border: solid 1px var(--color-line);
 	padding: ${(p) => (p.small ? 'var(--space-0) var(--space-1)' : 'var(--space-1)')};

@@ -14,7 +14,7 @@ export const Table = styled.table`
 export const TableHead = styled.thead`
 	th {
 		color: var(--color-label);
-		border-bottom: solid 1px var(--color-i-line);
+		border-bottom: solid 1px var(--color-line);
 		white-space: nowrap;
 	}
 `
@@ -42,7 +42,7 @@ export const TR = styled.tr`
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background-color: var(--color-ii-background);
+			background-color: var(--color-background-recessed-lower);
 			z-index: -1;
 		}
 

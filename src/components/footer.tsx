@@ -10,13 +10,8 @@ import Grid from '@components/grid'
 // import useArchivePage from '@utils/data/pages/archive'
 // import usePoliciesPages from '@utils/data/policies'
 // import useSections from '@utils/data/sections'
-import LocalThemeProvider from '@utils/localThemeProvider'
 
-interface FooterProps {
-	inset?: boolean
-}
-
-const Footer = ({ inset = false }: FooterProps) => {
+const Footer = () => {
 	// const sections = useSections()
 	// const sectionPages = sections.map((section) => ({
 	// 	slug: section.slug,
@@ -47,9 +42,8 @@ const Footer = ({ inset = false }: FooterProps) => {
 	// )
 
 	return (
-		<LocalThemeProvider inset={inset}>
-			<Wrap>
-				{/*<Grid>
+		<Wrap>
+			{/*<Grid>
 					<StyledDivider />
 				</Grid>
 				<SiteMap as="nav">
@@ -66,17 +60,14 @@ const Footer = ({ inset = false }: FooterProps) => {
 						{mapSiteLinks([archivePage], ColContent, ColLink)}
 					</Column>
 				</SiteMap>*/}
-				<Grid>
-					<StyledDivider />
-				</Grid>
-				<Policies>
-					<PolicyText aria-hidden="true">
-						© Gradient {new Date().getFullYear()}
-					</PolicyText>
-					{/*{mapSiteLinks(policiesPages, PolicyContent, PolicyLink)}*/}
-				</Policies>
-			</Wrap>
-		</LocalThemeProvider>
+			<Grid>
+				<StyledDivider />
+			</Grid>
+			<Policies>
+				<PolicyText aria-hidden="true">© Gradient {new Date().getFullYear()}</PolicyText>
+				{/*{mapSiteLinks(policiesPages, PolicyContent, PolicyLink)}*/}
+			</Policies>
+		</Wrap>
 	)
 }
 

@@ -128,7 +128,7 @@ const MEMMMostInformativeFeatures = () => {
 
 	return (
 		<Grid noPaddingOnMobile>
-			<Wrap overlay size="m" gridColumn="wide">
+			<Wrap raised size="m" gridColumn="wide">
 				<Heading>
 					<HeadingText>
 						Most Informative Features when Previous State is&nbsp;

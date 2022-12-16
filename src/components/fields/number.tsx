@@ -85,7 +85,7 @@ const IncDecWrap = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	border-left: solid 1px var(--color-o-line);
+	border-left: solid 1px var(--color-line);
 `
 
 const IncDecButton = styled(Button)`
@@ -94,7 +94,7 @@ const IncDecButton = styled(Button)`
 	background: var(--color-background);
 	border-radius: 0;
 	:not(:first-child) {
-		border-top: solid 1px var(--color-o-line);
+		border-top: solid 1px var(--color-line);
 	}
 
 	/* Fix Safari flicker */
@@ -110,7 +110,7 @@ const IncDecButton = styled(Button)`
 
 const Input = styled.input<{ small: boolean; displayWidth?: string }>`
 	appearance: none;
-	background: var(--color-i-background);
+	background: var(--color-background-recessed);
 	border-radius: var(--border-radius-s);
 	border: solid 1px var(--color-line);
 	padding: ${(p) => (p.small ? 'var(--space-0) var(--space-1)' : 'var(--space-1)')};

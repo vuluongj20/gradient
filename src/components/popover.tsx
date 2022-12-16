@@ -154,7 +154,7 @@ const Popover: ForwardRefRenderFunction<HTMLDivElement, PopoverProps> = (
     <Transition in={isOpen} timeout={250} unmountOnExit mountOnEnter>
       {(animationState) => (
         <FocusScope autoFocus={autoFocus} restoreFocus={restoreFocus} contain={contain}>
-          <LocalThemeProvider overlay>
+          <LocalThemeProvider raised>
             <Wrap
               {...props}
               maxWidth={maxWidth}
@@ -216,10 +216,10 @@ const getStyles = (p: PopoverWrapProps & { theme: Theme }) => `
   max-width: ${
     p.maxWidth ? `min(${p.maxWidth}, calc(100vw - 32px))` : `calc(100vw - 32px)`
   };
-  background: var(--color-o-background);
+  background: var(--color-background-raised);
   border-radius: var(--border-radius-m);
   padding: var(--space-0);
-  box-shadow: 0 0 0 1px var(--color-o-line), var(--box-shadow-l);
+  box-shadow: 0 0 0 1px var(--color-line), var(--box-shadow-l);
   transition: transform var(--animation-fast-out),
     opacity var(--animation-fast-out);
   opacity: 0;

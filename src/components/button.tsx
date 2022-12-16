@@ -94,7 +94,7 @@ const Wrap = styled.button<{
 		p.filled
 			? p.primary
 				? 'var(--color-primary-opaque-background)'
-				: 'var(--color-i-line)'
+				: 'var(--color-line)'
 			: 'transparent'};
 	transition: color, box-shadow var(--animation-v-fast-out);
 
@@ -116,5 +116,5 @@ const Wrap = styled.button<{
 	${(p) => p.showExpandIcon && `padding-right: var(--space-0);`}
 	${(p) =>
 		p.showBorder &&
-		`border: solid 1px ${p.isExpanded ? 'var(--color-o-line)' : 'var(--color-line)'}`}
+		`border: solid 1px ${p.isExpanded ? 'var(--color-line)' : 'var(--color-line)'}`}
 `

@@ -150,7 +150,7 @@ const SwitchItem = ({
 const SwitchBarWrap = styled.div<{ moveLeft?: boolean }>`
 	position: relative;
 	display: inline-flex;
-	background: var(--color-ii-background);
+	background: var(--color-background-recessed-lower);
 	box-shadow: inset var(--box-shadow-s);
 	border-radius: var(--border-radius-m);
 
@@ -162,7 +162,7 @@ const Indicator = styled.div<{ left?: number; width?: number }>`
 	top: 2px;
 	left: 2px;
 	height: calc(100% - 4px);
-	background: var(--color-oo-background);
+	background: var(--color-background-raised-higher);
 	border-radius: calc(var(--border-radius-m) - 2px);
 	box-shadow: var(--box-shadow-m);
 	opacity: 0;

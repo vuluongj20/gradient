@@ -52,7 +52,7 @@ const Wrap = styled.li<{
   align-items: center;
 
   padding: ${(p) =>
-    p.small ? `var(--space-0) var(--space-1)` : `var(--space-1) var(--space-2)`};
+    p.small ? `var(--space-0) var(--space-1)` : `var(--space-0-5) var(--space-1-5)`};
   padding-left: var(--space-1);
   border-radius: var(--border-radius-s);
   outline: none;

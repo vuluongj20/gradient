@@ -129,7 +129,7 @@ const MEMMFeatureBreakdown = () => {
 
 	const breakdownContent = useMemo(
 		() => (
-			<BreakdownWrap overlay>
+			<BreakdownWrap raised>
 				<StyledPopoverArrow size="l" />
 				<BreakdownHeader>
 					<BreakdownHeading>
@@ -265,7 +265,7 @@ const MEMMFeatureBreakdown = () => {
 	const textFieldSize = useMemo(() => Math.max(word.length, 2), [word])
 	return (
 		<Wrap noPaddingOnMobile>
-			<StyledPanel overlay gridColumn="wide">
+			<StyledPanel raised gridColumn="wide">
 				<InputWrap>
 					<PrevTagWrap>
 						<SelectWrap>
@@ -393,7 +393,7 @@ const BreakdownWrap = styled(Panel)`
 	border-bottom: 0;
 	border-radius: 0;
 	padding: var(--space-3) var(--space-4) var(--space-4);
-	background: var(--color-o-background);
+	background: var(--color-background-raised);
 
 	${(p) => p.theme.breakpoints.mobile} {
 		padding-left: var(--page-margin-left);
@@ -511,7 +511,7 @@ const ProbabilityCalculation = styled.p<{ visible: boolean }>`
 	justify-content: center;
 	padding-top: var(--space-3);
 	margin-top: var(--space-2);
-	border-top: solid 1px var(--color-i-line);
+	border-top: solid 1px var(--color-line);
 
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
@@ -542,7 +542,7 @@ const NoObservationWrap = styled.div`
 	${(p) => p.theme.spread}
 	${(p) => p.theme.flexCenter};
 	background: var(--color-background);
-	border: dashed 1px var(--color-o-line);
+	border: dashed 1px var(--color-line);
 	border-radius: var(--border-radius-m);
 	padding: var(--space-2);
 

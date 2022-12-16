@@ -12,11 +12,11 @@ import SettingsContext from '@utils/settingsContext'
 
 interface LocalThemeProviderProps {
 	children?: ReactNode
-	inset?: boolean
-	overlay?: boolean
+	recessed?: boolean
+	raised?: boolean
 }
 
-const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProps) => {
+const LocalThemeProvider = ({ children, recessed, raised }: LocalThemeProviderProps) => {
 	const {
 		settings: { theme: themeSettings },
 	} = useContext(SettingsContext)
@@ -25,7 +25,7 @@ const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProp
 	// Falls back to current settings if
 	// appearance is not defined
 	const localTheme = useMemo(() => {
-		const unboundedLocalElevation = elevation + (overlay ? 1 : 0) + (inset ? -1 : 0)
+		const unboundedLocalElevation = elevation + (raised ? 1 : 0) + (recessed ? -1 : 0)
 		const localElevation = Math.min(5, Math.max(0, unboundedLocalElevation))
 
 		const localThemeSettings = deepMerge(themeSettings, {
@@ -33,7 +33,7 @@ const LocalThemeProvider = ({ children, inset, overlay }: LocalThemeProviderProp
 		}) as ThemeSettings
 
 		return getTheme(localThemeSettings)
-	}, [themeSettings, elevation, overlay, inset])
+	}, [themeSettings, elevation, raised, recessed])
 
 	return <ThemeProvider theme={localTheme}>{children}</ThemeProvider>
 }
