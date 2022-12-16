@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { isDefined } from '@utils/functions'
+
 const getPosition = ({ borderWidth = 0 }) => {
 	return `
 		position: absolute;
@@ -28,9 +30,30 @@ export default styled.div<{
 	filter: saturate(10%);
 
 	${(p) =>
-		p.isHovered &&
-		`opacity: calc(0.06 * var(--opacity-factor) * ${p.opacityFactor ?? 1});`}
+		isDefined(p.isHovered)
+			? `
+				opacity: calc(${p.isHovered ? '0.06' : '0'} * var(--opacity-factor) * ${
+					p.opacityFactor ?? 1
+			  });
+			`
+			: `
+				*:hover > & {
+					opacity: calc(0.06 * var(--opacity-factor) * ${p.opacityFactor ?? 1});
+				}
+			`}
+
 	${(p) =>
-		(p.isPressed || p.isExpanded) &&
-		`opacity: calc(0.1 * var(--opacity-factor) * ${p.opacityFactor ?? 1});`}
+		isDefined(p.isPressed) || isDefined(p.isExpanded)
+			? `
+				opacity: calc(${p.isPressed || p.isExpanded ? '0.1' : '0'} 
+					* var(--opacity-factor) 
+					* ${p.opacityFactor ?? 1}
+				);
+			`
+			: `
+				*:active > &,
+				*[aria-expanded="true"] > & {
+					opacity: calc(0.1 * var(--opacity-factor) * ${p.opacityFactor ?? 1});
+				}
+			`}
 `

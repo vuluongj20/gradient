@@ -190,12 +190,21 @@ const SegmentedControlItemWrap = styled.label<{ isSelected: boolean }>`
 	cursor: pointer;
 	user-select: none;
 
+	&:hover {
+		color: var(--color-heading);
+	}
+
 	@media (prefers-reduced-motion) {
 		&::after {
 			content: '';
-			${(p) => p.theme.spread};
-			border-radius: var(--border-radius-m);
-			background: var(--color-active-background);
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			width: calc(100% - 4px);
+			height: calc(100% - 4px);
+			border-radius: calc(var(--border-radius-m) - 2px);
+			background: var(--color-background-raised-higher);
+			box-shadow: var(--box-shadow-m);
 			z-index: -1;
 			opacity: 0;
 			transition: opacity var(--animation-medium-out);
@@ -205,6 +214,7 @@ const SegmentedControlItemWrap = styled.label<{ isSelected: boolean }>`
 	${(p) =>
 		p.isSelected &&
 		`
+		color: var(--color-heading);
 		text-shadow: var(--box-shadow-text);
 		z-index: 1;
 
