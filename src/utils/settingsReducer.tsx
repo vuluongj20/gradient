@@ -14,6 +14,8 @@ export const defaultSettings: Settings = {
 	theme: {
 		color: {
 			appearance: 'auto',
+			lightPalette: 'paper',
+			darkPalette: 'charcoal',
 			elevation: 3,
 			increaseContrast: false,
 		},

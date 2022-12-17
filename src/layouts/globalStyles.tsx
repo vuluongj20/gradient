@@ -1,4 +1,112 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components'
+
+const paperDeclarations = css`
+  --opacity-factor: 1;
+  --color-scale-surface1: var(--color-scale-paper-surface1);
+  --color-scale-surface2: var(--color-scale-paper-surface2);
+  --color-scale-surface3: var(--color-scale-paper-surface3);
+  --color-scale-surface4: var(--color-scale-paper-surface4);
+  --color-scale-surface5: var(--color-scale-paper-surface5);
+  --color-scale-gray1: var(--color-scale-paper-gray1);
+  --color-scale-gray2: var(--color-scale-paper-gray2);
+  --color-scale-gray3: var(--color-scale-paper-gray3);
+  --color-scale-gray4: var(--color-scale-paper-gray4);
+  --color-scale-gray5: var(--color-scale-paper-gray5);
+  --color-scale-gray6: var(--color-scale-paper-gray6);
+  --color-scale-gray7: var(--color-scale-paper-gray7);
+  --color-scale-gray8: var(--color-scale-paper-gray8);
+  --color-scale-gray9: var(--color-scale-paper-gray9);
+  --color-scale-red1: var(--color-scale-paper-red1);
+  --color-scale-red2: var(--color-scale-paper-red2);
+  --color-scale-red3: var(--color-scale-paper-red3);
+  --color-scale-red4: var(--color-scale-paper-red4);
+  --color-scale-red5: var(--color-scale-paper-red5);
+  --color-scale-red6: var(--color-scale-paper-red6);
+  --color-scale-yellow1: var(--color-scale-paper-yellow1);
+  --color-scale-yellow2: var(--color-scale-paper-yellow2);
+  --color-scale-yellow3: var(--color-scale-paper-yellow3);
+  --color-scale-yellow4: var(--color-scale-paper-yellow4);
+  --color-scale-yellow5: var(--color-scale-paper-yellow5);
+  --color-scale-yellow6: var(--color-scale-paper-yellow6);
+  --color-scale-green1: var(--color-scale-paper-green1);
+  --color-scale-green2: var(--color-scale-paper-green2);
+  --color-scale-green3: var(--color-scale-paper-green3);
+  --color-scale-green4: var(--color-scale-paper-green4);
+  --color-scale-green5: var(--color-scale-paper-green5);
+  --color-scale-green6: var(--color-scale-paper-green6);
+  --color-scale-teal1: var(--color-scale-paper-teal1);
+  --color-scale-teal2: var(--color-scale-paper-teal2);
+  --color-scale-teal3: var(--color-scale-paper-teal3);
+  --color-scale-teal4: var(--color-scale-paper-teal4);
+  --color-scale-teal5: var(--color-scale-paper-teal5);
+  --color-scale-teal6: var(--color-scale-paper-teal6);
+  --color-scale-blue1: var(--color-scale-paper-blue1);
+  --color-scale-blue2: var(--color-scale-paper-blue2);
+  --color-scale-blue3: var(--color-scale-paper-blue3);
+  --color-scale-blue4: var(--color-scale-paper-blue4);
+  --color-scale-blue5: var(--color-scale-paper-blue5);
+  --color-scale-blue6: var(--color-scale-paper-blue6);
+  --color-scale-purple1: var(--color-scale-paper-purple1);
+  --color-scale-purple2: var(--color-scale-paper-purple2);
+  --color-scale-purple3: var(--color-scale-paper-purple3);
+  --color-scale-purple4: var(--color-scale-paper-purple4);
+  --color-scale-purple5: var(--color-scale-paper-purple5);
+  --color-scale-purple6: var(--color-scale-paper-purple6);
+`
+
+const charcoalDeclarations = css`
+  --opacity-factor: 1.2;
+  --color-scale-surface1: var(--color-scale-charcoal-surface1);
+  --color-scale-surface2: var(--color-scale-charcoal-surface2);
+  --color-scale-surface3: var(--color-scale-charcoal-surface3);
+  --color-scale-surface4: var(--color-scale-charcoal-surface4);
+  --color-scale-surface5: var(--color-scale-charcoal-surface5);
+  --color-scale-gray1: var(--color-scale-charcoal-gray1);
+  --color-scale-gray2: var(--color-scale-charcoal-gray2);
+  --color-scale-gray3: var(--color-scale-charcoal-gray3);
+  --color-scale-gray4: var(--color-scale-charcoal-gray4);
+  --color-scale-gray5: var(--color-scale-charcoal-gray5);
+  --color-scale-gray6: var(--color-scale-charcoal-gray6);
+  --color-scale-gray7: var(--color-scale-charcoal-gray7);
+  --color-scale-gray8: var(--color-scale-charcoal-gray8);
+  --color-scale-gray9: var(--color-scale-charcoal-gray9);
+  --color-scale-red1: var(--color-scale-charcoal-red1);
+  --color-scale-red2: var(--color-scale-charcoal-red2);
+  --color-scale-red3: var(--color-scale-charcoal-red3);
+  --color-scale-red4: var(--color-scale-charcoal-red4);
+  --color-scale-red5: var(--color-scale-charcoal-red5);
+  --color-scale-red6: var(--color-scale-charcoal-red6);
+  --color-scale-yellow1: var(--color-scale-charcoal-yellow1);
+  --color-scale-yellow2: var(--color-scale-charcoal-yellow2);
+  --color-scale-yellow3: var(--color-scale-charcoal-yellow3);
+  --color-scale-yellow4: var(--color-scale-charcoal-yellow4);
+  --color-scale-yellow5: var(--color-scale-charcoal-yellow5);
+  --color-scale-yellow6: var(--color-scale-charcoal-yellow6);
+  --color-scale-green1: var(--color-scale-charcoal-green1);
+  --color-scale-green2: var(--color-scale-charcoal-green2);
+  --color-scale-green3: var(--color-scale-charcoal-green3);
+  --color-scale-green4: var(--color-scale-charcoal-green4);
+  --color-scale-green5: var(--color-scale-charcoal-green5);
+  --color-scale-green6: var(--color-scale-charcoal-green6);
+  --color-scale-teal1: var(--color-scale-charcoal-teal1);
+  --color-scale-teal2: var(--color-scale-charcoal-teal2);
+  --color-scale-teal3: var(--color-scale-charcoal-teal3);
+  --color-scale-teal4: var(--color-scale-charcoal-teal4);
+  --color-scale-teal5: var(--color-scale-charcoal-teal5);
+  --color-scale-teal6: var(--color-scale-charcoal-teal6);
+  --color-scale-blue1: var(--color-scale-charcoal-blue1);
+  --color-scale-blue2: var(--color-scale-charcoal-blue2);
+  --color-scale-blue3: var(--color-scale-charcoal-blue3);
+  --color-scale-blue4: var(--color-scale-charcoal-blue4);
+  --color-scale-blue5: var(--color-scale-charcoal-blue5);
+  --color-scale-blue6: var(--color-scale-charcoal-blue6);
+  --color-scale-purple1: var(--color-scale-charcoal-purple1);
+  --color-scale-purple2: var(--color-scale-charcoal-purple2);
+  --color-scale-purple3: var(--color-scale-charcoal-purple3);
+  --color-scale-purple4: var(--color-scale-charcoal-purple4);
+  --color-scale-purple5: var(--color-scale-charcoal-purple5);
+  --color-scale-purple6: var(--color-scale-charcoal-purple6);
+`
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -310,122 +418,33 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    /* Colors */
-    --opacity-factor: 1;
-    --color-scale-surface1: var(--color-scale-paper-surface1);
-    --color-scale-surface2: var(--color-scale-paper-surface2);
-    --color-scale-surface3: var(--color-scale-paper-surface3);
-    --color-scale-surface4: var(--color-scale-paper-surface4);
-    --color-scale-surface5: var(--color-scale-paper-surface5);
-    --color-scale-gray1: var(--color-scale-paper-gray1);
-    --color-scale-gray2: var(--color-scale-paper-gray2);
-    --color-scale-gray3: var(--color-scale-paper-gray3);
-    --color-scale-gray4: var(--color-scale-paper-gray4);
-    --color-scale-gray5: var(--color-scale-paper-gray5);
-    --color-scale-gray6: var(--color-scale-paper-gray6);
-    --color-scale-gray7: var(--color-scale-paper-gray7);
-    --color-scale-gray8: var(--color-scale-paper-gray8);
-    --color-scale-gray9: var(--color-scale-paper-gray9);
-    --color-scale-red1: var(--color-scale-paper-red1);
-    --color-scale-red2: var(--color-scale-paper-red2);
-    --color-scale-red3: var(--color-scale-paper-red3);
-    --color-scale-red4: var(--color-scale-paper-red4);
-    --color-scale-red5: var(--color-scale-paper-red5);
-    --color-scale-red6: var(--color-scale-paper-red6);
-    --color-scale-yellow1: var(--color-scale-paper-yellow1);
-    --color-scale-yellow2: var(--color-scale-paper-yellow2);
-    --color-scale-yellow3: var(--color-scale-paper-yellow3);
-    --color-scale-yellow4: var(--color-scale-paper-yellow4);
-    --color-scale-yellow5: var(--color-scale-paper-yellow5);
-    --color-scale-yellow6: var(--color-scale-paper-yellow6);
-    --color-scale-green1: var(--color-scale-paper-green1);
-    --color-scale-green2: var(--color-scale-paper-green2);
-    --color-scale-green3: var(--color-scale-paper-green3);
-    --color-scale-green4: var(--color-scale-paper-green4);
-    --color-scale-green5: var(--color-scale-paper-green5);
-    --color-scale-green6: var(--color-scale-paper-green6);
-    --color-scale-teal1: var(--color-scale-paper-teal1);
-    --color-scale-teal2: var(--color-scale-paper-teal2);
-    --color-scale-teal3: var(--color-scale-paper-teal3);
-    --color-scale-teal4: var(--color-scale-paper-teal4);
-    --color-scale-teal5: var(--color-scale-paper-teal5);
-    --color-scale-teal6: var(--color-scale-paper-teal6);
-    --color-scale-blue1: var(--color-scale-paper-blue1);
-    --color-scale-blue2: var(--color-scale-paper-blue2);
-    --color-scale-blue3: var(--color-scale-paper-blue3);
-    --color-scale-blue4: var(--color-scale-paper-blue4);
-    --color-scale-blue5: var(--color-scale-paper-blue5);
-    --color-scale-blue6: var(--color-scale-paper-blue6);
-    --color-scale-purple1: var(--color-scale-paper-purple1);
-    --color-scale-purple2: var(--color-scale-paper-purple2);
-    --color-scale-purple3: var(--color-scale-paper-purple3);
-    --color-scale-purple4: var(--color-scale-paper-purple4);
-    --color-scale-purple5: var(--color-scale-paper-purple5);
-    --color-scale-purple6: var(--color-scale-paper-purple6);
+    &[data-theme="auto"] {
+      @media (prefers-color-scheme: light) {
+        --box-shadow-s: var(--box-shadow-light-s);
+        --box-shadow-m: var(--box-shadow-light-m);
+        --box-shadow-l: var(--box-shadow-light-l);
+        ${paperDeclarations}
+      }
+      @media (prefers-color-scheme: dark) {
+       --box-shadow-s: var(--box-shadow-dark-s);
+       --box-shadow-m: var(--box-shadow-dark-m);
+       --box-shadow-l: var(--box-shadow-dark-l);
+       ${charcoalDeclarations}
+      }
+    }
 
-    /* Box shadows */
-    --box-shadow-s: var(--box-shadow-light-s);
-    --box-shadow-m: var(--box-shadow-light-m);
-    --box-shadow-l: var(--box-shadow-light-l);
+    &[data-theme="light"] {
+      --box-shadow-s: var(--box-shadow-light-s);
+      --box-shadow-m: var(--box-shadow-light-m);
+      --box-shadow-l: var(--box-shadow-light-l);
+      ${paperDeclarations}
+    }
 
-    @media (prefers-color-scheme: dark) {
-      /* Colors */
-      --opacity-factor: 1.2;
-      --color-scale-surface1: var(--color-scale-charcoal-surface1);
-      --color-scale-surface2: var(--color-scale-charcoal-surface2);
-      --color-scale-surface3: var(--color-scale-charcoal-surface3);
-      --color-scale-surface4: var(--color-scale-charcoal-surface4);
-      --color-scale-surface5: var(--color-scale-charcoal-surface5);
-      --color-scale-gray1: var(--color-scale-charcoal-gray1);
-      --color-scale-gray2: var(--color-scale-charcoal-gray2);
-      --color-scale-gray3: var(--color-scale-charcoal-gray3);
-      --color-scale-gray4: var(--color-scale-charcoal-gray4);
-      --color-scale-gray5: var(--color-scale-charcoal-gray5);
-      --color-scale-gray6: var(--color-scale-charcoal-gray6);
-      --color-scale-gray7: var(--color-scale-charcoal-gray7);
-      --color-scale-gray8: var(--color-scale-charcoal-gray8);
-      --color-scale-gray9: var(--color-scale-charcoal-gray9);
-      --color-scale-red1: var(--color-scale-charcoal-red1);
-      --color-scale-red2: var(--color-scale-charcoal-red2);
-      --color-scale-red3: var(--color-scale-charcoal-red3);
-      --color-scale-red4: var(--color-scale-charcoal-red4);
-      --color-scale-red5: var(--color-scale-charcoal-red5);
-      --color-scale-red6: var(--color-scale-charcoal-red6);
-      --color-scale-yellow1: var(--color-scale-charcoal-yellow1);
-      --color-scale-yellow2: var(--color-scale-charcoal-yellow2);
-      --color-scale-yellow3: var(--color-scale-charcoal-yellow3);
-      --color-scale-yellow4: var(--color-scale-charcoal-yellow4);
-      --color-scale-yellow5: var(--color-scale-charcoal-yellow5);
-      --color-scale-yellow6: var(--color-scale-charcoal-yellow6);
-      --color-scale-green1: var(--color-scale-charcoal-green1);
-      --color-scale-green2: var(--color-scale-charcoal-green2);
-      --color-scale-green3: var(--color-scale-charcoal-green3);
-      --color-scale-green4: var(--color-scale-charcoal-green4);
-      --color-scale-green5: var(--color-scale-charcoal-green5);
-      --color-scale-green6: var(--color-scale-charcoal-green6);
-      --color-scale-teal1: var(--color-scale-charcoal-teal1);
-      --color-scale-teal2: var(--color-scale-charcoal-teal2);
-      --color-scale-teal3: var(--color-scale-charcoal-teal3);
-      --color-scale-teal4: var(--color-scale-charcoal-teal4);
-      --color-scale-teal5: var(--color-scale-charcoal-teal5);
-      --color-scale-teal6: var(--color-scale-charcoal-teal6);
-      --color-scale-blue1: var(--color-scale-charcoal-blue1);
-      --color-scale-blue2: var(--color-scale-charcoal-blue2);
-      --color-scale-blue3: var(--color-scale-charcoal-blue3);
-      --color-scale-blue4: var(--color-scale-charcoal-blue4);
-      --color-scale-blue5: var(--color-scale-charcoal-blue5);
-      --color-scale-blue6: var(--color-scale-charcoal-blue6);
-      --color-scale-purple1: var(--color-scale-charcoal-purple1);
-      --color-scale-purple2: var(--color-scale-charcoal-purple2);
-      --color-scale-purple3: var(--color-scale-charcoal-purple3);
-      --color-scale-purple4: var(--color-scale-charcoal-purple4);
-      --color-scale-purple5: var(--color-scale-charcoal-purple5);
-      --color-scale-purple6: var(--color-scale-charcoal-purple6);
-
-      /* Box shadows */
+    &[data-theme="dark"] {
       --box-shadow-s: var(--box-shadow-dark-s);
       --box-shadow-m: var(--box-shadow-dark-m);
       --box-shadow-l: var(--box-shadow-dark-l);
+      ${charcoalDeclarations}
     }
 
     /* Semantic colors */

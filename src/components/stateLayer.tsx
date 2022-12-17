@@ -13,13 +13,22 @@ const getPosition = ({ borderWidth = 0 }) => {
 	`
 }
 
-export default styled.div<{
+interface StateLayerProps {
 	borderWidth?: number
 	isHovered?: boolean
 	isPressed?: boolean
 	isExpanded?: boolean
 	opacityFactor?: number
-}>`
+}
+
+export default styled.div.attrs(
+	({ isHovered, isPressed, isExpanded }: StateLayerProps) => ({
+		['aria-role']: 'presentation',
+		['data-is-hovered']: isHovered,
+		['data-is-pressed']: isPressed,
+		['data-is-expanded']: isExpanded,
+	}),
+)<StateLayerProps>`
 	${getPosition}
 	z-index: 0;
 	opacity: 0;
@@ -29,31 +38,15 @@ export default styled.div<{
 	transition: opacity var(--animation-v-fast-out);
 	filter: saturate(10%);
 
-	${(p) =>
-		isDefined(p.isHovered)
-			? `
-				opacity: calc(${p.isHovered ? '0.06' : '0'} * var(--opacity-factor) * ${
-					p.opacityFactor ?? 1
-			  });
-			`
-			: `
-				*:hover > & {
-					opacity: calc(0.06 * var(--opacity-factor) * ${p.opacityFactor ?? 1});
-				}
-			`}
+	*:hover > &:not([data-is-hovered]),
+	&&[data-is-hovered='true'] {
+		opacity: calc(0.06 * var(--opacity-factor) * ${(p) => p.opacityFactor ?? 1});
+	}
 
-	${(p) =>
-		isDefined(p.isPressed) || isDefined(p.isExpanded)
-			? `
-				opacity: calc(${p.isPressed || p.isExpanded ? '0.1' : '0'} 
-					* var(--opacity-factor) 
-					* ${p.opacityFactor ?? 1}
-				);
-			`
-			: `
-				*:active > &,
-				*[aria-expanded="true"] > & {
-					opacity: calc(0.1 * var(--opacity-factor) * ${p.opacityFactor ?? 1});
-				}
-			`}
+	*:active > &:not([data-is-pressed]):not([data-is-expanded]),
+	*[aria-expanded='true'] > &:not([data-is-pressed]):not([data-is-expanded]),
+	&&[data-is-pressed='true'],
+	&&[data-is-expanded='true'] {
+		opacity: calc(0.1 * var(--opacity-factor) * ${(p) => p.opacityFactor ?? 1});
+	}
 `

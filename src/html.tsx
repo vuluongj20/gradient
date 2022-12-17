@@ -24,6 +24,11 @@ const HTML = (props: HTMLProps) => {
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `!function(){try{let e=JSON.parse(localStorage.getItem("UP")),t=e?.theme?.color?.appearance,a=e?.theme?.color?.lightPalette,l=e?.theme?.color?.darkPalette;document.documentElement.dataset.theme=t||"auto",a&&(document.documentElement.dataset.paletteLight=a),l&&(document.documentElement.dataset.paletteDark=l)}catch(m){console.warn(m)}}();`,
+          }}
+        />
         <div
           key={`body`}
           id="___gatsby"

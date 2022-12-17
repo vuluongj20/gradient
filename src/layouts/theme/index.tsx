@@ -31,6 +31,8 @@ export type Theme = {
 export type ThemeSettings = {
 	color: {
 		appearance: 'light' | 'dark' | 'auto'
+		lightPalette: 'paper' | 'charcoal'
+		darkPalette: 'paper' | 'charcoal'
 		elevation: number
 		increaseContrast: boolean
 	}
