@@ -48,8 +48,8 @@ const SEO = ({
 
   const seo = {
     title: title
-      ? `${title} – Gradient`
-      : `Gradient – Ideas on Technology, Design, Philosophy, and the Law`,
+      ? `${title} — Gradient`
+      : `Gradient — Ideas on Technology, Design, Philosophy, and the Law`,
     description: description ?? siteMetadata?.description,
     type: type ?? siteMetadata?.type,
     author: author ?? siteMetadata?.author,

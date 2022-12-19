@@ -76,7 +76,7 @@ export const Citation = ({ citeItems }: CitationProps) => {
 }
 
 const Wrap = styled.sup`
-	display: inline-block;
+	display: inline;
 	position: relative;
 	vertical-align: top;
 	top: 0.15em;
@@ -88,13 +88,13 @@ const CitationLink = styled.a`
 	color: var(--color-label);
 
 	&:hover,
-	&:target,
+	&:target:focus,
 	&.focus-visible {
 		color: var(--color-content-link-text);
 		text-decoration-color: var(--color-content-link-underline);
 	}
 
-	&:target,
+	&:target:focus,
 	&.focus-visible {
 		${(p) => p.theme.focusVisible};
 	}
