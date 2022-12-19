@@ -294,10 +294,10 @@ Feature-state pairs provide useful additional information how which features and
 MEMMs’ state transition distributions have exponential form and contain a weighted sum of all feature-state pairs:
 
 $$
-P_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a}{\lambda_a \, f_a(o, s)}\right)
+p_{s\prime}(s|o) = \frac{1}{Z(o, s\prime)} \exp\left(\sum_{a}{\lambda_a \, f_a(o, s)}\right)
 $$
 
-where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a = \langle b, s \rangle$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $P_{s\prime}$ sum to one across all next states $s$.
+where $s\prime$ and $s$ are the previous and current state, $o$ is the current observation, $a = \langle b, s \rangle$ is a feature-state pair, $\lambda_a$ is the learned weight for $a$, and $Z(o, s\prime)$ is a normalizing term to make the distribution $p_{s\prime}$ sum to one across all next states $s$.
 
 <MEMMFeatureBreakdown />
 
@@ -307,7 +307,7 @@ Those familiar with neural networks will recognize that the function above is a 
 
 The training step involves learning the weights $\lambda_a$ that satisfy MEMMs’ maximum entropy constraint [@McCallum2000]. Learning is done through Generalized Iterative Scaling, which iteratively updates the values $\lambda_a$ in order to nudge the expected value of all features closer to their train set average. Convergence at a global optimum is guaranteed given the exponential form of the transition distribution.
 
-As with HMMs, the Viterbi algorithm makes MAP inference tractable [@McCallum2000; @Viterbi1967]. The variable transition probability $P_{s\prime}(s|o)$ takes the place of HMMs’ fixed transition and emission probabilities.
+As with HMMs, the Viterbi algorithm makes MAP inference tractable [@McCallum2000; @Viterbi1967]. The variable transition probability $p_{s\prime}(s|o)$ takes the place of HMMs’ fixed transition and emission probabilities.
 
 ### Results
 

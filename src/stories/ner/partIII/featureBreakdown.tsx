@@ -133,7 +133,7 @@ const MEMMFeatureBreakdown = () => {
 				<StyledPopoverArrow size="l" />
 				<BreakdownHeader>
 					<BreakdownHeading>
-						Calculating P<sub>{prevTag}</sub>({currentTag} | &apos;{usedWord}&apos;)
+						Calculating p<sub>{prevTag}</sub>({currentTag} | &ldquo;{usedWord}&rdquo;)
 					</BreakdownHeading>
 					<BreakdownDescription>
 						<BalancedText>
@@ -219,7 +219,7 @@ const MEMMFeatureBreakdown = () => {
 					<ProbabilityCalculation visible={initialized && !loading && !!sum}>
 						<ProbabilityCalculationLeftWrap>
 							<span>
-								P<sub>{prevTag}</sub>({currentTag} | &apos;{usedWord}&apos;)&nbsp;
+								p<sub>{prevTag}</sub>({currentTag} | &ldquo;{usedWord}&rdquo;)&nbsp;
 							</span>
 						</ProbabilityCalculationLeftWrap>
 						<ProbabilityCalculationRightWrap>
