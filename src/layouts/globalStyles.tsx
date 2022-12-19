@@ -7,6 +7,11 @@ const paperDeclarations = css`
   --color-scale-surface3: var(--color-scale-paper-surface3);
   --color-scale-surface4: var(--color-scale-paper-surface4);
   --color-scale-surface5: var(--color-scale-paper-surface5);
+  --color-scale-surface1-alpha-0: var(--color-scale-paper-surface1-alpha-0);
+  --color-scale-surface2-alpha-0: var(--color-scale-paper-surface2-alpha-0);
+  --color-scale-surface3-alpha-0: var(--color-scale-paper-surface3-alpha-0);
+  --color-scale-surface4-alpha-0: var(--color-scale-paper-surface4-alpha-0);
+  --color-scale-surface5-alpha-0: var(--color-scale-paper-surface5-alpha-0);
   --color-scale-gray1: var(--color-scale-paper-gray1);
   --color-scale-gray2: var(--color-scale-paper-gray2);
   --color-scale-gray3: var(--color-scale-paper-gray3);
@@ -61,6 +66,11 @@ const charcoalDeclarations = css`
   --color-scale-surface3: var(--color-scale-charcoal-surface3);
   --color-scale-surface4: var(--color-scale-charcoal-surface4);
   --color-scale-surface5: var(--color-scale-charcoal-surface5);
+  --color-scale-surface1-alpha-0: var(--color-scale-charcoal-surface1-alpha-0);
+  --color-scale-surface2-alpha-0: var(--color-scale-charcoal-surface2-alpha-0);
+  --color-scale-surface3-alpha-0: var(--color-scale-charcoal-surface3-alpha-0);
+  --color-scale-surface4-alpha-0: var(--color-scale-charcoal-surface4-alpha-0);
+  --color-scale-surface5-alpha-0: var(--color-scale-charcoal-surface5-alpha-0);
   --color-scale-gray1: var(--color-scale-charcoal-gray1);
   --color-scale-gray2: var(--color-scale-charcoal-gray2);
   --color-scale-gray3: var(--color-scale-charcoal-gray3);
@@ -157,6 +167,11 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-paper-surface3: #FCF5F7;
     --color-scale-paper-surface4: #FDFCFC;
     --color-scale-paper-surface5: #FFF;
+    --color-scale-paper-surface1-alpha-0: #F8EAEC00;
+    --color-scale-paper-surface2-alpha-0: #FAF0F200;
+    --color-scale-paper-surface3-alpha-0: #FCF5F700;
+    --color-scale-paper-surface4-alpha-0: #FDFCFC00;
+    --color-scale-paper-surface5-alpha-0: #FFF00;
     --color-scale-paper-gray1: #161213;
     --color-scale-paper-gray2: #2F2729;
     --color-scale-paper-gray3: #4A3F41;
@@ -209,6 +224,11 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-charcoal-surface3: #1B1B1B;
     --color-scale-charcoal-surface4: #1F1F1F;
     --color-scale-charcoal-surface5: #242424;
+    --color-scale-paper-surface1-alpha-0: #13131300;
+    --color-scale-paper-surface2-alpha-0: #17171700;
+    --color-scale-paper-surface3-alpha-0: #1B1B1B00;
+    --color-scale-paper-surface4-alpha-0: #1F1F1F00;
+    --color-scale-paper-surface5-alpha-0: #24242400;
     --color-scale-charcoal-gray1: #F1F2F4;
     --color-scale-charcoal-gray2: #D5D9DC;
     --color-scale-charcoal-gray3: #BDC2C7;
@@ -485,7 +505,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .surface-1 {
-    --color-color-background: var(--color-scale-scale-surface1);
+    --color-background: var(--color-scale-surface1);
+    --color-background-alpha-0: var(--color-scale-surface1-alpha-0);
     --color-background-raised: var(--color-scale-surface2);
     --color-background-raised-higher: var(--color-scale-surface3);
     --color-background-recessed: var(--color-scale-surface1);
@@ -495,6 +516,7 @@ const GlobalStyles = createGlobalStyle`
 
   .surface-2 {
     --color-background: var(--color-scale-surface2);
+    --color-background-alpha-0: var(--color-scale-surface2-alpha-0);
     --color-background-raised: var(--color-scale-surface3);
     --color-background-raised-higher: var(--color-scale-surface4);
     --color-background-recessed: var(--color-scale-surface1);
@@ -504,6 +526,7 @@ const GlobalStyles = createGlobalStyle`
 
   .surface-3, html {
     --color-background: var(--color-scale-surface3);
+    --color-background-alpha-0: var(--color-scale-surface3-alpha-0);
     --color-background-raised: var(--color-scale-surface4);
     --color-background-raised-higher: var(--color-scale-surface5);
     --color-background-recessed: var(--color-scale-surface2);
@@ -513,6 +536,7 @@ const GlobalStyles = createGlobalStyle`
 
   .surface-4 {
     --color-background: var(--color-scale-surface4);
+    --color-background-alpha-0: var(--color-scale-surface4-alpha-0);
     --color-background-raised: var(--color-scale-surface5);
     --color-background-raised-higher: var(--color-scale-surface5);
     --color-background-recessed: var(--color-scale-surface3);
@@ -522,6 +546,7 @@ const GlobalStyles = createGlobalStyle`
 
   .surface-5 {
     --color-background: var(--color-scale-surface5);
+    --color-background-alpha-0: var(--color-scale-surface5-alpha-0);
     --color-background-raised: var(--color-scale-surface5);
     --color-background-raised-higher: var(--color-scale-surface5);
     --color-background-recessed: var(--color-scale-surface4);

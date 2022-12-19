@@ -1,4 +1,3 @@
-import Color from 'color'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as tocbot from 'tocbot'
@@ -63,13 +62,13 @@ const TOC = ({ label, contentSelector, className }: TOCProps) => {
 		<TocWrap className={className}>
 			<TocLabel>{label}</TocLabel>
 			<TocInnerWrap>
-				{/*<UpperScrollFade visible={showUpperFade} />*/}
+				<UpperScrollFade visible={showUpperFade} />
 				<TocInnerContentWrap>
 					<UpperIntersectionTarget />
 					<TocContent />
 					<LowerIntersectionTarget />
 				</TocInnerContentWrap>
-				{/*<LowerScrollFade visible={showLowerFade} />*/}
+				<LowerScrollFade visible={showLowerFade} />
 			</TocInnerWrap>
 		</TocWrap>
 	)
@@ -142,29 +141,39 @@ const ScrollFade = styled.div<{ visible: boolean }>`
 	${(p) => (p.visible ? 'opacity: 1;' : 'opacity: 0;')}
 `
 
-// const UpperScrollFade = styled(ScrollFade)`
-// 	top: 0;
-// 	background: linear-gradient(
-// 			180deg,
-// 			var(--color-background) 0%,
-// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
-// 		),
-// 		linear-gradient(
-// 			180deg,
-// 			var(--color-background) 0%,
-// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
-// 		);
-// `
-// const LowerScrollFade = styled(ScrollFade)`
-// 	bottom: -1px;
-// 	background: linear-gradient(
-// 			0deg,
-// 			var(--color-background) 0%,
-// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
-// 		),
-// 		linear-gradient(
-// 			0deg,
-// 			var(--color-background) 0%,
-// 			${(p) => Color(p.theme.background).fade(1).string()} 100%
-// 		);
-// `
+const UpperScrollFade = styled(ScrollFade)`
+	top: 0;
+	background: linear-gradient(
+			180deg,
+			var(--color-background) 0%,
+			var(--color-background-alpha-0) 100%
+		),
+		linear-gradient(
+			180deg,
+			var(--color-background) 0%,
+			var(--color-background-alpha-0) 100%
+		),
+		linear-gradient(
+			180deg,
+			var(--color-background) 0%,
+			var(--color-background-alpha-0) 100%
+		);
+`
+const LowerScrollFade = styled(ScrollFade)`
+	bottom: -1px;
+	background: linear-gradient(
+			0deg,
+			var(--color-background) 0%,
+			var(--color-background-alpha-0) 100%
+		),
+		linear-gradient(
+			0deg,
+			var(--color-background) 0%,
+			var(--color-background-alpha-0) 100%
+		),
+		linear-gradient(
+			0deg,
+			var(--color-background) 0%,
+			var(--color-background-alpha-0) 100%
+		);
+`
