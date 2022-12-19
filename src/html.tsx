@@ -20,12 +20,12 @@ const HTML = (props: HTMLProps) => {
           content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
         />
         <link rel="stylesheet" href="/katex.min.css" />
+        {props.headComponents}
         <script
           dangerouslySetInnerHTML={{
             __html: `!function(){try{let e=JSON.parse(localStorage.getItem("UP")),t=e?.theme?.color?.appearance,a=e?.theme?.color?.lightPalette,l=e?.theme?.color?.darkPalette;document.documentElement.dataset.theme=t||"auto",a&&(document.documentElement.dataset.paletteLight=a),l&&(document.documentElement.dataset.paletteDark=l)}catch(m){console.warn(m)}}();`,
           }}
         />
-        {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
