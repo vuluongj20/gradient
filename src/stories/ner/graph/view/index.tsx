@@ -2,35 +2,31 @@ import { HTMLAttributes, ReactNode, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import BaseEdge from '../model/edge'
-import Graph from '../model/graph'
 import BaseNode from '../model/node'
 import NodePanel from './nodePanel'
-import ForceGraph from './svg'
+import ForceGraph, { ForceGraphProps } from './svg'
 import { NodeEventListener } from './svg/types'
 
 import useSize from '@utils/useSize'
 
-interface GraphViewProps<Node extends BaseNode, Edge extends BaseEdge> {
-	graph: Graph<Node, Edge>
-	disableForceNode?: boolean
-	disableForceEdge?: boolean
-	disableForceCenter?: boolean
+interface GraphViewProps<Node extends BaseNode, Edge extends BaseEdge>
+	extends Omit<
+		ForceGraphProps<Node, Edge>,
+		'width' | 'height' | 'simulationPlayState' | 'setSvgReady'
+	> {
 	renderNodePanel?: (props: {
 		node: Node
 		overlayProps: HTMLAttributes<HTMLDivElement>
 	}) => ReactNode
-	nodeEventListeners?: NodeEventListener[]
 	className?: string
 }
 
 const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = BaseEdge>({
 	graph,
-	disableForceNode,
-	disableForceEdge,
-	disableForceCenter,
 	renderNodePanel,
 	nodeEventListeners = [],
 	className,
+	...forceGraphProps
 }: GraphViewProps<Node, Edge>) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const { width, height } = useSize(ref)
@@ -62,9 +58,7 @@ const GraphView = <Node extends BaseNode = BaseNode, Edge extends BaseEdge = Bas
 				graph={graph}
 				width={width}
 				height={height}
-				disableForceNode={disableForceNode}
-				disableForceEdge={disableForceEdge}
-				disableForceCenter={disableForceCenter}
+				{...forceGraphProps}
 				nodeEventListeners={allNodeEventListeners}
 				simulationPlayState={simulationPlayState}
 				setSvgReady={setSvgReady}

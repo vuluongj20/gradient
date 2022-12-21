@@ -15,7 +15,9 @@ import { nanoid } from 'nanoid'
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
+import BaseEdge from '../../model/edge'
 import Graph from '../../model/graph'
+import BaseNode from '../../model/node'
 import {
 	MutableEdge,
 	MutableNode,
@@ -45,29 +47,31 @@ interface Render {
 	simulation: Simulation<MutableNode, MutableEdge>
 }
 
-interface ForceGraphProps {
-	graph: Graph
+export interface ForceGraphProps<Node extends BaseNode, Edge extends BaseEdge> {
+	graph: Graph<Node, Edge>
 	width?: number
 	height?: number
 	disableForceNode?: boolean
 	disableForceEdge?: boolean
 	disableForceCenter?: boolean
+	minNodeDistance?: number
 	nodeEventListeners?: NodeEventListener[]
 	simulationPlayState: boolean
 	setSvgReady: Dispatch<SetStateAction<boolean>>
 }
 
-const ForceGraph = ({
+const ForceGraph = <Node extends BaseNode, Edge extends BaseEdge>({
 	graph,
 	width,
 	height,
 	disableForceNode,
 	disableForceEdge,
 	disableForceCenter,
+	minNodeDistance = 50,
 	nodeEventListeners,
 	simulationPlayState,
 	setSvgReady,
-}: ForceGraphProps) => {
+}: ForceGraphProps<Node, Edge>) => {
 	const ref = useRef<SVGSVGElement>(null)
 	const render = useRef<Render>()
 
@@ -116,10 +120,9 @@ const ForceGraph = ({
 			.id((e) => e.id)
 			.strength(disableForceEdge ? 0 : 1)
 			.distance((e) => {
-				const minDistance = 50
 				const sourceCutoff = e.source.label.length * 4.5 + 10
 				const targetCutoff = e.target.label.length * 4.5 + 10
-				return minDistance + sourceCutoff + targetCutoff
+				return minNodeDistance + sourceCutoff + targetCutoff
 			})
 
 		const simulation: Simulation<MutableNode, MutableEdge> = forceSimulation<MutableNode>(
@@ -155,7 +158,7 @@ const ForceGraph = ({
 			simulation,
 		}
 		setSvgReady(true)
-	}, [width, height])
+	}, [width, height, minNodeDistance])
 
 	//
 	// Update graph when nodes or edges have been updated

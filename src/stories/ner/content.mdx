@@ -20,6 +20,7 @@ import MEMMPerEntityScorecards from './partIII/perEntityScorecards'
 import MEMMPerWordScorecard from './partIII/perWordScorecards'
 import CRFOverviewGraph from './partIV/overviewGraph'
 import CRFRandomFieldGraph from './partIV/randomFieldGraph'
+import CRFUndirectedGraphExample from './partIV/undirectedGraphExample'
 import BinaryOOVHeatmap from './precisionRecallHeatmaps/binaryOOVHeatmap'
 import EntityLengthHeatmap from './precisionRecallHeatmaps/entityLengthHeatmap'
 import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
@@ -385,7 +386,7 @@ $$
 f(X, Y) = \begin{cases}
 	\textrm{10 if $X = 1$ and $Y = 1$} \\
 	\textrm{5 if $X = 0$ and $Y = 0$} \\
-	\textrm{0 otherwise}
+	\textrm{1 otherwise}
 	\end{cases}
 $$
 
@@ -407,6 +408,8 @@ p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{f_c(x_c)} \\
 \footnotesize\textrm{where Z is a normalization factor} \\
 \footnotesize\textrm{and C is the set of maximal cliques in $\mathcal{G}$}
 $$
+
+<CRFUndirectedGraphExample />
 
 MRFs have a generalized form of which the directed models we’ve seen so far — HMMs and MEMMs — are special cases. The factors $f_c$ can be defined as conditional probabilities, for example $f_c(x_1,x_2) = p(x_2|x_1)$, and act as the transition and emission probabilities that together compose HMMs and MEMMs.
 

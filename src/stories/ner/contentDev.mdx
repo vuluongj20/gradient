@@ -2,26 +2,11 @@ import { Fragment } from 'react'
 
 import CRFOverviewGraph from './partIV/overviewGraph'
 import CRFRandomFieldGraph from './partIV/randomFieldGraph'
+import CRFUndirectedGraphExample from './partIV/undirectedGraphExample'
 
 <Header></Header>
 
 ## IV. Conditional Random Fields
-
-Conditional Random Fields (CRFs) are a class of undirected probabilistic models. They have proved to be powerful models with a wide range of applications, including text processing [@Lafferty2001; @Taskar2002; @Peng2004], image recognition [@Kumar2003; @He2004; @Zheng2015; @Teichmann2018], and bioinformatics [@Sato2005; @Liu2006].
-
-While CRFs can have any graph structure, in this article we’ll focus on the linear-chain version:
-
-<CRFOverviewGraph />
-
-### Markov Random Fields
-
-CRFs are a type of Markov Random Fields (MRFs) — probability distributions over random variables defined by _undirected_ graphs [@Blake2011]:
-
-<CRFRandomFieldGraph />
-
-Undirected graphs are appropriate for when it’s difficult or implausible to establish causal, generative relationships between random variables. Social networks are a good example of undirected relationships. We can think of $A$, $B$, and $C$ in the graph above as people in a simple network. $A$ and $B$ are friends and tend to share similar beliefs. The same goes for $B$ and $C$ as well as $C$ and $A$. We might, for example, want to model how each person in the network thinks about a specific topic.
-
-Acyclic Directed graphs fail to adequately represent the mutual belief propagation that occurs within the group. For example, we might have an edge from $A$ to $B$ but no path from $B$ back to $A$ — there will always be at least one such exclusion in an acyclic directed graph.
 
 Rather than assuming a generative relationship between variables, MRFs model their mutual relationships with non-negative scoring functions, called _factors_, that assign higher scores if the variables’ values are in agreement, for example:
 
@@ -29,7 +14,7 @@ $$
 f(X, Y) = \begin{cases}
 	\textrm{10 if $X = 1$ and $Y = 1$} \\
 	\textrm{5 if $X = 0$ and $Y = 0$} \\
-	\textrm{0 otherwise}
+	\textrm{1 otherwise}
 	\end{cases}
 $$
 
@@ -52,25 +37,11 @@ p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{f_c(x_c)} \\
 \footnotesize\textrm{and C is the set of maximal cliques in $\mathcal{G}$}
 $$
 
+<CRFUndirectedGraphExample />
+
 MRFs have a generalized form of which the directed models we’ve seen so far — HMMs and MEMMs — are special cases. The factors $f_c$ can be defined as conditional probabilities, for example $f_c(x_1,x_2) = p(x_2|x_1)$, and act as the transition and emission probabilities that together compose HMMs and MEMMs.
 
 The additional level of generality comes at a cost: the normalization factors $Z$ are often difficult to compute. They require summing over an exponential number of potential assignments, an infeasible task if the network is large enough. There are, however, configurations for which there is an efficient decoding algorithm. That includes linear-chain versions of CRFs, which can be decoded with the Viterbi algorithm.
-
-### Conditional Form
-
-CRFs are Markov Random Fields that model conditional probabilities $p(y|x)$:
-
-$$
-p(y|x) = \frac{1}{Z(x)}\prod_{c\,{\scriptscriptstyle \in}\,C}{f_c(y_c, x_c)} \\
-\footnotesize\textrm{where Z is a normalization factor} \\
-\footnotesize\textrm{and C is the set of maximal cliques in $\mathcal{G}$}
-$$
-
-The distribution is parameterized by $x$. For every input sequence $x$, there is a new Markov Random Field. Indeed, when we replace all the values $x_i$ in the above equation with real values, what remains has the same form as a Markov Random Field.
-
-CRFs’ conditional form is a compelling advantage over generative models such as HMMs. When training/making predictions, the input sequence $x$ is observed. With CRFs their values are fed into the model as parameters — there is no need to model the marginal probabilities $p(x)$.
-
-Since CRFs’ are globally conditioned on $x$, the hidden states $y_i$ can depend not only on the current observation but also any other observation in the sequence. Thanks to the global parameterization by $x$, adding more such dependencies to the model does not increase the computational complexity of inference tasks.
 
 ---
 
