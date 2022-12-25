@@ -23,7 +23,7 @@ interface StateLayerProps {
 
 export default styled.div.attrs(
 	({ isHovered, isPressed, isExpanded }: StateLayerProps) => ({
-		['aria-role']: 'presentation',
+		role: 'presentation',
 		['data-is-hovered']: isHovered,
 		['data-is-pressed']: isPressed,
 		['data-is-expanded']: isExpanded,

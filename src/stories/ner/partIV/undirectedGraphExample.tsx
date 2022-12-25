@@ -86,15 +86,15 @@ function createGraph() {
 
 function factor(a: 1 | 0, b: 1 | 0, c?: 1 | 0) {
 	if (a === 1 && b === 1 && (isDefined(c) ? c === 1 : true)) {
-		return 10
+		return 3
 	}
 	if (a === 0 && b === 0 && (isDefined(c) ? c === 0 : true)) {
-		return 5
+		return 2
 	}
 	return 1
 }
 
-const z = 1020018625
+const z = 28915
 
 type NodeEventListener = NonNullable<
 	ComponentProps<typeof GraphView>['nodeEventListeners']
@@ -104,7 +104,7 @@ const CRFUndirectedGraphExample = () => {
 	const [graph] = useState(createGraph())
 	const [hoveredNode, setHoveredNode] = useState<UNode | null>(null)
 	const [nodeValues, setNodeValues] = useState<Record<string, 1 | 0>>(initialNodeValues)
-	const factorValues = useMemo(
+	const factorValues: Record<string, number> = useMemo(
 		() => ({
 			AB: factor(nodeValues.A, nodeValues.B),
 			BC: factor(nodeValues.B, nodeValues.C),
@@ -274,8 +274,28 @@ const CRFUndirectedGraphExample = () => {
 							</CalculationBlock>
 							<br />
 							<CalculationEqualSign>≈</CalculationEqualSign>
-							<CalculationResult>{decimalFlex(factorProduct / z, 4)}</CalculationResult>
+							<CalculationResult>{decimalFlex(factorProduct / z, 3)}</CalculationResult>
 						</Calculation>
+						<CalculationDescription>
+							&#632;
+							<sub>
+								<sub>ABC</sub>
+							</sub>
+							&nbsp;=&nbsp;&#632;
+							<sub>
+								<sub>AB</sub>
+							</sub>
+							&nbsp;=&nbsp;&#632;
+							<sub>
+								<sub>…</sub>
+							</sub>
+							(x)&nbsp;=&nbsp;
+							<CalculationDescBracket>
+								3 if x<sub>1</sub> = x<sub>2</sub> = … = 1
+								<br />2 if x<sub>1</sub> = x<sub>2</sub> = … = 0
+								<br />1 otherwise
+							</CalculationDescBracket>
+						</CalculationDescription>
 					</CalculationInnerWrap>
 				</CalculationWrap>
 			</StyledPanel>
@@ -287,7 +307,7 @@ export default CRFUndirectedGraphExample
 
 const StyledPanel = styled(Panel)`
 	display: flex;
-	height: 38rem;
+	height: 40rem;
 	margin-top: var(--adaptive-space-2);
 	margin-bottom: var(--adaptive-space-3);
 	overflow: hidden;
@@ -305,7 +325,7 @@ const StyledPanel = styled(Panel)`
 
 const GraphWrap = styled.div`
 	position: relative;
-	width: 61.8%;
+	width: calc(100% - 20rem);
 
 	${(p) => p.theme.breakpoints.xs} {
 		width: 100%;
@@ -346,7 +366,7 @@ const CalculationWrap = styled(Panel)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 38.2%;
+	width: 20rem;
 	padding: var(--space-2) var(--space-4);
 	border: none;
 	border-radius: 0;
@@ -370,6 +390,24 @@ const CalculationInnerWrap = styled.div``
 const CalculationHeader = styled.p`
 	${(p) => p.theme.text.system.h6}
 	margin-bottom: var(--space-1-5);
+`
+
+const CalculationDescription = styled.p`
+	display: flex;
+	width: 100%;
+	${(p) => p.theme.text.system.small}
+	color: var(--color-label);
+
+	border-top: solid 1px var(--color-line);
+	padding-top: var(--space-1);
+	margin-top: var(--space-2);
+`
+
+const CalculationDescBracket = styled.span`
+	display: inline-block;
+	border-left: solid 2px var(--color-bar);
+	padding-left: var(--space-0-5);
+	margin-left: var(--space-0);
 `
 
 const CalculationHeaderBlock = styled.span`
