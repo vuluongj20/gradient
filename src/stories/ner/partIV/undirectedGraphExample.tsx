@@ -307,7 +307,7 @@ export default CRFUndirectedGraphExample
 
 const StyledPanel = styled(Panel)`
 	display: flex;
-	height: 40rem;
+	height: 42rem;
 	margin-top: var(--adaptive-space-2);
 	margin-bottom: var(--adaptive-space-3);
 	overflow: hidden;
@@ -317,20 +317,22 @@ const StyledPanel = styled(Panel)`
 		padding-right: 0;
 	}
 
+	${(p) => p.theme.breakpoints.s} {
+		height: 39rem;
+	}
+
 	${(p) => p.theme.breakpoints.xs} {
-		height: 62rem;
+		height: 68rem;
 		flex-direction: column;
 	}
 `
 
 const GraphWrap = styled.div`
 	position: relative;
-	width: calc(100% - 20rem);
-
-	${(p) => p.theme.breakpoints.xs} {
-		width: 100%;
-		height: 100%;
-	}
+	width: 100%;
+	height: 100%;
+	flex-shrink: 1;
+	overflow: hidden;
 `
 
 const GuideWrap = styled.div<{ x?: number; y?: number }>`
@@ -365,15 +367,21 @@ const CalculationWrap = styled(Panel)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	flex-shrink: 0;
 	align-items: center;
-	width: 20rem;
-	padding: var(--space-2) var(--space-4);
+	width: 22rem;
+	padding: var(--space-2) var(--space-5);
 	border: none;
 	border-radius: 0;
 
 	${(p) => p.theme.breakpoints.mobile} {
 		padding-left: var(--page-margin-left);
 		padding-right: var(--page-margin-right);
+	}
+
+	${(p) => p.theme.breakpoints.s} {
+		padding: var(--space-2) var(--space-3);
+		width: 20rem;
 	}
 
 	${(p) => p.theme.breakpoints.xs} {
@@ -399,7 +407,7 @@ const CalculationDescription = styled.p`
 	color: var(--color-label);
 
 	border-top: solid 1px var(--color-line);
-	padding-top: var(--space-1);
+	padding-top: var(--space-1-5);
 	margin-top: var(--space-2);
 `
 
