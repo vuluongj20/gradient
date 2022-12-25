@@ -5,10 +5,21 @@ export const isDefined = <T,>(item: T): item is NonNullable<T> =>
 	typeof item !== 'undefined' && item !== null
 
 export const decimal = (number: number, decimalPlaces = 2) =>
-	Number(number.toFixed(decimalPlaces))
+	number.toLocaleString('en-US', { maximumFractionDigits: decimalPlaces })
 
-export const toFixedUnlessZero = (number: number, decimalPlaces = 2) =>
-	number === 0 ? 0 : number.toFixed(decimalPlaces)
+export const decimalFlex = (number: number, decimalPlaces = 2) => {
+	// Show more digits if fractional part begins with lots of zeros, e.g. 1.0038
+	const leadingZerosMatch = number
+		.toLocaleString('en-US', { maximumFractionDigits: 20 })
+		.split('.')[1]
+		?.match(/^0+/)
+	if (leadingZerosMatch) {
+		const adjustedDecimalPlaces = leadingZerosMatch[0].length + decimalPlaces
+		return decimal(number, adjustedDecimalPlaces)
+	}
+
+	return decimal(number, decimalPlaces)
+}
 
 /** Check if an item is an object */
 export const isObject = (item: unknown) =>

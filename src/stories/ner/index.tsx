@@ -1,6 +1,6 @@
 import { PageProps } from 'gatsby'
 
-import Content from './content.mdx'
+import Content from './contentDev.mdx'
 import references from './references.csl.json'
 
 import Page from '@components/page'

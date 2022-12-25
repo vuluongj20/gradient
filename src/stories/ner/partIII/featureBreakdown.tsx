@@ -15,7 +15,7 @@ import PopoverArrow from '@components/popoverArrow'
 import Spinner from '@components/spinner'
 import { TD, TH, TR, Table, TableBody, TableFoot, TableHead } from '@components/table'
 
-import { debounce, isDev, makeCancelable, toFixedUnlessZero } from '@utils/functions'
+import { debounce, decimalFlex, isDev, makeCancelable } from '@utils/functions'
 import useMobile from '@utils/useMobile'
 
 const tagOptions = nameTags.map((tag) => ({ value: tag, label: tag }))
@@ -185,11 +185,9 @@ const MEMMFeatureBreakdown = () => {
 											{feature} <LongEm>-</LongEm> {tag}
 										</span>
 									</TH>
-									<TD align="right">{toFixedUnlessZero(weight, decimalPlaces)}</TD>
+									<TD align="right">{decimalFlex(weight, decimalPlaces)}</TD>
 									<TD align="right">{value}</TD>
-									<TD align="right">
-										{toFixedUnlessZero(value * weight, decimalPlaces)}
-									</TD>
+									<TD align="right">{decimalFlex(value * weight, decimalPlaces)}</TD>
 								</BreakdownTR>
 							))}
 							{new Array(8 - sortedFeatureBreakdown.length).fill(0).map((_, index) => (
@@ -212,7 +210,7 @@ const MEMMFeatureBreakdown = () => {
 								<TH align="right" colSpan={3}>
 									SUM(&#955;<sub>a</sub>f<sub>a</sub>)
 								</TH>
-								<TD align="right">{toFixedUnlessZero(sum ?? 0, decimalPlaces)}</TD>
+								<TD align="right">{decimalFlex(sum ?? 0, decimalPlaces)}</TD>
 							</TR>
 						</BreakdownTableFoot>
 					</BreakdownTable>
@@ -228,12 +226,12 @@ const MEMMFeatureBreakdown = () => {
 								SUM(&#955;<sub>a</sub>f<sub>a</sub>)
 							</sup>
 							&nbsp; / Z
-							<br />≈ e<sup>{toFixedUnlessZero(sum ?? 0, decimalPlaces)}</sup> /{' '}
-							{toFixedUnlessZero(+breakdown.z ?? 0, decimalPlaces)}
+							<br />≈ e<sup>{decimalFlex(sum ?? 0, decimalPlaces)}</sup> /{' '}
+							{decimalFlex(+breakdown.z ?? 0, decimalPlaces)}
 							<br />
 							≈&nbsp;
 							<ProbabilityCalculationResult>
-								{toFixedUnlessZero(breakdown.probabilities[currentTag] ?? 0, 3)}
+								{decimalFlex(breakdown.probabilities[currentTag] ?? 0, 3)}
 							</ProbabilityCalculationResult>
 						</ProbabilityCalculationRightWrap>
 					</ProbabilityCalculation>

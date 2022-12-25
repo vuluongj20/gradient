@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 
 import CRFOverviewGraph from './partIV/overviewGraph'
+import CRFOverviewGraphLongRange from './partIV/overviewGraphLongRange'
 import CRFRandomFieldGraph from './partIV/randomFieldGraph'
 import CRFUndirectedGraphExample from './partIV/undirectedGraphExample'
 
@@ -8,10 +9,26 @@ import CRFUndirectedGraphExample from './partIV/undirectedGraphExample'
 
 ## IV. Conditional Random Fields
 
-Rather than assuming a generative relationship between variables, MRFs model their mutual relationships with non-negative scoring functions, called _factors_, that assign higher scores if the variables’ values are in agreement, for example:
+Conditional Random Fields (CRFs) are a class of undirected probabilistic models. They have proved to be powerful models with a wide range of applications, including text processing [@Lafferty2001; @Taskar2002; @Peng2004], image recognition [@Kumar2003; @He2004; @Zheng2015; @Teichmann2018], and bioinformatics [@Sato2005; @Liu2006].
+
+While CRFs can have any graph structure, in this article we’ll focus on the linear-chain version:
+
+<CRFOverviewGraph />
+
+### Markov Random Fields
+
+CRFs are a type of Markov Random Fields (MRFs) — probability distributions over random variables defined by _undirected_ graphs [@Blake2011]:
+
+<CRFRandomFieldGraph />
+
+Undirected graphs are appropriate for when it’s difficult or implausible to establish causal, generative relationships between random variables. Social networks are a good example of undirected relationships. We can think of $A$, $B$, and $C$ in the graph above as people in a simple network. $A$ and $B$ are friends and tend to share similar beliefs. The same goes for $B$ and $C$ as well as $C$ and $A$. We might, for example, want to model how each person in the network thinks about a specific topic.
+
+Acyclic Directed graphs fail to adequately represent the mutual belief propagation that occurs within the group. For example, we might have an edge from $A$ to $B$ but no path from $B$ back to $A$ — there will always be at least one such exclusion in an acyclic directed graph.
+
+Rather than assuming a generative relationship between variables, MRFs model their mutual relationships with non-negative scoring functions $\phi$, called _factors_, that assign higher scores if the variables’ values are in agreement, for example:
 
 $$
-f(X, Y) = \begin{cases}
+\phi(X, Y) = \begin{cases}
 	\textrm{10 if $X = 1$ and $Y = 1$} \\
 	\textrm{5 if $X = 0$ and $Y = 0$} \\
 	\textrm{1 otherwise}
@@ -23,25 +40,56 @@ Unlike conditional probabilities, there is no assumed directionality in scoring 
 The joint probability of all variables in the graph is:
 
 $$
-p(A,B,C) = \frac{1}{Z}\,f(A,B)\,f(B,C)\,f(C,A) \\
+p(A,B,C) = \frac{1}{Z}\,\phi(A,B)\,\phi(B,C)\,\phi(C,A) \\
 \footnotesize\textrm{where Z is a normalization factor}
 $$
 
-The factors $f$ promote assignments in which their constituent variables ($A$ and $B$ in the case of $f(A, B)$) agree with each other. The assignment 1-1-1 would receive a higher score and thus have higher probability than say 1-1-0, since there is more agreement in the former case.
+The factors $\phi$ promote assignments in which their constituent variables ($A$ and $B$ in the case of $\phi(A, B)$) agree with each other. The assignment 1-1-1 would receive a higher score and thus have higher probability than say 1-1-0, since there is more agreement in the former case.
 
 More generally, MRFs are probability distributions $p$ over random variables $x_1$, $x_2$,… that are defined by an undirected graph $\mathcal{G}$ and have the form:
 
 $$
-p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{f_c(x_c)} \\
+p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{\phi_c(x_c)} \\
 \footnotesize\textrm{where Z is a normalization factor} \\
-\footnotesize\textrm{and C is the set of maximal cliques in $\mathcal{G}$}
+\footnotesize\textrm{and C is the set of cliques in $\mathcal{G}$}
 $$
 
 <CRFUndirectedGraphExample />
 
-MRFs have a generalized form of which the directed models we’ve seen so far — HMMs and MEMMs — are special cases. The factors $f_c$ can be defined as conditional probabilities, for example $f_c(x_1,x_2) = p(x_2|x_1)$, and act as the transition and emission probabilities that together compose HMMs and MEMMs.
+MRFs have a generalized form of which the directed models we’ve seen so far — HMMs and MEMMs — are special cases. The factors $\phi_c$ can be defined as conditional probabilities, for example $\phi_c(x_1,x_2) = p(x_2|x_1)$, and act as the transition and emission probabilities that characterize HMMs and MEMMs.
 
-The additional level of generality comes at a cost: the normalization factors $Z$ are often difficult to compute. They require summing over an exponential number of potential assignments, an infeasible task if the network is large enough. There are, however, configurations for which there is an efficient decoding algorithm. That includes linear-chain versions of CRFs, which can be decoded with the Viterbi algorithm.
+The additional level of generality comes at a cost, however: the normalization factors $Z$ are often difficult to compute. They require summing over an exponential number of potential assignments, an infeasible task if the network is large enough. Fortunately, there are configurations that can be solved using efficient decoding algorithms. That includes linear-chain CRFs, which can be decoded with the Viterbi algorithm.
+
+### Conditional Form
+
+CRFs are random fields globally conditioned on a set of observations $x$ [@Lafferty2001] and have the form:
+
+$$
+p(y|x) = \frac{1}{Z(x)}\prod_{c\,{\scriptscriptstyle \in}\,C}{\phi_c(y_c, x_c)} \\
+\footnotesize\textrm{where Z is a normalization factor} \\
+\footnotesize\textrm{and C is the set of cliques in the} \\
+\footnotesize\textrm{graph $\mathcal{G}$ representing the labels $y$}
+$$
+
+The distribution $p(y|x)$ is parameterized by $x$. When we replace all the values $x_i$ in the right hand side with real values, what remains has the same form as an MRF. In fact, we get a new MRF for every observation sequence $x$.
+
+CRFs are globally conditioned on $x$. They directly model the probability of the label sequence $y$ — $p(y|x)$ — rather than local transition/emission probabilities $p(y_i|y_{i-1})$ or $p(y_i|x_i)$.
+
+Global conditioning on $x$ means that the hidden states $y_i$ can depend not only on the current observation but also any other observation in the sequence. Adding more such dependencies to the model does not increase the computational complexity of inference tasks, since we don’t have to model the marginal probabilities $p(x_i)$ at train/test time.
+
+<CRFOverviewGraphLongRange />
+
+### Exponential Factors
+
+The factors $\phi_c$ have an exponential form [@Lafferty2001] that’s similar MEMMs’ transition function:
+
+$$
+\phi_c(y_c, x_c) = \exp\left(\sum_{a}{\lambda_a \, f_a(y_c, x_c)}\right) \\
+\footnotesize\textrm{where $f_a$ is a feature function defined for clique $c$} \\
+\footnotesize\textrm{and $\lambda_a$ is the weight parameter for $f_a$}
+$$
+
+In a linear chain CRFs, the cliques $c$ are the vertices and edges in the
 
 ---
 

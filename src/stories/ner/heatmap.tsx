@@ -5,7 +5,7 @@ import { entityNameCategories } from './constants'
 
 import GuideArrow from '@components/guideArrow'
 
-import { isDefined, toFixedUnlessZero } from '@utils/functions'
+import { decimalFlex, isDefined } from '@utils/functions'
 import useMatchMedia from '@utils/useMatchMedia'
 
 const useAppearance = () => {
@@ -93,7 +93,7 @@ const Heatmap = ({
 										<TD key={group}>
 											<TDBackground opacity={0.025 + value * 0.85} aria-hidden="true" />
 											<TDLabel whiteText={whiteText} opacity={labelOpacity}>
-												{toFixedUnlessZero(value, 2)}
+												{decimalFlex(value, 2)}
 											</TDLabel>
 										</TD>
 									)

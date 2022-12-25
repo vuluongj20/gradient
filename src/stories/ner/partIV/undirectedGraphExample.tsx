@@ -14,7 +14,7 @@ import Grid from '@components/grid'
 import GuideArrow from '@components/guideArrow'
 import Panel from '@components/panel'
 
-import { toFixedUnlessZero } from '@utils/functions'
+import { decimalFlex, isDefined } from '@utils/functions'
 import { usePointerAction } from '@utils/text'
 import useBreakpoint from '@utils/useBreakpoint'
 import useMountEffect from '@utils/useMountEffect'
@@ -28,11 +28,13 @@ enum UNode {
 	F = 'F',
 }
 const orderedNodes = [UNode.A, UNode.B, UNode.C, UNode.D, UNode.E, UNode.F]
-const nodePairs = [
+const cliques = [
+	[UNode.A, UNode.B, UNode.C],
 	[UNode.A, UNode.B],
 	[UNode.B, UNode.C],
 	[UNode.A, UNode.C],
 	[UNode.C, UNode.D],
+	[UNode.D, UNode.E, UNode.F],
 	[UNode.D, UNode.E],
 	[UNode.E, UNode.F],
 	[UNode.D, UNode.F],
@@ -67,7 +69,7 @@ function createGraph() {
 		graph.addNode(newNode)
 	}
 
-	for (const nodePair of nodePairs) {
+	for (const nodePair of cliques.filter((n) => n.length === 2)) {
 		const leftNode = nodes[nodePair[0]]
 		const rightNode = nodes[nodePair[1]]
 		if (!leftNode || !rightNode) continue
@@ -82,15 +84,17 @@ function createGraph() {
 	return graph
 }
 
-function factor(a: 1 | 0, b: 1 | 0) {
-	if (a === 1 && b === 1) {
+function factor(a: 1 | 0, b: 1 | 0, c?: 1 | 0) {
+	if (a === 1 && b === 1 && (isDefined(c) ? c === 1 : true)) {
 		return 10
 	}
-	if (a === 0 && b === 0) {
+	if (a === 0 && b === 0 && (isDefined(c) ? c === 0 : true)) {
 		return 5
 	}
 	return 1
 }
+
+const z = 1020018625
 
 type NodeEventListener = NonNullable<
 	ComponentProps<typeof GraphView>['nodeEventListeners']
@@ -109,6 +113,8 @@ const CRFUndirectedGraphExample = () => {
 			DE: factor(nodeValues.D, nodeValues.E),
 			EF: factor(nodeValues.E, nodeValues.F),
 			DF: factor(nodeValues.D, nodeValues.F),
+			ABC: factor(nodeValues.A, nodeValues.B, nodeValues.C),
+			DEF: factor(nodeValues.D, nodeValues.E, nodeValues.F),
 		}),
 		[nodeValues],
 	)
@@ -235,21 +241,16 @@ const CRFUndirectedGraphExample = () => {
 							<CalculationBlock>
 								<CalculationEqualSign>=</CalculationEqualSign>1/Z
 								<br />
-								{nodePairs.map(([leftNode, rightNode]) => (
-									<Fragment key={`${leftNode}${rightNode}`}>
+								{cliques.map((nodes) => (
+									<Fragment key={nodes.join('')}>
 										<CalculationFactor
-											siblingIsHighlighted={
-												!!hoveredNode && ![leftNode, rightNode].includes(hoveredNode)
-											}
+											siblingIsHighlighted={!!hoveredNode && !nodes.includes(hoveredNode)}
 										>
-											<CalculationDot>&#10799;&nbsp;</CalculationDot>f
+											<CalculationDot>&#10799;&nbsp;</CalculationDot>&#632;
 											<sub>
-												<sub>
-													{leftNode}
-													{rightNode}
-												</sub>
+												<sub>{nodes.join('')}</sub>
 											</sub>
-											({nodeValues[leftNode]}, {nodeValues[rightNode]})
+											({nodes.map((n) => nodeValues[n]).join(', ')})
 										</CalculationFactor>
 										<br />
 									</Fragment>
@@ -257,17 +258,15 @@ const CRFUndirectedGraphExample = () => {
 							</CalculationBlock>
 							<br />
 							<CalculationBlock>
-								<CalculationEqualSign>=</CalculationEqualSign>1 / 10078125
+								<CalculationEqualSign>=</CalculationEqualSign>1 / {decimalFlex(z)}
 								<br />
-								{nodePairs.map(([leftNode, rightNode]) => (
-									<Fragment key={`${leftNode}${rightNode}`}>
+								{cliques.map((nodes) => (
+									<Fragment key={nodes.join('')}>
 										<CalculationFactor
-											siblingIsHighlighted={
-												!!hoveredNode && ![leftNode, rightNode].includes(hoveredNode)
-											}
+											siblingIsHighlighted={!!hoveredNode && !nodes.includes(hoveredNode)}
 										>
 											<CalculationDot>&#10799;&nbsp;</CalculationDot>
-											{factorValues[`${leftNode}${rightNode}`]}
+											{factorValues[nodes.join('')]}
 										</CalculationFactor>
 										<br />
 									</Fragment>
@@ -275,9 +274,7 @@ const CRFUndirectedGraphExample = () => {
 							</CalculationBlock>
 							<br />
 							<CalculationEqualSign>≈</CalculationEqualSign>
-							<CalculationResult>
-								{toFixedUnlessZero(factorProduct / 10908625, 4)}
-							</CalculationResult>
+							<CalculationResult>{decimalFlex(factorProduct / z, 4)}</CalculationResult>
 						</Calculation>
 					</CalculationInnerWrap>
 				</CalculationWrap>
@@ -290,7 +287,7 @@ export default CRFUndirectedGraphExample
 
 const StyledPanel = styled(Panel)`
 	display: flex;
-	height: 32rem;
+	height: 38rem;
 	margin-top: var(--adaptive-space-2);
 	margin-bottom: var(--adaptive-space-3);
 	overflow: hidden;
@@ -301,7 +298,7 @@ const StyledPanel = styled(Panel)`
 	}
 
 	${(p) => p.theme.breakpoints.xs} {
-		height: 58rem;
+		height: 62rem;
 		flex-direction: column;
 	}
 `
@@ -404,8 +401,8 @@ const CalculationDot = styled.span`
 `
 
 const CalculationFactor = styled.span<{ siblingIsHighlighted: boolean }>`
-	transition: color var(--animation-v-fast-out);
-	${(p) => p.siblingIsHighlighted && `color: var(--color-label);`}
+	transition: opacity var(--animation-v-fast-out);
+	${(p) => p.siblingIsHighlighted && `opacity: 0.25;`}
 `
 
 const CalculationResult = styled.span`
