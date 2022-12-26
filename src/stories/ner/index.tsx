@@ -1,12 +1,16 @@
 import { PageProps } from 'gatsby'
 
-import Content from './content.mdx'
+import ContentFull from './content.mdx'
+import ContentDev from './contentDev.mdx'
 import references from './references.csl.json'
 
 import Page from '@components/page'
 import SEO from '@components/seo'
 
+import { isDev } from '@utils/functions'
 import MDXStoryProvider from '@utils/mdxStoryProvider'
+
+const Content = isDev ? ContentDev : ContentFull
 
 const Component = () => {
 	return (
