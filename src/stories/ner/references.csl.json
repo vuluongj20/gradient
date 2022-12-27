@@ -437,5 +437,18 @@
     "publisher": "The MIT Press",
     "title": "Introduction to Markov Random Fields",
     "type": "chapter"
+  },
+  {
+    "author": [
+      { "given": "Charles", "family": "Sutton" },
+      { "given": "Andrew", "family": "McCallum" }
+    ],
+    "DOI": "10.48550/ARXIV.1011.4088",
+    "id": "Sutton2010",
+    "issued": { "date-parts": [[2010]] },
+    "publisher": "arXiv",
+    "title": "An Introduction to Conditional Random Fields",
+    "type": "book",
+    "URL": "https://arxiv.org/abs/1011.4088"
   }
 ]

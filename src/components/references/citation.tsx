@@ -78,8 +78,8 @@ export const Citation = ({ citeItems }: CitationProps) => {
 const Wrap = styled.sup`
 	display: inline;
 	position: relative;
-	vertical-align: top;
-	top: 0.15em;
+	vertical-align: baseline;
+	top: -0.05em;
 	white-space: nowrap;
 `
 

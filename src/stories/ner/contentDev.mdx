@@ -54,6 +54,8 @@ p(x_1, x_2,…) = \frac{1}{Z}\prod_{c\,{\scriptscriptstyle \in}\,C}{\phi_c(x_c)}
 \footnotesize\textrm{and C is the set of cliques in $\mathcal{G}$}
 $$
 
+We don’t need to define a factor $\phi_c$ for every clique $c$. We may, for example, skip any clique containing only one node.
+
 <CRFUndirectedGraphExample />
 
 MRFs have a generalized form of which the directed models we’ve seen so far — HMMs and MEMMs — are special cases. The factors $\phi_c$ can be defined as conditional probabilities, for example $\phi_c(x_1,x_2) = p(x_2|x_1)$, and act as the transition and emission probabilities that characterize HMMs and MEMMs.
@@ -73,7 +75,7 @@ $$
 
 The distribution $p(y|x)$ is parameterized by $x$. When we replace all the values $x_i$ in the right hand side with real values, what remains has the same form as an MRF. In fact, we get a new MRF for every observation sequence $x$.
 
-CRFs are globally conditioned on $x$. They directly model the probability of the label sequence $y$ — $p(y|x)$ — rather than local transition/emission probabilities $p(y_i|y_{i-1})$ or $p(y_i|x_i)$.
+CRFs are globally conditioned on $x$ [@Lafferty2001]. They directly model the probability of the entire label sequence $y$ — $p(y|x)$ — rather than local transition/emission probabilities $p(y_i|y_{i-1})$ or $p(y_i|x_i)$.
 
 Global conditioning on $x$ means that the hidden states $y_i$ can depend not only on the current observation but also any other observation in the sequence. Adding more such dependencies to the model does not increase the computational complexity of inference tasks, since we don’t have to model the marginal probabilities $p(x_i)$ at train/test time.
 
@@ -81,7 +83,7 @@ Global conditioning on $x$ means that the hidden states $y_i$ can depend not onl
 
 ### Exponential Factors
 
-The factors $\phi_c$ have an exponential form [@Lafferty2001] that’s similar MEMMs’ transition function:
+While the factors $\phi_c$ can be any real-valued non-negative function, they usually have exponential form similar to MEMMs’ transition functions [@Sutton2010]:
 
 $$
 \phi_c(y_c, x_c) = \exp\left(\sum_{a}{\lambda_a \, f_a(y_c, x_c)}\right) \\
@@ -89,7 +91,17 @@ $$
 \footnotesize\textrm{and $\lambda_a$ is the weight parameter for $f_a$}
 $$
 
-In a linear chain CRFs, the cliques $c$ are the vertices and edges in the
+Like with MEMMs, we can define the feature functions $f_a$ as binary indicators for the current state or observation. One such indicator may be “the previous state is B-LOC and the current state is I-LOC”. Then at train time we can learn the weight parameters $\lambda_a$ that best fit the given data.
+
+### Training & Inference
+
+During training, estimation of the weight vector $\lambda$ is performed by likelihood maximization. The process has an intuitive and elegant interpretation: by maximizing the training data’s likelihood, we’re also brining the expected value of the feature functions $f_a$ closer to their train-set averages [@Sutton2010]. This is analogous to the maximum-entropy interpretation of parameter estimation in MEMMs [@McCallum2000].
+
+In the case of linear-chain CRFs, inference can be done efficiently using modified versions of the forward, backward, and Viterbi algorithm [@Sutton2010]. Since the distribution $p(y|x)$ is a product of factors $\phi_c$, we can progresively move through the chain, going node to node, adding more factors to the cumulative product. The factors $\phi_c$ play the same role in these algorithms as the transition and emission probabilities of HMMs and MEMMs.
+
+### Label Bias Problem
+
+Global conditioning also helps CRFs avoid the label bias problem that afflicts MEMMs. Label bias comes from local probability normalization [@Hannun2019]. CRFs, unlike MEMMs, employ global normalization — the normalization factor $Z$ is a function of the entire input sequence $x$ — so they are able to escape the label bias problem.
 
 ---
 
