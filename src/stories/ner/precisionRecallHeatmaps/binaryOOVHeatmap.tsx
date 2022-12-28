@@ -39,6 +39,21 @@ const memmRecallByBinaryOOV = [
 	[0.79, 0.37],
 ]
 
+const crfUnaryPrecisionByBinaryOOV = [
+	[0.87, 0.46],
+	[0.87, 0.72],
+	[0.9, 0.29],
+	[0.81, 0.23],
+	[0.87, 0.6],
+]
+const crfUnaryRecallByBinaryOOV = [
+	[0.79, 0.4],
+	[0.82, 0.8],
+	[0.92, 0.2],
+	[0.84, 0.09],
+	[0.85, 0.57],
+]
+
 interface BinaryOOVHeatmapProps {
 	models: MODEL[]
 }
@@ -51,8 +66,10 @@ const BinaryOOVHeatmap = ({ models }: BinaryOOVHeatmapProps) => {
 			case MODEL.HMM:
 				return hmmPrecisionByBinaryOOV
 			case MODEL.MEMM:
-			default:
 				return memmPrecisionByBinaryOOV
+			case MODEL.CRF_UNARY:
+			default:
+				return crfUnaryPrecisionByBinaryOOV
 		}
 	}, [selectedModel])
 
@@ -61,8 +78,10 @@ const BinaryOOVHeatmap = ({ models }: BinaryOOVHeatmapProps) => {
 			case MODEL.HMM:
 				return hmmRecallByBinaryOOV
 			case MODEL.MEMM:
-			default:
 				return memmRecallByBinaryOOV
+			case MODEL.CRF_UNARY:
+			default:
+				return crfUnaryRecallByBinaryOOV
 		}
 	}, [selectedModel])
 

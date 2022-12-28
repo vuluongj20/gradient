@@ -3,19 +3,19 @@ import styled from 'styled-components'
 import Grid from '@components/grid'
 import Scorecard from '@components/scorecard'
 
-const HMMPerEntityScorecards = () => {
+const CRFUnaryPerEntityScorecards = () => {
 	return (
 		<Grid>
 			<Wrap>
-				<Scorecard label="Precision" number={64.2} unit="%" />
-				<Scorecard label="Recall" number={55.8} unit="%" />
-				<Scorecard label={`F\u2081 Score`} number={59.7} unit="%" />
+				<Scorecard label="Precision" number={77.8} unit="%" />
+				<Scorecard label="Recall" number={74.9} unit="%" />
+				<Scorecard label={`F\u2081 Score`} number={76.3} unit="%" />
 			</Wrap>
 		</Grid>
 	)
 }
 
-export default HMMPerEntityScorecards
+export default CRFUnaryPerEntityScorecards
 
 const Wrap = styled.div`
 	display: flex;

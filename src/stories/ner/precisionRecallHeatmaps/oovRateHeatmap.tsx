@@ -41,6 +41,23 @@ const memmRecallByOOVRate = [
 	[0.79, 0.5, 0.25, 0.55, null, 0.61, null, 0.59, null, null, 0.25],
 ]
 
+const crfUnaryPrecisionByOOVRate = [
+	[0.89, null, null, null, null, null, null, null, null, null, 0.4],
+	[0.83, null, null, null, null, 0.75, null, null, null, null, 0.83],
+	[0.78, null, null, 0.55, null, null, null, 0.47, null, null, 0.37],
+	[0.5, null, 0.52, null, null, 0.1, null, null, 0.0, null, null],
+	[0.7, null, null, null, null, null, null, null, null, null, null],
+	[0.87, null, 0.52, 0.55, null, 0.74, null, 0.47, 0.0, null, 0.56],
+]
+const crfUnaryRecallByOOVRate = [
+	[0.86, null, null, null, null, null, null, null, null, null, 0.29],
+	[0.86, null, null, null, null, 0.77, null, null, null, null, 0.85],
+	[0.75, null, null, 0.68, null, null, null, 0.81, null, null, 0.56],
+	[0.52, null, 0.92, null, null, null, null, null, null, null, null],
+	[0.7, 0.67, null, null, null, null, null, null, null, null, null],
+	[0.85, 0.67, 0.92, 0.68, null, 0.77, null, 0.81, null, null, 0.46],
+]
+
 const entityLengths = [1, 2, 3, 4, 5]
 const oovRates = [0, 0.2, 0.25, 0.33, 0.4, 0.5, 0.6, 0.66, 0.75, 0.8, 1]
 
@@ -59,8 +76,10 @@ const OOVRateHeatmap = ({ models }: OOVRateHeatmapProps) => {
 				case MODEL.HMM:
 					return hmmPrecisionByOOVRate
 				case MODEL.MEMM:
-				default:
 					return memmPrecisionByOOVRate
+				case MODEL.CRF_UNARY:
+				default:
+					return crfUnaryPrecisionByOOVRate
 			}
 		}
 
@@ -68,8 +87,10 @@ const OOVRateHeatmap = ({ models }: OOVRateHeatmapProps) => {
 			case MODEL.HMM:
 				return hmmRecallByOOVRate
 			case MODEL.MEMM:
-			default:
 				return memmRecallByOOVRate
+			case MODEL.CRF_UNARY:
+			default:
+				return crfUnaryRecallByOOVRate
 		}
 	}, [selectedModel, metric])
 

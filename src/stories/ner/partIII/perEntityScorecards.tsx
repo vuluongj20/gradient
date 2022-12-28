@@ -19,7 +19,9 @@ export default MEMMPerEntityScorecards
 
 const Wrap = styled.div`
 	display: flex;
-	gap: var(--space-4);
+	flex-wrap: wrap;
+	column-gap: var(--space-4);
+	row-gap: var(--space-1);
 	margin-bottom: var(--adaptive-space-3);
 	${(p) => p.theme.gridColumn.text};
 `

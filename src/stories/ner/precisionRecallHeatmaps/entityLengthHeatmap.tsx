@@ -37,6 +37,21 @@ const memmRecallByEntityLength = [
 	[0.64, 0.64, 0.53, 0.22, 0.5],
 ]
 
+const crfUnaryPrecisionByEntityLength = [
+	[0.77, 0.81, 0.65, 0.39, 0.43],
+	[0.58, 0.85, 0.69, null, null],
+	[0.86, 0.69, 0.77, null, null],
+	[0.84, 0.61, 0.31, 0.18, null],
+	[0.79, 0.81, 0.63, 0.35, 0.46],
+]
+const crfUnaryRecallByEntityLength = [
+	[0.67, 0.64, 0.73, 0.62, 0.56],
+	[0.51, 0.96, 0.83, null, null],
+	[0.83, 0.74, 0.68, null, null],
+	[0.69, 0.55, 0.48, null, null],
+	[0.71, 0.83, 0.73, 0.62, 0.6],
+]
+
 const groups = [1, 2, 3, 4, 5]
 
 interface EntityLengthHeatmapProps {
@@ -54,8 +69,10 @@ const EntityLengthHeatmap = ({ models }: EntityLengthHeatmapProps) => {
 				case MODEL.HMM:
 					return hmmPrecisionByEntityLength
 				case MODEL.MEMM:
-				default:
 					return memmPrecisionByEntityLength
+				case MODEL.CRF_UNARY:
+				default:
+					return crfUnaryPrecisionByEntityLength
 			}
 		}
 
@@ -63,8 +80,10 @@ const EntityLengthHeatmap = ({ models }: EntityLengthHeatmapProps) => {
 			case MODEL.HMM:
 				return hmmRecallByEntityLength
 			case MODEL.MEMM:
-			default:
 				return memmRecallByEntityLength
+			case MODEL.CRF_UNARY:
+			default:
+				return crfUnaryRecallByEntityLength
 		}
 	}, [selectedModel, metric])
 
@@ -111,8 +130,10 @@ const Wrap = styled.div`
 
 const ControlWrap = styled.div`
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
-	gap: var(--space-2);
+	column-gap: var(--space-2);
+	row-gap: var(--space-1);
 `
 
 const ContentWrap = styled.div`

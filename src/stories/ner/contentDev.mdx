@@ -3,7 +3,12 @@ import { Fragment } from 'react'
 import CRFOverviewGraph from './partIV/overviewGraph'
 import CRFOverviewGraphLongRange from './partIV/overviewGraphLongRange'
 import CRFRandomFieldGraph from './partIV/randomFieldGraph'
+import CRFUnaryPerEntityScorecards from './partIV/unaryPerEntityScorecards'
+import CRFUnaryPerWordScorecards from './partIV/unaryPerWordScorecards'
 import CRFUndirectedGraphExample from './partIV/undirectedGraphExample'
+import BinaryOOVHeatmap from './precisionRecallHeatmaps/binaryOOVHeatmap'
+import EntityLengthHeatmap from './precisionRecallHeatmaps/entityLengthHeatmap'
+import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 
 <Header></Header>
 
@@ -101,7 +106,27 @@ In the case of linear-chain CRFs, inference can be done efficiently using modifi
 
 ### Label Bias Problem
 
-Global conditioning also helps CRFs avoid the label bias problem that afflicts MEMMs. Label bias comes from local probability normalization [@Hannun2019]. CRFs, unlike MEMMs, employ global normalization — the normalization factor $Z$ is a function of the entire input sequence $x$ — so they are able to escape the label bias problem.
+Global conditioning on $x$ helps CRFs avoid the label bias problem [@McCallum2000]. The problem mostly affects models with local probability normalization, like MEMMs [@Hannun2019]. CRFs escape this since they model the probability of the entire state sequence $p(y|x)$, which has a single, global normalization factor $Z$.
+
+CRFs’ resistance to label bias, at least compared to MEMMs, has been well demonstrated in experimental conditions [@McCallum2000]. In practical applications, however, it’s more difficult to capture the presence and effect of label bias due to a myriad of confounding factors. Still, we can rule out potential confounders and try to isolate label bias in our test systems.
+
+A test linear-chain CRF was trained using the same data and features as the MEMM in the previous section. Each hidden state in the CRF depends only on the current observation, forming a unary chain structure similar to the MEMM’s.
+
+The resulting CRF closely resembles the baseline MEMM. Both have exponential form with a weighted sum of all word features as the exponent. The only meaningful difference between the two is how normalization is done: globally for the CRF and locally for the MEMM. Since the label bias problem comes from local normalization, we should see more bias, observable as errors, in the MEMM than the CRF.
+
+Overall, the CRF strongly outperforms the MEMM. While it has slightly lower accuracy (compared to the MEMM’s 93.1%):
+
+<CRFUnaryPerWordScorecards />
+
+…the CRF makes predictions with significantly higher precision and recall:
+
+<CRFUnaryPerEntityScorecards />
+
+The performance gains are spread out across states and OOV status:
+
+<BinaryOOVHeatmap models={['crf-unary', 'memm']} />
+
+Since both models are trained with the same dataset, features, and unary structure, the increased performance is highly attributable to the switch to global normalization. While this is not definitive proof of CRFs’ resistance to the label bias problem — global normalization could help improve model performance in other ways, it is nonetheless encouraging.
 
 ---
 

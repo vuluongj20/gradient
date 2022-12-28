@@ -153,6 +153,7 @@ const SegmentedControlWrap = styled.div<{ moveLeft?: boolean }>`
 	background: var(--color-background-recessed-lower);
 	box-shadow: inset var(--box-shadow-s);
 	border-radius: var(--border-radius-m);
+	white-space: nowrap;
 
 	${(p) => p.moveLeft && `transform: translateX(-var(--space-0))`}
 `
