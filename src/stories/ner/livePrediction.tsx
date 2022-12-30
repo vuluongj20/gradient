@@ -2,13 +2,13 @@ import { ChangeEvent, ReactNode, useCallback, useMemo, useRef, useState } from '
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import styled from 'styled-components'
 
-import { MODEL, MODEL_FULL } from './constants'
+import { MODEL_FULL, PREDICTION_MODEL } from './constants'
 import http, { PredictionResponseData } from './http'
 import { getTokenSpaces, tokenize } from './utils'
 
 import Button from '@components/button'
 import Grid from '@components/grid'
-import Panel, { PanelProps } from '@components/panel'
+import Panel from '@components/panel'
 import Spinner from '@components/spinner'
 
 import IconRestart from '@icons/restart'
@@ -41,12 +41,16 @@ const SAMPLES = [
 ]
 
 const MODEL_ENDPOINTS = {
-	[MODEL.HMM]: '/hmm/predict',
-	[MODEL.MEMM]: '/memm/predict',
-	[MODEL.CRF]: '/crf/predict',
+	[PREDICTION_MODEL.HMM]: '/hmm/predict',
+	[PREDICTION_MODEL.MEMM]: '/memm/predict',
+	[PREDICTION_MODEL.CRF]: '/crf/predict',
 }
 
-const EMPTY_PREDS = { [MODEL.HMM]: [], [MODEL.MEMM]: [], [MODEL.CRF]: [] }
+const EMPTY_PREDS = {
+	[PREDICTION_MODEL.HMM]: [],
+	[PREDICTION_MODEL.MEMM]: [],
+	[PREDICTION_MODEL.CRF]: [],
+}
 
 const PRED_LABELS = [
 	['O', 'not a name'],
@@ -56,8 +60,8 @@ const PRED_LABELS = [
 	['MISC', 'miscellaneous'],
 ]
 
-interface LivePredictionProps extends PanelProps {
-	models: MODEL[]
+interface LivePredictionProps {
+	models: PREDICTION_MODEL[]
 	label?: ReactNode
 	initialInputValue?: string
 	hideTagPrefixes?: boolean
@@ -70,7 +74,6 @@ const LivePrediction = ({
 	initialInputValue,
 	hideTagPrefixes,
 	noMargin,
-	...panelProps
 }: LivePredictionProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const tableWrapperRef = useRef<HTMLDivElement>(null)
@@ -81,7 +84,8 @@ const LivePrediction = ({
 	const [tokenSpaces, setTokenSpaces] = useState<boolean[]>([])
 
 	// Fetch & store predictions
-	const [predictions, setPredictions] = useState<Record<MODEL, string[]>>(EMPTY_PREDS)
+	const [predictions, setPredictions] =
+		useState<Record<PREDICTION_MODEL, string[]>>(EMPTY_PREDS)
 	const [loadingPredictions, setLoadingPredictions] = useState(true)
 	const [initialized, setInitialized] = useState(false)
 	const [pendingRequest, setPendingRequest] =
@@ -126,7 +130,7 @@ const LivePrediction = ({
 										models[i],
 										response.data.predictions[0],
 									]),
-								) as Record<MODEL, string[]>,
+								) as Record<PREDICTION_MODEL, string[]>,
 							)
 						}
 

@@ -5,6 +5,15 @@ export enum MODEL {
 	CRF = 'crf',
 }
 
+/**
+ * Subset of models available for live prediction
+ */
+export enum PREDICTION_MODEL {
+	HMM = 'hmm',
+	MEMM = 'memm',
+	CRF = 'crf',
+}
+
 export const MODEL_SHORT = {
 	[MODEL.HMM]: 'HMM',
 	[MODEL.MEMM]: 'MEMM',
