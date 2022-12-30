@@ -224,11 +224,11 @@ const GlobalStyles = createGlobalStyle`
     --color-scale-charcoal-surface3: #1B1B1B;
     --color-scale-charcoal-surface4: #1F1F1F;
     --color-scale-charcoal-surface5: #242424;
-    --color-scale-paper-surface1-alpha-0: #13131300;
-    --color-scale-paper-surface2-alpha-0: #17171700;
-    --color-scale-paper-surface3-alpha-0: #1B1B1B00;
-    --color-scale-paper-surface4-alpha-0: #1F1F1F00;
-    --color-scale-paper-surface5-alpha-0: #24242400;
+    --color-scale-charcoal-surface1-alpha-0: #13131300;
+    --color-scale-charcoal-surface2-alpha-0: #17171700;
+    --color-scale-charcoal-surface3-alpha-0: #1B1B1B00;
+    --color-scale-charcoal-surface4-alpha-0: #1F1F1F00;
+    --color-scale-charcoal-surface5-alpha-0: #24242400;
     --color-scale-charcoal-gray1: #F1F2F4;
     --color-scale-charcoal-gray2: #D5D9DC;
     --color-scale-charcoal-gray3: #BDC2C7;

@@ -2,19 +2,21 @@ export enum MODEL {
 	HMM = 'hmm',
 	MEMM = 'memm',
 	CRF_UNARY = 'crf-unary',
-	CRF_TERNARY = 'crf-ternary',
+	CRF = 'crf',
 }
 
 export const MODEL_SHORT = {
 	[MODEL.HMM]: 'HMM',
 	[MODEL.MEMM]: 'MEMM',
 	[MODEL.CRF_UNARY]: 'CRF (Unary)',
+	[MODEL.CRF_UNARY]: 'CRF',
 }
 
 export const MODEL_FULL = {
 	[MODEL.HMM]: 'Hidden Markov Model',
 	[MODEL.MEMM]: 'Maximum-Entropy Markov Model',
 	[MODEL.CRF_UNARY]: 'Conditional Random Field',
+	[MODEL.CRF]: 'Conditional Random Field',
 }
 
 export const nameTags = [

@@ -126,7 +126,7 @@ The performance gains are spread out across states and OOV status:
 
 <BinaryOOVHeatmap models={['crf-unary', 'memm']} />
 
-Since both models are trained with the same dataset, features, and unary structure, the increased performance is highly attributable to the switch to global normalization. While this is not definitive proof of CRFs’ resistance to the label bias problem — global normalization could help improve model performance in other ways, it is nonetheless encouraging.
+Since both models are trained with the same dataset, features, and unary structure, the increased performance is attributable to global normalization. While these results are not a definitive proof of CRFs’ resistance to the label bias problem — global normalization could help improve model performance in other ways, it is nonetheless encouraging.
 
 ---
 

@@ -14,9 +14,9 @@ const config: GatsbyConfig = {
     lang: 'en-US',
     dir: 'ltr',
     siteUrl: 'https://www.gradient.pub',
-    title: 'Gradient – Ideas on Technology, Design, Philosophy, and the Law',
+    title: 'Gradient',
     description:
-      'An online publication on the topics of technology, design, philosophy, and the law.',
+      'An online publication on interesting data and machine learning concepts',
     type: 'website',
     author: 'Vu Luong',
     authorTwitter: '@vuluongj20',
