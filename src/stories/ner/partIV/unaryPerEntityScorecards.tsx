@@ -22,6 +22,6 @@ const Wrap = styled.div`
 	flex-wrap: wrap;
 	column-gap: var(--space-4);
 	row-gap: var(--space-1);
-	margin-bottom: var(--adaptive-space-3);
+	margin-bottom: var(--adaptive-space-2);
 	${(p) => p.theme.gridColumn.text};
 `

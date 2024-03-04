@@ -7,7 +7,7 @@ const CRFUnaryPerWordScorecards = () => {
 	return (
 		<Grid>
 			<Wrap>
-				<Scorecard label="Accuracy" number={91.7} unit="%" />
+				<Scorecard label="Accuracy" number={94.8} unit="%" />
 			</Wrap>
 		</Grid>
 	)
@@ -20,6 +20,6 @@ const Wrap = styled.div`
 	flex-wrap: wrap;
 	column-gap: var(--space-4);
 	row-gap: var(--space-1);
-	margin-bottom: var(--adaptive-space-3);
+	margin-bottom: var(--adaptive-space-2);
 	${(p) => p.theme.gridColumn.text};
 `

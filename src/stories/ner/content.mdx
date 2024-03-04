@@ -21,6 +21,8 @@ import MEMMPerWordScorecard from './partIII/perWordScorecards'
 import CRFOverviewGraph from './partIV/overviewGraph'
 import CRFOverviewGraphLongRange from './partIV/overviewGraphLongRange'
 import CRFRandomFieldGraph from './partIV/randomFieldGraph'
+import CRFUnaryPerEntityScorecards from './partIV/unaryPerEntityScorecards'
+import CRFUnaryPerWordScorecards from './partIV/unaryPerWordScorecards'
 import CRFUndirectedGraphExample from './partIV/undirectedGraphExample'
 import BinaryOOVHeatmap from './precisionRecallHeatmaps/binaryOOVHeatmap'
 import EntityLengthHeatmap from './precisionRecallHeatmaps/entityLengthHeatmap'
@@ -49,7 +51,8 @@ import OOVRateHeatmap from './precisionRecallHeatmaps/oovRateHeatmap'
 			Which of these words refer to a&nbsp;
 			<abbr title="A person, organization, location, or other (miscellaneous)">
 				<span>named entity</span>
-			</abbr>?
+			</abbr>
+			?
 		</Fragment>
 	}
 />
@@ -437,13 +440,45 @@ Global conditioning on $x$ means that the hidden states $y_i$ can depend not onl
 
 ### Exponential Factors
 
-The factors $\phi_c$ have an exponential form [@Lafferty2001] that’s similar MEMMs’ transition function:
+While the factors $\phi_c$ can be any real-valued non-negative function, they usually have exponential form similar to MEMMs’ transition functions [@Sutton2010]:
 
 $$
 \phi_c(y_c, x_c) = \exp\left(\sum_{a}{\lambda_a \, f_a(y_c, x_c)}\right) \\
 \footnotesize\textrm{where $f_a$ is a feature function defined for clique $c$} \\
 \footnotesize\textrm{and $\lambda_a$ is the weight parameter for $f_a$}
 $$
+
+Like with MEMMs, we can define the feature functions $f_a$ as binary indicators for the current state or observation. One such indicator may be “the previous state is B-LOC and the current state is I-LOC”. Then at train time we can learn the weight parameters $\lambda_a$ that best fit the given data.
+
+### Training & Inference
+
+During training, estimation of the weight vector $\lambda$ is performed by likelihood maximization. The process has an intuitive and elegant interpretation: by maximizing the training data’s likelihood, we’re also brining the expected value of the feature functions $f_a$ closer to their train-set averages [@Sutton2010]. This is analogous to the maximum-entropy interpretation of parameter estimation in MEMMs [@McCallum2000].
+
+In the case of linear-chain CRFs, inference can be done efficiently using modified versions of the forward, backward, and Viterbi algorithm [@Sutton2010]. Since the distribution $p(y|x)$ is a product of factors $\phi_c$, we can progresively move through the chain, going node to node, adding more factors to the cumulative product. The factors $\phi_c$ play the same role in these algorithms as the transition and emission probabilities of HMMs and MEMMs.
+
+### Label Bias Problem
+
+Global conditioning on $x$ helps CRFs avoid the label bias problem [@McCallum2000]. The problem mostly affects models with local probability normalization, including MEMMs [@Hannun2019]. CRFs avoid this since they model the probability of the entire state sequence $p(y|x)$, which has a single, global normalization factor $Z$.
+
+CRFs’ robustness against label bias, at least compared to MEMMs, has been well demonstrated in experimental conditions [@McCallum2000]. In practical applications, however, it’s more difficult to capture the presence and effect of label bias due to a myriad of confounding factors. Still, we can rule out potential confounders and try to isolate label bias in our test systems.
+
+A test linear-chain CRF was trained using the same data and features as the MEMM in the previous section. Each hidden state in the CRF depends only on the current observation, forming a unary chain structure similar to the MEMM’s. (CRF states can depend on any observation, this test version on uses the current observation for a better comparison with the MEMM.)
+
+The resulting unary CRF closely resembles the baseline MEMM. Both have exponential form with a weighted sum of all word features as the exponent. The only meaningful difference between the two is how normalization is done: globally for the CRF and locally for the MEMM. Since the label bias problem comes from local normalization, we should see more bias, observable as errors, in the MEMM than the CRF.
+
+Overall, the unary CRF strongly outperforms the MEMM. While it has only slightly higher accuracy (compared to the MEMM’s 93.1%):
+
+<CRFUnaryPerWordScorecards />
+
+…the CRF makes predictions with significantly higher precision and recall:
+
+<CRFUnaryPerEntityScorecards />
+
+The performance gains are spread out across states and OOV status:
+
+<BinaryOOVHeatmap models={['crf-unary', 'memm']} />
+
+Since both models are trained with the same dataset, features, and unary structure, the increased performance is attributable to global normalization. While these results are not a definitive proof of CRFs’ resistance to the label bias problem — global normalization could help improve model performance in other ways, it is nonetheless encouraging.
 
 ---
 
