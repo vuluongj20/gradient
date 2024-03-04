@@ -50,7 +50,7 @@ const Wrap = styled.li`
 
 const Title = styled.p`
 	&& {
-		${(p) => p.theme.text.system.label}
+		${(p) => p.theme.text.label}
 	}
 	color: var(--color-label);
 	margin-left: var(--space-1);

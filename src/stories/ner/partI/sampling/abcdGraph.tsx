@@ -218,7 +218,7 @@ const StyledPairGrid = styled(PairGrid)`
 `
 
 const GuideText = styled.p`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 	margin-left: var(--space-0);
 	width: 8rem;

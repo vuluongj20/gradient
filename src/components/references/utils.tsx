@@ -29,7 +29,7 @@ export function formatReferences(references: CSL.Data[]) {
 						? 'HTML'
 						: 'Link'
 				const link = reference.URL
-					? ` <a href="${reference.URL}" target="_blank" rel="noopener noreferrer">${linkText}</a>`
+					? ` <a href="${reference.URL}" target="_blank" rel="noopener noreferrer" tabindex="-1">${linkText}</a>`
 					: ''
 
 				return entry

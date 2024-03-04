@@ -33,7 +33,7 @@ const featureNameSortOrder = [
 	'is_not_digit',
 ]
 
-type NameTag = typeof nameTags[number]
+type NameTag = (typeof nameTags)[number]
 type FeatureBreakdown = Array<{
 	feature: string
 	tag: string
@@ -343,7 +343,7 @@ const InputWrap = styled.div`
 	button,
 	span {
 		text-align: center;
-		${(p) => p.theme.text.viz.body};
+		${(p) => p.theme.vizText.body};
 	}
 
 	${(p) => p.theme.breakpoints.mobile} {
@@ -411,7 +411,7 @@ const BreakdownHeader = styled.div`
 `
 
 const BreakdownHeading = styled.p`
-	${(p) => p.theme.text.system.h6};
+	${(p) => p.theme.text.h6};
 	margin-bottom: var(--space-0);
 `
 
@@ -440,7 +440,7 @@ const BreakdownTable = styled(Table)<{ visible: boolean }>`
 	transition: opacity var(--animation-fast-out);
 
 	tbody {
-		${(p) => p.theme.text.viz.body}
+		${(p) => p.theme.vizText.body}
 	}
 
 	tbody > tr:last-of-type {
@@ -494,7 +494,7 @@ const BreakdownTableFoot = styled(TableFoot)`
 		font-weight: 500;
 	}
 	td {
-		${(p) => p.theme.text.viz.body}
+		${(p) => p.theme.vizText.body}
 		color: var(--color-heading);
 		font-weight: 500;
 	}
@@ -533,7 +533,7 @@ const ProbabilityCalculationRightWrap = styled.span`
 `
 
 const ProbabilityCalculationResult = styled.span`
-	${(p) => p.theme.text.system.h5};
+	${(p) => p.theme.text.h5};
 `
 
 const NoObservationWrap = styled.div`
@@ -549,7 +549,7 @@ const NoObservationWrap = styled.div`
 `
 
 const NoObservationMessage = styled.p`
-	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.text.small};
 	color: var(--color-label);
 	text-align: center;
 	max-width: 28em;

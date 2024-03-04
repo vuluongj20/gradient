@@ -76,7 +76,7 @@ const Wrap = styled.div<{ rowLayout: boolean; small: boolean }>`
 
 const Label = styled.label<{ rowLayout: boolean }>`
 	justify-self: start;
-	${(p) => !p.rowLayout && p.theme.text.system.label}
+	${(p) => !p.rowLayout && p.theme.text.label}
 	${(p) =>
 		!p.rowLayout &&
 		`
@@ -89,7 +89,7 @@ const Description = styled.small<{ rowLayout: boolean }>`
 	grid-row: 2;
 	justify-self: start;
 
-	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.text.small};
 	color: var(--color-label);
 
 	${(p) =>

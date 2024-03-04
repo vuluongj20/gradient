@@ -96,9 +96,11 @@ const Wrap = styled.button<{
 				? 'var(--color-primary-opaque-background)'
 				: 'var(--color-line)'
 			: 'transparent'};
-	transition: color, box-shadow var(--animation-v-fast-out);
+	transition:
+		color,
+		box-shadow var(--animation-v-fast-out);
 
-	${(p) => p.theme.text.system.label};
+	${(p) => p.theme.text.label};
 	color: ${(p) =>
 		p.primary ? 'var(--color-primary-text)' : 'var(--color-button-label)'};
 

@@ -4,7 +4,6 @@ import { Script } from 'gatsby'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import './fontFaces.css'
 import GlobalStyles from './globalStyles'
 import Nav from './nav'
 
@@ -36,6 +35,8 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 		}
 	})
 
+	const storyTitle = pageContext.frontmatter?.title ?? pageContext.title
+
 	return (
 		<SSRProvider>
 			<SettingsProvider>
@@ -43,8 +44,10 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 					<OverlayProvider>
 						<GlobalStyles />
 						<Script src="https://unpkg.com/focus-visible@5.2.0/dist/focus-visible.min.js" />
-						<Nav pageTitle={pageContext.frontmatter?.title ?? pageContext.title ?? ''} />
-						<PageContent id="page-content">{children}</PageContent>
+						<Nav storyTitle={storyTitle} />
+						<PageContent id="page-content" isStory={!!storyTitle}>
+							{children}
+						</PageContent>
 					</OverlayProvider>
 				</GlobalThemeProvider>
 			</SettingsProvider>
@@ -54,15 +57,9 @@ const Layout = ({ children, pageContext }: Props): JSX.Element => {
 
 export default Layout
 
-const PageContent = styled('main')`
+const PageContent = styled('main')<{ isStory?: boolean }>`
 	position: relative;
 	margin: 0 auto;
-
-	/* Leave space for nav bar */
-	padding-left: var(--nav-width);
-
-	${(p) => p.theme.breakpoints.mobile} {
-		padding-left: 0;
-		padding-top: var(--nav-height);
-	}
+	max-width: var(--max-site-width);
+	${(p) => p.isStory && 'padding-top: var(--nav-height);'}
 `

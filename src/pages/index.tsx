@@ -57,13 +57,9 @@ const HeaderWrap = styled.header`
   display: flex;
   align-items: flex-end;
   padding: var(--space-3) var(--page-margin-right) var(--space-3) var(--page-margin-left);
-
-  ${(p) => p.theme.breakpoints.mobile} {
-    display: none;
-  }
 `
 
 const HeaderText = styled.h1`
-  ${(p) => p.theme.text.content.h2};
+  ${(p) => p.theme.text.h2};
   color: var(--color-heading);
 `

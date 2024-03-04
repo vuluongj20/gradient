@@ -143,11 +143,8 @@ const Wrap = styled(Link)<
 			`
 			: `
 				padding-bottom: var(--space-1);
-				grid-column: ${p.$gridCols.xxl.start} / ${p.$gridCols.xxl.end};
 
-				${p.theme.breakpoints.xl} {
-					grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
-				}
+				grid-column: ${p.$gridCols.xl.start} / ${p.$gridCols.xl.end};
 
 				${p.theme.breakpoints.l} {
 					grid-column: ${p.$gridCols.l.start} / ${p.$gridCols.l.end};
@@ -217,7 +214,7 @@ const TitleWrap = styled.div<{ rowLayout: boolean }>`
 `
 
 const Title = styled.p<{ active: boolean }>`
-	${(p) => p.theme.text.content.h5};
+	${(p) => p.theme.text.h5};
 
 	position: relative;
 
@@ -241,7 +238,7 @@ const DummyTitle = styled.span<{ active: boolean }>`
 `
 
 const Tags = styled.div<{ active: boolean }>`
-	${(p) => p.theme.text.system.label};
+	${(p) => p.theme.text.label};
 	color: var(--color-label);
 	margin-top: var(--space-0);
 	transition: color var(--animation-v-fast-out);

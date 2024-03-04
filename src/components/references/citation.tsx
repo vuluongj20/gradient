@@ -37,13 +37,13 @@ export const Citation = ({ citeItems }: CitationProps) => {
 			content={formattedReferences.map((formattedText, i) => (
 				<Fragment key={i}>
 					<CitationText dangerouslySetInnerHTML={{ __html: formattedText }} />
-					{i < formattedReferences.length - 1 && <StyledDivider />}
+					{i < formattedReferences.length - 1 && <StyledDivider asSpan />}
 				</Fragment>
 			))}
 			maxWidth="28rem"
 			renderWrapperAsSpan
 			renderOverlayAsSpan
-			delay={0}
+			delay={{ open: 0, close: 250 }}
 			offset={6}
 		>
 			{(tooltipProps) => (
@@ -51,6 +51,7 @@ export const Citation = ({ citeItems }: CitationProps) => {
 					{citeItems.length > 1 ? (
 						citeItems.map(({ id, referenceId, referenceNumber }, i) => (
 							<CitationLink
+								data-citation-group-index={i}
 								key={referenceId}
 								id={`citation-${referenceId}-${id}`}
 								href={`#reference-${referenceId}`}
@@ -63,6 +64,7 @@ export const Citation = ({ citeItems }: CitationProps) => {
 						))
 					) : (
 						<CitationLink
+							data-citation-group-index={0}
 							id={`citation-${citeItems[0].referenceId}-${citeItems[0].id}`}
 							href={`#reference-${citeItems[0].referenceId}`}
 						>
@@ -77,15 +79,14 @@ export const Citation = ({ citeItems }: CitationProps) => {
 
 const Wrap = styled.sup`
 	display: inline;
-	position: relative;
-	vertical-align: baseline;
-	top: -0.05em;
+	vertical-align: text-bottom;
 	white-space: nowrap;
 `
 
 const CitationLink = styled.a`
 	font-family: inherit;
 	color: var(--color-label);
+	scroll-margin-top: var(--adaptive-space-0);
 
 	&:hover,
 	&:target:focus,
@@ -97,18 +98,22 @@ const CitationLink = styled.a`
 	&:target:focus,
 	&.focus-visible {
 		${(p) => p.theme.focusVisible};
+		text-decoration: none;
 	}
 `
 
 const CitationText = styled.span`
-	${(p) => p.theme.text.system.body};
+	${(p) => p.theme.text.body2};
 	display: block;
+	position: relative;
 	text-align: left;
 	margin: var(--space-0-5);
+	padding-left: var(--space-0);
 
 	b {
-		color: var(--color-heading);
 		font-weight: 500;
+		color: var(--color-heading);
+		transition: color var(--animation-medium-out);
 	}
 	br {
 		margin-bottom: var(--space-0);

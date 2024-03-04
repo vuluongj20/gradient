@@ -21,8 +21,8 @@ export const defaultSettings: Settings = {
 		},
 		text: {
 			system: 'sohne',
-			content: 'domaine',
-			viz: 'sohne-mono',
+			content: 'sohne',
+			viz: 'sohneMono',
 		},
 		alwaysShowVideoCaptions: false,
 	},

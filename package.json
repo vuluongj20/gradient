@@ -57,6 +57,7 @@
     "react": "^18.2.0",
     "react-aria": "^3.19.0",
     "react-dom": "^18.1.0",
+    "react-shadow": "^20.4.0",
     "react-transition-group": "^4.4.2",
     "rehype-katex": "^5.0.0",
     "remark-math": "^4.0.0",

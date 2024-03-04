@@ -17,14 +17,12 @@ type CSSObjectUtil = Record<
 export type Theme = {
 	elevation: number
 	/** Text */
-	text: {
-		system: TextScale
-		content: TextScale
-		viz: TextScale
-	}
+	text: TextScale
+	vizText: TextScale
 	breakpoints: Record<Breakpoint | 'mobile', string>
 	gridColumn: Record<'text' | 'wide' | 'fullWidth', CSSObject>
 	fadeIn: Keyframes
+	blurIn: Keyframes
 } & CSSStringUtil &
 	CSSObjectUtil
 
@@ -53,15 +51,24 @@ const fadeIn = keyframes`
 	}
 `
 
+const blurIn = keyframes`
+	from {
+		opacity: 0;
+		filter: blur(12px);
+	}
+	to {
+		opacity: 1;
+		filter: blur(0);
+	}
+`
+
 export const getTheme = (settings: ThemeSettings): Theme => {
 	return {
 		elevation: settings.color.elevation,
-		text: {
-			system: textScales[settings.text.system],
-			content: textScales[settings.text.content],
-			viz: textScales[settings.text.viz],
-		},
+		text: textScales.sohne,
+		vizText: textScales.sohneMono,
 		fadeIn,
+		blurIn,
 		spread: {
 			position: 'absolute',
 			top: 0,
@@ -91,7 +98,7 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 			stroke: 'var(--color-focus)',
 			zIndex: 1,
 		},
-		lineHeight: `calc(1rem * ${String(textScales.sohne.body.lineHeight)})`,
+		lineHeight: `calc(1rem * ${String(textScales.sohne.body2.lineHeight)})`,
 		defaultTransitions: `background-color var(--animation-medium-out), 
 		      border-color var(--animation-medium-out),
 		      box-shadow var(--animation-medium-out)`,
@@ -118,26 +125,14 @@ export const getTheme = (settings: ThemeSettings): Theme => {
 				maxWidth: '44rem',
 				marginLeft: 'auto',
 				marginRight: 'auto',
-				gridColumn: '4 / -4',
-				[`@media only screen and (max-width: ${breakpoints.xl})`]: {
-					gridColumn: '3 / -3',
-				},
-				[`@media only screen and (max-width: ${breakpoints.m})`]: {
-					gridColumn: '2 / -2',
-				},
-				[`@media only screen and (max-width: ${breakpoints.s})`]: {
-					gridColumn: '1 / -1',
-				},
+				gridColumn: 'text-start / text-end',
 			},
 			wide: {
 				width: '100%',
 				maxWidth: '60rem',
 				marginLeft: 'auto',
 				marginRight: 'auto',
-				gridColumn: '2 / -2',
-				[`@media only screen and (max-width: ${breakpoints.m})`]: {
-					gridColumn: '1 / -1',
-				},
+				gridColumn: 'wide-start / wide-end',
 			},
 			fullWidth: {
 				width: '100%',

@@ -92,7 +92,7 @@ const StyledImage = styled(GatsbyImage)`
 `
 
 const Caption = styled.figcaption<{ gridColumn?: FigureProps['gridColumn'] }>`
-	${(p) => p.theme.text.viz.small};
+	${(p) => p.theme.vizText.small};
 	text-transform: uppercase;
 	line-height: 1.4;
 	margin-top: var(--space-1);

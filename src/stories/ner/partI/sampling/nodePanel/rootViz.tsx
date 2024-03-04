@@ -221,7 +221,7 @@ const Wrap = styled.svg`
 	height: auto;
 
 	g.axis text {
-		${(p) => p.theme.text.viz.small}
+		${(p) => p.theme.vizText.small}
 		fill: var(--color-label);
 	}
 	g.x-axis path {

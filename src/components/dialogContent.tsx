@@ -108,7 +108,9 @@ const Wrap = styled.div<{ compact: boolean; size: Breakpoint }>`
 	max-width: 100%;
 	background: var(--color-background-raised);
 	border-radius: var(--border-radius-l);
-	box-shadow: 0 0 0 1px var(--color-line), var(--box-shadow-l);
+	box-shadow:
+		0 0 0 1px var(--color-line),
+		var(--box-shadow-l);
 	transform: translate3d(0, 4rem, 0);
 	transition: transform var(--animation-medium-out);
 	will-change: transform;
@@ -159,7 +161,7 @@ const CloseButton = styled.button<{ compact: boolean }>`
 	margin: calc(var(--space-1) * -1);
 	color: var(--color-label);
 
-	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h4)};
+	${(p) => (p.compact ? p.theme.text.label : p.theme.text.h4)};
 
 	&:hover {
 		color: var(--color-heading);
@@ -175,5 +177,5 @@ const StyledIconClose = styled(IconClose)`
 `
 
 const Title = styled.h2<{ compact: boolean }>`
-	${(p) => (p.compact ? p.theme.text.system.label : p.theme.text.system.h5)};
+	${(p) => (p.compact ? p.theme.text.label : p.theme.text.h5)};
 `

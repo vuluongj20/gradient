@@ -98,7 +98,7 @@ const Wrap = styled.footer`
 // `
 
 // const ColLabel = styled.label`
-// 	${(p) => p.theme.text.system.label};
+// 	${(p) => p.theme.text.label};
 // 	color: var(--color-label);
 
 // 	margin-bottom: var(--space-1);

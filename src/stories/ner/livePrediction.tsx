@@ -364,9 +364,9 @@ const InputGroup = styled.div<{ modelNameOffset?: boolean }>`
 `
 
 const Input = styled.input`
-	${(p) => p.theme.text.content.h5};
-	font-family: ${(p) => p.theme.text.content.body.fontFamily};
-	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
+	${(p) => p.theme.text.h5};
+	font-family: ${(p) => p.theme.text.body1.fontFamily};
+	font-weight: ${(p) => p.theme.text.body1.fontWeight};
 	letter-spacing: -0.03em;
 
 	background: var(--color-background-recessed);
@@ -486,9 +486,9 @@ const ConnectorCell = styled.th`
 	padding: var(--space-1) 0;
 	user-select: none;
 
-	${(p) => p.theme.text.content.h5};
-	font-family: ${(p) => p.theme.text.content.body.fontFamily};
-	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
+	${(p) => p.theme.text.h5};
+	font-family: ${(p) => p.theme.text.body1.fontFamily};
+	font-weight: ${(p) => p.theme.text.body1.fontWeight};
 	letter-spacing: -0.03em;
 	color: transparent;
 
@@ -543,7 +543,7 @@ const PredRow = styled.tr`
 `
 
 const Pred = styled.td`
-	${(p) => p.theme.text.viz.label};
+	${(p) => p.theme.vizText.label};
 	font-weight: 500;
 	text-align: center;
 	text-transform: uppercase;
@@ -589,7 +589,7 @@ const Legend = styled.dl`
 	display: flex;
 	flex-wrap: wrap;
 
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 
 	width: 100%;
@@ -605,7 +605,7 @@ const LegendItem = styled.div`
 `
 
 const LegendDT = styled.dt`
-	${(p) => p.theme.text.viz.small}
+	${(p) => p.theme.vizText.small}
 `
 
 const LegendDD = styled.dd`

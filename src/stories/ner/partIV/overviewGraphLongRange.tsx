@@ -122,7 +122,7 @@ const Caption = styled.small`
 	max-width: 20rem;
 	margin: var(--space-1) auto 0;
 
-	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.text.small};
 	color: var(--color-label);
 	text-align: center;
 `

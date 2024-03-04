@@ -59,7 +59,7 @@ export default PolicyPage
 const Wrap = styled.div`
   grid-column: 1 / -5;
 
-  ${(p) => p.theme.text.content.body};
+  ${(p) => p.theme.text.body1};
 
   h1,
   h2,
@@ -80,18 +80,18 @@ const Wrap = styled.div`
     margin-bottom: var(--space-2);
   }
   h1 {
-    ${(p) => p.theme.text.content.h2}
+    ${(p) => p.theme.text.h2}
     margin-bottom: var(--space-4);
   }
   h2 {
-    ${(p) => p.theme.text.content.h3}
+    ${(p) => p.theme.text.h3}
     margin-bottom: var(--space-2);
   }
   h3,
   h4,
   h5,
   h6 {
-    ${(p) => p.theme.text.content.h5}
+    ${(p) => p.theme.text.h5}
     margin-bottom: var(--space-1);
   }
   hr {
@@ -103,10 +103,10 @@ const Wrap = styled.div`
   li,
   button,
   input {
-    ${(p) => p.theme.text.content.body};
+    ${(p) => p.theme.text.body1};
   }
   small {
-    ${(p) => p.theme.text.system.small};
+    ${(p) => p.theme.text.small};
   }
   ul,
   ol {

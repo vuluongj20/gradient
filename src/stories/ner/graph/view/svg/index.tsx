@@ -268,7 +268,7 @@ const ForceGraph = <Node extends BaseNode, Edge extends BaseEdge>({
 export default observer(ForceGraph)
 
 const SVG = styled.svg`
-	${(p) => p.theme.text.viz.body};
+	${(p) => p.theme.vizText.body};
 	overflow: hidden;
 
 	height: 100%;
@@ -288,7 +288,8 @@ const SVG = styled.svg`
 			fill-opacity: 0;
 			opacity: 0;
 
-			transition: all var(--animation-fast-out),
+			transition:
+				all var(--animation-fast-out),
 				stroke-dasharray var(--animation-medium-out),
 				stroke-dashoffset var(--animation-medium-out);
 

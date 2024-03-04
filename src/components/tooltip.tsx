@@ -127,7 +127,7 @@ const StyledPopover = styled(Popover)<{ maxWidth: string }>`
   z-index: var(--z-index-tooltip);
 
   color: var(--color-label);
-  ${(p) => p.theme.text.system.small};
+  ${(p) => p.theme.text.small};
   ${getTextAlign}
 `
 

@@ -41,6 +41,6 @@ const TitleLink = styled.a`
 `
 
 const Title = styled.h2`
-	${(p) => p.theme.text.system.h3};
+	${(p) => p.theme.text.h3};
 	display: inline;
 `

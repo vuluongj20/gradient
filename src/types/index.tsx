@@ -32,3 +32,9 @@ export interface Story {
 	readonly buildPage?: boolean
 	readonly path: string
 }
+
+export interface TableOfContentsItem {
+	title: string
+	url: string
+	items?: TableOfContentsItem[]
+}

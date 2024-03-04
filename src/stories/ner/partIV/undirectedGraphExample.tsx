@@ -357,7 +357,7 @@ const GuideWrap = styled.div<{ x?: number; y?: number }>`
 `
 
 const GuideText = styled.p`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 	margin-left: var(--space-0);
 	width: 8rem;
@@ -396,14 +396,14 @@ const CalculationWrap = styled(Panel)`
 const CalculationInnerWrap = styled.div``
 
 const CalculationHeader = styled.p`
-	${(p) => p.theme.text.system.h6}
+	${(p) => p.theme.text.h6}
 	margin-bottom: var(--space-1-5);
 `
 
 const CalculationDescription = styled.p`
 	display: flex;
 	width: 100%;
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 
 	border-top: solid 1px var(--color-line);
@@ -452,7 +452,7 @@ const CalculationFactor = styled.span<{ siblingIsHighlighted: boolean }>`
 `
 
 const CalculationResult = styled.span`
-	${(p) => p.theme.text.system.h6};
+	${(p) => p.theme.text.h6};
 	display: inline-block;
 	margin-top: var(--space-1);
 `

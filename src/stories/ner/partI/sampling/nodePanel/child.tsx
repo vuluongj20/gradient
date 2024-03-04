@@ -79,7 +79,7 @@ export default observer(ChildNodeFields)
 const Wrap = styled.div``
 
 const NodeDescription = styled.p`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 	margin-bottom: var(--space-1);
 `
@@ -91,9 +91,9 @@ const ValueFnWrap = styled.div`
 `
 
 const ValueFn = styled.p`
-	${(p) => p.theme.text.viz.body};
+	${(p) => p.theme.vizText.body};
 `
 
 const ValueFnDescription = styled.small`
-	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.text.small};
 `

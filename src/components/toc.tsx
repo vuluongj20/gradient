@@ -96,7 +96,7 @@ const TocInnerContentWrap = styled.div`
 `
 
 const TocLabel = styled.p`
-	${(p) => p.theme.text.system.label};
+	${(p) => p.theme.text.label};
 	color: var(--color-label);
 	text-transform: uppercase;
 `

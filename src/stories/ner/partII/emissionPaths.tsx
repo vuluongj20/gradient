@@ -140,7 +140,7 @@ const SVG = styled.svg`
 `
 
 const Legend = styled.small`
-	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.text.small};
 	color: var(--color-label);
 
 	display: block;

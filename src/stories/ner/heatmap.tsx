@@ -86,8 +86,8 @@ const Heatmap = ({
 												? 0.6 + value
 												: 0.85 + value / 6
 											: value < 0.25
-											? 0.5 + value
-											: 0.75 + value / 4
+												? 0.5 + value
+												: 0.75 + value / 4
 
 									return (
 										<TD key={group}>
@@ -192,7 +192,7 @@ const Table = styled.table<{ separateLastRow: boolean }>`
 const TFoot = styled.tfoot``
 
 const GroupName = styled.th`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 	padding-top: var(--space-1);
 	text-align: center;
@@ -200,7 +200,7 @@ const GroupName = styled.th`
 `
 
 const RowName = styled.th<{ invisible?: boolean; isLabel?: boolean }>`
-	${(p) => p.theme.text.viz.small}
+	${(p) => p.theme.vizText.small}
 	color: var(--color-label);
 	text-align: right;
 	padding-right: var(--space-1);
@@ -244,7 +244,7 @@ const TDBackground = styled.div<{ opacity: number }>`
 `
 
 const TDLabel = styled.span<{ whiteText: boolean; opacity: number }>`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	${(p) => p.whiteText && `text-shadow: var(--box-shadow-text);`}
 	color: ${(p) => (p.whiteText ? 'var(--color-white)' : 'var(--color-black)')};
 	opacity: ${(p) => p.opacity};
@@ -259,7 +259,7 @@ const GroupCaption = styled.div`
 `
 
 const GroupLabel = styled.p`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 `
 
@@ -272,7 +272,7 @@ const RowCaption = styled.div`
 `
 
 const RowLabel = styled.p`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 
 	display: flex;

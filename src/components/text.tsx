@@ -7,14 +7,14 @@ interface TextProps {
 }
 
 export const Title = styled.h1<TextProps>`
-	${(p) => p.theme.text.content.h1};
+	${(p) => p.theme.text.h1};
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const Abstract = styled.p<TextProps>`
-	${(p) => p.theme.text.content.h6}
-	font-family: ${(p) => p.theme.text.content.body.fontFamily};
-	font-weight: ${(p) => p.theme.text.content.body.fontWeight};
+	${(p) => p.theme.text.h6}
+	font-family: ${(p) => p.theme.text.body1.fontFamily};
+	font-weight: ${(p) => p.theme.text.body1.fontWeight};
 	color: var(--color-heading);
 	line-height: 1.3;
 	letter-spacing: -0.03em;
@@ -25,7 +25,7 @@ export const Abstract = styled.p<TextProps>`
 `
 
 export const Heading = styled.h2<TextProps>`
-	${(p) => p.theme.text.content.h2}
+	${(p) => p.theme.text.h2}
 	margin-bottom: var(--adaptive-space-5);
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 
@@ -50,19 +50,19 @@ export const Heading = styled.h2<TextProps>`
 `
 
 export const Subheading = styled.h3<TextProps>`
-	${(p) => p.theme.text.content.h5}
+	${(p) => p.theme.text.h5}
 	margin-bottom: var(--adaptive-space-3);
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const Body = styled.p<TextProps>`
-	${(p) => p.theme.text.content.body};
+	${(p) => p.theme.text.body1};
 	margin-bottom: var(--adaptive-space-3);
 	${(p) => p.gridColumn && p.theme.gridColumn[p.gridColumn]}
 `
 
 export const Link = styled.a<TextProps>`
-	${(p) => p.theme.text.content.body};
+	${(p) => p.theme.text.body1};
 	color: var(--color-content-link-text);
 	text-decoration-color: var(--color-content-link-underline);
 

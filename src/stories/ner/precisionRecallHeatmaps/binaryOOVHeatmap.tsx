@@ -154,7 +154,7 @@ const Column = styled.div`
 `
 
 const ColumnTitle = styled.p`
-	${(p) => p.theme.text.system.label};
+	${(p) => p.theme.text.label};
 	color: var(--color-label);
 	margin-left: 3em;
 `

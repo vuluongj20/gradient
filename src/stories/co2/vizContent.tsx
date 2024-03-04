@@ -61,7 +61,7 @@ export const VizSvgWrap = styled.div<{ isResizing: boolean }>`
 		display: block;
 		margin: 0 auto;
 		transition: var(--animation-medium-out);
-		${(p) => p.theme.text.viz.body};
+		${(p) => p.theme.vizText.body};
 	}
 
 	${(p) =>
@@ -120,7 +120,9 @@ export const VizDesText = styled(Body)`
 	padding: var(--space-2) var(--space-3);
 	background: var(--color-background-raised);
 	border-radius: var(--border-radius-m);
-	box-shadow: 0 0 0 1px var(--color-line), var(--box-shadow-l);
+	box-shadow:
+		0 0 0 1px var(--color-line),
+		var(--box-shadow-l);
 
 	&.dummy {
 		visibility: hidden;

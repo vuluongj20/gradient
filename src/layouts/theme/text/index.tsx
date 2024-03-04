@@ -1,7 +1,6 @@
 import { CSSObject } from 'styled-components'
 
 import { Breakpoint, breakpoints, orderedBreakpoints } from '@theme/breakpoints'
-import domaine from '@theme/text/domaine'
 import sohne from '@theme/text/sohne'
 import sohneMono from '@theme/text/sohneMono'
 
@@ -27,7 +26,8 @@ type TextCategoryName =
 	| 'h4'
 	| 'h5'
 	| 'h6'
-	| 'body'
+	| 'body1'
+	| 'body2'
 	| 'label'
 	| 'small'
 
@@ -75,6 +75,5 @@ const getCSSStyleObject = (scale: TextScaleDefinition): TextScale => {
 
 export const textScales = {
 	sohne: getCSSStyleObject(sohne),
-	'sohne-mono': getCSSStyleObject(sohneMono),
-	domaine: getCSSStyleObject(domaine),
+	sohneMono: getCSSStyleObject(sohneMono),
 }

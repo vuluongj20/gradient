@@ -19,6 +19,7 @@ const HTML = (props: HTMLProps) => {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
         />
+        <link rel="stylesheet" href="/fonts.css" />
         <link rel="stylesheet" href="/katex.min.css" />
         {props.headComponents}
         <script

@@ -23,7 +23,7 @@ export default Scorecard
 const Wrap = styled.div``
 
 const Label = styled.p`
-	${(p) => p.theme.text.system.label};
+	${(p) => p.theme.text.label};
 	color: var(--color-label);
 	margin-top: var(--space-0);
 	margin-bottom: var(--space-0);
@@ -34,14 +34,14 @@ const Main = styled.p`
 `
 
 const MainNumber = styled.span`
-	${(p) => p.theme.text.system.h3};
+	${(p) => p.theme.text.h3};
 	color: var(--color-heading);
 	padding-right: var(--space-0);
 	line-height: 1;
 `
 
 const MainUnit = styled.span`
-	${(p) => p.theme.text.system.h5};
+	${(p) => p.theme.text.h5};
 	color: var(--color-label);
 	line-height: 1;
 `

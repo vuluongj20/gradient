@@ -80,7 +80,7 @@ export default observer(RootNodePanel)
 const Wrap = styled.div``
 
 const NodeDescription = styled.p`
-	${(p) => p.theme.text.system.small}
+	${(p) => p.theme.text.small}
 	color: var(--color-label);
 	margin-bottom: var(--space-1);
 `

@@ -125,7 +125,7 @@ const Header = styled.div`
 `
 
 const Title = styled.p`
-	${(p) => p.theme.text.system.h6}
+	${(p) => p.theme.text.h6}
 	margin-right: var(--space-1);
 `
 
@@ -151,7 +151,7 @@ const EmptyWrap = styled.div`
 `
 
 const EmptyText = styled.p`
-	${(p) => p.theme.text.system.small};
+	${(p) => p.theme.text.small};
 	color: var(--color-label);
 	margin-left: var(--page-margin-left);
 	margin-right: var(--page-margin-right);
@@ -160,7 +160,7 @@ const EmptyText = styled.p`
 `
 
 const SVG = styled.svg`
-	${(p) => p.theme.text.viz.body};
+	${(p) => p.theme.vizText.body};
 	width: 100%;
 
 	/*
@@ -189,7 +189,7 @@ const SVG = styled.svg`
 				stroke-linecap: round;
 			}
 			text {
-				${(p) => p.theme.text.viz.small};
+				${(p) => p.theme.vizText.small};
 				fill: var(--color-label);
 			}
 		}
@@ -247,14 +247,18 @@ const SVG = styled.svg`
 		transform: scaleX(0);
 		transform-box: fill-box;
 		transform-origin: left;
-		transition: transform var(--animation-medium-out), opacity var(--animation-medium-out);
+		transition:
+			transform var(--animation-medium-out),
+			opacity var(--animation-medium-out);
 	}
 	g.y-axis path.domain,
 	g.data rect {
 		transform: scaleY(0);
 		transform-box: fill-box;
 		transform-origin: bottom;
-		transition: transform var(--animation-medium-out), opacity var(--animation-medium-out);
+		transition:
+			transform var(--animation-medium-out),
+			opacity var(--animation-medium-out);
 	}
 
 	&.enter-active,

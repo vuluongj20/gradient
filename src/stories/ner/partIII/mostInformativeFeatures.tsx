@@ -8,7 +8,7 @@ import Grid from '@components/grid'
 import Panel from '@components/panel'
 import { TD, TH, TR, Table, TableBody, TableHead } from '@components/table'
 
-type NameTag = typeof nameTags[number]
+type NameTag = (typeof nameTags)[number]
 const informativeFeatures: Record<NameTag, Array<string | number>[]> = {
 	['O']: [
 		["word='germany'", 'B-LOC', 11.492],
@@ -185,7 +185,7 @@ const Heading = styled.div`
 		display: inline-block;
 
 		button {
-			${(p) => p.theme.text.system.h6};
+			${(p) => p.theme.text.h6};
 			padding: var(--space-0) var(--space-0) var(--space-0) var(--space-0-5);
 			border: solid 1px var(--color-line);
 		}
@@ -194,13 +194,13 @@ const Heading = styled.div`
 
 const HeadingText = styled.p`
 	display: inline;
-	${(p) => p.theme.text.system.h6};
-	line-height: ${(p) => p.theme.text.system.body.lineHeight};
+	${(p) => p.theme.text.h6};
+	line-height: ${(p) => p.theme.text.body1.lineHeight};
 `
 
 const StyledTable = styled(Table)`
 	tbody {
-		${(p) => p.theme.text.viz.body}
+		${(p) => p.theme.vizText.body}
 	}
 
 	colgroup {

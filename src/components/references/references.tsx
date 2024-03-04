@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import Grid from '@components/grid'
 import { ReferencesContext } from '@components/references/provider'
 import { formatReferences } from '@components/references/utils'
-
 import IconBackRef from '@icons/backRef'
+
+export const REFERENCES_ID = 'reference_list'
 
 interface ReferencesProps {
 	order: string[]
@@ -26,9 +27,9 @@ export const References = ({ order, citations }: ReferencesProps) => {
 
 	return (
 		<Grid>
-			<ReferencesWrap>
-				<ReferencesHeader>References</ReferencesHeader>
-				<ReferencesList>
+			<ReferencesWrap aria-labelledby={REFERENCES_ID}>
+				<ReferencesHeader id={REFERENCES_ID}>References</ReferencesHeader>
+				<ReferencesList aria-labelledby={REFERENCES_ID}>
 					{orderedReferences.map(({ id }, i) => {
 						return (
 							<ReferenceItem key={id} id={`reference-${id}`}>
@@ -54,8 +55,10 @@ const ReferencesWrap = styled.section`
 `
 
 const ReferencesHeader = styled.h2`
-	${(p) => p.theme.text.system.h6}
+	${(p) => p.theme.text.h4}
+	margin-bottom: var(--space-3);
 	color: var(--color-label);
+	scroll-margin-top: var(--adaptive-space-3);
 `
 
 const ReferencesList = styled.ol`
@@ -69,6 +72,7 @@ const ReferencesList = styled.ol`
 const ReferenceItem = styled.li`
 	list-style-type: decimal;
 	color: var(--color-label);
+	scroll-margin-top: var(--adaptive-space-2);
 
 	&::marker {
 		font-weight: 500;
@@ -117,11 +121,11 @@ const ReferenceBackRef = styled.a`
 	display: inline-flex;
 	align-items: center;
 	height: 1.4em;
-	margin-left: var(--space-0);
 	transform: translateY(0.15em);
+	margin-left: var(--space-0);
 
 	color: var(--color-label);
-	font-size: ${(p) => p.theme.text.system.small.fontSize};
+	font-size: ${(p) => p.theme.text.small.fontSize};
 
 	&:hover {
 		color: var(--color-heading);
